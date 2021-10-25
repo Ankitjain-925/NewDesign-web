@@ -54,7 +54,7 @@ class Index extends Component {
             items: [],
             totalPrice: [],
             editServ: false,
-            users1: [],
+            users1: {},
             invoices: {}
         };
     }
@@ -62,6 +62,11 @@ class Index extends Component {
     componentDidMount() {
         this.getAllServices();
         this.getPatientData();
+        if(this.props.history.location?.state?.data?.updateTrack && this.props.history.location?.state?.data?.updateTrack)
+        {
+               var newdata = this.props.history.location?.state?.data?.updateTrack
+               this.setState({updateTrack: newdata})
+        }
     }
 
     getPatientData = () => {
@@ -94,10 +99,9 @@ class Index extends Component {
                         })
                         // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
 
-                        PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, name: name })
+                        PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, label: name })
                     }
                     this.setState({ users1: PatientList1, users: patientArray })
-                    // console.log("patientlist", this.state.users1)
                 }
                 this.setState({ loaderImage: false });
             });
@@ -141,6 +145,7 @@ class Index extends Component {
         this.setState({ price_per_quantity: this.state.updateTrack.service.price });
     }
 
+    // Set patient and status data
     onFieldChange1 = (e, name) => {
         const state = this.state.updateTrack;
         state[name] = e;
@@ -166,31 +171,27 @@ class Index extends Component {
     handleAddSubmit = () => {
         var newService = this.state.updateTrack;
         newService.price = newService?.service?.price * newService?.quantity
-        console.log('new Sevice', newService)
         let items = [...this.state.items];
         items.push({
             updateTrack: newService
         });
-        this.setState({
-            items, updateTrack: {}
-        })
-
-        console.log('items', items)
+        this.setState({ items, updateTrack: {} })
         this.finishInvoice();
-
         this.props.Invoices('', true, this.props?.House?.value, this.props.stateLoginValueAim.token, items);
     };
 
     // For edit service
-    handleEditService = (data) => {
-        console.log("data", data)
-        this.setState({ updateTrack: data, editServ: true });
-        console.log("updateTrack", this.state.updateTrack)
+    editService = (data) => {
+        this.setState({ updateTrack: data.updateTrack, editServ: true });
     };
 
     handleCloseServ = () => {
         this.setState({ editServ: false })
     }
+
+    Billing = () => {
+        this.props.history.push("/virtualHospital/bills")
+      };
 
     // For calculate value of finish invoice
     finishInvoice = () => {
@@ -198,7 +199,6 @@ class Index extends Component {
             var total = 0;
             this.state.items?.length > 0 && this.state.items.map((data, index) => {
                 total = total + data?.updateTrack?.price
-                console.log("total", total)
                 this.setState({ totalPrice: total })
             })
         }
@@ -239,7 +239,6 @@ class Index extends Component {
             },
         });
     };
-
     deleteClickService(id) {
         delete this.state.items[id]
         this.setState({ items: this.state.items });
@@ -279,7 +278,8 @@ class Index extends Component {
 
                                         {/* Back common button */}
                                         <Grid className="extSetting">
-                                            <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
+                                            <a onClick={this.Billing}>
+                                                <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
                                                 Back to Billing</a>
                                         </Grid>
                                         {/* End of Back common button */}
@@ -322,6 +322,7 @@ class Index extends Component {
                                         <InvoicesDownloadPdf
                                             label="2021-00246"
                                             status="Draft"
+                                            InvoicesData={this.state.updateTrack}
                                         />
 
                                         <Grid className="srvcContent">
@@ -332,20 +333,19 @@ class Index extends Component {
                                                     <Grid item xs={12} md={3} className="invoiceID">
                                                         {/* <TextField placeholder="Invoice ID" value="548756" /> */}
 
-
                                                         <VHfield
                                                             name="invoice_id"
                                                             placeholder="Invoice ID"
                                                             onChange={(e) =>
                                                                 this.updateEntryState2(e, "invoice_id")
                                                             }
-                                                            value={this.state.invoice_id}
+                                                            value={this.state.updateTrack?.invoice_id || ''}
                                                         />
                                                     </Grid>
 
-
                                                     <Grid item xs={12} md={4}>
                                                         <label>Patient</label>
+
                                                         {/* <Grid className="patntDropUpr">
                                                             <Grid className="patntDropDwn">
                                                                 <Grid className="patntImg"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Grid>
@@ -357,17 +357,18 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid> */}
 
-
-                                                        <Select
-                                                            name="patient"
-                                                            options={this.state.users1}
-                                                            placeholder="Search & Select"
-                                                            onChange={(e) =>
-                                                                this.onFieldChange1(e, "patient")}
-                                                            value={this.state.patient}
-                                                            className="addStafSelect"
-                                                            isMulti={true}
-                                                            isSearchable={true} />
+                                                        <Grid>
+                                                            <Select
+                                                                name="patient"
+                                                                options={this.state.users1}
+                                                                placeholder="Search & Select"
+                                                                onChange={(e) =>
+                                                                    this.onFieldChange1(e, "patient")}
+                                                                value={this.state.updateTrack?.patient || ''}
+                                                                className="addStafSelect"
+                                                                isMulti={true}
+                                                                isSearchable={true} />
+                                                        </Grid>
                                                     </Grid>
 
                                                     <Grid item xs={12} md={3}>
@@ -377,7 +378,7 @@ class Index extends Component {
                                                             placeholder="Draft"
                                                             onChange={(e) =>
                                                                 this.onFieldChange1(e, "status")}
-                                                            value={this.state.status}
+                                                            value={this.state.updateTrack?.status || ''}
                                                             options={options}
                                                             className="cstmSelect"
                                                             isSearchable={false}
@@ -415,7 +416,7 @@ class Index extends Component {
 
                                                                 <Td>{data?.updateTrack?.price} €</Td>
                                                                 <Td className="xRay-edit">
-                                                                    <Button onClick={() => { this.handleEditService(data) }}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                    <Button onClick={() => { this.editService(data) }}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                                                     <Button onClick={() => { this.removeServices(id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
                                                                 </Td>
                                                             </Tr>
@@ -481,9 +482,9 @@ class Index extends Component {
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={4}>
                                                         <label>Add service</label>
-
+                                
                                                         <Select
-                                                            // value={this.state.serviceList}
+                                                            value={this.state.updateTrack?.service || ''}
                                                             name="service"
                                                             onChange={(e) => this.onFieldChange(e, "service")}
                                                             options={this.state.service_id_list}
@@ -509,7 +510,7 @@ class Index extends Component {
                                                             onChange={(e) =>
                                                                 this.updateEntryState2(e, "quantity")
                                                             }
-                                                            value={this.state.updateTrack.quantity}
+                                                            value={this.state.updateTrack?.quantity || ''}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
@@ -526,7 +527,7 @@ class Index extends Component {
                                                             onChange={(e) =>
                                                                 this.updateEntryState1(e, "price_per_quantity")
                                                             }
-                                                            value={this.state.price_per_quantity}
+                                                            value={this.state.price_per_quantity || this.state?.updateTrack?.service?.price || ''}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={2} className="addSrvcBtn">
@@ -592,10 +593,10 @@ class Index extends Component {
                                                                 label="Service name"
                                                                 name="label"
                                                                 placeholder="Enter Title name"
-                                                                // onChange={(e) =>
-                                                                //     this.updateEntryState1(e)
-                                                                // }
-                                                                value={this.state.updateTrack.service?.label}
+                                                                onChange={(e) =>
+                                                                    this.updateEntryState1(e)
+                                                                }
+                                                                value={this.state.updateTrack?.service?.label}
                                                             />
                                                         </Grid>
 
@@ -607,7 +608,7 @@ class Index extends Component {
                                                                 onChange={(e) =>
                                                                     this.updateEntryState1(e)
                                                                 }
-                                                                value={this.state.updateTrack.service?.quantity}
+                                                                value={this.state.updateTrack?.quantity}
                                                             />
                                                         </Grid>
 
@@ -627,7 +628,7 @@ class Index extends Component {
                                                 <Grid className="servSaveBtn">
                                                     <a onClick={this.handleCloseServ}>
                                                         <Button
-                                                            onClick={() => this.handleSubmit()}>Save & Close</Button>
+                                                            onClick={() => this.handleAddSubmit()}>Save & Close</Button>
                                                     </a>
                                                 </Grid>
                                             </Grid>

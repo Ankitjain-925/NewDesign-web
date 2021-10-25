@@ -47,7 +47,8 @@ class Index extends Component {
             PaidBills: {},
             OverDueBills: {},
             DraftBills: {},
-            IssuedBills: {}
+            IssuedBills: {},
+            billsdata: {}
         }
     };
 
@@ -56,9 +57,7 @@ class Index extends Component {
         this.fetchbillsdata();
     }
 
-
     fetchbillsdata() {
-        console.log("databills", this.props.invoices?.INVOICES)
         var Issued = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "issued")
         var Draft = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "draft")
         var OverDue = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "overdue")
@@ -67,9 +66,17 @@ class Index extends Component {
         this.setState({})
     }
 
+    Invoice = (data) => {
+        this.props.history.push({
+            pathname: '/virtualHospital/invoices',
+            state: { data: data }
+        })
+    }
+
     handleChangeTab = (event, value) => {
         this.setState({ value });
     };
+
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing } = translate;
@@ -151,7 +158,21 @@ class Index extends Component {
                                                                 <Td>16/03/2020</Td>
                                                                 <Td className="greyDot"><span></span>{data.updateTrack.status?.label}</Td>
                                                                 <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                                <Td className="billDots"><Button className="downloadDots">
+                                                                    <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
+                                                                    <Grid className="actionList">
+                                                                        <ul className="actionPdf">
+
+                                                                            <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
+                                                                            <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
+                                                                            <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
+                                                                        </ul>
+                                                                        <ul className="setStatus">
+                                                                            <li><span>Set status</span></li>
+                                                                            <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
+                                                                        </ul>
+                                                                    </Grid>
+                                                                </Button></Td>
                                                             </Tr>
 
 
