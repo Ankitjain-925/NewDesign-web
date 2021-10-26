@@ -24,6 +24,7 @@ import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { Redirect, Route } from "react-router-dom";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import { getPatientData } from "Screens/Components/CommonApi/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import TimeFormat from "Screens/Components/TimeFormat/index";
 import Select from "react-select";
@@ -305,16 +306,11 @@ class Index extends Component {
   };
 
   // Get the Patient data
-  getPatientData = () => {
+  getPatientData = async () => {
     var patientArray = [],
       PatientList1 = [];
     this.setState({ loaderImage: true });
-    axios
-      .get(
-        sitedata.data.path + "/vh/getPatientFromVH/" + this.props?.House?.value,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((response) => {
+    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
         if (response.data.hassuccessed) {
           this.setState({ allPatData: response.data.data });
           // var images = [];
@@ -366,8 +362,9 @@ class Index extends Component {
             }
           });
         }
+        else{
         this.setState({ loaderImage: false });
-      });
+        }
   };
 
   filterList = () => {

@@ -65,6 +65,16 @@ export const get_track = async (user_token, user_id) => {
     }
 }
 
+export const getPatientData = async (user_token, house_id) => {
+    let response = await axios.get( sitedata.data.path + "/vh/getPatientFromVH/" + house_id,    
+    commonHeader(user_token))
+    if (response.data.hassuccessed) {
+        return response
+    } else {
+        return false
+    }
+}
+
 export const update_entry_state = async (e, state, stateLoginValueAim) => {
     if (e.target.name === "review" || e.target.name === "emergency") {
         if (e.target.name === "review") {

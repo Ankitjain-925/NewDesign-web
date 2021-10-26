@@ -21,6 +21,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import FileUploader from "Screens/Components/JournalFileUploader/index";
 import { Speciality } from "Screens/Login/speciality.js";
 import sitedata from "sitedata";
+import { getPatientData } from "Screens/Components/CommonApi/index";
 import {
     commonHeader,
     commonCometDelHeader,
@@ -245,25 +246,6 @@ class Index extends Component {
             });
     };
 
-    // getAddTaskData = () => {
-    //     this.setState({ loaderImage: true });
-    //     axios
-    //         .get(
-    //             sitedata.data.path + "/vh/PatientsTask/60113e84b488aa271effa411",
-    //             commonHeader(this.props.stateLoginValueAim.token)
-    //         )
-    //         .then((response) => {
-    //             this.setState({ AllTasks: response.data.data })
-    //             if (response.data.hassuccessed) {
-    //                 var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
-    //                 var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
-    //                 this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
-    //             }
-    //             this.setState({ loaderImage: false });
-
-    //         });
-    // };
-
     // For adding a date,time
     updateEntryState1 = (value, name) => {
         var due_on = this.state.newTask?.due_on ? this.state.newTask?.due_on : {};
@@ -330,15 +312,10 @@ class Index extends Component {
     }
 
     // Get the Patient data
-    getPatientData = () => {
+    getPatientData = async () => {
         var patientArray = [], PatientList1 = [];
         this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + "/vh/getPatientFromVH/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
+        let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
                 if (response.data.hassuccessed) {
                     this.setState({ allPatData: response.data.data })
                     // var images = [];
@@ -367,8 +344,9 @@ class Index extends Component {
                     }
                     this.setState({ users1: PatientList1, users: patientArray })
                 }
-                this.setState({ loaderImage: false });
-            });
+                else{
+                    this.setState({ loaderImage: false });
+                }
 
     }
 

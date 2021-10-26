@@ -4421,6 +4421,9 @@ button.onlogyBtn {
         padding-left: 20px;
         padding-right: 20px;
     }
+    .MenuWeb .menuItems ul li a span {
+        font-size: 10px;
+    }
 }
 .medcalCntr ul li:last-child label::after {
     bottom: -21px;
@@ -4748,8 +4751,11 @@ button.onlogyBtn {
     background-color: #FFFFFF;
     box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
     margin-top: 35px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 3px;
+}
+.addSpeclContntIner {
     height: 472px;
     overflow-y: auto;
 }
@@ -4815,7 +4821,6 @@ button.onlogyBtn {
     padding: 12px 12px;
     box-sizing: border-box !important;
     min-height: 44px;
-    margin-bottom: 20px;
 }
 .enterSpcl .MuiInput-underline::before,
 .enterSpcl .MuiInput-underline::after{
@@ -5032,7 +5037,6 @@ a.recodBlck:hover {
     border-radius: 8px;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
 }
-
 .addWardsIner input {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
@@ -5605,6 +5609,7 @@ button.downloadPDF:hover {
 }
 .newServc {
     text-align: right;
+    margin-bottom: 18px;
 }
 .newServc button {
     color: #FFFFFF !important;
@@ -6446,8 +6451,8 @@ button.downloadPDF:hover {
 }
 .attchOpen button {
     border-radius: 4px;
-    background-color: #FFF7E6;
-    color: #C58904;
+    background-color: #DDF8F1;
+    color: #028B66;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -6459,7 +6464,7 @@ button.downloadPDF:hover {
 .attchOpen button label {
     height: 8px;
     width: 8px;
-    background-color: #FECA57;
+    background-color: #1DD1A1;
     border-radius: 12px;
     margin-right: 7px;
     margin-bottom: 0px;
@@ -7326,7 +7331,7 @@ a.horzSort2 {
     text-align: right;
 }
 .addStaffClose img {
-    height: 26px;
+    height: 16px;
     width: initial;
     cursor: pointer;
 }
@@ -9026,6 +9031,9 @@ button.crdoLghtBlu2 {
 .checkDotsRght {
     text-align: right;
 }
+.dragdrop-horizontal .checkDotsRght {
+    display: inline-block;
+}
 .flowInfoBtn button {
     color: #EE5253;
     font-size: 12px;
@@ -9149,9 +9157,7 @@ button.crdoLghtBlu2 {
   }
 
   .specbutton1 {
-    font-size: 20px  !important;
     font-weight: bold !important;
-    margin-bottom: 20px !important; 
   }
 
   .servSaveBtn button {
@@ -9329,8 +9335,13 @@ button.crdoLghtBlu2 {
     border-radius: 8px;
     background-color: #E5E6E6;
     width: 100%;
-    min-height: 44px;
+    min-height: 127px;
     cursor: pointer !important;
+}
+.nwPatentAdd button:hover{
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    color: #00ABAF;
 }
 .plusNwPatent {
     display: flex;
@@ -9761,9 +9772,6 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
-.que-mbottom button{
-    margin-bottom: 10px;
-}
 .dtlCountRm a:last-child {
     margin-left: 14px;
 }
@@ -10609,7 +10617,23 @@ ul.patientHint li {
 .darkTheme .enterSpcl input:-moz-placeholder { 
     color: #bfc1c1;
 }
-.darkTheme .enterSpcl input, .darkTheme .taskDescp textarea {
+
+.darkTheme .creatInfoIner input::-webkit-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .creatInfoIner input::-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .creatInfoIner input:-ms-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .creatInfoIner input:-moz-placeholder { 
+    color: #bfc1c1;
+}
+
+.darkTheme .enterSpcl input, 
+.darkTheme .creatInfoIner input,
+.darkTheme .taskDescp textarea {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
@@ -10623,7 +10647,8 @@ ul.patientHint li {
 .darkTheme .addWardsUpr {
     background-color: #404646;
 }
-.darkTheme .addWardsIner label,.darkTheme .roomName label {
+.darkTheme .addWardsIner label,
+.darkTheme .roomName label {
     color: #bfc1c1;
 }
 .darkTheme ul.subSpclList {
@@ -10803,9 +10828,8 @@ ul.patientHint li {
 .darkTheme .addStaffLbl label {
     color: #fafafa;
 }
-.darkTheme .addStafClient p, .stafLft span {
-    /* color: #fafafa; */
-    color: #000000;
+.darkTheme .addStafClient p, .darkTheme .stafLft span {
+    color: #fafafa;
 }
 .darkTheme .addStafClient label {
     color: #e0e0e0;
@@ -11955,6 +11979,28 @@ a.taskHover:hover span {
 }
 .darkTheme .taskDescp textarea:-moz-placeholder { 
     color: #bfc1c1;
+}
+.darkTheme .sevicessection div {
+    background-color: #192020 !important;
+}
+.darkTheme .sevicessection {
+    border: 1px solid #8e8e8e8a;
+}
+.dragdrop-horizontal .cardioData img.academyDots {
+    border: none;
+}
+.dragdrop-horizontal .addPatent img.academyDots {
+    border: none;
+}
+.dragdrop-horizontal a.academy_ul.stepTdotupper {
+    border: none;
+}
+.dragdrop-horizontal .nwPatentAdd button {
+    margin-bottom: 18px;
+}
+.dragdrop-horizontal a.academy_ul ul li a {
+    border: none !important;
+    background-color: transparent !important;
 }
 .addPatent a  {
     margin-bottom: 15px;

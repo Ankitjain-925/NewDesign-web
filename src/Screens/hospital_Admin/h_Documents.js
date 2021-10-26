@@ -259,7 +259,7 @@ class Index extends Component {
                                                     <Th>{no_}</Th>
                                                     <Th>{file_name}</Th>
                                                     <Th>{type}</Th>
-                                                    <Th>{date_last_opened}</Th>
+                                                    <Th>{date_last_opened} 111</Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
@@ -271,7 +271,7 @@ class Index extends Component {
                                                         <Td>{doc.createdate  ? getDate(doc.createdate , 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/threedots.png')} alt="" title="" className="academyDots" />
                                                                 <ul>
                                                                     <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
                                                                     <li onClick={()=>{this.DocumentarchiveClick(doc.DocumentId)}}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
@@ -351,9 +351,7 @@ class Index extends Component {
                         </Modal>
                     </Grid>
                 </Grid>
-                <Modal
-                    open={this.state.openPres}
-                    onClose={this.handleClosePres}
+                <Modal open={this.state.openPres} onClose={this.handleClosePres}
                     className={
                         this.props.settings &&
                         this.props.settings.setting &&

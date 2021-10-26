@@ -11,6 +11,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
+import { OptionList } from "Screens/Login/metadataaction";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
@@ -18,6 +19,9 @@ import {
     commonHeader,
     commonCometDelHeader,
 } from "component/CommonHeader/index";
+import {
+    GetLanguageDropdown,
+  } from "Screens/Components/GetMetaData/index.js";
 import { authy } from 'Screens/Login/authy.js';
 import { Invoices } from 'Screens/Login/invoices.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
@@ -27,6 +31,7 @@ import InvoicesPatientStatus from "Screens/Components/VirtualHospitalComponents/
 import InvoicesShowServices from "Screens/Components/VirtualHospitalComponents/InvoicesShowServices/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
+import { getPatientData } from "Screens/Components/CommonApi/index";
 
 
 const customStyles = {
@@ -36,14 +41,6 @@ const customStyles = {
         minHeight: 48
     })
 };
-
-const options = [
-    { value: 'paid', label: 'Paid' },
-    { value: 'draft', label: 'Draft' },
-    { value: 'issued', label: 'Issued' },
-    { value: 'overdue', label: 'Overdue' },
-];
-
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -52,60 +49,79 @@ class Index extends Component {
             serviceList: [],
             updateTrack: {},
             items: [],
-            totalPrice: [],
+            totalPrice: 0,
             editServ: false,
             users1: {},
-            invoices: {}
+            invoices: {},
+            AllStatus: []
         };
     }
 
     componentDidMount() {
+        this.getMetadata()
         this.getAllServices();
         this.getPatientData();
-        if(this.props.history.location?.state?.data?.updateTrack && this.props.history.location?.state?.data?.updateTrack)
+        if(this.props.history.location?.state?.data && this.props.history.location?.state?.data==='new'){
+            console.log('Here')
+        }
+        else if(this.props.history.location?.state?.data?.updateTrack && this.props.history.location?.state?.data?.updateTrack)
         {
                var newdata = this.props.history.location?.state?.data?.updateTrack
                this.setState({updateTrack: newdata})
         }
     }
 
-    getPatientData = () => {
+    getMetadata= ()=> {
+        this.setState({ allMetadata: this.props.metadata},
+          ()=>{
+            this.GetLanguageMetadata();
+          })
+      }
+      GetLanguageMetadata = () => {
+        var AllStatus = GetLanguageDropdown(
+          this.state.allMetadata &&
+            this.state.allMetadata.billing_status &&
+            this.state.allMetadata.billing_status.length > 0 &&
+            this.state.allMetadata.billing_status,
+          this.props.stateLanguageType
+        );
+        this.setState({
+            AllStatus: AllStatus,
+        });
+      };
+    
+    getPatientData = async () => {
         var patientArray = [], PatientList1 = [];
         this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + "/vh/getPatientFromVH/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    this.setState({ allPatData: response.data.data })
-                    // var images = [];
-                    for (let i = 0; i < this.state.allPatData.length; i++) {
-                        var find = this.state.allPatData[i].patient?.image;
-                        var name = '';
-                        if (this.state.allPatData[i]?.patient?.first_name && this.state.allPatData[i]?.patient?.last_name) {
-                            name = this.state.allPatData[i]?.patient?.first_name + ' ' + this.state.allPatData[i]?.patient?.last_name
-                        }
-                        else if (this.state.allPatData[i].patient?.first_name) {
-                            name = this.state.allPatData[i].patient?.first_name
-                        }
-
-                        patientArray.push({
-                            last_name: this.state.allPatData[i].patient?.last_name,
-                            first_name: this.state.allPatData[i].patient?.first_name,
-                            image: this.state.allPatData[i].patient?.image,
-                            profile_id: this.state.allPatData[i].patient?.profile_id,
-                        })
-                        // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
-
-                        PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, label: name })
-                    }
-                    this.setState({ users1: PatientList1, users: patientArray })
+        let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
+        if (response?.data?.hassuccessed) {
+            this.setState({ allPatData: response.data.data })
+            // var images = [];
+            for (let i = 0; i < this.state.allPatData.length; i++) {
+                var find = this.state.allPatData[i].patient?.image;
+                var name = '';
+                if (this.state.allPatData[i]?.patient?.first_name && this.state.allPatData[i]?.patient?.last_name) {
+                    name = this.state.allPatData[i]?.patient?.first_name + ' ' + this.state.allPatData[i]?.patient?.last_name
                 }
-                this.setState({ loaderImage: false });
-            });
+                else if (this.state.allPatData[i].patient?.first_name) {
+                    name = this.state.allPatData[i].patient?.first_name
+                }
 
+                patientArray.push({
+                    last_name: this.state.allPatData[i].patient?.last_name,
+                    first_name: this.state.allPatData[i].patient?.first_name,
+                    image: this.state.allPatData[i].patient?.image,
+                    profile_id: this.state.allPatData[i].patient?.profile_id,
+                })
+                // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
+
+                PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, label: name })
+            }
+            this.setState({ users1: PatientList1, users: patientArray })
+        }
+        else{
+            this.setState({  loaderImage: false });
+        }       
     }
 
     getAllServices = () => {
@@ -195,15 +211,16 @@ class Index extends Component {
 
     // For calculate value of finish invoice
     finishInvoice = () => {
-        {
-            var total = 0;
-            this.state.items?.length > 0 && this.state.items.map((data, index) => {
-                total = total + data?.updateTrack?.price
-                this.setState({ totalPrice: total })
-            })
-        }
+        console.log()
     }
 
+    getToalPrize=()=>{
+        var total = 0;
+        this.state.items?.length > 0 && this.state.items.map((data) => {
+            total = total + data?.updateTrack?.price
+        })
+        return total
+    }
     //Delete the perticular service confirmation box
     removeServices = (id) => {
         this.setState({ message: null });
@@ -277,48 +294,13 @@ class Index extends Component {
                                     <Grid className="topLeftSpc">
 
                                         {/* Back common button */}
-                                        <Grid className="extSetting">
+                                        <Grid className="extSetting"> 
                                             <a onClick={this.Billing}>
                                                 <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
                                                 Back to Billing</a>
                                         </Grid>
                                         {/* End of Back common button */}
-
-                                        {/* Billing New Invoice */}
-                                        {/* <Grid className="drftDwnload">
-
-                                            <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={12} md={6}>
-                                                    <Grid className="draftDateLft">
-                                                        <label>2021-00246</label>
-                                                        <span>Draft</span>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <Grid className="draftDateRght">
-                                                        <Button className="downloadPDF">
-                                                            <img src={require('assets/virtual_images/downloadIcon.png')} alt="" title="" />
-                                                            Download PDF
-                                                        </Button>
-                                                        <Button className="downloadDots">
-                                                            <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
-                                                            <Grid className="actionList">
-                                                                <ul className="actionPdf">
-                                                                    <li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li>
-                                                                    <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li>
-                                                                    <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
-                                                                </ul>
-                                                                <ul className="setStatus">
-                                                                    <li><span>Set status</span></li>
-                                                                    <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
-                                                                </ul>
-                                                            </Grid>
-                                                        </Button>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid> */}
-
+                                        
                                         <InvoicesDownloadPdf
                                             label="2021-00246"
                                             status="Draft"
@@ -379,7 +361,7 @@ class Index extends Component {
                                                             onChange={(e) =>
                                                                 this.onFieldChange1(e, "status")}
                                                             value={this.state.updateTrack?.status || ''}
-                                                            options={options}
+                                                            options={this.state.AllStatus}
                                                             className="cstmSelect"
                                                             isSearchable={false}
                                                             styles={customStyles}
@@ -388,13 +370,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
 
-                                            {/* <InvoicesPatientStatus
-                                                label="James Morrison"
-                                                case_id="P_mDnkbR30d"
-                                                options={this.state.users1}
-                                            /> */}
-
-
+                        
                                             <Grid className="srvcTable">
 
                                                 <h3>Services</h3>
@@ -549,7 +525,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid className="invoiceAmnt">
                                                 <p>Invoice amount</p>
-                                                <label>{this.state.totalPrice} €</label>
+                                                <label>{this.getToalPrize()} €</label>
                                                 <Grid>
                                                     <Button onClick={() => { this.finishInvoice() }}>Finish Invoice</Button>
                                                     <Button>Save Draft</Button>
@@ -653,6 +629,7 @@ const mapStateToProps = (state) => {
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     const { invoices } = state.Invoices;
+    const { metadata } = state.OptionList;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -660,10 +637,11 @@ const mapStateToProps = (state) => {
         House,
         settings,
         verifyCode,
+        metadata,
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices, OptionList })(
         Index
     )
 );

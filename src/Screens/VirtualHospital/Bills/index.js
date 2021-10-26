@@ -17,10 +17,7 @@ import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import { Invoices } from 'Screens/Login/invoices.js';
-import {
-    commonHeader,
-    commonCometDelHeader,
-} from "component/CommonHeader/index";
+import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
@@ -54,16 +51,18 @@ class Index extends Component {
 
 
     componentDidMount() {
-        this.fetchbillsdata();
+        this.fetchbillsdata('all', 0);
     }
 
-    fetchbillsdata() {
-        var Issued = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "issued")
-        var Draft = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "draft")
-        var OverDue = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "overdue")
-        var Paid = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "paid")
-        this.setState({ AllBills: this.props?.invoices?.INVOICES, IssuedBills: Issued, OverDueBills: OverDue, PaidBills: Paid, DraftBills: Draft })
-        this.setState({})
+    fetchbillsdata(status, value) {
+        axios
+        .get(sitedata.data.path + `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
+        commonHeader(this.props.stateLoginValueAim.token))
+        .then((response) => {
+          if (response.data.hassuccessed) {
+            this.setState({ AllBills : response.data.data, value: value });
+          }
+        });
     }
 
     Invoice = (data) => {
@@ -74,7 +73,8 @@ class Index extends Component {
     }
 
     handleChangeTab = (event, value) => {
-        this.setState({ value });
+        var ApiStatus = value==1 ? 'issued' : value==2 ? 'overdue' : value==3 ? 'paid' : 'all';
+        this.fetchbillsdata(ApiStatus, value);
     };
 
     render() {
@@ -111,7 +111,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={6} md={6}>
                                                 <Grid className="newServc">
-                                                    <Button>+ New Invoice</Button>
+                                                    <Button onClick={() => { this.Invoice('new') }}>+ New Invoice</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -137,398 +137,58 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        {value === 0 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
+                                        <Grid className="billInfoData">
+                                            <Table>
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>ID</Th>
+                                                        <Th>Patient</Th>
+                                                        <Th>Date</Th>
+                                                        <Th>Status</Th>
+                                                        <Th>Total</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                {this.state.AllBills.length > 0 && this.state.AllBills.map((data) => (
+                                                    <Tbody>
                                                         <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    {this.state.AllBills.length > 0 && this.state.AllBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status?.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button className="downloadDots">
-                                                                    <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
-                                                                    <Grid className="actionList">
-                                                                        <ul className="actionPdf">
+                                                            <Td>{data.updateTrack.invoice_id}</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="greyDot"><span></span>{data.updateTrack.status?.label}</Td>
+                                                            <Td>{data.updateTrack.price} €</Td>
+                                                            <Td className="billDots"><Button className="downloadDots">
+                                                                <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
+                                                                <Grid className="actionList">
+                                                                    <ul className="actionPdf">
 
-                                                                            <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
-                                                                            <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
-                                                                            <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
-                                                                        </ul>
-                                                                        <ul className="setStatus">
-                                                                            <li><span>Set status</span></li>
-                                                                            <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
-                                                                        </ul>
-                                                                    </Grid>
-                                                                </Button></Td>
-                                                            </Tr>
-
-
-                                                            {/* <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                                        <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
+                                                                        <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
+                                                                        <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
+                                                                    </ul>
+                                                                    <ul className="setStatus">
+                                                                        <li><span>Set status</span></li>
+                                                                        <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
+                                                                    </ul>
+                                                                </Grid>
+                                                            </Button></Td>
                                                         </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greyDot"><span></span>Draft</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={12} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                            </Grid>
+                                                    </Tbody>
+                                                ))}
+                                            </Table>
+                                            <Grid className="billPagination">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6}>
+                                                        <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        <Grid className="billPaginationRght">
+                                                            <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </TabContainer>}
-                                        {value === 1 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
-                                                        <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    {this.state.IssuedBills.length > 0 && this.state.IssuedBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                            </Tr>
-                                                            {/* <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </TabContainer>}
-                                        {value === 2 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
-                                                        <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    {this.state.OverDueBills.length > 0 && this.state.OverDueBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                            </Tr>
-                                                            {/* <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </TabContainer>}
-                                        {value === 3 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
-                                                        <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    {this.state.PaidBills.length > 0 && this.state.PaidBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                            </Tr>
-                                                            {/* <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>         <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                  
-                                                         </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </TabContainer>}
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                                 {/* End of Right Section */}
