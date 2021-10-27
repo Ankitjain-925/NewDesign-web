@@ -54,7 +54,7 @@ export const MoveAllCases = async (actualData, from, to, data)=>{
 }
 
 export const checkTheIndex = (array, attr, value) => {
-  var mydata = array.map((data, i)=>{
+  var mydata = array && array.length > 0 && array.map((data, i) => {
     if (data['patient_id'] === value) {
         return i;
     }
