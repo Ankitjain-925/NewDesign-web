@@ -57,6 +57,7 @@ class Index extends Component {
       case: {},
       caseAlready: false,
       AddstpId: false,
+      searchValue: ''
     };
   }
   static defaultProps = {
@@ -416,7 +417,39 @@ class Index extends Component {
     });
   };
 
+  handleSearch = (event) => {
+    const searchQuery = event.target.value;
+    var actualData = _.cloneDeep(this.state.actualData);
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+    let result = actualData && actualData.length > 0 && actualData.map((item) => {
+      var getdata = item && item.case_numbers && item.case_numbers.length > 0 && item.case_numbers.filter((value) => {
+        const patientFirstName = value.patient.first_name.toLowerCase();
+        const patientLastName = value.patient.last_name.toLowerCase();
+        const patientId = value.patient.alies_id.toLowerCase();
+        const patientFullName = `${value.patient.first_name.toLowerCase()} ${value.patient.last_name.toLowerCase()}`;
+        let testCondition = (patientFirstName.includes(searchQuery)
+          || patientLastName.includes(searchQuery)
+          || patientId.includes(searchQuery)
+          || patientFullName.includes(searchQuery))
+        return testCondition;
+      })
+      item.case_numbers = getdata.length > 0 ? getdata : [];
+      return item;
+    })
+    const authorQuoteMap = result && result.length > 0 && result.reduce(
+      (previous, author) => ({
+        ...previous,
+        [author.step_name]: author.case_numbers,
+      }),
+      {}
+    );
+    this.setState({ fullData: authorQuoteMap });
+  }
+
   render() {
+    const { searchValue } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber } =
       translate;
@@ -467,7 +500,7 @@ class Index extends Component {
                     <Grid className="srchPatient">
                       <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={5} className="srchLft">
-                          <Input placeholder="Search by Patient ID, Patient name, Doctor..." />
+                          <Input name="searchValue" value={searchValue} placeholder="Search by Patient ID, Patient name, Doctor..." onChange={this.handleSearch} />
                           <a>
                             <img
                               src={require("assets/virtual_images/InputField.svg")}
