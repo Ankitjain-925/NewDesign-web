@@ -36,6 +36,7 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import _ from "lodash";
 import { getLanguage } from "translations/index";
+import { Speciality } from "Screens/Login/speciality.js";
 
 const options = [
   { value: "data1", label: "Data1" },
@@ -75,6 +76,13 @@ class Index extends Component {
       var stepData = data ? data : [];
       this.setDta(stepData);
     });
+
+    let specsMap1 = [{ label: 'All Specialities', value: 'all' }];
+    let specsMap = this.props.speciality && this.props.speciality?.SPECIALITY.map((item) => {
+      return { label: item.specialty_name, value: item._id };
+    })
+    specsMap = [...specsMap1, ...specsMap];
+    this.setState({ specialitiesList: specsMap });
   }
 
   MovetoTask=(speciality, patient_id)=>{
@@ -221,14 +229,7 @@ class Index extends Component {
         });
     });
     this.setState({ actualData: stepData });
-    const authorQuoteMap = stepData.reduce(
-      (previous, author) => ({
-        ...previous,
-        [author.step_name]: author.case_numbers,
-      }),
-      {}
-    );
-    this.setState({ fullData: authorQuoteMap });
+    this.mapActualToFullData(stepData);
   };
 
   //Open case model
@@ -373,8 +374,23 @@ class Index extends Component {
     this.setState({ addp: state });
   };
 
-  handleChange = (selectedOption) => {
+  onChooseSpeciality = (selectedOption) => {
     this.setState({ selectedOption });
+    const searchQuery = selectedOption.value;
+    let result = this.state.actualData;
+    var actualData = _.cloneDeep(this.state.actualData);
+    if (searchQuery !== 'all') {
+      result = actualData && actualData.length > 0 && actualData.map((item) => {
+        var getdata = item && item.case_numbers && item.case_numbers.length > 0 && item.case_numbers.filter((value) => {
+          const specialityId = value.speciality?._id;
+          let testCondition = (specialityId === searchQuery);
+          return testCondition;
+        })
+        item.case_numbers = getdata.length > 0 ? getdata : [];
+        return item;
+      })
+    }
+    this.mapActualToFullData(result);
   };
 
   moveStep = (to, from, item) => {
@@ -438,6 +454,18 @@ class Index extends Component {
       item.case_numbers = getdata.length > 0 ? getdata : [];
       return item;
     })
+    this.mapActualToFullData(result);
+  }
+
+  clearFilters = () => {
+    this.setState({
+      searchValue: '',
+      selectedOption: { label: 'All Specialities', value: 'all' }
+    });
+    this.mapActualToFullData(this.state.actualData);
+  }
+
+  mapActualToFullData = (result) => {
     const authorQuoteMap = result && result.length > 0 && result.reduce(
       (previous, author) => ({
         ...previous,
@@ -449,11 +477,10 @@ class Index extends Component {
   }
 
   render() {
-    const { searchValue } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber } =
       translate;
-    const { selectedOption } = this.state;
+    const { searchValue, specialitiesList, selectedOption } = this.state;
     return (
       <Grid
         className={
@@ -511,7 +538,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght">
-                            <a className="srchSort">
+                            <a className="srchSort" onClick={this.clearFilters}>
                               <img
                                 src={require("assets/virtual_images/sort.png")}
                                 alt=""
@@ -520,8 +547,8 @@ class Index extends Component {
                             </a>
                             <Select
                               value={selectedOption}
-                              onChange={this.handleChange}
-                              options={options}
+                              onChange={this.onChooseSpeciality}
+                              options={specialitiesList}
                               placeholder="All Specialities"
                               className="allSpec"
                               isSearchable={false}
@@ -675,6 +702,7 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { speciality } = state.Speciality;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
   return {
@@ -684,6 +712,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     House,
+    speciality
     //   Doctorsetget,
     //   catfil
   };
@@ -695,5 +724,6 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
+    Speciality
   })(Index)
 );
