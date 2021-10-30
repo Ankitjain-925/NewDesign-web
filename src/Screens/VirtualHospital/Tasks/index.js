@@ -239,7 +239,7 @@ class Index extends Component {
                     this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
                 }
                 this.setState({ loaderImage: false });
-
+                 
             });
     };
 

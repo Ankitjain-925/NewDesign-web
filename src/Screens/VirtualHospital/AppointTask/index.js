@@ -52,8 +52,13 @@ TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-let da1 = new Date();
-let da2 = new Date();
+
+
+//  var da1 = new Date(9, 4, 2021);
+// let da2 = new Date();
+// var d1 = (new Date()).setHours("00");
+// var d2 = (new Date()).setHours("05")
+
 
 class Index extends Component {
     constructor(props) {
@@ -61,21 +66,16 @@ class Index extends Component {
         this.state = {
             tabvalue: 0,
             selectedOption: null,
-            events: [
-                {
-                    start:moment(da1).toDate(),
-                    end: moment(da2)
-                    .add(1,"date")
-                    .toDate(),
-                    title: 'Appointment at 3:00pm'
-                    
-                },
-                
-               ],
-               
-};
+            events: []
 
+        };
     }
+
+    componentDidMount() {
+        this.getAddTaskData();
+    }
+
+
 
     handleChangeTab = (event, tabvalue) => {
         this.setState({ tabvalue });
@@ -83,8 +83,43 @@ class Index extends Component {
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
+
+    //get Add task data
+    getAddTaskData = () => {
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.setState({ AllTasks: response.data.data })
+                console.log("AllTasks", this.state.AllTasks)
+                if (response.data.hassuccessed) {
+                    {
+                       var data1 =  response.data.data?.length > 0 && response.data.data.map((data, index) => {
+                            if (data.due_on?.date) {
+
+                                var d1 = data.due_on?.date ? new Date(data.due_on?.date) : new Date();
+                                var d2 = data.due_on?.date ? new Date(data.due_on?.date) : new Date();
+                                d2.setDate(d2.getDate() + 1);
+                                var title = data?.task_name
+                                console.log("d1,d2,title", d1, d2, title)
+                                return { start: new Date(d1), end: new Date(d2), title: title, id: index }
+                               }
+                              
+                            })
+                                console.log('data1', data1)
+                                this.setState({events: data1})
+                            }
+                           }
+                this.setState({ loaderImage: false });
+
+            });
+    };
+
     render() {
-        const { tabvalue, selectedOption, events,data } = this.state;
+        const { tabvalue, selectedOption, events, data } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
@@ -171,39 +206,22 @@ class Index extends Component {
                                                     <Grid className="getCalapoint">
                                                         <Grid className="getCalBnr">
 
+                                                        {console.log('events', this.state.events)}
                                                             <Calendar
                                                                 localizer={localizer}
-                                                                events={this.state.events}                                                                
+                                                                events={this.state.events}
+                                                                value={this.state.d1}
                                                                 startAccessor="start"
                                                                 endAccessor="end"
-                                                                popup
                                                                 style={{ minHeight: 900 }}
-                                                                onShowMore={(events, date) => { }}
-                                                                messages={{
-                                                                    showMore: (total) => (
-                                                                        <div
-                                                                            style={{ cursor: "pointer" }}
-                                                                            onMouseOver={(e) => {
-                                                                                e.stopPropagation();
-                                                                                e.preventDefault();
-                                                                            }}
-
-                                                                        >
-
-                                                                            {`+${total} more`}
-                                                                        </div>
-                                                                    ),
-                                                                }}
                                                                 components={{
                                                                     month: { event: this.EventComponent },
                                                                     week: { event: this.EventComponent },
                                                                     day: { event: this.EventDaysComponent },
                                                                     dateCellWrapper: this.DateCellCompnent,
                                                                     toolbar: CalendarToolbar,
-
                                                                 }}
                                                             />
-
 
                                                         </Grid>
                                                     </Grid>
