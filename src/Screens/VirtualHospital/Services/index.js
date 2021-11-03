@@ -7,7 +7,6 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
 import axios from "axios";
-import { commonHeaderToken } from "component/CommonHeader/index";
 import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
@@ -22,12 +21,7 @@ import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
-import makeAnimated from 'react-select/animated'
-import {
-  getLanguage
-}from "translations/index"
-
-
+import { getLanguage } from "translations/index"
 class Index extends Component {
   constructor(props) {
     super(props);

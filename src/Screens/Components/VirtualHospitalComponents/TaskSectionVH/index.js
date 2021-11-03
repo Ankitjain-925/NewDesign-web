@@ -311,42 +311,9 @@ class Index extends Component {
       PatientList1 = [];
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
-        if (response.data.hassuccessed) {
-          this.setState({ allPatData: response.data.data });
-          // var images = [];
-          for (let i = 0; i < this.state.allPatData.length; i++) {
-            var find = this.state.allPatData[i].patient?.image;
-            var name = "";
-            if (
-              this.state.allPatData[i]?.patient?.first_name &&
-              this.state.allPatData[i]?.patient?.last_name
-            ) {
-              name =
-                this.state.allPatData[i]?.patient?.first_name +
-                " " +
-                this.state.allPatData[i]?.patient?.last_name;
-            } else if (this.state.allPatData[i].patient?.first_name) {
-              name = this.state.allPatData[i].patient?.first_name;
-            }
-
-            patientArray.push({
-              last_name: this.state.allPatData[i].patient?.last_name,
-              user_id: this.state.allPatData[i]?.patient_id,
-              image: this.state.allPatData[i].patient?.image,
-              first_name: this.state.allPatData[i].patient?.first_name,
-              profile_id: this.state.allPatData[i].patient?.profile_id,
-              type: this.state.allPatData[i].patient?.type,
-              case_id: this.state.allPatData[i]._id,
-            });
-            // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
-
-            PatientList1.push({
-              profile_id: this.state.allPatData[i].patient?.profile_id,
-              value: this.state.allPatData[i]?.patient_id,
-              name: name,
-            });
-          }
-          this.setState({ users1: PatientList1, users: patientArray }, () => {
+    if (response.isdata) {
+      console.log('response', response)
+          this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
             if (this.props.location?.state?.user ) {
               let user =
                 this.state.users1.length > 0 &&
@@ -375,7 +342,7 @@ class Index extends Component {
       users.length > 0 &&
       users.filter(function (user) {
         return (
-          user.name.toLowerCase().indexOf(q) != -1 ||
+          user.label.toLowerCase().indexOf(q) != -1 ||
           user.profile_id.toLowerCase().indexOf(q) != -1
         );
         // return  // returns true or false
@@ -558,13 +525,13 @@ class Index extends Component {
             }}
             value={user.profile_id}
             onClick={() => {
-              this.setState({ q: user.name, selectedUser: user });
+              this.setState({ q: user.label, selectedUser: user });
               this.updateEntryState2(user);
               this.toggle(user.id);
               this.setState({ filteredUsers: [] });
             }}
           >
-            {user.name} ( {user.profile_id} )
+            {user.label} ( {user.profile_id} )
           </li>
         );
       });

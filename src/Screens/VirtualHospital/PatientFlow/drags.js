@@ -114,11 +114,11 @@ class Index extends Component {
         >
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              <ul>
+              <ul className="manageDragDrop">
                 {ordered.map((key, index) => (
                   <li>
                     <div className="detailInfo">
-                      <Column
+                    <Column
                         moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
                         key={key}
                         onDragEnd={(data)=>{this.onDragEnd(data)}}

@@ -69,7 +69,25 @@ export const getPatientData = async (user_token, house_id) => {
     let response = await axios.get( sitedata.data.path + "/vh/getPatientFromVH/" + house_id,    
     commonHeader(user_token))
     if (response.data.hassuccessed) {
-        return response
+        var patientArray = [], PatientList1 = [];
+        for (let i = 0; i < response.data?.data?.length; i++) {
+            var find = response.data?.data[i].patient?.image;
+            var name = '';
+            if (response.data?.data[i]?.patient?.first_name && response.data?.data[i]?.patient?.last_name) {
+                name = response.data?.data[i]?.patient?.first_name + ' ' + response.data?.data[i]?.patient?.last_name
+            }
+            else if (response.data?.data[i].patient?.first_name) {
+                name = response.data?.data[i].patient?.first_name
+            }
+            patientArray.push({
+                last_name: response.data?.data[i].patient?.last_name,
+                first_name: response.data?.data[i].patient?.first_name,
+                image: response.data?.data[i].patient?.image,
+                profile_id: response.data?.data[i].patient?.profile_id,
+            })
+            PatientList1.push({ profile_id: response.data?.data[i].patient?.profile_id, value: response.data?.data[i]?.patient_id, label: name })
+        }
+        return {isdata: true, PatientList1: PatientList1, patientArray: patientArray }
     } else {
         return false
     }
