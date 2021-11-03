@@ -17,9 +17,6 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
-import {
-    getLanguage
-  }from "translations/index"
 
 var patientArray = [];
 
@@ -46,7 +43,7 @@ class Index extends Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount() { 
         this.getAddTaskData();
     }
 

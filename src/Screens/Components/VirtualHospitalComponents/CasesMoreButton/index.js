@@ -36,22 +36,15 @@ class Index extends React.Component {
            AllRoom: [],
            AllBeds: [],
            assignedTo:[],
-           AllSpec: this.props.speciality?.SPECIALITY
         }
-    }
-
- SpecSorter = (a, b)=> {
-      return this.props.quote?.speciality?._id === a._id ? -1 :  1;
     }
 
     componentDidMount=()=>{
         this.getListOption();
-        if(this.props.quote?.speciality?._id){
-          this.setState({ AllSpec:  this.props.speciality?.SPECIALITY.sort(this.SpecSorter)})
-        }
     }
 
     getListOption=()=>{
+      console.log('this.props.quote?.wards?._id', this.props.quote?.wards?._id)
       var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
       this.setState({ AllRoom: AllRoom });
       this.GetAllBed();
@@ -192,6 +185,7 @@ class Index extends React.Component {
     }
 
     GetAllBed= async ()=>{
+      console.log('this.props.quote?.rooms?._id', this.props.quote?.rooms?._id)
       if(this.props.quote?.speciality?._id && this.props.quote?.wards?._id && this.props.quote?.rooms?._id && this.props?.House?.value){
         var response = await AllBed(this.props.quote?.speciality?._id, this.props.quote?.wards?._id, this.props.quote?.rooms?._id, this.props?.House?.value,
           this.props.stateLoginValueAim.token);
@@ -200,7 +194,10 @@ class Index extends React.Component {
             var finalBed = response?.data?.data.length>0 && response?.data?.data.map((bed)=>{
               return {value: bed, label: bed}
             });
-            this.setState({AllBeds: finalBed})    
+            this.setState({AllBeds: finalBed},
+              ()=>{
+                console.log('this.state.AllBeds',this.state.AllBeds)
+              })    
       }
       else{
         this.setState({AllBeds: []})  
@@ -209,12 +206,12 @@ class Index extends React.Component {
   }
 
    //Select the professional name
-  updateEntryState3 = (e) => {
+   updateEntryState3 = (e) => {
     this.setState({assignedTo: e}, 
        ()=>{
           this.props.updateEntryState3(e, this.props.quote._id)
        })
-  } 
+} 
 
 Discharge=()=>{
   confirmAlert({
@@ -261,15 +258,15 @@ MovetoTask=()=>{
                    <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
                    <ul>
                         {this.state.firstsec && <>
-                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Open details"}</a></li>
-                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}`)}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Add new entry"}</a></li>
-                            <li><a onClick={()=>{this.MovetoTask()}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Add Task"} </a></li>
-                            <li><a onClick={()=>{this.setState({changeStaffsec : true,specialitysec : false, assignroom: false, movepatsec : false, firstsec: false})}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Change Staff >"}</a></li>
-                            <li><a onClick={()=>{this.setState({specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec : true, firstsec: false})}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Move patient to >"}</a></li>
-                            <li><a onClick={()=>{this.setState({specialitysec : true, assignroom: false, changeStaffsec: false, movepatsec : false, firstsec: false})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Assign to Speciality >"}</a></li>
-                            <li><a onClick={()=>{this.setState({assignroom : true,  specialitysec: false, changeStaffsec: false, movepatsec : false, firstsec: false})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Assign to room >"} </a></li>
-                            {this.props.quote?.status !==1 && <li><a onClick={()=>{this.Discharge()}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Discharge Patient"}</a></li>}
-                            {this.props.quote?.status !==1 && <li><a onClick={()=>{this.RemoveDirectPatient()}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Remove Patient from flow"}</a></li>}
+                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`)}}><span className="more-open-detail"></span>{"Open details"}</a></li>
+                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}`)}}><span className="more-new-entry"></span>{"Add new entry"}</a></li>
+                            <li><a onClick={()=>{this.MovetoTask()}}><span className="more-add-task"></span>{"Add Task"} </a></li>
+                            <li><a onClick={()=>{this.setState({changeStaffsec : true,specialitysec : false, assignroom: false, movepatsec : false, firstsec: false})}}><span className="more-change-staff"></span>{"Change Staff >"}</a></li>
+                            <li><a onClick={()=>{this.setState({specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec : true, firstsec: false})}}><span className="more-move-patient"></span>{"Move patient to >"}</a></li>
+                            <li><a onClick={()=>{this.setState({specialitysec : true, assignroom: false, changeStaffsec: false, movepatsec : false, firstsec: false})}}><span className="more-new-speciality"></span>{"Assign to Speciality >"}</a></li>
+                            <li><a onClick={()=>{this.setState({assignroom : true,  specialitysec: false, changeStaffsec: false, movepatsec : false, firstsec: false})}}><span className="more-assign-room"></span>{"Assign to room >"} </a></li>
+                            {this.props.quote?.status !==1 && <li><a onClick={()=>{this.Discharge()}}><span className="more-discharge-patient"></span>{"Discharge Patient"}</a></li>}
+                            {this.props.quote?.status !==1 && <li><a onClick={()=>{this.RemoveDirectPatient()}}><span className="more-remove-entry"></span>{"Remove Patient from flow"}</a></li>}
                         </>}
                         {this.state.specialitysec &&
                             <div>
@@ -291,6 +288,7 @@ MovetoTask=()=>{
                                 />
                                 </div>
                            ))}
+                           
                            </Grid>
                        </div> 
                         }
@@ -304,7 +302,8 @@ MovetoTask=()=>{
                            <Grid className="positionDrop">
                            <Select
                               name="professional"
-                              onChange={(e) => this.updateEntryState3(e)}
+                              onChange={(e) =>
+                                  this.updateEntryState3(e)}
                               value={this.state.assignedTo}
                               options={this.props.professional_id_list}
                               placeholder="Search & Select"

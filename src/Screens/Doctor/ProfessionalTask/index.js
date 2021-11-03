@@ -316,38 +316,12 @@ class Index extends Component {
         var patientArray = [], PatientList1 = [];
         this.setState({ loaderImage: true });
         let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
-                if (response.data.hassuccessed) {
-                    this.setState({ allPatData: response.data.data })
-                    // var images = [];
-                    for (let i = 0; i < this.state.allPatData.length; i++) {
-                        var find = this.state.allPatData[i].patient?.image;
-                        var name = '';
-                        if (this.state.allPatData[i]?.patient?.first_name && this.state.allPatData[i]?.patient?.last_name) {
-                            name = this.state.allPatData[i]?.patient?.first_name + ' ' + this.state.allPatData[i]?.patient?.last_name
-                        }
-                        else if (this.state.allPatData[i].patient?.first_name) {
-                            name = this.state.allPatData[i].patient?.first_name
-                        }
-
-                        patientArray.push({
-                            last_name: this.state.allPatData[i].patient?.last_name,
-                            user_id: this.state.allPatData[i].patient?.patient_id,
-                            image: this.state.allPatData[i].patient?.image,
-                            first_name: this.state.allPatData[i].patient?.first_name,
-                            profile_id: this.state.allPatData[i].patient?.profile_id,
-                            type: this.state.allPatData[i].patient?.type,
-                            case_id: this.state.allPatData[i]._id
-                        })
-                        // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
-
-                        PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, name: name })
-                    }
-                    this.setState({ users1: PatientList1, users: patientArray })
-                }
-                else{
-                    this.setState({ loaderImage: false });
-                }
-
+        if (response.isdata) {
+            this.setState({ users1: response.PatientList1, users: response.patientArray,loaderImage: false })
+        }
+        else{
+            this.setState({  loaderImage: false });
+        } 
     }
 
     // componentWillReceiveProps(nextProps) {

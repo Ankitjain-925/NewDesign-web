@@ -73,7 +73,6 @@ class Index extends Component {
       .then((responce1) => {
         if (responce1.data.hassuccessed) {
           this.setState({caseData: responce1.data.data, 
-           
             patient: {
               last_name: responce1.data.data?.patient?.last_name,
               user_id: responce1.data.data?.patient_id,

@@ -77,7 +77,7 @@ class PointPain extends Component {
                             <label>{data?.attachments?.length}</label>
                         </Grid>
                     </Grid>
-                    <Grid className="attchOpen">
+                    <Grid className={data.status === 'done' ? "attchDone" : "attchOpen"}>
                         <Button><label></label>{data.status}</Button>
                     </Grid>
                     <Assigned assigned_to ={data.assigned_to}/>

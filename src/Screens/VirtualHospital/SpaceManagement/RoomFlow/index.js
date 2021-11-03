@@ -157,7 +157,7 @@ class Index extends Component {
           <Grid container direction="row" justify="center">
           <Grid item xs={12} md={12}> 
               <LeftMenuMobile isNotShow={true} currentPage="space" />
-              <Grid container direction="row">
+              <Grid container direction="row" className="spcMgntUper">
                 
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
@@ -217,9 +217,6 @@ class Index extends Component {
                           </AppBar>
                         </Grid>
                       </Grid>
-
-
-
                       <Drags initial={authorQuoteMap} view={this.state.view} />
                     </Grid>
                   </Grid>

@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import reorder, { reorderQuoteMap } from "./reorder";
 import Grid from "@material-ui/core/Grid";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { slide as Menu } from "react-burger-menu";
 import axios from "axios";
 import Input from "@material-ui/core/Input";
 import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-// import { authorQuoteMap, getSteps, authors } from "./data";
 import {
   getSteps,
   getAuthor,
@@ -37,13 +34,6 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import _ from "lodash";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
-
-const options = [
-  { value: "data1", label: "Data1" },
-  { value: "data2", label: "Data2" },
-  { value: "data3", label: "Data3" },
-];
-
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -77,10 +67,13 @@ class Index extends Component {
       this.setDta(stepData);
     });
 
-    let specsMap1 = [{ label: 'All Specialities', value: 'all' }];
-    let specsMap = this.props.speciality && this.props.speciality?.SPECIALITY.map((item) => {
+    var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
+    console.log('this.props.speciality',this.props.speciality) 
+    var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY.map((item) => {
       return { label: item.specialty_name, value: item._id };
     })
+    console.log('specsMap specsMap1 ',specsMap, specsMap1 )
+
     specsMap = [...specsMap1, ...specsMap];
     this.setState({ specialitiesList: specsMap });
   }
@@ -213,11 +206,6 @@ class Index extends Component {
     this.setDta(state);
     this.CallApi();
   };
-
-  // getCurrentAuth=(author, index1)=>{
-  //   console.log('index1', index1, 'author', author)
-  //   return
-  // }
 
   //Set data according to package
   setDta = (stepData) => {
@@ -495,10 +483,10 @@ class Index extends Component {
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           {}
-          <Grid container direction="row" justify="center">
+          <Grid container direction="row">
             <Grid item xs={12} md={12}>
               <LeftMenuMobile isNotShow={true} currentPage="flow" />
-              <Grid container direction="row">
+              <Grid container direction="row" className="flowContentAdd">
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                   <LeftMenu isNotShow={true} currentPage="flow" />
@@ -511,14 +499,8 @@ class Index extends Component {
                         <Grid item xs={12} sm={6} md={6}>
                           <h1>{PatientFlow}</h1>
                         </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          sm={6}
-                          md={6}
-                          className="addFlowRght"
-                        >
-                          <a onClick={() => this.openAddPatient(0)}>
+                        <Grid item xs={12} sm={6} md={6} className="addFlowRght">
+                        <a onClick={() => this.openAddPatient(0)}>
                             + Add patient
                           </a>
                         </Grid>
@@ -527,23 +509,13 @@ class Index extends Component {
                     <Grid className="srchPatient">
                       <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={5} className="srchLft">
-                          <Input name="searchValue" value={searchValue} placeholder="Search by Patient ID, Patient name, Doctor..." onChange={this.handleSearch} />
-                          <a>
-                            <img
-                              src={require("assets/virtual_images/InputField.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
+                        <Input name="searchValue" value={searchValue} placeholder="Search by Patient ID, Patient name, Doctor..." onChange={this.handleSearch} />
+                          <a><img src={require("assets/virtual_images/InputField.svg")} alt="" title="" /></a>
                         </Grid>
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght">
                             <a className="srchSort" onClick={this.clearFilters}>
-                              <img
-                                src={require("assets/virtual_images/sort.png")}
-                                alt=""
-                                title=""
-                              />
+                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Select
                               value={selectedOption}
@@ -582,7 +554,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <Drags
-                      moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
+                      moveDetial={(id) => this.moveDetial(id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
                       onKeyDownlogin={this.onKeyDownlogin}
                       editName={this.editName}
@@ -615,32 +587,20 @@ class Index extends Component {
           </Grid>
         </Grid>
         <Modal
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          open={this.state.openAddP}
-          onClose={this.closeAddP}
-        >
+          style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+          open={this.state.openAddP} onClose={this.closeAddP}>
           <Grid  className={
-        this.props.settings &&
-        this.props.settings.setting &&
-        this.props.settings.setting.mode &&
-        this.props.settings.setting.mode === "dark"
-          ? "addFlowContnt darkTheme"
-          : "addFlowContnt"
-      }
-      >
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+                ? "addFlowContnt darkTheme"
+                : "addFlowContnt"}>
             <Grid className="addFlowIner">
               <Grid className="addFlowLbl">
                 <Grid className="addFlowClose">
                   <a onClick={this.closeAddP}>
-                    <img
-                      src={require("assets/virtual_images/closefancy.png")}
-                      alt=""
-                      title=""
-                    />
+                    <img src={require("assets/virtual_images/closefancy.png")} alt="" title="" />
                   </a>
                 </Grid>
                 <label>{AddPatienttoFlow}</label>
@@ -727,3 +687,4 @@ export default withRouter(
     Speciality
   })(Index)
 );
+
