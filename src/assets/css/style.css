@@ -17197,5 +17197,11 @@ ul.duringCovid li:last-child {
 .darkTheme .enrgyLbl a,.darkTheme .fatiqueQues a, .darkTheme .symptomsType a {
     background-color: #363636;
 }
+.form-box{
+    margin-bottom:15px !important;
+    width: 100% !important;
+}
 
-
+.h-500{
+    height: 500px !important;
+}
