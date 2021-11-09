@@ -22,6 +22,12 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import { getLanguage } from "translations/index"
+import makeAnimated from 'react-select/animated'
+import {
+  getLanguage
+} from "translations/index"
+
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -147,7 +153,7 @@ class Index extends Component {
 
   //Delete the perticular service confirmation box
   removeServices = (id) => {
-    this.setState({ message: null });
+    this.setState({ message: null, openTask: false });
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -246,7 +252,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {Addnewservice, Services  } = translate;
+    let { Addnewservice, Services } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -375,7 +381,7 @@ class Index extends Component {
                                     <VHfield
                                       label="Price"
                                       name="price"
-                                      placeholder="Enter service sprice"
+                                      placeholder="Enter service price"
                                       onChange={(e) =>
                                         this.updateEntryState1(e)
                                       }

@@ -23,7 +23,7 @@ class Index extends Component {
       this.setState({ value: this.props.value });
     }
   };
-  
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextState.value !== this.state.value || nextState.specialityname !== this.state.specialityname ||

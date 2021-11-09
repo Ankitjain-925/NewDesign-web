@@ -126,7 +126,7 @@ class Index extends Component {
                                                             <Tab label="Overdue" className="billtabIner" />
                                                             <Tab label="Paid" className="billtabIner" />
                                                         </Tabs>
-                                                    </AppBar>
+                                                   </AppBar>
                                                 </Grid>
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
