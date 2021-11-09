@@ -264,6 +264,7 @@ class Index extends Component {
     }
     this.setState({ newTask: state });
   };
+  
   //Select the patient name
   updateEntryState2 = (user) => {
     var user1 = this.state.users?.length > 0 &&
@@ -307,8 +308,6 @@ class Index extends Component {
 
   // Get the Patient data
   getPatientData = async () => {
-    var patientArray = [],
-      PatientList1 = [];
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response.isdata) {

@@ -44,6 +44,7 @@ class Index extends Component {
               onChange={this.onDataChange}
               name={this.state.specialityname}
               value={this.state.value}
+              disabled={this.props.disabled ? true : false}
             />
           </Grid>
         </Grid>

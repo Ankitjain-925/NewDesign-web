@@ -152,16 +152,15 @@ class Index extends Component {
                                                 {this.state.AllBills.length > 0 && this.state.AllBills.map((data) => (
                                                     <Tbody>
                                                         <Tr>
-                                                            <Td>{data.updateTrack.invoice_id}</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greyDot"><span></span>{data.updateTrack.status?.label}</Td>
-                                                            <Td>{data.updateTrack.price} €</Td>
+                                                            <Td>{data?.invoice_id}</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
+                                                            <Td>{data.created_at}</Td>
+                                                            <Td className="greyDot"><span></span>{data?.status?.label}</Td>
+                                                            <Td>{data?.total_amount} €</Td>
                                                             <Td className="billDots"><Button className="downloadDots">
                                                                 <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
                                                                 <Grid className="actionList">
                                                                     <ul className="actionPdf">
-
                                                                         <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
                                                                         <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
                                                                         <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
