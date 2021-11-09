@@ -22,11 +22,6 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import { getLanguage } from "translations/index"
-import makeAnimated from 'react-select/animated'
-import {
-  getLanguage
-} from "translations/index"
-
 
 class Index extends Component {
   constructor(props) {
