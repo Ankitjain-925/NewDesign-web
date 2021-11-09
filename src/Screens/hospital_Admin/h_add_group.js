@@ -29,6 +29,7 @@ import {
   getLanguage
 } from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
+import { S3Image } from "Screens/Components/GetS3Images/index";
 
 const specialistOptions = [
   { value: "Specialist1", label: "Specialist1" },
@@ -47,7 +48,8 @@ class Index extends Component {
       hospitalData: {},
       group_logo: "",
       house_logo: "",
-      instituteId: ''
+      instituteId: '',
+      showHouses: false
     };
   }
   //open the institute group
@@ -274,7 +276,6 @@ class Index extends Component {
               );
 
               let obj = {};
-              console.log("event is", caseValue)
               if (caseValue === "group_logo") {
                 obj = {
                   target: {
@@ -333,6 +334,12 @@ class Index extends Component {
     }
   };
 
+  onClickInstituteGroup = (item) => {
+    this.setState(prevState => ({
+      showHouses: !prevState.showHouses
+    }));
+  }
+
   render() {
     if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
       this.props.history.push("/");
@@ -383,18 +390,111 @@ class Index extends Component {
                     <Grid item xs={12} md={6}>
                       <label>Institute Groups</label>
                     </Grid>
-                    <Grid item xs={12} md={6} className="archvOpinRght">
-                      <a
-                        onClick={() => {
+                  </Grid>
+
+                  <Grid className="wardsGrupUpr">
+                    <Grid container direction="row">
+                      {this.state.GroupList &&
+                        this.state.GroupList?.length > 0 &&
+                        this.state.GroupList.map((item) => (
+                          <Grid
+                            item
+                            xs={12}
+                            md={4}
+                            onClick={() => this.onClickInstituteGroup(item)}
+                          >
+                            <Grid className="medcalFZCntnt">
+                              <Grid className="presEditDot scndOptionIner">
+                                <a className="openScndhrf">
+                                  <img
+                                    src={require("assets/images/three_dots_t.png")}
+                                    alt=""
+                                    title=""
+                                    className="openScnd"
+                                  />
+                                  <ul>
+                                    <li>
+                                      <a
+                                        onClick={() => {
+                                          this.EditInstitute(item._id);
+                                        }}
+                                      >
+                                        <img
+                                          src={require("assets/images/details.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        Edit Group
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a
+                                        onClick={() => {
+                                          this.deleteGroup(item._id);
+                                        }}
+                                      >
+                                        <img
+                                          src={require("assets/images/edit.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        Delete
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </a>
+                              </Grid>
+                              <Grid>
+                                <a>
+                                  <S3Image imgUrl={item?.group_logo} />
+                                </a>
+                              </Grid>
+                              <Grid>
+                                <label>{item.group_name}</label>
+                              </Grid>
+                              <p>{item.group_description}</p>
+
+                              {this.state.showHouses &&            
+                              <Grid>
+                                <Table>
+                                  <Thead>
+                                    <Tr>
+                                      <Th>Hospitals</Th>
+                                    </Tr>
+                                  </Thead>
+                                  <Tbody>
+                                    {item?.houses.length > 0 &&
+                                      item?.houses.map((data, index) => (
+                                        <Tr>
+                                          <Td>
+                                            {data.house_name}
+                                          </Td>
+                                        </Tr>
+                                      ))}
+                                  </Tbody>
+                                </Table>
+                              </Grid>
+                              }
+                            </Grid>
+                          </Grid>
+                        ))}
+                      <Grid
+                        xs={12}
+                        md={4}
+                        onClick={() => this.onClickInstituteGroup("item")}>
+                        <Grid className="medcalFZCntnt bg-color-card cursor-pointer" onClick={() => {
                           this.openInstitute();
-                        }}
-                      >
-                        + Add Institute Group
-                      </a>
+                        }}>
+                          <a>
+                            + Add Institute Group
+                          </a>
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
+
                   <Grid>
-                    <Grid className="presOpinionIner">
+                    {/* <Grid className="presOpinionIner">
                       {this.state.loaderImage && <Loader />}
                       <Table>
                         <Thead>
@@ -489,7 +589,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
+                    </Grid> */}
                     <Modal
                       open={this.state.openGroup}
                       onClose={this.closeInstitute}

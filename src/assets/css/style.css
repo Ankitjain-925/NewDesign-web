@@ -6192,11 +6192,20 @@ img.addBlue {
     line-height: 20px;
 }
 img.openScnd {
-    height: 24px;
+    height: 24px !important;
     width: 24px;
     cursor: pointer;
     border-radius: 5px;
 }
+
+.bg-color-card {
+    background-color: #E5E6E6 !important ;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .scndOptionIner ul li a {
     display: flex;
     align-items: flex-start;
