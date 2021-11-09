@@ -23,7 +23,7 @@ class Index extends Component {
       this.setState({ value: this.props.value });
     }
   };
-  
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextState.value !== this.state.value || nextState.specialityname !== this.state.specialityname ||
@@ -38,13 +38,24 @@ class Index extends Component {
         <Grid className="enterSpcl">
           <Grid className="rrInput vhfield-add">
             <Grid><label>{this.state.label}</label></Grid>
-            <input
-              type="text"
-              placeholder={this.state.placeholder}
-              onChange={this.onDataChange}
-              name={this.state.specialityname}
-              value={this.state.value}
-            />
+            {this.props.comesFrom === 'professional_task' ?
+              <input
+                type="text"
+                placeholder={this.state.placeholder}
+                onChange={this.onDataChange}
+                name={this.state.specialityname}
+                value={this.state.value}
+                disabled
+              />
+              :
+              <input
+                type="text"
+                placeholder={this.state.placeholder}
+                onChange={this.onDataChange}
+                name={this.state.specialityname}
+                value={this.state.value}
+              />
+            }
           </Grid>
         </Grid>
       </Grid>

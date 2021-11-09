@@ -105,7 +105,6 @@ class Index extends Component {
                 }
                 this.setState({ loaderImage: false });
             });
-
     }
 
     getAllServices = () => {
