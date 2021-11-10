@@ -443,12 +443,6 @@ class Index extends Component {
     this.setState({ addInsuranceOpen: true });
   };
 
-<<<<<<< HEAD
-    render() {
-        var required = true;
-        var disabled = true;
-        const { selectedOption } = this.state;
-=======
   //To add Insurance
   insuranceForm = (e) => {
     const state = this.state.insuranceDetails;
@@ -556,7 +550,6 @@ class Index extends Component {
     const companyList =
       this.state.filteredCompany &&
       this.state.filteredCompany.map((company) => {
->>>>>>> 0541ddb958f2ab176af4b3a75ac9d7188c63147a
         return (
           <li
             className="list-group-item"
@@ -762,214 +755,6 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={3}></Grid>
                 </Grid>
-<<<<<<< HEAD
-                {/* Patient Personal Info */}
-                <Grid container direction="row">
-                    <Grid item xs={12} md={11}>
-                        <Grid className="profilePkgIner2">
-                            <Grid className="profileId">
-                                <Grid container direction="row" alignItems="center">
-                                    <Grid item xs={12} md={9}>
-                                        <Grid className="profileIdLft">
-                                            <Grid container direction="row" alignItems="center" spacing={1}>
-                                                <Grid item xs={12} md={7}>
-                                                    <label>Profile ID</label><span>P_mDnkbR30d</span>
-                                                    <a><img src={require('assets/virtual_images/copycopy.svg')} alt="" title="" /></a>
-                                                    <a><img src={require('assets/virtual_images/qr-code.svg')} alt="" title="" /></a>
-                                                </Grid>
-                                                <Grid item xs={12} md={5}>
-                                                    <label>PIN</label><span>3212</span>
-                                                    <a><img src={require('assets/virtual_images/copycopy.svg')} alt="" title="" /></a>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={3}>
-                                        {/* <Grid className="profileIdRght">
-                                            <a>Change ID / PIN</a>
-                                        </Grid> */}
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid container direction="row" alignItems="center">
-                                <Grid item xs={12} md={10}>
-                                    <Grid className="profileInfo">
-                                        <Grid className="profileInfoIner">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={12}>
-                                                    <label>Email address</label>
-                                                    <Grid><input type="text"  disabled={disabled} required={required} value={this.state.updateTrack.email} /></Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoIner titleDegre">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={3} >
-                                                    <label>Title / Degree </label>
-                                                    <Grid>
-                                                        <Select isDisabled={true}
-                                                            value={selectedOption} 
-                                                            onChange={this.handleChange}
-                                                            options={options}
-                                                            placeholder="Mr." 
-                                                            isSearchable={false}
-                                                            className="mr_sel"
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <label>First name</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.first_name}/></Grid>
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <label>Last name</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.last_name} /></Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoDate">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={5} lg={4}>
-                                                    <label>Date of birth</label>
-                                                    <Grid>
-                                                        <DatePicker 
-                                                            onChange={this.onChange}
-                                                            value={this.state.updateTrack.birthday}
-                                                            disabled={true}
-                                                           
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item  xs={12} md={7} lg={8}>
-                                                    <label>Gender</label>
-                                                    <Grid>
-                                                        <a >Male</a>
-                                                        <a >Female</a>
-                                                        <a >Other </a>
-                                                        
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoIner">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={8}>
-                                                    <label>Street address</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.address} /></Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoIner">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={8}>
-                                                    <label>City</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.city}/></Grid>
-                                                </Grid>
-                                                <Grid item xs={12} md={4}>
-                                                    <label>Postal code</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.country_code} /></Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoIner">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={8}>
-                                                    <label>Country</label>
-                                                    <Grid>
-                                                        <Select isDisabled={true}
-                                                            value={this.state.updateTrack.country}
-                                                            onChange={this.handleChange}
-                                                            options={options}
-                                                            placeholder=""
-                                                            isSearchable={false}
-                                                            className="cntryDrop"
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoIner">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={8}>
-                                                    <label>Home telephone number</label>
-                                                    <Grid>
-                                                        {/* <PhoneInput
-                                                            country={'us'}
-                                                            value={this.state.phone}
-                                                            onChange={phone => this.setState({ phone })}
-                                                        /> */}
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoIner">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={8}>
-                                                    <label>Mobile phone number</label>
-                                                    <Grid>
-                                                        {/* <PhoneInput
-                                                            country={'us'}
-                                                            value={this.state.phone}
-                                                            onChange={phone => this.setState({ phone })}
-                                                        /> */}
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid className="profileInfoIner">
-                                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={8}>
-                                                    <label>Languages spoken</label>
-                                                    <Grid>
-                                                        <Select isDisabled={true}
-                                                            value={selectedOption} onChange={this.handleChange} options={options}
-                                                            placeholder="" isSearchable={false}  className="languageSpk" isMulti={true}
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid className="clear"></Grid>
-                            </Grid>
-                            <Grid className="insrnceTbl">
-                                <Grid><h3>Insurance</h3></Grid>
-                                <Table>
-                                    <Thead>
-                                        <Tr><Th>Country of insurance</Th><Th>Insurance Company</Th>
-                                        <Th>Insurance Number</Th><Th></Th></Tr>
-                                    </Thead>
-                                    <Tbody>
-                                        <Tr>
-                                            <Td>Germany</Td><Td>Insure Me GmbH</Td><Td>89212318416514</Td>
-                                            <Td><img src={require('assets/virtual_images/moreicon.jpg')} alt="" title="" /></Td>
-                                        </Tr>
-                                        <Tr>
-                                            <Td>Germany</Td><Td>Insure Me GmbH</Td><Td>89212318416514</Td>
-                                            <Td><img src={require('assets/virtual_images/moreicon.jpg')} alt="" title="" /></Td>
-                                        </Tr>
-                                    </Tbody>
-                                </Table>
-                            </Grid>
-                            <Grid className="infoSub">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={10}>
-                                        <Grid container direction="row">
-                                            <Grid item xs={12} md={8}>
-                                                <Grid><input type="submit" value="Save changes" /></Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={4}></Grid>
-                                            <Grid className="clear"></Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-=======
               </Grid>
               <Grid container direction="row" alignItems="center">
                 <Grid item xs={12} md={8}>
@@ -1274,7 +1059,6 @@ class Index extends Component {
                               }
                             />
                           </Grid>
->>>>>>> 0541ddb958f2ab176af4b3a75ac9d7188c63147a
                         </Grid>
                         <Grid item xs={12} md={4}></Grid>
                         <Grid className="clear"></Grid>
