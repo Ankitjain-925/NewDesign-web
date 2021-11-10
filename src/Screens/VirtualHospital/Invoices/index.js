@@ -47,7 +47,7 @@ class Index extends Component {
             service: {},
             viewCutom: false,
             serviceList1: [],
-            selectedPat:{},
+            selectedPat: {},
             newServiceIndex: false
         };
     }
@@ -56,39 +56,44 @@ class Index extends Component {
         this.getMetadata()
         this.getAllServices();
         this.getPatientData();
-      
-        if(this.props.history.location?.state?.data && this.props.history.location?.state?.data==='new'){
-            this.setState({addinvoice: {}})
+
+        if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === 'new') {
+            this.setState({ addinvoice: {} })
+            console.log("hello", this.props.history.location?.state?.data)
         }
-        else if(this.props.history.location?.state?.data?.addinvoice && this.props.history.location?.state?.data?.addinvoice)
-        {
-            var newdata = this.props.history.location?.state?.data?.addinvoice
-            this.setState({addinvoice: newdata})
+        else if (this.props.history.location?.state?.data && this.props.history.location?.state?.data) {
+            var duplicateData = this.props.history.location?.state?.data
+            this.setState({ addinvoice: duplicateData })
         }
+        // else if (this.props.history.location?.state?.data?.addinvoice && this.props.history.location?.state?.data) {
+        //     var newdata = this.props.history.location?.state?.data
+        //     // how to delete the field of onject in js
+        //     this.setState({ addinvoice: newdata })
+        // }
     }
 
     //get list of list
-    getMetadata= ()=> {
-        this.setState({ allMetadata: this.props.metadata},
-        ()=>{
-        this.GetLanguageMetadata();
-        })
+    getMetadata = () => {
+        this.setState({ allMetadata: this.props.metadata },
+            () => {
+                this.GetLanguageMetadata();
+            })
     }
 
     //Get All status
     GetLanguageMetadata = () => {
-    var AllStatus = GetLanguageDropdown(
-        this.state.allMetadata &&
-        this.state.allMetadata.billing_status &&
-        this.state.allMetadata.billing_status.length > 0 &&
-        this.state.allMetadata.billing_status,
-        this.props.stateLanguageType
-    );
-    this.setState({
-        AllStatus: AllStatus,
-    });
+        var AllStatus = GetLanguageDropdown(
+            this.state.allMetadata &&
+            this.state.allMetadata.billing_status &&
+            this.state.allMetadata.billing_status.length > 0 &&
+            this.state.allMetadata.billing_status,
+            this.props.stateLanguageType
+        );
+        this.setState({
+            AllStatus: AllStatus,
+        });
     };
-    
+
     //Get patient list
     getPatientData = async () => {
         this.setState({ loaderImage: true });
@@ -96,14 +101,14 @@ class Index extends Component {
         if (response.isdata) {
             this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
         }
-        else{
-            this.setState({  loaderImage: false });
-        }       
+        else {
+            this.setState({ loaderImage: false });
+        }
     }
 
     //get services list
     getAllServices = () => {
-        var serviceList = [], serviceList1=[];
+        var serviceList = [], serviceList1 = [];
         this.setState({ loaderImage: true });
         axios
             .get(
@@ -116,46 +121,45 @@ class Index extends Component {
                     serviceList1.push(this.state.allServData[i]);
                     serviceList.push({ price: this.state.allServData[i].price, description: this.state.allServData[i].description, value: this.state.allServData[i]._id, label: this.state.allServData[i]?.title })
                 }
-                serviceList = [{value: 'custom', label: 'custom'}, ...serviceList]
-                this.setState({ service_id_list: serviceList, serviceList1 : serviceList1 })
+                serviceList = [{ value: 'custom', label: 'custom' }, ...serviceList]
+                this.setState({ service_id_list: serviceList, serviceList1: serviceList1 })
             });
     }
 
     // Set the select data
     onFieldChange = (e, name) => {
         const state = this.state.service;
-        if(name==='service'){
-            if(e.value==='custom'){
-               this.setState({viewCutom : true}) 
+        if (name === 'service') {
+            if (e.value === 'custom') {
+                this.setState({ viewCutom: true })
             }
             state['price_per_quantity'] = e.price;
             state['quantity'] = 1;
             state[name] = e;
         }
-        else{
+        else {
             state[name] = e;
         }
-        
+
         this.setState({ service: state });
     }
 
     // Set patient and status data
     onFieldChange1 = (e, name) => {
         const state = this.state.addinvoice;
-        if(name === 'patient')
-        {
-           var checkCase = this.state.users.filter((item)=> item.profile_id === e.profile_id)
-           if(checkCase && checkCase.length>0){
-            state[name] = checkCase[0];
-            
-            state['case_id'] = checkCase[0].case_id;
-            this.setState({selectedPat: e})
-           }
+        if (name === 'patient') {
+            var checkCase = this.state.users.filter((item) => item.profile_id === e.profile_id)
+            if (checkCase && checkCase.length > 0) {
+                state[name] = checkCase[0];
+
+                state['case_id'] = checkCase[0].case_id;
+                this.setState({ selectedPat: e })
+            }
         }
-        else{
+        else {
             state[name] = e;
         }
-        
+
         this.setState({ addinvoice: state });
     }
 
@@ -178,25 +182,25 @@ class Index extends Component {
         newService.price = newService?.price_per_quantity * newService?.quantity;
         let items = [...this.state.items];
         items.push(newService);
-        this.setState({ items, service: {} }, 
-            ()=>{this.updateTotalPrize() })
+        this.setState({ items, service: {} },
+            () => { this.updateTotalPrize() })
     };
 
-      //Update the services  
-      handleAddUpdate = () => {
+    //Update the services  
+    handleAddUpdate = () => {
         var newService = this.state.service;
         newService.price = newService?.price_per_quantity * newService?.quantity;
         this.setState({ service: {}, newServiceIndex: false, editServ: false });
     };
 
-    updateTotalPrize=()=>{
+    updateTotalPrize = () => {
         var newService = this.state.addinvoice;
         var total = 0;
         this.state.items?.length > 0 && this.state.items.map((data) => {
             total = total + data?.price
         })
-        newService.total_amount =  total;
-        this.setState({ addinvoice: newService})
+        newService.total_amount = total;
+        this.setState({ addinvoice: newService })
     }
 
     // For edit service
@@ -216,54 +220,55 @@ class Index extends Component {
     // For calculate value of finish invoice
     finishInvoice = (draft) => {
         var data = this.state.addinvoice;
-        if(draft){
-           data.status =  this.state.AllStatus && this.state.AllStatus.filter((item)=>item.value==='draft')?.[0] 
+        console.log("addinvoice",this.state.addinvoice)
+        if (draft) {
+            data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'draft')?.[0]
         }
-        if(data._id){
-            this.setState({ loaderImage: true });
-            axios
-        .post(
-          sitedata.data.path + `/vh/addInvoice/${data._id}`,
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({ loaderImage: false });
-          if (responce.data.hassuccessed) {
-            this.setState({
-                addinvoice : {}, selectedPat: {}, 
-            });
-            this.props.getAddTaskData();
-          }
-        })
-        .catch(function (error) {
-            this.setState({ loaderImage: false })``;
-        });
-        }
-        else{
+        // if(data._id){
+        //     this.setState({ loaderImage: true });
+        //     axios
+        // .post(
+        //   sitedata.data.path + `/vh/addInvoice/${data._id}`,
+        //   data,
+        //   commonHeader(this.props.stateLoginValueAim.token)
+        // )
+        // .then((responce) => {
+        //   this.setState({ loaderImage: false });
+        //   if (responce.data.hassuccessed) {
+        //     this.setState({
+        //         addinvoice : {}, selectedPat: {}, 
+        //     });
+        //     this.props.getAddTaskData();
+        //   }
+        // })
+        // .catch(function (error) {
+        //     this.setState({ loaderImage: false })``;
+        // });
+        // }
+        else {
+            console.log('sdfsdfsdf')
             data.house_id = this.props?.House?.value;
             data.created_at = new Date();
             this.setState({ loaderImage: true });
             axios
-        .post(
-          sitedata.data.path + "/vh/addInvoice",
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({ loaderImage: false });
-          if (responce.data.hassuccessed) {
-            this.setState({
-                addinvoice : {}, selectedPat: {}, 
-            });
-            this.props.getAddTaskData();
-          }
-        })
-        .catch( (error)=> {
-            this.setState({ loaderImage: false });
-        });
+                .post(
+                    sitedata.data.path + "/vh/addInvoice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    if (responce.data.hassuccessed) {
+                        this.setState({
+                            addinvoice: {}, selectedPat: {},
+                        });
+                        this.props.getAddTaskData();
+                    }
+                })
+                .catch((error) => {
+                    this.setState({ loaderImage: false });
+                });
         }
-        
     }
 
     //Delete the perticular service confirmation box
@@ -301,7 +306,7 @@ class Index extends Component {
             },
         });
     };
-    
+
     deleteClickService(id) {
         delete this.state.items[id]
         this.setState({ items: this.state.items });
@@ -335,20 +340,20 @@ class Index extends Component {
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
                                         {/* Back common button */}
-                                        <Grid className="extSetting"> 
+                                        <Grid className="extSetting">
                                             <a onClick={this.Billing}>
                                                 <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
                                                 Back to Billing</a>
                                         </Grid>
                                         {/* End of Back common button */}
-                                        {this.state.addinvoice?._id && 
-                                         <InvoicesDownloadPdf
-                                            label={this.state.addinvoice?.invoice_id}
-                                            status={this.state.addinvoice?.status?.label}
-                                            InvoicesData={this.state.addinvoice}
-                                        />
+                                        {this.state.addinvoice?._id &&
+                                            <InvoicesDownloadPdf
+                                                label={this.state.addinvoice?.invoice_id}
+                                                status={this.state.addinvoice?.status?.label}
+                                                InvoicesData={this.state.addinvoice}
+                                            />
                                         }
-                                       
+
                                         <Grid className="srvcContent">
                                             <Grid className="invoiceForm">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
@@ -396,7 +401,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
 
-                        
+
                                             <Grid className="srvcTable">
                                                 <h3>Services</h3>
                                                 <Table>
