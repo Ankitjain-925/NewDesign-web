@@ -264,7 +264,7 @@ class Index extends Component {
     }
     this.setState({ newTask: state });
   };
-  
+
   //Select the patient name
   updateEntryState2 = (user) => {
     var user1 = this.state.users?.length > 0 &&
@@ -555,7 +555,7 @@ class Index extends Component {
                 ? "darkTheme"
                 : ""
             }
-            open={this.state.openTask}
+            open={this.state.openTask} 
             onClose={this.handleCloseTask}
           >
             <Grid className="creatTaskModel">
@@ -568,7 +568,7 @@ class Index extends Component {
                           <img
                             src={require("assets/virtual_images/closefancy.png")}
                             alt=""
-                            title=""
+                            title="" 
                           />
                         </a>
                       </Grid>

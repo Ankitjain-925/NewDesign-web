@@ -68,7 +68,6 @@ class Index extends Component {
     });
 
     var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
-    console.log('this.props.speciality',this.props.speciality) 
     var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY.map((item) => {
       return { label: item.specialty_name, value: item._id };
     })
@@ -188,10 +187,14 @@ class Index extends Component {
   //Change the value of the step_name
   onChange = (e, index) => {
     var state = this.state.actualData;
-    state[index][e.target.name] = e.target.value;
-    this.setDta(state);
-    this.setState({ edit: false });
-    this.CallApi();
+    var changes = state.filter((newa)=>{ 
+      return newa.step_name?.toLowerCase() === e.target?.value?.toLowerCase(); }) 
+    if( !(changes?.length > 0)){
+      state[index][e.target.name] = e.target.value;
+      this.setDta(state);
+      this.setState({ edit: false });
+      this.CallApi();
+    }
   };
 
   //Edit the name of step
@@ -202,7 +205,7 @@ class Index extends Component {
   //Add new step
   AddStep = () => {
     var state = this.state.actualData;
-    state.push({ step_name: "Step" + state?.length, case_numbers: [] });
+    state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
     this.setDta(state);
     this.CallApi();
   };
@@ -554,7 +557,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <Drags
-                      moveDetial={(id) => this.moveDetial(id)}
+                      moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
                       onKeyDownlogin={this.onKeyDownlogin}
                       editName={this.editName}

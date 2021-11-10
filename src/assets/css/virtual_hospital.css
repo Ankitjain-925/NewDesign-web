@@ -2509,7 +2509,7 @@ a.lineSort {
 @media (max-width: 959px){
     .srchRght {
         text-align: left !important;
-        padding: 0px 0px 16px 17px !important;
+        padding: 18px 0px 16px 17px !important;
     }
     .cmnLftSpc {
         padding-left: 0px !important;
@@ -5096,7 +5096,7 @@ a.recodBlck:hover {
     text-align: center;
     justify-content: center;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 .roomName .MuiGrid-container {
     margin-bottom: 5px;
@@ -6544,9 +6544,9 @@ button.downloadPDF:hover {
     color: #00B0DB;
     background-color: #B4ECF8;
 }
-.allInerTabs .allTabCntnt:last-child {
+/* .allInerTabs .allTabCntnt:last-child {
     margin-bottom: 0px;
-}
+} */
 .rvewFiles {
     width: 580px;
     background: #fff;
@@ -6694,8 +6694,8 @@ button.downloadPDF:hover {
     cursor:pointer;
 }
 .markDone img {
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
 }
 .markDone {
     display: flex;
@@ -9769,6 +9769,9 @@ button.crdoLghtBlu2 {
     .dragdrop-vertical ul li {
         width: 100% !important;
     }
+    .tskOverView {
+        min-height: initial;
+    }
 }
 .wardsGrup .roomsNum2:last-child {
     border-bottom: none;
@@ -10222,6 +10225,7 @@ ul.patientHint li {
     width: 97%;
     margin-bottom: 20px;
     font-weight: bold;
+    font-family: Muli;
 }
 .sevicessection .mr_sel .css-yk16xz-control {
     height: 50px !important;
@@ -10360,10 +10364,15 @@ ul.patientHint li {
     vertical-align: text-bottom;
 }
 @media (max-width: 568px){
-  .roomName .MuiGrid-root.MuiGrid-container div {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex-basis: 100% !important;
+  .roomName .MuiGrid-root.MuiGrid-container .MuiGrid-grid-md-7 {
+    width: 50% !important;
+    max-width: 50% !important;
+    flex-basis: 50% !important;
+  }
+  .roomName .MuiGrid-root.MuiGrid-container .MuiGrid-grid-md-3 {
+    width: 50% !important;
+    max-width: 50% !important;
+    flex-basis: 50% !important;
   }
   .roomName .MuiGrid-root.MuiGrid-container input {
     margin-bottom: 0px !important;
@@ -12205,11 +12214,15 @@ a.taskHover:hover span {
         align-items: center;
     }
     .detailInfo {
-        margin-top: 0px !important;
+        margin-top: 30px !important;
     }
     .spcMgntUper{
         align-items: center;
         justify-content: center;
+    }
+    .allTabCntnt .MuiGrid-grid-sm-8 {
+        max-width: 100% !important;
+        flex-basis: 100% !important;
     }
 }
 @media (max-width: 661px){ 
