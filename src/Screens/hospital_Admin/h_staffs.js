@@ -144,7 +144,7 @@ class Index extends Component {
       .catch((error) => {});
   }
 
-  getAdminstaff() {
+  getAdminstaff = (user_id) => {
     var user_token = this.props.stateLoginValueAim.token;
     axios
       .get(
@@ -161,6 +161,11 @@ class Index extends Component {
           const AllNurse = this.state.AllUsers.filter(
             (value, key) => value.type === "adminstaff"
           );
+
+          var current_user = this.state.AllUsers.filter((value, key) =>
+            value._id === user_id);
+          this.setState({ current_user: current_user?.length > 0 ? current_user[0] : {} });
+
           this.setState({ AllNurse: AllNurse });
           var totalPage = Math.ceil(AllNurse.length / 10);
           this.setState({ totalPage: totalPage, currentPage: 1 }, () => {
@@ -313,6 +318,7 @@ class Index extends Component {
               this.setState({assignedhouse: false, openHouse: false,})
             }, 5000)
             this.getallGroups();
+            this.getAdminstaff(this.state.current_user._id);
         }
         else{
           this.setState({alredyExist: true})
@@ -340,6 +346,7 @@ class Index extends Component {
               this.setState({deleteHouses: false, openHouse: false})
             }, 5000)
             this.getallGroups();
+          this.getAdminstaff(this.state.current_user._id);
         }
         this.setState({ loaderImage: false });
       });

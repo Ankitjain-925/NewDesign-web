@@ -134,7 +134,7 @@ class Index extends Component {
 
     }
 
-    getDoctors() {
+    getDoctors = (user_id) => {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id,
             commonHeader(user_token)).then((response) => {
@@ -143,6 +143,11 @@ class Index extends Component {
                     var images = [];
                     const AllDoctor = this.state.AllUsers.filter((value, key) =>
                         value.type === 'doctor');
+
+                    var current_user = this.state.AllUsers.filter((value, key) =>
+                        value._id === user_id);
+                    this.setState({ current_user: current_user?.length > 0 ? current_user[0] : {} });
+
                         AllDoctor && AllDoctor.length>0 && AllDoctor.map((item)=>{
                             var find = item && item.image && item.image
                             if (find) {
@@ -269,6 +274,7 @@ class Index extends Component {
                   this.setState({assignedhouse: false, openHouse: false,})
                 }, 5000)
                 this.getallGroups();
+                this.getDoctors(this.state.current_user._id);
             }
             else{
               this.setState({alredyExist: true})
@@ -297,6 +303,7 @@ class Index extends Component {
                   this.setState({deleteHouses: false, openHouse: false})
                 }, 5000)
                 this.getallGroups();
+                this.getDoctors(this.state.current_user._id);
             }
             this.setState({ loaderImage: false });
           });
