@@ -6,6 +6,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Button } from '@material-ui/core';
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
+import moment from "moment";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Select from 'react-select';
@@ -21,15 +25,22 @@ import sitedata from "sitedata";
 import {
     commonHeader,
     commonCometDelHeader,
-  } from "component/CommonHeader/index";
+} from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
+
+
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
     { value: 'data3', label: 'Data3' },
 ];
+
+const CURRENT_DATE = moment().toDate();
+const localizer = momentLocalizer(moment);
+
+
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -41,37 +52,89 @@ TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
+
+
+//  var da1 = new Date(9, 4, 2021);
+// let da2 = new Date();
+// var d1 = (new Date()).setHours("00");
+// var d2 = (new Date()).setHours("05")
+
+
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
             tabvalue: 0,
-            selectedOption: null
+            selectedOption: null,
+            events: []
+
         };
     }
+
+    componentDidMount() {
+        this.getAddTaskData();
+    }
+
+
+
     handleChangeTab = (event, tabvalue) => {
         this.setState({ tabvalue });
     };
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
+
+    //get Add task data
+    getAddTaskData = () => {
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.setState({ AllTasks: response.data.data })
+                console.log("AllTasks", this.state.AllTasks)
+                if (response.data.hassuccessed) {
+                    {
+                       var data1 =  response.data.data?.length > 0 && response.data.data.map((data, index) => {
+                            if (data.due_on?.date) {
+
+                                var d1 = data.due_on?.date ? new Date(data.due_on?.date) : new Date();
+                                var d2 = data.due_on?.date ? new Date(data.due_on?.date) : new Date();
+                                d2.setDate(d2.getDate() + 1);
+                                var title = data?.task_name
+                                console.log("d1,d2,title", d1, d2, title)
+                                return { start: new Date(d1), end: new Date(d2), title: title, id: index }
+                               }
+                              
+                            })
+                                console.log('data1', data1)
+                                this.setState({events: data1})
+                            }
+                           }
+                this.setState({ loaderImage: false });
+
+            });
+    };
+
     render() {
-        const { tabvalue, selectedOption } = this.state;
+        const { tabvalue, selectedOption, events, data } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
 
-                           {/* Mobile menu */}
-                           <LeftMenuMobile isNotShow={true} currentPage="calendar" />
+                            {/* Mobile menu */}
+                            <LeftMenuMobile isNotShow={true} currentPage="calendar" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
@@ -105,17 +168,17 @@ class Index extends Component {
                                             <Grid className="timeSchdul">
                                                 <Grid className="srchPatient2">
                                                     <Grid container direction="row" justify="center">
-                                                        <Grid item xs={12} md={5}>
-                                                            <Grid className="setDate">
-                                                                <Button>Today</Button>
+                                                        {/* <Grid item xs={12} md={5}> */}
+                                                        {/* <Grid className="setDate"> */}
+                                                        {/* <Button>Today</Button>
                                                                 <a>
                                                                     <span className="SelLeft"><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></span>
                                                                     <span className="SelRght"><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></span>
                                                                 </a>
                                                                 <p>February 2021</p>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={7}>
+                                                            </Grid> */}
+                                                        {/* </Grid> */}
+                                                        {/* <Grid item xs={12} md={7}>
                                                             <Grid className="srchRght2">
                                                                 <div className="showOnly">
                                                                     <p>Show only:</p>
@@ -136,11 +199,34 @@ class Index extends Component {
                                                                 <a className="lineSort2"><img src={require('assets/virtual_images/lines.png')} alt="" title="" /></a>
                                                                 <a className="horzSort2"><img src={require('assets/virtual_images/timeline-view-active.svg')} alt="" title="" /></a>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> */}
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="calenderDetails">
-                                                    <img src={require('assets/virtual_images/calendar2.jpg')} alt="" title="" />
+                                                    <Grid className="getCalapoint">
+                                                        <Grid className="getCalBnr">
+
+                                                        {console.log('events', this.state.events)}
+                                                            <Calendar
+                                                                localizer={localizer}
+                                                                events={this.state.events}
+                                                                value={this.state.d1}
+                                                                startAccessor="start"
+                                                                endAccessor="end"
+                                                                style={{ minHeight: 900 }}
+                                                                components={{
+                                                                    month: { event: this.EventComponent },
+                                                                    week: { event: this.EventComponent },
+                                                                    day: { event: this.EventDaysComponent },
+                                                                    dateCellWrapper: this.DateCellCompnent,
+                                                                    toolbar: CalendarToolbar,
+                                                                }}
+                                                            />
+
+                                                        </Grid>
+                                                    </Grid>
+
+                                                    {/* <img src={require('assets/virtual_images/calendar2.jpg')} alt="" title="" /> */}
                                                 </Grid>
                                             </Grid>
                                         </TabContainer>}
@@ -152,6 +238,8 @@ class Index extends Component {
                                         </TabContainer>}
                                     </Grid>
                                 </Grid>
+
+
                                 {/* End of Right Section */}
 
                             </Grid>
@@ -164,22 +252,22 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-      state.LoginReducerAim;
+        state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     return {
-      stateLanguageType,
-      stateLoginValueAim,
-      loadingaIndicatoranswerdetail,
-      House,
-      settings,
-      verifyCode,
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House,
+        settings,
+        verifyCode,
     };
-  };
-  export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
-      Index
+};
+export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+        Index
     )
-  );
+);
