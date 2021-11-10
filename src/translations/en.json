@@ -1209,7 +1209,51 @@
 		"ConversationList" :"Conversation List",
 		"ContactList" :"Contact List",
 		"searchingLoading" : "Search is loading...",
-
+		
+		"Symptoms":"Symptoms",
+		"Better_experience":"This tool can be used to track your condition after a Covid-19 disease. Please enter symptoms, your condition etc. by filling out this form at least once a week. If required you can contact our Covid-19 consultant, learn more about your condition and manage consequences of Covid-19 better",
+		"energy_level_determine":"Please determine your energy level.",
+		"Fatique_questions":"Fatique questions (based on Children-Fatique-Scale)",
+		"problem_with_tiredness":"Do you have problems with tiredness?",
+		"rest_more":"Do you need to rest more?",
+		"sleepy_drowsy":"Do you feel sleepy or drowsy?",
+		"starting_things":"Do you have problems starting things?",
+		"lack_energy":"Do you lack energy?",
+		"your_muscles":"Do you have less strength in your muscles?",
+		"feel_week":"Do you feel weak?",
+		"difficulties_concentrating":"Do you have difficulties concentrating?",
+		"tongue_when_speaking":"Do you make slips of the tongue when speaking?",
+		"right_word":"Do you find it more difficult to find the right word?",
+		"Fatique":"Fatique",
+		"Headache":"Headache",
+		"Shortness_of_breath":"Shortness of breath",
+		"loss_smell":"Loss of smell",
+		"Persistent_cough":"Persistent cough",
+		"Sore_throat":"Sore throat",
+		"Fever":"Fever",
+		"muscle_pain":"Unusual muscle pain",
+		"Skipped_meals":"Skipped meals",
+		"Chest_pain":"Chest pain",
+		"Diarrhea":"Diarrhea",
+		"Hoarse_voice":"Hoarse voice",
+		"Abdominal_pain":"Abdominal pain",
+		"Delirium":"Delirium",
+		"Oxygen_therapy":"Oxygen therapy",
+		"ECMOtherapy":"ECMO therapy",
+		"Sepsis":"Sepsis",
+		"Multiorgan_failure":"Multiorgan failure",
+		"past_date": "Past Date",
+		"how_memory":"Do you have memory issues?",
+		"long_covid":"Long-Covid observation",
+		"energy_lavel_determine":"Please determine your energy level",
+		"EnergyManagement":"Energy Management",
+		"CovidElearning":"Covid Elearning",
+		"Exercise":"Exercise",
+		"ChatwithCovidconsultant":"Chat with Covid consultant",
+		"Currentpaincondition":"Current pain condition",
+		
+		"verifyAccount":"Your Account is not verified, please check your email account.",
+		"needUnblock": "Your account is not unlocked yet, please provide your professional ID or if you have submitted it recently, please give us up to 24 hours to unlock it.",
 
 
 
@@ -1224,12 +1268,12 @@
 		"Neurology":"Neurology",
 		"AdultsWard":"Adults Ward",
 		"SpaceManagement":"Space Management",
-		"PatientFlow":"PatientFlow",
+		"PatientFlow":"Patient Flow",
 		"AddPatienttoFlow":"Add Patient to Flow",
 		"PatientID":"Patient ID",
 		"PatientPIN":"Patient PIN",
 		"CaseNumber":"Case Number",
-		"AddQuestionnaire":"Add Questionnaire",
+		"AddQuestionnaire":"Create a Questionnaire",
 		"EditQuestionnaire":"Edit Questionnaire",
 		"Addnewservice":"Add new service",
 		"Specialities":"Specialities",
@@ -1260,7 +1304,7 @@
 		"Bedsinroom":"Beds in room",
 		"AssignHouse":"Assign House",
 		"AddTask":"Add Task",
-		"AddSpecialty":"Add Specialty",
+		"AddSpecialty":"Add Speciality",
 		"ChangeStaff":"Change Staff",
 		"AssignWardRoom":"Assign Ward / Room",
 		"MovePatient":"Move Patient",
@@ -1285,20 +1329,5 @@
 		"Upcomingappointment":"Upcoming appointment",
 		"LastDocuments":"Last Documents",
 		"Prescription":"Prescription"
-		
-
-
-
-
-
-				
-		
-		
-		
-
-	        
-		
-		
-
 	}
 }

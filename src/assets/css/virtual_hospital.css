@@ -708,6 +708,10 @@ a.hideDots img {
     width: 100%;
     border-radius: 6px;
 } */
+.vh-section input:disabled {
+    background: #f2f2f2 !important;
+    color: #ccc !important;
+}
 .vh-section .newStaffUpr {
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
@@ -1393,7 +1397,7 @@ a.conPainTime img {
     border-radius: 8px !important;
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
 }
 /* .allTimeSel span{
     width: 0px !important;
@@ -1403,7 +1407,7 @@ a.conPainTime img {
     background-color: #E1F7F7 !important;
     color: #00ABAF !important;
     border-color: transparent !important;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
 }
 .typeSel .css-1wa3eu0-placeholder{
     color: #00ABAF !important;
@@ -2403,7 +2407,7 @@ a.cardioCount {
     margin-bottom: 42px;
 }
 .addPatent a img, .cardioDots img {
-    height: 5px;
+    height: 28px;
 }
 .wardInfo a {
     color: #404646;
@@ -2437,7 +2441,7 @@ a.bedNum img {
     line-height: 18px;
     width: 100% !important;
     padding: 24px 17px;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
 }
 .srchLft div {
     width: 100%;
@@ -2482,7 +2486,7 @@ a.lineSort {
     font-size: 12px !important;
     width: 136px;
     display: inline-block;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
     text-align: left;
     margin-right: 22px;
 }
@@ -4315,7 +4319,7 @@ button.onlogyBtn {
     font-family: Muli;
     text-transform: capitalize;
     padding: 9px 11px;
-    margin-right: 18px;
+    margin: 5px 5px;
 }
 .cardioGrupBtn button:last-child {
     margin-right: 0px !important;
@@ -4416,6 +4420,9 @@ button.onlogyBtn {
     .topLeftSpc {
         padding-left: 20px;
         padding-right: 20px;
+    }
+    .MenuWeb .menuItems ul li a span {
+        font-size: 10px;
     }
 }
 .medcalCntr ul li:last-child label::after {
@@ -4744,8 +4751,11 @@ button.onlogyBtn {
     background-color: #FFFFFF;
     box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
     margin-top: 35px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 3px;
+}
+.addSpeclContntIner {
     height: 472px;
     overflow-y: auto;
 }
@@ -4786,6 +4796,9 @@ button.onlogyBtn {
     font-family: Muli;
     display: block;
 }
+.enterSpcl {
+    margin-bottom: 10px;
+}
 @media (max-width: 599px) {
   .addSpeclContnt {
     width: 96% !important;
@@ -4811,7 +4824,6 @@ button.onlogyBtn {
     padding: 12px 12px;
     box-sizing: border-box !important;
     min-height: 44px;
-    margin-bottom: 20px;
 }
 .enterSpcl .MuiInput-underline::before,
 .enterSpcl .MuiInput-underline::after{
@@ -5028,7 +5040,6 @@ a.recodBlck:hover {
     border-radius: 8px;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
 }
-
 .addWardsIner input {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
@@ -5085,6 +5096,7 @@ a.recodBlck:hover {
     text-align: center;
     justify-content: center;
     cursor: pointer;
+    margin-top: 20px;
 }
 .roomName .MuiGrid-container {
     margin-bottom: 5px;
@@ -5100,6 +5112,7 @@ a.recodBlck:hover {
 }
 .wrdsBtn {
     text-align: right;
+    margin-bottom: 32px;
 }
 .wrdsBtn button {
     font-size: 14px;
@@ -5521,7 +5534,7 @@ button.downloadPDF:hover {
 .patntDropUpr {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
-    padding: 3px 3px;
+    padding: 2px 2px;
 }
 .invoiceID, .invoiceID .MuiFormControl-root {
     width: 100%;
@@ -5599,6 +5612,7 @@ button.downloadPDF:hover {
 }
 .newServc {
     text-align: right;
+    margin-bottom: 18px;
 }
 .newServc button {
     color: #FFFFFF !important;
@@ -6255,10 +6269,10 @@ button.downloadPDF:hover {
     line-height: 24px;
 }
 .taskNum {
-    min-width: 176px;
+    width: 100%;
     border-radius: 12px;
     background-color: #FAFAFA;
-    display: inline-block;
+    display: block;
     padding: 10px 18px 14px;
     margin-bottom: 18px;
 }
@@ -6440,8 +6454,8 @@ button.downloadPDF:hover {
 }
 .attchOpen button {
     border-radius: 4px;
-    background-color: #FFF7E6;
-    color: #C58904;
+    background-color: #DDF8F1;
+    color: #028B66;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -6453,7 +6467,7 @@ button.downloadPDF:hover {
 .attchOpen button label {
     height: 8px;
     width: 8px;
-    background-color: #FECA57;
+    background-color: #1DD1A1;
     border-radius: 12px;
     margin-right: 7px;
     margin-bottom: 0px;
@@ -6583,6 +6597,11 @@ button.downloadPDF:hover {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
+}
+.newassignLft img{
+    height: 32px;
+    width: 32px;
+    border-radius: 27px;
 }
 .asignLft img, .asignRght img {
     height: 32px;
@@ -7030,7 +7049,7 @@ a.srchSort2 {
     font-size: 12px !important;
     width: 89px;
     display: inline-block;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
     text-align: left;
     margin-right: 22px;
 }
@@ -7057,7 +7076,7 @@ a.horzSort2 {
     line-height: 16px;
     display: inline-block;
     vertical-align: middle;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
     margin-right: 20px;
 }
 .showOnly span {
@@ -7250,7 +7269,7 @@ a.horzSort2 {
 }
 .addStafSelect {
     width: 100%;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
     text-align: left;
     font-size: 14px;
     font-weight: 600;
@@ -7260,7 +7279,7 @@ a.horzSort2 {
 .spclSelect {
     font-size: 12px !important;
     width: 100%;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
     text-align: left;
 }
 .spclSelect div div div:first-child {
@@ -7274,7 +7293,7 @@ a.horzSort2 {
     border-radius: 4px;
     background-color: #ECCAFF;
     text-align: center;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: Muli !important;
 }
 .spcldropdown, .spcldropdown2 {
     margin-bottom: 10px;
@@ -7315,7 +7334,7 @@ a.horzSort2 {
     text-align: right;
 }
 .addStaffClose img {
-    height: 26px;
+    height: 16px;
     width: initial;
     cursor: pointer;
 }
@@ -8479,6 +8498,7 @@ img.sendDropImg {
     height: 24px;
     width: 24px;
     cursor: pointer;
+    border-radius: 12px;
 }
 .movHead {
     display: flex;
@@ -9015,6 +9035,9 @@ button.crdoLghtBlu2 {
 .checkDotsRght {
     text-align: right;
 }
+.dragdrop-horizontal .checkDotsRght {
+    display: inline-block;
+}
 .flowInfoBtn button {
     color: #EE5253;
     font-size: 12px;
@@ -9048,7 +9071,7 @@ button.crdoLghtBlu2 {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9138,9 +9161,7 @@ button.crdoLghtBlu2 {
   }
 
   .specbutton1 {
-    font-size: 20px  !important;
     font-weight: bold !important;
-    margin-bottom: 20px !important; 
   }
 
   .servSaveBtn button {
@@ -9188,13 +9209,13 @@ button.crdoLghtBlu2 {
     margin-top: 0px !important;
    
 }
-    .flowInfo1 {
-        margin-top: 8px;
-        margin-bottom: 12px;
-        /* min-height: 127px; */
-        border-radius: 8px;
-        background-color: #FFFFFF;
-        /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
+.flowInfo1 {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    /* min-height: 127px; */
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
 }
 .ptntFlowSpc {
     padding-left: 4%;
@@ -9318,8 +9339,13 @@ button.crdoLghtBlu2 {
     border-radius: 8px;
     background-color: #E5E6E6;
     width: 100%;
-    min-height: 44px;
+    min-height: 127px;
     cursor: pointer !important;
+}
+.nwPatentAdd button:hover{
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    color: #00ABAF;
 }
 .plusNwPatent {
     display: flex;
@@ -9552,11 +9578,9 @@ button.crdoLghtBlu2 {
     margin-bottom: 32px;
   }
   .topLeftSpc {
-    margin-top: 0px;
-  }
-  .topLeftSpc {
-    padding-left: 0px;
-    padding-right: 0px;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 .spcLeft {
@@ -9742,11 +9766,165 @@ button.crdoLghtBlu2 {
     .detailInfo {
         min-height: initial;
     }
+    .dragdrop-vertical ul li {
+        width: 100% !important;
+    }
 }
 .wardsGrup .roomsNum2:last-child {
     border-bottom: none;
 }
 /* Added by Ankita */
+.manage-dark-back {
+    padding: 18px 8px !important;
+}
+.more-open-detail{
+    background-image: url('../images/openDetails.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-open-detail{
+    background-image: url('../images/openDetails2.png');
+}
+.more-new-entry{
+    background-image: url('../images/addTask.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-new-entry{
+    background-image: url('../virtual_images/plusIcon.png');
+}
+.more-change-staff{
+    background-image: url('../images/changeStaff.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-change-staff{
+    background-image: url('../images/changeStaff2.png');
+}
+.more-add-task{
+    background-image: url('../images/addTask.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-add-task{
+    background-image: url('../virtual_images/plusIcon.png');
+}
+.more-move-patient{
+    background-image: url('../images/openDetails.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-move-patient{
+    background-image: url('../images/openDetails2.png');
+}
+.more-new-speciality{
+    background-image: url('../images/openDetails.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-new-speciality{
+    background-image: url('../images/openDetails2.png');
+}
+.more-assign-room{
+    background-image: url('../images/openDetails.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-assign-room{
+    background-image: url('../images/openDetails2.png');
+}
+.more-discharge-patient{
+    background-image: url('../images/dischargePatient.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-discharge-patient{
+    background-image: url('../images/dischargePatient2.png');
+}
+.more-remove-entry{
+    background-image: url('../images/removePatient.png');
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    width: initial;
+    min-width: 22px;
+    display: inline-block;
+}
+.darkTheme .more-remove-entry{
+    background-image: url('../images/removePatient2.png');
+}
+
+.attchDone {
+    margin: 0px 38px;
+}
+.attchDone button {
+    border-radius: 4px;
+    background-color: #DDF8F1;
+    color: #028B66;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-transform: capitalize;
+    padding: 7px 8px;
+}
+.attchDone button label {
+    height: 8px;
+    width: 8px;
+    background-color: #1DD1A1;
+    border-radius: 12px;
+    margin-right: 7px;
+    margin-bottom: 0px;
+    font-family: Muli;
+}
+.que-mbottom button{
+    margin-bottom: 10px;
+}
+.dtlCountRm a:last-child {
+    margin-left: 14px;
+}
 .setSpcSpecList{
     margin: 10px
 }
@@ -9792,7 +9970,7 @@ button.crdoLghtBlu2 {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 32px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     margin-bottom: 12px;
 }
 .creatDetail {
@@ -9800,7 +9978,7 @@ button.crdoLghtBlu2 {
 }
 .creatInfoIner label {
     color: #404646;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9814,7 +9992,7 @@ button.crdoLghtBlu2 {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9838,7 +10016,7 @@ button.crdoLghtBlu2 {
     padding: 7px 6px;
     outline: none;
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9863,7 +10041,7 @@ button.crdoLghtBlu2 {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
 }
 .taskDescp textarea {
     border: 1px solid #BFC1C1;
@@ -9873,7 +10051,7 @@ button.crdoLghtBlu2 {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9902,7 +10080,7 @@ button.crdoLghtBlu2 {
     padding: 9px 12px;
 }
 .hideTask .MuiFormControlLabel-label {
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     color: #404646;
     font-size: 14px;
     font-weight: 500;
@@ -9952,7 +10130,7 @@ button.crdoLghtBlu2 {
 .saveTasks button {
     background-color: rgb(0 171 175);
     color: #ffffff;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9975,7 +10153,7 @@ button.crdoLghtBlu2 {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     text-transform: initial;
     padding: 0px;
 }
@@ -10005,6 +10183,7 @@ button.crdoLghtBlu2 {
     width: 37px;
     height: 37px;
     border-radius: 50%;
+    margin-right:15px;
 }
 
 ul.patientHint {
@@ -10028,12 +10207,12 @@ ul.patientHint li {
 .checkDots ul div{
     width:300px !important;
 }
-
 .stepTdotupper ul li{
     width: 100% !important;
+    min-width: 100% !important;
 }
 .stepTdotupper ul{
-    min-width: 300px!important;
+    min-width: 270px!important;
 }
 .stepTdot{
     width:27px;
@@ -10085,9 +10264,9 @@ ul.patientHint li {
 /* drag drop */
 .dragdrop-vertical ul li{
     list-style: none;
-    width: 25%;
+    min-width: 320px;
     display: inline-grid;
-
+    margin-bottom: 15px;
 }
 .dragdrop-vertical ul{
     padding-left: 0px;
@@ -10122,7 +10301,7 @@ ul.patientHint li {
     letter-spacing: 0;
     line-height: 15px;
     box-shadow: initial !important;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     text-transform: capitalize;
     padding: 8px 4px;
 }
@@ -10159,7 +10338,7 @@ ul.patientHint li {
 .MenuWeb .menuItems ul li a span {
     display: block;
     color: #7F8383;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0;
@@ -10587,10 +10766,81 @@ ul.patientHint li {
 .darkTheme .enterSpcl input:-moz-placeholder { 
     color: #bfc1c1;
 }
-.darkTheme .enterSpcl input {
+.darkTheme .creatInfoIner input::-webkit-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .creatInfoIner input::-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .creatInfoIner input:-ms-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .creatInfoIner input:-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .enterSpcl input, 
+.darkTheme .creatInfoIner input,
+.darkTheme .taskDescp textarea,
+.darkTheme .dueOn .react-date-picker__wrapper {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
+}
+.darkTheme .hideTask {
+    background-color: #192020;
+}
+.darkTheme .hideTask .MuiFormControlLabel-label {
+    color: #00abaf;
+}
+.darkTheme .createDegre {
+    border: 1px solid #7b7b7b;
+    border-radius: 4px;
+}
+.darkTheme .createDegre div {
+    background: #192020 !important;
+    color: #fafafa;
+    border: none;
+}
+.darkTheme .specialFor div {
+    background: #192020;
+    color: #bfc1c1;
+    border: none;
+    border-radius: 4px;
+    border: none;
+}
+.darkTheme .specialFor {
+    border: 1px solid #8e8e8e8a;
+    border-radius: 4px;
+}
+.darkTheme .dueOn .react-date-picker__button svg {
+    background: #00abaf;
+    border-radius: 2px;
+}
+.darkTheme .dueOn input {
+    background-color: transparent;
+    color: #fafafa;
+}
+.darkTheme .dueOn .react-calendar {
+    background: #192020;
+    color: #ffffff;
+}
+.darkTheme .dueOn .ant-picker {
+    background: #192020;
+    color: #bfc1c1;
+    border: 1px solid #8e8e8e8a;
+}
+.darkTheme .dueOn .react-calendar button {
+    color: #c7c7c7;
+}
+.darkTheme .dueOn .react-calendar__tile:enabled:hover, 
+.darkTheme .dueOn .react-calendar__tile:enabled:focus {
+    background-color: #4273a3;
+    color: #ffffff !important;
+}
+.darkTheme .addTime button {
+    border: 1px solid #8e8e8e8a;
+    border-radius: 4px;
+    background-color: #192020;
 }
 .darkTheme .plusWards {
     background: #192020;
@@ -10601,7 +10851,8 @@ ul.patientHint li {
 .darkTheme .addWardsUpr {
     background-color: #404646;
 }
-.darkTheme .addWardsIner label,.darkTheme .roomName label {
+.darkTheme .addWardsIner label,
+.darkTheme .roomName label {
     color: #bfc1c1;
 }
 .darkTheme ul.subSpclList {
@@ -10781,15 +11032,14 @@ ul.patientHint li {
 .darkTheme .addStaffLbl label {
     color: #fafafa;
 }
-.darkTheme .addStafClient p, .stafLft span {
-    /* color: #fafafa; */
-    color: #000000;
+.darkTheme .addStafClient p, .darkTheme .stafLft span {
+    color: #fafafa;
 }
 .darkTheme .addStafClient label {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #0c1010;
+    background: #192020;
     color: #dfdfdf;
     border-color: #676565;
 }
@@ -10868,7 +11118,7 @@ ul.patientHint li {
 .darkTheme .patentInfo label {
     color: #bfc1c1;
 }
-.darkTheme .addFlowContnt {
+.darkTheme.addFlowContnt {
     background: #404646;
 }
 .darkTheme .patentInfo input {
@@ -11040,9 +11290,10 @@ ul.patientHint li {
 .darkTheme .invoiceForm label {
     color: #fafafa;
 }
-.darkTheme .cstmSelect div:first-child {
+.darkTheme .cstmSelect div {
     background-color: #192020 !important;
     color: #bfc1c1;
+    border: none;
 }
 .darkTheme .srvcTable h3 {
     color: #fafafa;
@@ -11066,6 +11317,18 @@ ul.patientHint li {
 .darkTheme .addCstmField input[type="text"] {
     background-color: #192020;
     color: #bfc1c1;
+    border: 1px solid #8e8e8e8a;
+}
+.darkTheme .cstmSelect div {
+    height: initial !important;
+    min-height: initial !important;
+}
+.darkTheme .cstmSelect {
+    background-color: transparent;
+    border: 1px solid #8e8e8e8a;
+}
+.darkTheme .patntDropUpr, .darkTheme .invoiceForm input[type="text"] {
+    border: 1px solid #8e8e8e8a;
 }
 .darkTheme .addCstmField input[type="text"]::-webkit-input-placeholder {
     color: #bfc1c1;
@@ -11310,7 +11573,7 @@ ul.patientHint li {
 }
 .darkTheme .nwPatentAdd button {
     color: #00ABAF;
-    background-color: #192020 !important;
+    background-color: #c8c8c824 !important;
 }
 .darkTheme a.lineSort {
     border: 1px solid #8c8c8c;
@@ -11413,7 +11676,8 @@ ul.patientHint li {
 .darkTheme .movHeadMid2 label {
     color: #bfc1c1;
 }
-.darkTheme .roomWardSel div, .darkTheme .bedNumberSel div {
+.darkTheme .roomWardSel div, 
+.darkTheme .bedNumberSel div {
     background-color: #404646;
     border-color: #848484;
     color: #bfc1c1;
@@ -11821,5 +12085,227 @@ ul.patientHint li {
     padding-left: 0px;
   }
   
+  @media (max-width: 452px) {
+    .attchOpen {
+        margin: 25px 0px 10px;
+    }
+    .specialuty-more {
+        float: initial !important;
+    }
+    a.openScndhrf {
+        margin-top: 20px;
+    }
+    .attchNoteMain {
+        display: block !important;
+        align-items: initial !important;
+    }
+}
+@media (max-width: 768px) {
+ .creatTaskModel {
+    width: 98% !important;
+ }
+}
+@media screen and (min-width: 961px) and (max-width: 1270px){
+    .topLeftSpc {
+       padding-left: 5px;
+       padding-right: 5px;
+    }
+    .revwFilesRght, .allInfoRght {
+        margin-left: 5px;
+    }
+    .revwFiles {
+        margin-right: 18px;
+    }
+    .allTabCntnt {
+        padding: 12px 7px;
+    }
+    .allInfo label {
+        font-size: 12px;
+    }
+    .tasklistName img {
+        width: 22px !important;
+        height: 22px !important;
+    }
+    .revwFiles img {
+        height: 18px !important;
+        width: 18px !important;
+    }
+}
+@media screen and (min-width: 641px) and (max-width: 1270px){
+    .billInfoData td {
+        padding: 10px 22px !important;
+    }
+}
+a.taskHover span {
+    font-weight: 700 !important;
+    text-align: center;
+    width: 75px;
+    top:-25px;
+    position: absolute;
+    left: -30px;
+    display: none;
+    padding: 6px 7px;
+    color: #E5E6E6;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    border-radius: 8px;
+    background-color: rgba(0,8,8,0.9);
+    box-shadow: 0 8px 24px 0 rgb(0 8 8 / 8%);
+}
+a.taskHover{
+    position: relative;
+}
+a.taskHover:hover span {
+    display: block;
+}
+.cardioGrupBtn button:first-child {
+    margin-left: 0px;
+}
+@media (max-width: 452px) {
+    .attchOpen {
+        margin: 25px 0px 10px;
+    }
+    .specialuty-more {
+        float: initial !important;
+    }
+    .attchNoteMain {
+        display: block !important;
+        align-items: initial !important;
+    }
+    a.openScndhrf {
+        margin-top: 0px;
+        text-align: right !important;
+    }
+}
+@media (max-width: 768px) {
+ .creatTaskModel {
+    width: 98% !important;
+ }
+}
+@media (max-width: 959px){
+    .darkTheme .srchLft {
+        border-right: none;
+        border-bottom: 1px solid #828282;
+    }
+    .ptntFlowSpc .dragdrop-vertical ul.manageDragDrop {
+        display: flex;
+        width: 100%;
+        overflow-y: scroll;
+        min-height: 80vh;
+    }
+}
+@media (max-width: 960px){
+    .addFlow {
+        padding: 0px 15px;
+    }
+    .flowContentAdd{
+        justify-content: center;
+        align-items: center;
+    }
+    .detailInfo {
+        margin-top: 0px !important;
+    }
+    .spcMgntUper{
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media (max-width: 661px){ 
+    .specialuty-more {
+        float: initial !important;
+    }
+    .spcMgntRght7 {
+        text-align: left !important;
+    }
+}
+.darkTheme .fillDia div {
+    background: transparent !important;
+}
+.darkTheme .addPatent a  {
+    background-color: #2f3535;
+    border: 1px solid #9b9b9b;
+    color: #c3c3c3 !important;
+}
+.darkTheme .taskDescp textarea::-webkit-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .taskDescp textarea::-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .taskDescp textarea:-ms-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .taskDescp textarea:-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .sevicessection div {
+    background-color: #192020 !important;
+}
+.darkTheme .sevicessection {
+    border: 1px solid #8e8e8e8a;
+}
+.dragdrop-horizontal .cardioData img.academyDots {
+    border: none;
+}
+.dragdrop-horizontal .addPatent img.academyDots {
+    border: none;
+}
+.dragdrop-horizontal a.academy_ul.stepTdotupper {
+    border: none;
+}
+.dragdrop-horizontal .nwPatentAdd button {
+    margin-bottom: 18px;
+}
+.dragdrop-horizontal a.academy_ul ul li a {
+    border: none !important;
+    background-color: transparent !important;
+}
+.addPatent a  {
+    margin-bottom: 15px;
+}
+.menuActv img {
+    background-color: #00abaf;
+}
+.dragdrop-horizontal .academy_ul .academyDots.stepTdot{
+    border: 1px solid #969696f2 !important;
+}
+.dragdrop-horizontal .academy_ul .academyDots.stepTdot:hover{
+    border: 1px solid #7FD5D7 !important;
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    outline: none !important;
+}
+.flowInfo1 {
+    margin-left: 18px;
+}
+.darkTheme .profileInfoIner .cntryDrop div:first-child,
+.darkTheme .profileInfoIner .mr_sel div:first-child, 
+.darkTheme .cntryDrop div:first-child, .darkTheme .cntryDrop div,
 
-  
+.darkTheme .mr_sel div:first-child, 
+.darkTheme .cntryDrop div:first-child, 
+.darkTheme .languageSpk div:first-child,
+
+.darkTheme .mr_sel div, 
+.darkTheme .cntryDrop div, 
+.darkTheme .languageSpk div{
+    background-color: #404646 !important;
+    background: #404646 !important;
+}
+.darkTheme .cntryDrop, .darkTheme .profileInfoIner .mr_sel, 
+.darkTheme .profile-language {
+    border: 1px solid #5d5d5d;
+    border-radius: 4px;
+}
+.darkTheme .profileInfoDate .ant-picker {
+    border: 1px solid #5d5d5d !important;
+}
+.darkTheme .profileInfoIner .profile-language div {
+    border: none;
+}
+.darkTheme .kycForms .cntryDrop {
+    border-radius: 3px;
+    border: 1px solid #BFC1C1;
+}

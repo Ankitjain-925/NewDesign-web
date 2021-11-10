@@ -6192,11 +6192,20 @@ img.addBlue {
     line-height: 20px;
 }
 img.openScnd {
-    height: 24px;
+    height: 24px !important;
     width: 24px;
     cursor: pointer;
     border-radius: 5px;
 }
+
+.bg-color-card {
+    background-color: #E5E6E6 !important ;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .scndOptionIner ul li a {
     display: flex;
     align-items: flex-start;
@@ -13114,6 +13123,12 @@ a.academy_ul ul li img {
     font-weight: bold;
     cursor: pointer;
 }
+.nwDiaCntntIner {
+    height: 75vh !important;
+}
+.darkTheme h2 {
+    color: #D9DADA !important;
+}
 @media screen and (max-width:959px) {
     .emergency-head h1 {
         font-size: 22px;
@@ -13837,9 +13852,9 @@ g.highcharts-axis.highcharts-yaxis text {
 .addmores, .minus_span_medication, .noBpData h3, .consumeAt p {
     cursor: pointer;
 }
-.nwDiaCntntIner {
-    height: 496px !important; 
-}
+/* .nwDiaCntntIner {
+    height: 455px !important; 
+} */
 .phrmLinkUpr, .detailPrescp {	
     height: 382px !important;	
 }	
@@ -16420,4 +16435,782 @@ select:-webkit-autofill:focus {
 }
 .homeBg .cc1-chat-win-user .cc1-chat-win-user-name-wrap {
     max-width: calc(100% - 5px) !important;
+}
+/* Start of New updated pages */
+.createTask {
+    margin-left: 12px !important;
+}
+.creatTaskModel {
+    width: 580px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+    margin-top: 35px;
+    padding-right: 2px;
+    padding-top: 18px;
+    padding-bottom: 16px;
+    border-radius: 12px;
+}
+.creatTaskCntnt {
+    height: 537px;
+    overflow-y: scroll;
+    padding: 20px 0px;
+}
+.creatLbl {
+    padding: 0px 20px;
+    border-bottom: 1px solid #dedcdc;
+}
+.creatLblClose {
+    text-align: right;
+}
+.creatLblClose img {
+    height: 26px;
+    width: initial;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.creatLbl label {
+    color: #000808;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 32px;
+    font-family: 'Mulish', sans-serif;
+    margin-bottom: 12px;
+}
+.creatDetail {
+    padding: 18px 24px 0px;
+}
+.creatInfoIner label {
+    color: #404646;
+    font-family: 'Mulish', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.creatInfoIner input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 44px;
+}
+.dueOn .react-date-picker {
+    width: 100%;
+}
+.dueOn .react-date-picker__wrapper {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 44px;
+    width: 100%;
+}
+.creatInfoIner input::-webkit-input-placeholder { 
+    color: #BFC1C1;
+}
+.creatInfoIner input::-moz-placeholder { 
+    color: #BFC1C1;
+}
+.creatInfoIner input:-ms-input-placeholder { 
+    color: #BFC1C1;
+}
+.creatInfoIner input:-moz-placeholder { 
+    color: #BFC1C1;
+}
+.createDegre {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-family: 'Mulish', sans-serif;
+}
+.instuteSrch div {
+    margin: 0px;
+}
+.taskDescp textarea {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 121px;
+}
+.specialFor {
+    position: relative;
+}
+.specialFor img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.hideTask label {
+    margin-bottom: 0px;
+    margin-right: 0px;
+}
+.hideTask .MuiCheckbox-colorSecondary {
+    padding: 0px 8px;
+}
+.hideTask {
+    border-radius: 4px;
+    background-color: #F2F2F2;
+    padding: 9px 12px;
+}
+.hideTask .MuiFormControlLabel-label {
+    font-family: 'Mulish', sans-serif;
+    color: #404646;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.hideTask span.MuiIconButton-label {
+    color: #00abaf;
+}
+.dueOn input {
+    min-height: initial !important;
+    padding: 0px !important;
+    border: none !important;
+}
+.attachmentDrag div {
+    justify-content: center;
+    min-height: 116px;
+    width: 100%;
+    border: 2px dashed #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+}
+.attachmentDrag p {
+    color: #7F8383;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin: 0px;
+}
+.attachmentDrag span {
+    color: #00abaf;
+    margin-left: 9px;
+    text-decoration: underline;
+}
+.attachmentDrag h4 {
+    color: #7F8383;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-align: center;
+    margin-top: 8px;
+}
+.saveTasks button {
+    background-color: rgb(0 171 175);
+    color: #ffffff;
+    font-family: 'Mulish', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    width: 100%;
+    text-transform: inherit;
+    min-height: 40px;
+    margin-top: 12px;
+}
+.addTime button {
+    height: 44px;
+    width: 78px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    margin-top: 28px;
+    margin-left: 6px;
+    color: #7F8383;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-family: 'Mulish', sans-serif;
+    text-transform: initial;
+    padding: 0px;
+}
+.germanCenter {
+    background: #f7f7f7;
+}
+.spcMagnt h1 {
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+}
+.innerBgColor {
+    background: #f7f7f7;
+}
+.skhMoreUpr {
+    position: relative;
+}
+.skhMore {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+.skhMore img {
+    height: 30px;
+    cursor: pointer;
+}
+.hospitalsLbl ul li:first-child label::after {
+    bottom: -21px;
+}
+.roomBreadCrumbNw ul li::after {
+    top: 16px;
+}
+.cardioTabsCstm img.MuiAvatar-img {
+    height: 13px;
+    width: 13px;
+}
+.cardioTabsCstm span.MuiTab-wrapper {
+    position: relative;
+    padding-left: 20px;
+}
+.cardioTabsCstm .MuiAvatar-root.MuiAvatar-circle {
+    height: initial;
+    width: initial;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+}
+.cardioTabsCstm .MuiTab-labelIcon {
+    min-height: initial;
+}
+.cardioTabsCstm .MuiTabs-root {
+    min-height: initial;
+}
+.wardsGrupUprCstm .cardioTabs button {
+    padding-bottom: 12px;
+}
+.wardsGrupUprCstm .cardioGrupBtn {
+    border-bottom: 1px solid #F2F2F2;
+    margin-bottom: 8px;
+}
+.attchNoteUprNw .attchNote {
+    margin-right: 15px;
+}
+.attchNoteUprNw .attchNote:last-child {
+    margin-right: 0px;
+}
+.attchEye img {
+    height: 17px;
+    width: initial !important;
+}
+.addNwHosptl .medcalFZCntnt {
+    background-color: #E5E6E6;
+}
+.sympMrktUpr {
+    min-height: 332px;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+    border-top: 3px solid #EE5253;
+    margin-bottom: 35px;
+}
+.sympMrkt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sympMrkt div:first-child img {
+    width: 162.6px;
+    height: initial;
+}
+.sympMrkt div:last-child img {
+    height: 24px;
+    width: 24px;
+    border-radius: 6px;
+}
+.covidSys h1 {
+    color: #000808;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-top: 21px;
+    margin-bottom: 12px;
+}
+.covidSys p {
+    color: #404646;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.enrgyLbl label {
+    color: #000808;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-family: 'Mulish', sans-serif;
+    margin-bottom: 18px;
+}
+.sympMrktSpc {
+    padding: 30px 28px 25px 28px;
+    border-bottom: 1px solid #F2F2F2;
+    margin-bottom: 25px;
+}
+.enrgyLbl a img {
+    height: 16px;
+    width: 10px;
+}
+.enrgyLbl a {
+    height: 34px;
+    width: 34px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+.enrgyLbl a:hover {
+    cursor: pointer;
+    background-color: #00ABAF !important;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+}
+.enrgyLbl .enrgyWht {
+    display: none;
+}
+.enrgyLbl a:hover .enrgyWht {
+    display: block;
+}
+.enrgyLbl a:hover .enrgyGry {
+    display: none;
+}
+.enrgyLbl a:last-child {
+    margin-right: 0px;
+}
+.enrgySection {
+    padding: 25px 28px 25px 28px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.enrgySection1 {
+    padding: 0px 28px 0px 28px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.fatiqueQues h2 {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 30px;
+}
+.enrgyLbl {
+    margin-bottom: 32px;
+}
+.fatiqueQues a {
+    color: #7F8383 !important;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    font-family: 'Mulish', sans-serif;
+    height: 34px;
+    padding: 0px 4px;
+    min-width: 42px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+}
+.fatiqueQues a:hover {
+    color: #ffffff !important;
+    background-color: #00abaf !important;
+    cursor: pointer;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+}
+.fatiqueQues a:last-child {
+    margin-right: 0px;
+}
+.fatiqueQues label {
+    color: #000808;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.fatiqueQues .MuiGrid-container {
+    margin-bottom: 12px;
+}
+.memoryCapicity textarea {
+    min-height: 116px;
+    width: 72%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    margin-top: 15px;
+}
+.symptomSec h3 {
+    color: #000808;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+.symptomSec label {
+    color: #000808;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.symptomsType a:last-child {
+    margin-right: 0px;
+}
+.symptomsType a img {
+    height: 17px;
+    width: 17px;
+}
+.symptomsType a .symptomsWht {
+    display: none;
+}
+.symptomsType a:hover .symptomsGry {
+    display: none;
+}
+.symptomsType a:hover .symptomsWht {
+    display: block !important;
+}
+.symptomsType a:hover {
+    background-color: #00abaf;
+    cursor: pointer;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+}
+.symptomSec .MuiGrid-container {
+    margin-bottom: 12px;
+}
+.symptomSec .MuiGrid-container:last-child {
+    margin-bottom: 0px;
+}
+.cstmYes a{
+    color: #7F8383 !important;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    font-family: 'Mulish', sans-serif;
+    height: 34px;
+    width: 42px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+}
+.cstmYes a:hover {
+    color: #ffffff !important;
+    background-color: #00abaf;
+    cursor: pointer;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+}
+.cstmYes {
+    text-align: right;
+    padding-right: 25%;
+}
+.submitFeed button {
+    height: 40px;
+    width: 180px;
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    color: #00ABAF;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    text-transform: initial;
+}
+.submitFeed {
+    margin-top: 28px;
+}
+.covidIcons img {
+    height: 13px;
+    vertical-align: middle;
+}
+.covidIcons label {
+    color: #00ABAF;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 0px !important;
+}
+.covidIcons span {
+    min-width: 28px;
+    display: inline-block;
+    text-align: center;
+}
+.covidIcons {
+    padding: 18px 28px 24px 28px;
+}
+.covidIcons .MuiGrid-container:first-child {
+    margin-bottom: 8px;
+}
+ul.duringCovid {
+    padding-left: 0px;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+ul.duringCovid li {
+    border-radius: 4px;
+    background-color: #F2F2F2;
+    display: inline-block;
+    list-style-type: none;
+    padding: 8px 12px;
+    color: #7F8383;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 16px;
+    font-family: 'Mulish', sans-serif;
+    margin-right: 12px;
+    margin-top: 12px;
+}
+ul.duringCovid li:hover {
+    background-color: #00ABAF;
+    color: #ffffff;
+}
+ul.duringCovid li:last-child {
+    margin-right: 0px;
+}
+.covidSurveyBtn button {
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+    color: #ffffff;
+    background: #00acb8 !important;
+    text-transform: capitalize;
+    font-size: 17px;
+    padding: 4px 12px;
+    margin-bottom: 42px;
+}
+.surveyModel {
+    width: 580px;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+    margin-top: 35px;
+    padding-right: 2px;
+    border-radius: 12px;
+}
+.surveyModelIner {
+    height: 537px;
+    overflow-y: scroll;
+}
+.symptomsType a {
+    height: 29px;
+    width: 29px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 14px;
+}
+.enrgyLbl .activeButton {
+    cursor: pointer;
+    background-color: #00ABAF;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+}
+.fatiqueQues .activeButton {
+    color: #ffffff !important;
+    background-color: #00abaf;
+    cursor: pointer;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+}
+.symptomsType .activeButton {
+    background-color: #00abaf !important;
+    cursor: pointer;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+}
+.covidviewsec {
+    padding: 20px 0px;
+}
+.view_labelBottom{
+    margin-bottom: 0px!important;
+}
+.maxWidthSet{
+    width: 100%;
+}
+
+.homeBgDrk .sympMrktUpr {
+    background-color: #404646;
+}
+.homeBgDrk .covidSys h1 {
+    color: #bfc1c1;
+}
+.homeBgDrk .covidSys p {
+    color: #bfc1c1;
+}
+.homeBgDrk .enrgyLbl label {
+    color: #bfc1c1;
+}
+.homeBgDrk .fatiqueQues h2 {
+    color: #bfc1c1 !important;
+}
+.homeBgDrk .fatiqueQues label {
+    color: #bfc1c1;
+}
+.homeBgDrk .enrgyLbl a {
+    background-color: #363636;
+    border: 1px solid #00abaf;
+}
+.homeBgDrk .enrgyLbl .activeButton,.darkTheme .enrgyLbl .activeButton  {
+    background-color: #00abaf !important;
+}
+.homeBgDrk .fatiqueQues a {
+    background-color: #363636;
+    border: 1px solid #00abaf;
+}
+.homeBgDrk .memoryCapicity textarea {
+    border: 1px solid #BFC1C1;
+    background-color: transparent;
+    color: #bfc1c1;
+}
+.homeBgDrk .symptomSec h3 {
+    color: #bfc1c1;
+}
+.homeBgDrk .symptomSec label {
+    color: #bfc1c1;
+}
+.homeBgDrk .symptomsType a {
+    background-color: #363636;
+    border: 1px solid #00abaf;
+}
+.homeBgDrk .cstmYes a {
+    background-color: #363636;
+    border: 1px solid #00abaf;
+}
+.homeBgDrk ul.duringCovid li {
+    background-color: #00acb8;
+    color: #ffffff;
+}
+.homeBgDrk .surveyModel {
+    background-color: #404646;
+}
+.homeBgDrk .covidIcons{
+    border-top: #f2f2f226 1px solid;
+}
+
+.covidIcons {
+    padding: 18px 28px 24px 28px;
+    width: 100%;
+    border-top: #f2f2f2 1px solid;
+    margin-top:20px;
+}
+.MuiGrid-root.covidviewsec span {
+    color: #bfc1c1;
+}
+.homeBgDrk .conPain_num label {
+    color: #D9DADA !important;
+}
+.conPain_num1 {
+    margin-top: 18px;
+}
+.conPain_num1 label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 26px;
+    display: block;
+    margin-bottom: 6px;
+}
+.conPain_num1 p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.homeBgDrk .conPain_num1 label {
+    color: #bfc1c1 !important;
+}
+.enrgyLbl .activeButton .enrgyWht{
+    display:block!important;
+}
+.enrgyLbl .activeButton .enrgyGry {
+    display: none !important;
+}
+.symptomsType .activeButton .symptomsWht {
+    display: block !important;
+}
+.symptomsType .activeButton .symptomsGry {
+    display: none !important;
+}
+.fatiqueQues .activeButton {
+    background-color: #00abaf !important;
+}
+.detailMark {
+    margin-top: 16px;
+    width: 100%;
+}
+.homeBgDrk .fatiqueQues h2{
+    color: #D9DADA !important;
+}
+.covid-fat{
+    margin-top:20px;
+}
+.darkTheme .enrgyLbl a,.darkTheme .fatiqueQues a, .darkTheme .symptomsType a {
+    background-color: #363636;
+}
+.form-box{
+    margin-bottom:15px !important;
+    width: 100% !important;
+}
+
+.h-500{
+    height: 500px !important;
 }

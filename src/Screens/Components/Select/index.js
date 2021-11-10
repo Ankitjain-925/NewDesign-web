@@ -20,6 +20,19 @@ class SelectField extends Component {
       closeMenuOnSelect: this.props.closeMenuOnSelect,
     };
   }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.option !== this.props.option || prevProps.value !== this.props.value || prevProps.name !== this.props.name || prevProps.isMulti !== this.props.isMulti
+      || prevProps.isSearchable !== this.props.isSearchable || prevProps.closeMenuOnSelect !== this.props.closeMenuOnSelect || prevProps.label !== this.props.label) {
+      this.setState({ value: this.props.value || "",
+      label: this.props.label,
+      name: this.props.name,
+      option: this.props.option,
+      isMulti: this.props.isMulti,
+      isSearchable: this.props.isSearchable,
+      closeMenuOnSelect: this.props.closeMenuOnSelect, });
+    }
+  };
   //On Select Change
   onSelectChange = (e, name) => {
     this.setState({ value: e });

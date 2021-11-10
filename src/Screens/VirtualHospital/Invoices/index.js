@@ -11,30 +11,21 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
+import { OptionList } from "Screens/Login/metadataaction";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
-import {
-    commonHeader,
-    commonCometDelHeader,
-} from "component/CommonHeader/index";
+import Modal from "@material-ui/core/Modal";
+import { commonHeader, } from "component/CommonHeader/index";
+import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
 import { authy } from 'Screens/Login/authy.js';
+import { Invoices } from 'Screens/Login/invoices.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
-import { Redirect, Route } from 'react-router-dom';
-import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicesDownloadPdf/index";
-import InvoicesPatientStatus from "Screens/Components/VirtualHospitalComponents/InvoicesPatientStatus/index";
-import InvoicesShowServices from "Screens/Components/VirtualHospitalComponents/InvoicesShowServices/index";
+import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
-import {
-    getLanguage
-  }from "translations/index"
-  
+import { getPatientData } from "Screens/Components/CommonApi/index";
 
-const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
-];
+
 const customStyles = {
     control: base => ({
         ...base,
@@ -42,27 +33,77 @@ const customStyles = {
         minHeight: 48
     })
 };
-
-
-
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Serivce_data: {},
             serviceList: [],
-            updateTrack: {},
-            items: []
+            addinvoice: {},
+            items: [],
+            totalPrice: 0,
+            editServ: false,
+            users1: {},
+            AllStatus: [],
+            service: {},
+            viewCutom: false,
+            serviceList1: [],
+            selectedPat:{},
+            newServiceIndex: false
         };
     }
 
     componentDidMount() {
+        this.getMetadata()
         this.getAllServices();
+        this.getPatientData();
+      
+        if(this.props.history.location?.state?.data && this.props.history.location?.state?.data==='new'){
+            this.setState({addinvoice: {}})
+        }
+        else if(this.props.history.location?.state?.data?.addinvoice && this.props.history.location?.state?.data?.addinvoice)
+        {
+            var newdata = this.props.history.location?.state?.data?.addinvoice
+            this.setState({addinvoice: newdata})
+        }
     }
 
+    //get list of list
+    getMetadata= ()=> {
+        this.setState({ allMetadata: this.props.metadata},
+        ()=>{
+        this.GetLanguageMetadata();
+        })
+    }
+
+    //Get All status
+    GetLanguageMetadata = () => {
+    var AllStatus = GetLanguageDropdown(
+        this.state.allMetadata &&
+        this.state.allMetadata.billing_status &&
+        this.state.allMetadata.billing_status.length > 0 &&
+        this.state.allMetadata.billing_status,
+        this.props.stateLanguageType
+    );
+    this.setState({
+        AllStatus: AllStatus,
+    });
+    };
+    
+    //Get patient list
+    getPatientData = async () => {
+        this.setState({ loaderImage: true });
+        let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
+        if (response.isdata) {
+            this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
+        }
+        else{
+            this.setState({  loaderImage: false });
+        }       
+    }
+
+    //get services list
     getAllServices = () => {
-        var serviceList = [], serviceList1 = [],
-            serviceArray = [];
+        var serviceList = [], serviceList1=[];
         this.setState({ loaderImage: true });
         axios
             .get(
@@ -72,57 +113,158 @@ class Index extends Component {
             .then((response) => {
                 this.setState({ allServData: response.data.data })
                 for (let i = 0; i < this.state.allServData.length; i++) {
-                    var service = '';
-                    if (this.state.allServData[i]?.title) {
-                        service = this.state.allServData[i]?.title
-                    }
-                    else if (this.state.allServData[i]?.title) {
-                        service = this.state.allServData[i]?.title
-                    }
-                    serviceArray.push({
-                        service: service,
-                    })
-                    serviceList.push({ price: this.state.allServData[i].price, description: this.state.allServData[i].description, value: this.state.allServData[i]._id, label: service })
-                    serviceList1.push({ profile_id: this.state.allServData[i].profile_id, value: this.state.allServData[i]._id, label: service })
+                    serviceList1.push(this.state.allServData[i]);
+                    serviceList.push({ price: this.state.allServData[i].price, description: this.state.allServData[i].description, value: this.state.allServData[i]._id, label: this.state.allServData[i]?.title })
                 }
-                this.setState({ users: serviceArray, service_id_list: serviceList, service_id_list1: serviceList1 })
+                serviceList = [{value: 'custom', label: 'custom'}, ...serviceList]
+                this.setState({ service_id_list: serviceList, serviceList1 : serviceList1 })
             });
     }
 
     // Set the select data
     onFieldChange = (e, name) => {
-        const state = this.state.updateTrack;
-        state[name] = e;
-        this.setState({ updateTrack: state });
-        this.setState({ price_per_quantity: this.state.updateTrack.service.price });
+        const state = this.state.service;
+        if(name==='service'){
+            if(e.value==='custom'){
+               this.setState({viewCutom : true}) 
+            }
+            state['price_per_quantity'] = e.price;
+            state['quantity'] = 1;
+            state[name] = e;
+        }
+        else{
+            state[name] = e;
+        }
+        
+        this.setState({ service: state });
+    }
+
+    // Set patient and status data
+    onFieldChange1 = (e, name) => {
+        const state = this.state.addinvoice;
+        if(name === 'patient')
+        {
+           var checkCase = this.state.users.filter((item)=> item.profile_id === e.profile_id)
+           if(checkCase && checkCase.length>0){
+            state[name] = checkCase[0];
+            
+            state['case_id'] = checkCase[0].case_id;
+            this.setState({selectedPat: e})
+           }
+        }
+        else{
+            state[name] = e;
+        }
+        
+        this.setState({ addinvoice: state });
     }
 
     // Set the state of quantity and price_per_quantity
     updateEntryState1 = (e, name) => {
-        e.preventDefault();
-        const state = this.state.updateTrack;
+        const state = this.state.service;
         state[name] = e.target.value;
-        this.setState({ updateTrack: state });
+        this.setState({ service: state });
+    };
+
+    updateEntryState2 = (e, name) => {
+        const state = this.state.addinvoice;
+        state[name] = e.target.value;
+        this.setState({ addinvoice: state });
     };
 
     //Add the services  
     handleAddSubmit = () => {
-        console.log("updateTrack",this.state.updateTrack)
+        var newService = this.state.service;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
         let items = [...this.state.items];
-        items.push({
-            updateTrack: this.state.updateTrack
-        });
-        this.setState({
-            items,
-            updateTrack: {},
-        });
+        items.push(newService);
+        this.setState({ items, service: {} }, 
+            ()=>{this.updateTotalPrize() })
     };
 
-    // For edit service
-    editService = (data) => {
-        console.log("data",data)
-        this.setState({ updateTrack: data });
+      //Update the services  
+      handleAddUpdate = () => {
+        var newService = this.state.service;
+        newService.price = newService?.price_per_quantity * newService?.quantity;
+        this.setState({ service: {}, newServiceIndex: false, editServ: false });
     };
+
+    updateTotalPrize=()=>{
+        var newService = this.state.addinvoice;
+        var total = 0;
+        this.state.items?.length > 0 && this.state.items.map((data) => {
+            total = total + data?.price
+        })
+        newService.total_amount =  total;
+        this.setState({ addinvoice: newService})
+    }
+
+    // For edit service
+    editService = (data, index) => {
+        this.setState({ service: data, newServiceIndex: index, editServ: true });
+    };
+
+
+    handleCloseServ = () => {
+        this.setState({ editServ: false })
+    }
+
+    Billing = () => {
+        this.props.history.push("/virtualHospital/bills")
+    };
+
+    // For calculate value of finish invoice
+    finishInvoice = (draft) => {
+        var data = this.state.addinvoice;
+        if(draft){
+           data.status =  this.state.AllStatus && this.state.AllStatus.filter((item)=>item.value==='draft')?.[0] 
+        }
+        if(data._id){
+            this.setState({ loaderImage: true });
+            axios
+        .post(
+          sitedata.data.path + `/vh/addInvoice/${data._id}`,
+          data,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          if (responce.data.hassuccessed) {
+            this.setState({
+                addinvoice : {}, selectedPat: {}, 
+            });
+            this.props.getAddTaskData();
+          }
+        })
+        .catch(function (error) {
+            this.setState({ loaderImage: false })``;
+        });
+        }
+        else{
+            data.house_id = this.props?.House?.value;
+            data.created_at = new Date();
+            this.setState({ loaderImage: true });
+            axios
+        .post(
+          sitedata.data.path + "/vh/addInvoice",
+          data,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          if (responce.data.hassuccessed) {
+            this.setState({
+                addinvoice : {}, selectedPat: {}, 
+            });
+            this.props.getAddTaskData();
+          }
+        })
+        .catch( (error)=> {
+            this.setState({ loaderImage: false });
+        });
+        }
+        
+    }
 
     //Delete the perticular service confirmation box
     removeServices = (id) => {
@@ -142,7 +284,7 @@ class Index extends Component {
                     >
                         <h1>Remove the Service ?</h1>
 
-                        <p>Are you sure to remove this Service?</p>
+                        <p>Are you sure to remove this Service from Invoice?</p>
                         <div className="react-confirm-alert-button-group">
                             <button onClick={onClose}>No</button>
                             <button
@@ -159,16 +301,16 @@ class Index extends Component {
             },
         });
     };
-
+    
     deleteClickService(id) {
         delete this.state.items[id]
-        this.setState({ items: this.state.items })
+        this.setState({ items: this.state.items });
+        this.finishInvoice();
     }
 
     render() {
-        let translate = getLanguage(this.props.stateLanguageType);
-        let {Services, Addservice, Customservicetitle, Customservicedescription} = translate;
         const { selectedOption } = this.state;
+        const { addinvoice } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
@@ -181,114 +323,82 @@ class Index extends Component {
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
-
                             <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
                                 {/* <VHfield service="ANkit" Onclick2={(service, value)=>{this.myclick(service , value)}}/> */}
-
-
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="chat" />
                                 </Grid>
                                 {/* End of Menu */}
-
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
-
                                         {/* Back common button */}
-                                        <Grid className="extSetting">
-                                            <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
+                                        <Grid className="extSetting"> 
+                                            <a onClick={this.Billing}>
+                                                <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
                                                 Back to Billing</a>
                                         </Grid>
                                         {/* End of Back common button */}
-
-                                        {/* Billing New Invoice */}
-                                        {/* <Grid className="drftDwnload">
-
-                                            <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={12} md={6}>
-                                                    <Grid className="draftDateLft">
-                                                        <label>2021-00246</label>
-                                                        <span>Draft</span>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <Grid className="draftDateRght">
-                                                        <Button className="downloadPDF">
-                                                            <img src={require('assets/virtual_images/downloadIcon.png')} alt="" title="" />
-                                                            Download PDF
-                                                        </Button>
-                                                        <Button className="downloadDots">
-                                                            <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
-                                                            <Grid className="actionList">
-                                                                <ul className="actionPdf">
-                                                                    <li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li>
-                                                                    <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li>
-                                                                    <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
-                                                                </ul>
-                                                                <ul className="setStatus">
-                                                                    <li><span>Set status</span></li>
-                                                                    <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
-                                                                </ul>
-                                                            </Grid>
-                                                        </Button>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid> */}
-
-                                        <InvoicesDownloadPdf
-                                            label="2021-00246"
-                                            status="Draft"
+                                        {this.state.addinvoice?._id && 
+                                         <InvoicesDownloadPdf
+                                            label={this.state.addinvoice?.invoice_id}
+                                            status={this.state.addinvoice?.status?.label}
+                                            InvoicesData={this.state.addinvoice}
                                         />
-
+                                        }
+                                       
                                         <Grid className="srvcContent">
-                                            {/* <Grid className="invoiceForm">
+                                            <Grid className="invoiceForm">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
+
+                                                    <label>Invoice ID</label>
                                                     <Grid item xs={12} md={3} className="invoiceID">
-                                                        <label>Invoice ID</label>
-                                                        <TextField placeholder="Invoice ID" value="548756" />
+                                                        {/* <TextField placeholder="Invoice ID" value="548756" /> */}
+                                                        <VHfield
+                                                            name="invoice_id"
+                                                            placeholder="Invoice ID"
+                                                            onChange={(e) =>
+                                                                this.onFieldChange1(e.target.value, "invoice_id")
+                                                            }
+                                                            value={this.state.addinvoice?.invoice_id || ''}
+                                                        />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
                                                         <label>Patient</label>
-                                                        <Grid className="patntDropUpr">
-                                                            <Grid className="patntDropDwn">
-                                                                <Grid className="patntImg"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Grid>
-                                                                <Grid>
-                                                                    <label>James Morrison</label>
-                                                                    <p>P_mDnkbR30d</p>
-                                                                </Grid>
-                                                                <Grid className="patntRmv"><img src={require('assets/virtual_images/remove-3.svg')} alt="" title="" /></Grid>
-                                                            </Grid>
+                                                        <Grid>
+                                                            <Select
+                                                                name="patient"
+                                                                options={this.state.users1}
+                                                                placeholder="Search & Select"
+                                                                onChange={(e) => this.onFieldChange1(e, "patient")}
+                                                                value={this.state.selectedPat || ''}
+                                                                className="addStafSelect"
+                                                                isMulti={false}
+                                                                isSearchable={true} />
                                                         </Grid>
                                                     </Grid>
+
                                                     <Grid item xs={12} md={3}>
                                                         <label>Status</label>
                                                         <Select
-                                                            value={selectedOption}
-                                                            onChange={this.handleChange}
-                                                            options={options}
+                                                            name="status"
                                                             placeholder="Draft"
+                                                            onChange={(e) => this.onFieldChange1(e, "status")}
+                                                            value={this.state.addinvoice?.status || ''}
+                                                            options={this.state.AllStatus}
                                                             className="cstmSelect"
                                                             isSearchable={false}
                                                             styles={customStyles}
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                            </Grid> */}
+                                            </Grid>
 
-                                            <InvoicesPatientStatus
-                                                label="James Morrison"
-                                                case_id="P_mDnkbR30d"
-                                                options={options}
-                                            />
-
-
+                        
                                             <Grid className="srvcTable">
-
-                                                <h3>{Services}</h3>
+                                                <h3>Services</h3>
                                                 <Table>
                                                     <Thead>
                                                         <Tr>
@@ -297,86 +407,33 @@ class Index extends Component {
                                                     </Thead>
 
                                                     {this.state.items?.length > 0 && this.state.items.map((data, id) => (
-                                                    <Tbody>
+                                                        <Tbody>
                                                             <Tr>
                                                                 <Td>
-                                                                    <label>{data.updateTrack.service.label}</label>
-                                                                    <p>{data.updateTrack.service.description}</p>
+                                                                    <label>{data?.service?.label}</label>
+                                                                    <p>{data?.service?.description}</p>
                                                                 </Td>
-                                                                <Td>{data.updateTrack.quantity}</Td>
-                                                                <Td>{data.updateTrack.service.price} €</Td>
+                                                                <Td>{data?.quantity}</Td>
+                                                                <Td>{data?.price} €</Td>
                                                                 <Td className="xRay-edit">
-                                                                    <Button onClick={() => { this.editService(data) }}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                    <Button onClick={() => { this.editService(data, id) }}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                                                     <Button onClick={() => { this.removeServices(id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
                                                                 </Td>
                                                             </Tr>
-                                                            {/* <Tr>
-                                                            <Td>
-                                                                <label>CT Scan</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>15</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>X-ray</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>20</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>CT Scan</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>15</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>X-ray</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>20</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr> */}
                                                         </Tbody>
                                                     ))}
                                                 </Table>
-
-                                                {/* <InvoicesShowServices 
-                                                /> */}
-
                                             </Grid>
 
 
                                             <Grid className="addCstmField">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={4}>
-                                                        <label>{Addservice}</label>
-
+                                                        <label>Add service</label>
                                                         <Select
-                                                            // value={this.state.serviceList}
+                                                            value={this.state.service?.service || ''}
                                                             name="service"
-                                                            onChange={(e) => this.onFieldChange(e,"service")}
+                                                            onChange={(e) => this.onFieldChange(e, "service")}
                                                             options={this.state.service_id_list}
                                                             placeholder="Search service or add custom input"
                                                             className="cstmSelect"
@@ -385,39 +442,25 @@ class Index extends Component {
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
-                                                        {/* <label>Quantity</label> */}
-                                                        {/* <TextField
-                                                        name="quantity" 
-                                                        placeholder="Enter quantity" 
-                                                        onChange={(e) => this.updateEntryState1(e,"quantity")}
-                                                         // value={this.state.serviceList}
-                                                        /> */}
-
                                                         <VHfield
                                                             label="Quantity"
                                                             name="quantity"
                                                             placeholder="Enter quantity"
                                                             onChange={(e) =>
-                                                                this.updateEntryState1(e, "quantity")
+                                                                this.onFieldChange(e.target.value, "quantity")
                                                             }
-                                                        value={this.state.updateTrack.quantity}
+                                                            value={this.state.service?.quantity || 0}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
-                                                        {/* <label>Price per quantity</label>
-                                                        <TextField placeholder="Enter price €" 
-                                                        onChange={(e) => this.updateEntryState1(e)}
-                                                        //  value={this.state.serviceList}
-                                                          /> */}
-
                                                         <VHfield
                                                             label="Price per quantity"
                                                             name="per_quantity"
                                                             placeholder="Enter price €"
                                                             onChange={(e) =>
-                                                                this.updateEntryState1(e, "price_per_quantity")
+                                                                this.onFieldChange(e.target.value, "price_per_quantity")
                                                             }
-                                                            value={this.state.price_per_quantity}
+                                                            value={this.state?.service?.price_per_quantity || 0}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={2} className="addSrvcBtn">
@@ -425,28 +468,102 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid className="addCstmField">
+                                            {this.state.viewCutom && <Grid className="addCstmField">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={4}>
-                                                        <label>{Customservicetitle}</label>
+                                                        <label>Custom service title</label>
                                                         <TextField placeholder="Custom service title" />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <label>{Customservicedescription}</label>
+                                                        <label>Custom service description</label>
                                                         <TextField placeholder="Custom service description" />
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
+                                            </Grid>}
                                             <Grid className="invoiceAmnt">
                                                 <p>Invoice amount</p>
-                                                <label>480,00 €</label>
+                                                <label>{this.state.addinvoice.total_amount} €</label>
                                                 <Grid>
-                                                    <Button>Finish Invoice</Button>
-                                                    <Button>Save Draft</Button>
+                                                    <Button onClick={() => { this.finishInvoice() }}>Finish Invoice</Button>
+                                                    <Button onClick={() => { this.finishInvoice('draft') }}>Save Draft</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                         {/* End of Billing New Invoice */}
+
+                                        <Modal
+                                            open={this.state.editServ}
+                                            onClose={this.handleCloseServ}
+                                            className={
+                                                this.props.settings &&
+                                                    this.props.settings.setting &&
+                                                    this.props.settings.setting.mode &&
+                                                    this.props.settings.setting.mode === "dark"
+                                                    ? "darkTheme addSpeclModel"
+                                                    : "addSpeclModel"
+                                            }
+                                        >
+                                            <Grid className="addServContnt">
+                                                <Grid className="addSpeclLbl">
+                                                    <Grid className="addSpeclClose">
+                                                        <a onClick={this.handleCloseServ}>
+                                                            <img
+                                                                src={require("assets/virtual_images/closefancy.png")}
+                                                                alt=""
+                                                                title=""
+                                                            />
+                                                        </a>
+                                                    </Grid>
+                                                    <Grid>
+                                                        <label>Edit service</label>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid className="enterServMain">
+                                                    <Grid className="enterSpcl">
+                                                        <Grid>
+                                                            <VHfield
+                                                                label="Service name"
+                                                                name="label"
+                                                                placeholder="Enter Title name"
+                                                                disabled={true}
+                                                                value={this.state.service?.service?.label}
+                                                            />
+                                                        </Grid>
+
+                                                        <Grid>
+                                                            <VHfield
+                                                                label="Quantity"
+                                                                name="quantity"
+                                                                placeholder="Enter quantity"
+                                                                onChange={(e) =>
+                                                                    this.updateEntryState1(e, 'quantity')
+                                                                }
+                                                                value={this.state.service?.quantity}
+                                                            />
+                                                        </Grid>
+
+                                                        <Grid>
+                                                            <VHfield
+                                                                label="Price"
+                                                                name="price"
+                                                                placeholder="Enter service price"
+                                                                onChange={(e) =>
+                                                                    this.updateEntryState1(e, 'price_per_quantity')
+                                                                }
+                                                                value={this.state.service?.price_per_quantity}
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="servSaveBtn">
+                                                    <a onClick={this.handleCloseServ}>
+                                                        <Button
+                                                            onClick={() => this.handleAddUpdate()}>Save & Close</Button>
+                                                    </a>
+                                                </Grid>
+                                            </Grid>
+                                        </Modal>
 
                                     </Grid>
                                 </Grid>
@@ -466,6 +583,8 @@ const mapStateToProps = (state) => {
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
+    const { invoices } = state.Invoices;
+    const { metadata } = state.OptionList;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -473,10 +592,11 @@ const mapStateToProps = (state) => {
         House,
         settings,
         verifyCode,
+        metadata,
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices, OptionList })(
         Index
     )
 );

@@ -77,17 +77,10 @@ class PointPain extends Component {
                             <label>{data?.attachments?.length}</label>
                         </Grid>
                     </Grid>
-                    <Grid className="attchOpen">
+                    <Grid className={data.status === 'done' ? "attchDone" : "attchOpen"}>
                         <Button><label></label>{data.status}</Button>
                     </Grid>
                     <Assigned assigned_to ={data.assigned_to}/>
-                    {/* <Grid className="userPics">
-                        <Link><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Link>
-                        <Link><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Link>
-                        <Link><span>+1</span></Link>
-                    </Grid> */}
-                    {/* <Grid className="userDots"> */}
-                    {/* <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button> */}
                     <Grid item xs={6} md={6} className="spcMgntRght7 presEditDot scndOptionIner">
                         <a className="openScndhrf">
                             <img

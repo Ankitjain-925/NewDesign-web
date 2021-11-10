@@ -25,9 +25,7 @@ import Battery90Icon from '@material-ui/icons/Battery90';
 import HighchartsReact from "highcharts-react-official";
 import { getDesc } from "Screens/Components/BasicMethod/index"
 import LeftMenuMobile from 'Screens/Components/Menus/PatientLeftMenu/mobile';
-import {
-    getLanguage
-  } from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const withingsMeasureType = {
@@ -77,31 +75,21 @@ class Index extends Component {
     componentDidMount() {
         if (window.location.hash) {
             let fitbitToken = window.location.hash.slice(1).split("&")[0].replace("access_token=", "")
-         
             this.setState({ fitbitloggedIn: true})
-          
-           this.fetchFitbitData("devices.json", fitbitToken, "device")
+            this.fetchFitbitData("devices.json", fitbitToken, "device")
             this.fetchFitbitData("profile.json", fitbitToken, "user")
             this.fetchFitbitData('activities.json', fitbitToken, 'lifetimeStats')
             this.fetchFitbitData('badges.json', fitbitToken, 'badges')
             this.fetchFitbitData('activities/steps/date/today/1m.json', fitbitToken, 'steps')
             this.fetchFitbitData('activities/distance/date/today/1m.json', fitbitToken, 'distance')   
-           
-
         }
         if (decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("code").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1")) && decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("state").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"))) {
-            
             var code = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("code").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-         
             this.setState({ code: code })
-           
             this.getDevice(code);
             this.getUser(code)
-            // this.getMeassure(code);
         }
     }
-
-
     // fetch fitbit data from call back url
     fetchFitbitData = async (url, fitbitToken, stateKey) =>{
         await  axios({
@@ -110,16 +98,16 @@ class Index extends Component {
             headers: { 'Authorization': 'Bearer ' + fitbitToken },
             mode: 'cors'
         })
-            .then(response => {
-                const state = this.props.fitbit;
-                state[stateKey] = response.data;
-                this.setState({ apidata: state });
-                this.props.Fitbit({
-                ...this.props.fitbit,
-                ...state,
-                });
-            })
-            .catch(error =>{})
+        .then(response => {
+            const state = this.props.fitbit;
+            state[stateKey] = response.data;
+            this.setState({ apidata: state });
+            this.props.Fitbit({
+            ...this.props.fitbit,
+            ...state,
+            });
+        })
+        .catch(error =>{})
     }
 
     backDate = (backmonth = 6) => {
@@ -144,22 +132,18 @@ class Index extends Component {
 
         if (month.length < 2) month = "0" + month;
         if (day.length < 2) day = "0" + day;
-
         return [year, month, day].join("/");
     }
-
-
     //GET WITHINGS DEVICES & DATA
-
     getUser = (code) => {
         axios.post("https://wbsapi.withings.net/v2/user",
-            {
-                headers: {
-                    Authorization: "Bearer " + code,
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-            }).then(res => { })
+        {
+            headers: {
+                Authorization: "Bearer " + code,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        }).then(res => { })
     }
     getDevice = (code) => {
         axios.get("https://wbsapi.withings.net/v2/user?action=getdevice",
@@ -171,15 +155,14 @@ class Index extends Component {
                 },
             }
         )
-            .then((res) => {
-                if (res.data && res.data.body && res.data.body.devices) {
-                    this.setState({ Devices_id: res.data.body.devices },()=>{
-                        this.getMeassure(code)
-                    })
-                }
-            })
+        .then((res) => {
+            if (res.data && res.data.body && res.data.body.devices) {
+                this.setState({ Devices_id: res.data.body.devices },()=>{
+                    this.getMeassure(code)
+                })
+            }
+        })
     }
-
     // GET WITHINGS MEASURE
     getMeassure = (code) => {
         axios.get('https://wbsapi.withings.net/measure?action=getmeas&startdate=' + this.toTimestamp(this.backDate(6)) + '&enddate=' + this.toTimestamp(new Date()), {
@@ -189,26 +172,20 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-           
             this.props.Withings({data: {Devices_id: this.state.Devices_id , measure: response.data.body}});
         })
     }
-
     //Logout user
     tracker() {
         this.props.history.push('/patient/tracker')
     }
-
     logoutfromall = (comesfrom) => {
-       
         this.setState({ fitbitloggedIn: false, loggedin: false, withingsloggedIn: false, vData:false })
         this.tracker();
     }
-
     handleChangeTabs = (event, value) => {
         this.setState({ value });
     };
-
     // fancybox open
     handleOpenSrvc = () => {
         this.setState({ openSrvc: true });
@@ -216,14 +193,11 @@ class Index extends Component {
     handleCloseSrvc = () => {
         this.setState({ openSrvc: false, withingsloggedIn : false, fitbitloggedIn: false });
     };
-
     handleOpenvData = (device, type) => {
         if (type === 'withing') {
-                this.GetDATA(this.props.withing.data.data.measure, device.deviceid)
-                this.setState({ withingsDevice: device, fitbitloggedIn: false, withingsloggedIn: true,  })
-            } else (
-                this.setState({ fitbitDevice: device, fitbitloggedIn : true, withingsloggedIn: false })
-            )
+            this.GetDATA(this.props.withing.data.data.measure, device.deviceid)
+            this.setState({ withingsDevice: device, fitbitloggedIn: false, withingsloggedIn: true,  })
+        } else ( this.setState({ fitbitDevice: device, fitbitloggedIn : true, withingsloggedIn: false }))
         this.setState({ vData: true, });
     };
     handleClosevData = () => {
@@ -237,7 +211,6 @@ class Index extends Component {
             TemperatureD = [], HeartPulseD = [], WeightD = [], BoneMassD = [], HydrationD = [], DiastolicBloodPressureD = [];
                   var labels = [], value = [], options = [];
                     if( messureData && messureData.measuregrps && messureData.measuregrps.length > 0) {
-                     
                         messureData.measuregrps.sort(getDesc);
                         messureData.measuregrps.map((data) => {
                             if (deviceid == data.deviceid) {
@@ -307,11 +280,6 @@ class Index extends Component {
                                 }
                             }
                         });
-                        
-                    let chartData = {
-                        labels: labels,
-                        data: value,
-                    };
                     if (DiastolicBloodPressure.length > 0 && SystolicBloodPressure.length > 0) {
                         options.push({
                             title: {
@@ -469,7 +437,6 @@ class Index extends Component {
                             color: 'blue',
                         }]
                     })
-    
                     options.push({
                         title: {
                             text: 'Pulse'
@@ -543,7 +510,6 @@ class Index extends Component {
                             color: "orange",
                         }]
                     })
-    
                     options.push({
                         title: {
                             text: 'Hydration'
@@ -575,19 +541,16 @@ class Index extends Component {
                             color: "yellow",
                         }]
                     })
-                
                     this.setState({ optionsGraph: options })
                 }
         }
 
     render() {
         const { fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
-
         let translate = getLanguage(this.props.stateLanguageType)
         let { trackers, TrackersDevices, self_data, connect, search_for_device_palce, devices, services, view_data,
             view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,user,
             model, type, timezone, session, ur_connected_device_appear, no_device_connctd, connct_a_device } = translate
-
         const { stateLoginValueAim } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
@@ -598,12 +561,10 @@ class Index extends Component {
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
-
                                 <LeftMenu  isNotShow ={true} currentPage="tracker" />
                                 <LeftMenuMobile isNotShow ={true}  currentPage ="tracker"/>
                                 <Notification />
                                 {/* End of Website Menu */}
-
                                 <Grid item xs={12} md={9}>
                                     <Grid className="docsOpinion">
                                         <Grid container direction="row" className="docsOpinLbl">
@@ -613,17 +574,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid item sm={4}>
-
-                                            {/* <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BRQT&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
-                                                <img src={require('assets/images/fitbit.png')} style={{ maxWidth: "50px" }} alt="" />
-                                            </a> */}
-
-                                            {/* {this.state.fitbitloggedIn &&
-                                                <img onClick={this.logoutfromall} style={{ maxWidth: "50px" }} src={require('assets/images/logouttracker.png')} alt="" />
-                                            } */}
                                         </Grid>
-
-
                                         {/* Model setup */}
                                         <Modal
                                             open={this.state.openSrvc}
@@ -662,7 +613,6 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                      
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -684,12 +634,6 @@ class Index extends Component {
                                         </Grid>
                                         <Grid className="presPkgIner2">
                                             {value === 0 && <TabContainer>
-
-                                                {/* <Grid className="noDevices">
-                                                    <h1>No devices connected</h1>
-                                                    <p>Your connected devices will appear here</p>
-                                                    <h3><a>Connect a device</a></h3>
-                                                </Grid> */}
                                                 {/* Trackers & Devices Design */}
                                                 <Grid className="selfData">
                                                     <Grid container spacing={3}>
@@ -778,7 +722,6 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
-
                                                 {/* Model setup */}
                                                 <Modal
                                                     open={this.state.vData}
@@ -797,24 +740,8 @@ class Index extends Component {
                                                                 <a><img src={require('assets/images/within.png')} alt="" title="" /></a>
                                                                 <a><img src={require('assets/images/fitbit.png')} alt="" title="" /></a>
                                                             </Grid>
-                                                            {/* <Grid className="fitBitVersaUpr">
-                                                                            <Grid className="fitBitVersa fitBitVersaActv">
-                                                                                <label>Klemen’s Fitbit 1</label>
-                                                                                <p>Fitbit Versa 2</p>
-                                                                            </Grid>
-                                                                            <Grid className="fitBitVersa">
-                                                                                <label>Klemen’s Fitbit 1</label>
-                                                                                <p>Fitbit Versa 2</p>
-                                                                            </Grid>
-                                                                            <Grid className="fitBitVersa">
-                                                                                <label>Klemen’s Fitbit 1</label>
-                                                                                <p>Fitbit Versa 2</p>
-                                                                            </Grid>
-                                                                        </Grid> */}
                                                         </Grid>
-
                                                         <Grid className="editDevice">
-
                                                             <Grid>
                                                                 <Grid className="disCnct">
                                                                     <Grid className="disCnctLft">
@@ -831,13 +758,9 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
-
                                                             <Grid className="disCnctContent">
                                                                 <Grid container direction="row" justify="center" alignItems="center">
                                                                     <Grid item xs={12} md={8}>
-                                                                        {/* <p>This view will depend on what the API serves from a specific tracking device.
-                                                                                    It is good to have a  similar/same view as the dashboard fitbit owners see in the
-                                                                                    original app.</p> */}
                                                                         <Grid className="trckSection">
                                                                             <Grid className="trckSecIner" >
                                                                                 {this.state.fitbitloggedIn && <div>
@@ -891,7 +814,6 @@ class Index extends Component {
                                                                                                     </Grid>
                                                                                                 </Grid>
                                                                                             </div>}
-                                                                                           
                                                                                         {this.state.optionsGraph && this.state.optionsGraph.length > 0 ? this.state.optionsGraph.map((item1, index) => (
                                                                                             <div className="setMarginforgraph">
                                                                                                 <HighchartsReact
@@ -901,25 +823,18 @@ class Index extends Component {
                                                                                                     options={item1}
                                                                                                 />
                                                                                             </div>
-                                                                                        ))
-                                                                                            : ''}
+                                                                                        )) : ''}
                                                                                     </div>}
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
-
                                                         </Grid>
-
                                                     </Grid>
                                                 </Modal>
-                                              
-                                              
-
                                                 {/* End of Trackers & Devices Design */}
                                             </TabContainer>}
-
                                             {value === 1 && <TabContainer>
                                                 <Grid className="noDevices">
                                                     <h1>{no_device_connctd}</h1>
@@ -927,7 +842,6 @@ class Index extends Component {
                                                     <h3><a>{connct_a_device}</a></h3>
                                                 </Grid>
                                             </TabContainer>}
-
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -946,8 +860,6 @@ const mapStateToProps = (state) => {
     const { fitbit } = state.Fitbit;
     const { withing } = state.Withings;
     const { verifyCode } = state.authy;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -956,8 +868,6 @@ const mapStateToProps = (state) => {
         fitbit,
         withing,
         verifyCode,
-        //   Doctorsetget,
-        //   catfil
     }
 };
 export default withRouter(connect(mapStateToProps, { Fitbit, Withings, LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

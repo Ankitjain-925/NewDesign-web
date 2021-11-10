@@ -25,11 +25,7 @@ import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/in
 import {
   SortByEntry,
   SortByDiagnose,
-  ConsoleCustom,
-  getTime,
-  getDate,
   mySorter,
-  getReminder,
 } from "Screens/Components/BasicMethod/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
 import Loader from "Screens/Components/Loader/index.js";

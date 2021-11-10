@@ -21,7 +21,7 @@ class Date extends Component {
   };
 
   componentDidMount = () => {
-    this.props.onChange(this.props.value);
+    // this.props.onChange(this.props.value);
   };
 
   //on adding new data
@@ -49,6 +49,7 @@ class Date extends Component {
                 ? moment(this.state.value, dateFormatList[0])
                 : ""
             }
+            disabled={this.props.disabled}
             format={dateFormatList[0]}
           />
         )}
@@ -61,6 +62,7 @@ class Date extends Component {
                 ? moment(this.state.value, dateFormatList[0])
                 : ""
             }
+            disabled={this.props.disabled}
             format={dateFormatList[0]}
           />
         )}
@@ -73,6 +75,7 @@ class Date extends Component {
                 ? moment(this.state.value, dateFormatList[2])
                 : ""
             }
+            disabled={this.props.disabled}
             format={dateFormatList[2]}
           />
         )}
@@ -85,6 +88,7 @@ class Date extends Component {
                 ? moment(this.state.value, dateFormatList[1])
                 : ""
             }
+            disabled={this.props.disabled}
             format={dateFormatList[1]}
           />
         )}

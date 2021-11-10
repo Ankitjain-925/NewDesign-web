@@ -136,7 +136,6 @@ class Index extends Component {
 
     createDuplicate = (data) => {
         delete data._id;
-        console.log('data', data)
         data.archived = false;
         this.setState({ newTask: data })
 
@@ -165,7 +164,6 @@ class Index extends Component {
             data.attachments = this.state.fileattach
         }
         data.house_id = this.props?.House?.value
-        console.log('data', data)
         // // this.setState({ loaderImage: true })
         // // if (this.state.newTask._id) {
         // //     axios
@@ -280,7 +278,6 @@ class Index extends Component {
 
     //Select the professional name
     updateEntryState3 = (e) => {
-        console.log('e', e)
          this.setState({assignedTo: e}, 
             ()=>{
                 var data = e?.length>0 && e.reduce(( last, current, index )=> {

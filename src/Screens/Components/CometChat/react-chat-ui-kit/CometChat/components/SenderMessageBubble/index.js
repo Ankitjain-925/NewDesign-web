@@ -59,7 +59,6 @@ const SenderMessageBubble = (props) => {
           </div>
           <div className="cc1-chat-win-msg-time-wrap">
             {replies}
-            {console.log('message.sentAt',props.message.sentAt)}
             <span className="cc1-chat-win-timestamp">{new Date(props.message.sentAt * 1000).toLocaleDateString()} ({new Date(props.message.sentAt * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })})
               <img src={ticks} alt="time" />
             </span>
