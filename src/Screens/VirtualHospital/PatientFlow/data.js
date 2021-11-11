@@ -110,11 +110,9 @@ export const CurrentWard = (wards) => {
 
 export const AllRoomList = (Specilaity_id, AllSpecaility, ward_id) => {
   if(ward_id){
-    console.log('here')
-    var mydata1 = AllSpecaility.filter((element)=>element._id === Specilaity_id)
+    var mydata1 = AllSpecaility?.length>0 && AllSpecaility.filter((element)=>element._id === Specilaity_id)
     var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === ward_id)
     if(mydata && mydata.length>0){
-      console.log('here2')
       return mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.map((data, i)=>{
         return {value: data._id, label: data.room_name}
     });

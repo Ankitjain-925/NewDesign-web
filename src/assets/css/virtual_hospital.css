@@ -6454,8 +6454,8 @@ button.downloadPDF:hover {
 }
 .attchOpen button {
     border-radius: 4px;
-    background-color: #DDF8F1;
-    color: #028B66;
+    background-color: #FFF7E6;
+    color: #C58904;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -6467,7 +6467,7 @@ button.downloadPDF:hover {
 .attchOpen button label {
     height: 8px;
     width: 8px;
-    background-color: #1DD1A1;
+    background-color: #FECA57;
     border-radius: 12px;
     margin-right: 7px;
     margin-bottom: 0px;
@@ -9777,6 +9777,15 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.add-group-padding{
+    padding-top: 20px;
+}
+.nwEntrCntntIner {
+    height: 75vh !important;
+}
+.medcalFZCntnt .openScndhrf img {
+    height: 20px;
+}
 .manage-dark-back {
     padding: 18px 8px !important;
 }
@@ -12111,6 +12120,9 @@ ul.patientHint li {
 }
 @media (max-width: 768px) {
  .creatTaskModel {
+    width: 98% !important;
+ }
+ .addServContnt {
     width: 98% !important;
  }
 }

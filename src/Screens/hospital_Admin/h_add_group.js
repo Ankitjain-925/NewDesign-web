@@ -18,13 +18,10 @@ import Modal from "@material-ui/core/Modal";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import {
   commonHeader,
-  commonCometDelHeader,
 } from "component/CommonHeader/index";
-import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index";
-import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
 import FileUploader from "Screens/Components/FileUploader/index";
-import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
+import {blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
 } from "translations/index"
@@ -639,7 +636,7 @@ class Index extends Component {
                                     onChange={(e) => this.updateEntryState(e)}
                                   />
                                 </Grid>
-                                <Grid className="form-box">
+                                <Grid item xs={10} md={12} className="form-box">
                                   <Grid>
                                     <label>Upload Institution Logo</label>
                                   </Grid>
@@ -649,7 +646,7 @@ class Index extends Component {
                                     isMulti={false}
                                   />
                                 </Grid>
-                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                <Grid container direction="row" alignItems="center" spacing={2} className="add-group-padding">
                                   <Grid item xs={12} md={12}>
                                     <Grid><label>Hospitals</label></Grid>
                                     <Grid>
@@ -791,7 +788,7 @@ class Index extends Component {
                                       onChange={(e) => this.updateHospitalState(e)}
                                     />
                                   </Grid>
-                                  <Grid className="form-box">
+                                  <Grid item xs={10} md={12}  className="form-box">
                                     <Grid>
                                       <label>Upload Hospital Logo</label>
                                     </Grid>
