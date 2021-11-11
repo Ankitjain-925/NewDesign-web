@@ -26,6 +26,8 @@ import RespirationView from "../respirationView/index";
 import CovidSymptomsView from "../CovidSymptomsView/index";
 import { overView } from "Screens/Login/journalviewaction";
 import { pure } from "recompose";
+import TaskView from "../TaskView/index";
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +66,7 @@ class Index extends Component {
     var item = this.state.Track;
     return (
       <div className="timelineGap">
+        {console.log("this.props",this.props)}
         {item.type === "blood_pressure" && (
           <BPView
             onlyOverview={this.props.Overview}
@@ -532,6 +535,25 @@ class Index extends Component {
             gender={this.state.patient_gender}
           />
         )}
+        <TaskView
+            onlyOverview={this.props.Overview}
+            // list={this.props.Pressuresituation}
+            TrackRecord={this.state.TrackRecord}
+            // OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
+            comesfrom={this.state.comesfrom}
+            downloadTrack={(data) => this.props.downloadTrack(data)}
+            images={this.state.images}
+            Archive={this.state.Archive}
+            DeleteTrack={(deleteKey) => this.props.DeleteTrack(deleteKey)}
+            ArchiveTrack={(data) => this.props.ArchiveTrack(data)}
+            EidtOption={(value, updateTrack, visibility) =>
+              this.props.EidtOption(value, updateTrack, visibility)
+            }
+            data={item}
+            loggedinUser={this.state.loggedinUser}
+            date_format={this.props.date_format}
+            time_format={this.props.time_format}
+          />
       </div>
     );
   }
