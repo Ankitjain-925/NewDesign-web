@@ -1,4 +1,3 @@
-require('dotenv').config()
 export function getPriceId(type) {
   let env = "DEV";
   let url = "";

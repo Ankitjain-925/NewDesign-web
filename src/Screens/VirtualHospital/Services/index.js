@@ -7,7 +7,6 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
 import axios from "axios";
-import { commonHeaderToken } from "component/CommonHeader/index";
 import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
@@ -22,11 +21,7 @@ import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
-import makeAnimated from 'react-select/animated'
-import {
-  getLanguage
-}from "translations/index"
-
+import { getLanguage } from "translations/index"
 
 class Index extends Component {
   constructor(props) {
@@ -153,7 +148,7 @@ class Index extends Component {
 
   //Delete the perticular service confirmation box
   removeServices = (id) => {
-    this.setState({ message: null });
+    this.setState({ message: null, openTask: false });
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -208,7 +203,6 @@ class Index extends Component {
 
   //On Changing the specialty id 
   onFieldChange = (e) => {
-    console.log("data111", e)
     const state = this.state.updateTrack;
     state['speciality_id'] = e.value;
     this.setState({ updateTrack: state });
@@ -253,7 +247,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {Addnewservice, Services  } = translate;
+    let { Addnewservice, Services } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -382,7 +376,7 @@ class Index extends Component {
                                     <VHfield
                                       label="Price"
                                       name="price"
-                                      placeholder="Enter service sprice"
+                                      placeholder="Enter service price"
                                       onChange={(e) =>
                                         this.updateEntryState1(e)
                                       }

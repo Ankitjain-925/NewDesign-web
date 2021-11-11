@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import CasesMoreButton from "Screens/Components/VirtualHospitalComponents/CasesMoreButton/index";
 import { checkTheIndex } from "../data";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 
 const getBorderColor = (isDragging, authorColors) =>
   isDragging ? "#333" : "transparent";
@@ -37,23 +39,24 @@ export default class QuoteItem extends React.Component {
                 onClick={() => this.setSpeciality()}
                 showActive={false}
               />
+              {this.props.quote?.status ===1 && <span className="err_message">Patient In invoice</span>}
               <Grid className="flowProfil">
                 <Grid>
-                  <img
+                <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
+                  {/* <img
                     className="imgProfile"
                     src={require("assets/virtual_images/102.png")}
                     alt=""
                     title=""
-                  />
+                  /> */}
                 </Grid>
-                <Grid className="flowProfilRght">
+                <Grid className="flowProfilRght" onClick={()=>this.props.moveDetial(this.props.quote.patient_id , this.props.quote._id)}>
                   <label>
                     {quote.patient.first_name} {quote.patient.last_name}
                   </label>
                   <p>{quote.patient.alies_id}</p>
                 </Grid>
                 <Grid className="checkDotsRght">
-                  {/* {console.log('quote456', quote?.author?.step_name)} */}
                   <CasesMoreButton
                     setDta={(item) => this.props.setDta(item)}
                     currentStep={quote?.author?.step_name}
@@ -66,30 +69,42 @@ export default class QuoteItem extends React.Component {
                     quote={quote}
                     onDragEnd={(data) => onDragEnd(data)}
                     ordered={this.props.ordered}
+                    professional_id_list={this.props.professional_id_list}
+                    updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                   />
                 </Grid>
               </Grid>
             </Grid>
-            {/* {console.log('dfsdfdfd', this.props)} */}
             <Grid className="flowInfoInr2">
               <Grid className="dtlCntUpr">
                 <Grid className="dtlCntLft">
                   <Grid className="dtlCount dtlCountRm">
-                    <a>
+                  <a className="taskHover">
+                  <span>Ward</span>
+                      <img
+                        src={require("assets/virtual_images/square.png")}
+                        alt=""
+                        title=""
+                      />
+                      {quote.wards?.ward_name}
+                    </a>
+                    <a className="taskHover">
+                    <span>Room</span>
                       <img
                         src={require("assets/virtual_images/room.svg")}
                         alt=""
                         title=""
                       />
-                      Room 1
+                      {quote.rooms?.room_name}
                     </a>
-                    <a>
+                    <a className="taskHover">
+                    <span>Bed</span>
                       <img
                         src={require("assets/virtual_images/bed2.png")}
                         alt=""
                         title=""
                       />
-                      2
+                      {quote.bed}
                     </a>
                   </Grid>
                 </Grid>
@@ -97,22 +112,25 @@ export default class QuoteItem extends React.Component {
               <Grid className="dtlCntUpr dtlCntUprNw">
                 <Grid className="dtlCntLft">
                   <Grid className="dtlCount">
-                    <a>
+                    <a className="taskHover">
+                      <span>Tasks</span>
                       <img
                         src={require("assets/virtual_images/rightIcon.png")}
                         alt=""
                         title=""
                       />
-                      {quote.done_task}/{quote.total_task}
+                      {quote.done_task ? quote.done_task : 0}/{quote.total_task ?quote.total_task : 0}
                     </a>
-                    <span>
+                    <a className="addSec taskHover" onClick={()=>{this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                      <span>Add Task</span>
                       <img
-                        src={require("assets/virtual_images/plusIcon.jpg")}
+                        src={require("assets/virtual_images/plusIcon.png")}
                         alt=""
                         title=""
                       />
-                    </span>
-                    <a>
+                    </a>
+                    <a className="taskHover">
+                      <span>Comments</span>
                       <img
                         src={require("assets/virtual_images/note1.png")}
                         alt=""
@@ -123,21 +141,7 @@ export default class QuoteItem extends React.Component {
                   </Grid>
                 </Grid>
                 <Grid className="dtlCntRght">
-                  <a>
-                    <img
-                      src={require("assets/virtual_images/101.png")}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                  <a>
-                    <img
-                      src={require("assets/virtual_images/102.png")}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                  <a>+1</a>
+                <Assigned assigned_to ={quote.assinged_to}/>
                 </Grid>
               </Grid>
             </Grid>
@@ -166,11 +170,12 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
-                    {/* <Grid className="cardoLbl cardoPink"><a>{quote?.speciality?.specialty_name}</a></Grid> */}
+                    {this.props.quote?.status ===1 && <span className="err_message">Patient In invoice</span>}
                   </Grid>
                   <Grid item xs={12} md={5} lg={4}>
-                    <Grid className="cardioArea">
-                      <Grid>
+                    <Grid className="cardioArea" >
+                    <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
+                      <Grid onClick={()=>this.props.moveDetial(this.props.quote.patient_id , this.props.quote._id)}>
                         <label>
                           {quote.patient.first_name} {quote.patient.last_name}
                         </label>
@@ -188,76 +193,69 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
+                    {this.props.quote?.status ===1 && <span className="err_message">Patient In invoice</span>}
+                  </Grid>
+                  <Grid item xs={12} md={4} lg={6}>
+                      <Grid className="wardInfo">
+                          <a className="wardNum taskHover"><span>Ward</span><img src={require('assets/virtual_images/square.png')} alt="" title="" /><label>{quote.wards?.ward_name}</label></a>
+                          <a className="roomNum taskHover"><span>Room</span><img src={require('assets/virtual_images/room.svg')} alt="" title="" /><label>{quote.rooms?.room_name}</label></a>
+                          <a className="bedNum taskHover"><span>Bed</span><img src={require('assets/virtual_images/bed2.png')} alt="" title="" /><label>{quote.bed}</label></a>
+                      </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
+                
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12} md={5}>
                 <Grid className="cardioData">
                   <Grid className="infoDoc">
-                    <a className="rghtHalf">
+                    <a className="rghtHalf taskHover">
+                      <span>Tasks</span>
                       <img
                         src={require("assets/virtual_images/rightIcon.png")}
                         alt=""
                         title=""
                       />
-                     {quote.done_task}/{quote.total_task}
+                     {quote.done_task ? quote.done_task : 0}/{quote.total_task ?quote.total_task : 0}
                     </a>
-                    <a className="addSec">
+                    <a className="addSec taskHover" onClick={()=>{this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                      <span>Add Task</span>
                       <img
                         src={require("assets/virtual_images/plusIcon.png")}
                         alt=""
                         title=""
                       />
                     </a>
-                    <a className="notePoint">
+                    <a className="notePoint taskHover">
+                      <span>Comments</span>
                       <img
                         src={require("assets/virtual_images/note.png")}
                         alt=""
                         title=""
                       />
-                      <span>1</span>
+                      1
                     </a>
                   </Grid>
                   <Grid className="cardioList">
-                    <a>
-                      <img
-                        src={require("assets/virtual_images/dr1.jpg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                    <a>
-                      <img
-                        src={require("assets/virtual_images/dr1.jpg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                    <a className="cardioCount">
-                      <span>+1</span>
-                    </a>
+                  <Assigned assigned_to ={quote.assinged_to}/>
                   </Grid>
                   <Grid>
-                    <CasesMoreButton
-                      setDta={(item) => this.props.setDta(item)}
-                      currentStep={quote?.author?.step_name}
-                      currentIndex={checkTheIndex(
-                        this.props.columns[quote?.author?.step_name],
-                        "patient_id",
-                        quote.patient_id
-                      )}
-                      columns={this.props.columns}
-                      quote={quote}
-                      onDragEnd={(data) => onDragEnd(data)}
-                      ordered={this.props.ordered}
-                    />
-                    {/* <a>
-                      <img
-                        src={require("assets/virtual_images/threeDots2.png")}
-                        alt=""
-                        title=""
-                      />
-                    </a> */}
+                  <CasesMoreButton
+                    setDta={(item) => this.props.setDta(item)}
+                    currentStep={quote?.author?.step_name}
+                    currentIndex={checkTheIndex(
+                      this.props.columns[quote?.author?.step_name],
+                      "patient_id",
+                      quote.patient_id
+                    )}
+                    columns={this.props.columns}
+                    quote={quote}
+                    onDragEnd={(data) => onDragEnd(data)}
+                    ordered={this.props.ordered}
+                    professional_id_list={this.props.professional_id_list}
+                    updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
+                  />
                   </Grid>
                 </Grid>
               </Grid>

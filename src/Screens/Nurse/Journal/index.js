@@ -44,6 +44,7 @@ import CPFields from "Screens/Components/TimelineComponent/CPFields/index";
 import DiaryFields from "Screens/Components/TimelineComponent/DiaryFields/index";
 import AllL_Ps from "Screens/Components/Parameters/parameter.js";
 import LRFields from "Screens/Components/TimelineComponent/LRFields/index";
+import CovidSymptomsField from "Screens/Components/TimelineComponent/CovidSymptomsField/index";
 import FUFields from "Screens/Components/TimelineComponent/FUFields/index";
 import FAFields from "Screens/Components/TimelineComponent/FAFields/index";
 import RespirationField from "Screens/Components/TimelineComponent/RespirationField/index"
@@ -1036,6 +1037,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
+      long_covid,
       journal,
       secnd_openion,
       sick_cert,
@@ -1088,8 +1090,8 @@ class Index extends Component {
     ) {
       if (stateLoginValueAim.user) {
         if (
-          stateLoginValueAim.user.type === "nurse" ||
-          stateLoginValueAim.user.type === "therapist"
+          stateLoginValueAim?.user?.type === "nurse" ||
+          stateLoginValueAim?.user?.type === "therapist"
         ) {
         } else {
           return <Redirect to={"/"} />;
@@ -1407,6 +1409,9 @@ class Index extends Component {
                                       <option value="laboratory_result">
                                         {lab_result}
                                       </option>
+                                      <option value="long_covid">
+                                       {long_covid}
+                                      </option>
                                       <option value="marcumar_pass">
                                         {marcumar_pass}
                                       </option>
@@ -1530,6 +1535,12 @@ class Index extends Component {
                                       "laboratory_result" && (
                                         <Grid className="nwDiaSel1">
                                           {lab_result}
+                                        </Grid>
+                                      )}
+                                       {this.state.current_select ===
+                                      "long_covid" && (
+                                        <Grid className="nwDiaSel1">
+                                        {long_covid}
                                         </Grid>
                                       )}
                                     {this.state.current_select ===
@@ -1823,6 +1834,28 @@ class Index extends Component {
                                     updateTrack={this.state.updateTrack}
                                   />
                                 )}
+                                {this.state.current_select ===
+                              "long_covid" && (
+                                <CovidSymptomsField
+                                  cur_one={this.state.cur_one}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="patient"
+                                  gender={this.state.patient_gender}
+                                  GetHideShow={this.GetHideShow}
+                                  AddTrack={this.AddTrack}
+                                  options={this.state.AllSpecialty}
+                                  date_format={
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
                               {this.state.current_select ===
                                 "laboratory_result" && (
                                   <LRFields

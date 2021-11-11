@@ -21,18 +21,12 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Pagination from "Screens/Components/Pagination/index";
 import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
-import SelectField from "Screens/Components/Select/index";
-import {
-  getLanguage
-}from "translations/index"
-
+import {  getLanguage }from "translations/index"
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SelectByTwo from "Screens/Components/SelectbyTwo/index";
 
-const options = [{label: "Classic", value: "classic"}, {label: "Rating scale", value: "rating_scale"}]
-;
-
+const options = [{label: "Classic", value: "classic"}, {label: "Rating scale", value: "rating_scale"}];
 class Index extends Component {
   constructor(props) {
     super(props)
@@ -70,11 +64,12 @@ class Index extends Component {
   handleCloseQues = () => {
     this.setState({ openQues: false});
   }
-
+  //Modal edit Open
   handleEditCloseQues = () => {
     this.setState({ editQues: false, });
   }
 
+  //state change on add
   updateEntryState1 = (e, name, index) => {
     var state = this.state.myQuestions;
     if(name==='type'){
@@ -97,9 +92,8 @@ class Index extends Component {
     var QuesAy = this.state.myQuestions[0]?.length > 0 && this.state.myQuestions.filter((data, index1) => index1 !== index);
     this.setState({ myQuestions: QuesAy });
   };
-
+  //for submit the questionaire
   handleSubmit = () => {
-    console.log("myQuestions", this.state.myQuestions)
     // this.setState({myQuestions: {} ,openOpti: true})
     var myQuestions = this.state.AllQuestions;
     myQuestions = [...myQuestions, ...this.state.myQuestions]
@@ -123,7 +117,6 @@ class Index extends Component {
         })
     }
     else {
-
       axios
         .post(
           sitedata.data.path + "/questionaire/AddQuestionaire",
@@ -141,10 +134,10 @@ class Index extends Component {
         .catch(function (error) {
           console.log(error);
         });
-
      }
   }
 
+  //for sunit the edit form
   handleeditSubmit = () => {
     this.setState({ loaderImage: true });
     axios
@@ -155,7 +148,6 @@ class Index extends Component {
         },
          commonHeader(this.props.stateLoginValueAim.token)
       )
-
       .then((responce) => {
         this.setState({
           editQuestions: {},
@@ -165,7 +157,6 @@ class Index extends Component {
       })
   }
   // For getting the Question and implement Pagination
-
   getAllQuestions = () => {
     this.setState({ loaderImage: true });
     axios
@@ -246,11 +237,11 @@ class Index extends Component {
       },
     });
   };
-
+//Manage edit questionnaire
   editQuestion = (data, _id) => {
     this.setState({ editQuestions: data, editQues: true, editopenOpti: data?.type==='classic'? true : false });
   };
-
+//Delete the quesitonnaire
   deleteClickQuestion(status, perticular_id) {
     const newQuestion = [...this.state.questions_data];
     var QuesAy = newQuestion?.length > 0 &&
@@ -273,7 +264,7 @@ class Index extends Component {
         this.getAllQuestions();
       });
   }
-
+//update the state on eidt the questionnaire
   editQuestionState = (e, name) => {
     var QuesAy = this.state.editQuestions;
     if (name === 'options') {
@@ -285,12 +276,15 @@ class Index extends Component {
       let setView = e.value === 'classic' ? true: false;
       this.setState({editopenOpti : setView})
     }
+    else if(name==='multiple_answer' || name === 'other'){
+      QuesAy[name] = e.target.checked;
+    }
     else {
-      QuesAy["question"] = e.target.value;
+      QuesAy[name] = e.target.value;
     }
     this.setState({ editQuestions: QuesAy });
   }
-
+//on changing the page
   onChangePage = (pageNumber) => {
     this.setState({
       questions_data: this.state.AllQuestions.slice(
@@ -300,7 +294,7 @@ class Index extends Component {
       currentPage: pageNumber,
     });
   };
-
+//get the selected value of type of question
   SelectedValue=(value)=>{
     var selected = options?.length>0 && options.filter((e)=> e.value===value)
     if(selected?.length>0) return selected[0]
@@ -311,6 +305,20 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let {AddQuestionnaire, EditQuestionnaire } = translate;
     const { questions_data } = this.state;
+    const { stateLoginValueAim, House } = this.props;
+    if (
+      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.token === 450 ||
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "adminstaff" ||
+      !this.props.verifyCode ||
+      !this.props.verifyCode.code
+    ) {
+      return <Redirect to={"/"} />;
+    }
+    if (House && House?.value === null) {
+      return <Redirect to={"/VirtualHospital/institutes"} />;
+    }
     var placeholders = "Enter choice 1" 
     return (
       <Grid
@@ -344,13 +352,11 @@ class Index extends Component {
                       <Grid item xs={6} md={6}>
                         {/* Back common button */}
                         <Grid className="extSetting">
-                          {/* <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
-                                                        Back to Billing</a> */}
                         </Grid>
                         {/* End of Back common button */}
                       </Grid>
                       <Grid item xs={6} md={6}>
-                        <Grid className="newServc">
+                        <Grid className="newServc que-mbottom">
                           <Button onClick={this.handleOpenQues}>
                             + New Question
                           </Button>
@@ -509,11 +515,6 @@ class Index extends Component {
                                       )}
                                     </Grid>
                                   </Grid>
-                                  {/* <Grid className="add_a_question">
-                                      <a onClick={this.onAddFiled}>
-                                        + add a question
-                                      </a>
-                                    </Grid> */}
                                 </Grid>
                               )}
                               <Grid className="infoSub2">
@@ -558,13 +559,7 @@ class Index extends Component {
                                   <Grid className="cnfrmDiaMain">
                                     <Grid className="fillDia">
                                         <Grid className="fillDia">
-                                          {/* <SelectByTwo
-                                            name="situation"
-                                            label={"Choose questionnaire type"}
-                                            options={options}
-                                            onChange={(e) => this.editQuestionState(e, "type")}
-                                            value={this.SelectedValue(this.state.editQuestions?.type) }
-                                          /> */}
+                                        
                                         </Grid>
                                       {this.state.editopenOpti ? (
                                         <>
@@ -576,7 +571,7 @@ class Index extends Component {
                                                   checked={this.state.editQuestions?.multiple_answer === true}
                                                   onChange={(e) =>
                                                     this.editQuestionState(
-                                                      e.target.checked,
+                                                      e,
                                                       "multiple_answer",
                                                     )
                                                   }
@@ -619,7 +614,7 @@ class Index extends Component {
                                                   checked={this.state.editQuestions?.other === true}
                                                   onChange={(e) =>
                                                     this.editQuestionState(
-                                                      e.target.checked,
+                                                      e,
                                                       "other",
                                                     )
                                                   }
@@ -701,9 +696,7 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
-
                           {questions_data?.length > 0 && questions_data.map((data, index) => (
-
                             <>
                               <Tr>
                                 <Td>
@@ -712,9 +705,7 @@ class Index extends Component {
                                 <Td>
                                   <label>{data.question}</label>
                                 </Td>
-                                {/* <Td>{data.options?.join(', ') }</Td> */}
                                 <Td>{data.options ? data.options?.join(', ') : '-'}</Td>
-                                {/* <Td className="srvcDots"> */}
                                 <Td className="presEditDot scndOptionIner">
                                   <a className="openScndhrf">
                                     <Button>
@@ -727,7 +718,6 @@ class Index extends Component {
                                     </Button>
                                     <ul>
                                       <li>
-                                        {/* {console.log('data._id', data._id, data)} */}
                                         <a
                                           onClick={() => {
                                             this.editQuestion(data, data._id);
@@ -808,20 +798,15 @@ class Index extends Component {
           </Grid>
         </Grid>
       </Grid>
-
-
     );
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-    state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -829,8 +814,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     House,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

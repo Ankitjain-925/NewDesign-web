@@ -115,7 +115,6 @@ class Index extends Component {
   };
 
   componentDidMount() {
-    console.log('compoentne Did mount1 ')
     this.props.Speciality(true, this.props?.House?.value, this.props.stateLoginValueAim.token);
     this.getSpeciality();
   }
@@ -299,10 +298,11 @@ class Index extends Component {
                 {/* Start of Right Section */}
                 <Grid item xs={12} md={11}>
                   <Grid className="topLeftSpc">
+                    <Grid className="spcMgntH1"><h1>Space Management</h1></Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={9}>
                           <Grid className="roomBreadCrumb3">
                             <ul>
                               <li>
@@ -318,6 +318,12 @@ class Index extends Component {
                               </li>
                             </ul>
                           </Grid>
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                            <Grid className="settingInfo">
+                              <a><img src={require('assets/virtual_images/search-entries.svg')} alt="" title="" /></a>
+                              <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
+                            </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -494,6 +500,7 @@ class Index extends Component {
                   }
                 >
                   <Grid className="addSpeclContnt">
+                   <Grid className="addSpeclContntIner">
                     <Grid className="addSpeclLbl">
                       <Grid className="addSpeclClose">
                         <a onClick={this.handleCloseSpecl}>
@@ -651,6 +658,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
+                 </Grid>  
                 </Modal>
 
                 {/* End of Model setup */}

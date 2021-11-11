@@ -20,13 +20,9 @@ import {
   getImage,
   GetUrlImage,
 } from "Screens/Components/BasicMethod/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index";
 import { commonHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
-
-
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +38,6 @@ class Index extends Component {
       AddSecond: {},
       successfullsent: false,
     };
-    // new Timer(this.logOutClick.bind(this))
   }
 
   componentDidMount = () => {
@@ -141,7 +136,7 @@ class Index extends Component {
             }, 5000);
             var returnData = response.data.data.returnData;
             var signedRequest = returnData.signedRequest;
-         
+
             if (fileType === "pdf") {
               fileType = "application/pdf";
             }
@@ -167,7 +162,7 @@ class Index extends Component {
 
   //Delete for the Prescriptions confirmation
   updatePrescription(status, id) {
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
       r_u_sure_update_inquiry,
       r_u_sure_cancel_inquiry,
@@ -265,7 +260,10 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/RequestedSecond", commonHeader(user_token))
+      .get(
+        sitedata.data.path + "/UserProfile/RequestedSecond",
+        commonHeader(user_token)
+      )
       .then((response) => {
         var images = [];
         response.data.data &&
@@ -315,7 +313,7 @@ class Index extends Component {
   };
 
   render() {
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
       req_updated_successfully,
       about,
@@ -855,7 +853,14 @@ class Index extends Component {
                         {next}
                       </a>
                     )} */}
-                                     <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                    <Pagination
+                      totalPage={this.state.totalPage}
+                      currentPage={this.state.currentPage}
+                      pages={this.state.pages}
+                      onChangePage={(page) => {
+                        this.onChangePage(page);
+                      }}
+                    />
                   </Grid>
                 )}
               </Grid>
@@ -867,10 +872,8 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const {
-    stateLoginValueAim,
-    loadingaIndicatoranswerdetail,
-  } = state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   // const { Doctorsetget } = state.Doctorset;

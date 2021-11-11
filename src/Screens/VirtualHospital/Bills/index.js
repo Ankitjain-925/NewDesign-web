@@ -13,19 +13,18 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
+import Pagination from "Screens/Components/Pagination/index";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
-import {
-    commonHeader,
-    commonCometDelHeader,
-  } from "component/CommonHeader/index";
+import { Invoices } from 'Screens/Login/invoices.js';
+import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
 import {
     getLanguage
-  }from "translations/index"
+} from "translations/index"
 
 function TabContainer(props) {
     return (
@@ -41,25 +40,105 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0
-        };
-    }
-    handleChangeTab = (event, value) => {
-        this.setState({ value });
+            value: 0,
+            AllBills: {},
+            PaidBills: {},
+            OverDueBills: {},
+            DraftBills: {},
+            IssuedBills: {},
+            bills_data: {}
+        }
     };
+
+
+    componentDidMount() {
+        this.fetchbillsdata('all', 0);
+    }
+
+    // fetchbillsdata(status, value) {
+    //     this.setState({ loaderImage: true });
+    //     axios
+    //     .get(sitedata.data.path + `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
+    //     commonHeader(this.props.stateLoginValueAim.token))
+    //     .then((response) => {
+    //       if (response.data.hassuccessed) {
+    //         this.setState({ AllBills : response.data.data, value: value });
+    //       }
+    //     });
+    // }
+
+
+    onChangePage = (pageNumber) => {
+        this.setState({
+            bills_data: this.state.AllBills.slice(
+                (pageNumber - 1) * 10,
+                pageNumber * 10
+            ),
+            currentPage: pageNumber,
+        });
+    };
+
+    // For getting the Bills and implement Pagination
+    fetchbillsdata(status, value) {
+        this.setState({ loaderImage: true });
+        axios
+            .get(sitedata.data.path + `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
+                commonHeader(this.props.stateLoginValueAim.token))
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    var totalPage = Math.ceil(response.data.data.length / 10);
+                    this.setState(
+                        {
+                            AllBills: response.data.data,
+                            value: value,
+                            totalPage: totalPage,
+                            currentPage: 1,
+                        },
+                        () => {
+                            this.setState({ loaderImage: false });
+                            if (totalPage > 1) {
+                                var pages = [];
+                                for (var i = 1; i <= this.state.totalPage; i++) {
+                                    pages.push(i);
+                                }
+                                this.setState({
+                                    bills_data: this.state.AllBills.slice(0, 10),
+                                    pages: pages,
+                                });
+                            } else {
+                                this.setState({ bills_data: this.state.AllBills });
+                            }
+                        }
+                    );
+                }
+            })
+    };
+
+    Invoice = (data) => {
+        this.props.history.push({
+            pathname: '/virtualHospital/invoices',
+            state: { data: data }
+        })
+    }
+
+    handleChangeTab = (event, value) => {
+        var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
+        this.fetchbillsdata(ApiStatus, value);
+    };
+
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {Billing } = translate;
-        const { value } = this.state;
+        let { Billing } = translate;
+        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -81,7 +160,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={6} md={6}>
                                                 <Grid className="newServc">
-                                                    <Button>+ New Invoice</Button>
+                                                    <Button onClick={() => { this.Invoice('new') }}>+ New Invoice</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -107,374 +186,71 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        {value === 0 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
-                                                        <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
+                                        <Grid className="billInfoData">
+                                            <Table>
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>ID</Th>
+                                                        <Th>Patient</Th>
+                                                        <Th>Date</Th>
+                                                        <Th>Status</Th>
+                                                        <Th>Total</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data) => (
                                                     <Tbody>
                                                         <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greyDot"><span></span>Draft</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greyDot"><span></span>Draft</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                            <Td>{data?.invoice_id}</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
+                                                            <Td>{data.created_at}</Td>
+                                                            <Td className="greyDot"><span></span>{data?.status?.label}</Td>
+                                                            <Td>{data?.total_amount} €</Td>
+                                                            <Td className="billDots"><Button className="downloadDots">
+                                                                <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
+                                                                <Grid className="actionList">
+                                                                    <ul className="actionPdf">
+                                                                        <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
+                                                                        <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
+                                                                        <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
+                                                                    </ul>
+                                                                    <ul className="setStatus">
+                                                                        <li><span>Set status</span></li>
+                                                                        <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
+                                                                    </ul>
+                                                                </Grid>
+                                                            </Button></Td>
                                                         </Tr>
                                                     </Tbody>
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={12} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
+                                                ))}
+                                            </Table>
+                                            <Grid className="tablePagNum">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6}>
+                                                        <Grid className="totalOutOff">
+                                                            <a>
+                                                                {this.state.currentPage} of{" "}
+                                                                {this.state.totalPage}
+                                                            </a>
                                                         </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        {this.state.totalPage > 1 && (
+                                                            <Grid className="prevNxtpag">
+                                                                <Pagination
+                                                                    totalPage={this.state.totalPage}
+                                                                    currentPage={this.state.currentPage}
+                                                                    pages={this.state.pages}
+                                                                    onChangePage={(page) => {
+                                                                        this.onChangePage(page);
+                                                                    }}
+                                                                />
                                                             </Grid>
-                                                        </Grid>
+                                                        )}
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </TabContainer>}
-                                        {value === 1 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
-                                                        <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    <Tbody>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                    </Tbody>
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </TabContainer>}
-                                        {value === 2 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
-                                                        <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    <Tbody>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                    </Tbody>
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </TabContainer>}
-                                        {value === 3 && <TabContainer>
-                                            <Grid className="billInfoData">
-                                                <Table>
-                                                    <Thead>
-                                                        <Tr>
-                                                            <Th>ID</Th>
-                                                            <Th>Patient</Th>
-                                                            <Th>Date</Th>
-                                                            <Th>Status</Th>
-                                                            <Th>Total</Th>
-                                                            <Th></Th>
-                                                        </Tr>
-                                                    </Thead>
-                                                    <Tbody>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
-                                                    </Tbody>
-                                                </Table>
-                                                <Grid className="billPagination">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationLft"><p>25 of 36</p></Grid>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="billPaginationRght">
-                                                                <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </TabContainer>}
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                                 {/* End of Right Section */}
@@ -488,22 +264,24 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-      state.LoginReducerAim;
+        state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
+    const { invoices } = state.Invoices;
     return {
-      stateLanguageType,
-      stateLoginValueAim,
-      loadingaIndicatoranswerdetail,
-      House,
-      settings,
-      verifyCode,
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House,
+        settings,
+        verifyCode,
+        invoices
     };
-  };
-  export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
-      Index
+};
+export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices })(
+        Index
     )
-  );
+);

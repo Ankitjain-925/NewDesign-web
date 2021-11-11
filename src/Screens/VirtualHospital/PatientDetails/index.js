@@ -46,6 +46,15 @@ class Index extends Component {
             valueMob: 0
         };
     }
+
+    componentDidMount =()=>{
+        if(this.props.location.search){
+            var data = this.props.location.search === '?view=4' ? 3 : 0 ;
+            this.handleChangeTab('', data);
+            this.handleChangeTabMob('', data);
+        }
+    }
+    
     handleChangeTab = (event, value) => {
         this.setState({ value });
     };
@@ -64,11 +73,23 @@ class Index extends Component {
                   ? "homeBg darkTheme"
                   : "homeBg"
               }>
-                <Grid className="homeBgIner">
+                <Grid className="homeBgIner vh-section">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             
                         <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                        <Grid className="tskTabsMob">
+                                <AppBar position="static" className="tskTabs">
+                                    <Tabs value={valueMob} onChange={this.handleChangeTabMob}>
+                                        <Tab label="Overview" className="tsktabIner tsktabInerMob" />
+                                        <Tab label="Journal" className="tsktabIner" />
+                                        <Tab label="Tasks" className="tsktabIner" />
+                                        <Tab label="Documents / Files" className="tsktabIner" />
+                                        <Tab label="Room" className="tsktabIner" />
+                                        <Tab label="Personal info" className="tsktabIner" />
+                                    </Tabs>
+                                </AppBar>
+                            </Grid>
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
@@ -92,7 +113,6 @@ class Index extends Component {
                                                 <Tab label="Journal" className="tsktabIner" />
                                                 <Tab label="Tasks" className="tsktabIner" />
                                                 <Tab label="Documents / Files" className="tsktabIner" />
-                                                <Tab label="Room" className="tsktabIner" />
                                                 <Tab label="Personal info" className="tsktabIner" />
                                             </Tabs>
                                         </AppBar>
@@ -107,10 +127,10 @@ class Index extends Component {
                                         {value === 2 && <TabContainer>
                                             <PatientDocuments />
                                         </TabContainer>}
-                                        {value === 3 && <TabContainer>
+                                        {/* {value === 3 && <TabContainer>
                                             <PatientRoom />
-                                        </TabContainer>}
-                                        {value === 4 && <TabContainer>
+                                        </TabContainer>} */}
+                                        {value === 3 && <TabContainer>
                                             <PatientPersonalInfo />
                                         </TabContainer>}
                                     </div>
@@ -127,10 +147,10 @@ class Index extends Component {
                                         {valueMob === 3 && <TabContainer>
                                             <PatientDocuments />
                                         </TabContainer>}
-                                        {valueMob === 4 && <TabContainer>
+                                        {/* {valueMob === 4 && <TabContainer>
                                             <PatientRoom />
-                                        </TabContainer>}
-                                        {valueMob === 5 && <TabContainer>
+                                        </TabContainer>} */}
+                                        {valueMob === 4 && <TabContainer>
                                             <PatientPersonalInfo />
                                         </TabContainer>}
                                     </div>

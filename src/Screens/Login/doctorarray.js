@@ -14,6 +14,8 @@ const PLATFORM_SPECIFIC_USER = [
   'd_oocuio4z4',
   'd_j1njxe1n7',
   'd_1q1j4sscm',
+  'd_oas8yepbp',
+  'd_dfwgv8zm5',
   'admin',
 ];
 const getDoctorArray = async (doctorArray = new Set(), user_token) => {
@@ -37,7 +39,9 @@ const isInDoctorList = (user = {}) => {
       user.email === "doctor5@aimedis.com" ||
       user.email === "doctor3@aimedis.com" ||
       user.email === "doctor6@aimedis.com" ||
-      user.email === "doctor7@aimedis.com"
+      user.email === "doctor7@aimedis.com" ||
+      user.email === "doctor9@aimedis.com" ||
+      user.email === "doctor10@aimedis.com"
     ) {
       return true;
     } else {
@@ -130,7 +134,9 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
                 data.email === "doctor5@aimedis.com" ||
                 data.email === "doctor3@aimedis.com" ||
                 data.email === "doctor6@aimedis.com" ||
-                data.email === "doctor7@aimedis.com"
+                data.email === "doctor7@aimedis.com" ||
+                data.email === "doctor9@aimedis.com" ||
+                data.email === "doctor10@aimedis.com"
               ) {
                 if (doctorArray.indexOf(data.profile_id.toLowerCase()) === -1) {
                   doctorArray.push(data.profile_id.toLowerCase());
@@ -254,7 +260,9 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
                 data.email === "doctor5@aimedis.com" ||
                 data.email === "doctor3@aimedis.com" ||
                 data.email === "doctor6@aimedis.com" ||
-                data.email === "doctor7@aimedis.com"
+                data.email === "doctor7@aimedis.com" ||
+                data.email === "doctor9@aimedis.com" ||
+                data.email === "doctor10@aimedis.com"
               ) {
                 if (doctorArray.indexOf(data.profile_id.toLowerCase()) === -1) {
                   doctorArray.push(data.profile_id.toLowerCase());

@@ -1,10 +1,10 @@
-require('dotenv').config()
 export const commonHeader = (user_token) => {
     let Header = {
         headers: {
             token: user_token,
             Accept: "application/json",
             "Content-Type": "application/json",
+            // authorization: 
         }
     }
     return Header
@@ -15,6 +15,8 @@ export const commonNoTokentHeader = () => {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            // authorization:
+            // authorization: "Aimedis23"
         }
     }
     return Header

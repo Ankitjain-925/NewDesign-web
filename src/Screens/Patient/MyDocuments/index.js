@@ -30,17 +30,9 @@ import { Redirect, Route } from 'react-router-dom';
 import SickList from './Components/sickcertificate';
 import PrecriptionList from './Components/prescription';
 import { AddFavDoc, ConsoleCustom } from 'Screens/Components/BasicMethod/index';
-import {
-    getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from 'component/CommonHeader/index';
-
-const specialistOptions = [
-    { value: 'Specialist1', label: 'Specialist1' },
-    { value: 'Specialist2', label: 'Specialist2' },
-];
-
 function TabContainer(props) {
     return (
         <Typography component="div" className="tabsCntnts">
@@ -48,10 +40,7 @@ function TabContainer(props) {
         </Typography>
     );
 }
-TabContainer.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
+TabContainer.propTypes = { children: PropTypes.node.isRequired, };
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -92,7 +81,6 @@ class Index extends Component {
             err_pdf: false,
         };
     }
-
     // Open and Close Prescription form
     handleaddInqry = () => {
         this.setState({ addInqry: true });
@@ -100,7 +88,6 @@ class Index extends Component {
     handleCloseInqry = () => {
         this.setState({ addInqry: false });
     };
-
     //open and close Sick certificate form
     handleaddSick = () => {
         this.setState({ addSick: true });
@@ -108,11 +95,9 @@ class Index extends Component {
     handleCloseSick = () => {
         this.setState({ addSick: false });
     };
-
     handleSpecialist = specialistOption => {
         this.setState({ specialistOption });
     };
-
     //For change the Tab
     handleChangeTabs = (event, value) => {
         this.setState({ value },
@@ -121,8 +106,6 @@ class Index extends Component {
                 this.alldoctor();
             })
     };
-
-
     //Set the data of Tab of Pescription or Sick certificate
     toggle(tab) {
         if (this.state.activeTab !== tab) {
@@ -131,20 +114,17 @@ class Index extends Component {
             });
         }
     }
-
     componentDidMount() {
         this.patientinfo();
         this.allSdoctors();
         this.alldoctor();
     }
-
     // Add the Second State
     AddStateSO = (e) => {
         const state = this.state.AddSecond;
         state[e.target.name] = e.target.value;
         this.setState({ AddSecond: state })
     }
-
     // fancybox open
     handleaddSecond = () => {
         this.setState({ addSec: true });
@@ -152,7 +132,6 @@ class Index extends Component {
     handleCloseDash = () => {
         this.setState({ addSec: false });
     };
-
     //For upload File related the second Opinion
     fileUpload = (event) => {
         if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
@@ -189,7 +168,6 @@ class Index extends Component {
         }
         else { this.setState({ err_pdf: true }) }
     }
-
     //Get current User Information
     patientinfo() {
         var user_id = this.props.stateLoginValueAim.user._id;
@@ -199,12 +177,10 @@ class Index extends Component {
                 this.setState({ personalinfo: response.data.data, loaderImage: false })
             })
     }
-
     //For submit the Sick Certificate
     Submitcertificate = () => {
         var data = this.state.AddSickCertificate;
         if (data.doctor_id) {
-            var user_token = this.props.stateLoginValueAim.token;
             data.patient_id = this.props.stateLoginValueAim.user._id;
             data.patient_email = this.props.stateLoginValueAim.user.email;
             data.first_name = this.state.personalinfo.first_name;
@@ -256,7 +232,6 @@ class Index extends Component {
         var data = this.state.AddPrescription;
         if (data.doctor_id) {
             this.setState({ error: false });
-            var user_token = this.props.stateLoginValueAim.token;
             data.status = "free";
             data.first_name = this.state.personalinfo.first_name;
             data.last_name = this.state.personalinfo.last_name;
@@ -300,7 +275,6 @@ class Index extends Component {
             setTimeout(() => { this.setState({ error: false }) }, 5000);
         }
     }
-
     //Add doctor for Second Opinion
     AddDoctorSS = (e, name) => {
         const state = this.state.AddSecond;
@@ -339,10 +313,10 @@ class Index extends Component {
             if (this.state.AddSickCertificate.doctor_id) {
                 let doctor_id = this.state.AddSickCertificate.doctor_id
                 axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id,
-                    commonHeader()).then((response) => {
-                        const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
-                        this.setState({ docProfile1: response.data.data, found1: found })
-                    })
+                commonHeader()).then((response) => {
+                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                    this.setState({ docProfile1: response.data.data, found1: found })
+                })
             }
         })
     }
@@ -352,28 +326,24 @@ class Index extends Component {
         state[e.target.name] = e.target.value;
         this.setState({ AddSickCertificate: state })
     }
-
     //For set the Name by Event like since_when for Sick certificate
     eventnameSet = (name, value) => {
         const state = this.state.AddSickCertificate;
         state[name] = value;
         this.setState({ AddSickCertificate: state })
     }
-
     //For set the Name by Event like since_when for Sick certificate
     eventnameSetP = (name, value) => {
         const state = this.state.AddPrescription;
         state[name] = value.value;
         this.setState({ AddPrescription: state, selectedSub: value })
     }
-
     // Add the Prescription State
     AddState = (e) => {
         const state = this.state.AddPrescription;
         state[e.target.name] = e.target.value;
         this.setState({ AddPrescription: state })
     }
-
     //All doctors of the Pres
     alldoctor() {
         var user_token = this.props.stateLoginValueAim.token;
@@ -437,12 +407,12 @@ class Index extends Component {
             data.profile_image = this.state.personalinfo.image;
             data.patient_profile_id = this.props.stateLoginValueAim.user.profile_id;
             axios.post(sitedata.data.path + '/UserProfile/second_opinion', data)
-                .then((responce) => {
-                    if (this.state.share_to_doctor) {
-                        AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
-                    }
-                    this.setState({ fileattach: {}, selectedPdoc: {}, newItemp2: data, docProfile: false, AddSecond: {}, loaderImage: false, successfullsent: true, addSec: false })
-                })
+            .then((responce) => {
+                if (this.state.share_to_doctor) {
+                    AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
+                }
+                this.setState({ fileattach: {}, selectedPdoc: {}, newItemp2: data, docProfile: false, AddSecond: {}, loaderImage: false, successfullsent: true, addSec: false })
+            })
             setTimeout(() => { this.setState({ successfullsent3: false }); }, 5000);
         }
         else {
@@ -450,43 +420,39 @@ class Index extends Component {
             setTimeout(() => { this.setState({ error: false }) }, 5000);
         }
     }
-
     //All doctors of the SC
     allSdoctors() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/certificate/DoctorUsersSc',
-            commonHeader(user_token)).then((response) => {
-                if (response.data.data && response.data.data.length > 0) {
-                    var data = [];
-                    response.data.data.map((item) => {
-                        var name = '';
-                        if (item.first_name && item.last_name) {
-                            name = item.first_name + ' ' + item.last_name
-                        }
-                        else if (item.first_name) {
-                            name = item.first_name
-                        }
-                        data.push({ value: item._id, label: name });
-                    })
-                    this.setState({ Sdoctors: data })
-                }
-            })
+        commonHeader(user_token)).then((response) => {
+            if (response.data.data && response.data.data.length > 0) {
+                var data = [];
+                response.data.data.map((item) => {
+                    var name = '';
+                    if (item.first_name && item.last_name) {
+                        name = item.first_name + ' ' + item.last_name
+                    }
+                    else if (item.first_name) {
+                        name = item.first_name
+                    }
+                    data.push({ value: item._id, label: name });
+                })
+                this.setState({ Sdoctors: data })
+            }
+        })
     }
 
     render() {
-        const { specialistOption } = this.state;
         const { value } = this.state;
-        const { stateLoginValueAim, Doctorsetget } = this.props;
+        const { stateLoginValueAim } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
-
         let translate = getLanguage(this.props.stateLanguageType)
         let { secnd_openion, plz_upload_png_jpg, doc_require_for_second_openion, rqst_sent_succefully, specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, questions, attachments, save_entry, sick_cert, prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
             country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when, Yes, No, today, yesterday, two_days_ago, three_to_6_days_ago, Week_or_more,
             have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, what_ur_profession, Annotations, details, for_pres_req_doc_require,
             is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
-
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
@@ -494,17 +460,13 @@ class Index extends Component {
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
-
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="documents" />
                                 <LeftMenuMobile isNotShow={true} currentPage="documents" />
                                 <Notification />
                                 {/* End of Website Menu */}
-
                                 <Grid item xs={12} md={11} lg={10}>
-
                                     <Grid className="docsOpinion">
-
                                         <Grid container direction="row" className="docsOpinLbl">
                                             <Grid item xs={12} md={6}><label>{my_doc}</label></Grid>
                                             <Grid item xs={12} md={6} className="docsOpinRght">
@@ -513,8 +475,6 @@ class Index extends Component {
                                                 {value == 2 && <a onClick={this.handleaddSecond}>+ {New} {secnd_openion}</a>}
                                             </Grid>
                                         </Grid>
-
-
                                         {/* For second opinion */}
                                         <Modal
                                             open={this.state.addSec}
@@ -584,30 +544,12 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="attchForms attchImg">
                                                                 <Grid><label>{attachments}</label></Grid>
-                                                                <FileUploader comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
-                                                                {/* <Grid className="attchbrowsInput">
-                                                                    <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                                    <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
-                                                                </Grid>
-                                                                <p>Supported file types: .jpg, .png, .pdf</p> */}
+                                                                <FileUploader comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} /> 
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-
                                                     <Grid className="infoShwHidBrdr"></Grid>
                                                     <Grid className="infoShwHidIner">
-                                                        {/* <Grid className="infoShwHidMain">
-                                                            <Grid container direction="row" justify="center" alignItems="center">
-                                                                <Grid item xs={6} md={6}>
-                                                                    <Grid className="infoShwHid">
-                                                                        <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid item xs={6} md={6} className="editShwHid">
-                                                                    <a>Edit</a>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid> */}
                                                         <Grid className="infoShwSave">
                                                             <input type="submit" onClick={this.saveData} value={save_entry} />
                                                         </Grid>
@@ -736,18 +678,6 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="infoShwHidBrdr2"></Grid>
                                                     <Grid className="infoShwHidIner2">
-                                                        {/* <Grid className="infoShwHidMain2">
-                                                            <Grid container direction="row" justify="center" alignItems="center">
-                                                                <Grid item xs={6} md={6}>
-                                                                    <Grid className="infoShwHid2">
-                                                                        <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid item xs={6} md={6} className="editShwHid2">
-                                                                    <a>Edit</a>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid> */}
                                                         <Grid className="infoShwSave2">
                                                             <input type="submit" onClick={this.Submitcertificate} value={save_entry} />
                                                         </Grid>
@@ -756,7 +686,6 @@ class Index extends Component {
                                             </Grid>
                                         </Modal>
                                         {/* End of Model setup */}
-
                                         {/* Model setup for Prescription*/}
                                         <Modal
                                             open={this.state.addInqry}
@@ -764,7 +693,6 @@ class Index extends Component {
                                             className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                                             <Grid className="nwPresCntnt">
                                                 <Grid className="nwPresCntntIner">
-
                                                     <Grid className="nwPresCourse">
                                                         <Grid className="nwPresCloseBtn">
                                                             <a onClick={this.handleCloseInqry}>
@@ -776,7 +704,6 @@ class Index extends Component {
                                                     </Grid>
                                                     {this.state.error && <div className="err_message">{for_pres_req_doc_require}</div>}
                                                     <Grid className="docHlthMain">
-
                                                         {!this.state.found && <Grid className="docHlth">
                                                             <h2>{share_health_status}</h2>
                                                             <Grid className="docHlthChk">
@@ -793,7 +720,6 @@ class Index extends Component {
                                                             </Grid>
                                                             <p>{share_health_status_info_from_journal}</p>
                                                             <p>{see_list_shared_info}
-
                                                                 <a className="vsblTime" data-tip data-for="timeIconTip">
                                                                     <img src={require('assets/images/Info.svg')} alt="" title="" />
                                                                 </a>
@@ -805,7 +731,6 @@ class Index extends Component {
                                                                 </ReactTooltip>
                                                             </p>
                                                         </Grid>}
-
                                                         <Grid className="drstndrdQues">
                                                             <h3>{doc_and_statnderd_ques}</h3>
                                                             <Grid className="drsplestQues">
@@ -822,7 +747,6 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-
                                                         <Grid className="ishelpUpr">
                                                             <Grid className="ishelpLbl"><label>{is_this_follow_pres}?</label></Grid>
                                                             <Grid className="ishelpChk">
@@ -835,97 +759,52 @@ class Index extends Component {
                                                             <Grid className="ishelpChk">
                                                                 <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label={online} />
                                                                 <FormControlLabel control={<Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label={home_add_mailbox} />
-                                                                {/* <FormControlLabel
-                                                                    control={
-                                                                        <Checkbox value="checkedB" color="#00ABAF" />
-                                                                    }
-                                                                    label="Online"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={
-                                                                        <Checkbox value="checkedB" color="#00ABAF"
-                                                                        />
-                                                                    }
-                                                                    label="Home address mailbox"
-                                                                /> */}
                                                             </Grid>
                                                         </Grid>
-
                                                         <Grid className="medicnSub">
                                                             <h4>{Medicine} {inquiry}</h4>
                                                             <Grid><label>{Medicine} / {Substance}</label></Grid>
                                                             <Grid>
-                                                                <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
-                                                                {/* <Select
-                                                                    value={this.state.selectedSub}
-                                                                    onChange={(e) => this.eventnameSetP('medication', e)}
-                                                                    options={specialistOptions}
-                                                                    placeholder={select}
-                                                                    isSearchable={false}
-                                                                    isMulti={false}
-                                                                /> */}
+                                                                <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} /> 
                                                             </Grid>
                                                         </Grid>
-
                                                         <Grid className="medicnSub">
                                                             <Grid><label>{Dose}</label></Grid>
                                                             <Grid className="doseMg"><input type="text" name="dose" value={this.state.AddPrescription.dose} onChange={this.AddState} />
                                                                 <span>{mg}</span>
                                                             </Grid>
                                                         </Grid>
-
                                                         <Grid className="medicnSub">
                                                             <Grid><label>{trade_name}</label></Grid>
                                                             <Grid><input type="text" name="trade_name" value={this.state.AddPrescription.trade_name} onChange={this.AddState} /></Grid>
                                                         </Grid>
-
                                                         <Grid className="medicnSub">
                                                             <Grid><label>{atc_if_applicable}</label></Grid>
                                                             <Grid><input type="text" name="atc_code" value={this.state.AddPrescription.atc_code} onChange={this.AddState} /></Grid>
                                                         </Grid>
-
                                                         <Grid className="medicnSub">
                                                             <Grid><label>{manufacturer}</label></Grid>
                                                             <Grid><input type="text" name="manufacturer" value={this.state.AddPrescription.manufacturer} onChange={this.AddState} /></Grid>
                                                         </Grid>
-
                                                         <Grid className="medicnSub">
                                                             <Grid><label>{pack_size}</label></Grid>
                                                             <Grid><input type="text" name="pack_size" value={this.state.AddPrescription.pack_size} onChange={this.AddState} /></Grid>
                                                         </Grid>
-
                                                         <Grid className="medicnSub">
                                                             <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                                             <Grid><textarea name="annotations" value={this.state.AddPrescription.annotations} onChange={this.AddState}></textarea></Grid>
                                                         </Grid>
-
                                                     </Grid>
-
                                                     <Grid className="infoShwHidBrdr2"></Grid>
                                                     <Grid className="infoShwHidIner2">
-                                                        {/* <Grid className="infoShwHidMain2">
-                                                            <Grid container direction="row" justify="center" alignItems="center">
-                                                                <Grid item xs={6} md={6}>
-                                                                    <Grid className="infoShwHid2">
-                                                                        <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid item xs={6} md={6} className="editShwHid2">
-                                                                    <a>Edit</a>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid> */}
                                                         <Grid className="infoShwSave2">
                                                             <input type="submit" onClick={this.SubmitPrescription} value={save_entry} />
                                                         </Grid>
                                                     </Grid>
-
-
                                                 </Grid>
                                             </Grid>
                                         </Modal>
                                         {/* End of Model setup */}
-
                                         <Grid className="presPkgIner1">
                                             {/* Tabs  */}
                                             <AppBar position="static" className="presTabsUpr">
@@ -943,14 +822,11 @@ class Index extends Component {
                                                 </Grid>
                                             </AppBar>
                                         </Grid>
-
                                         <Grid className="presPkgIner2">
-
                                             {value === 0 && <TabContainer>
                                                 {this.state.successfullsent && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <PrecriptionList newItem={this.state.newItemp} />
                                             </TabContainer>}
-
                                             {value === 1 && <TabContainer>
                                                 {this.state.successfullsent1 && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <SickList newItem={this.state.newItems} />
@@ -959,13 +835,9 @@ class Index extends Component {
                                                 {this.state.successfullsent3 && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <ListingSecond newItem={this.state.newItemp2} />
                                             </TabContainer>}
-
                                         </Grid>
-
                                     </Grid>
-
                                 </Grid>
-
                             </Grid>
                         </Grid>
                     </Grid>
@@ -979,16 +851,12 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
         verifyCode,
-        //   Doctorsetget,
-        //   catfil
     }
 };
 export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

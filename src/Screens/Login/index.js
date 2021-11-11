@@ -10,6 +10,8 @@ import Grid from "@material-ui/core/Grid";
 import { authy } from "./authy.js";
 import { CometChat } from '@cometchat-pro/chat';
 import { OptionList } from "./metadataaction.js";
+import { Invoices } from "./invoices";
+
 import {
   NavLink,
   UncontrolledDropdown,
@@ -21,7 +23,7 @@ import sitedata from "sitedata";
 import {
   getLanguage
 } from "translations/index"
-import {commonNoTokentHeader} from "component/CommonHeader/index";
+import { commonNoTokentHeader } from "component/CommonHeader/index";
 import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
 import { Doctorset } from "Screens/Doctor/actions";
 import * as actions from "Screens/Components/CometChat/store/action";
@@ -52,8 +54,8 @@ class Index extends Component {
       loginError9: false,
       mode:
         this.props.settings &&
-        this.props.settings.setting &&
-        this.props.settings.setting.mode
+          this.props.settings.setting &&
+          this.props.settings.setting.mode
           ? this.props.settings.setting.mode
           : "normal",
     };
@@ -71,11 +73,12 @@ class Index extends Component {
   //         this.setState({ dropDownValue: this.props.stateLanguageType })
   //     }
   // }
-  
+
   componentDidMount = () => {
     actions.logout();
     this.logoutUser();
     this.props.Doctorarrays("logout");
+    this.props.Invoices("logout");
     // this.movedashboard();
     this.unsetCategory();
     localStorage.removeItem("token");
@@ -94,6 +97,7 @@ class Index extends Component {
     )
     this.props.OptionList(false);
     this.props.authy(false);
+    this.props.Invoices(false);
     let languageType =
       this.props.stateLanguageType && this.props.stateLanguageType !== ""
         ? this.props.stateLanguageType
@@ -155,18 +159,22 @@ class Index extends Component {
         let email = this.state.inputEmail;
         let password = this.state.inputPass;
         this.setState({ loaderImage: true });
-        this.props.LoginReducerAim(email, password, () => {
+        var logintoken= false;
+        if(this.state.logintoken != '' && this.state.logintoken != undefined){
+          logintoken = this.state.logintoken
+        }
+        this.props.LoginReducerAim(email, password,logintoken, () => {
           this.setState({ myLogin: true });
           this.setState({ loaderImage: false });
           if (
             this.props.stateLoginValueAim &&
-            this.props.stateLoginValueAim.user &&
-            !this.props.stateLoginValueAim.user.is2fa
+            this.props.stateLoginValueAim?.user &&
+            !this.props.stateLoginValueAim?.user?.is2fa
           ) {
-            this.props.OptionList(true, ()=>{
+            this.props.OptionList(true, () => {
               this.props.authy(true);
             });
-          } else if (this.props.stateLoginValueAim.token === 450) {
+          } else if (this.props.stateLoginValueAim.token === 450 || this.props.stateLoginValueAim.token === 401) {
             this.setState({ thisverify: false });
           } else {
             this.setState({ thisverify: true });
@@ -195,7 +203,7 @@ class Index extends Component {
       .then((response) => {
         this.setState({ loaderImage: false });
         if (response.data.hassuccessed === true) {
-          this.props.OptionList(true, ()=>{
+          this.props.OptionList(true, () => {
             this.props.authy(true);
           });
         } else {
@@ -253,11 +261,14 @@ class Index extends Component {
       user_not_exist,
       wrong_password,
       user_is_blocked,
+      verifyAccount,
+      needUnblock
     } = translate;
 
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "patient" &&
+      stateLoginValueAim?.user?.type === "patient" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.user.firstlogin) {
@@ -275,8 +286,9 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "doctor" &&
+      stateLoginValueAim?.user?.type === "doctor" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -300,8 +312,9 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "pharmacy" &&
+      stateLoginValueAim?.user?.type === "pharmacy" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -311,22 +324,25 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "paramedic" &&
+      stateLoginValueAim?.user?.type === "paramedic" &&
       this.props.verifyCode.code
     ) {
       return <Redirect to={"/paramedic"} />;
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "insurance" &&
+      stateLoginValueAim?.user?.type === "insurance" &&
       this.props.verifyCode.code
     ) {
       return <Redirect to={"/insurance"} />;
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "nurse" &&
+      stateLoginValueAim?.user?.type === "nurse" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -336,8 +352,9 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "therapist" &&
+      stateLoginValueAim?.user?.type === "therapist" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -345,10 +362,11 @@ class Index extends Component {
       } else {
         return <Redirect to={"/nurse"} />;
       }
-    }  
+    }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "hospitaladmin" &&
+      stateLoginValueAim?.user?.type === "hospitaladmin" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -356,14 +374,14 @@ class Index extends Component {
       } else {
         return <Redirect to={"/h-patients"} />;
       }
-    }  else {
+    } else {
       return (
         <Grid
           className={
             this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
               ? "loginSiteUpr homeBgDrk"
               : "loginSiteUpr"
           }
@@ -390,7 +408,7 @@ class Index extends Component {
                     </Grid>
                     <Grid item xs={6} sm={6}>
                       <Grid className="regSelectTop">
-                        <Grid className={this.props.stateLanguageType !== "pt" ?"changeLang" : "changeLang1"}>
+                        <Grid className={this.props.stateLanguageType !== "pt" ? "changeLang" : "changeLang1"}>
                           <li>
                             <span className="ThemeModeSet1"> {DarkMode} </span>
                             <span className="ThemeModeSet">
@@ -476,12 +494,12 @@ class Index extends Component {
                                 <NavLink>Arabic</NavLink>
                               </DropdownItem>
                               <DropdownItem
-                              onClick={() => {
-                                this.changeValue("tr", "Turkish");
-                              }}
-                            >
-                              <NavLink>Turkish</NavLink>
-                            </DropdownItem>
+                                onClick={() => {
+                                  this.changeValue("tr", "Turkish");
+                                }}
+                              >
+                                <NavLink>Turkish</NavLink>
+                              </DropdownItem>
                             </DropdownMenu>
                           </UncontrolledDropdown>
                         </Grid>
@@ -510,19 +528,24 @@ class Index extends Component {
                         : this.state.loginError2
                         ? email_not_valid
                         : this.state.loginError9
-                        ? password_cant_empty
+                        ? password_cant_empty 
+                        : stateLoginValueAim.isVerified == false 
+                        ? verifyAccount
+                        : stateLoginValueAim.isBlocked == true 
+                        ? stateLoginValueAim.type === 'patient' ? user_is_blocked : needUnblock
                         : this.state.loginError === false &&
                           stateLoginValueAim.token === 450 &&
                           myLogin &&
                           stateLoginValueAim.message
                         ? stateLoginValueAim.message === "User does not exist"
                           ? user_not_exist
-                          : stateLoginValueAim.message === "User is blocked"
-                          ? user_is_blocked
                           : stateLoginValueAim.message === "Wrong password"
-                          ? wrong_password
+                          ? wrong_password 
                           : false
                         : false}
+                      {
+
+                      }
                     </div>
                     <Grid className="logRow">
                       <Grid>
@@ -651,6 +674,7 @@ const mapStateToProps = (state) => {
   const { doctorarray } = state.Doctorarrays;
   const { Emergencysetget } = state.EmergencySet;
   const { Doctorsetget } = state.Doctorset;
+  const { invoices } = state.Invoices;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -660,7 +684,8 @@ const mapStateToProps = (state) => {
     Doctorsetget,
     Emergencysetget,
     doctorarray,
-    metadata
+    metadata,
+    invoices
   };
 };
 
@@ -672,7 +697,8 @@ export default connect(mapStateToProps, {
   LanguageFetchReducer,
   authy,
   Settings,
-  OptionList
+  OptionList,
+  Invoices,
 })(Index);
 
 // / export default Index;

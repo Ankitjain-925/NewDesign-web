@@ -217,26 +217,47 @@ Questionaires = () => {
             <Menu className="addCstmMenu">
               <Grid className="menuItems">
               <ul>
+            {this.props?.House?.value && 
+            <>
             <li
               className={this.props.currentPage === "flow" ? "menuActv" : ""}
             >
               <a onClick={this.PatientFlow}>
+              {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                  <img
+                    src={require("assets/virtual_images/barMenu2.png")}
+                    alt=""
+                    title=""
+                  />) : (
                   <img
                     src={require("assets/virtual_images/barMenu.png")}
                     alt=""
                     title=""
                   />
+                  )}
                 <span>Patient flow</span>
               </a>
             </li>
             <li className={this.props.currentPage === "calendar" ? "menuActv" : ""}>
               <a onClick={this.Calendar}>
+              {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
                   <img
-                    src={require("assets/virtual_images/calender.png")}
+                    src={require("assets/virtual_images/calender2.png")}
                     alt=""
                     title=""
-                  />
-               
+                  />)
+               :
+               (<img
+               src={require("assets/virtual_images/calender.png")}
+               alt=""
+               title=""
+             /> )}
                 <span>{"Calendar"}</span>
               </a>
             </li>
@@ -246,11 +267,21 @@ Questionaires = () => {
               }
             >
               <a onClick={this.Tasks}>
-                  <img
+              {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? 
+                  (<img
+                    src={require("assets/virtual_images/rightpng2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
                     src={require("assets/virtual_images/rightpng.png")}
                     alt=""
                     title=""
                   />
+                  )}
                 <span>{"Tasks"}</span>
               </a>
             </li>
@@ -260,32 +291,65 @@ Questionaires = () => {
               }
             >
               <a onClick={this.Spaces}>
-                  <img
+              {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? 
+                  (<img
+                    src={require("assets/virtual_images/bed2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
                     src={require("assets/virtual_images/bed.png")}
                     alt=""
                     title=""
                   />
+                  )}
                 <span>{"Space Management"}</span>
               </a>
             </li>
+            </>}
             <li
             >
               <a onClick={this.MoveInstitute}>
-                  <img
+              {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? 
+                  (<img
+                    src={require("assets/virtual_images/hospitalIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
                     src={require("assets/virtual_images/hospitalIcon.png")}
                     alt=""
                     title=""
                   />
+                  )}
                 <span>{"Change House"}</span>
               </a>
             </li>
+            {this.props?.House?.value && 
+            <>
             <li className={this.props.currentPage === "more" ? "menuActv" : ""}>
               <a className="moreMenu">
-                  <img
+              {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? 
+                  (<img
+                    src={require("assets/virtual_images/nav-more2.png")}
+                    alt=""
+                    title=""
+                   className="manage-dark-back"/>) : (
+                    <img
                     src={require("assets/images/nav-more.svg")}
                     alt=""
                     title=""
                   />
+                  )}
                 <span>{"More"}</span>
 
                 <div className="moreMenuList">
@@ -304,7 +368,7 @@ Questionaires = () => {
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require("assets/virtual_images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
@@ -325,7 +389,7 @@ Questionaires = () => {
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require("assets/virtual_images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
@@ -347,7 +411,7 @@ Questionaires = () => {
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require("assets/virtual_images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
@@ -369,7 +433,7 @@ Questionaires = () => {
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require("assets/virtual_images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
@@ -391,7 +455,7 @@ Questionaires = () => {
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require("assets/virtual_images/menudocs.jpg")}
                             alt=""
                             title=""
                           />
@@ -400,32 +464,12 @@ Questionaires = () => {
                         {"Questionnaire"}
                       </a>
                     </li>
-                    <li>
-                      <a onClick={this.PatientDetail}>
-                      {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
-                          <img
-                            src={require("assets/images/menudocs-white.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        ) : (
-                          <img
-                            src={require("assets/images/menudocs.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        )}
-                    
-                        {"Patient Detail"}
-                      </a>
-                    </li>
                   </ul>
                 </div>
               </a>
             </li>
+            </>
+            }
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >
@@ -477,7 +521,7 @@ Questionaires = () => {
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require("assets/virtual_images/menudocs.jpg")}
                             alt=""
                             title=""
                           />

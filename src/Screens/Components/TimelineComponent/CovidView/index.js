@@ -12,6 +12,7 @@ import {
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
+import FatiqueQuestion from "../CovidSymptomsField/FatiqueQuestions";
 import { connect } from "react-redux";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
@@ -84,6 +85,12 @@ class Index extends Component {
       covid_diary,
       pain_areas,
       not_mentioned,
+      Delirium,
+      Oxygen_therapy,
+      ECMOtherapy,
+      Sepsis,
+      Multiorgan_failure,
+      Fatique_questions
     } = translate;
     var item = this.state.item;
     return (
@@ -463,7 +470,38 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Collapsible>
+
+                    <Grid className="fatiqueQues maxWidthSet covid-fat">
+                      <h2>{Fatique_questions}</h2>
+                      <FatiqueQuestion
+                          notchangeble={true}
+                          label={Delirium}
+                          value={item?.delirium}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={Oxygen_therapy}
+                          value={item?.oxygen_therapy}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={ECMOtherapy}
+                          value={item?.ecmo_therapy}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={Sepsis}
+                          value={item?.sepsis}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={Multiorgan_failure}
+                          value={item?.multiorgan_failure}
+                        />
+                    </Grid>
+
                   </Grid>
+                  
                   <Grid className="addSpc detailMark">
                     <Collapsible trigger={notes} open="true">
                       <Grid className="detailCntnt">
