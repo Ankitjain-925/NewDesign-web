@@ -49,7 +49,8 @@ class Index extends Component {
       group_logo: "",
       house_logo: "",
       instituteId: '',
-      showHouses: false
+      showHouses: false,
+      editId: ''
     };
   }
   //open the institute group
@@ -67,16 +68,16 @@ class Index extends Component {
   };
   //close the hospital modal
   closeHospitalModal = () => {
-    this.setState({ openHospitalModal: false });
+    this.setState({ openHospitalModal: false, editId: '' });
   };
 
   EditInstitute = (instituteId) => {
     let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);
-    this.setState({ openGroup: true, institute_groups: result });
+    this.setState({ openGroup: true, institute_groups: result, houses: result?.houses });
   };
 
   editHospital = (editData) => {
-    this.setState({ openHospitalModal: true, hospitalData: editData });
+    this.setState({ openHospitalModal: true, hospitalData: editData, editId: editData._id });
   };
 
   //add hospitals
@@ -220,11 +221,20 @@ class Index extends Component {
     let date = new Date();
     let housesArray = this.state.houses;
     let hospitalObject = this.state.hospitalData;
-    hospitalObject["house_id"]=`${this.state.instituteId}-${date.getTime()}`
-    housesArray.push(this.state.hospitalData);
+
+    if (this.state.editId) {
+      let objIndex = housesArray.findIndex((item => item._id == this.state.editId));
+      housesArray[objIndex].house_name = hospitalObject.house_name
+      housesArray[objIndex].house_description = hospitalObject.house_description
+      housesArray[objIndex].house_logo = hospitalObject.hospitalObject
+    } else {
+      hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
+      housesArray.push(this.state.hospitalData);
+    }
+
     var state = this.state.institute_groups;
     state["houses"] = housesArray;
-    this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false });
+    this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
   }
 
   fileUpload = async (event, caseValue) => {
