@@ -15,6 +15,7 @@ import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
+import { confirmAlert } from "react-confirm-alert"; // Import
 import { translationRS } from 'translations/index';
 import {
     getLanguage
