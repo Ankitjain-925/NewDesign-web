@@ -15,6 +15,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import Pagination from "Screens/Components/Pagination/index";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import { Invoices } from 'Screens/Login/invoices.js';
@@ -46,7 +47,8 @@ class Index extends Component {
             OverDueBills: {},
             DraftBills: {},
             IssuedBills: {},
-            bills_data: {}
+            bills_data: {},
+            status: false
         }
     };
 
@@ -67,6 +69,9 @@ class Index extends Component {
     //     });
     // }
 
+    printInvoice() {
+        window.print();
+    }
 
     onChangePage = (pageNumber) => {
         this.setState({
@@ -78,6 +83,11 @@ class Index extends Component {
         });
     };
 
+    setStatus = () => {
+        console.log("hello")
+        this.setState({ status: true })
+    }
+
     // For getting the Bills and implement Pagination
     fetchbillsdata(status, value) {
         this.setState({ loaderImage: true });
@@ -85,6 +95,7 @@ class Index extends Component {
             .get(sitedata.data.path + `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
                 commonHeader(this.props.stateLoginValueAim.token))
             .then((response) => {
+                console.log("response", response)
                 if (response.data.hassuccessed) {
                     var totalPage = Math.ceil(response.data.data.length / 10);
                     this.setState(
@@ -114,10 +125,58 @@ class Index extends Component {
             })
     };
 
+    //Delete the perticular Bill with confirmation box
+    removeBills = (data) => {
+        // this.setState({ message: null, openTask: false });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+
+                        <h1>Remove the Bill?</h1>
+
+                        <p>Are you sure to remove this Bill?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickBill(data);
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
+    deleteClickBill(data) {
+        var id = data?.patient?._id
+        var status = data?.status?.value
+        axios
+            .delete(sitedata.data.path + "/vh/AddInvoice/" + id,
+                commonHeader(this.props.stateLoginValueAim.token))
+            .then((response) => {
+                this.fetchbillsdata(status);
+            })
+            .catch((error) => { });
+    }
+
     Invoice = (data) => {
         this.props.history.push({
             pathname: '/virtualHospital/invoices',
-            state: { data: data }
+            state: { data: data, value: 'duplicate' }
         })
     }
 
@@ -198,7 +257,7 @@ class Index extends Component {
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
-                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data) => (
+                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data, id) => (
                                                     <Tbody>
                                                         <Tr>
                                                             <Td>{data?.invoice_id}</Td>
@@ -215,14 +274,33 @@ class Index extends Component {
                                                                         <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
                                                                     </ul>
                                                                     <ul className="setStatus">
-                                                                        <li><span>Set status</span></li>
-                                                                        <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
+                                                                        <a onClick={() => { this.setStatus() }}><li><span>Set status</span></li></a>
+
+
+                                                                        <a onClick={() => { this.removeBills(data) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
                                                                     </ul>
+
                                                                 </Grid>
                                                             </Button></Td>
                                                         </Tr>
                                                     </Tbody>
                                                 ))}
+                                                
+                                                {this.state.status &&
+                                              
+                                                    <Grid >
+                                                        <ul className="actionPdf">
+                                                            <a><li className="redDot"><span>Paid</span></li></a>
+                                                            <a><li><span>Draft</span></li></a>
+                                                            <a><li><span>Issued</span></li></a>
+                                                        </ul>
+                                                        <ul className="setStatus">
+                                                            <a><li><span>Overdue</span></li></a>
+                                                            <a><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
+                                                        </ul>
+
+                                                    </Grid>
+                                                }
                                             </Table>
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
