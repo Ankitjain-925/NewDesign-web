@@ -160,6 +160,30 @@ class Index extends Component {
         });
     }
 
+    addTaskFunc = (data) => {
+        let patient_id = data && data?.patient_id
+        let id = this.props && this.props?.settings && this.props?.settings?.setting && this.props?.settings?.setting?.user_id
+        let url = sitedata.data.path + `/User/AddTrack/${patient_id}`
+        let newDate = new Date();
+        data["created_by"] = id
+        data["public"] = "always"
+        data["publicdatetime"] = null
+        data["visible"] = "show"
+        data["type"] = "task"
+        data["datetime_on"] = newDate
+        data["created_on"] = newDate
+        axios.put(
+            url,
+            { data: data },
+            commonHeader(this.props.stateLoginValueAim.token)
+        ).then(res => {
+            // let response = JSON.parse(res)
+            console.log("welcome")
+        })
+            .catch(function (error) {
+                console.log("error", error)
+            })
+    }
     // submit Task model
     handleTaskSubmit = () => {
         var data = this.state.newTask
@@ -178,6 +202,7 @@ class Index extends Component {
                 .then((responce) => {
                     this.setState({ loaderImage: false })
                     if (responce.data.hassuccessed) {
+
                         this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false, assignedTo: [], q: '', selectSpec: {} });
                         this.getAddTaskData();
                     }
@@ -201,30 +226,8 @@ class Index extends Component {
                     this.setState({ loaderImage: false })
 
                     if (responce.data.hassuccessed) {
-                        let patient_id = data && data?.patient_id
-                        console.log("id is:- ",patient_id)
-                        let id = this.props && this.props?.settings && this.props?.settings?.setting && this.props?.settings?.setting?.user_id
-                        let url = sitedata.data.path + `/User/AddTrack/${patient_id}`
                         if ((data?.hidePatient == "false") || (!data.hidePatient)) {
-                            let newDate = new Date();
-                            data["created_by"] = id
-                            data["public"] = "always"
-                            data["publicdatetime"] = null
-                            data["visible"] = "show"
-                            data["type"] = "task"
-                            data["datetime_on"] = newDate
-                            data["created_on"] = newDate
-                            axios.put(
-                                url,
-                                {data: data},
-                                commonHeader(this.props.stateLoginValueAim.token)
-                            ).then(res => {
-                                // let response = JSON.parse(res)
-                                console.log("welcome")
-                            })
-                                .catch(function (error) {
-                                    console.log("error", error)
-                                })
+                            this.addTaskFunc(data)
                         }
                         this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false, assignedTo: [], q: '', selectSpec: {} });
                         this.getAddTaskData();
