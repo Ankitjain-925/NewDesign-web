@@ -33,9 +33,6 @@ import TaskView from "Screens/Components/VirtualHospitalComponents/TaskView/inde
 import { getLanguage } from "translations/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
-
-var patientArray = [];
-
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -99,7 +96,7 @@ class Index extends Component {
       });
     }
     if( prevProps.patient !== this.props.patient){
-      let user = {value: this.props.patient?.user_id}
+      let user = {value: this.props.patient?.patient_id}
       this.updateEntryState2(user);
     }
   };
@@ -184,7 +181,6 @@ class Index extends Component {
   };
 
   handleComment = (e) => {
-    console.log('this.state.newComment', this.state.newComment)
     var comments_by = {
         'first_name': this.props.stateLoginValueAim.user.first_name,
         'last_name': this.props.stateLoginValueAim.user.last_name,
@@ -204,8 +200,7 @@ class Index extends Component {
     this.setState({
         newTask: state,
         newComment: ''
-    }, 
-    ()=>{console.log('newTask', this.state.newTask)});
+    });
 }
 
   // submit Task model
@@ -243,6 +238,7 @@ class Index extends Component {
       data.priority = 0;
       data.archived = false;
       data.status = "open";
+     
       axios
         .post(
           sitedata.data.path + "/vh/AddTask",
@@ -327,11 +323,11 @@ class Index extends Component {
   //Select the patient name
   updateEntryState2 = (user) => {
     var user1 = this.state.users?.length > 0 &&
-      this.state.users.filter((data) => data.user_id === user.value);
+      this.state.users.filter((data) => data.patient_id === user.value);
     if (user1 && user1.length > 0) {
       const state = this.state.newTask;
       state["patient"] = user1[0];
-      state["patient_id"] = user1[0].user_id;
+      state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
       this.setState({ newTask: state });
     }
@@ -370,7 +366,6 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response.isdata) {
-      console.log('response', response)
           this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
             if (this.props.location?.state?.user ) {
               let user =

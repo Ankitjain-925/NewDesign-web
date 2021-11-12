@@ -228,7 +228,9 @@ export const CurrentBed = (bed) => {
                     user_id: response.data?.data[i]._id,
                     profile_id: response.data?.data[i].profile_id,
                     alies_id: response.data?.data[i].alies_id,
-                    image: response.data?.data[i].image
+                    image: response.data?.data[i].image,
+                    type: response.data?.data[i].type,
+                    title: response.data?.data[i].title,
                 })
                 professionalList.push({ value: response.data?.data[i]._id, label: name })
                 // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })

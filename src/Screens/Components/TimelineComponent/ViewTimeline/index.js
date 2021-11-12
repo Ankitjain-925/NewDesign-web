@@ -66,10 +66,9 @@ class Index extends Component {
     var item = this.state.Track;
     return (
       <div className="timelineGap">
-        {console.log("this.props",this.props)}
         {item.type === "blood_pressure" && (
           <BPView
-            onlyOverview={this.props.Overview}
+            onlyOverview="HII"
             list={this.props.Pressuresituation}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
@@ -535,11 +534,10 @@ class Index extends Component {
             gender={this.state.patient_gender}
           />
         )}
+        {item.type === "task" && (
         <TaskView
             onlyOverview={this.props.Overview}
-            // list={this.props.Pressuresituation}
-            TrackRecord={this.state.TrackRecord}
-            // OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
+            TrackRecord={this.props.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
             images={this.state.images}
@@ -553,7 +551,7 @@ class Index extends Component {
             loggedinUser={this.state.loggedinUser}
             date_format={this.props.date_format}
             time_format={this.props.time_format}
-          />
+          />)}
       </div>
     );
   }
