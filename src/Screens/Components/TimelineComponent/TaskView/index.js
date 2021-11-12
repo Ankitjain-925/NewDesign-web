@@ -68,20 +68,20 @@ class Index extends Component {
             Download,
         } = translate;
         var item = this.state.item;
-
+        console.log("item",item)
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={12} md={1} className="descpCntntLft">
                     {newdate(item.datetime_on)}
                 </Grid>
                 <Grid item xs={12} md={10} className="descpCntntRght">
-                    <Grid className="descpInerRght descpInerBlue">
+                    <Grid className="descpInerRght descpInerBlue taskBorder">
                         <Grid container direction="row" className="addSpc">
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
                                     <a className="blodPrsurNote">
                                         <img
-                                            src={require("assets/images/blood-pressure-sugar.svg")}
+                                            src={require("assets/images/taskImage.svg")}
                                             alt=""
                                             title=""
                                         />
@@ -274,11 +274,27 @@ class Index extends Component {
                                     <Grid container direction="row" className="addSpc bpJohnMain">
                                         <Grid item xs={12} md={12}>
 
-                                            <CreatedBySec data={item} />
+                                            <CreatedBySec data={item}/>
                                         </Grid>
                                         <Grid className="clear"></Grid>
                                     </Grid>
-
+                                    <Grid className="addSpc detailMark">
+                                        <Collapsible trigger="Assigned to" open="true">
+                                            <Grid className="detailCntnt">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={5} md={5} >
+                                                            {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((item) => (
+                                                                <CreatedBySec data={item} callFrom = 'assignedTo'/>
+                                                            ))}
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Collapsible>
+                                    </Grid>
                                     <Grid className="addSpc detailMark">
                                         <Collapsible trigger={details} open="true">
                                             <Grid className="detailCntnt">
@@ -318,9 +334,9 @@ class Index extends Component {
                                             </Grid>
                                         </Collapsible>
                                     </Grid>
-                                    <Grid className="addSpc detailMark">
+                                    <Grid className="addSpc detailMark task_desk">
                                         <Collapsible trigger="Description" open="true">
-                                            <Grid>
+                                            <Grid className="task_desk">
                                                 <span>{item.description}</span>
                                             </Grid>
                                         </Collapsible>
