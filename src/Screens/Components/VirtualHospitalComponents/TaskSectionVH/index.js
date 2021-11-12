@@ -31,6 +31,8 @@ import Select from "react-select";
 import { confirmAlert } from "react-confirm-alert";
 import TaskView from "Screens/Components/VirtualHospitalComponents/TaskView/index";
 import { getLanguage } from "translations/index";
+import { S3Image } from "Screens/Components/GetS3Images/index";
+import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
 
 var patientArray = [];
 
@@ -76,6 +78,7 @@ class Index extends Component {
       assignedTo: [],
       selectSpec: {},
       DoneTask: this.props.DoneTask,
+      
     };
   }
 
@@ -180,6 +183,31 @@ class Index extends Component {
     });
   };
 
+  handleComment = (e) => {
+    console.log('this.state.newComment', this.state.newComment)
+    var comments_by = {
+        'first_name': this.props.stateLoginValueAim.user.first_name,
+        'last_name': this.props.stateLoginValueAim.user.last_name,
+        'alies_id': this.props.stateLoginValueAim.user.alies_id,
+        'profile_id': this.props.stateLoginValueAim.user.profile_id,
+        'user_id': this.props.stateLoginValueAim.user._id,
+        'image': this.props.stateLoginValueAim.user.image
+    }
+    let comments = this.state.newTask.comments?.length>0 ?this.state.newTask.comments: [];
+    comments.push({
+        comment: this.state.newComment,
+        comment_on: new Date(),
+        comment_by: comments_by
+    });
+    var state = this.state.newTask;
+    state['comments'] = comments;
+    this.setState({
+        newTask: state,
+        newComment: ''
+    }, 
+    ()=>{console.log('newTask', this.state.newTask)});
+}
+
   // submit Task model
   handleTaskSubmit = () => {
     var data = this.state.newTask;
@@ -222,8 +250,33 @@ class Index extends Component {
           commonHeader(this.props.stateLoginValueAim.token)
         )
         .then((responce) => {
+
           this.setState({ loaderImage: false });
           if (responce.data.hassuccessed) {
+            let patient_id = data && data?.patient_id
+                        let id = this.props && this.props?.settings && this.props?.settings?.setting && this.props?.settings?.setting?.user_id
+                        let url = sitedata.data.path + `/User/AddTrack/${patient_id}`
+                        if ((data?.hidePatient == "false") || (!data.hidePatient)) {
+                            let newDate = new Date();
+                            data["created_by"] = id
+                            data["public"] = "always"
+                            data["publicdatetime"] = null
+                            data["visible"] = "show"
+                            data["type"] = "task"
+                            data["datetime_on"] = newDate
+                            data["created_on"] = newDate
+                            axios.put(
+                                url,
+                                {data: data},
+                                commonHeader(this.props.stateLoginValueAim.token)
+                            ).then(res => {
+                                // let response = JSON.parse(res)
+                                console.log("welcome")
+                            })
+                                .catch(function (error) {
+                                    console.log("error", error)
+                                })
+                        }
             this.setState({
               newTask: {},
               fileattach: {},
@@ -232,6 +285,7 @@ class Index extends Component {
               assignedTo: [],
               q: "",
               selectSpec: {},
+              newComment:''
             });
             this.props.getAddTaskData();
           }
@@ -241,6 +295,11 @@ class Index extends Component {
         });
     }
   };
+
+  updateCommemtState = (e) => {
+    console.log('e', e,)
+    this.setState({ newComment: e });
+}
 
   // For adding a date,time
   updateEntryState1 = (value, name) => {
@@ -541,9 +600,9 @@ class Index extends Component {
           <Grid item xs={12} md={6}>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Grid className="addTaskBtn">
+            {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
               <Button onClick={this.handleOpenTask}>+ Add Task</Button>
-            </Grid>
+            </Grid>}
           </Grid>
           {/* Model setup */}
           <Modal
@@ -598,11 +657,13 @@ class Index extends Component {
                                 )
                               }
                               value={this.state.newTask.task_name}
+                              disabled={ this.props.comesFrom === 'Professional' ? true: false}
                             />
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
-                            {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2>
+                            {(this.props.comesFrom === 'detailTask')? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2>:
+                            this.props.comesFrom === 'Professional' ? <h2>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</h2>
                             :<Grid>
                               <input
                                 type="text"
@@ -629,6 +690,7 @@ class Index extends Component {
                                           "hidePatient"
                                         )
                                       }
+                                      disabled={ this.props.comesFrom === 'Professional' ? true: false}
                                     />
                                   }
                                   label="Hide task from patient"
@@ -649,6 +711,7 @@ class Index extends Component {
                                   )
                                 }
                                 value={this.state.newTask.description}
+                                disabled={ this.props.comesFrom === 'Professional' ? true: false}
                               ></textarea>
                             </Grid>
                           </Grid>
@@ -664,6 +727,7 @@ class Index extends Component {
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true}
+                                isDisabled={ this.props.comesFrom === 'Professional' ? true: false}
                               />
                             </Grid>
                           </Grid>
@@ -676,6 +740,7 @@ class Index extends Component {
                                 name="specialty_name"
                                 isSearchable={true}
                                 value={this.state.selectSpec}
+                                isDisabled={ this.props.comesFrom === 'Professional' ? true: false}
                               />
                             </Grid>
                           </Grid>
@@ -698,6 +763,7 @@ class Index extends Component {
                                     onChange={(e) =>
                                       this.updateEntryState1(e, "date")
                                     }
+                                    disabled={ this.props.comesFrom === 'Professional' ? true: false}
                                   />
                                 ) : (
                                   <TimeFormat
@@ -713,6 +779,7 @@ class Index extends Component {
                                     onChange={(e) =>
                                       this.updateEntryState1(e, "time")
                                     }
+                                    disabled={ this.props.comesFrom === 'Professional' ? true: false}
                                   />
                                 )}
                               </Grid>
@@ -734,6 +801,7 @@ class Index extends Component {
                                 <Grid className="assignSec">
                                   {this.state.newTask._id && (
                                     <>
+                                     { this.props.comesFrom !== 'Professional' && <>
                                       <Grid
                                         onClick={() => {
                                           this.createDuplicate(
@@ -780,7 +848,8 @@ class Index extends Component {
                                           Delete
                                         </label>
                                       </Grid>
-                                      <Grid
+                                      </>}
+                                     <Grid
                                         onClick={() => {
                                           this.switchStatus();
                                         }}
@@ -813,7 +882,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-                          <Grid item xs={12} md={12}>
+                          {this.props.comesFrom !== 'Professional' && <Grid item xs={12} md={12}>
                             <label>{Attachments}</label>
                             <FileUploader
                               // cur_one={this.props.cur_one}
@@ -829,7 +898,47 @@ class Index extends Component {
                                 this.FileAttachMulti(event);
                               }}
                             />
-                          </Grid>
+                          </Grid>}
+                          {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
+                                <Grid><label>Comments</label></Grid>
+                                {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
+                                    <Grid className="cmntIner cmntInerBrdr">
+
+                                        <Grid className="cmntMsgs">
+                                            <Grid><S3Image imgUrl={data?.comment_by?.image} /></Grid>
+                                            <Grid>
+                                                <Grid><label>{data?.comment_by?.first_name} {data?.comment_by?.last_name}</label><span>{getDate(
+                                                    data.comment_on,
+                                                    this.props.settings?.setting?.date_format
+                                                  )}</span> - 
+                                                  <span>{getTime(
+                                                     new Date(data.comment_on),
+                                                    this.props.settings?.setting?.time_format
+                                                  )}</span>
+                                                </Grid>
+                                                <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
+                                                {/* <Grid><Button onClick={() => this.editDocComment(data)}>Edit</Button>
+                                                    <Button onClick={() => this.removeComment(index)}>Delete</Button></Grid> */}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                ))}
+                                <Grid className="addComit">
+                                <textarea
+                                    placeholder="Enter Comment"
+                                    name="comment"
+                                    onChange={(e) =>
+                                      this.updateCommemtState(
+                                        e.target.value
+                                      )
+                                    }
+                                    value={this.state.newComment}
+                                  ></textarea>
+                                    
+                                    <Button onClick={(e) => this.handleComment()}>Add Comment</Button>
+                                </Grid>
+                          </Grid>}
+
                           <Grid item xs={12} md={12} className="saveTasks">
                             <a onClick={() => this.handleCloseTask()}>
                               <Button onClick={() => this.handleTaskSubmit()}>
