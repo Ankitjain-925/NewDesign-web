@@ -56,7 +56,6 @@ class Index extends Component {
   }
   render() {
     var item = this.state.item;
-    console.log("this.props", this.props.track_id)
     return (
       <Grid className="bpJohnImg">
         <a data-tip data-for={this.props.callFrom === 'assignedTo' ? this.props.track_id + "created" : item.track_id + "created"}>
