@@ -22,11 +22,8 @@ import { Invoices } from 'Screens/Login/invoices.js';
 import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
-import { Redirect, Route } from 'react-router-dom';
-import {
-    getLanguage
-} from "translations/index"
-
+import Loader from "Screens/Components/Loader/index";
+import { getLanguage } from "translations/index"
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -51,7 +48,6 @@ class Index extends Component {
             status: false
         }
     };
-
 
     componentDidMount() {
         this.fetchbillsdata('all', 0);
@@ -199,6 +195,7 @@ class Index extends Component {
                     : "homeBg"
             }>
                 <Grid className="homeBgIner">
+                {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                             {/* Mobile menu */}

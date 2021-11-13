@@ -12334,3 +12334,6 @@ a.taskHover:hover span {
     border-radius: 3px;
     border: 1px solid #BFC1C1;
 }
+.homeBgDrk .task_desk {
+    color: #F2F2F2 !important;
+}

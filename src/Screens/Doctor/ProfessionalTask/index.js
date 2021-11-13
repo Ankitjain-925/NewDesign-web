@@ -147,9 +147,9 @@ class Index extends Component {
                             <Grid item xs={12} md={11}>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={12}>
-                                                    {/* Model setup */}
-                                                    <TaskSectiuonVH patient={this.state.patient} getAddTaskData={()=>{this.getAddTaskData()}} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={[]} comesFrom= {"Professional"} />
-                                                    {/* End of Model setup */}
+                                        {/* Model setup */}
+                                        <TaskSectiuonVH patient={this.state.patient} getAddTaskData={()=>{this.getAddTaskData()}} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={[]} comesFrom= {"Professional"} />
+                                        {/* End of Model setup */}
                                               
                                         </Grid>
                                     </Grid>

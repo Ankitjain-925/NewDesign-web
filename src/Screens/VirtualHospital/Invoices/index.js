@@ -13,6 +13,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { OptionList } from "Screens/Login/metadataaction";
 import axios from "axios";
+import Loader from "Screens/Components/Loader/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Modal from "@material-ui/core/Modal";
@@ -252,7 +253,6 @@ class Index extends Component {
         // });
         // }
         else {
-            console.log('sdfsdfsdf')
             data.house_id = this.props?.House?.value;
             data.services = this.state.items
             data.created_at = new Date();
@@ -270,7 +270,7 @@ class Index extends Component {
                             items: [],
                             addinvoice: {}, selectedPat: {},
                         });
-                        this.props.getAddTaskData();
+                        this.Billing();  
                     }
                 })
                 .catch((error) => {
@@ -333,6 +333,7 @@ class Index extends Component {
                     ? "homeBg darkTheme"
                     : "homeBg"
             }>
+                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>

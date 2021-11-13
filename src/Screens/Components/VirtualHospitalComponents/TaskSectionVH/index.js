@@ -293,8 +293,50 @@ class Index extends Component {
   };
 
   updateCommemtState = (e) => {
-    console.log('e', e,)
     this.setState({ newComment: e });
+}
+
+removeComment = (index) => {
+  this.setState({ message: null, openTask: false });
+  confirmAlert({
+      customUI: ({ onClose }) => {
+          return (
+              <div
+                  className={
+                      this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "dark-confirm react-confirm-alert-body"
+                          : "react-confirm-alert-body"
+                  }
+              >
+                  <h1>Remove the Comment ?</h1>
+                  <p>Are you sure to remove this Comment?</p>
+                  <div className="react-confirm-alert-button-group">
+                      <button onClick={onClose}>No</button>
+                      <button
+                          onClick={() => {
+                              this.deleteClickComment(index);
+                              onClose();
+                          }}
+                      >
+                          Yes
+                      </button>
+                  </div>
+              </div>
+          );
+      },
+  });
+};
+
+deleteClickComment(index) {
+  var state = this.state.newTask
+  var array = this.state.newTask.comments
+  console.log('index', index)
+  array.splice(index, 1);
+  state['comments'] = array
+  this.setState({ newTask : state, openTask: true })
 }
 
   // For adding a date,time
@@ -912,10 +954,10 @@ class Index extends Component {
                                                   )}</span>
                                                 </Grid>
                                                 <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
-                                                <Grid>
-                                                  <Button onClick={() => this.editDocComment(data)}>Edit</Button>
+                                                {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
+                                                  {/* <Button onClick={() => this.editDocComment(data)}>Edit</Button> */}
                                                   <Button onClick={() => this.removeComment(index)}>Delete</Button>
-                                                </Grid>
+                                                </Grid>}
                                             </Grid>
                                         </Grid>
                                     </Grid>
