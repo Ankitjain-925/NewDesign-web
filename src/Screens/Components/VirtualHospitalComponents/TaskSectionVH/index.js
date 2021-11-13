@@ -269,9 +269,9 @@ class Index extends Component {
                                 // let response = JSON.parse(res)
                                 console.log("welcome")
                             })
-                                .catch(function (error) {
-                                    console.log("error", error)
-                                })
+                            .catch(function (error) {
+                                console.log("error", error)
+                            })
                         }
             this.setState({
               newTask: {},
@@ -912,8 +912,10 @@ class Index extends Component {
                                                   )}</span>
                                                 </Grid>
                                                 <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
-                                                {/* <Grid><Button onClick={() => this.editDocComment(data)}>Edit</Button>
-                                                    <Button onClick={() => this.removeComment(index)}>Delete</Button></Grid> */}
+                                                <Grid>
+                                                  <Button onClick={() => this.editDocComment(data)}>Edit</Button>
+                                                  <Button onClick={() => this.removeComment(index)}>Delete</Button>
+                                                </Grid>}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -961,7 +963,7 @@ class Index extends Component {
                     <Tab label="ALL" className="billtabIner" />
                     <Tab label="Done" className="billtabIner" />
                     <Tab label="Open" className="billtabIner" />
-                    {this.props.comesFrom !== "detailTask" && (
+                    {(this.props.comesFrom !== "detailTask" || this.props.comesFrom !== "Professional") && (
                       <Tab label="Archived" className="billtabIner" />
                     )}
                   </Tabs>
