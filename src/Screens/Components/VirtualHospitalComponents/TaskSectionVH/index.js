@@ -915,7 +915,7 @@ class Index extends Component {
                                                 <Grid>
                                                   <Button onClick={() => this.editDocComment(data)}>Edit</Button>
                                                   <Button onClick={() => this.removeComment(index)}>Delete</Button>
-                                                </Grid>}
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
