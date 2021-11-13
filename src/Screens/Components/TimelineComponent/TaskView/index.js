@@ -68,7 +68,6 @@ class Index extends Component {
             Download,
         } = translate;
         var item = this.state.item;
-        console.log("item",item)
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={12} md={1} className="descpCntntLft">
@@ -285,8 +284,8 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
-                                                            {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((item) => (
-                                                                <CreatedBySec data={item} callFrom = 'assignedTo'/>
+                                                            {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((data) => (
+                                                                <CreatedBySec data={data} callFrom = 'assignedTo' track_id = {item.track_id}/>
                                                             ))}
                                                             </Grid>
                                                         </Grid>

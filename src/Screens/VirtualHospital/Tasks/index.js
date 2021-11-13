@@ -40,6 +40,12 @@ class Index extends Component {
             doneToday: 0,
             AllTasks :[],
             DoneTask : [],
+            hope: false,
+            openDate: true,
+            specilaityList: [],
+            assignedTo: [],
+            selectSpec: {},
+            noWards: false
         };
     }
 
@@ -146,6 +152,75 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid >
+                <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
+                    <Grid className="fltrClear">
+                        <Grid className="fltrClearIner">
+                            <Grid className="fltrLbl">
+                                <Grid className="fltrLblClose">
+                                    <a onClick={this.handleCloseRvw}><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a>
+                                </Grid>
+                                <label>Filters</label>
+                            </Grid>
+                            <AppBar position="static" className="fltrTabs">
+                                <Tabs 
+                                // value={value}
+                                 onChange={this.handleChangeTab}>
+                                    <Tab label="My Tasks" className="fltrtabIner" />
+                                    <Tab label="All Tasks" className="fltrtabIner" />
+                                </Tabs>
+                            </AppBar>
+                            {/* {value === 0 && */}
+                             <TabContainer>
+                                <Grid className="fltrForm">
+                                    <Grid className="fltrInput">
+                                        <label>Patient</label>
+                                        <Grid className="addInput">
+                                            <input type="text" placeholder="Filter by Patient" />
+                                            <img src={require('../../../assets/images/add.svg')} alt="" title="" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="fltrInput">
+                                        <label>Staff</label>
+                                        <Grid className="addInput">
+                                            <input type="text" placeholder="Filter by Staff" />
+                                            <img src={require('../../../assets/images/add.svg')} alt="" title="" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="pantNames">
+                                        <label>Speciality</label>
+                                        {/* <Multiselect options={this.state.options} selectedValues={this.state.selectedValue} onSelect={this.onSelect} onRemove={this.onRemove} displayValue="name"
+                                            showCheckbox={true} placeholder="Filter by Speciality" /> */}
+                                        <img src={require('../../../assets/images/add.svg')} alt="" title="" />
+                                    </Grid>
+                                    <Grid className="fltrInput">
+                                        <label>Ward</label>
+                                        <Grid className="addInput">
+                                            <input type="text" placeholder="Filter by Ward" />
+                                            <img src={require('../../../assets/images/add.svg')} alt="" title="" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="fltrInput">
+                                        <label>Room</label>
+                                        <Grid className="addInput">
+                                            <input type="text" placeholder="Filter by Room" />
+                                            <img src={require('../../../assets/images/add.svg')} alt="" title="" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="aplyFltr">
+                                    <Grid className="aplyLft"><label>Clear all filters</label></Grid>
+                                    <Grid className="aplyRght"><Button>Apply filters</Button></Grid>
+                                </Grid>
+                            </TabContainer>
+                            {/* } */}
+                            {/* {value === 1 &&  */}
+                            <TabContainer>
+                                <Grid className="fltrForm">Appointments Content</Grid>
+                            </TabContainer>
+                            {/* } */}
+                        </Grid>
+                    </Grid>
+                </Modal>
             </Grid >
         );
     }
