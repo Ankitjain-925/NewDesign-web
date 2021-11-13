@@ -82,18 +82,18 @@ class Index extends Component {
           effect="solid"
           backgroundColor="#ffffff"
         >
-          {this.props.callFrom === 'assignedTo' ?
+          {this.props.callFrom == 'assignedTo' ?
             <p>{item.first_name} {item.last_name} {item.title}({item.type})</p>
             :
             <p>{item.created_by_temp}</p>
           }
-          {this.props.callFrom === 'assignedTo' ?
+          {this.props.callFrom == 'assignedTo' ?
             <p>{item.profile_id}</p>
             :
             <p>{item.created_by_profile}</p>
           }
           <p>
-            {this.props.callFrom === 'assignedTo' ?
+            {this.props.callFrom == 'assignedTo' ?
               <img
                 src={item.image}
                 alt=""

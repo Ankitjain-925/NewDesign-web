@@ -68,7 +68,7 @@ class Index extends Component {
             Download,
         } = translate;
         var item = this.state.item;
-        console.log("item",item)
+        // console.log("item",item)
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={12} md={1} className="descpCntntLft">
