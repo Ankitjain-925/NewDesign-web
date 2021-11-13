@@ -186,7 +186,6 @@ class Index extends Component {
             commonHeader(this.props.stateLoginValueAim.token)
         ).then(res => {
             // let response = JSON.parse(res)
-            console.log("welcome")
         })
             .catch(function (error) {
                 console.log("error", error)
