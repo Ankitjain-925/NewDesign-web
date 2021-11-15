@@ -17215,3 +17215,6 @@ ul.duringCovid li:last-child {
 .homeBgDrk span.task_desk {
     color: #edf2f2!important;
 }
+.filterCursor {
+    cursor: pointer !important;
+}
