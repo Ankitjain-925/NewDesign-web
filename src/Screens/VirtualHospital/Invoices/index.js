@@ -226,7 +226,6 @@ class Index extends Component {
     // For calculate value of finish invoice
     finishInvoice = (draft) => {
         var data = this.state.addinvoice;
-        console.log("addinvoice", this.state.addinvoice)
         if (draft) {
             data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'draft')?.[0]
         }
