@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import Pagination from "Screens/Components/Pagination/index";
+import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
+import { OptionList } from "Screens/Login/metadataaction";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -24,6 +26,12 @@ import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import { getLanguage } from "translations/index"
+import { Redirect, Route } from 'react-router-dom';
+import {
+    getLanguage
+} from "translations/index"
+import filterate from 'reducers/Filterthis';
+
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -45,30 +53,23 @@ class Index extends Component {
             DraftBills: {},
             IssuedBills: {},
             bills_data: {},
-            status: false
+            setStatus: false,
+            AllStatus: {},
+            finalStatus: {}
         }
     };
 
     componentDidMount() {
+        this.getMetadata();
         this.fetchbillsdata('all', 0);
     }
 
-    // fetchbillsdata(status, value) {
-    //     this.setState({ loaderImage: true });
-    //     axios
-    //     .get(sitedata.data.path + `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
-    //     commonHeader(this.props.stateLoginValueAim.token))
-    //     .then((response) => {
-    //       if (response.data.hassuccessed) {
-    //         this.setState({ AllBills : response.data.data, value: value });
-    //       }
-    //     });
-    // }
-
+    // For print invoice
     printInvoice() {
         window.print();
     }
 
+    // For page change 
     onChangePage = (pageNumber) => {
         this.setState({
             bills_data: this.state.AllBills.slice(
@@ -79,9 +80,64 @@ class Index extends Component {
         });
     };
 
-    setStatus = () => {
-        console.log("hello")
-        this.setState({ status: true })
+    setStatusButton = () => {
+        this.setState({ setStatus: true })
+    }
+
+    //get list of list
+    getMetadata = () => {
+        this.setState({ allMetadata: this.props.metadata },
+            () => {
+                this.updateStatus();
+            })
+    }
+
+    // Update status acc. to their particular id
+    updateStatus = (data, status) => {
+        var id = data?.patient?._id;
+        var AllStatus = GetLanguageDropdown(
+            this.state.allMetadata &&
+            this.state.allMetadata.billing_status &&
+            this.state.allMetadata.billing_status.length > 0 &&
+            this.state.allMetadata.billing_status,
+            this.props.stateLanguageType,
+        );
+        this.setState({
+            AllStatus: AllStatus,
+        });
+        if (data?.patient?._id) {
+            // if (status === "draft") {
+            //     console.log("status", this.state.AllStatus)
+            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'draft')?.[0]
+            //     this.setState({ finalStatus: data.status })
+            // }
+            // else if (status === "paid") {
+            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'paid')?.[0]
+            //     this.setState({ finalStatus: data.status })
+            // }
+            // else if (status === "issued") {
+            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'issued')?.[0]
+            //     this.setState({ finalStatus: data.status })
+            // }
+            // else {
+            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'overdue')?.[0]
+            //     this.setState({ finalStatus: data.status })
+            // }
+
+            var finalStatus = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === status)?.[0]
+            axios
+                .put(
+                    sitedata.data.path + "/vh/AddInvoice/" + id,
+                    {
+                        "status": finalStatus
+                    },
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ setStatus: false });
+                    this.fetchbillsdata("all", 0);
+                });
+        }
     }
 
     // For getting the Bills and implement Pagination
@@ -91,7 +147,6 @@ class Index extends Component {
             .get(sitedata.data.path + `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
                 commonHeader(this.props.stateLoginValueAim.token))
             .then((response) => {
-                console.log("response", response)
                 if (response.data.hassuccessed) {
                     var totalPage = Math.ceil(response.data.data.length / 10);
                     this.setState(
@@ -256,7 +311,7 @@ class Index extends Component {
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
-                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data, id) => (
+                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data) => (
                                                     <Tbody>
                                                         <Tr>
                                                             <Td>{data?.invoice_id}</Td>
@@ -273,30 +328,27 @@ class Index extends Component {
                                                                         <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
                                                                     </ul>
                                                                     <ul className="setStatus">
-                                                                        <a onClick={() => { this.setStatus() }}><li><span>Set status</span></li></a>
-                                                                        <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
-                                                                    </ul>
+                                                                        <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
 
+                                                                        {this.state.setStatus &&
+
+                                                                            <Grid >
+                                                                                <ul>
+                                                                                    <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
+                                                                                    <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span>Draft</span></li></a>
+                                                                                    <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span>Issued</span></li></a>
+                                                                                    <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span>Overdue</span></li></a>
+                                                                                </ul>
+                                                                            </Grid>
+                                                                        }
+                                                                        <a onClick={() => { this.removeBills(data) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
+                                                                    </ul>
                                                                 </Grid>
                                                             </Button></Td>
                                                         </Tr>
                                                     </Tbody>
                                                 ))}
-                                                
-                                                {this.state.status &&
-                                                    <Grid >
-                                                        <ul className="actionPdf">
-                                                            <a><li className="redDot"><span>Paid</span></li></a>
-                                                            <a><li><span>Draft</span></li></a>
-                                                            <a><li><span>Issued</span></li></a>
-                                                        </ul>
-                                                        <ul className="setStatus">
-                                                            <a><li><span>Overdue</span></li></a>
-                                                            <a><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
-                                                        </ul>
 
-                                                    </Grid>
-                                                }
                                             </Table>
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
@@ -344,6 +396,7 @@ const mapStateToProps = (state) => {
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     const { invoices } = state.Invoices;
+    const { metadata } = state.OptionList;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -351,11 +404,12 @@ const mapStateToProps = (state) => {
         House,
         settings,
         verifyCode,
-        invoices
+        invoices,
+        metadata,
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices, OptionList })(
         Index
     )
 );
