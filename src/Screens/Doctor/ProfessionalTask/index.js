@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
 import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import { withRouter } from "react-router-dom";
@@ -13,176 +13,189 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { Speciality } from "Screens/Login/speciality.js";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
-import { authy } from 'Screens/Login/authy.js';
+import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction.js";
 import Loader from "Screens/Components/Loader/index";
+import { Redirect, Route } from "react-router-dom";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 
 function TabContainer(props) {
-    return (
-        <Typography component="div">
-            {props.children}
-        </Typography>
-    );
+  return <Typography component="div">{props.children}</Typography>;
 }
 TabContainer.propTypes = {
-    children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 class Index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            openTask: false,
-            tabvalue: 0,
-            tabvalue2: 0,
-            q: '',
-            selectedUser: '',
-            professional_data: [],
-            date_format: this.props.date_format,
-            time_format: this.props.time_format,
-            patient_doc: [],
-            patient_doc1: [],
-            patient_id_list: [],
-            patient_id_list1: [],
-            allPatData: [],
-            allPatData1: [],
-            users: [],
-            users1: [],
-            openAssign: false,
-            newStaff: {},
-            ProfMessage: false,
-            newTask: {},
-            Fileadd: '',
-            AllTasks: {},
-            shown: false,
-            professionalArray: [],
-            ArchivedTasks: [],
-            loaderImage: false,
-            hope: false,
-            openDate: true,
-            specilaityList:[],
-            assignedTo:[],
-            selectSpec: {},
-            open: 0,
-            doneToday: 0,
-            comments: [],
-            newComment: {}
-        };
-    }
-
-    componentDidMount() {
-        this.getAddTaskData();
-    }
-
-    getAddTaskData = () => {
-        this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + "/vh/ProfessionalTask/" + this.props.stateLoginValueAim.user.profile_id,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                this.setState({ AllTasks: response.data.data })
-                if (response.data.hassuccessed) {
-                    var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
-                    var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
-                    this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open, CountDone: Done.length, CountOpen: Open.length })
-                }
-                this.setState({ loaderImage: false });
-            });
+  constructor(props) {
+    super(props);
+    this.state = {
+      openTask: false,
+      tabvalue: 0,
+      tabvalue2: 0,
+      q: "",
+      selectedUser: "",
+      professional_data: [],
+      date_format: this.props.date_format,
+      time_format: this.props.time_format,
+      patient_doc: [],
+      patient_doc1: [],
+      patient_id_list: [],
+      patient_id_list1: [],
+      allPatData: [],
+      allPatData1: [],
+      users: [],
+      users1: [],
+      openAssign: false,
+      newStaff: {},
+      ProfMessage: false,
+      newTask: {},
+      Fileadd: "",
+      AllTasks: {},
+      shown: false,
+      professionalArray: [],
+      ArchivedTasks: [],
+      loaderImage: false,
+      hope: false,
+      openDate: true,
+      specilaityList: [],
+      assignedTo: [],
+      selectSpec: {},
+      open: 0,
+      doneToday: 0,
+      comments: [],
+      newComment: {},
     };
+  }
+
+  componentDidMount() {
+    this.getAddTaskData();
+  }
   
-    handleChangeTab = (event, tabvalue) => {
-        this.setState({ tabvalue });
-    };
+  handleChangeTab = (event, tabvalue) => {
+    this.setState({ tabvalue });
+  };
 
-    //User list will be show/hide
-    toggle = () => {
-        this.setState({
-            shown: !this.state.shown
-        });
+  //User list will be show/hide
+  toggle = () => {
+    this.setState({
+      shown: !this.state.shown,
+    });
+  };
+  //get Add task data
+  getAddTaskData = () => {
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path +
+          `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}`,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        this.setState({ AllTasks: response.data.data });
+        if (response.data.hassuccessed) {
+          var Done =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.status === "done");
+          var Open =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item.status === "open");
+          this.setState({
+            AllTasks: response.data.data,
+            DoneTask: Done,
+            OpenTask: Open,
+          });
+        }
+        this.setState({ loaderImage: false });
+      });
+  };
+
+  render() {
+    const { stateLoginValueAim, Doctorsetget } = this.props;
+    if (
+      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.token === 450 ||
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "doctor" ||
+      !this.props.verifyCode ||
+      !this.props.verifyCode.code
+    ) {
+      return <Redirect to={"/"} />;
     }
-    //get Add task data
-    getAddTaskData = () => {
-        this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}`,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                this.setState({ AllTasks: response.data.data })
-                if (response.data.hassuccessed) {
-                    var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
-                    var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
-                    this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
-                }
-                this.setState({ loaderImage: false });
-
-            });
-    };
-
-    render() {
-        return (
-            <Grid className={
-                this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "homeBg darkTheme"
-                    : "homeBg"
-            }>
-                {this.state.loaderImage && <Loader />}
-                <Grid className="homeBgIner">
-                    <Grid container direction="row" justify="center">
-                        <Grid item xs={12} md={12}>
-                        <Grid container direction="row">
-                            {/* Website Menu */}
-                            <LeftMenu isNotShow={true} currentPage="more" />
-                            <LeftMenuMobile isNotShow={true} currentPage="more" />
-                            <Notification />
-                            {/* End of Website Menu */}
-
-                            <Grid item xs={12} md={11}>
-                                    <Grid container direction="row">
-                                        <Grid item xs={12} md={12}>
-                                        {/* Model setup */}
-                                        <TaskSectiuonVH patient={this.state.patient} getAddTaskData={()=>{this.getAddTaskData()}} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={[]} comesFrom= {"Professional"} />
-                                        {/* End of Model setup */}
-                                              
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                {/* End of Right Section */}
-                            </Grid>
-                        </Grid>
+    return (
+      <Grid
+        className={
+          this.props.settings &&
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
+            ? "homeBg darkTheme"
+            : "homeBg"
+        }
+      >
+        {this.state.loaderImage && <Loader />}
+        <Grid className="homeBgIner">
+          <Grid container direction="row" justify="center">
+            <Grid item xs={12} md={12}>
+              <Grid container direction="row">
+                {/* Website Menu */}
+                <LeftMenu isNotShow={true} currentPage="more" />
+                <LeftMenuMobile isNotShow={true} currentPage="more" />
+                <Notification />
+                {/* End of Website Menu */}
+                <Grid item xs={12} md={11}>
+                  <Grid container direction="row">
+                    <Grid item xs={12} md={12}>
+                      {/* Model setup */}
+                      <TaskSectiuonVH
+                        patient={this.state.patient}
+                        getAddTaskData={() => {
+                          this.getAddTaskData();
+                        }}
+                        AllTasks={this.state.AllTasks}
+                        DoneTask={this.state.DoneTask}
+                        OpenTask={this.state.OpenTask}
+                        ArchivedTasks={[]}
+                        comesFrom={"Professional"}
+                      />
+                      {/* End of Model setup */}
                     </Grid>
-                </Grid >
-            </Grid >
-        );
-    }
+                  </Grid>
+                </Grid>
+                {/* End of Right Section */}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-        state.LoginReducerAim;
-    const { stateLanguageType } = state.LanguageReducer;
-    const { House } = state.houseSelect
-    const { settings } = state.Settings;
-    const { verifyCode } = state.authy;
-    const { speciality } = state.Speciality;
-    return {
-        stateLanguageType,
-        stateLoginValueAim,
-        loadingaIndicatoranswerdetail,
-        House,
-        settings,
-        verifyCode,
-        speciality
-    };
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect;
+  const { settings } = state.Settings;
+  const { verifyCode } = state.authy;
+  const { speciality } = state.Speciality;
+  return {
+    stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    House,
+    settings,
+    verifyCode,
+    speciality,
+  };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, houseSelect, authy, Speciality })(
-        Index
-    )
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+    Settings,
+    houseSelect,
+    authy,
+    Speciality,
+  })(Index)
 );

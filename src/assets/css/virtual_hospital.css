@@ -5553,7 +5553,7 @@ button.downloadPDF:hover {
     position: absolute;
     left: -135px;
     width: 186px;
-    top: 33px;
+    top: 25px;
     z-index: 1;
 }
 .downloadDots:hover .actionList {
@@ -9777,6 +9777,18 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .fillDia .addStafSelect div{
+    background-color: #192020;
+}
+.movHeadMid {
+    width: 60% !important;
+}
+.movHead div {
+    width: 19.3%;
+}
+.actionList {
+    top: 25px !important;
+}
 .add-group-padding{
     padding-top: 20px;
 }
@@ -10224,7 +10236,7 @@ ul.patientHint li {
     min-width: 100% !important;
 }
 .stepTdotupper ul{
-    min-width: 270px!important;
+    min-width: 300px!important;
 }
 .stepTdot{
     width:27px;

@@ -157,14 +157,16 @@ class Index extends Component {
             },
         });
     };
+
     deleteClickBill(data) {
-        var id = data?.patient?._id
         var status = data?.status?.value
         axios
-            .delete(sitedata.data.path + "/vh/AddInvoice/" + id,
+            .delete(sitedata.data.path + "/vh/AddInvoice/" + data,
                 commonHeader(this.props.stateLoginValueAim.token))
             .then((response) => {
-                this.fetchbillsdata(status);
+                var value = this.state.value;
+                var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
+                this.fetchbillsdata(ApiStatus, value);
             })
             .catch((error) => { });
     }
@@ -272,9 +274,7 @@ class Index extends Component {
                                                                     </ul>
                                                                     <ul className="setStatus">
                                                                         <a onClick={() => { this.setStatus() }}><li><span>Set status</span></li></a>
-
-
-                                                                        <a onClick={() => { this.removeBills(data) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
+                                                                        <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
                                                                     </ul>
 
                                                                 </Grid>
@@ -284,7 +284,6 @@ class Index extends Component {
                                                 ))}
                                                 
                                                 {this.state.status &&
-                                              
                                                     <Grid >
                                                         <ul className="actionPdf">
                                                             <a><li className="redDot"><span>Paid</span></li></a>
