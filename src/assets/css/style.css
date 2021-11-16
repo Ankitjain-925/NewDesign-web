@@ -17212,9 +17212,17 @@ ul.duringCovid li:last-child {
 .taskBorder {
     border-left: 4px solid #00ABAF !important;
 }
+
+/* done by naveen */
 .homeBgDrk span.task_desk {
     color: #edf2f2!important;
 }
 .filterCursor {
     cursor: pointer !important;
 }
+.filterApply {
+    padding: 10px !important;
+    background: #00abaf !important;
+}
+
+/* Done by naveen end here */

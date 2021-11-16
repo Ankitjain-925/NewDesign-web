@@ -7,7 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { Button } from "@material-ui/core";
+import { Button, Input } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -33,7 +33,7 @@ import TaskView from "Screens/Components/VirtualHospitalComponents/TaskView/inde
 import { getLanguage } from "translations/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
-import {MultiFilter} from "../../MultiFilter/index";
+import { MultiFilter } from "../../MultiFilter/index";
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -60,7 +60,7 @@ class Index extends Component {
       allPatData1: [],
       users: [],
       users1: [],
-      userFilter : '',
+      userFilter: '',
       openAssign: false,
       newStaff: {},
       ProfMessage: false,
@@ -80,6 +80,11 @@ class Index extends Component {
       selectSpec2: '',
       DoneTask: this.props.DoneTask,
       noWards: false,
+      AllTaskCss: '',
+      DoneTaskCss: '',
+      OpenTaskCss: '',
+      ArchivedTasksCss: '',
+      text : ''
     };
   }
 
@@ -342,7 +347,7 @@ class Index extends Component {
   };
 
   updateUserFilter = (e) => {
-    this.setState({userFilter : e})
+    this.setState({ userFilter: e })
   }
   //Select the professional name
   updateEntryState4 = (e) => {
@@ -455,6 +460,32 @@ class Index extends Component {
     });
   };
 
+  FilterText = (e) => {
+    this.setState({ text: e.target.value })
+    let track1 = this.props.AllTasks;
+      let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+      });
+      this.setState({ AllTasks: FilterFromSearch1 })
+
+      let track2 = this.props.DoneTask;
+      let FilterFromSearch2 = track2 && track2.length > 0 && track2.filter((obj) => {
+        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+      });
+      this.setState({ DoneTask: FilterFromSearch2 })
+
+      let track3 = this.props.OpenTask;
+      let FilterFromSearch3 = track3 && track3.length > 0 && track3.filter((obj) => {
+        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+      });
+      this.setState({ OpenTask: FilterFromSearch3 })
+
+      let track4 = this.props.ArchivedTasks;
+      let FilterFromSearch4 = track4 && track4.length > 0 && track4.filter((obj) => {
+        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+      });
+      this.setState({ ArchivedTasks: FilterFromSearch4 })
+  }
   deleteClickTask(id) {
     this.setState({ loaderImage: true });
     axios
@@ -539,15 +570,52 @@ class Index extends Component {
 
   // Clear filter
   clearFilter = () => {
-    this.setState({userFilter: '', assignedTo2: '', selectSpec2 : ''})
+    let { tabvalue2, DoneTask, OpenTask, ArchivedTasks } = this.state
+    this.setState({ userFilter: '', assignedTo2: '', selectSpec2: '', AllTasks: this.props.AllTasks, DoneTask: this.props.DoneTask, OpenTask: this.props.OpenTask, ArchivedTasks: this.props.ArchivedTasks })
+    // if (tabvalue2 === 0) {
+    //   this.setState({ AllTasks: this.props.AllTasks, AllTaskCss: '' })
+    // }
+    // else if (tabvalue2 === 1) {
+    //   this.setState({ DoneTask: this.props.DoneTask, DoneTaskCss: '' })
+    // }
+    // else if (tabvalue2 === 2) {
+    //   this.setState({ OpenTask: this.props.OpenTask, OpenTaskCss: '' })
+    // }
+    // else if (tabvalue2 === 3) {
+    //   this.setState({ ArchivedTasks: this.props.ArchivedTasks, ArchivedTasksCss: '' })
+    // }
+    this.setState({ noWards: false })
   }
   applyFilter = () => {
-    let {userFilter, assignedTo2, selectSpec2, AllTasks, AllTasks1} = this.state
-    // let filterpatient = userFilter && userFilter.length > 0 && userFilter.map((element) => (element.label))
-    // let filterStaff = assignedTo2 && assignedTo2.length > 0 && assignedTo2.map((element) => (element.label))
-    // let filterSpeciality = selectSpec2 && selectSpec2.length > 0 && selectSpec2.map((element) => (element.label))
-    let data = MultiFilter(userFilter, assignedTo2, selectSpec2, this.props.AllTasks)
-    this.setState({AllTasks : data})
+    let { userFilter, assignedTo2, selectSpec2, tabvalue2 } = this.state
+    let tasks = ''
+    if (tabvalue2 === 0) {
+      tasks = this.props.AllTasks
+    }
+    else if (tabvalue2 === 1) {
+      tasks = this.props.DoneTask
+    }
+    else if (tabvalue2 === 2) {
+      tasks = this.props.OpenTask
+    }
+    else if (tabvalue2 === 3) {
+      tasks = this.props.ArchivedTasks
+    }
+    let data = MultiFilter(userFilter, assignedTo2, selectSpec2, tasks)
+
+    if (tabvalue2 === 0) {
+      this.setState({ AllTasks: data, AllTaskCss: 'filterApply' })
+    }
+    else if (tabvalue2 === 1) {
+      this.setState({ DoneTask: data, DoneTaskCss: 'filterApply' })
+    }
+    else if (tabvalue2 === 2) {
+      this.setState({ OpenTask: data, OpenTaskCss: 'filterApply' })
+    }
+    else if (tabvalue2 === 3) {
+      this.setState({ ArchivedTasks: data, ArchivedTasksCss: 'filterApply' })
+    }
+
     this.handleCloseRvw();
 
   }
@@ -597,7 +665,7 @@ class Index extends Component {
       Markasdone,
       Attachments,
     } = translate;
-    const { tabvalue, tabvalue2, professional_data, newTask, AllTasks } =
+    const { tabvalue, tabvalue2, professional_data, newTask, AllTasks, AllTaskCss, DoneTaskCss, OpenTaskCss, ArchivedTasksCss } =
       this.state;
     const userList =
       this.state.filteredUsers &&
@@ -1004,14 +1072,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={4} sm={4} md={4}>
                 <Grid className="taskSort">
-                  <a>
-                    <img
-                      src={require("assets/virtual_images/sort.png")}
-                      alt=""
-                      title=""
-                      onClick={this.handleOpenRvw}
-                    />
-                  </a>
+                  <Input type='text' name='search' value={this.state.text} onChange={this.FilterText}></Input>
                   <a>
                     <img
                       src={require("assets/virtual_images/search-entries.svg")}
@@ -1019,6 +1080,18 @@ class Index extends Component {
                       title=""
                     />
                   </a>
+                  {tabvalue2 === 0 &&
+                    <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                  }
+                  {tabvalue2 === 1 &&
+                    <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                  }
+                  {tabvalue2 === 2 &&
+                    <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                  }
+                  {tabvalue2 === 3 &&
+                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                  }
                 </Grid>
               </Grid>
             </Grid>
@@ -1111,8 +1184,8 @@ class Index extends Component {
                   <Grid className="fltrInput">
                     <label>Patient</label>
                     <Grid className="addInput">
-                    
-                    <Select
+
+                      <Select
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}
                         value={this.state.userFilter}
@@ -1150,7 +1223,7 @@ class Index extends Component {
                         placeholder="Filter by Speciality"
                         isMulti={true}
                         isSearchable={true} />
-                    </Grid> 
+                    </Grid>
                   </Grid>
                   {/* <Grid className="fltrInput">
                                         <label>Ward</label>
@@ -1168,7 +1241,7 @@ class Index extends Component {
                                     </Grid> */}
                 </Grid>
                 <Grid className="aplyFltr">
-                  <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid> 
+                  <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
                   <Grid className="aplyRght"><Button onClick={this.applyFilter}>Apply filters</Button></Grid>
                 </Grid>
               </TabContainer>
