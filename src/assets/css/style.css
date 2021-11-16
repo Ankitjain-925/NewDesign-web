@@ -17209,3 +17209,9 @@ ul.duringCovid li:last-child {
 .academy_ul.stepTdotupper .movHeadLft {
     text-align: left !important;
 }
+.taskBorder {
+    border-left: 4px solid #00ABAF !important;
+}
+.homeBgDrk span.task_desk {
+    color: #edf2f2!important;
+}
