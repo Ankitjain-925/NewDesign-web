@@ -1387,12 +1387,17 @@ a.conPainTime img {
     margin-right: -28px;
 } */
 .vh-section .srchFilter{
-    margin-bottom: 45px;
+    margin-bottom: 0px;
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
-    padding: 22px 20px 8px;
+    padding: 0px 0px 0px;
 }
+    .srchFilter{
+        margin-bottom: 0px!important;
+        padding: 0px 0px 0px!important;
+    }
+
 .vh-section .allTimeSel .css-yk16xz-control{
     border-radius: 8px !important;
     background-color: #F2F2F2 !important;
@@ -1490,11 +1495,11 @@ a.conPainTime img {
 
 /* Start of Home search */
 .vh-section .srchFilter{
-    margin-bottom: 45px;
+     margin-bottom: 45px;  
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
-    padding: 22px 20px 8px;
+    padding: 22px 20px 8px;  
 }
 .vh-section .allTimeSel .css-yk16xz-control{
     border-radius: 8px !important;
@@ -4520,6 +4525,9 @@ button.onlogyBtn {
 .roomBreadCrumb3 ul {
     padding-left: 0px;
     margin-bottom: 0px;
+}
+.MuiGrid-container{
+    display:block!important;
 }
 .roomBreadCrumb3 ul li {
     list-style-type: none;
@@ -9617,7 +9625,12 @@ button.crdoLghtBlu2 {
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
     padding: 30px 28px;
     border-top: 3px solid #00ABAF;
-    margin-bottom: 35px;
+    margin-bottom: 32px;  
+    margin-right: 100px;
+    margin-left:100px; 
+}
+.MuiGrid-justify-xs-center{
+    display: block;
 }
 .QuesMrktUpr h1 {
     color: #000808;
@@ -10388,7 +10401,7 @@ ul.patientHint li {
   .roomName .MuiGrid-root.MuiGrid-container .MuiGrid-grid-md-7 {
     width: 50% !important;
     max-width: 50% !important;
-    flex-basis: 50% !important;
+    flex-basis: 50% !important;  
   }
   .roomName .MuiGrid-root.MuiGrid-container .MuiGrid-grid-md-3 {
     width: 50% !important;
