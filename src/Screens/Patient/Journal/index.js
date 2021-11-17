@@ -993,6 +993,7 @@ class Index extends Component {
     let response = await get_cur_one(user_token, user_id)
     this.setState({ cur_one: response?.data?.data });
   };
+  
 
   //Move to Profile page
   MoveProfile = () => {

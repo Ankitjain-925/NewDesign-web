@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import axios from "axios";
+import { commonHeader } from "component/CommonHeader/index";
+import { get_cur_one, get_gender, get_track, delete_click_track, download_track } from "Screens/Components/CommonApi/index.js";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import { authy } from 'Screens/Login/authy.js';
@@ -14,31 +17,78 @@ import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseactio
 import { Redirect, Route } from 'react-router-dom';
 
 class Index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            patientData: {}
+        };
+    }
+
+    componentDidMount() {
+        this.rightInfo();
+        this.cur_one();
+    }
+
+    //Get the RIGHT INFO
+    rightInfo() {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios
+            .get(sitedata.data.path + "/rightinfo/patient/6124d4b92a3d8b47fbb03d03",
+                commonHeader(user_token))
+            .then((response) => {
+
+                console.log("personalinfo", response)
+                this.setState({ personalinfo: response.data.data });
+                var weight = response.data.data?.weight_bmi?.length > 0 && response.data.data?.weight_bmi.map((element) => (element.weight));
+                var height = response.data.data?.weight_bmi?.length > 0 && response.data.data?.weight_bmi.map((element) => (element.height));
+                this.setState({ weightData: weight, heightData: weight })
+                console.log("weight", this.state.weightData, height)
+            });
+
+
+    }
+
+    //Get the Current User Profile
+    cur_one = async () => {
+        var user_token = this.props.stateLoginValueAim.token;
+        let user_id = this.props.stateLoginValueAim.user._id;
+        let response = await get_cur_one(user_token, '6124d4b92a3d8b47fbb03d03')
+        this.setState({ patientData: response?.data?.data });
+        console.log("response?.data?.data",response?.data?.data)
+    };
+
+
+
     render() {
+        const { personalinfo,patientData } = this.state;
+
+        // console.log("weight", weigth)
+        console.log("personalinfo", personalinfo?.weight_bmi[0]?.weight)
         let translate = getLanguage(this.props.stateLanguageType);
-        let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight,Height, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, Neurology, LastDocuments, Prescription } = translate;
+        let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight, Height, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, Neurology, LastDocuments, Prescription } = translate;
         return (
             <Grid className="asignStaf">
-                <Grid className="backFlow" onClick={()=>{this.props.history.push('/virtualHospital/patient-flow')}}>
+                <Grid className="backFlow" onClick={() => { this.props.history.push('/virtualHospital/patient-flow') }}>
                     <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />{BacktoPatientFlow}</a>
                 </Grid>
                 <Grid className="asignStafInr">
                     <Grid className="newStaffUpr">
-                      <Grid className="newStaffInfo">
-                        <Grid className="newStaff">
-                            <p>P_mDnkbR30d</p>
-                            <Grid><a><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></a></Grid>
-                            <Grid><label>James Morrison</label></Grid><p><span>13 / 12 / 1988 (32 years)</span></p>
+                        <Grid className="newStaffInfo">
+                            <Grid className="newStaff">
+                                <p>{personalinfo?.info?.profile_id}</p>
+                                {/* <Grid><a><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></a></Grid> */}
+                                <Grid><a><S3Image imgUrl={personalinfo?.info?.image} /></a></Grid>
+                                <Grid><label>{personalinfo?.info?.first_name} {personalinfo?.info?.last_name}</label></Grid><p><span>13 / 12 / 1988 (32 years)</span></p>
+                            </Grid>
+                            <Grid className="entryInfo">
+                                <ul>
+                                    <li className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>{+NewEntry}</label></li>
+                                    <li><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>{+NewTask}</label></li>
+                                    <li><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>{Editinfo}</label></li>
+                                    <li><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>{More}</label></li>
+                                </ul>
+                            </Grid>
                         </Grid>
-                        <Grid className="entryInfo">
-                          <ul>
-                            <li className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>{+NewEntry}</label></li>
-                            <li><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>{+NewTask}</label></li>
-                            <li><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>{Editinfo}</label></li>
-                            <li><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>{More}</label></li>
-                          </ul>    
-                        </Grid>
-                       </Grid> 
                         <Grid container direction="row">
                             <Grid item xs={6} md={6}>
                                 <Grid container direction="row" alignItems="center">
@@ -52,7 +102,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={6} md={4}>
                                                     <Grid className="mdclStaffRght">
-                                                      <a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -107,7 +157,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <Grid className="cmpleteTask docsFile entrsSec">
-                                          <Grid><label>{Entries}</label></Grid><p>26</p>
+                                            <Grid><label>{Entries}</label></Grid><p>26</p>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -141,17 +191,17 @@ class Index extends Component {
                                     <Grid className="yearOpen"><a>Open</a></Grid>
                                 </Grid>
                             </Grid>
-                         </a>
+                        </a>
                     </Grid>
                     <Grid className="profileDescp">
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
                                 <label>{Weight}</label>
-                                <p>60<span>kg</span></p>
+                                <p>{this.state.weightData}<span>kg</span></p>
                             </Grid>
                             <Grid className="prfilHghtRght">
                                 <label>{Height}</label>
-                                <p>177<span>cm</span></p>
+                                <p>{this.state.heightData}<span>cm</span></p>
                             </Grid>
                         </Grid>
                         <Grid className="prfilHght">
@@ -161,7 +211,7 @@ class Index extends Component {
                             </Grid>
                             <Grid className="prfilHghtRght">
                                 <label>{Blood}</label>
-                                <p>-AB</p>
+                                <p>{patientData?.blood_group}</p>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -276,28 +326,28 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>   
+            </Grid>
         );
     }
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-      state.LoginReducerAim;
+        state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     return {
-      stateLanguageType,
-      stateLoginValueAim,
-      loadingaIndicatoranswerdetail,
-      House,
-      settings,
-      verifyCode,
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House,
+        settings,
+        verifyCode,
     };
-  };
-  export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
-      Index
+};
+export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+        Index
     )
-  );
+);
