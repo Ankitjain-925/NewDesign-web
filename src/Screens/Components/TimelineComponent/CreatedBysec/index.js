@@ -24,64 +24,87 @@ class Index extends Component {
 
   componentDidMount() {
     this.setState({ item: this.props.data },
-      ()=>{
+      () => {
         this.GetAttachfiles();
       })
   }
 
-  componentDidUpdate= (prevProps) => {
+  componentDidUpdate = (prevProps) => {
     if (
-        prevProps.data !== this.props.data 
-      ) {
-        this.setState({
-          item: this.props.data
-        }, ()=>{
-            this.GetAttachfiles();
-          })
-      }  
-  }
-
-  GetAttachfiles = ()=>{
-    var find = this.state?.item?.created_by_image;
-    if (find) {
-        var find1 = find.split(".com/")[1];
-        axios
-        .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-        .then((response2) => {
-            if (response2.data.hassuccessed) {
-            this.setState({ new_image: response2.data.data });
-            }
-        });
+      prevProps.data !== this.props.data
+    ) {
+      this.setState({
+        item: this.props.data
+      }, () => {
+        this.GetAttachfiles();
+      })
     }
   }
 
+  GetAttachfiles = () => {
+    var find = this.state?.item?.created_by_image;
+    if (find) {
+      var find1 = find.split(".com/")[1];
+      axios
+        .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+        .then((response2) => {
+          if (response2.data.hassuccessed) {
+            this.setState({ new_image: response2.data.data });
+          }
+        });
+    }
+  }
   render() {
     var item = this.state.item;
     return (
-        <Grid className="bpJohnImg">
-        <a data-tip data-for={item.track_id + "created"}>
-          <img
-            src={this.state.new_image}
-            alt=""
-            title=""
-          />
-          <span>{item.created_by_temp}</span>
+      <Grid className="bpJohnImg">
+        <a data-tip data-for={this.props.callFrom === 'assignedTo' ? this.props.track_id + "assinged" : item.track_id + "created"}>
+          {this.props.callFrom === 'assignedTo' ?
+            <img
+              src={item.image}
+              alt=""
+              title=""
+            />
+            :
+            <img
+              src={this.state.new_image}
+              alt=""
+              title=""
+            />
+          }
+          {this.props.callFrom === 'assignedTo' ? <span>{item.first_name} {item.last_name} {item.title}({item.type})</span> : <span>{item.created_by_temp}</span>}
         </a>
         <ReactTooltip
           className="timeIconClas_crested"
-          id={item.track_id + "created"}
+          id={this.props.callFrom === 'assignedTo' ? this.props.track_id + "assinged" : item.track_id + "created"}
           place="top"
           effect="solid"
           backgroundColor="#ffffff"
         >
-          <p>{item.created_by_temp}</p>
-          <p>{item.created_by_profile}</p>
+          {this.props.callFrom == 'assignedTo' ?
+            <p>{item.first_name} {item.last_name} {item.title}({item.type})</p>
+            :
+            <p>{item.created_by_temp}</p>
+          }
+          {this.props.callFrom == 'assignedTo' ?
+            <p>{item.profile_id}</p>
+            :
+            <p>{item.created_by_profile}</p>
+          }
           <p>
-          <img
-            src={this.state.new_image}
-            alt=""
-            title=""
-          />
+            {this.props.callFrom == 'assignedTo' ?
+              <img
+                src={item.image}
+                alt=""
+                title=""
+              />
+              :
+              <img
+                src={this.state.new_image}
+                alt=""
+                title=""
+              />
+            }
           </p>
         </ReactTooltip>
       </Grid>

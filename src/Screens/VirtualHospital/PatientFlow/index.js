@@ -68,14 +68,17 @@ class Index extends Component {
     });
 
     var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
-    console.log('this.props.speciality',this.props.speciality) 
-    var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY.map((item) => {
+    var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length>0 && this.props.speciality?.SPECIALITY.map((item) => {
       return { label: item.specialty_name, value: item._id };
     })
-    console.log('specsMap specsMap1 ',specsMap, specsMap1 )
-
-    specsMap = [...specsMap1, ...specsMap];
-    this.setState({ specialitiesList: specsMap });
+    if(specsMap && specsMap?.length>0){
+      specsMap = [...specsMap1, ...specsMap];
+      this.setState({ specialitiesList: specsMap });
+    }
+    else{
+      this.setState({ specialitiesList: specsMap1 });
+    }
+    
   }
 
   MovetoTask=(speciality, patient_id)=>{
@@ -188,10 +191,14 @@ class Index extends Component {
   //Change the value of the step_name
   onChange = (e, index) => {
     var state = this.state.actualData;
-    state[index][e.target.name] = e.target.value;
-    this.setDta(state);
-    this.setState({ edit: false });
-    this.CallApi();
+    var changes = state.filter((newa)=>{ 
+      return newa.step_name?.toLowerCase() === e.target?.value?.toLowerCase(); }) 
+    if( !(changes?.length > 0)){
+      state[index][e.target.name] = e.target.value;
+      this.setDta(state);
+      this.setState({ edit: false });
+      this.CallApi();
+    }
   };
 
   //Edit the name of step
@@ -202,7 +209,7 @@ class Index extends Component {
   //Add new step
   AddStep = () => {
     var state = this.state.actualData;
-    state.push({ step_name: "Step" + state?.length, case_numbers: [] });
+    state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
     this.setDta(state);
     this.CallApi();
   };
@@ -526,35 +533,48 @@ class Index extends Component {
                               isSearchable={false}
                             />
                             <a
-                              className="lineSort"
+                              className={this.state.view ==='vertical' ?"horzSort" : "lineSort"}
                               onClick={() => {
                                 this.setState({ view: "vertical" });
                               }}
                             >
+                               {this.state.view ==='vertical' ? 
+                              <img
+                                src={require("assets/virtual_images/active-vertical.png")}
+                                alt=""
+                                title=""
+                              /> :
                               <img
                                 src={require("assets/virtual_images/lines.png")}
                                 alt=""
                                 title=""
-                              />
+                              /> }
                             </a>
                             <a
-                              className="horzSort"
+                              className={this.state.view ==='horizontal' ?"horzSort" : "lineSort"}
                               onClick={() => {
                                 this.setState({ view: "horizontal" });
                               }}
                             >
+                              {this.state.view ==='horizontal' ? 
+                              
                               <img
-                                src={require("assets/virtual_images/timeline-view-active.svg")}
+                                src={require("assets/virtual_images/active-horizontal.png")}
                                 alt=""
                                 title=""
                               />
+                              : <img
+                                src={require("assets/virtual_images/non-active-horizontal.png")}
+                                alt=""
+                                title=""
+                              />}
                             </a>
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                     <Drags
-                      moveDetial={(id) => this.moveDetial(id)}
+                      moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
                       onKeyDownlogin={this.onKeyDownlogin}
                       editName={this.editName}

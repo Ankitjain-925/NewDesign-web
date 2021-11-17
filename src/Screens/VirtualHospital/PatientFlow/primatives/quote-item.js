@@ -50,7 +50,7 @@ export default class QuoteItem extends React.Component {
                     title=""
                   /> */}
                 </Grid>
-                <Grid className="flowProfilRght" onClick={()=>this.props.moveDetial(quote.patient_id , quote._id)}>
+                <Grid className="flowProfilRght" onClick={()=>this.props.moveDetial(this.props.quote.patient_id , this.props.quote._id)}>
                   <label>
                     {quote.patient.first_name} {quote.patient.last_name}
                   </label>
@@ -175,7 +175,7 @@ export default class QuoteItem extends React.Component {
                   <Grid item xs={12} md={5} lg={4}>
                     <Grid className="cardioArea" >
                     <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
-                      <Grid onClick={()=>this.props.moveDetial(quote.patient_id , quote._id)}>
+                      <Grid onClick={()=>this.props.moveDetial(this.props.quote.patient_id , this.props.quote._id)}>
                         <label>
                           {quote.patient.first_name} {quote.patient.last_name}
                         </label>

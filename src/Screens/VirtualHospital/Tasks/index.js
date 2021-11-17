@@ -17,9 +17,6 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
-
-var patientArray = [];
-
 function TabContainer(props) {
     return (
         <Typography component="div">

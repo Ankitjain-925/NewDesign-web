@@ -79,24 +79,14 @@ export const getPatientData = async (user_token, house_id, comesFrom) => {
             else if (response.data?.data[i].patient?.first_name) {
                 name = response.data?.data[i].patient?.first_name
             }
-            if(comesFrom === 'invoice')
-            {
-                patientArray.push({
-                    last_name: response.data?.data[i].patient?.last_name,
-                    first_name: response.data?.data[i].patient?.first_name,
-                    image: response.data?.data[i].patient?.image,
-                    profile_id: response.data?.data[i].patient?.profile_id,
-                    case_id: response.data?.data[i]._id,
-                })
-            }
-            else{
-                patientArray.push({
-                    last_name: response.data?.data[i].patient?.last_name,
-                    first_name: response.data?.data[i].patient?.first_name,
-                    image: response.data?.data[i].patient?.image,
-                    profile_id: response.data?.data[i].patient?.profile_id,
-                })
-            }
+            patientArray.push({
+                last_name: response.data?.data[i].patient?.last_name,
+                first_name: response.data?.data[i].patient?.first_name,
+                image: response.data?.data[i].patient?.image,
+                profile_id: response.data?.data[i].patient?.profile_id,
+                case_id: response.data?.data[i]._id,
+                patient_id: response.data?.data[i].patient_id
+            })
             PatientList1.push({ profile_id: response.data?.data[i].patient?.profile_id, value: response.data?.data[i]?.patient_id, label: name })
         }
         return {isdata: true, PatientList1: PatientList1, patientArray: patientArray }

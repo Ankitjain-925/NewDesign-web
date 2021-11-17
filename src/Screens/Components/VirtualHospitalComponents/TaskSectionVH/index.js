@@ -31,9 +31,8 @@ import Select from "react-select";
 import { confirmAlert } from "react-confirm-alert";
 import TaskView from "Screens/Components/VirtualHospitalComponents/TaskView/index";
 import { getLanguage } from "translations/index";
-
-var patientArray = [];
-
+import { S3Image } from "Screens/Components/GetS3Images/index";
+import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -76,6 +75,7 @@ class Index extends Component {
       assignedTo: [],
       selectSpec: {},
       DoneTask: this.props.DoneTask,
+      
     };
   }
 
@@ -96,7 +96,7 @@ class Index extends Component {
       });
     }
     if( prevProps.patient !== this.props.patient){
-      let user = {value: this.props.patient?.user_id}
+      let user = {value: this.props.patient?.patient_id}
       this.updateEntryState2(user);
     }
   };
@@ -180,6 +180,29 @@ class Index extends Component {
     });
   };
 
+  handleComment = (e) => {
+    var comments_by = {
+        'first_name': this.props.stateLoginValueAim.user.first_name,
+        'last_name': this.props.stateLoginValueAim.user.last_name,
+        'alies_id': this.props.stateLoginValueAim.user.alies_id,
+        'profile_id': this.props.stateLoginValueAim.user.profile_id,
+        'user_id': this.props.stateLoginValueAim.user._id,
+        'image': this.props.stateLoginValueAim.user.image
+    }
+    let comments = this.state.newTask.comments?.length>0 ?this.state.newTask.comments: [];
+    comments.push({
+        comment: this.state.newComment,
+        comment_on: new Date(),
+        comment_by: comments_by
+    });
+    var state = this.state.newTask;
+    state['comments'] = comments;
+    this.setState({
+        newTask: state,
+        newComment: ''
+    });
+}
+
   // submit Task model
   handleTaskSubmit = () => {
     var data = this.state.newTask;
@@ -215,6 +238,7 @@ class Index extends Component {
       data.priority = 0;
       data.archived = false;
       data.status = "open";
+     
       axios
         .post(
           sitedata.data.path + "/vh/AddTask",
@@ -222,8 +246,33 @@ class Index extends Component {
           commonHeader(this.props.stateLoginValueAim.token)
         )
         .then((responce) => {
+
           this.setState({ loaderImage: false });
           if (responce.data.hassuccessed) {
+            let patient_id = data && data?.patient_id
+                        let id = this.props && this.props?.settings && this.props?.settings?.setting && this.props?.settings?.setting?.user_id
+                        let url = sitedata.data.path + `/User/AddTrack/${patient_id}`
+                        if ((data?.hidePatient == "false") || (!data.hidePatient)) {
+                            let newDate = new Date();
+                            data["created_by"] = id
+                            data["public"] = "always"
+                            data["publicdatetime"] = null
+                            data["visible"] = "show"
+                            data["type"] = "task"
+                            data["datetime_on"] = newDate
+                            data["created_on"] = newDate
+                            axios.put(
+                                url,
+                                {data: data},
+                                commonHeader(this.props.stateLoginValueAim.token)
+                            ).then(res => {
+                                // let response = JSON.parse(res)
+                                console.log("welcome")
+                            })
+                            .catch(function (error) {
+                                console.log("error", error)
+                            })
+                        }
             this.setState({
               newTask: {},
               fileattach: {},
@@ -232,6 +281,7 @@ class Index extends Component {
               assignedTo: [],
               q: "",
               selectSpec: {},
+              newComment:''
             });
             this.props.getAddTaskData();
           }
@@ -241,6 +291,53 @@ class Index extends Component {
         });
     }
   };
+
+  updateCommemtState = (e) => {
+    this.setState({ newComment: e });
+}
+
+removeComment = (index) => {
+  this.setState({ message: null, openTask: false });
+  confirmAlert({
+      customUI: ({ onClose }) => {
+          return (
+              <div
+                  className={
+                      this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "dark-confirm react-confirm-alert-body"
+                          : "react-confirm-alert-body"
+                  }
+              >
+                  <h1>Remove the Comment ?</h1>
+                  <p>Are you sure to remove this Comment?</p>
+                  <div className="react-confirm-alert-button-group">
+                      <button onClick={onClose}>No</button>
+                      <button
+                          onClick={() => {
+                              this.deleteClickComment(index);
+                              onClose();
+                          }}
+                      >
+                          Yes
+                      </button>
+                  </div>
+              </div>
+          );
+      },
+  });
+};
+
+deleteClickComment(index) {
+  var state = this.state.newTask
+  var array = this.state.newTask.comments
+  console.log('index', index)
+  array.splice(index, 1);
+  state['comments'] = array
+  this.setState({ newTask : state, openTask: true })
+}
 
   // For adding a date,time
   updateEntryState1 = (value, name) => {
@@ -264,15 +361,15 @@ class Index extends Component {
     }
     this.setState({ newTask: state });
   };
-  
+
   //Select the patient name
   updateEntryState2 = (user) => {
     var user1 = this.state.users?.length > 0 &&
-      this.state.users.filter((data) => data.user_id === user.value);
+      this.state.users.filter((data) => data.patient_id === user.value);
     if (user1 && user1.length > 0) {
       const state = this.state.newTask;
       state["patient"] = user1[0];
-      state["patient_id"] = user1[0].user_id;
+      state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
       this.setState({ newTask: state });
     }
@@ -311,7 +408,6 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response.isdata) {
-      console.log('response', response)
           this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
             if (this.props.location?.state?.user ) {
               let user =
@@ -541,9 +637,9 @@ class Index extends Component {
           <Grid item xs={12} md={6}>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Grid className="addTaskBtn">
+            {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
               <Button onClick={this.handleOpenTask}>+ Add Task</Button>
-            </Grid>
+            </Grid>}
           </Grid>
           {/* Model setup */}
           <Modal
@@ -555,7 +651,7 @@ class Index extends Component {
                 ? "darkTheme"
                 : ""
             }
-            open={this.state.openTask}
+            open={this.state.openTask} 
             onClose={this.handleCloseTask}
           >
             <Grid className="creatTaskModel">
@@ -568,7 +664,7 @@ class Index extends Component {
                           <img
                             src={require("assets/virtual_images/closefancy.png")}
                             alt=""
-                            title=""
+                            title="" 
                           />
                         </a>
                       </Grid>
@@ -598,11 +694,13 @@ class Index extends Component {
                                 )
                               }
                               value={this.state.newTask.task_name}
+                              disabled={ this.props.comesFrom === 'Professional' ? true: false}
                             />
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
-                            {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2>
+                            {(this.props.comesFrom === 'detailTask')? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2>:
+                            this.props.comesFrom === 'Professional' ? <h2>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</h2>
                             :<Grid>
                               <input
                                 type="text"
@@ -629,6 +727,7 @@ class Index extends Component {
                                           "hidePatient"
                                         )
                                       }
+                                      disabled={ this.props.comesFrom === 'Professional' ? true: false}
                                     />
                                   }
                                   label="Hide task from patient"
@@ -649,6 +748,7 @@ class Index extends Component {
                                   )
                                 }
                                 value={this.state.newTask.description}
+                                disabled={ this.props.comesFrom === 'Professional' ? true: false}
                               ></textarea>
                             </Grid>
                           </Grid>
@@ -664,6 +764,7 @@ class Index extends Component {
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true}
+                                isDisabled={ this.props.comesFrom === 'Professional' ? true: false}
                               />
                             </Grid>
                           </Grid>
@@ -676,6 +777,7 @@ class Index extends Component {
                                 name="specialty_name"
                                 isSearchable={true}
                                 value={this.state.selectSpec}
+                                isDisabled={ this.props.comesFrom === 'Professional' ? true: false}
                               />
                             </Grid>
                           </Grid>
@@ -698,6 +800,7 @@ class Index extends Component {
                                     onChange={(e) =>
                                       this.updateEntryState1(e, "date")
                                     }
+                                    disabled={ this.props.comesFrom === 'Professional' ? true: false}
                                   />
                                 ) : (
                                   <TimeFormat
@@ -713,6 +816,7 @@ class Index extends Component {
                                     onChange={(e) =>
                                       this.updateEntryState1(e, "time")
                                     }
+                                    disabled={ this.props.comesFrom === 'Professional' ? true: false}
                                   />
                                 )}
                               </Grid>
@@ -734,6 +838,7 @@ class Index extends Component {
                                 <Grid className="assignSec">
                                   {this.state.newTask._id && (
                                     <>
+                                     { this.props.comesFrom !== 'Professional' && <>
                                       <Grid
                                         onClick={() => {
                                           this.createDuplicate(
@@ -780,7 +885,8 @@ class Index extends Component {
                                           Delete
                                         </label>
                                       </Grid>
-                                      <Grid
+                                      </>}
+                                     <Grid
                                         onClick={() => {
                                           this.switchStatus();
                                         }}
@@ -813,7 +919,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-                          <Grid item xs={12} md={12}>
+                          {this.props.comesFrom !== 'Professional' && <Grid item xs={12} md={12}>
                             <label>{Attachments}</label>
                             <FileUploader
                               // cur_one={this.props.cur_one}
@@ -829,7 +935,49 @@ class Index extends Component {
                                 this.FileAttachMulti(event);
                               }}
                             />
-                          </Grid>
+                          </Grid>}
+                          {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
+                                <Grid><label>Comments</label></Grid>
+                                {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
+                                    <Grid className="cmntIner cmntInerBrdr">
+
+                                        <Grid className="cmntMsgs">
+                                            <Grid><S3Image imgUrl={data?.comment_by?.image} /></Grid>
+                                            <Grid>
+                                                <Grid><label>{data?.comment_by?.first_name} {data?.comment_by?.last_name}</label><span>{getDate(
+                                                    data.comment_on,
+                                                    this.props.settings?.setting?.date_format
+                                                  )}</span> - 
+                                                  <span>{getTime(
+                                                     new Date(data.comment_on),
+                                                    this.props.settings?.setting?.time_format
+                                                  )}</span>
+                                                </Grid>
+                                                <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
+                                                {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
+                                                  {/* <Button onClick={() => this.editDocComment(data)}>Edit</Button> */}
+                                                  <Button onClick={() => this.removeComment(index)}>Delete</Button>
+                                                </Grid>}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                ))}
+                                <Grid className="addComit">
+                                <textarea
+                                    placeholder="Enter Comment"
+                                    name="comment"
+                                    onChange={(e) =>
+                                      this.updateCommemtState(
+                                        e.target.value
+                                      )
+                                    }
+                                    value={this.state.newComment}
+                                  ></textarea>
+                                    
+                                    <Button onClick={(e) => this.handleComment()}>Add Comment</Button>
+                                </Grid>
+                          </Grid>}
+
                           <Grid item xs={12} md={12} className="saveTasks">
                             <a onClick={() => this.handleCloseTask()}>
                               <Button onClick={() => this.handleTaskSubmit()}>
@@ -857,7 +1005,7 @@ class Index extends Component {
                     <Tab label="ALL" className="billtabIner" />
                     <Tab label="Done" className="billtabIner" />
                     <Tab label="Open" className="billtabIner" />
-                    {this.props.comesFrom !== "detailTask" && (
+                    {(this.props.comesFrom !== "detailTask" || this.props.comesFrom !== "Professional") && (
                       <Tab label="Archived" className="billtabIner" />
                     )}
                   </Tabs>

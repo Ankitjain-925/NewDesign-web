@@ -110,11 +110,9 @@ export const CurrentWard = (wards) => {
 
 export const AllRoomList = (Specilaity_id, AllSpecaility, ward_id) => {
   if(ward_id){
-    console.log('here')
-    var mydata1 = AllSpecaility.filter((element)=>element._id === Specilaity_id)
+    var mydata1 = AllSpecaility?.length>0 && AllSpecaility.filter((element)=>element._id === Specilaity_id)
     var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === ward_id)
     if(mydata && mydata.length>0){
-      console.log('here2')
       return mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.map((data, i)=>{
         return {value: data._id, label: data.room_name}
     });
@@ -230,7 +228,9 @@ export const CurrentBed = (bed) => {
                     user_id: response.data?.data[i]._id,
                     profile_id: response.data?.data[i].profile_id,
                     alies_id: response.data?.data[i].alies_id,
-                    image: response.data?.data[i].image
+                    image: response.data?.data[i].image,
+                    type: response.data?.data[i].type,
+                    title: response.data?.data[i].title,
                 })
                 professionalList.push({ value: response.data?.data[i]._id, label: name })
                 // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })

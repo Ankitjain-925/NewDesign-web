@@ -58,8 +58,7 @@ class Index extends Component {
   };
 
   // logoutUser = () => {
-  //   this.props.speciality(false);
-    
+  //   this.props.speciality(false);  
   //   let languageType =
   //     this.props.stateLanguageType && this.props.stateLanguageType !== ""
   //       ? this.props.stateLanguageType
@@ -115,7 +114,6 @@ class Index extends Component {
   };
 
   componentDidMount() {
-    this.props.Speciality(true, this.props?.House?.value, this.props.stateLoginValueAim.token);
     this.getSpeciality();
   }
 
@@ -129,6 +127,7 @@ class Index extends Component {
       )
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
+          this.props.Speciality(true, this.props?.House?.value, this.props.stateLoginValueAim.token);
           this.setState({ specialityData: responce.data.data });
         }
         this.setState({ loaderImage: false, openSpecl: false });
