@@ -56,10 +56,9 @@ class Index extends Component {
   }
   render() {
     var item = this.state.item;
-    console.log("this.props", this.props)
     return (
       <Grid className="bpJohnImg">
-        <a data-tip data-for={item.track_id + "created"}>
+        <a data-tip data-for={this.props.callFrom === 'assignedTo' ? this.props.track_id + "assinged" : item.track_id + "created"}>
           {this.props.callFrom === 'assignedTo' ?
             <img
               src={item.image}
@@ -77,7 +76,7 @@ class Index extends Component {
         </a>
         <ReactTooltip
           className="timeIconClas_crested"
-          id={item.track_id + "created"}
+          id={this.props.callFrom === 'assignedTo' ? this.props.track_id + "assinged" : item.track_id + "created"}
           place="top"
           effect="solid"
           backgroundColor="#ffffff"

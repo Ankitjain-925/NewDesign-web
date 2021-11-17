@@ -68,13 +68,17 @@ class Index extends Component {
     });
 
     var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
-    var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY.map((item) => {
+    var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length>0 && this.props.speciality?.SPECIALITY.map((item) => {
       return { label: item.specialty_name, value: item._id };
     })
-    console.log('specsMap specsMap1 ',specsMap, specsMap1 )
-
-    specsMap = [...specsMap1, ...specsMap];
-    this.setState({ specialitiesList: specsMap });
+    if(specsMap && specsMap?.length>0){
+      specsMap = [...specsMap1, ...specsMap];
+      this.setState({ specialitiesList: specsMap });
+    }
+    else{
+      this.setState({ specialitiesList: specsMap1 });
+    }
+    
   }
 
   MovetoTask=(speciality, patient_id)=>{
@@ -529,28 +533,41 @@ class Index extends Component {
                               isSearchable={false}
                             />
                             <a
-                              className="lineSort"
+                              className={this.state.view ==='vertical' ?"horzSort" : "lineSort"}
                               onClick={() => {
                                 this.setState({ view: "vertical" });
                               }}
                             >
+                               {this.state.view ==='vertical' ? 
+                              <img
+                                src={require("assets/virtual_images/active-vertical.png")}
+                                alt=""
+                                title=""
+                              /> :
                               <img
                                 src={require("assets/virtual_images/lines.png")}
                                 alt=""
                                 title=""
-                              />
+                              /> }
                             </a>
                             <a
-                              className="horzSort"
+                              className={this.state.view ==='horizontal' ?"horzSort" : "lineSort"}
                               onClick={() => {
                                 this.setState({ view: "horizontal" });
                               }}
                             >
+                              {this.state.view ==='horizontal' ? 
+                              
                               <img
-                                src={require("assets/virtual_images/timeline-view-active.svg")}
+                                src={require("assets/virtual_images/active-horizontal.png")}
                                 alt=""
                                 title=""
                               />
+                              : <img
+                                src={require("assets/virtual_images/non-active-horizontal.png")}
+                                alt=""
+                                title=""
+                              />}
                             </a>
                           </Grid>
                         </Grid>

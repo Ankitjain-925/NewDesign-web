@@ -14,17 +14,20 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import Pagination from "Screens/Components/Pagination/index";
+import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
+import { OptionList } from "Screens/Login/metadataaction";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import { Invoices } from 'Screens/Login/invoices.js';
 import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
+import Loader from "Screens/Components/Loader/index";
+import { getLanguage } from "translations/index"
 import { Redirect, Route } from 'react-router-dom';
-import {
-    getLanguage
-} from "translations/index"
+import filterate from 'reducers/Filterthis';
 
 function TabContainer(props) {
     return (
@@ -46,28 +49,24 @@ class Index extends Component {
             OverDueBills: {},
             DraftBills: {},
             IssuedBills: {},
-            bills_data: {}
+            bills_data: {},
+            setStatus: false,
+            AllStatus: {},
+            finalStatus: {}
         }
     };
 
-
     componentDidMount() {
+        this.getMetadata();
         this.fetchbillsdata('all', 0);
     }
 
-    // fetchbillsdata(status, value) {
-    //     this.setState({ loaderImage: true });
-    //     axios
-    //     .get(sitedata.data.path + `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
-    //     commonHeader(this.props.stateLoginValueAim.token))
-    //     .then((response) => {
-    //       if (response.data.hassuccessed) {
-    //         this.setState({ AllBills : response.data.data, value: value });
-    //       }
-    //     });
-    // }
+    // For print invoice
+    printInvoice() {
+        window.print();
+    }
 
-
+    // For page change 
     onChangePage = (pageNumber) => {
         this.setState({
             bills_data: this.state.AllBills.slice(
@@ -77,6 +76,43 @@ class Index extends Component {
             currentPage: pageNumber,
         });
     };
+
+    setStatusButton = () => {
+        this.setState({ setStatus: true })
+    }
+
+    //get list of list
+    getMetadata = () => {
+        this.setState({ allMetadata: this.props.metadata },
+        () => {
+            var AllStatus = GetLanguageDropdown(
+                this.state.allMetadata &&
+                this.state.allMetadata.billing_status &&
+                this.state.allMetadata.billing_status.length > 0 &&
+                this.state.allMetadata.billing_status,
+                this.props.stateLanguageType,
+            );
+            this.setState({
+                AllStatus: AllStatus,
+            });
+        })
+    }
+
+    // Update status acc. to their particular id
+    updateStatus = (data, status) => {
+        var finalStatus = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === status)?.[0]
+        axios.put(
+            sitedata.data.path + "/vh/AddInvoice/" + data._id,
+            {
+                "status": finalStatus
+            },
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+            this.setState({ setStatus: false });
+            this.fetchbillsdata("all", 0);
+        });
+    }
 
     // For getting the Bills and implement Pagination
     fetchbillsdata(status, value) {
@@ -114,10 +150,58 @@ class Index extends Component {
             })
     };
 
+    //Delete the perticular Bill with confirmation box
+    removeBills = (data) => {
+        // this.setState({ message: null, openTask: false });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+                        <h1>Remove the Bill?</h1>
+                        <p>Are you sure to remove this Bill?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickBill(data);
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
+
+    deleteClickBill(data) {
+        var status = data?.status?.value
+        axios
+            .delete(sitedata.data.path + "/vh/AddInvoice/" + data,
+                commonHeader(this.props.stateLoginValueAim.token))
+            .then((response) => {
+                var value = this.state.value;
+                var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
+                this.fetchbillsdata(ApiStatus, value);
+            })
+            .catch((error) => { });
+    }
+
     Invoice = (data) => {
         this.props.history.push({
             pathname: '/virtualHospital/invoices',
-            state: { data: data }
+            state: { data: data, value: 'duplicate' }
         })
     }
 
@@ -140,6 +224,7 @@ class Index extends Component {
                     : "homeBg"
             }>
                 <Grid className="homeBgIner">
+                {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                             {/* Mobile menu */}
@@ -215,14 +300,25 @@ class Index extends Component {
                                                                         <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
                                                                     </ul>
                                                                     <ul className="setStatus">
-                                                                        <li><span>Set status</span></li>
-                                                                        <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
+                                                                        <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
+                                                                        {this.state.setStatus &&
+                                                                            <Grid >
+                                                                                <ul>
+                                                                                    <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
+                                                                                    <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span>Draft</span></li></a>
+                                                                                    <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span>Issued</span></li></a>
+                                                                                    <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span>Overdue</span></li></a>
+                                                                                </ul>
+                                                                            </Grid>
+                                                                        }
                                                                     </ul>
+                                                                    <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
                                                                 </Grid>
                                                             </Button></Td>
                                                         </Tr>
                                                     </Tbody>
                                                 ))}
+
                                             </Table>
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
@@ -270,6 +366,7 @@ const mapStateToProps = (state) => {
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     const { invoices } = state.Invoices;
+    const { metadata } = state.OptionList;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -277,11 +374,12 @@ const mapStateToProps = (state) => {
         House,
         settings,
         verifyCode,
-        invoices
+        invoices,
+        metadata,
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices, OptionList })(
         Index
     )
 );

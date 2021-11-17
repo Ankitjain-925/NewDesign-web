@@ -13,6 +13,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { OptionList } from "Screens/Login/metadataaction";
 import axios from "axios";
+import Loader from "Screens/Components/Loader/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Modal from "@material-ui/core/Modal";
@@ -61,15 +62,17 @@ class Index extends Component {
             this.setState({ addinvoice: {} })
             console.log("hello", this.props.history.location?.state?.data)
         }
-        else if (this.props.history.location?.state?.data && this.props.history.location?.state?.data) {
+        else if (this.props.history.location?.state?.data && this.props.history.location?.state?.value === "duplicate") {
             var duplicateData = this.props.history.location?.state?.data
             this.setState({ addinvoice: duplicateData })
+            // var patientName = this.props.history.location?.state?.data.filter((item) => item.patient)
+            // console.log("patientName",patientName)
         }
-        // else if (this.props.history.location?.state?.data?.addinvoice && this.props.history.location?.state?.data) {
-        //     var newdata = this.props.history.location?.state?.data
-        //     // how to delete the field of onject in js
-        //     this.setState({ addinvoice: newdata })
-        // }
+        else if (this.props.history.location?.state?.data?.addinvoice && this.props.history.location?.state?.data) {
+            var newdata = this.props.history.location?.state?.data
+            // how to delete the field of onject in js
+            this.setState({ addinvoice: newdata })
+        }
     }
 
     //get list of list
@@ -178,12 +181,16 @@ class Index extends Component {
 
     //Add the services  
     handleAddSubmit = () => {
-        var newService = this.state.service;
+        var newService = this.state.service
+        console.log("newservice", newService)
         newService.price = newService?.price_per_quantity * newService?.quantity;
+        newService.service = this.state.service.service.label
         let items = [...this.state.items];
         items.push(newService);
+
         this.setState({ items, service: {} },
             () => { this.updateTotalPrize() })
+
     };
 
     //Update the services  
@@ -220,7 +227,6 @@ class Index extends Component {
     // For calculate value of finish invoice
     finishInvoice = (draft) => {
         var data = this.state.addinvoice;
-        console.log("addinvoice",this.state.addinvoice)
         if (draft) {
             data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'draft')?.[0]
         }
@@ -246,8 +252,8 @@ class Index extends Component {
         // });
         // }
         else {
-            console.log('sdfsdfsdf')
             data.house_id = this.props?.House?.value;
+            data.services = this.state.items
             data.created_at = new Date();
             this.setState({ loaderImage: true });
             axios
@@ -260,9 +266,10 @@ class Index extends Component {
                     this.setState({ loaderImage: false });
                     if (responce.data.hassuccessed) {
                         this.setState({
+                            items: [],
                             addinvoice: {}, selectedPat: {},
                         });
-                        this.props.getAddTaskData();
+                        this.Billing();  
                     }
                 })
                 .catch((error) => {
@@ -325,6 +332,7 @@ class Index extends Component {
                     ? "homeBg darkTheme"
                     : "homeBg"
             }>
+                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -415,7 +423,8 @@ class Index extends Component {
                                                         <Tbody>
                                                             <Tr>
                                                                 <Td>
-                                                                    <label>{data?.service?.label}</label>
+                                                                    {console.log("data", data)}
+                                                                    <label>{data?.service}</label>
                                                                     <p>{data?.service?.description}</p>
                                                                 </Td>
                                                                 <Td>{data?.quantity}</Td>

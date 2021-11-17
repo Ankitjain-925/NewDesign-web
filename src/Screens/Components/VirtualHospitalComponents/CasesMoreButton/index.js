@@ -302,8 +302,8 @@ MovetoTask=()=>{
                            <Grid className="positionDrop">
                            <Select
                               name="professional"
-                              onChange={(e) =>
-                                  this.updateEntryState3(e)}
+                              comesFrom = "morebutton"
+                              onChange={(e) => this.updateEntryState3(e)}
                               value={this.state.assignedTo}
                               options={this.props.professional_id_list}
                               placeholder="Search & Select"
@@ -326,6 +326,7 @@ MovetoTask=()=>{
                              <Grid className="fillDia">
                                <Grid>
                                  <SelectField
+                                 comesFrom = "morebutton"
                                    isSearchable={true}
                                    name="type"
                                    label="Wards"
@@ -338,6 +339,7 @@ MovetoTask=()=>{
                                </Grid>
                                {this.props.quote?.wards?._id && <Grid>
                                  <SelectField
+                                 comesFrom = "morebutton"
                                    isSearchable={true}
                                    name="type"
                                    label="Room"
@@ -348,6 +350,7 @@ MovetoTask=()=>{
                                </Grid>}
                                {this.props.quote?.rooms?._id && <Grid>
                                  <SelectField
+                                 comesFrom = "morebutton"
                                    isSearchable={true}
                                    name="type"
                                    label="Bed"

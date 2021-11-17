@@ -31,10 +31,12 @@ class PointPain extends Component {
   }
   //on adding new data
   componentDidUpdate = (prevProps) => {
-    if (prevProps.openHouse !== this.props.openHouse || prevProps.alredyExist !== this.props.alredyExist || prevProps.current_user !== this.props.current_user || 
-        prevProps.Housesoptions !== this.props.Housesoptions || prevProps.deleteHouses !== this.props.deleteHouses || prevProps.assignedhouse !== this.props.assignedhouse) {
-      this.setState({ openHouse: this.props.openHouse, alreadyExist : this.props.alredyExist, currentHouses: this.props.currentHouses,
-        current_user : this.props.current_user, Housesoptions : this.props.Housesoptions, deleteHouses: this.props.deleteHouses, assignedhouse: this.props.assignedhouse});
+    if (prevProps.openHouse !== this.props.openHouse || prevProps.alredyExist !== this.props.alredyExist || prevProps.current_user !== this.props.current_user ||
+      prevProps.Housesoptions !== this.props.Housesoptions || prevProps.deleteHouses !== this.props.deleteHouses || prevProps.assignedhouse !== this.props.assignedhouse) {
+      this.setState({
+        openHouse: this.props.openHouse, alreadyExist: this.props.alredyExist, currentHouses: this.props.currentHouses,
+        current_user: this.props.current_user, Housesoptions: this.props.Housesoptions, deleteHouses: this.props.deleteHouses, assignedhouse: this.props.assignedhouse
+      });
     }
   };
 //   shouldComponentUpdate(nextProps, nextState) {
@@ -89,11 +91,11 @@ class PointPain extends Component {
                       House is assigned to User
                     </div>
                   )}
-                    {this.state.deleteHouses && (
+                    {/* {this.state.deleteHouses && (
                     <div className="success_message">
                       House id deleted from the User
                     </div>
-                  )}
+                  )} */}
                   {this.state.alredyExist && (
                     <div className="err_message">
                       House is already exist to User

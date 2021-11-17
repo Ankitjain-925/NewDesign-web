@@ -191,6 +191,11 @@ class Index extends Component {
     this.props.history.push("/doctor/appointment");
   };
 
+  //For Task
+  handlePTask = () => {
+    this.props.history.push("/doctor/professional-task");
+  }
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
@@ -395,6 +400,27 @@ class Index extends Component {
                           />
                         )}
                         {invite_doc}
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={this.handlePTask}>
+                        {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
+                        {"Professional Tasks"}
                       </a>
                     </li>
                     <li>
