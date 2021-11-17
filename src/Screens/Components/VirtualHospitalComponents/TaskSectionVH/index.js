@@ -34,6 +34,8 @@ import { getLanguage } from "translations/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
 import { MultiFilter } from "../../MultiFilter/index";
+import FileViews from "../../TimelineComponent/FileViews/index";
+
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -84,7 +86,7 @@ class Index extends Component {
       DoneTaskCss: '',
       OpenTaskCss: '',
       ArchivedTasksCss: '',
-      text : ''
+      text: ''
     };
   }
 
@@ -463,28 +465,28 @@ class Index extends Component {
   FilterText = (e) => {
     this.setState({ text: e.target.value })
     let track1 = this.props.AllTasks;
-      let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
-        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
-      });
-      this.setState({ AllTasks: FilterFromSearch1 })
+    let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+    });
+    this.setState({ AllTasks: FilterFromSearch1 })
 
-      let track2 = this.props.DoneTask;
-      let FilterFromSearch2 = track2 && track2.length > 0 && track2.filter((obj) => {
-        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
-      });
-      this.setState({ DoneTask: FilterFromSearch2 })
+    let track2 = this.props.DoneTask;
+    let FilterFromSearch2 = track2 && track2.length > 0 && track2.filter((obj) => {
+      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+    });
+    this.setState({ DoneTask: FilterFromSearch2 })
 
-      let track3 = this.props.OpenTask;
-      let FilterFromSearch3 = track3 && track3.length > 0 && track3.filter((obj) => {
-        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
-      });
-      this.setState({ OpenTask: FilterFromSearch3 })
+    let track3 = this.props.OpenTask;
+    let FilterFromSearch3 = track3 && track3.length > 0 && track3.filter((obj) => {
+      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+    });
+    this.setState({ OpenTask: FilterFromSearch3 })
 
-      let track4 = this.props.ArchivedTasks;
-      let FilterFromSearch4 = track4 && track4.length > 0 && track4.filter((obj) => {
-        return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
-      });
-      this.setState({ ArchivedTasks: FilterFromSearch4 })
+    let track4 = this.props.ArchivedTasks;
+    let FilterFromSearch4 = track4 && track4.length > 0 && track4.filter((obj) => {
+      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+    });
+    this.setState({ ArchivedTasks: FilterFromSearch4 })
   }
   deleteClickTask(id) {
     this.setState({ loaderImage: true });
@@ -995,6 +997,11 @@ class Index extends Component {
                               }}
                             />
                           </Grid>}
+                          <Grid className="addSpc detailMark">
+                            <FileViews
+                              attachfile={this.state.newTask?.attachments}
+                            />
+                          </Grid>
                           {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
                             <Grid><label>Comments</label></Grid>
                             {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
@@ -1072,7 +1079,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={4} sm={4} md={4}>
                 <Grid className="taskSort">
-                  <Input type='text' name='search' value={this.state.text} onChange={this.FilterText}></Input>
+                  <Input type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText}></Input>
                   <a>
                     <img
                       src={require("assets/virtual_images/search-entries.svg")}
