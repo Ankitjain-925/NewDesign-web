@@ -3,8 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import MobileMenu from '../Menu/mobile-menu';
-// import WebMenu from '../Menu/web-menu';
 import { Button } from '@material-ui/core';
 import { Redirect, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
