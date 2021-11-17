@@ -986,8 +986,8 @@ class Index extends Component {
                               // cur_one={this.props.cur_one}
                               attachfile={
                                 this.state.newTask &&
-                                  this.state.newTask.attachfile
-                                  ? this.state.newTask.attachfile
+                                  this.state.newTask.attachments
+                                  ? this.state.newTask.attachments
                                   : []
                               }
                               name="UploadTrackImageMulti"
@@ -997,11 +997,6 @@ class Index extends Component {
                               }}
                             />
                           </Grid>}
-                          <Grid className="addSpc detailMark">
-                            <FileViews
-                              attachfile={this.state.newTask?.attachments}
-                            />
-                          </Grid>
                           {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
                             <Grid><label>Comments</label></Grid>
                             {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
