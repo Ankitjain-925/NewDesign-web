@@ -27,9 +27,6 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import { getLanguage } from "translations/index"
 import { Redirect, Route } from 'react-router-dom';
-import {
-    getLanguage
-} from "translations/index"
 import filterate from 'reducers/Filterthis';
 
 function TabContainer(props) {
@@ -87,57 +84,34 @@ class Index extends Component {
     //get list of list
     getMetadata = () => {
         this.setState({ allMetadata: this.props.metadata },
-            () => {
-                this.updateStatus();
-            })
+        () => {
+            var AllStatus = GetLanguageDropdown(
+                this.state.allMetadata &&
+                this.state.allMetadata.billing_status &&
+                this.state.allMetadata.billing_status.length > 0 &&
+                this.state.allMetadata.billing_status,
+                this.props.stateLanguageType,
+            );
+            this.setState({
+                AllStatus: AllStatus,
+            });
+        })
     }
 
     // Update status acc. to their particular id
     updateStatus = (data, status) => {
-        var id = data?.patient?._id;
-        var AllStatus = GetLanguageDropdown(
-            this.state.allMetadata &&
-            this.state.allMetadata.billing_status &&
-            this.state.allMetadata.billing_status.length > 0 &&
-            this.state.allMetadata.billing_status,
-            this.props.stateLanguageType,
-        );
-        this.setState({
-            AllStatus: AllStatus,
+        var finalStatus = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === status)?.[0]
+        axios.put(
+            sitedata.data.path + "/vh/AddInvoice/" + data._id,
+            {
+                "status": finalStatus
+            },
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+            this.setState({ setStatus: false });
+            this.fetchbillsdata("all", 0);
         });
-        if (data?.patient?._id) {
-            // if (status === "draft") {
-            //     console.log("status", this.state.AllStatus)
-            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'draft')?.[0]
-            //     this.setState({ finalStatus: data.status })
-            // }
-            // else if (status === "paid") {
-            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'paid')?.[0]
-            //     this.setState({ finalStatus: data.status })
-            // }
-            // else if (status === "issued") {
-            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'issued')?.[0]
-            //     this.setState({ finalStatus: data.status })
-            // }
-            // else {
-            //     data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'overdue')?.[0]
-            //     this.setState({ finalStatus: data.status })
-            // }
-
-            var finalStatus = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === status)?.[0]
-            axios
-                .put(
-                    sitedata.data.path + "/vh/AddInvoice/" + id,
-                    {
-                        "status": finalStatus
-                    },
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    this.setState({ setStatus: false });
-                    this.fetchbillsdata("all", 0);
-                });
-        }
     }
 
     // For getting the Bills and implement Pagination
@@ -192,9 +166,7 @@ class Index extends Component {
                                 : "react-confirm-alert-body"
                         }
                     >
-
                         <h1>Remove the Bill?</h1>
-
                         <p>Are you sure to remove this Bill?</p>
                         <div className="react-confirm-alert-button-group">
                             <button onClick={onClose}>No</button>
@@ -329,9 +301,7 @@ class Index extends Component {
                                                                     </ul>
                                                                     <ul className="setStatus">
                                                                         <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
-
                                                                         {this.state.setStatus &&
-
                                                                             <Grid >
                                                                                 <ul>
                                                                                     <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
@@ -341,8 +311,8 @@ class Index extends Component {
                                                                                 </ul>
                                                                             </Grid>
                                                                         }
-                                                                        <a onClick={() => { this.removeBills(data) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
                                                                     </ul>
+                                                                    <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
                                                                 </Grid>
                                                             </Button></Td>
                                                         </Tr>
