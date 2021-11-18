@@ -17226,4 +17226,26 @@ ul.duringCovid li:last-child {
     background: #00abaf !important;
 }
 
+.timeTask {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.addTimeTask button {
+    height: 44px;
+    width: 78px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    margin-left: 12px !important;
+    color: #7F8383;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-family: 'Mulish', sans-serif;
+    text-transform: initial;
+    padding: 0px;
+}
+
 /* Done by naveen end here */
