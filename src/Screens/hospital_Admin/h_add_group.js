@@ -47,7 +47,8 @@ class Index extends Component {
       house_logo: "",
       instituteId: '',
       showHouses: false,
-      editId: ''
+      editId: '',
+      image: []
     };
   }
   //open the institute group
@@ -70,7 +71,7 @@ class Index extends Component {
 
   EditInstitute = (instituteId) => {
     let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);
-    this.setState({ openGroup: true, institute_groups: result, houses: result?.houses });
+    this.setState({ openGroup: true, institute_groups: result, houses: result?.houses, image: [{filename: result.group_logo, filetype: "png"}]});
   };
 
   editHospital = (editData) => {
@@ -363,7 +364,6 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let {} = translate;
-
     return (
       <Grid 
       className={
@@ -652,7 +652,13 @@ class Index extends Component {
                                   </Grid>
                                   <FileUploader
                                     name="group_logo"
+                                    attachfile={
+                                      this.state.image
+                                        ? this.state.image
+                                        : []
+                                    }
                                     fileUpload={(file) => { this.fileUpload(file, 'group_logo') }}
+                                    comesFrom="journal"
                                     isMulti={false}
                                   />
                                 </Grid>
