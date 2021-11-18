@@ -17,9 +17,6 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
-
-var patientArray = [];
-
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -40,12 +37,6 @@ class Index extends Component {
             doneToday: 0,
             AllTasks :[],
             DoneTask : [],
-            hope: false,
-            openDate: true,
-            specilaityList: [],
-            assignedTo: [],
-            selectSpec: {},
-            noWards: false
         };
     }
 
@@ -152,7 +143,6 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid >
-                
             </Grid >
         );
     }

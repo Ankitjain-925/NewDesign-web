@@ -312,6 +312,49 @@ class Index extends Component {
     this.setState({ newComment: e });
   }
 
+removeComment = (index) => {
+  this.setState({ message: null, openTask: false });
+  confirmAlert({
+      customUI: ({ onClose }) => {
+          return (
+              <div
+                  className={
+                      this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "dark-confirm react-confirm-alert-body"
+                          : "react-confirm-alert-body"
+                  }
+              >
+                  <h1>Remove the Comment ?</h1>
+                  <p>Are you sure to remove this Comment?</p>
+                  <div className="react-confirm-alert-button-group">
+                      <button onClick={onClose}>No</button>
+                      <button
+                          onClick={() => {
+                              this.deleteClickComment(index);
+                              onClose();
+                          }}
+                      >
+                          Yes
+                      </button>
+                  </div>
+              </div>
+          );
+      },
+  });
+};
+
+deleteClickComment(index) {
+  var state = this.state.newTask
+  var array = this.state.newTask.comments
+  console.log('index', index)
+  array.splice(index, 1);
+  state['comments'] = array
+  this.setState({ newTask : state, openTask: true })
+}
+
   // For adding a date,time
   updateEntryState1 = (value, name) => {
     var due_on = this.state.newTask?.due_on ? this.state.newTask?.due_on : {};
@@ -1002,26 +1045,26 @@ class Index extends Component {
                             {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
                               <Grid className="cmntIner cmntInerBrdr">
 
-                                <Grid className="cmntMsgs">
-                                  <Grid><S3Image imgUrl={data?.comment_by?.image} /></Grid>
-                                  <Grid>
-                                    <Grid><label>{data?.comment_by?.first_name} {data?.comment_by?.last_name}</label><span>{getDate(
-                                      data.comment_on,
-                                      this.props.settings?.setting?.date_format
-                                    )}</span> -
-                                      <span>{getTime(
-                                        new Date(data.comment_on),
-                                        this.props.settings?.setting?.time_format
-                                      )}</span>
+                                        <Grid className="cmntMsgs">
+                                            <Grid><S3Image imgUrl={data?.comment_by?.image} /></Grid>
+                                            <Grid>
+                                                <Grid><label>{data?.comment_by?.first_name} {data?.comment_by?.last_name}</label><span>{getDate(
+                                                    data.comment_on,
+                                                    this.props.settings?.setting?.date_format
+                                                  )}</span> - 
+                                                  <span>{getTime(
+                                                     new Date(data.comment_on),
+                                                    this.props.settings?.setting?.time_format
+                                                  )}</span>
+                                                </Grid>
+                                                <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
+                                                {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
+                                                  {/* <Button onClick={() => this.editDocComment(data)}>Edit</Button> */}
+                                                  <Button onClick={() => this.removeComment(index)}>Delete</Button>
+                                                </Grid>}
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                    <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
-                                    <Grid>
-                                      <Button onClick={() => this.editDocComment(data)}>Edit</Button>
-                                      <Button onClick={() => this.removeComment(index)}>Delete</Button>
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
                             ))}
                             <Grid className="addComit">
                               <textarea
