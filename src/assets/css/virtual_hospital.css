@@ -9775,6 +9775,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.adminMenuRghtUpr a.academy_ul ul{
+    min-width: 200px !important;
+}
 .darkTheme .fillDia .addStafSelect div{
     background-color: #192020;
 }

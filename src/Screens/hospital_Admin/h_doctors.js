@@ -411,7 +411,7 @@ class Index extends Component {
                                                                                 title=""
                                                                             />
                                                                             </span>
-                                                                            Assign House
+                                                                            Assign Hospitals
                                                                         </a>
                                                                         </li>
                                                                     <li onClick={()=>this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>

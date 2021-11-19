@@ -64,7 +64,7 @@ class Index extends Component {
   };
   //Modal Open
   handleOpenServ = () => {
-    this.setState({ openServ: true });
+    this.setState({ openServ: true, updateTrack: {} });
   };
 
   //Modal Close

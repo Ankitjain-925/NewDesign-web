@@ -528,7 +528,7 @@ class Index extends Component {
                                             title=""
                                           />
                                         </span>
-                                        Assign House
+                                        Assign Hospitals
                                       </a>
                                     </li>
                                     <li
@@ -633,7 +633,7 @@ class Index extends Component {
                           </a>
                         </Grid>
                         <Grid>
-                          <label>Assign House</label>
+                          <label>Assign Hospitals</label>
                         </Grid>
                       </Grid>
                       <Grid className="enterSpclUpr">

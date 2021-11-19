@@ -48,7 +48,8 @@ class Index extends Component {
       case: {},
       caseAlready: false,
       AddstpId: false,
-      searchValue: ''
+      searchValue: '',
+      idpinerror: false,
     };
   }
   static defaultProps = {
@@ -229,7 +230,7 @@ class Index extends Component {
 
   //Open case model
   openAddPatient = (index = 0) => {
-    this.setState({ openAddP: true, AddstpId: index });
+    this.setState({ openAddP: true, AddstpId: index,  addp: {},idpinerror: false,  case: {}, });
   };
 
   //Close case model
@@ -452,6 +453,10 @@ class Index extends Component {
     this.mapActualToFullData(result);
   }
 
+  newPatient = ()=>{
+    this.props.history.push('/virtualHospital/new-user')
+  }
+
   clearFilters = () => {
     this.setState({
       searchValue: '',
@@ -503,10 +508,15 @@ class Index extends Component {
                   <Grid className="cmnLftSpc ptntFlowSpc">
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
-                        <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={8} md={8}>
                           <h1>{PatientFlow}</h1>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={6} className="addFlowRght">
+                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
+                        <a onClick={() => this.newPatient()}>
+                            + Create New Patient
+                          </a>
+                        </Grid>
+                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                         <a onClick={() => this.openAddPatient(0)}>
                             + Add patient
                           </a>
