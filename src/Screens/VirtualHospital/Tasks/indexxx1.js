@@ -231,7 +231,7 @@ class Index extends Component {
             .then((response) => {
 
                 this.setState({ AllTasks: response.data.data })
-                console.log("response", response)
+                // console.log("response", response)
 
                 if (response.data.hassuccessed) {
                     var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
@@ -250,7 +250,7 @@ class Index extends Component {
         if (name === 'date' || name === 'time') {
             due_on[name] = value;
             state['due_on'] = due_on;
-            console.log('asda asd', state)
+            // console.log('asda asd', state)
         }
         else {
             state[name] = value;
