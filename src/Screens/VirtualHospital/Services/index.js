@@ -204,16 +204,18 @@ class Index extends Component {
   //On Changing the specialty id 
   onFieldChange = (e) => {
     const state = this.state.updateTrack;
-    state['speciality_id'] = e.value;
-    this.setState({ updateTrack: state });
+    state['specialty_id'] = e?.length>0 && e.map((data)=>{return data.value});
+    this.setState({ updateTrack: state});
+    // console.log('updateTrack',this.state.updateTrack)
   }
 
   selectedID = (id) => {
-    var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => item.value === id)
+    // console.log('ttttt', id)
+    var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => id?.includes(item.value))
     if (data && data.length > 0) {
-      return data[0];
+      return data;
     }
-    return {};
+    return [];
   }
 
   getSpecialtyData = (id) => {
@@ -247,7 +249,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Addnewservice, Services } = translate;
+    let { Addnewservice, Services, Specialty } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -368,7 +370,8 @@ class Index extends Component {
                                       name="specialty_name"
                                       isSearchable={true}
                                       className="mr_sel"
-                                      value={this.selectedID(this.state.updateTrack.speciality_id)}
+                                      isMulti={true}
+                                     value={this.selectedID(this.state.updateTrack.specialty_id)}
                                     />
                                   </Grid>
 
