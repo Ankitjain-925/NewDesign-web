@@ -61,7 +61,6 @@ class Index extends Component {
 
         if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === 'new') {
             this.setState({ addinvoice: {} })
-            // console.log("hello", this.props.history.location?.state?.data)
         }
         else if (this.props.history.location?.state?.data && this.props.history.location?.state?.value === "duplicate") {
             var duplicateData = this.props.history.location?.state?.data
