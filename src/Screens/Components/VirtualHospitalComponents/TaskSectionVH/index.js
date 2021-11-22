@@ -785,8 +785,6 @@ class Index extends Component {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-                            {/* <label>Task title</label>
-                                                            <Grid><input type="text" placeholder="Enter title" /></Grid> */}
                             <VHfield
                               label="Task title"
                               name="task_name"
@@ -960,7 +958,7 @@ class Index extends Component {
                                   disabled={this.props.comesFrom === 'Professional' ? true : false}
                                 />
                               </Grid>
-                              <Grid item xs={2} md={2} className="addTimeTask">
+                              <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
                               {this.state.openDate ? (
 
                                 <Button
@@ -972,6 +970,7 @@ class Index extends Component {
                                 </Button>
 
                               ) : (
+                                <>
                                 <TimeFormat
                                 className = "timeFormatTask"
                                   name="time"
@@ -988,6 +987,8 @@ class Index extends Component {
                                   }
                                   disabled={this.props.comesFrom === 'Professional' ? true : false}
                                 />
+                                <span className="addTimeTask1span" onClick={()=>{this.setState({openDate: true})}}>Remove time</span>
+                                </>
                               )
                               }
                             </Grid>

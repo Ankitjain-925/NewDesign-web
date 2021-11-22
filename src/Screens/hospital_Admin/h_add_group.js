@@ -380,11 +380,11 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Mobile menu */}
-                <H_LeftMenuMobile isNotShow={true} currentPage="more" />
+                <H_LeftMenuMobile isNotShow={true} currentPage="groups" />
                 {/* End of mobile menu */}
 
                 {/* Website Menu */}
-                <H_LeftMenu isNotShow={true} currentPage="more" />
+                <H_LeftMenu isNotShow={true} currentPage="groups" />
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10} className="adminMenuRghtUpr">

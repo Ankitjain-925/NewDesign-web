@@ -251,7 +251,11 @@ class Index extends Component {
       this.setState({ showError: true })
     }
   };
-
+   //For change Institutes
+   MoveInstitute = () => {
+    this.props.houseSelect({value: null});
+    this.props.history.push('/virtualHospital/institutes')
+  };
   onEditspec = (data) => {
     this.setState({ speciality: data, openSpecl: true });
   };
@@ -297,6 +301,11 @@ class Index extends Component {
                 {/* Start of Right Section */}
                 <Grid item xs={12} md={11}>
                   <Grid className="topLeftSpc">
+                  <Grid className="extSetting">
+                      <a onClick={()=>this.MoveInstitute()}>
+                          <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
+                          Back to Change Hospital</a>
+                  </Grid>
                     <Grid className="spcMgntH1"><h1>Space Management</h1></Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">

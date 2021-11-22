@@ -9775,6 +9775,14 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.addTimeTask1 {
+    position: relative !important;
+    margin-left: 10px !important;
+}
+.addTimeTask1span {
+    position: absolute !important;
+    color: red !important;
+}
 .adminMenuRghtUpr a.academy_ul ul{
     min-width: 200px !important;
 }
