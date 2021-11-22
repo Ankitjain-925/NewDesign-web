@@ -39,29 +39,29 @@ class RightManage extends Component {
       time_format: this.props.time_format,
       date_format: this.props.date_format,
       loggedinUser: this.props.loggedinUser,
-      last_dv: this.props.personalinfo?.last_dv|| [],
+      last_dv: this.props.personalinfo?.last_dv || [],
       doc_image: "",
       images: [],
-      resprisationLast : -1,
-      HeartLast : -1,
+      resprisationLast: -1,
+      HeartLast: -1,
       BPLast: -1,
-      BSLast :-1, 
-      hbLast : -1, 
-      wiegthLast : -1,
-      potassiumLast : -1,
-      hemoglobineLast : -1,
-      leucocytesLast : -1,
-      pancreaticlipaseLast : -1,
-      thrombocytesLast : -1,
-      sodiumLast : -1,
-      ggtLast : -1,
-      astLast : -1,
-      altLast : -1,
-      LRLast : -1
+      BSLast: -1,
+      hbLast: -1,
+      wiegthLast: -1,
+      potassiumLast: -1,
+      hemoglobineLast: -1,
+      leucocytesLast: -1,
+      pancreaticlipaseLast: -1,
+      thrombocytesLast: -1,
+      sodiumLast: -1,
+      ggtLast: -1,
+      astLast: -1,
+      altLast: -1,
+      LRLast: -1
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => { };
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -94,11 +94,11 @@ class RightManage extends Component {
       nextState.thrombocytes1 !== this.state.thrombocytes1 ||
       nextState.Thrombocytes !== this.state.Thrombocytes ||
       nextState.respiration_data !== this.state.respiration_data ||
-      nextState.hba_data !== this.state.hba_data || 
+      nextState.hba_data !== this.state.hba_data ||
       nextState.HeartLast !== this.state.HeartLast ||
-      nextState.resprisationLast !== this.state.resprisationLast || 
+      nextState.resprisationLast !== this.state.resprisationLast ||
       nextState.BPLast !== this.state.BPLast ||
-      nextState.BSLast !== this.state.BSLast || 
+      nextState.BSLast !== this.state.BSLast ||
       nextState.hbLast !== this.state.hbLast ||
       nextState.wiegthLast !== this.state.wiegthLast ||
       nextState.potassiumLast !== this.state.potassiumLast ||
@@ -112,7 +112,6 @@ class RightManage extends Component {
       nextState.altLast !== this.state.altLast ||
       nextState.LRLast !== this.state.LRLast ||
       nextState.images !== this.state.images
-
     );
   }
 
@@ -135,7 +134,7 @@ class RightManage extends Component {
               var find = item && item.image;
               if (find) {
                 var find1 = find.split(".com/")[1];
-            
+
                 axios
                   .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
                   .then((response) => {
@@ -144,11 +143,11 @@ class RightManage extends Component {
                         image: find,
                         new_image: response.data.data,
                       });
-                      this.setState({ images: images },()=>{
-                        if(this.state.personalinfo.last_dv.length-1 === index){
+                      this.setState({ images: images }, () => {
+                        if (this.state.personalinfo.last_dv.length - 1 === index) {
                           var newData = this.state.images;
-                          newData.push({image: 'last_image', new_image: 'last_image_resolve'})
-                          setTimeout(()=>{this.setState({images : newData})}, 2000)
+                          newData.push({ image: 'last_image', new_image: 'last_image_resolve' })
+                          setTimeout(() => { this.setState({ images: newData }) }, 2000)
                         }
                       });
                     }
@@ -268,7 +267,7 @@ class RightManage extends Component {
           AST: AST,
           ALT: ALT,
         });
-       
+
         this.setState({
           laboratory_result: laboratory_result,
           blood_pressure: blood_pressure,
@@ -336,16 +335,15 @@ class RightManage extends Component {
       blood_pressure5 &&
         blood_pressure5.length > 0 &&
         blood_pressure5.map((data, index) => {
-          if(data.rr_diastolic || data.rr_systolic)
-          {
+          if (data.rr_diastolic || data.rr_systolic) {
             databp_d.push({
               y: parseFloat(data.rr_diastolic),
             });
             databp_s.push({
               y: parseFloat(data.rr_systolic),
             });
-            this.setState({BPLast: BPLast})
-            BPLast = BPLast+1;
+            this.setState({ BPLast: BPLast })
+            BPLast = BPLast + 1;
             if (
               oldone &&
               oldone.datetime_on &&
@@ -361,12 +359,12 @@ class RightManage extends Component {
               );
             }
           }
-          if(data.heart_frequncy){
+          if (data.heart_frequncy) {
             dataf.push({
               y: parseFloat(data.heart_frequncy),
             });
-            this.setState({HeartLast: HeartLast})
-            HeartLast = HeartLast+1;
+            this.setState({ HeartLast: HeartLast })
+            HeartLast = HeartLast + 1;
             if (
               oldone &&
               oldone.datetime_on &&
@@ -382,11 +380,11 @@ class RightManage extends Component {
               );
             }
           }
-         
-          
+
+
           oldone = data;
         });
-        
+
 
       if (current_Graph === "blood_pressure") {
         var options = {
@@ -504,10 +502,9 @@ class RightManage extends Component {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({potassiumLast : potassiumLast})
-              potassiumLast = potassiumLast+1;
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ potassiumLast: potassiumLast })
+              potassiumLast = potassiumLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
               });
@@ -534,7 +531,7 @@ class RightManage extends Component {
               }
               oldone = data;
             }
-         
+
           });
       }
       var options = {
@@ -630,10 +627,9 @@ class RightManage extends Component {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({hemoglobineLast : hemoglobineLast})
-              hemoglobineLast = hemoglobineLast+1
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ hemoglobineLast: hemoglobineLast })
+              hemoglobineLast = hemoglobineLast + 1
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
               });
@@ -749,42 +745,41 @@ class RightManage extends Component {
         datalr1_l = [],
         datalr1_v = [],
         oldone,
-        leucocytesLast=0,
+        leucocytesLast = 0,
         myFilterlr1 = [];
       {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({leucocytesLast: leucocytesLast})
-              leucocytesLast = leucocytesLast+1
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(data.datetime_on, this.state.time_format)
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ leucocytesLast: leucocytesLast })
+              leucocytesLast = leucocytesLast + 1
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(data.datetime_on, this.state.time_format)
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -875,42 +870,41 @@ class RightManage extends Component {
         datalr1_l = [],
         datalr1_v = [],
         oldone,
-        pancreaticlipaseLast=0,
+        pancreaticlipaseLast = 0,
         myFilterlr1 = [];
       {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({pancreaticlipaseLast: pancreaticlipaseLast})
-              pancreaticlipaseLast = pancreaticlipaseLast+1;
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(data.datetime_on, this.state.time_format)
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ pancreaticlipaseLast: pancreaticlipaseLast })
+              pancreaticlipaseLast = pancreaticlipaseLast + 1;
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(data.datetime_on, this.state.time_format)
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -1000,42 +994,41 @@ class RightManage extends Component {
         datalr1_l = [],
         datalr1_v = [],
         oldone,
-        thrombocytesLast=0,
+        thrombocytesLast = 0,
         myFilterlr1 = [];
       {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({thrombocytesLast : thrombocytesLast})
-              thrombocytesLast = thrombocytesLast+1;
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(data.datetime_on, this.state.time_format)
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ thrombocytesLast: thrombocytesLast })
+              thrombocytesLast = thrombocytesLast + 1;
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(data.datetime_on, this.state.time_format)
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -1125,42 +1118,41 @@ class RightManage extends Component {
         datalr1_l = [],
         datalr1_v = [],
         oldone,
-        sodiumLast=0,
+        sodiumLast = 0,
         myFilterlr1 = [];
       {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({sodiumLast: sodiumLast})
-              sodiumLast = sodiumLast+1
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(data.datetime_on, this.state.time_format)
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ sodiumLast: sodiumLast })
+              sodiumLast = sodiumLast + 1
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(data.datetime_on, this.state.time_format)
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -1250,42 +1242,41 @@ class RightManage extends Component {
         datalr1_l = [],
         datalr1_v = [],
         oldone,
-        ggtLast=0,
+        ggtLast = 0,
         myFilterlr1 = [];
       {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({ggtLast: ggtLast})
-              ggtLast= ggtLast+1
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(data.datetime_on, this.state.time_format)
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ ggtLast: ggtLast })
+              ggtLast = ggtLast + 1
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(data.datetime_on, this.state.time_format)
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -1375,42 +1366,41 @@ class RightManage extends Component {
         datalr1_l = [],
         datalr1_v = [],
         oldone,
-        astLast= 0,
+        astLast = 0,
         myFilterlr1 = [];
       {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({astLast: astLast});
-              astLast= astLast+1
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(data.datetime_on, this.state.time_format)
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ astLast: astLast });
+              astLast = astLast + 1
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(data.datetime_on, this.state.time_format)
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -1506,36 +1496,35 @@ class RightManage extends Component {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({altLast: altLast})
-              altLast = altLast+1;
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(data.datetime_on, this.state.time_format)
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ altLast: altLast })
+              altLast = altLast + 1;
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(data.datetime_on, this.state.time_format)
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -1624,42 +1613,41 @@ class RightManage extends Component {
         datalr1_l = [],
         datalr1_v = [],
         oldone,
-        LRLast =0,
+        LRLast = 0,
         myFilterlr1 = [];
       {
         myFilterData1 &&
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
-            if(data.upper_limit || data.lower_limit || data.value)
-            {
-              this.setState({LRLast: LRLast})
-              LRLast = LRLast+1;
-            datalr1_u.push({
-              y: parseFloat(data.upper_limit),
-            });
-            datalr1_l.push({
-              y: parseFloat(data.lower_limit),
-            });
-            datalr1_v.push({
-              y: parseFloat(data.value),
-            });
-            myFilterlr1.push(data);
-            if (
-              oldone &&
-              oldone.datetime_on &&
-              oldone.datetime_on === data.datetime_on &&
-              oldone.datetime_on
-            ) {
-              categorieslr.push(
-                getTime(new Date(data.datetime_on, this.state.time_foramt))
-              );
-            } else {
-              categorieslr.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.upper_limit || data.lower_limit || data.value) {
+              this.setState({ LRLast: LRLast })
+              LRLast = LRLast + 1;
+              datalr1_u.push({
+                y: parseFloat(data.upper_limit),
+              });
+              datalr1_l.push({
+                y: parseFloat(data.lower_limit),
+              });
+              datalr1_v.push({
+                y: parseFloat(data.value),
+              });
+              myFilterlr1.push(data);
+              if (
+                oldone &&
+                oldone.datetime_on &&
+                oldone.datetime_on === data.datetime_on &&
+                oldone.datetime_on
+              ) {
+                categorieslr.push(
+                  getTime(new Date(data.datetime_on, this.state.time_foramt))
+                );
+              } else {
+                categorieslr.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldone = data;
             }
-            oldone = data;
-          }
           });
       }
       var options = {
@@ -1749,42 +1737,41 @@ class RightManage extends Component {
           weight_bmi5 &&
           weight_bmi5.length > 0 &&
           weight_bmi5.map((data, index) => {
-            if(data.weight || data.height )
-            {
-              this.setState({wiegthLast: wiegthLast})
-              wiegthLast = wiegthLast+1
-            weightbmi.push({
-              y: parseFloat(data.weight),
-            });
-            var BMI = (
-              (data.weight / (data.height * data.height)) *
-              10000
-            ).toFixed(2);
-            Ibmi.push({
-              y: parseFloat(BMI),
-            });
-            heightbmi.push({
-              y: parseFloat(data.height),
-            });
-            if (
-              oldthree &&
-              oldthree.datetime_on &&
-              oldthree.datetime_on === oldthree.datetime_on &&
-              oldthree.created_at
-            ) {
-              categoriesbmi.push(
-                getTime(new Date(data.datetime_on, this.state.time_foramt))
-              );
-            } else {
-              categoriesbmi.push(
-                getDate(data.datetime_on, this.state.date_format)
-              );
+            if (data.weight || data.height) {
+              this.setState({ wiegthLast: wiegthLast })
+              wiegthLast = wiegthLast + 1
+              weightbmi.push({
+                y: parseFloat(data.weight),
+              });
+              var BMI = (
+                (data.weight / (data.height * data.height)) *
+                10000
+              ).toFixed(2);
+              Ibmi.push({
+                y: parseFloat(BMI),
+              });
+              heightbmi.push({
+                y: parseFloat(data.height),
+              });
+              if (
+                oldthree &&
+                oldthree.datetime_on &&
+                oldthree.datetime_on === oldthree.datetime_on &&
+                oldthree.created_at
+              ) {
+                categoriesbmi.push(
+                  getTime(new Date(data.datetime_on, this.state.time_foramt))
+                );
+              } else {
+                categoriesbmi.push(
+                  getDate(data.datetime_on, this.state.date_format)
+                );
+              }
+              oldthree = data;
+
             }
-            oldthree = data;
-            
-          }
           });
-         
+
       }
       options = {
         title: {
@@ -1857,7 +1844,7 @@ class RightManage extends Component {
     }
     if (current_Graph === "blood_sugar" || current_Graph === "hba") {
       var categoriesbs = [],
-      categorieshb = [],
+        categorieshb = [],
         oldtwo,
         hbac = [],
         blood_s = [],
@@ -1872,12 +1859,12 @@ class RightManage extends Component {
         blood_sugar5 &&
           blood_sugar5.length > 0 &&
           blood_sugar5.map((data, index) => {
-            if(data.Hba1c){
+            if (data.Hba1c) {
               hbac.push({
                 y: parseFloat(data.Hba1c),
               });
-              this.setState({hbLast: hbLast})
-              hbLast = hbLast+1 
+              this.setState({ hbLast: hbLast })
+              hbLast = hbLast + 1
               if (
                 oldtwo &&
                 oldtwo.datetime_on &&
@@ -1894,12 +1881,12 @@ class RightManage extends Component {
               }
               oldtwo = data;
             }
-            if(data.blood_sugar){
+            if (data.blood_sugar) {
               blood_s.push({
                 y: parseFloat(data.blood_sugar),
               });
-              this.setState({BSLast: BSLast})
-              BSLast = BSLast+1
+              this.setState({ BSLast: BSLast })
+              BSLast = BSLast + 1
               if (
                 oldtwo &&
                 oldtwo.datetime_on &&
@@ -1917,7 +1904,7 @@ class RightManage extends Component {
               oldtwo = data;
             }
           });
-        
+
       }
 
       if (current_Graph === "blood_sugar") {
@@ -1936,7 +1923,7 @@ class RightManage extends Component {
             },
             categories: categoriesbs,
           },
-  
+
           plotOptions: {
             series: {
               marker: {
@@ -2017,12 +2004,12 @@ class RightManage extends Component {
         respiration_result &&
           respiration_result.length > 0 &&
           respiration_result.map((data, index) => {
-            if(data.respiration){
+            if (data.respiration) {
               r_value.push({
                 y: parseFloat(data.respiration),
               });
-              this.setState({resprisationLast : resprisationLast})
-              resprisationLast = resprisationLast+1;
+              this.setState({ resprisationLast: resprisationLast })
+              resprisationLast = resprisationLast + 1;
               if (
                 oldtwo &&
                 oldtwo.datetime_on &&
@@ -2040,7 +2027,7 @@ class RightManage extends Component {
               oldtwo = data;
             }
           });
-          
+
       }
       options = {
         title: {
@@ -2081,7 +2068,7 @@ class RightManage extends Component {
           },
         ],
       };
-    return options
+      return options
     }
   };
 
@@ -2120,7 +2107,7 @@ class RightManage extends Component {
   };
 
   render() {
-   let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       open,
       blood_pressure,
@@ -2165,7 +2152,7 @@ class RightManage extends Component {
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.personalinfo &&
                           this.state.personalinfo.respiration &&
-                          this.state.personalinfo.respiration.length > 0  && this.state.resprisationLast !==-1 && (
+                          this.state.personalinfo.respiration.length > 0 && this.state.resprisationLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -2184,22 +2171,22 @@ class RightManage extends Component {
                                       this.state.resprisationLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.personalinfo.respiration[
-                                      this.state.resprisationLast
-                                    ].updated_by ||
-                                      this.state.personalinfo.respiration[
+                                      (!this.state.personalinfo.respiration[
                                         this.state.resprisationLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.personalinfo.respiration[
+                                          this.state.resprisationLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
                                             this.state.personalinfo
                                               .respiration[
-                                                this.state.resprisationLast
+                                              this.state.resprisationLast
                                             ].type,
                                             this.state.personalinfo
                                               .respiration[
-                                                this.state.resprisationLast
+                                            this.state.resprisationLast
                                             ]
                                           )
                                         }
@@ -2217,11 +2204,11 @@ class RightManage extends Component {
                                           this.props.EidtOption(
                                             this.state.personalinfo
                                               .respiration[
-                                                this.state.resprisationLast
+                                              this.state.resprisationLast
                                             ].type,
                                             this.state.personalinfo
                                               .respiration[
-                                                this.state.resprisationLast
+                                            this.state.resprisationLast
                                             ],
                                             true
                                           )
@@ -2244,11 +2231,11 @@ class RightManage extends Component {
                                         this.props.EidtOption(
                                           this.state.personalinfo
                                             .respiration[
-                                              this.state.resprisationLast
+                                            this.state.resprisationLast
                                           ].type,
                                           this.state.personalinfo
                                             .respiration[
-                                              this.state.resprisationLast
+                                          this.state.resprisationLast
                                           ]
                                         )
                                       }
@@ -2267,7 +2254,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.personalinfo.respiration[
-                                          this.state.resprisationLast
+                                        this.state.resprisationLast
                                         ]
                                       )
                                     }
@@ -2301,16 +2288,16 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.respiration &&
-                  this.state.personalinfo.respiration.length > 0 && this.state.resprisationLast !==-1 ? (
+                    this.state.personalinfo.respiration &&
+                    this.state.personalinfo.respiration.length > 0 && this.state.resprisationLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
-                        
+
                           {this.state.personalinfo &&
                             this.state.personalinfo.respiration &&
                             this.state.personalinfo.respiration[
-                              this.state.resprisationLast
+                            this.state.resprisationLast
                             ] &&
                             this.state.personalinfo.respiration[
                               this.state.resprisationLast
@@ -2378,7 +2365,7 @@ class RightManage extends Component {
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.personalinfo &&
                           this.state.personalinfo.blood_pressure &&
-                          this.state.personalinfo.blood_pressure.length > 0 && this.state.BPLast !==-1 && (
+                          this.state.personalinfo.blood_pressure.length > 0 && this.state.BPLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -2391,25 +2378,25 @@ class RightManage extends Component {
                                 {this.props.from === "patient" && (
                                   <li>
                                     {this.state.personalinfo.blood_pressure[
-                                     this.state.BPLast
+                                      this.state.BPLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.personalinfo.blood_pressure[
-                                      this.state.BPLast
-                                    ].updated_by ||
-                                      this.state.personalinfo.blood_pressure[
+                                      (!this.state.personalinfo.blood_pressure[
                                         this.state.BPLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.personalinfo.blood_pressure[
+                                          this.state.BPLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.BPLast
+                                              this.state.BPLast
                                             ].type,
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.BPLast
+                                            this.state.BPLast
                                             ]
                                           )
                                         }
@@ -2427,11 +2414,11 @@ class RightManage extends Component {
                                           this.props.EidtOption(
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.BPLast
+                                              this.state.BPLast
                                             ].type,
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.BPLast
+                                            this.state.BPLast
                                             ],
                                             true
                                           )
@@ -2454,11 +2441,11 @@ class RightManage extends Component {
                                         this.props.EidtOption(
                                           this.state.personalinfo
                                             .blood_pressure[
-                                              this.state.BPLast
+                                            this.state.BPLast
                                           ].type,
                                           this.state.personalinfo
                                             .blood_pressure[
-                                              this.state.BPLast
+                                          this.state.BPLast
                                           ]
                                         )
                                       }
@@ -2477,7 +2464,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.personalinfo.blood_pressure[
-                                          this.state.BPLast
+                                        this.state.BPLast
                                         ]
                                       )
                                     }
@@ -2511,23 +2498,23 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.blood_pressure &&
-                  this.state.personalinfo.blood_pressure.length > 0  && this.state.BPLast !==-1 ? (
+                    this.state.personalinfo.blood_pressure &&
+                    this.state.personalinfo.blood_pressure.length > 0 && this.state.BPLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_pressure &&
                             this.state.personalinfo.blood_pressure[
-                              this.state.BPLast
+                            this.state.BPLast
                             ] &&
                             this.state.personalinfo.blood_pressure[
                               this.state.BPLast
                             ].rr_systolic +
-                              "/" +
-                              this.state.personalinfo.blood_pressure[
-                                this.state.BPLast
-                              ].rr_diastolic}{" "}
+                            "/" +
+                            this.state.personalinfo.blood_pressure[
+                              this.state.BPLast
+                            ].rr_diastolic}{" "}
                           <span>mmHg</span>
                         </h3>
                         <p>
@@ -2549,7 +2536,7 @@ class RightManage extends Component {
                         </p>
                       </Grid>
                       <Grid className="presureDataGrph">
-                        {/* <img src={require('assets/images/lineGraph.png')} alt="" title="" /> */}
+
 
                         <HighchartsReact
                           constructorType={"chart"}
@@ -2591,7 +2578,7 @@ class RightManage extends Component {
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.personalinfo &&
                           this.state.personalinfo.weight_bmi &&
-                          this.state.personalinfo.weight_bmi.length > 0 && this.state.wiegthLast !==-1 && (
+                          this.state.personalinfo.weight_bmi.length > 0 && this.state.wiegthLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -2604,15 +2591,15 @@ class RightManage extends Component {
                                 {this.props.from === "patient" && (
                                   <li>
                                     {this.state.personalinfo.weight_bmi[
-                                     this.state.wiegthLast
+                                      this.state.wiegthLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.personalinfo.weight_bmi[
-                                      this.state.wiegthLast
-                                    ].updated_by ||
-                                      this.state.personalinfo.weight_bmi[
+                                      (!this.state.personalinfo.weight_bmi[
                                         this.state.wiegthLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.personalinfo.weight_bmi[
+                                          this.state.wiegthLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -2620,7 +2607,7 @@ class RightManage extends Component {
                                               this.state.wiegthLast
                                             ].type,
                                             this.state.personalinfo.weight_bmi[
-                                              this.state.wiegthLast
+                                            this.state.wiegthLast
                                             ]
                                           )
                                         }
@@ -2640,7 +2627,7 @@ class RightManage extends Component {
                                               this.state.wiegthLast
                                             ].type,
                                             this.state.personalinfo.weight_bmi[
-                                              this.state.wiegthLast
+                                            this.state.wiegthLast
                                             ],
                                             true
                                           )
@@ -2665,7 +2652,7 @@ class RightManage extends Component {
                                             this.state.wiegthLast
                                           ].type,
                                           this.state.personalinfo.weight_bmi[
-                                            this.state.wiegthLast
+                                          this.state.wiegthLast
                                           ]
                                         )
                                       }
@@ -2684,7 +2671,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.personalinfo.weight_bmi[
-                                          this.state.wiegthLast
+                                        this.state.wiegthLast
                                         ]
                                       )
                                     }
@@ -2718,15 +2705,15 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.weight_bmi &&
-                  this.state.personalinfo.weight_bmi.length > 0 && this.state.wiegthLast !==-1 ? (
+                    this.state.personalinfo.weight_bmi &&
+                    this.state.personalinfo.weight_bmi.length > 0 && this.state.wiegthLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.personalinfo &&
                             this.state.personalinfo.weight_bmi &&
                             this.state.personalinfo.weight_bmi[
-                              this.state.wiegthLast
+                            this.state.wiegthLast
                             ] &&
                             (
                               (this.state.personalinfo.weight_bmi[
@@ -2796,7 +2783,7 @@ class RightManage extends Component {
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.personalinfo &&
                           this.state.personalinfo.blood_pressure &&
-                          this.state.personalinfo.blood_pressure.length > 0  && this.state.HeartLast !==-1 && (
+                          this.state.personalinfo.blood_pressure.length > 0 && this.state.HeartLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -2809,25 +2796,25 @@ class RightManage extends Component {
                                 {this.props.from === "patient" && (
                                   <li>
                                     {this.state.personalinfo.blood_pressure[
-                                     this.state.HeartLast
+                                      this.state.HeartLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.personalinfo.blood_pressure[
-                                      this.state.HeartLast
-                                    ].updated_by ||
-                                      this.state.personalinfo.blood_pressure[
+                                      (!this.state.personalinfo.blood_pressure[
                                         this.state.HeartLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.personalinfo.blood_pressure[
+                                          this.state.HeartLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.HeartLast
+                                              this.state.HeartLast
                                             ].type,
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.HeartLast
+                                            this.state.HeartLast
                                             ]
                                           )
                                         }
@@ -2845,11 +2832,11 @@ class RightManage extends Component {
                                           this.props.EidtOption(
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.HeartLast
+                                              this.state.HeartLast
                                             ].type,
                                             this.state.personalinfo
                                               .blood_pressure[
-                                                this.state.HeartLast
+                                            this.state.HeartLast
                                             ],
                                             true
                                           )
@@ -2872,11 +2859,11 @@ class RightManage extends Component {
                                         this.props.EidtOption(
                                           this.state.personalinfo
                                             .blood_pressure[
-                                              this.state.HeartLast
+                                            this.state.HeartLast
                                           ].type,
                                           this.state.personalinfo
                                             .blood_pressure[
-                                              this.state.HeartLast
+                                          this.state.HeartLast
                                           ]
                                         )
                                       }
@@ -2895,7 +2882,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.personalinfo.blood_pressure[
-                                          this.state.HeartLast
+                                        this.state.HeartLast
                                         ]
                                       )
                                     }
@@ -2930,15 +2917,15 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.blood_pressure &&
-                  this.state.personalinfo.blood_pressure.length > 0 && this.state.HeartLast !==-1 ? (
+                    this.state.personalinfo.blood_pressure &&
+                    this.state.personalinfo.blood_pressure.length > 0 && this.state.HeartLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_pressure &&
                             this.state.personalinfo.blood_pressure[
-                              this.state.HeartLast
+                            this.state.HeartLast
                             ] &&
                             this.state.personalinfo.blood_pressure[
                               this.state.HeartLast
@@ -3009,7 +2996,7 @@ class RightManage extends Component {
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.Potassium &&
-                          this.state.Potassium.length > 0 && this.state.potassiumLast !==-1 && (
+                          this.state.Potassium.length > 0 && this.state.potassiumLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -3022,15 +3009,15 @@ class RightManage extends Component {
                                 {this.props.from === "patient" && (
                                   <li>
                                     {this.state.Potassium[
-                                       this.state.potassiumLast
+                                      this.state.potassiumLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.Potassium[
-                                      this.state.potassiumLast
-                                    ].updated_by ||
-                                      this.state.Potassium[
+                                      (!this.state.Potassium[
                                         this.state.potassiumLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.Potassium[
+                                          this.state.potassiumLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -3038,7 +3025,7 @@ class RightManage extends Component {
                                               this.state.potassiumLast
                                             ].type,
                                             this.state.Potassium[
-                                              this.state.potassiumLast
+                                            this.state.potassiumLast
                                             ]
                                           )
                                         }
@@ -3058,7 +3045,7 @@ class RightManage extends Component {
                                               this.state.potassiumLast
                                             ].type,
                                             this.state.Potassium[
-                                              this.state.potassiumLast
+                                            this.state.potassiumLast
                                             ],
                                             true
                                           )
@@ -3083,7 +3070,7 @@ class RightManage extends Component {
                                             this.state.potassiumLast
                                           ].type,
                                           this.state.Potassium[
-                                            this.state.potassiumLast
+                                          this.state.potassiumLast
                                           ]
                                         )
                                       }
@@ -3102,7 +3089,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.Potassium[
-                                          this.state.potassiumLast
+                                        this.state.potassiumLast
                                         ]
                                       )
                                     }
@@ -3136,20 +3123,20 @@ class RightManage extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {this.state.Potassium && this.state.Potassium.length > 0 && this.state.potassiumLast !==-1 ? (
+                  {this.state.Potassium && this.state.Potassium.length > 0 && this.state.potassiumLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.Potassium &&
                             this.state.Potassium[
-                              this.state.potassiumLast
+                            this.state.potassiumLast
                             ] &&
                             this.state.Potassium[
                               this.state.potassiumLast
                             ].value}{" "}
                           <span>
                             {this.state.Potassium[
-                               this.state.potassiumLast
+                              this.state.potassiumLast
                             ].unit &&
                               this.state.Potassium[
                                 this.state.potassiumLast
@@ -3220,7 +3207,7 @@ class RightManage extends Component {
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.Creatinine &&
-                          this.state.Creatinine.length > 0 && this.state.LRLast !==-1 && (
+                          this.state.Creatinine.length > 0 && this.state.LRLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -3236,12 +3223,12 @@ class RightManage extends Component {
                                       this.state.LRLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.Creatinine[
-                                      this.state.LRLast
-                                    ].updated_by ||
-                                      this.state.Creatinine[
+                                      (!this.state.Creatinine[
                                         this.state.LRLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.Creatinine[
+                                          this.state.LRLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -3249,7 +3236,7 @@ class RightManage extends Component {
                                               this.state.LRLast
                                             ].type,
                                             this.state.Creatinine[
-                                              this.state.LRLast
+                                            this.state.LRLast
                                             ]
                                           )
                                         }
@@ -3269,7 +3256,7 @@ class RightManage extends Component {
                                               this.state.LRLast
                                             ].type,
                                             this.state.Creatinine[
-                                              this.state.LRLast
+                                            this.state.LRLast
                                             ],
                                             true
                                           )
@@ -3294,7 +3281,7 @@ class RightManage extends Component {
                                             this.state.LRLast
                                           ].type,
                                           this.state.Creatinine[
-                                            this.state.LRLast
+                                          this.state.LRLast
                                           ]
                                         )
                                       }
@@ -3313,7 +3300,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.Creatinine[
-                                          this.state.LRLast
+                                        this.state.LRLast
                                         ]
                                       )
                                     }
@@ -3347,13 +3334,13 @@ class RightManage extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {this.state.Creatinine && this.state.Creatinine.length > 0 && this.state.LRLast !==-1 ? (
+                  {this.state.Creatinine && this.state.Creatinine.length > 0 && this.state.LRLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.Creatinine &&
                             this.state.Creatinine[
-                              this.state.LRLast
+                            this.state.LRLast
                             ] &&
                             this.state.Creatinine[
                               this.state.LRLast
@@ -3435,7 +3422,7 @@ class RightManage extends Component {
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.Hemoglobine &&
-                          this.state.Hemoglobine.length > 0 && this.state.hemoglobineLast !==-1 &&  (
+                          this.state.Hemoglobine.length > 0 && this.state.hemoglobineLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -3451,12 +3438,12 @@ class RightManage extends Component {
                                       this.state.hemoglobineLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.Hemoglobine[
-                                      this.state.hemoglobineLast
-                                    ].updated_by ||
-                                      this.state.Hemoglobine[
+                                      (!this.state.Hemoglobine[
                                         this.state.hemoglobineLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.Hemoglobine[
+                                          this.state.hemoglobineLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -3464,7 +3451,7 @@ class RightManage extends Component {
                                               this.state.hemoglobineLast
                                             ].type,
                                             this.state.Hemoglobine[
-                                              this.state.hemoglobineLast
+                                            this.state.hemoglobineLast
                                             ]
                                           )
                                         }
@@ -3484,7 +3471,7 @@ class RightManage extends Component {
                                               this.state.hemoglobineLast
                                             ].type,
                                             this.state.Hemoglobine[
-                                              this.state.hemoglobineLast
+                                            this.state.hemoglobineLast
                                             ],
                                             true
                                           )
@@ -3509,7 +3496,7 @@ class RightManage extends Component {
                                             this.state.hemoglobineLast
                                           ].type,
                                           this.state.Hemoglobine[
-                                            this.state.hemoglobineLast
+                                          this.state.hemoglobineLast
                                           ]
                                         )
                                       }
@@ -3528,7 +3515,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.Hemoglobine[
-                                          this.state.hemoglobineLast
+                                        this.state.hemoglobineLast
                                         ]
                                       )
                                     }
@@ -3563,20 +3550,20 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.Hemoglobine &&
-                  this.state.Hemoglobine.length > 0 ? (
+                    this.state.Hemoglobine.length > 0 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.Hemoglobine &&
                             this.state.Hemoglobine[
-                              this.state.hemoglobineLast
+                            this.state.hemoglobineLast
                             ] &&
                             this.state.Hemoglobine[
                               this.state.hemoglobineLast
                             ].value}{" "}
                           <span>
                             {this.state.Hemoglobine[
-                               this.state.hemoglobineLast
+                              this.state.hemoglobineLast
                             ].unit &&
                               this.state.Hemoglobine[
                                 this.state.hemoglobineLast
@@ -3647,7 +3634,7 @@ class RightManage extends Component {
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.Leucocytes &&
-                          this.state.Leucocytes.length > 0 && this.state.leucocytesLast !==-1 && (
+                          this.state.Leucocytes.length > 0 && this.state.leucocytesLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -3663,12 +3650,12 @@ class RightManage extends Component {
                                       this.state.leucocytesLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.Leucocytes[
-                                      this.state.leucocytesLast
-                                    ].updated_by ||
-                                      this.state.Leucocytes[
+                                      (!this.state.Leucocytes[
                                         this.state.leucocytesLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.Leucocytes[
+                                          this.state.leucocytesLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -3676,7 +3663,7 @@ class RightManage extends Component {
                                               this.state.leucocytesLast
                                             ].type,
                                             this.state.Leucocytes[
-                                              this.state.leucocytesLast
+                                            this.state.leucocytesLast
                                             ]
                                           )
                                         }
@@ -3696,7 +3683,7 @@ class RightManage extends Component {
                                               this.state.leucocytesLast
                                             ].type,
                                             this.state.Leucocytes[
-                                              this.state.leucocytesLast
+                                            this.state.leucocytesLast
                                             ],
                                             true
                                           )
@@ -3721,7 +3708,7 @@ class RightManage extends Component {
                                             this.state.leucocytesLast
                                           ].type,
                                           this.state.Leucocytes[
-                                            this.state.leucocytesLast
+                                          this.state.leucocytesLast
                                           ]
                                         )
                                       }
@@ -3740,7 +3727,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.Leucocytes[
-                                          this.state.leucocytesLast
+                                        this.state.leucocytesLast
                                         ]
                                       )
                                     }
@@ -3774,13 +3761,13 @@ class RightManage extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {this.state.Leucocytes && this.state.Leucocytes.length > 0 && this.state.leucocytesLast !==-1? (
+                  {this.state.Leucocytes && this.state.Leucocytes.length > 0 && this.state.leucocytesLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.Leucocytes &&
                             this.state.Leucocytes[
-                              this.state.leucocytesLast
+                            this.state.leucocytesLast
                             ] &&
                             this.state.Leucocytes[
                               this.state.leucocytesLast
@@ -3859,7 +3846,7 @@ class RightManage extends Component {
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.Pancreaticlipase &&
-                          this.state.Pancreaticlipase.length > 0 && this.state.pancreaticlipaseLast !==-1 && (
+                          this.state.Pancreaticlipase.length > 0 && this.state.pancreaticlipaseLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -3875,12 +3862,12 @@ class RightManage extends Component {
                                       this.state.pancreaticlipaseLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.Pancreaticlipase[
-                                      this.state.pancreaticlipaseLast
-                                    ].updated_by ||
-                                      this.state.Pancreaticlipase[
+                                      (!this.state.Pancreaticlipase[
                                         this.state.pancreaticlipaseLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.Pancreaticlipase[
+                                          this.state.pancreaticlipaseLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -3888,7 +3875,7 @@ class RightManage extends Component {
                                               this.state.pancreaticlipaseLast
                                             ].type,
                                             this.state.Pancreaticlipase[
-                                              this.state.pancreaticlipaseLast
+                                            this.state.pancreaticlipaseLast
                                             ]
                                           )
                                         }
@@ -3908,7 +3895,7 @@ class RightManage extends Component {
                                               this.state.pancreaticlipaseLast
                                             ].type,
                                             this.state.Pancreaticlipase[
-                                              this.state.pancreaticlipaseLast
+                                            this.state.pancreaticlipaseLast
                                             ],
                                             true
                                           )
@@ -3933,7 +3920,7 @@ class RightManage extends Component {
                                             this.state.pancreaticlipaseLast
                                           ].type,
                                           this.state.Pancreaticlipase[
-                                            this.state.pancreaticlipaseLast
+                                          this.state.pancreaticlipaseLast
                                           ]
                                         )
                                       }
@@ -3952,7 +3939,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.Pancreaticlipase[
-                                          this.state.pancreaticlipaseLast
+                                        this.state.pancreaticlipaseLast
                                         ]
                                       )
                                     }
@@ -3987,13 +3974,13 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.Pancreaticlipase &&
-                  this.state.Pancreaticlipase.length > 0 && this.state.pancreaticlipaseLast !==-1 ? (
+                    this.state.Pancreaticlipase.length > 0 && this.state.pancreaticlipaseLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.Pancreaticlipase &&
                             this.state.Pancreaticlipase[
-                              this.state.pancreaticlipaseLast
+                            this.state.pancreaticlipaseLast
                             ] &&
                             this.state.Pancreaticlipase[
                               this.state.pancreaticlipaseLast
@@ -4075,7 +4062,7 @@ class RightManage extends Component {
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.Thrombocytes &&
-                          this.state.Thrombocytes.length > 0 &&  this.state.thrombocytesLast !==-1 && (
+                          this.state.Thrombocytes.length > 0 && this.state.thrombocytesLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -4091,12 +4078,12 @@ class RightManage extends Component {
                                       this.state.thrombocytesLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.Thrombocytes[
-                                      this.state.thrombocytesLast
-                                    ].updated_by ||
-                                      this.state.Thrombocytes[
+                                      (!this.state.Thrombocytes[
                                         this.state.thrombocytesLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.Thrombocytes[
+                                          this.state.thrombocytesLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -4104,7 +4091,7 @@ class RightManage extends Component {
                                               this.state.thrombocytesLast
                                             ].type,
                                             this.state.Thrombocytes[
-                                              this.state.thrombocytesLast
+                                            this.state.thrombocytesLast
                                             ]
                                           )
                                         }
@@ -4124,7 +4111,7 @@ class RightManage extends Component {
                                               this.state.thrombocytesLast
                                             ].type,
                                             this.state.Thrombocytes[
-                                              this.state.thrombocytesLast
+                                            this.state.thrombocytesLast
                                             ],
                                             true
                                           )
@@ -4149,7 +4136,7 @@ class RightManage extends Component {
                                             this.state.thrombocytesLast
                                           ].type,
                                           this.state.Thrombocytes[
-                                            this.state.thrombocytesLast
+                                          this.state.thrombocytesLast
                                           ]
                                         )
                                       }
@@ -4168,7 +4155,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.Thrombocytes[
-                                          this.state.thrombocytesLast
+                                        this.state.thrombocytesLast
                                         ]
                                       )
                                     }
@@ -4203,13 +4190,13 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.Thrombocytes &&
-                  this.state.Thrombocytes.length > 0 &&  this.state.thrombocytesLast !==-1  ? (
+                    this.state.Thrombocytes.length > 0 && this.state.thrombocytesLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.Thrombocytes &&
                             this.state.Thrombocytes[
-                              this.state.thrombocytesLast
+                            this.state.thrombocytesLast
                             ] &&
                             this.state.Thrombocytes[
                               this.state.thrombocytesLast
@@ -4286,7 +4273,7 @@ class RightManage extends Component {
                     </Grid>
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
-                        {this.state.Sodium && this.state.Sodium.length > 0 && this.state.sodiumLast!==-1 &&  (
+                        {this.state.Sodium && this.state.Sodium.length > 0 && this.state.sodiumLast !== -1 && (
                           <a className="openScndhrf1">
                             <a className="vsblDots">
                               <img
@@ -4302,12 +4289,12 @@ class RightManage extends Component {
                                     this.state.sodiumLast
                                   ].created_by ===
                                     this.state.loggedinUser._id &&
-                                  (!this.state.Sodium[
-                                    this.state.sodiumLast
-                                  ].updated_by ||
-                                    this.state.Sodium[
+                                    (!this.state.Sodium[
                                       this.state.sodiumLast
-                                    ].updated_by === "") ? (
+                                    ].updated_by ||
+                                      this.state.Sodium[
+                                        this.state.sodiumLast
+                                      ].updated_by === "") ? (
                                     <a
                                       onClick={() =>
                                         this.props.EidtOption(
@@ -4315,7 +4302,7 @@ class RightManage extends Component {
                                             this.state.sodiumLast
                                           ].type,
                                           this.state.Sodium[
-                                            this.state.sodiumLast
+                                          this.state.sodiumLast
                                           ]
                                         )
                                       }
@@ -4335,7 +4322,7 @@ class RightManage extends Component {
                                             this.state.sodiumLast
                                           ].type,
                                           this.state.Sodium[
-                                            this.state.sodiumLast
+                                          this.state.sodiumLast
                                           ],
                                           true
                                         )
@@ -4360,7 +4347,7 @@ class RightManage extends Component {
                                           this.state.sodiumLast
                                         ].type,
                                         this.state.Sodium[
-                                          this.state.sodiumLast
+                                        this.state.sodiumLast
                                         ]
                                       )
                                     }
@@ -4379,7 +4366,7 @@ class RightManage extends Component {
                                   onClick={() =>
                                     this.props.downloadTrack(
                                       this.state.Sodium[
-                                        this.state.sodiumLast
+                                      this.state.sodiumLast
                                       ]
                                     )
                                   }
@@ -4411,7 +4398,7 @@ class RightManage extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {this.state.Sodium && this.state.Sodium.length > 0 && this.state.sodiumLast !==-1 ? (
+                  {this.state.Sodium && this.state.Sodium.length > 0 && this.state.sodiumLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
@@ -4488,7 +4475,7 @@ class RightManage extends Component {
                     </Grid>
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
-                        {this.state.GGT && this.state.GGT.length > 0 && this.state.ggtLast !==-1 && (
+                        {this.state.GGT && this.state.GGT.length > 0 && this.state.ggtLast !== -1 && (
                           <a className="openScndhrf1">
                             <a className="vsblDots">
                               <img
@@ -4503,10 +4490,10 @@ class RightManage extends Component {
                                   {this.state.GGT[this.state.ggtLast]
                                     .created_by ===
                                     this.state.loggedinUser._id &&
-                                  (!this.state.GGT[this.state.ggtLast]
-                                    .updated_by ||
-                                    this.state.GGT[this.state.ggtLast]
-                                      .updated_by === "") ? (
+                                    (!this.state.GGT[this.state.ggtLast]
+                                      .updated_by ||
+                                      this.state.GGT[this.state.ggtLast]
+                                        .updated_by === "") ? (
                                     <a
                                       onClick={() =>
                                         this.props.EidtOption(
@@ -4514,7 +4501,7 @@ class RightManage extends Component {
                                             this.state.ggtLast
                                           ].type,
                                           this.state.GGT[
-                                            this.state.ggtLast
+                                          this.state.ggtLast
                                           ]
                                         )
                                       }
@@ -4534,7 +4521,7 @@ class RightManage extends Component {
                                             this.state.ggtLast
                                           ].type,
                                           this.state.GGT[
-                                            this.state.ggtLast
+                                          this.state.ggtLast
                                           ],
                                           true
                                         )
@@ -4559,7 +4546,7 @@ class RightManage extends Component {
                                           this.state.ggtLast
                                         ].type,
                                         this.state.GGT[
-                                          this.state.ggtLast
+                                        this.state.ggtLast
                                         ]
                                       )
                                     }
@@ -4606,7 +4593,7 @@ class RightManage extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {this.state.GGT && this.state.GGT.length > 0 && this.state.ggtLast !==-1  ? (
+                  {this.state.GGT && this.state.GGT.length > 0 && this.state.ggtLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
@@ -4681,7 +4668,7 @@ class RightManage extends Component {
                     </Grid>
                     <Grid item xs={6} md={6}>
                       <Grid className="persBlodImg scndOptionIner1">
-                        {this.state.AST && this.state.AST.length > 0 &&  this.state.astLast !==-1  && (
+                        {this.state.AST && this.state.AST.length > 0 && this.state.astLast !== -1 && (
                           <a className="openScndhrf1">
                             <a className="vsblDots">
                               <img
@@ -4696,10 +4683,10 @@ class RightManage extends Component {
                                   {this.state.AST[this.state.astLast]
                                     .created_by ===
                                     this.state.loggedinUser._id &&
-                                  (!this.state.AST[this.state.astLast]
-                                    .updated_by ||
-                                    this.state.AST[this.state.astLast]
-                                      .updated_by === "") ? (
+                                    (!this.state.AST[this.state.astLast]
+                                      .updated_by ||
+                                      this.state.AST[this.state.astLast]
+                                        .updated_by === "") ? (
                                     <a
                                       onClick={() =>
                                         this.props.EidtOption(
@@ -4707,7 +4694,7 @@ class RightManage extends Component {
                                             this.state.astLast
                                           ].type,
                                           this.state.AST[
-                                            this.state.astLast
+                                          this.state.astLast
                                           ]
                                         )
                                       }
@@ -4727,7 +4714,7 @@ class RightManage extends Component {
                                             this.state.astLast
                                           ].type,
                                           this.state.AST[
-                                            this.state.astLast
+                                          this.state.astLast
                                           ],
                                           true
                                         )
@@ -4752,7 +4739,7 @@ class RightManage extends Component {
                                           this.state.astLast
                                         ].type,
                                         this.state.AST[
-                                          this.state.astLast
+                                        this.state.astLast
                                         ]
                                       )
                                     }
@@ -4799,7 +4786,7 @@ class RightManage extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {this.state.AST && this.state.AST.length > 0 &&  this.state.astLast !==-1  ? (
+                  {this.state.AST && this.state.AST.length > 0 && this.state.astLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
@@ -4890,10 +4877,10 @@ class RightManage extends Component {
                                   {this.state.ALT[this.state.altLast]
                                     .created_by ===
                                     this.state.loggedinUser._id &&
-                                  (!this.state.ALT[this.state.altLast]
-                                    .updated_by ||
-                                    this.state.ALT[this.state.altLast]
-                                      .updated_by === "") ? (
+                                    (!this.state.ALT[this.state.altLast]
+                                      .updated_by ||
+                                      this.state.ALT[this.state.altLast]
+                                        .updated_by === "") ? (
                                     <a
                                       onClick={() =>
                                         this.props.EidtOption(
@@ -4901,7 +4888,7 @@ class RightManage extends Component {
                                             this.state.altLast
                                           ].type,
                                           this.state.ALT[
-                                            this.state.altLast
+                                          this.state.altLast
                                           ]
                                         )
                                       }
@@ -4921,7 +4908,7 @@ class RightManage extends Component {
                                             this.state.altLast
                                           ].type,
                                           this.state.ALT[
-                                            this.state.altLast
+                                          this.state.altLast
                                           ],
                                           true
                                         )
@@ -4946,7 +4933,7 @@ class RightManage extends Component {
                                           this.state.altLast
                                         ].type,
                                         this.state.ALT[
-                                          this.state.altLast
+                                        this.state.altLast
                                         ]
                                       )
                                     }
@@ -5063,7 +5050,7 @@ class RightManage extends Component {
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.personalinfo &&
                           this.state.personalinfo.blood_sugar &&
-                          this.state.personalinfo.blood_sugar.length > 0 && this.state.BSLast !==-1 && (
+                          this.state.personalinfo.blood_sugar.length > 0 && this.state.BSLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -5076,15 +5063,15 @@ class RightManage extends Component {
                                 {this.props.from === "patient" && (
                                   <li>
                                     {this.state.personalinfo.blood_sugar[
-                                     this.state.BSLast
+                                      this.state.BSLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.personalinfo.blood_sugar[
-                                      this.state.BSLast
-                                    ].updated_by ||
-                                      this.state.personalinfo.blood_sugar[
+                                      (!this.state.personalinfo.blood_sugar[
                                         this.state.BSLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.personalinfo.blood_sugar[
+                                          this.state.BSLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -5092,7 +5079,7 @@ class RightManage extends Component {
                                               this.state.BSLast
                                             ].type,
                                             this.state.personalinfo.blood_sugar[
-                                              this.state.BSLast
+                                            this.state.BSLast
                                             ]
                                           )
                                         }
@@ -5112,7 +5099,7 @@ class RightManage extends Component {
                                               this.state.BSLast
                                             ].type,
                                             this.state.personalinfo.blood_sugar[
-                                              this.state.BSLast
+                                            this.state.BSLast
                                             ],
                                             true
                                           )
@@ -5137,7 +5124,7 @@ class RightManage extends Component {
                                             this.state.BSLast
                                           ].type,
                                           this.state.personalinfo.blood_sugar[
-                                            this.state.BSLast
+                                          this.state.BSLast
                                           ]
                                         )
                                       }
@@ -5156,7 +5143,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.personalinfo.blood_sugar[
-                                          this.state.BSLast
+                                        this.state.BSLast
                                         ]
                                       )
                                     }
@@ -5190,15 +5177,15 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.blood_sugar &&
-                  this.state.personalinfo.blood_sugar.length > 0  && this.state.BSLast !==-1  ? (
+                    this.state.personalinfo.blood_sugar &&
+                    this.state.personalinfo.blood_sugar.length > 0 && this.state.BSLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_sugar &&
                             this.state.personalinfo.blood_sugar[
-                              this.state.BSLast
+                            this.state.BSLast
                             ] &&
                             this.state.personalinfo.blood_sugar[
                               this.state.BSLast
@@ -5249,7 +5236,7 @@ class RightManage extends Component {
                   )}
                 </Grid>
               )}
-                {item === "graph_HbA1c" && (
+              {item === "graph_HbA1c" && (
                 <Grid className="persBlodMesur">
                   <Grid container direction="row" alignItems="center">
                     <Grid item xs={6} md={6} className="lstView">
@@ -5259,7 +5246,7 @@ class RightManage extends Component {
                       <Grid className="persBlodImg scndOptionIner1">
                         {this.state.personalinfo &&
                           this.state.personalinfo.blood_sugar &&
-                          this.state.personalinfo.blood_sugar.length > 0 && this.state.hbLast !==-1 && (
+                          this.state.personalinfo.blood_sugar.length > 0 && this.state.hbLast !== -1 && (
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
@@ -5275,12 +5262,12 @@ class RightManage extends Component {
                                       this.state.hbLast
                                     ].created_by ===
                                       this.state.loggedinUser._id &&
-                                    (!this.state.personalinfo.blood_sugar[
-                                      this.state.hbLast
-                                    ].updated_by ||
-                                      this.state.personalinfo.blood_sugar[
+                                      (!this.state.personalinfo.blood_sugar[
                                         this.state.hbLast
-                                      ].updated_by === "") ? (
+                                      ].updated_by ||
+                                        this.state.personalinfo.blood_sugar[
+                                          this.state.hbLast
+                                        ].updated_by === "") ? (
                                       <a
                                         onClick={() =>
                                           this.props.EidtOption(
@@ -5288,7 +5275,7 @@ class RightManage extends Component {
                                               this.state.hbLast
                                             ].type,
                                             this.state.personalinfo.blood_sugar[
-                                              this.state.hbLast
+                                            this.state.hbLast
                                             ]
                                           )
                                         }
@@ -5308,7 +5295,7 @@ class RightManage extends Component {
                                               this.state.hbLast
                                             ].type,
                                             this.state.personalinfo.blood_sugar[
-                                              this.state.hbLast
+                                            this.state.hbLast
                                             ],
                                             true
                                           )
@@ -5333,7 +5320,7 @@ class RightManage extends Component {
                                             this.state.hbLast
                                           ].type,
                                           this.state.personalinfo.blood_sugar[
-                                            this.state.hbLast
+                                          this.state.hbLast
                                           ]
                                         )
                                       }
@@ -5352,7 +5339,7 @@ class RightManage extends Component {
                                     onClick={() =>
                                       this.props.downloadTrack(
                                         this.state.personalinfo.blood_sugar[
-                                          this.state.hbLast
+                                        this.state.hbLast
                                         ]
                                       )
                                     }
@@ -5386,16 +5373,16 @@ class RightManage extends Component {
                     </Grid>
                   </Grid>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.blood_sugar &&
-                  this.state.personalinfo.blood_sugar.length > 0 && this.state.hbLast !==-1 ? (
+                    this.state.personalinfo.blood_sugar &&
+                    this.state.personalinfo.blood_sugar.length > 0 && this.state.hbLast !== -1 ? (
                     <div>
                       <Grid className="presureData">
                         <h3>
-                          
+
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_sugar &&
                             this.state.personalinfo.blood_sugar[
-                              this.state.hbLast
+                            this.state.hbLast
                             ] &&
                             this.state.personalinfo.blood_sugar[
                               this.state.hbLast
@@ -5450,60 +5437,60 @@ class RightManage extends Component {
                 <Grid className="drVisit">
                   <h3>{last_doc_visit}</h3>
                   {
-                  this.state.last_dv &&
-                  this.state.last_dv.length > 0 ? (
-                    <div>
-                      {this.state.last_dv.map((data, index) => (
-                        <Grid container key={data.datetime_on} direction="row" alignItems="center">
-                          <Grid item xs={2} md={2}>
-                        
-                            <Grid className="drVisitImg">
-                              <img key={data.image}
-                                src={
-                                  data && data.image
-                                    ? getImage(data.image, this.state.images)
-                                    : require("assets/images/dr1.jpg")
-                                }
-                                alt=""
-                                title=""
-                              />
-                              {/* <img src={require('assets/images/dr1.jpg')} alt="" title="" /> */}
+                    this.state.last_dv &&
+                      this.state.last_dv.length > 0 ? (
+                      <div>
+                        {this.state.last_dv.map((data, index) => (
+                          <Grid container key={data.datetime_on} direction="row" alignItems="center">
+                            <Grid item xs={2} md={2}>
+
+                              <Grid className="drVisitImg">
+                                <img key={data.image}
+                                  src={
+                                    data && data.image
+                                      ? getImage(data.image, this.state.images)
+                                      : require("assets/images/dr1.jpg")
+                                  }
+                                  alt=""
+                                  title=""
+                                />
+                                {/* <img src={require('assets/images/dr1.jpg')} alt="" title="" /> */}
+                              </Grid>
                             </Grid>
-                          </Grid>
-                          <Grid item xs={10} md={10}>
-                            <Grid className="drVisitData">
-                              <label>{data.doctor_name}</label>
-                              <p>
-                                {getDate(
-                                  data.datetime_on,
-                                  this.state.date_format
-                                )}
-                                ,{" "}
-                                {getTime(
-                                  new Date(data.datetime_on),
-                                  this.state.time_foramt
-                                )}
-                              </p>
+                            <Grid item xs={10} md={10}>
+                              <Grid className="drVisitData">
+                                <label>{data.doctor_name}</label>
+                                <p>
+                                  {getDate(
+                                    data.datetime_on,
+                                    this.state.date_format
+                                  )}
+                                  ,{" "}
+                                  {getTime(
+                                    new Date(data.datetime_on),
+                                    this.state.time_foramt
+                                  )}
+                                </p>
+                              </Grid>
                             </Grid>
+                            <Grid className="clear"></Grid>
                           </Grid>
-                          <Grid className="clear"></Grid>
-                        </Grid>
-                      ))}
-                    </div>
-                  ) : (
-                    <Grid className="noBpData">
-                      <p>{no_data_avlbl}</p>
-                      {this.props.from === "patient" && (
-                        <h3
-                          onClick={() =>
-                            this.props.SelectOption("doctor_visit")
-                          }
-                        >
-                          + {add_new_entry}
-                        </h3>
-                      )}
-                    </Grid>
-                  )}
+                        ))}
+                      </div>
+                    ) : (
+                      <Grid className="noBpData">
+                        <p>{no_data_avlbl}</p>
+                        {this.props.from === "patient" && (
+                          <h3
+                            onClick={() =>
+                              this.props.SelectOption("doctor_visit")
+                            }
+                          >
+                            + {add_new_entry}
+                          </h3>
+                        )}
+                      </Grid>
+                    )}
                 </Grid>
               )}
               {item === "upcomming_appointments" && (
@@ -5539,7 +5526,7 @@ class RightManage extends Component {
                   </Grid>
 
                   {this.state.upcoming_appointment &&
-                  this.state.upcoming_appointment.length > 0 ? (
+                    this.state.upcoming_appointment.length > 0 ? (
                     <div>
                       {this.state.upcoming_appointment.map((data, index) => (
                         <div>
@@ -5560,7 +5547,7 @@ class RightManage extends Component {
                                 {data.custom_text ? data.custom_text : office_visit}
                               </a>
                             )}
-                            {data.appointment_type === "online_appointment" && (
+                            {/* {data.appointment_type === "online_appointment" && (
                               <a>
                                 <img
                                   src={require("assets/images/video-call.svg")}
@@ -5569,7 +5556,7 @@ class RightManage extends Component {
                                 />
                                 {vdo_call}
                               </a>
-                            )}
+                            )} */}
                             {data.appointment_type === "practice_days" && (
                               <a>
                                 <img
@@ -5668,8 +5655,8 @@ class RightManage extends Component {
                     <a className="presSecAncr">
                       <h4>{prescriptions}</h4>
                       {this.state.personalinfo &&
-                      this.state.personalinfo.prescriptions &&
-                      this.state.personalinfo.prescriptions.length > 0 ? (
+                        this.state.personalinfo.prescriptions &&
+                        this.state.personalinfo.prescriptions.length > 0 ? (
                         <div>
                           {this.state.personalinfo.prescriptions.map((itm) => (
                             <div className="metroDoctor">
@@ -5729,8 +5716,8 @@ class RightManage extends Component {
                     <a className="presSecAncr">
                       <h4>{sick_cert}</h4>
                       {this.state.personalinfo &&
-                      this.state.personalinfo.sick_certificates &&
-                      this.state.personalinfo.sick_certificates.length > 0 ? (
+                        this.state.personalinfo.sick_certificates &&
+                        this.state.personalinfo.sick_certificates.length > 0 ? (
                         <div>
                           {this.state.personalinfo.sick_certificates.map(
                             (itm) => (
