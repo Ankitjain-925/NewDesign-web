@@ -408,7 +408,7 @@ class Index extends Component {
                             item
                             xs={12}
                             md={4}
-                            onClick={() => this.onClickInstituteGroup(item)}
+                            onClick={() =>  this.EditInstitute(item._id)}
                           >
                             <Grid className="medcalFZCntnt">
                               <Grid className="presEditDot scndOptionIner">
@@ -488,7 +488,7 @@ class Index extends Component {
                       <Grid
                         xs={12}
                         md={4}
-                        onClick={() => this.onClickInstituteGroup("item")}>
+                       >
                         <Grid className="medcalFZCntnt bg-color-card cursor-pointer" onClick={() => {
                           this.openInstitute();
                         }}>
@@ -736,14 +736,7 @@ class Index extends Component {
                                 <Grid className="spclSaveBtn saveNclose">
                                 <Button onClick={this.openHospitalModal}>+ Enter Hospitals</Button>
                               </Grid>
-                                {/* <Button
-                                  roomArray={this.state?.institute_groups?.hospitals}
-                                  label="Enter Houses"
-                                  name="house_name"
-                                  comesFrom="admin"
-                                  institute_id={this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''}
-                                  onChange={(e) => this.updateEntryState3(e)}
-                                /> */}
+                            
                               </Grid>
                               <Grid className="spclSaveBtn saveNclose">
                                 <Button onClick={this.SaveGroup}>Save</Button>
