@@ -49,7 +49,8 @@ class Index extends Component {
             viewCutom: false,
             serviceList1: [],
             selectedPat: {},
-            newServiceIndex: false
+            newServiceIndex: false,
+            error: ''
         };
     }
 
@@ -60,7 +61,6 @@ class Index extends Component {
 
         if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === 'new') {
             this.setState({ addinvoice: {} })
-            console.log("hello", this.props.history.location?.state?.data)
         }
         else if (this.props.history.location?.state?.data && this.props.history.location?.state?.value === "duplicate") {
             var duplicateData = this.props.history.location?.state?.data
@@ -136,11 +136,15 @@ class Index extends Component {
             if (e.value === 'custom') {
                 this.setState({ viewCutom: true })
             }
+            else {
+                this.setState({ viewCutom: false })
+            }
             state['price_per_quantity'] = e.price;
             state['quantity'] = 1;
             state[name] = e;
         }
         else {
+
             state[name] = e;
         }
 
@@ -181,15 +185,48 @@ class Index extends Component {
 
     //Add the services  
     handleAddSubmit = () => {
+        this.setState({ error: "" })
         var newService = this.state.service
-        console.log("newservice", newService)
-        newService.price = newService?.price_per_quantity * newService?.quantity;
-        newService.service = this.state.service.service.label
-        let items = [...this.state.items];
-        items.push(newService);
+        if (newService?.service?.label == "custom") {
+            if (newService?.price_per_quantity < 1 || !newService?.price_per_quantity) {
+                this.setState({ error: "Please enter valid price" })
+            }
+            else {
+                if (newService && !newService?.custom_title) {
+                    this.setState({ error: "Custom service title can't be empty" })
+                }
+                else {
+                    newService.price = newService?.price_per_quantity * newService?.quantity;
+                    newService.service = this.state.service?.service?.label
+                    let items = [...this.state.items];
+                    items.push(newService);
+                    let data = {}
+                    data["house_id"] = this.props?.House?.value;
+                    data["description"] = newService?.custom_description;
+                    data["price"] = newService?.price_per_quantity;
+                    data["title"] = newService?.custom_title;
+                    axios
+                        .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
+                        .then((responce) => {
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
 
-        this.setState({ items, service: {} },
-            () => { this.updateTotalPrize() })
+                    this.setState({ items, service: {} },
+                        () => { this.updateTotalPrize() })
+                }
+            }
+        }
+        else {
+            newService.price = newService?.price_per_quantity * newService?.quantity;
+            newService.service = this.state.service?.service?.label
+            let items = [...this.state.items];
+            items.push(newService);
+
+            this.setState({ items, service: {} },
+                () => { this.updateTotalPrize() })
+        }
 
     };
 
@@ -269,7 +306,7 @@ class Index extends Component {
                             items: [],
                             addinvoice: {}, selectedPat: {},
                         });
-                        this.Billing();  
+                        this.Billing();
                     }
                 })
                 .catch((error) => {
@@ -423,8 +460,7 @@ class Index extends Component {
                                                         <Tbody>
                                                             <Tr>
                                                                 <Td>
-                                                                    {console.log("data", data)}
-                                                                    <label>{data?.service}</label>
+                                                                    <label>{data && data?.service == 'custom' && data?.custom_title && data?.custom_title.length > 0 ? data.custom_title : data?.service}</label>
                                                                     <p>{data?.service?.description}</p>
                                                                 </Td>
                                                                 <Td>{data?.quantity}</Td>
@@ -439,61 +475,73 @@ class Index extends Component {
                                                 </Table>
                                             </Grid>
 
-
-                                            <Grid className="addCstmField">
-                                                <Grid container direction="row" alignItems="center" spacing={3}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <label>Add service</label>
-                                                        <Select
-                                                            value={this.state.service?.service || ''}
-                                                            name="service"
-                                                            onChange={(e) => this.onFieldChange(e, "service")}
-                                                            options={this.state.service_id_list}
-                                                            placeholder="Search service or add custom input"
-                                                            className="cstmSelect"
-                                                            isSearchable={true}
-                                                            styles={customStyles}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}>
-                                                        <VHfield
-                                                            label="Quantity"
-                                                            name="quantity"
-                                                            placeholder="Enter quantity"
-                                                            onChange={(e) =>
-                                                                this.onFieldChange(e.target.value, "quantity")
-                                                            }
-                                                            value={this.state.service?.quantity || 0}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}>
-                                                        <VHfield
-                                                            label="Price per quantity"
-                                                            name="per_quantity"
-                                                            placeholder="Enter price €"
-                                                            onChange={(e) =>
-                                                                this.onFieldChange(e.target.value, "price_per_quantity")
-                                                            }
-                                                            value={this.state?.service?.price_per_quantity || 0}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2} className="addSrvcBtn">
-                                                        <Button onClick={this.handleAddSubmit}>Add</Button>
+                                            <Grid className="srvcTable">
+                                                <Grid className="addCstmField">
+                                                    <p className='errorMsg'>{this.state.error}</p>
+                                                    <Grid container direction="row" alignItems="center" spacing={3}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <label>Add service</label>
+                                                            <Select
+                                                                value={this.state.service?.service || ''}
+                                                                name="service"
+                                                                onChange={(e) => this.onFieldChange(e, "service")}
+                                                                options={this.state.service_id_list}
+                                                                placeholder="Search service or add custom input"
+                                                                className="cstmSelect"
+                                                                isSearchable={true}
+                                                                styles={customStyles}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={2}>
+                                                            <VHfield
+                                                                label="Quantity"
+                                                                name="quantity"
+                                                                placeholder="Enter quantity"
+                                                                onChange={(e) =>
+                                                                    this.onFieldChange(e.target.value, "quantity")
+                                                                }
+                                                                value={this.state.service?.quantity || 0}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={2}>
+                                                            <VHfield
+                                                                label="Price per quantity"
+                                                                name="per_quantity"
+                                                                placeholder="Enter price €"
+                                                                onChange={(e) =>
+                                                                    this.onFieldChange(e.target.value, "price_per_quantity")
+                                                                }
+                                                                value={this.state?.service?.price_per_quantity || 0}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={2} className="addSrvcBtn">
+                                                            <Button onClick={this.handleAddSubmit}>Add</Button>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
+                                                {this.state.viewCutom && <Grid className="addCstmField">
+                                                    <Grid container direction="row" alignItems="center" spacing={3}>
+                                                        <Grid item xs={12} md={4}>
+                                                            <label>Custom service title</label>
+                                                            <TextField placeholder="Custom service title"
+                                                                name="custom_title"
+                                                                onChange={(e) =>
+                                                                    this.onFieldChange(e.target.value, "custom_title")
+                                                                }
+                                                                value={this.state.service?.custom_title || ''} />
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4}>
+                                                            <label>Custom service description</label>
+                                                            <TextField placeholder="Custom service description"
+                                                                name="custom_description"
+                                                                onChange={(e) =>
+                                                                    this.onFieldChange(e.target.value, "custom_description")
+                                                                }
+                                                                value={this.state.service?.custom_description || ''} />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>}
                                             </Grid>
-                                            {this.state.viewCutom && <Grid className="addCstmField">
-                                                <Grid container direction="row" alignItems="center" spacing={3}>
-                                                    <Grid item xs={12} md={4}>
-                                                        <label>Custom service title</label>
-                                                        <TextField placeholder="Custom service title" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={4}>
-                                                        <label>Custom service description</label>
-                                                        <TextField placeholder="Custom service description" />
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>}
                                             <Grid className="invoiceAmnt">
                                                 <p>Invoice amount</p>
                                                 <label>{this.state.addinvoice.total_amount} €</label>
