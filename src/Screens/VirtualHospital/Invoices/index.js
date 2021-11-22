@@ -50,7 +50,8 @@ class Index extends Component {
             serviceList1: [],
             selectedPat: {},
             newServiceIndex: false,
-            error: ''
+            error: '',
+            finishError : ''
         };
     }
 
@@ -58,15 +59,30 @@ class Index extends Component {
         this.getMetadata()
         this.getAllServices();
         this.getPatientData();
-
         if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === 'new') {
             this.setState({ addinvoice: {} })
         }
         else if (this.props.history.location?.state?.data && this.props.history.location?.state?.value === "duplicate") {
             var duplicateData = this.props.history.location?.state?.data
-            this.setState({ addinvoice: duplicateData })
+            var duplicatedata2 = {}
+            duplicatedata2["invoice_id"]= ''
+            duplicatedata2["patient"]= duplicateData.patient
+            duplicatedata2["case_id"]= duplicateData.case_id
+            duplicatedata2["status"]= duplicateData.status
+            duplicatedata2["total_amount"]= duplicateData.total_amount
+            duplicatedata2["house_id"]= duplicateData.house_id
+
+            var patData = duplicateData.patient
+            this.setState({
+                addinvoice: duplicatedata2, 
+                items: duplicateData.services,
+                selectedPat: {
+                    label: patData.first_name + " " + patData.last_name,
+                    profile_id: patData.profile_id,
+                    value: patData._id
+                }
+            })
             // var patientName = this.props.history.location?.state?.data.filter((item) => item.patient)
-            // console.log("patientName",patientName)
         }
         else if (this.props.history.location?.state?.data?.addinvoice && this.props.history.location?.state?.data) {
             var newdata = this.props.history.location?.state?.data
@@ -241,7 +257,9 @@ class Index extends Component {
         var newService = this.state.addinvoice;
         var total = 0;
         this.state.items?.length > 0 && this.state.items.map((data) => {
-            total = total + data?.price
+            if(data && data?.price){
+                total = total + data?.price
+            }
         })
         newService.total_amount = total;
         this.setState({ addinvoice: newService })
@@ -263,6 +281,7 @@ class Index extends Component {
 
     // For calculate value of finish invoice
     finishInvoice = (draft) => {
+        this.setState({finishError: ""})
         var data = this.state.addinvoice;
         if (draft) {
             data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'draft')?.[0]
@@ -292,6 +311,17 @@ class Index extends Component {
             data.house_id = this.props?.House?.value;
             data.services = this.state.items
             data.created_at = new Date();
+            console.log("data checking ", data)
+            if(!data.invoice_id){
+                this.setState({finishError: "Invoice Id can't be empty"})
+            }
+            else if(!data.patient || (data.patient && data.patient.length < 1)){
+                this.setState({finishError: "Please select patient"})
+            }
+            else if(!data.services || (data.services < 1)){
+                this.setState({finishError: "Please select atleast 1 Service"})
+            }
+            else{
             this.setState({ loaderImage: true });
             axios
                 .post(
@@ -312,6 +342,7 @@ class Index extends Component {
                 .catch((error) => {
                     this.setState({ loaderImage: false });
                 });
+            }
         }
     }
 
@@ -360,6 +391,7 @@ class Index extends Component {
     render() {
         const { selectedOption } = this.state;
         const { addinvoice } = this.state;
+        // console.log("items", this.state.items)
         return (
             <Grid className={
                 this.props.settings &&
@@ -401,6 +433,7 @@ class Index extends Component {
 
                                         <Grid className="srvcContent">
                                             <Grid className="invoiceForm">
+                                                <p className='errorMsg'>{this.state.finishError}</p>
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
 
                                                     <label>Invoice ID</label>
@@ -458,6 +491,7 @@ class Index extends Component {
 
                                                     {this.state.items?.length > 0 && this.state.items.map((data, id) => (
                                                         <Tbody>
+                                                        {data && data?.quantity &&
                                                             <Tr>
                                                                 <Td>
                                                                     <label>{data && data?.service == 'custom' && data?.custom_title && data?.custom_title.length > 0 ? data.custom_title : data?.service}</label>
@@ -470,6 +504,7 @@ class Index extends Component {
                                                                     <Button onClick={() => { this.removeServices(id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
                                                                 </Td>
                                                             </Tr>
+    }
                                                         </Tbody>
                                                     ))}
                                                 </Table>
