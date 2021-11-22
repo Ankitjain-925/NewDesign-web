@@ -209,8 +209,6 @@ class Index extends Component {
                     axios
                         .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
                         .then((responce) => {
-                            console.log("responce",responce)
-                            // this.getAllServices();
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -463,7 +461,6 @@ class Index extends Component {
                                                         <Tbody>
                                                             <Tr>
                                                                 <Td>
-                                                                    {/* {console.log("data", data?.service)} */}
                                                                     <label>{data && data?.service == 'custom' && data?.custom_title && data?.custom_title.length > 0 ? data.custom_title : data?.service}</label>
                                                                     <p>{data?.service?.description}</p>
                                                                 </Td>
