@@ -804,8 +804,6 @@ class Index extends Component {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-                            {/* <label>Task title</label>
-                                                            <Grid><input type="text" placeholder="Enter title" /></Grid> */}
                             <VHfield
                               label="Task title"
                               name="task_name"
@@ -960,6 +958,7 @@ class Index extends Component {
                             <Grid item xs={12} md={12} className="dueOn">
                               <label>{Dueon}</label>
                               <Grid className="timeTask">
+<<<<<<< HEAD
                                 <Grid item xs={10} md={10}>
                                   {/* {this.state.openDate ? ( */}
                                   <DateFormat
@@ -981,6 +980,29 @@ class Index extends Component {
                                 </Grid>
                                 <Grid item xs={2} md={2} className="addTimeTask">
                                   {this.state.openDate ? (
+=======
+                              <Grid item xs={10} md={10}>
+                                {/* {this.state.openDate ? ( */}
+                                <DateFormat
+                                  name="date"
+                                  value={
+                                    this.state.newTask?.due_on?.date
+                                      ? new Date(
+                                        this.state.newTask?.due_on?.date
+                                      )
+                                      : new Date()
+                                  }
+                                  notFullBorder
+                                  date_format={this.state.date_format}
+                                  onChange={(e) =>
+                                    this.updateEntryState1(e, "date")
+                                  }
+                                  disabled={this.props.comesFrom === 'Professional' ? true : false}
+                                />
+                              </Grid>
+                              <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
+                              {this.state.openDate ? (
+>>>>>>> 0168e438507e2da146545380e19260a165f715ec
 
                                     <Button
                                       onClick={() => {
@@ -990,11 +1012,22 @@ class Index extends Component {
                                       Add time
                                     </Button>
 
+<<<<<<< HEAD
                                   ) : (
                                     <TimeFormat
                                       className="timeFormatTask"
                                       name="time"
                                       value={
+=======
+                              ) : (
+                                <>
+                                <TimeFormat
+                                className = "timeFormatTask"
+                                  name="time"
+                                  value={
+                                    this.state.newTask?.due_on?.time
+                                      ? new Date(
+>>>>>>> 0168e438507e2da146545380e19260a165f715ec
                                         this.state.newTask?.due_on?.time
                                           ? new Date(
                                             this.state.newTask?.due_on?.time
@@ -1009,8 +1042,19 @@ class Index extends Component {
                                     />
                                   )
                                   }
+<<<<<<< HEAD
                                 </Grid>
                               </Grid>
+=======
+                                  disabled={this.props.comesFrom === 'Professional' ? true : false}
+                                />
+                                <span className="addTimeTask1span" onClick={()=>{this.setState({openDate: true})}}>Remove time</span>
+                                </>
+                              )
+                              }
+                            </Grid>
+                            </Grid>
+>>>>>>> 0168e438507e2da146545380e19260a165f715ec
                             </Grid>
 
                           </Grid>

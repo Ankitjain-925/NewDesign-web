@@ -1333,7 +1333,7 @@ class Index extends Component {
                                     <Grid><input type="text" name="insurance_number" onChange={(e) => this.insuranceForm(e)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
+                                    {/* <input type="submit" onClick={this.saveUserData1} value={save_change} /> */}
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1410,7 +1410,7 @@ class Index extends Component {
                                     <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
+                                    {/* <input type="submit" onClick={this.saveUserData1} value={save_change} /> */}
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1421,7 +1421,7 @@ class Index extends Component {
                 <Grid className="infoSub">
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={12} md={5}>
-                            <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
+                            {/* <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid> */}
                         </Grid>
                         <Grid item xs={12} md={7}></Grid>
                         <Grid className="clear"></Grid>

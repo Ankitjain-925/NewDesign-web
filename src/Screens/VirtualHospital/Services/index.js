@@ -215,10 +215,16 @@ class Index extends Component {
   };
 
   //On Changing the specialty id 
-  onFieldChange = (e) => {
+  onFieldChange = (e) => { 
     const state = this.state.updateTrack;
+<<<<<<< HEAD
     state['specialty_id'] = e?.length > 0 && e.map((data) => { return data.value });
     this.setState({ updateTrack: state });
+=======
+    state['speciality_id'] = e?.length>0 && e.map((data)=>{return data.value});
+    this.setState({ updateTrack: state});
+    // console.log('updateTrack',this.state.updateTrack)
+>>>>>>> 0168e438507e2da146545380e19260a165f715ec
   }
 
   selectedID = (id) => {
@@ -233,10 +239,11 @@ class Index extends Component {
     if (id) {
       this.setState({ speciality_id: id })
       if (id === 'general') {
-        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => data.speciality_id === undefined || data.speciality_id === null)
+        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => !data.speciality_id)
+        console.log('filterData',filterData)
       }
       else {
-        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => data.speciality_id === id)
+        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => (data?.speciality_id && data?.speciality_id.includes(id)))
       }
     }
     else {
@@ -383,7 +390,11 @@ class Index extends Component {
                                       isSearchable={true}
                                       className="mr_sel"
                                       isMulti={true}
+<<<<<<< HEAD
                                       value={this.selectedID(this.state.updateTrack.specialty_id)}
+=======
+                                     value={this.selectedID(this.state.updateTrack.speciality_id)}
+>>>>>>> 0168e438507e2da146545380e19260a165f715ec
                                     />
                                   </Grid>
 

@@ -994,6 +994,7 @@ class Index extends Component {
     this.setState({ cur_one: response?.data?.data });
   };
 
+
   //Move to Profile page
   MoveProfile = () => {
     this.props.history.push("/patient/");
@@ -1289,7 +1290,7 @@ class Index extends Component {
                                       {lab_result}
                                     </option>
                                     <option value="long_covid">
-                                     {long_covid}
+                                      {long_covid}
                                     </option>
                                     <option value="marcumar_pass">
                                       {marcumar_pass}
@@ -1377,10 +1378,10 @@ class Index extends Component {
                                       {lab_result}
                                     </Grid>
                                   )}
-                                  {this.state.current_select ===
+                                {this.state.current_select ===
                                   "long_covid" && (
                                     <Grid className="nwDiaSel1">
-                                     {long_covid}
+                                      {long_covid}
                                     </Grid>
                                   )}
                                 {this.state.current_select ===
@@ -1678,7 +1679,7 @@ class Index extends Component {
                                   updateTrack={this.state.updateTrack}
                                 />
                               )}
-                              {this.state.current_select ===
+                            {this.state.current_select ===
                               "long_covid" && (
                                 <CovidSymptomsField
                                   cur_one={this.state.cur_one}
