@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
-// import DatePicker from 'react-date-picker';
-// import PhoneInput from 'react-phone-input-2';
-// import 'react-phone-input-2/lib/style.css';
 import ReactFlagsSelect from 'react-flags-select';
 import sitedata from 'sitedata';
 import axios from 'axios';
@@ -136,13 +133,6 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
-        // $("#clickIcon").click(function () {
-        //     $("input[id='my_file']").click();
-        //   });
-        // this.setState({
-        //     labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-        // });
         this.getMetadata();
         this.getUserData();
         // this.alldoctor();

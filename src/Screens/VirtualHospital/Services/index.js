@@ -222,11 +222,15 @@ class Index extends Component {
   }
 
   selectedID = (id) => {
-    var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => id?.includes(item.value))
-    if (data && data.length > 0) {
-      return data;
+    if (!id) return []; 
+    else{
+      var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => id?.includes(item.value))
+      if (data && data.length > 0) {
+        return data;
+      }
+      return [];
     }
-    return [];
+   
   }
 
   getSpecialtyData = (id) => {
@@ -234,7 +238,6 @@ class Index extends Component {
       this.setState({ speciality_id: id })
       if (id === 'general') {
         var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => !data.speciality_id)
-        console.log('filterData',filterData)
       }
       else {
         var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => (data?.speciality_id && data?.speciality_id.includes(id)))

@@ -9775,6 +9775,10 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.recaptchaMargin{
+    margin-top:12px;
+    margin-bottom: 12px;
+}
 .addTimeTask1 {
     position: relative !important;
     margin-left: 10px !important;
