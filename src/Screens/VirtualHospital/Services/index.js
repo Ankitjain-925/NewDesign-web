@@ -217,14 +217,8 @@ class Index extends Component {
   //On Changing the specialty id 
   onFieldChange = (e) => { 
     const state = this.state.updateTrack;
-<<<<<<< HEAD
     state['specialty_id'] = e?.length > 0 && e.map((data) => { return data.value });
     this.setState({ updateTrack: state });
-=======
-    state['speciality_id'] = e?.length>0 && e.map((data)=>{return data.value});
-    this.setState({ updateTrack: state});
-    // console.log('updateTrack',this.state.updateTrack)
->>>>>>> 0168e438507e2da146545380e19260a165f715ec
   }
 
   selectedID = (id) => {
@@ -390,11 +384,7 @@ class Index extends Component {
                                       isSearchable={true}
                                       className="mr_sel"
                                       isMulti={true}
-<<<<<<< HEAD
                                       value={this.selectedID(this.state.updateTrack.specialty_id)}
-=======
-                                     value={this.selectedID(this.state.updateTrack.speciality_id)}
->>>>>>> 0168e438507e2da146545380e19260a165f715ec
                                     />
                                   </Grid>
 
