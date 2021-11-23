@@ -302,7 +302,7 @@ class Index extends Component {
                   // let response = JSON.parse(res)
                 })
                   .catch(function (error) {
-                    console.log("error", error)
+                    // console.log("error", error)
                   })
               }
               this.setState({
