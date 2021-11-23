@@ -85,7 +85,7 @@ class Index extends Component {
     }
 
     handleChangeTab = (event, value) => {
-        this.setState({ value });
+        this.setState({ value });   
     };
     handleChangeTabMob = (event, valueMob) => {
         this.setState({ valueMob });
@@ -94,7 +94,7 @@ class Index extends Component {
     getUpcomingAppointment() {
         var user_token = this.props.stateLoginValueAim.token;
         axios
-            .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat/6124d4b92a3d8b47fbb03d03", commonHeader(user_token))
+            .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat/"+this.props.match.params.id, commonHeader(user_token))
             .then((response) => {
                 var upcomingData =
                     response.data.data &&
@@ -149,7 +149,7 @@ class Index extends Component {
     getPesonalized = () => {
         this.setState({ loaderImage: true });
         axios
-            .get(sitedata.data.path + "/UserProfile/updateSetting/6124d4b92a3d8b47fbb03d03", commonHeader(this.props.stateLoginValueAim.token))
+            .get(sitedata.data.path + "/UserProfile/updateSetting/"+this.props.match.params.id, commonHeader(this.props.stateLoginValueAim.token))
             .then((responce) => {
                 if (
                     responce.data.hassuccessed &&
@@ -181,7 +181,7 @@ class Index extends Component {
     rightInfo() {
         var user_token = this.props.stateLoginValueAim.token;
         axios
-            .get(sitedata.data.path + "/rightinfo/patient/6124d4b92a3d8b47fbb03d03",
+            .get(sitedata.data.path + "/rightinfo/patient/"+this.props.match.params.id,
                 commonHeader(user_token))
             .then((response) => {
                 this.setState({ personalinfo: response.data.data });
@@ -192,7 +192,7 @@ class Index extends Component {
     cur_one = async () => {
         var user_token = this.props.stateLoginValueAim.token;
         let user_id = this.props.stateLoginValueAim.user._id;
-        let response = await get_cur_one(user_token, "6124d4b92a3d8b47fbb03d03")
+        let response = await get_cur_one(user_token, this.props.match.params.id)
         this.setState({ cur_one: response?.data?.data });
     };
 
@@ -261,6 +261,24 @@ class Index extends Component {
             }>
                 <Grid className="homeBgIner vh-section">
                     <Grid container direction="row" justify="center">
+                    {this.state.isGraph && (
+                        <GraphView
+                            date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                            }
+                            time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                            }
+                            personalinfo={this.state.personalinfo}
+                            current_Graph={this.state.current_Graph}
+                            CloseGraph={this.CloseGraph}
+                        />
+                    )}
+                    {!this.state.isGraph && (
                         <Grid item xs={12} md={12}>
 
                             <LeftMenuMobile isNotShow={true} currentPage="chat" />
@@ -309,24 +327,6 @@ class Index extends Component {
                                         downloadTrack={(data) => this.downloadTrack(data)}
                                         DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
                                 </Grid>
-
-                                {this.state.isGraph && (
-                                    <GraphView
-                                        date_format={
-                                            this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting.date_format
-                                        }
-                                        time_format={
-                                            this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting.time_format
-                                        }
-                                        personalinfo={this.state.personalinfo}
-                                        current_Graph={this.state.current_Graph}
-                                        CloseGraph={this.CloseGraph}
-                                    />
-                                )}
                                 {/* End of Mid Section */}
                                 {/* Start of Right Section */}
                                 <Grid item xs={11} md={7}>
@@ -360,7 +360,28 @@ class Index extends Component {
                                     </div>
                                     <div className="TabContainerMob">
                                         {valueMob === 0 && <TabContainer>{
-                                            <LeftPatientData />
+                                            <LeftPatientData
+                                            upcoming_appointment={this.state.upcoming_appointment}
+                                            OpenGraph={this.OpenGraph}
+                                            date_format={
+                                                this.props.settings &&
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting.date_format
+                                            }
+                                            time_format={
+                                                this.props.settings &&
+                                                this.props.settings.setting &&
+                                                this.props.settings.setting.time_format
+                                            }
+                                            from="patient" 
+                                            added_data={this.state.added_data}
+                                            MoveAppoint={this.MoveAppoint}
+                                            SelectOption={this.SelectOption}
+                                            personalinfo={this.state.personalinfo}
+                                            loggedinUser={this.state.cur_one}
+                                            downloadTrack={(data) => this.downloadTrack(data)}
+                                            DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
+
                                         }</TabContainer>}
                                         {valueMob === 1 && <TabContainer>
                                             <PatientJournal />
@@ -382,6 +403,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                         </Grid>
+                    )}
                     </Grid>
                 </Grid>
             </Grid>

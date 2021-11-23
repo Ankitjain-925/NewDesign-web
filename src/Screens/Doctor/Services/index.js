@@ -1566,7 +1566,6 @@ class Index extends Component {
                             </Grid>
                             <div className="err_message">
                               {this.state.regisError}
-                              {this.state.namevald}
                               {this.state.Mnotvalid && Mnotvalids}
                               {this.state.alreadyerror && EmailExists}
                             </div>

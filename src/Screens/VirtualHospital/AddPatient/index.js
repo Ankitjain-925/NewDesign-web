@@ -25,19 +25,20 @@ import Autocomplete from 'Screens/Components/Autocomplete/index';
 import { LanguageFetchReducer } from 'Screens/actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from 'Screens/Components/Loader/index';
+import contry from "Screens/Components/countryBucket/countries.json";
 import SPECIALITY from 'speciality';
+import ReCAPTCHA from "react-google-recaptcha";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from 'Screens/Components/GetMetaData/index.js';
 import DateFormat from 'Screens/Components/DateFormat/index'
-import {
-    getLanguage
-} from "translations/index"
-import { update_CometUser } from "Screens/Components/CommonApi/index";
+import { getLanguage } from "translations/index"
 import { commonHeader, commonCometHeader } from 'component/CommonHeader/index';
 var datas = [];
-var insurances = [];
 
+var letter = /([a-zA-Z])+([ -~])*/,
+number23 = /\d+/,
+  specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -58,7 +59,7 @@ class Index extends Component {
             labelWidth: '',
             gender: '',
             language: [],
-            userDetails: [],
+            UpDataDetails: [],
             weoffer: [],
             language: [],
             speciality: [],
@@ -71,7 +72,7 @@ class Index extends Component {
             addressDetails: [],
             title_degreeData: [],
             subspeciality: [],
-            UpDataDetails: [],
+            UpDataDetails: {},
             speciality_multi: [],
             insurance_count: 1,
             insuranceDetails: {},
@@ -81,8 +82,7 @@ class Index extends Component {
             name_multidiscard: [],
             passwordDetails: [],
             loaderImage: false,
-            regisError1: '',
-            regisError2: "",
+            regisError: '',
             city: '',
             area: '',
             allDocData: {},
@@ -123,10 +123,16 @@ class Index extends Component {
             rhesus: {},
             insu1: false,
             contact_partner: {},
+            hidden: true,
+            recaptcha: false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
+      //on recaptcha click
+    onChangeRec = (value) => {
+        this.setState({ recaptcha: value });
+    };
     // On change the Birthday
     onChange = (date) => {
         const state = this.state.UpDataDetails;
@@ -134,13 +140,19 @@ class Index extends Component {
         this.setState({ UpDataDetails: state })
     }
 
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+        }
+    }
+    handlePinClose = (key) => {
+        this.setState({ [key]: false });
+    };
+
     componentDidMount() {
         this.getMetadata();
-        this.getUserData();
-        // this.alldoctor();
-        this.firstLoginUpdate();
         var npmCountry = npmCountryList().getData()
-        this.setState({ selectCountry: npmCountry })
+        this.setState({ selectCountry: npmCountry,  insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' } })
         /*---location---*/
         this.city = new google.maps.places.Autocomplete(
             this.autocompleteInput.current,
@@ -148,31 +160,6 @@ class Index extends Component {
         );
         this.city.addListener("place_changed", this.handlePlaceChanged);
     }
-
-
-    firstLoginUpdate = () => {
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-            firstlogin: true,
-        }, commonHeader(user_token)).then((responce) => { })
-    }
-
-    // Copy the Profile id and PIN
-    copyText = (copyT) => {
-        this.setState({ copied: false })
-        var copyText = document.getElementById(copyT);
-        var textArea = document.createElement("textarea");
-        textArea.value = copyText.textContent;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("Copy");
-        textArea.remove();
-        this.setState({ copied: true })
-        setTimeout(() => {
-            this.setState({ copied: false })
-        }, 5000)
-    }
-
     //For update the mobile number
     updateMOBILE = (str) => {
         if (!str || str === 'undefined' || str === null || str === '') {
@@ -181,10 +168,8 @@ class Index extends Component {
         else {
             var mob = str && str.split("-")
             return mob.pop()
-
         }
     }
-
     // fOR update the flag of mobile
     updateFLAG = (str) => {
         var mob = str && str.split("-")
@@ -223,22 +208,6 @@ class Index extends Component {
         this.setState({ UpDataDetails: state });
     }
 
-    //For open QR code
-    handleQrOpen = () => {
-        this.setState({ qrOpen: true });
-    };
-    handleQrClose = () => {
-        this.setState({ qrOpen: false });
-    };
-
-    //for open the Change profile Dialog
-    handlePinOpen = () => {
-        this.setState({ chngPinOpen: true });
-    };
-    handlePinClose = (key) => {
-        this.setState({ [key]: false });
-    };
-
     //For change the title of user
     onSelectDegree(event) {
         this.setState({ title: event });
@@ -262,8 +231,6 @@ class Index extends Component {
         state["rhesus"] = event.value
         this.setState({ UpDataDetails: state });
     }
-
-
     //For update the flags 
     updateFlags = (e, name) => {
         const state = this.state.UpDataDetails;
@@ -303,30 +270,12 @@ class Index extends Component {
         })
     }
 
-    componentDidUpdate = (prevProps) => {
-        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
-            this.GetLanguageMetadata();
-            if (this.state.rhesus && this.state.rhesus.value) {
-                this.Upsaterhesus(this.state.rhesus.value);
-            }
-
-        }
-    }
-
     //For getting the dropdowns from the database
     getMetadata() {
-
         this.setState({ allMetadata: this.props.metadata },
-            () => {
-                this.GetLanguageMetadata();
-            })
-        // axios.get(sitedata.data.path + '/UserProfile/Metadata')
-        //     .then((responce) => {
-        //         if (responce && responce.data && responce.data.length > 0) {
-        //             this.setState({ allMetadata: responce.data[0] })
-        //             this.GetLanguageMetadata();
-        //         }
-        //     })
+        () => {
+            this.GetLanguageMetadata();
+        })
     }
 
     GetLanguageMetadata = () => {
@@ -345,64 +294,12 @@ class Index extends Component {
         });
     }
 
-
-    // getMetadata() {
-    //     axios.get(sitedata.data.path + '/UserProfile/Metadata')
-    //         .then((responce) => {
-    //             if (responce && responce.data && responce.data.length > 0) {
-    //                 var Gender = [], Languages = [], Speciality = [], Titles = [];
-    //                 {
-    //                     responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
-    //                         (item) => { Gender.push({ label: item.title, value: item.value }) })
-    //                 }
-    //                 {
-    //                     responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
-    //                         (item) => { Languages.push({ label: item.title, value: item.value }) })
-    //                 }
-    //                 {
-    //                     responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
-    //                         (item) => { Speciality.push({ label: item.title, value: item.value }) })
-    //                 }
-    //                 {
-    //                     responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
-    //                         (item) => { Titles.push({ label: item.title, value: item.value }) })
-    //                 }
-    //                 this.setState({
-    //                     genderdata: Gender,
-    //                     languageData: Languages,
-    //                     specialityData: Speciality,
-    //                     title_degreeData: Titles,
-    //                     bloodgroup: responce.data[0].bloodgroup,
-    //                     rhesusgroup: responce.data[0].rhesus 
-    //                 });
-    //             }
-    //         })
-
-    // }
-
-    //Getting Doctor to add as Family doctor
-    // alldoctor() {
-
-    //     const user_token = this.props.stateLoginValueAim.token;
-    //     axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
-    //         headers: {
-    //             'token': user_token,
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //         .then((response) => {
-    //             this.setState({ allDocData: response.data.data })
-    //         })
-    // }
-
     //For change the language and the Speciality
     handleChange_multi = (event, name) => {
         const state = this.state.UpDataDetails;
         if (name == "languages") {
             this.setState({ name_multi: event });
             state['language'] = event && (Array.prototype.map.call(event, s => s.value))
-
         }
         if (name == "speciality") {
             this.setState({ speciality_multi: event });
@@ -412,9 +309,9 @@ class Index extends Component {
 
     //For update the state of the Profile
     handleChange1 = (e) => {
-        const state = this.state.userDetails
+        const state = this.state.UpDataDetails
         state[e.target.name] = e.target.value;
-        this.setState({ userDetails: state });
+        this.setState({ UpDataDetails: state });
     }
 
     //For checkbox to offer things
@@ -424,184 +321,177 @@ class Index extends Component {
         this.setState({ weoffer: state });
     }
 
-    // For add the insurance
-    addmore_insurance() {
-        datas.push(this.state.insuranceDetails)
-        this.setState({ insurance_count: this.state.insurance_count + 1, insurancefull: datas })
-        this.setState({ insuranceDetails: { insurance: '', insurance_type: '', insurance_number: '' } })
-        this.setState({ moreone: true })
-    }
-
     //Save the User profile
     saveUserData1 = () => {
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
-
+                this.handlePinClose("editInsuranceOpen");
             }
             else {
                 datas.push(this.state.insuranceDetails)
-                this.setState({ insurancefull: datas })
+                this.setState({ insurance_count: this.state.insurance_count + 1, insurancefull: datas,
+                    insuranceDetails: { insurance: '', insurance_type: '', insurance_number: '' }  })
             }
             const user_token = this.props.stateLoginValueAim.token;
-            this.setState({ insu1: false, loaderImage: true })
-            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-                insurance: datas
-            }, commonHeader(user_token)).then((responce) => {
-                if (responce.data.hassuccessed) {
-                    this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
-                    this.setState({ loaderImage: false });
-                    setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
-                    this.getUserData();
-                }
-            })
+            this.setState({ insu1: false })
+            this.handlePinClose("addInsuranceOpen");
         }
         else {
             this.setState({ insu1: true })
         }
     }
+      //For validate the email is correct or not
+  validateEmail = (elementValue) => {
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(elementValue);
+  };
     //Save the User profile
     saveUserData = () => {
-        if (!this.state.UpDataDetails.mobile.includes("-")) {
-            const state2 = this.state.UpDataDetails
-            state2['mobile'] = 'DE-' + this.state.UpDataDetails.mobile;
-
-            this.setState({ UpDataDetails: state2 })
-        }
-        if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
-            if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
-
-            }
-            else {
-                datas.push(this.state.insuranceDetails)
-                this.setState({ insurancefull: datas })
-            }
-        }
-        if (this.state.flag_emergency_number && this.state.flag_emergency_number === '' && this.state.flag_emergency_number === 'undefined') {
-            this.setState({ flag_emergency_number: 'DE' })
-        }
-        if (this.state.flag_mobile && this.state.flag_mobile === '' && this.state.flag_mobile === 'undefined') {
-            this.setState({ flag_mobile: 'DE' })
-        }
-        if (this.state.flag_phone && this.state.flag_phone === '' && this.state.flag_phone === 'undefined') {
-            this.setState({ flag_phone: 'DE' })
-        }
-        if (this.state.flag_fax && this.state.flag_fax === '' && this.state.flag_fax === 'undefined') {
-            this.setState({ flag_fax: 'DE' })
-        }
-        this.setState({ loaderImage: true, phonevalidate: false });
-        this.setState({ regisError1: "" })
-        this.setState({ regisError2: "" })
-        const user_token = this.props.stateLoginValueAim.token;
-        this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
-        var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
-
-        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-            type: 'patient',
-            pin: this.state.UpDataDetails.pin,
-            first_name: this.state.UpDataDetails.first_name,
-            last_name: this.state.UpDataDetails.last_name,
-            nick_name: this.state.UpDataDetails.nick_name,
-            title: this.state.UpDataDetails.title,
-            birthday: this.state.UpDataDetails.birthday,
-            language: this.state.UpDataDetails.language,
-            speciality: this.state.speciality_multi,
-            phone: this.state.UpDataDetails.phone,
-            mobile: this.state.UpDataDetails.mobile,
-            fax: this.state.UpDataDetails.fax,
-            website: this.state.UpDataDetails.website,
-            email: this.state.UpDataDetails.email,
-            password: this.state.UpDataDetails.password,
-            sex: this.state.UpDataDetails.sex,
-            marital_status: this.state.UpDataDetails.marital_status,
-            street: this.state.UpDataDetails.street,
-            city: this.state.city,
-            area: this.state.area,
-            address: this.state.UpDataDetails.address,
-            emergency_contact_name: this.state.contact_partner.name,
-            emergency_relation: this.state.contact_partner.relation,
-            emergency_email: this.state.contact_partner.email,
-            emergency_number: this.state.contact_partner.number,
-            family_doc: this.state.UpDataDetails.family_doc,
-            insurance: datas,
-            is2fa: this.state.UpDataDetails.is2fa,
-            country: this.state.UpDataDetails.country,
-            pastal_code: this.state.UpDataDetails.pastal_code,
-            blood_group: this.state.UpDataDetails.blood_group,
-            rhesus: this.state.UpDataDetails.rhesus,
-        }, commonHeader(user_token)).then((responce) => {
-            if (responce.data.hassuccessed) {
-                this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
-                this.setState({ loaderImage: false });
-                setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
-                this.getUserData();
-                axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
-                    name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
-                },
-                commonCometHeader())
-                    .then((res) => {
-                        var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-                     })
-            }
-            else {
-                this.setState({ loaderImage: false });
-                if (responce.data.message === 'Phone is not verified') {
-                    this.setState({ phonevalidate: true })
+        let translate = getLanguage(this.props.stateLanguageType)
+        let {
+          plz_fill_mob_number,
+          pswd_not_valid,
+          email_not_valid,
+          plz_fill_fullname_user,
+        } = translate;
+        
+    const { UpDataDetails } = this.state;
+        this.setState({ regisError: null });
+        if (
+          UpDataDetails.first_name &&
+          UpDataDetails.last_name &&
+          UpDataDetails.first_name !== "" &&
+          UpDataDetails.last_name !== ""
+        ) {
+          if (this.validateEmail(UpDataDetails.email)) {
+            if (
+              UpDataDetails &&
+              UpDataDetails.password &&
+              UpDataDetails.password.match(letter) &&
+              UpDataDetails.password.match(number23) &&
+              UpDataDetails.password.match(specialchar)
+            ) {
+              if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                if (UpDataDetails?.mobile?.split('-')?.[0]) {
+                  var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
+                } else {
+                  var country_code = "de";
                 }
-                this.setState({ error3: true })
-                setTimeout(() => { this.setState({ error3: false }) }, 5000)
-            }
-        })
-    }
-
-    // Check the Alies is duplicate or not
-    changePin = (e) => {
-        const state = this.state.UpDataDetails;
-        state[e.target.name] = e.target.value;
-        this.setState({ UpDataDetails: state });
-        if (e.target.value.length > 3 && e.target.value !== '') {
-            this.setState({ toSmall1: false });
-        }
-        else {
-            this.setState({ toSmall1: true })
-        }
-    }
-    //Chnage Id Pin by here
-    ChangeIDPIN = () => {
-        if (!this.state.DuplicateAlies && !this.state.toSmall && !this.state.toSmall1) {
-            this.setState({ loaderImage: true });
-            const user_token = this.props.stateLoginValueAim.token;
-            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-                pin: this.state.UpDataDetails.pin,
-                alies_id: this.state.UpDataDetails.alies_id,
-            }, commonHeader(user_token)).then((responce) => {
-                if (responce.data.hassuccessed) {
-                    this.setState({ ChangedPIN: true })
-                    setTimeout(() => { this.setState({ ChangedPIN: false }) }, 5000)
+                if (this.state.recaptcha) {
+                var getBucket = contry?.length > 0 && contry.filter((value, key) =>value.code === country_code.toUpperCase());
+                var savedata = this.state.UpDataDetails;
+                var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
+                savedata.type = 'patient';
+                savedata.country_code = country_code;
+                savedata.mobile = UpDataDetails?.mobile?.split('-')?.[1];
+                savedata.lan = this.props.stateLanguageType;
+                savedata.parent_id = parent_id;
+                savedata.speciality = this.state.speciality_multi;
+                savedata.insurance = datas;
+                savedata.area = this.state.area;
+                savedata.city = this.state.city;
+                savedata.emergency_contact_name = this.state.contact_partner.name;
+                savedata.emergency_relation = this.state.contact_partner.relation;
+                savedata.emergency_email = this.state.contact_partner.email;
+                savedata.emergency_number = this.state.contact_partner.number;
+                savedata.bucket = getBucket[0].bucket;
+                savedata.token = this.state.recaptcha;
+                console.log('dsgfdfgdfgdfg', savedata)
+    
+                // axios
+                //   .post(sitedata.data.path + "/UserProfile/AddUser/", {
+                 
+                //   })
+                //   .then((responce) => {
+                //     this.setState({ loaderImage: false });
+                //     if (responce.data.hassuccessed === true) {
+                //       this.setState({ openNew: false });
+                //       axios
+                //         .post(
+                //           "https://api-eu.cometchat.io/v2.0/users",
+                //           {
+                //             uid: responce.data.data.profile_id,
+                //             name:
+                //               UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                //           },
+                //           commonCometHeader()
+                //         )
+                //         .then((res) => { 
+                //           updateCometUser({
+                //             uid: responce.data.data.profile_id.toLowerCase(),
+                //             name:
+                //             UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                //             role: "default"
+                //           })
+                //         });
+                //       AddFavDoc2(
+                //         this.props.stateLoginValueAim.user.profile_id,
+                //         this.props.stateLoginValueAim.user.profile_id,
+                //         this.props.stateLoginValueAim.token,
+                //         responce.data.data.profile_id
+                //       );
+                //       // axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + this.props.stateLoginValueAim.user.profile_id, {
+                //       //     profile_id: responce.data.data.profile_id
+                //       // }, {
+                //       //     headers: {
+                //       //         'token': user_token,
+                //       //         'Accept': 'application/json',
+                //       //         'Content-Type': 'application/json'
+                //       //     }
+                //       // }).then((responce) => { })
+                //       this.setState({
+                //         successfull: true,
+                //         alreadyerror: false,
+                //         Mnotvalid: false,
+                //         regisError: null,
+                //       });
+    
+                //       setTimeout(
+                //         function () {
+                //           this.getMypatientsData();
+                //         }.bind(this),
+                //         2000
+                //       );
+    
+                //       setTimeout(
+                //         function () {
+                //           this.setState({ successfull: false });
+                //         }.bind(this),
+                //         5000
+                //       );
+                //     } else if (responce.data.message === "Phone is not verified") {
+                //       this.setState({
+                //         successfull: false,
+                //         Mnotvalid: true,
+                //         alreadyerror: false,
+                //       });
+                //     } else {
+                //       this.setState({
+                //         successfull: false,
+                //         alreadyerror: true,
+                //         Mnotvalid: false,
+                //       });
+                //     }
+                //   })
+                //   .catch((err) => { });
+                
                 }
-                this.setState({ loaderImage: false });
-                this.getUserData();
-                this.handlePinClose("chngPinOpen");
-            })
+                else {
+                    this.setState({ regisError0: "Please fill the RECAPTCHA" });
+                  }
+              } else {
+                this.setState({ regisError: plz_fill_mob_number });
+              }
+            } else {
+              this.setState({ regisError: pswd_not_valid });
+            }
+          } else {
+            this.setState({ regisError: email_not_valid });
+          }
+        } else {
+          this.setState({ regisError: plz_fill_fullname_user });
         }
-    }
-
-    // Check the Alies is duplicate or not
-    changeAlies = (e) => {
-        const state = this.state.UpDataDetails;
-        state[e.target.name] = e.target.value;
-        this.setState({ UpDataDetails: state });
-        if (e.target.value.length > 5 && e.target.value !== '') {
-            this.setState({ loaderImage: true, toSmall: false });
-            const user_token = this.props.stateLoginValueAim.token;
-            axios.get(sitedata.data.path + '/UserProfile/checkAlies?alies_id=' + e.target.value,  commonHeader(user_token)).then((responce) => {
-                if (responce.data.hassuccessed) { this.setState({ DuplicateAlies: true }) }
-                else { this.setState({ DuplicateAlies: false }) }
-                this.setState({ loaderImage: false });
-            })
-        }
-        else {
-            this.setState({ toSmall: true })
-        }
+        
     }
 
     //For open the Insurance Edit popup
@@ -627,9 +517,6 @@ class Index extends Component {
         if (e.target.name === 'insurance_number') {
             datas[keys].insurance_number = e.target.value;
         }
-        // if (e.target.name === 'insurance_country') {
-        //     datas[keys].insurance_country = e.target.value;
-        // }
         this.setState({ insurancefull: datas })
     }
 
@@ -847,6 +734,10 @@ class Index extends Component {
         }
     }
 
+      //For show or hide the Password
+  toggleShow = () => {
+    this.setState({ hidden: !this.state.hidden });
+  };
     //For filter the country for add insuance
     filterCountry = (i) => {
         let countryList = this.state.selectCountry
@@ -877,7 +768,6 @@ class Index extends Component {
         this.setState({ UpDataDetails: state })
     }
 
-
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
@@ -890,7 +780,8 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
+        let { Register_characters,  Register_Passwordshould,  Register_letter, Register_number, Register_special, Register_Password,
+            Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
@@ -921,10 +812,6 @@ class Index extends Component {
                 {/* Website Mid Content */}
                 <Grid item xs={12} md={10} lg={8}>
                   <Grid className="profilePkg ">
-                    <Grid className="profilePkgIner1">
-                      {/* Tabs  */}
-                      
-                    </Grid>
                     <Grid className="profilePkgIner2">
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -936,97 +823,214 @@ class Index extends Component {
                         <h1>{"Create new User"}</h1>
                     </Grid>
                 </Grid>
-                <Grid className="profileId">
-                    <Grid container direction="row" alignItems="center">
-                        <Grid item xs={12} md={8}>
-                            <Grid className="profileIdLft">
-                                <Grid container direction="row" alignItems="center" spacing={1}>
-                                    <Grid item xs={12} md={7}>
-                                        <label>{profile} {ID}</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
-                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_id')} alt="" title="" /></a>
-                                        <a><img src={require('assets/images/qr-code.svg')} onClick={this.handleQrOpen} alt="" title="" /></a>
-                                    </Grid>
-                                    <Grid item xs={12} md={5}>
-                                        <label>{pin}</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
-                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        {/* QR Model setup */}
-                        <Modal
-                            open={this.state.qrOpen}
-                            onClose={this.handleQrClose}
-                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme qrBoxModel" : "qrBoxModel"}>
-                            <Grid className="qrBoxCntnt">
-                                <Grid className="qrCourse">
-                                    <Grid className="qrCloseBtn">
-                                        <a onClick={this.handleQrClose}>
-                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                        </a>
-                                    </Grid>
-                                    <Grid><label>{profile} {QR_code}</label></Grid>
-                                </Grid>
-                                <Grid className="qrCourseImg">
-                                    <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
-                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose} /></Grid>
-                                </Grid>
-                            </Grid>
-                        </Modal>
-                        {/* End of QR Model setup */}
-                        <Grid item xs={12} md={4}>
-                            <Grid className="profileIdRght">
-                                <a onClick={this.handlePinOpen}>{Change} {ID} / {pin}</a>
-                            </Grid>
-                        </Grid>
-                        {/* Change ID and Pin */}
-                        <Modal
-                            open={this.state.chngPinOpen}
-                            onClose={() => this.handlePinClose("chngPinOpen")}
-                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
-
-                            <Grid className="editBoxCntnt">
-                                <Grid className="editCourse">
-                                    <Grid className="editCloseBtn">
-                                        <a onClick={() => this.handlePinClose("chngPinOpen")}>
-                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                        </a>
-                                    </Grid>
-                                    <Grid><label>{edit} {ID} {and} {pin}</label></Grid>
-                                    <p>{edit_id_pin}</p>
-                                </Grid>
-                                <Grid className="editPinform">
-                                    <Grid className="editField">
-                                        <label>{profile} {ID}</label>
-                                        <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={this.state.UpDataDetails.alies_id} /></Grid>
-                                        {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
-                                        {this.state.toSmall && <p>{profile_id_greater_then_5}</p>}
-                                    </Grid>
-                                    <Grid className="editField">
-                                        <label>{pin}</label>
-                                        <Grid><input type="text" name="pin" onChange={this.changePin} value={this.state.UpDataDetails.pin} /></Grid>
-                                        {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
-                                    </Grid>
-                                    <Grid>
-                                        <input type="submit" onClick={this.ChangeIDPIN} value={save_change} />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Modal>
-                        {/* End of Change ID and Pin */}
-                    </Grid>
-                </Grid>
-
                 <Grid container direction="row" alignItems="center">
                     <Grid item xs={12} md={8}>
+                        <div className="err_message">
+                            {this.state.regisError}
+                            {this.state.Mnotvalid && Mnotvalids}
+                            {this.state.alreadyerror && EmailExists}
+                        </div>
                         <Grid className="profileInfo">
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={12}>
                                         <label>{email}</label>
-                                        <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} disabled /></Grid>
+                                        <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} /></Grid>
                                     </Grid>
                                 </Grid>
+                            </Grid>
+                            
+                            <Grid className="registerRow passInstMain rlativeDiv">
+                              <Grid>
+                                <label>{Register_Password}</label>
+                              </Grid>
+                              <Grid className="registerPass">
+                                <input
+                                  type={this.state.hidden ? "password" : "text"}
+                                  name="password"
+                                  onChange={this.handleChange1}
+                                />
+                                {this.state.hidden && (
+                                  <a onClick={this.toggleShow}>
+                                    <img
+                                      src={require("assets/images/showeye.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                  </a>
+                                )}
+                                {!this.state.hidden && (
+                                  <a onClick={this.toggleShow}>
+                                    <img
+                                      src={require("assets/images/hide.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                  </a>
+                                )}
+                              </Grid>
+
+                              {this.state.UpDataDetails && this.state.UpDataDetails.password ? (
+                                <div className="passInst">
+                                  <div className="passInstIner">
+                                    <p>{Register_Passwordshould}</p>
+                                    {/* <img src={require('assets/images/passArrow.png')} alt="" title="" className="passArow" /> */}
+                                    <ul>
+                                      <li>
+                                        {this.state.UpDataDetails?.password?.length > 8 && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CheckCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_characters}
+                                            </a>
+                                          )}
+                                        {this.state.UpDataDetails?.password?.length <= 8 && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CloseCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_characters}
+                                            </a>
+                                          )}
+                                      </li>
+                                      <li>
+                                        {this.state.UpDataDetails?.password && !this.state.UpDataDetails?.password.match(
+                                            letter
+                                          ) && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CloseCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_letter}
+                                            </a>
+                                          )}
+                                        {this.state.UpDataDetails?.password && this.state.UpDataDetails?.password.match(
+                                            letter
+                                          ) && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CheckCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_letter}
+                                            </a>
+                                          )}
+                                      </li>
+                                      <li>
+                                      
+                                        {this.state.UpDataDetails?.password && !this.state.UpDataDetails?.password.match(number23) && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CloseCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_number}
+                                            </a>
+                                          )}
+                                        {this.state.UpDataDetails?.password && this.state.UpDataDetails?.password.match(number23) && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CheckCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_number}
+                                            </a>
+                                          )}
+                                      </li>
+                                      <li>
+                                        {this.state.UpDataDetails?.password && !this.state.UpDataDetails?.password.match(
+                                            specialchar
+                                          ) && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CloseCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_special}
+                                            </a>
+                                          )}
+                                        {this.state.UpDataDetails?.password && this.state.UpDataDetails?.password.match(
+                                            specialchar
+                                          ) && (
+                                            <a>
+                                              <img
+                                                src={require("assets/images/CheckCircle.svg")}
+                                                alt=""
+                                                title=""
+                                              />
+                                              {Register_special}
+                                            </a>
+                                          )}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="passInst">
+                                  <div className="passInstIner">
+                                    <p>{Register_Passwordshould}</p>
+                                    <img
+                                      src={require("assets/images/passArrow.png")}
+                                      alt=""
+                                      title=""
+                                      className="passArow"
+                                    />
+                                    <ul>
+                                      <li>
+                                        <a>
+                                          <img
+                                            src={require("assets/images/CloseCircle.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          {Register_characters}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a>
+                                          <img
+                                            src={require("assets/images/CloseCircle.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          {Register_letter}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a>
+                                          <img
+                                            src={require("assets/images/CloseCircle.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          {Register_number}
+                                        </a>
+                                      </li>
+                                      <li>
+                                        <a>
+                                          <img
+                                            src={require("assets/images/CloseCircle.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          {Register_special}
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              )}
                             </Grid>
 
                             <Grid className="profileInfoIner titleDegre">
@@ -1062,11 +1066,6 @@ class Index extends Component {
                                     <Grid item xs={12} md={4}>
                                         <label>{dob}</label>
                                         <Grid>
-                                            {/* <DatePicker
-                                                name="birthday"
-                                                value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
-                                                onChange={this.onChange}
-                                            /> */}
                                             <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
                                         </Grid>
                                     </Grid>
@@ -1252,7 +1251,6 @@ class Index extends Component {
                 </Grid>
 
                 <Grid>
-
                     <Grid className="insrnceTbl"><h3>{emergency} {Contact}</h3></Grid>
                     <Grid className="emrgncyFrmInpt">
                         <Grid><label>{Register_Name}</label></Grid>
@@ -1333,7 +1331,7 @@ class Index extends Component {
                                     <Grid><input type="text" name="insurance_number" onChange={(e) => this.insuranceForm(e)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    {/* <input type="submit" onClick={this.saveUserData1} value={save_change} /> */}
+                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1410,7 +1408,7 @@ class Index extends Component {
                                     <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    {/* <input type="submit" onClick={this.saveUserData1} value={save_change} /> */}
+                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1421,7 +1419,13 @@ class Index extends Component {
                 <Grid className="infoSub">
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={12} md={5}>
-                            {/* <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid> */}
+                            <Grid className="recaptchaMargin"> 
+                                <ReCAPTCHA
+                                    sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
+                                    onChange={this.onChangeRec}
+                                />
+                            </Grid>
+                            <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
                         </Grid>
                         <Grid item xs={12} md={7}></Grid>
                         <Grid className="clear"></Grid>
@@ -1448,16 +1452,12 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     const { metadata } = state.OptionList;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
         metadata,
-        //   Doctorsetget,
-        //   catfil
     }
 };
 export default withRouter(connect(mapStateToProps, { OptionList, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
