@@ -151,9 +151,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -211,9 +211,9 @@ class Index extends Component {
                     onClose={this.handleClosePara}
                     className={
                       this.props.settings &&
-                      this.props.settings.setting &&
-                      this.props.settings.setting.mode &&
-                      this.props.settings.setting.mode === "dark"
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
                         ? "darkTheme paraBoxModel"
                         : "paraBoxModel"
                     }
