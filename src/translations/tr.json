@@ -1251,6 +1251,7 @@
 		"Currentpaincondition":"Mevcut ağrı durumu",
 		"verifyAccount":"Hesabınız doğrulanmadı, lütfen e-posta hesabınızı kontrol edin.",
 		"needUnblock": "Hesabınızın kilidi henüz açılmadı, lütfen profesyonel kimliğinizi sağlayın veya hesabı yakın zamanda gönderdiyseniz, kilidini açmamız için lütfen bize 24 saat verin.",
-		"fillreptcha":"Lütfen RECAPTCHA'yı doldurun"
+		"fillreptcha":"Lütfen RECAPTCHA'yı doldurun",
+		"Tachykardia":"taşikardi"		
 	}
 }   

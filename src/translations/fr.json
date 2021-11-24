@@ -1252,6 +1252,7 @@
 		"Currentpaincondition":"État actuel de la douleur",
 		"verifyAccount":"Votre compte n'est pas vérifié, veuillez vérifier votre compte de messagerie.",
 		"needUnblock": "Votre compte n'est pas encore déverrouillé, veuillez fournir votre identifiant professionnel ou si vous l'avez soumis récemment, veuillez nous donner jusqu'à 24 heures pour le déverrouiller.",
-		"fillreptcha":"Veuillez remplir le RECAPTCHA"
+		"fillreptcha":"Veuillez remplir le RECAPTCHA",
+		"Tachykardia":"Tachycardie"
 	}
 }

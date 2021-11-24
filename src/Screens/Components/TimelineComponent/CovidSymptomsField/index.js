@@ -48,7 +48,7 @@ class Index extends Component {
         lack_energy, your_muscles, feel_week, Fatique, Headache, Shortness_of_breath, loss_smell, Diarrhea,
         Better_experience, Persistent_cough,Sore_throat, Fever, muscle_pain, Skipped_meals, Chest_pain,
         Fatique_questions, Hoarse_voice, Abdominal_pain, Delirium, Oxygen_therapy, ECMOtherapy, Sepsis, 
-        Multiorgan_failure, Currentpaincondition, problem_with_tiredness,selct_pain_area, rest_more, save_entry, sleepy_drowsy, past_date, right_word  } = translate;
+        Multiorgan_failure, Tachykardia, Currentpaincondition, problem_with_tiredness,selct_pain_area, rest_more, save_entry, sleepy_drowsy, past_date, right_word  } = translate;
 
     return (
       <div>
@@ -237,6 +237,7 @@ class Index extends Component {
                 <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'diarrhea')} label={Diarrhea} value={this.state.updateTrack?.diarrhea}/>
                 <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'hoarse_voice')} label={Hoarse_voice} value={this.state.updateTrack?.hoarse_voice}/>
                 <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'abdominal_pain')} label={Abdominal_pain} value={this.state.updateTrack?.abdominal_pain}/>
+                <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'tachykardia')} label={Tachykardia} value={this.state.updateTrack?.tachykardia}/>
               </Grid>
              
             </Grid>
