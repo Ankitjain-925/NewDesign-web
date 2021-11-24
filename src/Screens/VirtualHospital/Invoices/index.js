@@ -319,7 +319,7 @@ class Index extends Component {
             }
             else if (!data.services || (data.services.length < 1)) {
 
-                this.setState({ finishError: "Please select atleast 1 Service" })
+                this.setState({ finishError: "Please add atleast one service" })
             }
             else {
                 this.setState({ loaderImage: true });
@@ -440,7 +440,7 @@ class Index extends Component {
 
                                         <Grid className="srvcContent">
                                             <Grid className="invoiceForm">
-                                                <p className='errorMsg'>{this.state.finishError}</p>
+                                                <p className='err_message'>{this.state.finishError}</p>
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
 
                                                     <label>Invoice ID</label>
@@ -519,7 +519,7 @@ class Index extends Component {
 
                                             <Grid className="srvcTable">
                                                 <Grid className="addCstmField">
-                                                    <p className='errorMsg'>{this.state.error}</p>
+                                                    <p className='err_message'>{this.state.error}</p>
                                                     <Grid container direction="row" alignItems="center" spacing={3}>
                                                         <Grid item xs={12} md={4}>
                                                             <label>Add service</label>

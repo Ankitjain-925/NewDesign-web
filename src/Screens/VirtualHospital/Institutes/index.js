@@ -21,7 +21,7 @@ import { Redirect, Route } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getLanguage } from "translations/index";
-import { Button } from "../../../../../../../AppData/Local/Microsoft/TypeScript/4.4/node_modules/@material-ui/core/index";
+import { Button } from "@material-ui/core/index";
 
 class Index extends Component {
   constructor(props) {
@@ -33,7 +33,8 @@ class Index extends Component {
       showPopup: false,
       showRename: false,
       renameTxt: 'Rename',
-      txtName: ''
+      txtName: '',
+      showinput: false
     };
   }
   componentDidMount = () => {
@@ -209,13 +210,20 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={12} md={3}>
                             <Grid className="settingInfo">
-                              <input name="Search" placeholder="Search" value={this.state.searchValue} onChange={this.SearchFilter} />
+                            {this.state.showinput && <input className="serchInput" name="Search" placeholder="Search" value={this.state.searchValue} onChange={this.SearchFilter} />}
                               <a onClick={this.handleSearch}>
-                                <img
+                                {!this.state.showinput ? <img
                                   src={require("assets/virtual_images/search-entries.svg")}
                                   alt=""
                                   title=""
-                                />
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />:
+                                 <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />}
                               </a>
                               <a onClick={this.handleOpenPopUp}>
                                 <img

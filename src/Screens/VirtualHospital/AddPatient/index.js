@@ -125,6 +125,8 @@ class Index extends Component {
             contact_partner: {},
             hidden: true,
             recaptcha: false,
+            getIDPIN: false,
+            idpin: {}
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -148,6 +150,10 @@ class Index extends Component {
     handlePinClose = (key) => {
         this.setState({ [key]: false });
     };
+
+    openIdPin = ()=>{
+        this.setState({ getIDPIN: true })
+    }
 
     componentDidMount() {
         this.getMetadata();
@@ -386,7 +392,6 @@ class Index extends Component {
                 savedata.mobile = UpDataDetails?.mobile?.split('-')?.[1];
                 savedata.lan = this.props.stateLanguageType;
                 savedata.parent_id = parent_id;
-                savedata.speciality = this.state.speciality_multi;
                 savedata.insurance = datas;
                 savedata.area = this.state.area;
                 savedata.city = this.state.city;
@@ -396,88 +401,48 @@ class Index extends Component {
                 savedata.emergency_number = this.state.contact_partner.number;
                 savedata.bucket = getBucket[0].bucket;
                 savedata.token = this.state.recaptcha;
-                console.log('dsgfdfgdfgdfg', savedata)
-    
-                // axios
-                //   .post(sitedata.data.path + "/UserProfile/AddUser/", {
-                 
-                //   })
-                //   .then((responce) => {
-                //     this.setState({ loaderImage: false });
-                //     if (responce.data.hassuccessed === true) {
-                //       this.setState({ openNew: false });
-                //       axios
-                //         .post(
-                //           "https://api-eu.cometchat.io/v2.0/users",
-                //           {
-                //             uid: responce.data.data.profile_id,
-                //             name:
-                //               UpDataDetails.first_name + " " + UpDataDetails.last_name,
-                //           },
-                //           commonCometHeader()
-                //         )
-                //         .then((res) => { 
-                //           updateCometUser({
-                //             uid: responce.data.data.profile_id.toLowerCase(),
-                //             name:
-                //             UpDataDetails.first_name + " " + UpDataDetails.last_name,
-                //             role: "default"
-                //           })
-                //         });
-                //       AddFavDoc2(
-                //         this.props.stateLoginValueAim.user.profile_id,
-                //         this.props.stateLoginValueAim.user.profile_id,
-                //         this.props.stateLoginValueAim.token,
-                //         responce.data.data.profile_id
-                //       );
-                //       // axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + this.props.stateLoginValueAim.user.profile_id, {
-                //       //     profile_id: responce.data.data.profile_id
-                //       // }, {
-                //       //     headers: {
-                //       //         'token': user_token,
-                //       //         'Accept': 'application/json',
-                //       //         'Content-Type': 'application/json'
-                //       //     }
-                //       // }).then((responce) => { })
-                //       this.setState({
-                //         successfull: true,
-                //         alreadyerror: false,
-                //         Mnotvalid: false,
-                //         regisError: null,
-                //       });
-    
-                //       setTimeout(
-                //         function () {
-                //           this.getMypatientsData();
-                //         }.bind(this),
-                //         2000
-                //       );
-    
-                //       setTimeout(
-                //         function () {
-                //           this.setState({ successfull: false });
-                //         }.bind(this),
-                //         5000
-                //       );
-                //     } else if (responce.data.message === "Phone is not verified") {
-                //       this.setState({
-                //         successfull: false,
-                //         Mnotvalid: true,
-                //         alreadyerror: false,
-                //       });
-                //     } else {
-                //       this.setState({
-                //         successfull: false,
-                //         alreadyerror: true,
-                //         Mnotvalid: false,
-                //       });
-                //     }
-                //   })
-                //   .catch((err) => { });
+                axios
+                  .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)
+                  .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    if (responce.data.hassuccessed === true) {
+                        this.setState({
+                            idpin : {profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin}, contact_partner: {},
+                            UpDataDetails: {},  speciality_multi: [], area: '', city: '', recaptcha: false
+                        })
+                        datas=[];
+                        this.openIdPin();
+                      axios
+                        .post(
+                          "https://api-eu.cometchat.io/v2.0/users",
+                          {
+                            uid: responce.data.data.profile_id,
+                            name:
+                              UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                          },
+                          commonCometHeader()
+                        )
+                        .then((res) => { });
+                    
+                    } else if (responce.data.message === "Phone is not verified") {
+                      this.setState({
+                        successfull: false,
+                        Mnotvalid: true,
+                        alreadyerror: false,
+                      });
+                    } else {
+                      this.setState({
+                        successfull: false,
+                        alreadyerror: true,
+                        Mnotvalid: false,
+                      });
+                    }
+                  })
+                  .catch((err) => { });
                 
                 }
                 else {
-                    this.setState({ regisError0: "Please fill the RECAPTCHA" });
+                    this.setState({ regisError: "Please fill the RECAPTCHA" });
                   }
               } else {
                 this.setState({ regisError: plz_fill_mob_number });
@@ -529,87 +494,6 @@ class Index extends Component {
     Upsaterhesus = (rhesusfromD) => {
         var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType)
         this.setState({ rhesus: rhesus })
-    }
-
-    //For getting User Data
-    getUserData() {
-        this.setState({ loaderImage: true });
-        let user_token = this.props.stateLoginValueAim.token
-        let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
-            commonHeader(user_token)).then((response) => {
-                var state1 = this.state.contact_partner;
-                state1['relation'] = response.data.data && response.data.data.emergency_relation
-                state1['email'] = response.data.data && response.data.data.emergency_email
-                state1['name'] = response.data.data && response.data.data.emergency_contact_name
-                state1['number'] = response.data.data && response.data.data.emergency_number
-                this.setState({ contact_partner: state1 },
-                    () => {
-                        if (response.data.data && response.data.data.emergency_number && response.data.data.emergency_number !== '') {
-                            let fen = response.data.data.emergency_number.split("-");
-                            if (fen && fen.length > 0) {
-                                this.setState({ flag_emergency_number: fen[0] })
-                            }
-                        }
-                    })
-                var title = {}, titlefromD = response.data.data.title;
-                var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus,
-                    bloods = {};
-                var language = [], languagefromD = response.data.data.language;
-                if (languagefromD && languagefromD.length > 0) {
-                    languagefromD.map((item) => {
-                        language.push({ value: item, label: item.replace(/_/g, " ") });
-                    })
-
-                }
-
-                if (bloodfromD && bloodfromD !== "") {
-                    bloods = { label: bloodfromD, value: bloodfromD }
-                }
-                if (rhesusfromD && rhesusfromD !== "") {
-                    this.Upsaterhesus(rhesusfromD)
-                }
-                if (titlefromD && titlefromD !== "") {
-                    title = { label: titlefromD, value: titlefromD }
-                }
-                if (response.data.data.mobile && response.data.data.mobile !== '') {
-                    let mob = response.data.data.mobile.split("-");
-                    if (mob && mob.length > 0) {
-                        this.setState({ flag_mobile: mob[0] })
-                    }
-                }
-                if (response.data.data.phone && response.data.data.phone !== '') {
-                    let pho = response.data.data.phone.split("-");
-                    if (pho && pho.length > 0) {
-                        this.setState({ flag_phone: pho[0] })
-                    }
-                }
-                if (response.data.data.fax && response.data.data.fax !== '') {
-                    let fx = response.data.data.fax.split("-");
-                    if (fx && fx.length > 0) {
-                        this.setState({ flag_fax: fx[0] })
-                    }
-                }
-                // if (response.data.data.emergency_number && response.data.data.emergency_number !== '') {
-                //     let fen = response.data.data.emergency_number.split("-");
-                //     if (fen && fen.length > 0) {
-                //         this.setState({ flag_emergency_number: fen[0] })
-                //     }
-                // }
-
-                this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-                this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
-                this.setState({ name_multi: language, title: title, bloods: bloods })
-                this.setState({
-                    insurancefull: this.state.UpDataDetails.insurance,
-                    insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
-                })
-                datas = this.state.UpDataDetails.insurance;
-
-                this.setState({ loaderImage: false });
-            }).catch((error) => {
-                this.setState({ loaderImage: false });
-            });
     }
 
     //Update the State
@@ -823,6 +707,27 @@ class Index extends Component {
                         <h1>{"Create new User"}</h1>
                     </Grid>
                 </Grid>
+                <Modal
+                    open={this.state.getIDPIN}
+                    onClose={() => this.handlePinClose("getIDPIN")}
+                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
+                    <Grid className="editBoxCntnt">
+                        <Grid className="editCourse">
+                            <Grid className="editCloseBtn">
+                                <a onClick={() => this.handlePinClose("getIDPIN")}>
+                                    <img src={require('assets/images/close-search.svg')} alt="" title="" />
+                                </a>
+                            </Grid>
+                            <Grid><label>Created User ID and PIN</label></Grid>
+                        </Grid>
+                        <Grid className="editPinform">
+                            <Grid className="editField">
+                                <h5>Alies ID - {this.state.idpin?.profile_id}</h5>
+                                <h5>Pin -{this.state.idpin?.pin}</h5>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Modal>
                 <Grid container direction="row" alignItems="center">
                     <Grid item xs={12} md={8}>
                         <div className="err_message">

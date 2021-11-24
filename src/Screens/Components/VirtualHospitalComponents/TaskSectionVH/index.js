@@ -794,7 +794,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <p className="errorMsg">{this.state.errorMsg}</p>
+                    <div className="err_message">{this.state.errorMsg}</div>
                     <Grid className="creatDetail">
                       <Grid className="creatInfoIner">
                         <Grid
