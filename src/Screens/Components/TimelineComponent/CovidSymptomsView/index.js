@@ -113,6 +113,7 @@ class Index extends Component {
       problem_with_tiredness,
       rest_more,
       save_entry,
+      Tachykardia,
       sleepy_drowsy,
       Currentpaincondition, 
       past_date,
@@ -654,6 +655,11 @@ class Index extends Component {
                         notchangeble={true}
                         label={Abdominal_pain}
                         value={item?.abdominal_pain}
+                      />
+                       <SymptomQuestions
+                        notchangeble={true}
+                        label={Tachykardia}
+                        value={item?.tachykardia}
                       />
                     </Grid>
                     <Grid className="clear"></Grid>
