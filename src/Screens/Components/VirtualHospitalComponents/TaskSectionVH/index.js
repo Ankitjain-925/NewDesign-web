@@ -86,7 +86,8 @@ class Index extends Component {
       DoneTaskCss: '',
       OpenTaskCss: '',
       ArchivedTasksCss: '',
-      text: ''
+      text: '',
+      errorMsg : ''
     };
   }
 
@@ -222,89 +223,107 @@ class Index extends Component {
 
   // submit Task model
   handleTaskSubmit = () => {
+    this.setState({errorMsg : ""})
+
     var data = this.state.newTask;
-    if (this.state.fileupods) {
-      data.attachments = this.state.fileattach;
+    if (!data.task_name || (data && data.task_name && data.task_name.length < 1)) {
+      this.setState({errorMsg : "Task title can't be empty"})
+
     }
-    data.house_id = this.props?.House?.value;
-    this.setState({ loaderImage: true });
-    if (this.state.newTask._id) {
-      axios
-        .put(
-          sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({ loaderImage: false });
-          if (responce.data.hassuccessed) {
-            this.setState({
-              newTask: {},
-              fileattach: {},
-              professional_data: [],
-              fileupods: false,
-              assignedTo: [],
-              q: "",
-              selectSpec: {},
-            });
-            this.props.getAddTaskData();
-          }
-        });
-    } else {
-      data.done_on = "";
-      data.priority = 0;
-      data.archived = false;
-      data.status = "open";
+    else if (!data.patient || (data && data.patient && data.patient.length < 1)) {
+      this.setState({errorMsg : "Please select a Patient"})
+    }
+    else {
 
-      axios
-        .post(
-          sitedata.data.path + "/vh/AddTask",
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-
-          this.setState({ loaderImage: false });
-          if (responce.data.hassuccessed) {
-            let patient_id = data && data?.patient_id
-            let id = this.props && this.props?.settings && this.props?.settings?.setting && this.props?.settings?.setting?.user_id
-            let url = sitedata.data.path + `/User/AddTrack/${patient_id}`
-            if ((data?.hidePatient == "false") || (!data.hidePatient)) {
-              let newDate = new Date();
-              data["created_by"] = id
-              data["public"] = "always"
-              data["publicdatetime"] = null
-              data["visible"] = "show"
-              data["type"] = "task"
-              data["datetime_on"] = newDate
-              data["created_on"] = newDate
-              axios.put(
-                url,
-                { data: data },
-                commonHeader(this.props.stateLoginValueAim.token)
-              ).then(res => {
-                // let response = JSON.parse(res)
-              })
-                .catch(function (error) {
-                  console.log("error", error)
-                })
+      if (this.state.fileupods) {
+        data.attachments = this.state.fileattach;
+      }
+      data.house_id = this.props?.House?.value;
+      this.setState({ loaderImage: true });
+      if (this.state.newTask._id) {
+        axios
+          .put(
+            sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            this.setState({ loaderImage: false });
+            if (responce.data.hassuccessed) {
+              this.setState({
+                newTask: {},
+                fileattach: {},
+                professional_data: [],
+                fileupods: false,
+                assignedTo: [],
+                q: "",
+                selectSpec: {},
+              });
+              this.props.getAddTaskData();
+              this.handleCloseTask()
             }
-            this.setState({
-              newTask: {},
-              fileattach: {},
-              professional_data: [],
-              fileupods: false,
-              assignedTo: [],
-              q: "",
-              selectSpec: {},
-              newComment: ''
-            });
-            this.props.getAddTaskData();
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+            else{
+              this.setState({errorMsg : "Somthing went wrong, Please try again"})
+            }
+          });
+      } else {
+        data.done_on = "";
+        data.priority = 0;
+        data.archived = false;
+        data.status = "open";
+
+        axios
+          .post(
+            sitedata.data.path + "/vh/AddTask",
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+
+            this.setState({ loaderImage: false });
+            if (responce.data.hassuccessed) {
+              let patient_id = data && data?.patient_id
+              let id = this.props && this.props?.settings && this.props?.settings?.setting && this.props?.settings?.setting?.user_id
+              let url = sitedata.data.path + `/User/AddTrack/${patient_id}`
+              if ((data?.hidePatient == "false") || (!data.hidePatient)) {
+                let newDate = new Date();
+                data["created_by"] = id
+                data["public"] = "always"
+                data["publicdatetime"] = null
+                data["visible"] = "show"
+                data["type"] = "task"
+                data["datetime_on"] = newDate
+                data["created_on"] = newDate
+                axios.put(
+                  url,
+                  { data: data },
+                  commonHeader(this.props.stateLoginValueAim.token)
+                ).then(res => {
+                  // let response = JSON.parse(res)
+                })
+                  .catch(function (error) {
+                    // console.log("error", error)
+                  })
+              }
+              this.setState({
+                newTask: {},
+                fileattach: {},
+                professional_data: [],
+                fileupods: false,
+                assignedTo: [],
+                q: "",
+                selectSpec: {},
+                newComment: ''
+              });
+              this.props.getAddTaskData();
+              this.handleCloseTask();
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+            this.setState({errorMsg : "Somthing went wrong, Please try again"})
+          });
+      }
     }
   };
 
@@ -349,7 +368,6 @@ class Index extends Component {
   deleteClickComment(index) {
     var state = this.state.newTask
     var array = this.state.newTask.comments
-    console.log('index', index)
     array.splice(index, 1);
     state['comments'] = array
     this.setState({ newTask: state, openTask: true })
@@ -776,6 +794,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
+                    <p className="errorMsg">{this.state.errorMsg}</p>
                     <Grid className="creatDetail">
                       <Grid className="creatInfoIner">
                         <Grid
@@ -961,13 +980,13 @@ class Index extends Component {
                               <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
                               {this.state.openDate ? (
 
-                                <Button
-                                  onClick={() => {
-                                    this.openTaskTime();
-                                  }}
-                                >
-                                  Add time
-                                </Button>
+                                    <Button
+                                      onClick={() => {
+                                        this.openTaskTime();
+                                      }}
+                                    >
+                                      Add time
+                                    </Button>
 
                               ) : (
                                 <>
@@ -976,23 +995,23 @@ class Index extends Component {
                                   name="time"
                                   value={
                                     this.state.newTask?.due_on?.time
-                                      ? new Date(
-                                        this.state.newTask?.due_on?.time
-                                      )
-                                      : new Date()
+                                          ? new Date(
+                                            this.state.newTask?.due_on?.time
+                                          )
+                                          : new Date()
+                                      }
+                                      time_format={this.state.time_format}
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e, "time")
+                                      }
+                                      disabled={this.props.comesFrom === 'Professional' ? true : false}
+                                    />
+                                    <span className="addTimeTask1span" onClick={()=>{this.setState({openDate: true})}}>Remove time</span>
+                                  </>
+                                  )
                                   }
-                                  time_format={this.state.time_format}
-                                  onChange={(e) =>
-                                    this.updateEntryState1(e, "time")
-                                  }
-                                  disabled={this.props.comesFrom === 'Professional' ? true : false}
-                                />
-                                <span className="addTimeTask1span" onClick={()=>{this.setState({openDate: true})}}>Remove time</span>
-                                </>
-                              )
-                              }
-                            </Grid>
-                            </Grid>
+                                </Grid>
+                              </Grid>
                             </Grid>
 
                           </Grid>
@@ -1145,7 +1164,7 @@ class Index extends Component {
                           </Grid>}
 
                           <Grid item xs={12} md={12} className="saveTasks">
-                            <a onClick={() => this.handleCloseTask()}>
+                            <a>
                               <Button onClick={() => this.handleTaskSubmit()}>
                                 Save Task & Close
                               </Button>
