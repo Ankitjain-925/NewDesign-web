@@ -47,7 +47,8 @@ class Index extends Component {
       editQuestions: {},
       editQues: false,
       loaderImage: false,
-      editopenOpti: false
+      editopenOpti: false,
+      errorMsg:''
     }
   }
 
@@ -93,12 +94,10 @@ class Index extends Component {
     this.setState({ myQuestions: QuesAy });
   };
   //for submit the questionaire
-  handleSubmit = () => {
-    // this.setState({myQuestions: {} ,openOpti: true})
-    var myQuestions = this.state.AllQuestions;
-    myQuestions = [...myQuestions, ...this.state.myQuestions]
+
+  // conditioning function for addition questionaire
+  conditionFunc = (myQuestions) => {
     if (this.state.perticular_id) {
-      // console.log('on second time add')
       axios
         .put(
           sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
@@ -135,6 +134,36 @@ class Index extends Component {
           console.log(error);
         });
      }
+  }
+
+  handleSubmit = () => {
+    this.setState({errorMsg : ""})
+    // this.setState({myQuestions: {} ,openOpti: true})
+    var myQuestions = this.state.AllQuestions;
+    myQuestions = [...myQuestions, ...this.state.myQuestions]
+    let length = myQuestions.length
+    if(!myQuestions[length-1]?.type || (myQuestions[length-1]?.type.length < 1)){
+      this.setState({errorMsg : "Please select question type"})
+    }
+    else if(myQuestions[length-1].type == "rating_scale"){
+      if(!myQuestions[length-1].title || myQuestions[length-1].title.length < 1){
+        this.setState({errorMsg : "Title can't be empty"})
+      }
+      else if(!myQuestions[length-1].question || myQuestions[length-1].question.length < 1){
+        this.setState({errorMsg : "Question can't be empty"})
+      }
+      else{
+        this.conditionFunc(myQuestions)
+      }
+    }
+    else if(myQuestions[length-1].type == "classic"){
+      if(!myQuestions[length-1].question || myQuestions[length-1].question.length < 1){
+        this.setState({errorMsg : "Question can't be empty"})
+      }
+      else{
+        this.conditionFunc(myQuestions)
+      }
+    }
   }
 
   //for sunit the edit form
@@ -390,6 +419,7 @@ class Index extends Component {
                               {this.state.myQuestions && (
                                 <Grid>
                                   <Grid className="cnfrmDiaMain">
+                                    <p className='errorMsg'>{this.state.errorMsg}</p>
                                     <Grid className="fillDia">
                                       {/* <Grid> */}
                                         {/* <label>Choose questionnaire type </label> */}
@@ -518,7 +548,9 @@ class Index extends Component {
                                 </Grid>
                               )}
                               <Grid className="infoSub2">
-                                <a onClick={this.handleCloseQues}>
+                                <a 
+                                // onClick={this.handleCloseQues}
+                                >
                                   <Button onClick={() => this.handleSubmit()}>
                                     Save & Close
                                   </Button>
