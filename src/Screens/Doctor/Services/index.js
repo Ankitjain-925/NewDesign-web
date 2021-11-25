@@ -34,6 +34,7 @@ import {
   AddFavDoc2,
   ConsoleCustom,
 } from "Screens/Components/BasicMethod/index";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Doctorset } from "Screens/Doctor/actions";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
@@ -106,9 +107,14 @@ class Index extends Component {
       error_message_1: null,
       sentmessages: true,
       selectCountry: [],
+      recaptcha: false,
     };
   }
 
+     //on recaptcha click
+    onChangeRec = (value) => {
+      this.setState({ recaptcha: value });
+    };
   //for get the track data on the bases of pateint
   GetTrackData = (e) => {
     const state = this.state.gettrackdatas;
@@ -291,6 +297,7 @@ class Index extends Component {
       pswd_not_valid,
       email_not_valid,
       plz_fill_fullname_user,
+      fillreptcha
     } = translate;
     const { userDetails } = this.state;
     let user_token = this.props.stateLoginValueAim.token;
@@ -310,14 +317,14 @@ class Index extends Component {
           userDetails.password.match(specialchar)
         ) {
           if (userDetails.mobile && userDetails.mobile !== "") {
+            if (this.state.recaptcha) {
             this.setState({ loaderImage: true });
             if (userDetails.country_code) {
               var country_code = userDetails.country_code;
             } else {
               var country_code = "de";
             }
-
-            axios
+              axios
               .post(sitedata.data.path + "/UserProfile/AddUser/", {
                 type: "patient",
                 email: userDetails.email,
@@ -328,11 +335,12 @@ class Index extends Component {
                 lan: this.props.stateLanguageType,
                 first_name: userDetails.first_name,
                 last_name: userDetails.last_name,
+                token: this.state.recaptcha,
               })
               .then((responce) => {
-                this.setState({ loaderImage: false });
+                this.setState({ loaderImage: false, });
                 if (responce.data.hassuccessed === true) {
-                  this.setState({ openNew: false });
+                  this.setState({ openNew: false,  recaptcha: false });
                   axios
                     .post(
                       "https://api-eu.cometchat.io/v2.0/users",
@@ -357,15 +365,6 @@ class Index extends Component {
                     this.props.stateLoginValueAim.token,
                     responce.data.data.profile_id
                   );
-                  // axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + this.props.stateLoginValueAim.user.profile_id, {
-                  //     profile_id: responce.data.data.profile_id
-                  // }, {
-                  //     headers: {
-                  //         'token': user_token,
-                  //         'Accept': 'application/json',
-                  //         'Content-Type': 'application/json'
-                  //     }
-                  // }).then((responce) => { })
                   this.setState({
                     successfull: true,
                     alreadyerror: false,
@@ -386,7 +385,8 @@ class Index extends Component {
                     }.bind(this),
                     5000
                   );
-                } else if (responce.data.message === "Phone is not verified") {
+              }
+                else if (responce.data.message === "Phone is not verified") {
                   this.setState({
                     successfull: false,
                     Mnotvalid: true,
@@ -401,6 +401,10 @@ class Index extends Component {
                 }
               })
               .catch((err) => { });
+            }
+            else {
+              this.setState({ regisError: fillreptcha});
+            } 
           } else {
             this.setState({ regisError: plz_fill_mob_number });
           }
@@ -1564,9 +1568,14 @@ class Index extends Component {
                                 label={Register_activate_auth}
                               />
                             </Grid>
+                            <Grid className="recaptchaMargin"> 
+                                <ReCAPTCHA
+                                    sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
+                                    onChange={this.onChangeRec}
+                                />
+                            </Grid>
                             <div className="err_message">
                               {this.state.regisError}
-                              {this.state.namevald}
                               {this.state.Mnotvalid && Mnotvalids}
                               {this.state.alreadyerror && EmailExists}
                             </div>

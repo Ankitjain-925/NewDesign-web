@@ -95,7 +95,7 @@ import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
 import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
-
+import AddPatient from "Screens/VirtualHospital/AddPatient/index";
 
 class Routermain extends Component {
   render() {
@@ -514,7 +514,11 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <PatientDetail {...props} />}
             />
-
+             <Route
+              path="/virtualHospital/new-user"
+              exact={true}
+              render={(props) => <AddPatient {...props} />}
+            />
             <Route
               path="/virtualhospital/assign"
               exact={true}

@@ -328,7 +328,7 @@ Questionaires = () => {
                     title=""
                   />
                   )}
-                <span>{"Change House"}</span>
+                <span>{"Change Hospital"}</span>
               </a>
             </li>
             {this.props?.House?.value && 

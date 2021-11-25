@@ -408,7 +408,7 @@ class Index extends Component {
                                                                             title=""
                                                                         />
                                                                         </span>
-                                                                        Assign House
+                                                                        Assign Hospitals
                                                                     </a>
                                                                     </li>
                                                                     <li onClick={()=>this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>

@@ -37,6 +37,7 @@ class Index extends Component {
       AllServices: [],
       updateTrack: {},
       AllSpeciality: [],
+      errorMsg: ''
     };
   }
 
@@ -64,7 +65,7 @@ class Index extends Component {
   };
   //Modal Open
   handleOpenServ = () => {
-    this.setState({ openServ: true });
+    this.setState({ openServ: true, updateTrack: {} });
   };
 
   //Modal Close
@@ -79,30 +80,42 @@ class Index extends Component {
 
   //For adding the New Service and Update Service
   handleSubmit = () => {
+    this.setState({ errorMsg: '' })
     var data = this.state.updateTrack;
-    if (this.state.updateTrack._id) {
-      axios
-        .put(
-          sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({
-            updateTrack: {},
+    if (!data.title || (data && data?.title && data?.title.length < 1)) {
+      this.setState({ errorMsg:"Please enter Service Name" })
+    }
+    else if (!data.price || (data && data?.price && data?.price < 1)) {
+      this.setState({ errorMsg: "Please enter a valid price" })
+    }
+    else {
+      if (this.state.updateTrack._id) {
+        axios
+          .put(
+            sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            this.setState({
+              updateTrack: {},
+            });
+            this.getAllServices();
           });
-          this.getAllServices();
-        });
-    } else {
-      data.house_id = this.props?.House?.value;
-      axios
-        .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
-        .then((responce) => {
-          this.getAllServices();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      } else {
+        data.house_id = this.props?.House?.value;
+        axios
+          .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
+          .then((responce) => {
+            this.getAllServices();
+            this.handleCloseServ();
+          })
+          .catch(function (error) {
+            console.log(error);
+            this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+
+          });
+      }
     }
   };
   // Open Edit Model
@@ -202,20 +215,22 @@ class Index extends Component {
   };
 
   //On Changing the specialty id 
-  onFieldChange = (e) => {
+  onFieldChange = (e) => { 
     const state = this.state.updateTrack;
-    state['specialty_id'] = e?.length>0 && e.map((data)=>{return data.value});
-    this.setState({ updateTrack: state});
-    // console.log('updateTrack',this.state.updateTrack)
+    state['specialty_id'] = e?.length > 0 && e.map((data) => { return data.value });
+    this.setState({ updateTrack: state });
   }
 
   selectedID = (id) => {
-    // console.log('ttttt', id)
-    var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => id?.includes(item.value))
-    if (data && data.length > 0) {
-      return data;
+    if (!id) return []; 
+    else{
+      var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => id?.includes(item.value))
+      if (data && data.length > 0) {
+        return data;
+      }
+      return [];
     }
-    return [];
+   
   }
 
   getSpecialtyData = (id) => {
@@ -223,7 +238,6 @@ class Index extends Component {
       this.setState({ speciality_id: id })
       if (id === 'general') {
         var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => !data.speciality_id)
-        console.log('filterData',filterData)
       }
       else {
         var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => (data?.speciality_id && data?.speciality_id.includes(id)))
@@ -336,6 +350,7 @@ class Index extends Component {
                               </Grid>
 
                               <Grid className="enterServMain">
+                              <div className="err_message">{this.state.errorMsg}</div>
                                 <Grid className="enterSpcl">
                                   <Grid>
                                     <VHfield
@@ -373,7 +388,7 @@ class Index extends Component {
                                      
                                       className="mr_sel"
                                       isMulti={true}
-                                     value={this.selectedID(this.state.updateTrack.specialty_id)}
+                                      value={this.selectedID(this.state.updateTrack.specialty_id)}
                                     />
                                   </Grid>
 
@@ -391,7 +406,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                               <Grid className="servSaveBtn">
-                                <a onClick={this.handleCloseServ}>
+                                <a>
                                   <Button
                                     onClick={() => this.handleSubmit()}>Save & Close</Button>
                                 </a>
