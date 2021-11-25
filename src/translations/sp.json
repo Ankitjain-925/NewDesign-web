@@ -1251,6 +1251,8 @@
 		"ChatwithCovidconsultant":"Chatear con el consultor de Covid",
 		"Currentpaincondition":"Condición de dolor actual",
 		"verifyAccount":"Su cuenta no está verificada, verifique su cuenta de correo electrónico.",
-		"needUnblock": "Su cuenta aún no está desbloqueada, proporcione su identificación profesional o, si la ha enviado recientemente, denos hasta 24 horas para desbloquearla."
+		"needUnblock": "Su cuenta aún no está desbloqueada, proporcione su identificación profesional o, si la ha enviado recientemente, denos hasta 24 horas para desbloquearla.",
+		"fillreptcha": "Por favor complete el RECAPTCHA",
+		"Tachykardia":"Taquicardia"
 	}
 }

@@ -19,14 +19,14 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
-import { houseSelect } from "../Institutes/selecthouseaction"; 
+import { houseSelect } from "../Institutes/selecthouseaction";
 import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import {
   getLanguage
-}from "translations/index"
+} from "translations/index"
 
 class Index extends Component {
   constructor(props) {
@@ -43,8 +43,10 @@ class Index extends Component {
       speciality: {},
       ward: {},
       specialityData: [],
+      specialityData2: [],
       isEditWrd: false,
-      deleteId: false
+      deleteId: false,
+      SearchValue: ''
     };
   }
   handleOpenSpecl = () => {
@@ -66,7 +68,7 @@ class Index extends Component {
   //   this.props.LanguageFetchReducer(languageType);
   //   this.anotherPatient();
   // };
-  
+
 
   //to save and edit the speciality
   SaveSpeciality = () => {
@@ -128,7 +130,11 @@ class Index extends Component {
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
           this.props.Speciality(true, this.props?.House?.value, this.props.stateLoginValueAim.token);
-          this.setState({ specialityData: responce.data.data });
+          this.setState({
+            specialityData: responce.data.data,
+            specialityData2: responce.data.data
+          });
+
         }
         this.setState({ loaderImage: false, openSpecl: false });
       });
@@ -137,6 +143,7 @@ class Index extends Component {
   handleOpenSpecl4 = () => {
     this.setState({ openSpecl4: true });
   };
+  
   handleCloseSpecl4 = () => {
     this.setState({ openSpecl4: false });
   };
@@ -152,10 +159,12 @@ class Index extends Component {
   handleCloseWard = () => {
     this.setState({ openWard: false, isEditWrd: false });
   };
+
   // update the ward of the speciality
   editWard = (data) => {
     this.setState({ openWard: true, ward: data, isEditWrd: true });
   };
+
   //add the ward of the speciality
   handleOpenRoom = () => {
     var state = this.state.speciality;
@@ -171,6 +180,20 @@ class Index extends Component {
       this.setState({ openWard: false, ward: {} });
     });
   };
+
+  //for Searching
+  handleSearch = () => {
+    console.log("Hi! You're searching special headlines.")
+  }
+
+  searchFilter = (e) => {
+    this.setState({ SearchValue: e.target.stateLoginValueAim })
+    let track1 = this.state.specialityData2;
+    let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+    });
+    this.setState({ specialityData: FilterFromSearch1 })
+  }
 
   //for update speciality name
   updateEntryState = (e) => {
@@ -262,8 +285,10 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {Specialities, DeleteSpeciality, Iunderstandthat, AddSpeciality } = translate;
+    let { Specialities, DeleteSpeciality, Iunderstandthat, AddSpeciality } = translate;
     const { stateLoginValueAim, House } = this.props;
+    const { specialityData2 } = this.state
+    console.log("specialityData2",this.state.specialityData2)
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -306,7 +331,16 @@ class Index extends Component {
                           <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
                           Back to Change Hospital</a>
                   </Grid>
+                  <Grid container direction="row" alignItems="center">
+                  <Grid item xs={6} sm={6} md={6}>
                     <Grid className="spcMgntH1"><h1>Space Management</h1></Grid>
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={6} className="addFlowRght">
+                    <a onClick={this.handleOpenSpecl}>
+                      + Add a new Speciality
+                    </a>
+                  </Grid>
+                  </Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
@@ -328,10 +362,26 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={3}>
-                            <Grid className="settingInfo">
-                              <a><img src={require('assets/virtual_images/search-entries.svg')} alt="" title="" /></a>
-                              <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
-                            </Grid>
+                          <Grid className="settingInfo">
+                          {this.state.showinput &&<input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
+                              <a onClick={this.handleSearch}>
+                                {!this.state.showinput ? <img
+                                  src={require("assets/virtual_images/search-entries.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />:
+                                 <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />}
+                            
+                           
+                            </a>
+                            {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -481,199 +531,192 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           ))}
-
-                        <Grid item xs={12} md={3}>
-                          <Grid className="nwSpclSec">
-                            <p onClick={this.handleOpenSpecl}>
-                              + Add a new Speciality
-                            </p>
-                          </Grid>
-                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}
-                {/* Model setup */}
-                <Modal
-                  open={this.state.openSpecl}
-                  onClose={this.handleCloseSpecl}
-                  className={
-                    this.props.settings &&
-                      this.props.settings.setting &&
-                      this.props.settings.setting.mode &&
-                      this.props.settings.setting.mode === "dark"
-                      ? "darkTheme addSpeclModel"
-                      : "addSpeclModel"
-                  }
-                >
-                  <Grid className="addSpeclContnt">
-                   <Grid className="addSpeclContntIner">
-                    <Grid className="addSpeclLbl">
-                      <Grid className="addSpeclClose">
-                        <a onClick={this.handleCloseSpecl}>
-                          <img
-                            src={require("assets/virtual_images/closefancy.png")}
-                            alt=""
-                            title=""
-                          />
-                        </a>
-                      </Grid>
-                      <Grid>
-                        {this.state.speciality._id ? <label>Edit <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> Delete Speciality</span></label> :
-                          <label>{AddSpeciality}</label>}
-                      </Grid>
-                    </Grid>
-                    <Grid className="enterSpclUpr">
-                      <Grid className="enterSpclMain">
-                        <Grid className="enterSpcl">
-                          <Grid container direction="row">
-                            <Grid item xs={10} md={11}>
-                              {/* <Grid><label>Speciality</label></Grid> */}
-                              {/* <TextField placeholder="Enter Speciality name" /> */}
-                              <VHfield
-                                label="Speciality"
-                                name="specialty_name"
-                                value={this.state.speciality.specialty_name}
-                                placeholder="Enter Speciality name"
-                                onChange={(e) => this.updateEntryState(e)}
-                              />
-                            </Grid>
-                            <Grid item xs={2} md={1}>
-                              <Grid className="colorBtnUpr">
-                                <Grid>
-                                  <ColorSelection
-                                    label="Color"
-                                    updateEntryState1={(name, value) =>
-                                      this.updateEntryState1(name, value)
-                                    }
-                                    background_color={this.state.speciality.background_color}
-                                    color={this.state.speciality.color}
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid className="addWardsRoom">
-                              {!this.state.openWard && (
-                                <>
-                                  {this.state.speciality?.wards?.length > 0 &&
-                                    this.state.speciality?.wards?.map(
-                                      (data, index) => (
-                                        <RoomView
-                                          label={data.ward_name}
-                                          room_number={
-                                            data.rooms?.length > 0
-                                              ? data.rooms?.length
-                                              : 0
-                                          }
-                                          no_of_bed={this.bednumbers(
-                                            data.rooms
-                                          )}
-                                          index={index}
-                                          removeWard={() =>
-                                            this.removeWard(index)
-                                          }
-                                          onEdit={() => {
-                                            this.editWard(data);
-                                          }}
-                                        />
-                                      )
-                                    )}
-                                </>
-                              )}
-                              <Grid className="">
-                                {!this.state.openWard ? (
-                                  <Grid
-                                    className={
-                                      this.state.speciality?.wards?.length > 0
-                                        ? "addNwWard"
-                                        : " plusWards"
-                                    }
-                                  >
-                                    <p onClick={this.handleOpenWard}>
-                                      + Add a Ward
-                                    </p>
-                                  </Grid>
-                                ) : (
-                                  <Grid className="">
-                                    <Grid className="addWardsUpr">
-                                      <Grid className="addWardsIner">
-                                        <Grid item xs={12} md={12}>
-                                          <VHfield
-                                            label="Ward"
-                                            value={this.state.ward?.ward_name}
-                                            name="ward_name"
-                                            placeholder="Enter Ward"
-                                            onChange={(e) =>
-                                              this.updateEntryState2(e)
-                                            }
-                                          />
 
-                                          <AddRoom
-                                            label="room"
-                                            name="roomname"
-                                            roomArray={this.state.ward?.rooms}
-                                            onChange={(e) =>
-                                              this.updateEntryState3(e)
-                                            }
-                                          />
-                                        </Grid>
-                                        <Grid className="wrdsBtn">
-                                          <Button
-                                            onClick={(e) => {
-                                              this.setState({
-                                                isEditWrd: false,
-                                                openWard: false,
-                                                ward: {},
-                                              });
-                                            }}
-                                          >
-                                            Cancel
-                                          </Button>
-                                          {this.state.isEditWrd ? (
-                                            <Button
-                                              className="wrdsBtnActv"
-                                              onClick={() => {
-                                                this.handleOpenRoom();
-                                              }}
-                                            >
-                                              Update Ward
-                                            </Button>
-                                          ) : (
-                                            <Button
-                                              className="wrdsBtnActv"
-                                              onClick={() => {
-                                                this.handleOpenRoom();
-                                              }}
-                                            >
-                                              Save Ward
-                                            </Button>
-                                          )}
-                                        </Grid>
-                                      </Grid>
-                                    </Grid>
-                                  </Grid>
-                                )}
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid className="spclSaveBtn saveNclose">
-                            <Button onClick={this.SaveSpeciality}>
-                              Save & Close
-                            </Button>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                 </Grid>  
-                </Modal>
-
-                {/* End of Model setup */}
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+        {/* Model setup */}
+        <Modal
+          open={this.state.openSpecl}
+          onClose={this.handleCloseSpecl}
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "darkTheme addSpeclModel"
+              : "addSpeclModel"
+          }
+        >
+          <Grid className="addSpeclContnt">
+            <Grid className="addSpeclContntIner">
+              <Grid className="addSpeclLbl">
+                <Grid className="addSpeclClose">
+                  <a onClick={this.handleCloseSpecl}>
+                    <img
+                      src={require("assets/virtual_images/closefancy.png")}
+                      alt=""
+                      title=""
+                    />
+                  </a>
+                </Grid>
+                <Grid>
+                  {this.state.speciality._id ? <label>Edit <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> Delete Speciality</span></label> :
+                    <label>{AddSpeciality}</label>}
+                </Grid>
+              </Grid>
+              <Grid className="enterSpclUpr">
+                <Grid className="enterSpclMain">
+                  <Grid className="enterSpcl">
+                    <Grid container direction="row">
+                      <Grid item xs={10} md={11}>
+                        {/* <Grid><label>Speciality</label></Grid> */}
+                        {/* <TextField placeholder="Enter Speciality name" /> */}
+                        <VHfield
+                          label="Speciality"
+                          name="specialty_name"
+                          value={this.state.speciality.specialty_name}
+                          placeholder="Enter Speciality name"
+                          onChange={(e) => this.updateEntryState(e)}
+                        />
+                      </Grid>
+                      <Grid item xs={2} md={1}>
+                        <Grid className="colorBtnUpr">
+                          <Grid>
+                            <ColorSelection
+                              label="Color"
+                              updateEntryState1={(name, value) =>
+                                this.updateEntryState1(name, value)
+                              }
+                              background_color={this.state.speciality.background_color}
+                              color={this.state.speciality.color}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid className="addWardsRoom">
+                        {!this.state.openWard && (
+                          <>
+                            {this.state.speciality?.wards?.length > 0 &&
+                              this.state.speciality?.wards?.map(
+                                (data, index) => (
+                                  <RoomView
+                                    label={data.ward_name}
+                                    room_number={
+                                      data.rooms?.length > 0
+                                        ? data.rooms?.length
+                                        : 0
+                                    }
+                                    no_of_bed={this.bednumbers(
+                                      data.rooms
+                                    )}
+                                    index={index}
+                                    removeWard={() =>
+                                      this.removeWard(index)
+                                    }
+                                    onEdit={() => {
+                                      this.editWard(data);
+                                    }}
+                                  />
+                                )
+                              )}
+                          </>
+                        )}
+                        <Grid className="">
+                          {!this.state.openWard ? (
+                            <Grid
+                              className={
+                                this.state.speciality?.wards?.length > 0
+                                  ? "addNwWard"
+                                  : " plusWards"
+                              }
+                            >
+                              <p onClick={this.handleOpenWard}>
+                                + Add a Ward
+                              </p>
+                            </Grid>
+                          ) : (
+                            <Grid className="">
+                              <Grid className="addWardsUpr">
+                                <Grid className="addWardsIner">
+                                  <Grid item xs={12} md={12}>
+                                    <VHfield
+                                      label="Ward"
+                                      value={this.state.ward?.ward_name}
+                                      name="ward_name"
+                                      placeholder="Enter Ward"
+                                      onChange={(e) =>
+                                        this.updateEntryState2(e)
+                                      }
+                                    />
+
+                                    <AddRoom
+                                      label="room"
+                                      name="roomname"
+                                      roomArray={this.state.ward?.rooms}
+                                      onChange={(e) =>
+                                        this.updateEntryState3(e)
+                                      }
+                                    />
+                                  </Grid>
+                                  <Grid className="wrdsBtn">
+                                    <Button
+                                      onClick={(e) => {
+                                        this.setState({
+                                          isEditWrd: false,
+                                          openWard: false,
+                                          ward: {},
+                                        });
+                                      }}
+                                    >
+                                      Cancel
+                                    </Button>
+                                    {this.state.isEditWrd ? (
+                                      <Button
+                                        className="wrdsBtnActv"
+                                        onClick={() => {
+                                          this.handleOpenRoom();
+                                        }}
+                                      >
+                                        Update Ward
+                                      </Button>
+                                    ) : (
+                                      <Button
+                                        className="wrdsBtnActv"
+                                        onClick={() => {
+                                          this.handleOpenRoom();
+                                        }}
+                                      >
+                                        Save Ward
+                                      </Button>
+                                    )}
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          )}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid className="spclSaveBtn saveNclose">
+                      <Button onClick={this.SaveSpeciality}>
+                        Save & Close
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Modal>
+        {/* End of Model setup */}
+
       </Grid>
     );
   }

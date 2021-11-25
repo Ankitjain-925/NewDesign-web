@@ -1254,6 +1254,8 @@
 		
 		"verifyAccount":"Your Account is not verified, please check your email account.",
 		"needUnblock": "Your account is not unlocked yet, please provide your professional ID or if you have submitted it recently, please give us up to 24 hours to unlock it.",
+		"fillreptcha":"Please fill the RECAPTCHA",
+		"Tachykardia":"Tachycardia",
 
 
 
@@ -1329,5 +1331,7 @@
 		"Upcomingappointment":"Upcoming appointment",
 		"LastDocuments":"Last Documents",
 		"Prescription":"Prescription"
+		
+		
 	}
 }

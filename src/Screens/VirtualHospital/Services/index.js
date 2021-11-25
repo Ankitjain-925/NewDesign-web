@@ -83,7 +83,7 @@ class Index extends Component {
     this.setState({ errorMsg: '' })
     var data = this.state.updateTrack;
     if (!data.title || (data && data?.title && data?.title.length < 1)) {
-      this.setState({ errorMsg: "Title can't be blank" })
+      this.setState({ errorMsg:"Please enter Service Name" })
     }
     else if (!data.price || (data && data?.price && data?.price < 1)) {
       this.setState({ errorMsg: "Please enter a valid price" })
@@ -350,7 +350,7 @@ class Index extends Component {
                               </Grid>
 
                               <Grid className="enterServMain">
-                              <p className="errorMsg">{this.state.errorMsg}</p>
+                              <div className="err_message">{this.state.errorMsg}</div>
                                 <Grid className="enterSpcl">
                                   <Grid>
                                     <VHfield

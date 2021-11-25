@@ -6,6 +6,8 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
+import Modal from "@material-ui/core/Modal";
+import { Table } from 'reactstrap';
 import sitedata from "sitedata";
 import {
   commonHeader,
@@ -19,17 +21,26 @@ import { Redirect, Route } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getLanguage } from "translations/index";
+import { Button } from "@material-ui/core/index";
 
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentList: [],
+      currentList2: [],
+      searchValue: '',
+      showPopup: false,
+      showRename: false,
+      renameTxt: 'Rename',
+      txtName: '',
+      showinput: false
     };
   }
   componentDidMount = () => {
     this.allHouses();
     this.getSetting();
+    // this.handleSetting();
   };
 
   redirectSpace = (data) => {
@@ -94,6 +105,7 @@ class Index extends Component {
         this.setState({ loaderImage: false });
         this.setState({
           currentList: response.data.data.houses,
+          currentList2: response.data.data.houses
         });
       })
       .catch((error) => {
@@ -101,10 +113,47 @@ class Index extends Component {
       });
   };
 
+  //for Search and Setting
+  handleSearch = () => {
+    console.log("Hii, You're Searching Something.")
+  }
+
+  SearchFilter = (e) => {
+    this.setState({ searchValue: e.target.stateLoginValueAim })
+    let track1 = this.state.currentList2;
+    let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+    });
+    this.setState({ currentList: FilterFromSearch1 })
+  }
+
+  //for rename popup
+  renamePopup = (value) => {
+    this.setState({ showRename: value })
+  }
+
+  renamePopup2 = (value) => {
+    this.setState({ showRename: '' })
+  }
+
+  handletxtName = (e) => {
+    this.setState({ txtName: e.target.value })
+  }
+
+  //for PopUp Opening and Closing
+  handleOpenPopUp = () => {
+    this.setState({ showPopup: true })
+  }
+
+  handleClosePopUp = () => {
+    this.setState({ showPopup: false })
+  }
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Institution } = translate;
     const { stateLoginValueAim, House } = this.props;
+    const { currentList2 } = this.state;
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -116,13 +165,16 @@ class Index extends Component {
     if (House?.value) {
       return <Redirect to={"/VirtualHospital/space"} />;
     }
+    console.log("currentList2", this.state.currentList2)
+    // console.log("TEXT Name", this.state.txtName)
+
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -158,20 +210,83 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={12} md={3}>
                             <Grid className="settingInfo">
-                              <a>
-                                <img
+                            {this.state.showinput && <input className="serchInput" name="Search" placeholder="Search" value={this.state.searchValue} onChange={this.SearchFilter} />}
+                              <a onClick={this.handleSearch}>
+                                {!this.state.showinput ? <img
                                   src={require("assets/virtual_images/search-entries.svg")}
                                   alt=""
                                   title=""
-                                />
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />:
+                                 <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />}
                               </a>
-                              <a>
+                              <a onClick={this.handleOpenPopUp}>
                                 <img
                                   src={require("assets/virtual_images/setting.png")}
                                   alt=""
                                   title=""
                                 />
                               </a>
+                              <Modal
+                                open={this.state.showPopup}
+                                onClose={this.handleClosePopUp}
+                                className={
+                                  this.props.settings &&
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode === "dark"
+                                    ? "darkTheme paraBoxModel"
+                                    : "paraBoxModel"
+                                }
+                              >
+                                <Grid className="nwDiaCntnt">
+                                  <Grid className="nwDiaCntntIner">
+                                    <Grid className="nwDiaCourse">
+                                      <Grid className="nwDiaCloseBtn">
+                                        <a onClick={this.handleClosePopUp}>
+                                          <img
+                                            src={require("assets/images/close-search.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                        </a>
+                                      </Grid>
+                                    </Grid>
+                                    <Table>
+                                      <thead>
+                                        <tr>
+                                          <th>House Name</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {
+                                          currentList2 && currentList2.map((item) => (
+                                            <tr>
+                                              {console.log("this.state.showRename", this.state.showRename)}
+                                              {this.state.showRename === item.value ? (
+                                                <td ><input type="text" name="name" onChange={this.handletxtName} value={this.state.txtName} /> </td>
+                                              ) : (
+                                                <td> {item.group_name && item.label} </td>
+                                              )
+                                              }
+                                              {/* <td>{item.group_name && item.label}</td> */}
+                                              {this.state.showRename === item.value ? (
+                                                <td> <Button onClick={() => this.renamePopup2(item.value)} className="btn-warning ml-10" color="primary">Save</Button> </td>
+                                              ) : (
+                                                <td> <Button onClick={() => this.renamePopup(item.value)} className="btn-warning ml-10" color="primary">Rename</Button> </td>
+                                              )}
+                                            </tr>
+                                          ))
+                                        }
+                                      </tbody>
+                                    </Table>
+                                  </Grid>
+                                </Grid>
+                              </Modal>
                             </Grid>
                           </Grid>
                         </Grid>
