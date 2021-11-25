@@ -222,10 +222,11 @@ class Index extends Component {
     if (id) {
       this.setState({ speciality_id: id })
       if (id === 'general') {
-        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => data.speciality_id === undefined || data.speciality_id === null)
+        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => !data.speciality_id)
+        console.log('filterData',filterData)
       }
       else {
-        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => data.speciality_id === id)
+        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => (data?.speciality_id && data?.speciality_id.includes(id)))
       }
     }
     else {
@@ -369,6 +370,7 @@ class Index extends Component {
                                       options={this.state.AllSpeciality}
                                       name="specialty_name"
                                       isSearchable={true}
+                                     
                                       className="mr_sel"
                                       isMulti={true}
                                      value={this.selectedID(this.state.updateTrack.specialty_id)}
