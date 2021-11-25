@@ -28,6 +28,7 @@ import Loader from "Screens/Components/Loader/index";
 import { getLanguage } from "translations/index"
 import { Redirect, Route } from 'react-router-dom';
 import filterate from 'reducers/Filterthis';
+import {PatientMoveFromHouse} from '../PatientFlow/data'
 
 function TabContainer(props) {
     return (
@@ -84,18 +85,18 @@ class Index extends Component {
     //get list of list
     getMetadata = () => {
         this.setState({ allMetadata: this.props.metadata },
-        () => {
-            var AllStatus = GetLanguageDropdown(
-                this.state.allMetadata &&
-                this.state.allMetadata.billing_status &&
-                this.state.allMetadata.billing_status.length > 0 &&
-                this.state.allMetadata.billing_status,
-                this.props.stateLanguageType,
-            );
-            this.setState({
-                AllStatus: AllStatus,
-            });
-        })
+            () => {
+                var AllStatus = GetLanguageDropdown(
+                    this.state.allMetadata &&
+                    this.state.allMetadata.billing_status &&
+                    this.state.allMetadata.billing_status.length > 0 &&
+                    this.state.allMetadata.billing_status,
+                    this.props.stateLanguageType,
+                );
+                this.setState({
+                    AllStatus: AllStatus,
+                });
+            })
     }
 
     // Update status acc. to their particular id
@@ -108,10 +109,16 @@ class Index extends Component {
             },
             commonHeader(this.props.stateLoginValueAim.token)
         )
-        .then((responce) => {
-            this.setState({ setStatus: false });
-            this.fetchbillsdata("all", 0);
-        });
+            .then((responce) => {
+                if (status == 'paid') {
+                    PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
+                }
+                else if(status == 'overdue'){
+                    PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
+                }
+                this.setState({ setStatus: false });
+                this.fetchbillsdata("all", 0);
+            });
     }
 
     // For getting the Bills and implement Pagination
@@ -224,7 +231,7 @@ class Index extends Component {
                     : "homeBg"
             }>
                 <Grid className="homeBgIner">
-                {this.state.loaderImage && <Loader />}
+                    {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                             {/* Mobile menu */}
@@ -299,19 +306,21 @@ class Index extends Component {
                                                                         <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
                                                                         <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
                                                                     </ul>
-                                                                    <ul className="setStatus">
-                                                                        <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
-                                                                        {this.state.setStatus &&
-                                                                            <Grid >
-                                                                                <ul>
-                                                                                    <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
-                                                                                    <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span>Draft</span></li></a>
-                                                                                    <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span>Issued</span></li></a>
-                                                                                    <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span>Overdue</span></li></a>
-                                                                                </ul>
-                                                                            </Grid>
-                                                                        }
-                                                                    </ul>
+                                                                    {data?.status?.value != 'paid' &&
+                                                                        <ul className="setStatus">
+                                                                            <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
+                                                                            {this.state.setStatus &&
+                                                                                <Grid >
+                                                                                    <ul>
+                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span>Draft</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span>Issued</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span>Overdue</span></li></a>
+                                                                                    </ul>
+                                                                                </Grid>
+                                                                            }
+                                                                        </ul>
+                                                                    }
                                                                     <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
                                                                 </Grid>
                                                             </Button></Td>
