@@ -25,6 +25,7 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
+import { PatientMoveFromHouse } from "../PatientFlow/data"
 
 
 const customStyles = {
@@ -311,6 +312,7 @@ class Index extends Component {
             data.house_id = this.props?.House?.value;
             data.services = this.state.items
             data.created_at = new Date();
+
             if (!data.invoice_id) {
                 this.setState({ finishError: "Invoice Id can't be empty" })
             }
@@ -332,6 +334,12 @@ class Index extends Component {
                     .then((responce) => {
                         this.setState({ loaderImage: false });
                         if (responce.data.hassuccessed) {
+                            if (data.status.value == 'paid') {
+                                PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
+                            }
+                            else if(data.status.value == 'overdue'){
+                                PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
+                            }
                             this.setState({
                                 items: [],
                                 addinvoice: {}, selectedPat: {},
@@ -384,7 +392,7 @@ class Index extends Component {
 
     deleteClickService(id) {
         // delete this.state.items[id]
-        this.state.items.splice(id,1);
+        this.state.items.splice(id, 1);
         this.setState({ items: this.state.items });
         var newService = this.state.service
         newService.price = newService?.price_per_quantity * newService?.quantity;
