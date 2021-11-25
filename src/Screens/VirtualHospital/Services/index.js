@@ -385,6 +385,7 @@ class Index extends Component {
                                       options={this.state.AllSpeciality}
                                       name="specialty_name"
                                       isSearchable={true}
+                                     
                                       className="mr_sel"
                                       isMulti={true}
                                       value={this.selectedID(this.state.updateTrack.specialty_id)}

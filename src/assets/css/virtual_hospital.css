@@ -9620,6 +9620,13 @@ button.crdoLghtBlu2 {
     border-top: 3px solid #00ABAF;
     margin-bottom: 35px;
 }
+/* added by tanya */
+.otherBrdrUpr input[type=text]{
+    border:none;
+    border-bottom: 1px solid grey;
+    margin-left:20px;
+    
+}
 .QuesMrktUpr h1 {
     color: #000808;
     font-size: 20px;
