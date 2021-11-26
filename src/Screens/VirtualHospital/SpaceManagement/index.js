@@ -46,7 +46,9 @@ class Index extends Component {
       specialityData2: [],
       isEditWrd: false,
       deleteId: false,
-      SearchValue: ''
+      SearchValue: '',
+      errorMsg2: '',
+      errorMsg: ''
     };
   }
   handleOpenSpecl = () => {
@@ -72,47 +74,60 @@ class Index extends Component {
 
   //to save and edit the speciality
   SaveSpeciality = () => {
+    this.setState({ errorMsg: '' })
     var data = this.state.speciality;
-    if (data._id) {
-      this.setState({ loaderImage: true });
-      axios
-        .put(
-          sitedata.data.path + "/vh/AddSpecialty/" + data._id,
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.getSpeciality();
-          }
-          this.setState({
-            ward: {},
-            speciality: {},
-            loaderImage: false,
-            openSpecl: false,
-          });
-        });
-    } else {
-      this.setState({ loaderImage: true });
-      data.house_id = this.props?.House?.value;
-      axios
-        .post(
-          sitedata.data.path + "/vh/AddSpecialty",
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.getSpeciality();
-          }
-          this.setState({
-            ward: {},
-            speciality: {},
-            loaderImage: false,
-            openSpecl: false,
-          });
-        });
+    if (data && (!data.specialty_name || data.specialty_name.length < 1)) {
+      this.setState({ errorMsg: 'Please enter Speciality name' })
     }
+    else if (data && !data.color) {
+      this.setState({ errorMsg: 'Please select color' })
+    }
+    else if (data && (!data.wards || data.wards.length < 1)) {
+      this.setState({ errorMsg: "Please add ward" })
+    }
+    else {
+      if (data._id) {
+        this.setState({ loaderImage: true });
+        axios
+          .put(
+            sitedata.data.path + "/vh/AddSpecialty/" + data._id,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getSpeciality();
+            }
+            this.setState({
+              ward: {},
+              speciality: {},
+              loaderImage: false,
+              openSpecl: false,
+            });
+          });
+      } else {
+        this.setState({ loaderImage: true });
+        data.house_id = this.props?.House?.value;
+        axios
+          .post(
+            sitedata.data.path + "/vh/AddSpecialty",
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getSpeciality();
+            }
+            this.setState({
+              ward: {},
+              speciality: {},
+              loaderImage: false,
+              openSpecl: false,
+            });
+          });
+      }
+    }
+
   };
 
   componentDidMount() {
@@ -143,7 +158,7 @@ class Index extends Component {
   handleOpenSpecl4 = () => {
     this.setState({ openSpecl4: true });
   };
-  
+
   handleCloseSpecl4 = () => {
     this.setState({ openSpecl4: false });
   };
@@ -167,18 +182,37 @@ class Index extends Component {
 
   //add the ward of the speciality
   handleOpenRoom = () => {
-    var state = this.state.speciality;
-    var ward = state["wards"] || [];
-    if (this.state.isEditWrd) {
-      ward[this.state.isEditWrd] = this.state.ward;
-      this.setState({ isEditWrd: false });
-    } else {
-      ward.push(this.state.ward);
+    this.setState({ errorMsg2: "" })
+    let data = this.state.ward
+    if ((data && !data.ward_name) || (data && data?.ward_name && data?.ward_name?.length < 1)) {
+      this.setState({ errorMsg2: "Please enter ward name" })
     }
-    state["wards"] = ward;
-    this.setState({ speciality: state, isEditWrd: false }, () => {
-      this.setState({ openWard: false, ward: {} });
-    });
+    else if ((data && !data.rooms)) {
+      this.setState({ errorMsg2: "Please enter room data" })
+    }
+    else {
+      let length = data.rooms.length
+      if (data && data.rooms && !data.rooms[length - 1].room_name) {
+        this.setState({ errorMsg2: "Please enter room name" })
+      }
+      else if (data && data.rooms && (data.rooms[length - 1].no_of_bed == false || data.rooms[length - 1].no_of_bed < 1)) {
+        this.setState({ errorMsg2: "Please enter valid bed no" })
+      }
+      else {
+        var state = this.state.speciality;
+        var ward = state["wards"] || [];
+        if (this.state.isEditWrd) {
+          ward[this.state.isEditWrd] = this.state.ward;
+          this.setState({ isEditWrd: false });
+        } else {
+          ward.push(this.state.ward);
+        }
+        state["wards"] = ward;
+        this.setState({ speciality: state, isEditWrd: false }, () => {
+          this.setState({ openWard: false, ward: {} });
+        });
+      }
+    }
   };
 
   //for Searching
@@ -232,7 +266,7 @@ class Index extends Component {
     this.setState({ speciality: state });
   };
 
-  //for update the rooms in the wards                                                                                                                                                       
+  //for update the rooms in the wards                                                                                                    
   updateEntryState3 = (ward) => {
     var state = this.state.ward;
     state["rooms"] = ward;
@@ -284,7 +318,6 @@ class Index extends Component {
     let { Specialities, DeleteSpeciality, Iunderstandthat, AddSpeciality } = translate;
     const { stateLoginValueAim, House } = this.props;
     const { specialityData2 } = this.state
-    console.log("specialityData2",this.state.specialityData2)
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -298,6 +331,7 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+
     return (
       <Grid className={
         this.props.settings &&
@@ -548,6 +582,7 @@ class Index extends Component {
               </Grid>
               <Grid className="enterSpclUpr">
                 <Grid className="enterSpclMain">
+                  <p className='err_message'>{this.state.errorMsg}</p>
                   <Grid className="enterSpcl">
                     <Grid container direction="row">
                       <Grid item xs={10} md={11}>
@@ -620,6 +655,7 @@ class Index extends Component {
                             <Grid className="">
                               <Grid className="addWardsUpr">
                                 <Grid className="addWardsIner">
+                                  <p className='err_message'>{this.state.errorMsg2}</p>
                                   <Grid item xs={12} md={12}>
                                     <VHfield
                                       label="Ward"
