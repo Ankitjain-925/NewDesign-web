@@ -20,6 +20,9 @@ import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedD
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
 import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { Button } from '@material-ui/core';
 import VideoDemo from "Screens/Components/VideoDemo/index";
 import {
   mySorter,
@@ -72,7 +75,9 @@ import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 import index from "Screens/Components/LogOut/index.js";
 import { get_cur_one, get_gender, get_track, delete_click_track, download_track } from "Screens/Components/CommonApi/index.js";
 import { commonHeader } from "component/CommonHeader/index.js";
+
 var Datas = [];
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -119,8 +124,18 @@ class Index extends Component {
       vaccinations: [],
       defaultValue: 20,
       loading: false,
+      AllQuestions: {},
+      newTask: [],
+      otherField: false,
+      options: [],
+      rating: "",
+      final_Submit :[],
+      answers:[]
+
+
     };
   }
+
 
   viewDemos = () => {
     this.setState({ viewDemo: true });
@@ -151,6 +166,75 @@ class Index extends Component {
   OpenGraph = (current_Graph) => {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
+
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+  };
+  setRating = (rating) => {
+    // console.log("rating", rating)
+    this.setState({ ratingValue: rating })
+
+  }
+
+  handleSubmit = (_id) => {
+    const answers = this.state.answers;
+     if(this.state.ratingValue){
+    var rating=this.state.ratingValue
+   answers.push({_id, rating
+     } );
+    this.setState({
+      answers,
+      rating: ""
+    });
+  }else{
+    answers.push({_id, data:this.state.updateTrack
+    } );
+   this.setState({
+     answers,
+    updateTrack:[]
+   });
+  
+  }
+console.log("answer", answers)
+  };
+handleSubmit2= () =>{
+  console.log("answers", this.state.answers)
+  
+};
+
+  options = (e) => {
+    const state = this.state.updateTrack;
+    var data = state.options ? state.options : []
+    if (e.target.checked == true) {
+      data.push(e.target.value);
+    }
+    else {
+
+      if (data.indexOf(e.target.value) > -1) {
+        var index = data.indexOf(e.target.value)
+        data.splice(index, 1);
+      }
+
+    }
+    state['options'] = data;
+    this.setState({ updateTrack: state },
+      () => {
+        // console.log("data", this.state.updateTrack)
+      });
+
+
+  };
+  otheranswer = (value) => {
+    this.setState({ otherField: value })
+    // console.log("hello", this.state.otherField)
+  }
+
+  updateEntry2 = (e, name) => {
+    var state = this.state.updateTrack;
+    state[name] = e.target.value;
+    this.setState({ updateTrack: state });
+    //  console.log("hell", this.state.updateTrack)
+  }
 
   //For clear the filter
   ClearData = () => {
@@ -480,6 +564,7 @@ class Index extends Component {
     this.getMetadata();
     this.getPesonalized();
     this.verifyRecipet();
+    this.getQuestionnaire();
   }
 
   verifyRecipet = () => {
@@ -612,6 +697,25 @@ class Index extends Component {
             (data) => data.status !== "cancel" && data.status !== "remove"
           );
         this.setState({ upcoming_appointment: upcomingData });
+      });
+  }
+  //   Added by Tanya //
+
+  //Get Questionnaire
+
+  getQuestionnaire = () => {
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path + "/questionaire/GetQuestionaire/60fabfe5b3394533f7f9a6dc-1629196687215",
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        if (response.data.hassuccessed) {
+          this.setState({ AllQuestions: response.data.data });
+          // console.log("Questionnaire", this.state.AllQuestions)
+        }
+        this.setState({ loaderImage: false });
       });
   }
 
@@ -994,7 +1098,6 @@ class Index extends Component {
     this.setState({ cur_one: response?.data?.data });
   };
 
-
   //Move to Profile page
   MoveProfile = () => {
     this.props.history.push("/patient/");
@@ -1107,11 +1210,11 @@ class Index extends Component {
                                 <h1>{journal}</h1>
                               </Grid>
                               <Grid item xs={6} md={6}>
-                                <Grid className="AddEntrynw">
-                                  <a onClick={this.handleOpenEntry}>
-                                    + {add_new_entry}
-                                  </a>
-                                </Grid>
+                                {/* <Grid className="AddEntrynw">
+                                  <a onClick={this.handleOpenEntry}> */}
+                                {/* + {add_new_entry} */}
+                                {/* </a>
+                                </Grid> */}
                                 <Grid className="downloadButton">
                                   <DownloadFullTrack
                                     TrackRecord={this.state.allTrack1}
@@ -1148,7 +1251,128 @@ class Index extends Component {
                       />
 
                       {/* For Empty Entry */}
-                      <div>
+                      <Grid item xs={12} md={8}>
+                        <Grid>
+                          {this.state.AllQuestions?.length > 0 && this.state.AllQuestions.map((data1) => (
+                            data1?.questions.map((data) => (
+                              // console.log("data", data),
+
+                              <>
+                                {data.type === "classic" ?
+
+                                  <Grid className="QuesMrktUpr">
+                                    {/* {console.log("data1", data.type)} */}
+                                    <Grid container direction="row">
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="QuesMrkt">
+                                          <h1>{data?.question}</h1>
+                                        </Grid>
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="onlineBox">
+                                          {data?.options.map((data3) => (
+                                            <>
+                                              {/* { console.log('data3',data3)}  */}
+
+                                              <Grid><FormControlLabel
+
+                                                control={<Checkbox
+
+                                                  value={data3}
+                                                  checked={this.state.newTask.options ? this.state.newTask.options : null}
+                                                  onChange={
+                                                    this.options
+                                                  }
+                                                  name={data3}
+
+                                                  color="primary"
+                                                />} />{data3}</Grid>
+                                            </>))}
+                                          {/* <Grid><FormControlLabel control={<Checkbox name="checkedB" color="primary" />} label="asdasdasd" /></Grid>
+                                                            <Grid><FormControlLabel control={<Checkbox name="checkedB" color="primary" />} label="asdasdasdsad" /></Grid>
+                                                            <Grid><FormControlLabel control={<Checkbox name="checkedB" color="primary" />} label="asdasd" /></Grid> */}
+                                          {data?.other === true && (
+                                            <Grid className="otherBrdrUpr">
+                                              <FormControlLabel
+                                                control={<Checkbox
+                                                  name="other"
+                                                  color="primary"
+                                                  checked={this.state.newTask.other ? this.state.newTask.other : null}
+                                                  onChange={(e) =>
+                                                    this.otheranswer(e.target.checked, "value")
+                                                  }
+                                                  value="checkedB"
+                                                />
+                                                }
+                                                label="other" />
+                                              {/* <Grid  className="otherBorder"></Grid> */}
+                                              {this.state.otherField && (
+                                                <input type="text"
+                                                  onChange={(e) => { this.updateEntry2(e, "other") }
+                                                  }
+                                                  name="other"></input>
+                                              )}
+                                            </Grid>
+                                          )}
+                                        </Grid>
+                                      </Grid>
+
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data._id)}>Submit Answer</Button></Grid>
+                                        {/* {console.log('data', data)} */}
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+                                  :
+                                  <Grid className="QuesMrktUpr">
+                                    {/* {console.log("data2", data.type)} */}
+                                    <Grid container direction="row">
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="QuesMrkt">
+                                          {/* <Grid><a><img src={require('../../assets/images/germanMedical.png')} alt="" title="" /></a></Grid> */}
+                                          {/* <Grid><a><img src={require('../../assets/images/closefancy.png')} alt="" title="" /></a></Grid> */}
+                                        </Grid>
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <h1>{data.question}</h1>
+                                        <p>{data.description}</p>
+
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+
+                                        <Grid className="rateExp">
+                                          {/* <h3>How would you rate your experience with us?</h3> */}
+                                          <Grid>
+                                            <ul >
+                                              <li ><a onClick={() => this.setRating(1)}>1</a></li>
+                                              <li><a onClick={() => this.setRating(2)}>2</a></li>
+                                              <li><a onClick={() => this.setRating(3)}>3</a></li>
+                                              <li><a onClick={() => this.setRating(4)}>4</a></li>
+                                              <li><a onClick={() => this.setRating(5)}>5</a></li>
+                                              <li><a onClick={() => this.setRating(6)}>6</a></li>
+                                              <li><a onClick={() => this.setRating(7)}>7</a></li>
+                                              <li><a onClick={() => this.setRating(8)}>8</a></li>
+                                              <li><a onClick={() => this.setRating(9)}>9</a></li>
+                                              <li><a onClick={() => this.setRating(10)}>10</a></li>
+                                            </ul>
+                                          </Grid>
+                                        </Grid>
+
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data._id)}>Submit Feedback</Button></Grid>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>}
+                              </>
+                            )
+
+                            )
+                          ))}</Grid>    </Grid>
+                                  <Grid item xs={12} md={12}>
+                                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2()}>Final Submit</Button></Grid>
+                                      </Grid>
+                      {/* <div>
                         {this.state.allTrack &&
                           this.state.allTrack.length > 0 ? (
                           <div>
@@ -1202,7 +1426,7 @@ class Index extends Component {
                           : (
                             <EmptyData />
                           )}
-                      </div>
+                      </div> */}
                       {/* <ViewTimeline date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
                     </Grid>
                   </Grid>
@@ -1918,7 +2142,7 @@ class Index extends Component {
                                 updateTrack={this.state.updateTrack}
                               />
                             )}
-                            {this.state.current_select === "respiration" && (
+                            {/* {this.state.current_select === "respiration" && (
                               <RespirationField
                                 cur_one={this.state.cur_one}
                                 FileAttachMulti={this.FileAttachMulti}
@@ -1936,7 +2160,7 @@ class Index extends Component {
                                 updateEntryState1={this.updateEntryState1}
                                 updateTrack={this.state.updateTrack}
                               />
-                            )}
+                            )} */}
                           </Grid>
                         </Grid>
                       </Grid>
@@ -1944,7 +2168,7 @@ class Index extends Component {
                     {/* End of Model setup */}
 
                     {/* Model setup */}
-                    <AddEntry
+                    {/* <AddEntry
                       settings={this.props.settings}
                       new_entry={this.props.new_entry}
                       openBy="patient"
@@ -1952,7 +2176,7 @@ class Index extends Component {
                       value="diagnosis"
                       onChange={this.SelectOption}
                       handleCloseEntry={this.handleCloseEntry}
-                    />
+                    /> */}
                     {/* End of Model setup */}
 
                     <Grid className="Personal_dash">
@@ -1996,7 +2220,7 @@ class Index extends Component {
                   {/* End of Website Right Content */}
                 </Grid>
               )}
-              {this.state.isGraph && (
+              {/* {this.state.isGraph && (
                 <GraphView
                   date_format={
                     this.props.settings &&
@@ -2012,7 +2236,7 @@ class Index extends Component {
                   current_Graph={this.state.current_Graph}
                   CloseGraph={this.CloseGraph}
                 />
-              )}
+              )} */}
             </Grid>
           </Grid>
           <FloatArrowUp stateLanguageType={this.props.stateLanguageType} />

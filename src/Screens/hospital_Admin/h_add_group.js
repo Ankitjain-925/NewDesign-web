@@ -47,7 +47,8 @@ class Index extends Component {
       house_logo: "",
       instituteId: '',
       showHouses: false,
-      editId: ''
+      editId: '',
+      image: []
     };
   }
   //open the institute group
@@ -70,7 +71,7 @@ class Index extends Component {
 
   EditInstitute = (instituteId) => {
     let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);
-    this.setState({ openGroup: true, institute_groups: result, houses: result?.houses });
+    this.setState({ openGroup: true, institute_groups: result, houses: result?.houses, image: [{filename: result.group_logo, filetype: "png"}]});
   };
 
   editHospital = (editData) => {
@@ -363,7 +364,6 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let {} = translate;
-
     return (
       <Grid 
       className={
@@ -380,11 +380,11 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Mobile menu */}
-                <H_LeftMenuMobile isNotShow={true} currentPage="more" />
+                <H_LeftMenuMobile isNotShow={true} currentPage="groups" />
                 {/* End of mobile menu */}
 
                 {/* Website Menu */}
-                <H_LeftMenu isNotShow={true} currentPage="more" />
+                <H_LeftMenu isNotShow={true} currentPage="groups" />
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10} className="adminMenuRghtUpr">
@@ -408,7 +408,7 @@ class Index extends Component {
                             item
                             xs={12}
                             md={4}
-                            onClick={() => this.onClickInstituteGroup(item)}
+                            onClick={() =>  this.EditInstitute(item._id)}
                           >
                             <Grid className="medcalFZCntnt">
                               <Grid className="presEditDot scndOptionIner">
@@ -488,7 +488,7 @@ class Index extends Component {
                       <Grid
                         xs={12}
                         md={4}
-                        onClick={() => this.onClickInstituteGroup("item")}>
+                       >
                         <Grid className="medcalFZCntnt bg-color-card cursor-pointer" onClick={() => {
                           this.openInstitute();
                         }}>
@@ -652,7 +652,13 @@ class Index extends Component {
                                   </Grid>
                                   <FileUploader
                                     name="group_logo"
+                                    attachfile={
+                                      this.state.image
+                                        ? this.state.image
+                                        : []
+                                    }
                                     fileUpload={(file) => { this.fileUpload(file, 'group_logo') }}
+                                    comesFrom="journal"
                                     isMulti={false}
                                   />
                                 </Grid>
@@ -730,14 +736,7 @@ class Index extends Component {
                                 <Grid className="spclSaveBtn saveNclose">
                                 <Button onClick={this.openHospitalModal}>+ Enter Hospitals</Button>
                               </Grid>
-                                {/* <Button
-                                  roomArray={this.state?.institute_groups?.hospitals}
-                                  label="Enter Houses"
-                                  name="house_name"
-                                  comesFrom="admin"
-                                  institute_id={this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''}
-                                  onChange={(e) => this.updateEntryState3(e)}
-                                /> */}
+                            
                               </Grid>
                               <Grid className="spclSaveBtn saveNclose">
                                 <Button onClick={this.SaveGroup}>Save</Button>

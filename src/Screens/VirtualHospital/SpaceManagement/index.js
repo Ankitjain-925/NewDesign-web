@@ -308,7 +308,11 @@ class Index extends Component {
       this.setState({ showError: true })
     }
   };
-
+   //For change Institutes
+   MoveInstitute = () => {
+    this.props.houseSelect({value: null});
+    this.props.history.push('/virtualHospital/institutes')
+  };
   onEditspec = (data) => {
     this.setState({ speciality: data, openSpecl: true });
   };
@@ -356,12 +360,21 @@ class Index extends Component {
                 {/* Start of Right Section */}
                 <Grid item xs={12} md={11}>
                   <Grid className="topLeftSpc">
+                  <Grid className="extSetting">
+                      <a onClick={()=>this.MoveInstitute()}>
+                          <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
+                          Back to Change Hospital</a>
+                  </Grid>
+                  <Grid container direction="row" alignItems="center">
+                  <Grid item xs={6} sm={6} md={6}>
                     <Grid className="spcMgntH1"><h1>Space Management</h1></Grid>
-                    <Grid item xs={12} sm={6} md={6} className="addFlowRght">
-                      <a onClick={this.handleOpenSpecl}>
-                        + Add a new Speciality
-                      </a>
-                    </Grid>
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={6} className="addFlowRght">
+                    <a onClick={this.handleOpenSpecl}>
+                      + Add a new Speciality
+                    </a>
+                  </Grid>
+                  </Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
@@ -384,10 +397,22 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                            <input name="Search" placeholder="Search" value={this.state.SearchValue} onChange={this.searchFilter} />
-                            <a onClick={this.handleSearch}>
-                              <img src={require('assets/virtual_images/search-entries.svg')} alt="" title=""
-                              />
+                          {this.state.showinput &&<input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
+                              <a onClick={this.handleSearch}>
+                                {!this.state.showinput ? <img
+                                  src={require("assets/virtual_images/search-entries.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />:
+                                 <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                />}
+                            
+                           
                             </a>
                             {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                           </Grid>

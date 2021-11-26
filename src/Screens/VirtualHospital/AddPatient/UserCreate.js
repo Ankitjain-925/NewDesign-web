@@ -26,6 +26,8 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from 'Screens/Components/Loader/index';
 import SPECIALITY from 'speciality';
+import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from 'Screens/Components/GetMetaData/index.js';
 import DateFormat from 'Screens/Components/DateFormat/index'
 import {
@@ -895,6 +897,30 @@ class Index extends Component {
 
 
         return (
+            <Grid
+        className={
+          this.props.settings &&
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
+            ? "homeBg homeBgDrk"
+            : "homeBg"
+        } >
+        <Grid className="homeBgIner">
+          <Grid container direction="row" justify="center">
+            <Grid item xs={12} md={12}>
+              <Grid container direction="row">
+                {/* Website Menu */}
+                <LeftMenu isNotShow={true} currentPage="profile" />
+                <LeftMenuMobile isNotShow={true} currentPage="profile" />
+                {/* Website Mid Content */}
+                <Grid item xs={12} md={10} lg={8}>
+                  <Grid className="profilePkg ">
+                    <Grid className="profilePkgIner1">
+                      {/* Tabs  */}
+                      
+                    </Grid>
+                    <Grid className="profilePkgIner2">
             <div>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
@@ -992,7 +1018,6 @@ class Index extends Component {
                 <Grid container direction="row" alignItems="center">
                     <Grid item xs={12} md={8}>
                         <Grid className="profileInfo">
-
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={12}>
@@ -1088,9 +1113,8 @@ class Index extends Component {
                                     <Grid item xs={12} md={8}>
                                         <label>{city}</label>
                                         <Grid>
-
                                             <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
-                                    </Grid>
+                                        </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>{postal_code}</label>
                                         <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
@@ -1126,13 +1150,13 @@ class Index extends Component {
                                         <Grid>
                                             {this.updateFLAG(this.state.UpDataDetails.phone) && this.updateFLAG(this.state.UpDataDetails.phone) !== '' &&
                                                 <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
-                                            <input type="text"
-                                                className="Mobile_extra"
-                                                placeholder={phone}
-                                                name="phone"
-                                                onChange={this.updateEntryState1}
-                                                value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone)}
-                                            />
+                                                <input type="text"
+                                                    className="Mobile_extra"
+                                                    placeholder={phone}
+                                                    name="phone"
+                                                    onChange={this.updateEntryState1}
+                                                    value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone)}
+                                                />
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}></Grid>
@@ -1147,14 +1171,14 @@ class Index extends Component {
                                         <Grid>
                                             {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
                                                 <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
-                                            <input type="text"
-                                                className="Mobile_extra"
-                                                placeholder={mobile}
-                                                name="mobile"
-                                                type="text"
-                                                onChange={this.updateEntryState1}
-                                                value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile)}
-                                            />
+                                                <input type="text"
+                                                    className="Mobile_extra"
+                                                    placeholder={mobile}
+                                                    name="mobile"
+                                                    type="text"
+                                                    onChange={this.updateEntryState1}
+                                                    value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile)}
+                                                />
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}></Grid>
@@ -1259,10 +1283,6 @@ class Index extends Component {
                         <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
                     </Grid>
                 </Grid>
-
-
-
-
                 <Grid className="insrnceTbl">
                     <Grid><h3>{insurance}</h3></Grid>
                     <Grid className="profileIdRght">
@@ -1406,6 +1426,18 @@ class Index extends Component {
                     </Grid>
                 </Grid>
             </div>
+            </Grid>
+                    {/* End of Tabs */}
+                  </Grid>
+                </Grid>
+                {/* Website Right Content */}
+                <Grid item xs={12} md={3}></Grid>
+                {/* End of Website Right Content */}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
         );
     }
 }

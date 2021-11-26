@@ -9620,6 +9620,13 @@ button.crdoLghtBlu2 {
     border-top: 3px solid #00ABAF;
     margin-bottom: 35px;
 }
+/* added by tanya */
+.otherBrdrUpr input[type=text]{
+    border:none;
+    border-bottom: 1px solid grey;
+    margin-left:20px;
+    
+}
 .QuesMrktUpr h1 {
     color: #000808;
     font-size: 20px;
@@ -9775,6 +9782,27 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.serchInput {
+    display: inline;
+    margin: auto 9px;
+    border-radius: 7px;
+    padding: 8px;
+}
+.recaptchaMargin{
+    margin-top:12px;
+    margin-bottom: 12px;
+}
+.addTimeTask1 {
+    position: relative !important;
+    margin-left: 10px !important;
+}
+.addTimeTask1span {
+    position: absolute !important;
+    color: red !important;
+}
+.adminMenuRghtUpr a.academy_ul ul{
+    min-width: 200px !important;
+}
 .darkTheme .fillDia .addStafSelect div{
     background-color: #192020;
 }

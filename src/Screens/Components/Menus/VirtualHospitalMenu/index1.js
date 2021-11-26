@@ -161,7 +161,7 @@ class Index extends Component {
                 </span></a></li>
                          <li onClick={this.moveInstitute}><a href=""><img src={require('assets/virtual_images/hospitalIcon.png')} alt="" title="" />
                          <span>
-                        Change House
+                        Change Hospital
                 </span></a></li>
                          <li className={this.props.currentPage === "more"? "active-menu":""}>
                             <a className="moreMenu">

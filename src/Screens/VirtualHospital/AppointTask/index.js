@@ -12,6 +12,11 @@ import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
 import moment from "moment";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
+import TooltipTrigger from "react-popper-tooltip";
+import "react-popper-tooltip/dist/styles.css";
+import {
+  getLanguage
+} from "translations/index"
 import Select from "react-select";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -29,6 +34,7 @@ import {
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from "react-router-dom";
+import { AddFavDoc2 } from "Screens/Components/BasicMethod/index";
 
 const options = [
   { value: "data1", label: "Data1" },
@@ -39,6 +45,15 @@ const options = [
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
 
+const modifiers = [
+  {
+    name: "offset",
+    enabled: true,
+    options: {
+      offset: [0, 4],
+    },
+  },
+];
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
 }
@@ -58,11 +73,14 @@ class Index extends Component {
       tabvalue: 0,
       selectedOption: null,
       events: [],
+      finaldata: [],
+      myEventsList: [],
+      appioinmentTimes: [],
     };
   }
 
   componentDidMount() {
-    this.getAddTaskData();
+    this.getTaskData();
   }
 
   handleChangeTab = (event, tabvalue) => {
@@ -72,45 +90,307 @@ class Index extends Component {
     this.setState({ selectedOption });
   };
 
+  GetTime = (start_time) => {
+    let da1 = new Date();
+    if (start_time) {
+      var t1 = start_time.split(":");
+    }
+
+    if (t1 && t1.length > 0) {
+      da1.setHours(t1[0]);
+      da1.setMinutes(t1[1]);
+    } else {
+      da1.setHours("00");
+      da1.setMinutes("00");
+    }
+    if (
+      this.props.settings &&
+      this.props.settings.setting &&
+      this.props.settings.setting.time_format &&
+      this.props.settings.setting.time_format === "12"
+    ) {
+      return moment(da1).format("hh:mm a");
+    } else {
+      return moment(da1).format("HH:mm");
+    }
+  };
+
   //get Add task data
-  getAddTaskData = () => {
+  getTaskData = () => {
+    var finaldata = [];
     this.setState({ loaderImage: true });
     axios
       .get(
-        sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
+        sitedata.data.path + "/vh/getAppointTask/" + this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
-        this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
-          {
-            var data1 =
-              response.data.data?.length > 0 &&
-              response.data.data.map((data, index) => {
-                if (data.due_on?.date) {
-                  var d1 = data.due_on?.date
-                    ? new Date(data.due_on?.date)
-                    : new Date();
-                  var d2 = data.due_on?.date
-                    ? new Date(data.due_on?.date)
-                    : new Date();
-                  d2.setDate(d2.getDate() + 1);
+          let indexout = 0;
+          let appioinmentTimes = [];
+          response.data.data &&
+            response.data.data.length > 0 &&
+            response.data.data.map((data, index) => {
+              if (data && data.task_name) {
+                if (data &&
+                  data?.due_on &&
+                  data?.due_on?.time &&
+                  data?.due_on?.date &&
+                  data?.task_name) {
+                  var myTime = data?.due_on?.time
+                  var t1 = myTime.substr(11, 5);
+                  var Time1 = t1.split(":");
+                  // var t2 = myTime.substr(11, 5);
+                  // var Time2 = t2.split(":");
+                  var Time2 = ['06', '23']
+                  var dat1 = new Date(data?.due_on?.date);
+                  var dat2 = new Date(data?.due_on?.date);
+                  if (Time1 && Time1.length > 0) {
+                    dat1.setHours(Time1[0])
+                    dat1.setMinutes(Time1[1])
+                  } else {
+                    dat1.setHours("00");
+                    dat1.setMinutes("00");
+                  }
+                  if (Time2 && Time2.length > 0) {
+                    dat2.setHours(Time2[0]);
+                    dat2.setMinutes(Time2[0]);
+                  } else {
+                    dat2.setHours("00");
+                    dat2.setMinutes("00");
+                  }
+                  this[`${indexout}_ref`] = React.createRef();
+                  appioinmentTimes.push({
+                    start: new Date(dat1).valueOf(),
+                    end: new Date(dat2).valueOf(),
+
+                  });
                   var title = data?.task_name;
-                  return {
-                    start: new Date(d1),
-                    end: new Date(d2),
-                    title: title,
+                  finaldata.push({
                     id: index,
-                  };
+                    title: title,
+                    start: new Date(dat1),
+                    end: new Date(dat2),
+                    indexout: indexout,
+                    fulldata: [data],
+                  });
+                  this.setState({ myEventsList: finaldata, appioinmentTimes: appioinmentTimes, })
                 }
-              });
-            if (data1 && data1.length > 0) {
-              this.setState({ events: data1 });
-            }
-          }
+             }else{
+
+             }
+
+            })
         }
-        this.setState({ loaderImage: false });
-      });
+        setTimeout(() => {
+          this.setState({ loaderImage: false });
+        }, 3000);
+      })
+  };
+
+  EventComponent = (data) => {
+    return (
+      <TooltipTrigger
+        placement="right"
+        trigger="click"
+        tooltip={(datas) =>
+          this.Tooltip({
+            getTooltipProps: datas.getTooltipProps,
+            getArrowProps: datas.getArrowProps,
+            tooltipRef: datas.tooltipRef,
+            arrowRef: datas.arrowRef,
+            placement: datas.placement,
+            event: data.event,
+          })
+        }
+        className="ThisEventShower"
+        modifiers={modifiers}
+      >
+        {({ getTriggerProps, triggerRef }) => (
+          <span
+            {...getTriggerProps({
+              ref: triggerRef,
+              className: "trigger",
+              /* your props here */
+            })}
+          // onClick={() => this.CallEvents(data.event)}
+          >
+            <p className="calendar-cont"> {data.event.title} </p>
+            <p className="calendar-date">
+              {" "}
+              {moment(data.event.start).format("hh:mm") +
+                "-" +
+                moment(data.event.end).format("hh:mm")}{" "}
+            </p>
+          </span>
+        )}
+      </TooltipTrigger>
+    );
+  };
+
+  EventDaysComponent = (data) => {
+    return (
+      <TooltipTrigger
+        placement="right"
+        trigger="click"
+        tooltip={(datas) =>
+          this.Tooltip({
+            getTooltipProps: datas.getTooltipProps,
+            getArrowProps: datas.getArrowProps,
+            tooltipRef: datas.tooltipRef,
+            arrowRef: datas.arrowRef,
+            placement: datas.placement,
+            event: data.event,
+          })
+        }
+        modifiers={modifiers}
+      >
+        {({ getTriggerProps, triggerRef }) => (
+          <span
+            {...getTriggerProps({
+              ref: triggerRef,
+              className: "trigger",
+              /* your props here */
+            })}
+          // onClick={() => this.CallEvents(data.event)}
+          >
+            <p
+              style={{
+                backgroundColor: "none",
+                fontSize: 11,
+                margin: 0,
+                fontWeight: 700,
+              }}
+            >
+              {" "}
+              {data.event.title}:{" "}
+              {moment(data.event.start).format("hh:mm A") +
+                "-" +
+                moment(data.event.end).format("hh:mm A")}
+            </p>
+            {/* <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, lineHeight: '12px' }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p> */}
+          </span>
+        )}
+      </TooltipTrigger>
+    );
+  };
+
+  // DateCellCompnent = ({ children, value }) => {
+  //   return React.cloneElement(Children.only(children), {
+  //     style: {
+  //       ...children.style,
+  //       // backgroundColor: value < CURRENT_DATE ? 'lightgreen' : 'lightblue',
+  //     },
+  //   });
+  // };
+
+  Tooltip = ({
+    getTooltipProps,
+    getArrowProps,
+    tooltipRef,
+    arrowRef,
+    placement,
+    event,
+  }) => {
+    let translate = getLanguage(this.props.stateLanguageType)
+
+    let {
+      DetailsQuestions,
+      vdo_call,
+      office_visit,
+      consultancy_appintment,
+    } = translate;
+    return (
+      <div
+        {...getTooltipProps({
+          ref: tooltipRef,
+          className: "tooltip-container",
+          closeOnReferenceHidden: false,
+        })}
+      >
+        <div
+          {...getArrowProps({
+            ref: arrowRef,
+            "data-placement": placement,
+            className:
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
+                ? "darktheme tooltip-arrow "
+                : "tooltip-arrow ",
+          })}
+        />
+
+        {event &&
+          event.fulldata.length > 0 &&
+          event.fulldata.map((data, index) => (
+            <Grid
+              className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "darktheme meetBoxCntnt"
+                  : "meetBoxCntnt"
+              }
+            >
+              <Grid className="meetCourse">
+                <Grid className="meetCloseBtn">
+                  {/* <a><img src={require('assets/images/three_dots_t.png')} alt="" title="" /></a> */}
+                  {/* <a><img src={require('assets/images/close-search.svg')} alt="" title="" /></a> */}
+                </Grid>
+                <Grid className="meetVdo">
+                  <Grid className="meetVdoLft">
+                    {data.appointment_type == "online_appointment" && (
+                      <img
+                        src={require("assets/images/video-call.svg")}
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    {data.appointment_type == "practice_days" && (
+                      <img
+                        src={require("assets/images/cal.png")}
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    {data.appointment_type == "appointments" && (
+                      <img
+                        src={require("assets/images/office-visit.svg")}
+                        alt=""
+                        title=""
+                      />
+                    )}
+                    <span>
+
+                      {data.appointment_type == "practice_days"
+                        ? consultancy_appintment
+                        : data.appointment_type == "online_appointment"
+                          ? vdo_call
+                          : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
+                            ? this.state.appointmentDatas.appointments[0].custom_text : office_visit
+                      }
+                    </span>
+                  </Grid>
+                  <Grid className="meetVdoRght">
+                    <p>
+                      {moment(new Date(data.date), "MM-DD-YYYY").format(
+                        "D MMM"
+                      )}
+                      , {this.GetTime(data.start_time)}
+                    </p>
+                  </Grid>
+                </Grid>
+                <Grid className="meetDetail">
+                  <h1>{event.title}</h1>
+                  <span>{DetailsQuestions}</span>
+                  <p>{data.annotations}</p>
+                </Grid>
+              </Grid>
+            </Grid>
+          ))}
+      </div>
+    );
   };
 
   render() {
@@ -119,9 +399,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -168,14 +448,29 @@ class Index extends Component {
                           <Grid className="calenderDetails">
                             <Grid className="getCalapoint">
                               <Grid className="getCalBnr">
-                                {console.log("events", this.state.events)}
                                 <Calendar
                                   localizer={localizer}
-                                  events={this.state.events}
-                                  value={this.state.d1}
+                                  events={this.state.myEventsList}
+                                  // value={this.state.d1}
                                   startAccessor="start"
                                   endAccessor="end"
+                                  // style={{ minHeight: 900 }}
+                                  popup
                                   style={{ minHeight: 900 }}
+                                  onShowMore={(events, date) => { }}
+                                  messages={{
+                                    showMore: (total) => (
+                                      <div
+                                        style={{ cursor: "pointer" }}
+                                        onMouseOver={(e) => {
+                                          e.stopPropagation();
+                                          e.preventDefault();
+                                        }}
+                                      >
+                                        {`+${total} more`}
+                                      </div>
+                                    ),
+                                  }}
                                   components={{
                                     month: { event: this.EventComponent },
                                     week: { event: this.EventComponent },
