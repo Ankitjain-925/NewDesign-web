@@ -217,7 +217,7 @@ class Index extends Component {
 
   //for Searching
   handleSearch = () => {
-    console.log("Hi! You're searching special headlines.")
+    // console.log("Hi! You're searching special headlines.")
   }
 
   searchFilter = (e) => {
