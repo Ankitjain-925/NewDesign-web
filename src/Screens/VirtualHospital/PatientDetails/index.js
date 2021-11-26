@@ -262,41 +262,8 @@ class Index extends Component {
             }>
                 <Grid className="homeBgIner vh-section">
                     <Grid container direction="row" justify="center">
-                    {this.state.isGraph && (
-                        <GraphView
-                            date_format={
-                                this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.date_format
-                            }
-                            time_format={
-                                this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.time_format
-                            }
-                            personalinfo={this.state.personalinfo}
-                            current_Graph={this.state.current_Graph}
-                            CloseGraph={this.CloseGraph}
-                        />
-                    )}
-                    {!this.state.isGraph && (
-                        <Grid item xs={12} md={12}>
-
-                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
-                            <Grid className="tskTabsMob">
-                                <AppBar position="static" className="tskTabs">
-                                    <Tabs value={valueMob} onChange={this.handleChangeTabMob}>
-                                        <Tab label="Overview" className="tsktabIner tsktabInerMob" />
-                                        <Tab label="Journal" className="tsktabIner" />
-                                        <Tab label="Tasks" className="tsktabIner" />
-                                        <Tab label="Documents / Files" className="tsktabIner" />
-                                        <Tab label="Room" className="tsktabIner" />
-                                        <Tab label="Personal info" className="tsktabIner" />
-                                    </Tabs>
-                                </AppBar>
-                            </Grid>
-                            <Grid container direction="row">
-                                {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
+                        {!this.state.isGraph && (
+                            <Grid item xs={12} md={12}>
 
                                 <LeftMenuMobile isNotShow={true} currentPage="chat" />
                                 <Grid className="tskTabsMob">
@@ -311,19 +278,13 @@ class Index extends Component {
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
-                                {/* End of Mid Section */}
-                                {/* Start of Right Section */}
-                                <Grid item xs={11} md={7}>
-                                    {/* Tabs Content */}
-                                    <Grid className="tskTabsweb">
-                                        <AppBar position="static" className="tskTabs">
-                                            <Tabs value={value} onChange={this.handleChangeTab}>
-                                                <Tab label="Journal" className="tsktabIner" />
-                                                <Tab label="Tasks" className="tsktabIner" />
-                                                <Tab label="Documents / Files" className="tsktabIner" />
-                                                <Tab label="Personal info" className="tsktabIner" />
-                                            </Tabs>
-                                        </AppBar>
+                                <Grid container direction="row">
+                                    {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
+
+
+                                    {/* Start of Menu */}
+                                    <Grid item xs={12} md={1} className="MenuLeftUpr">
+                                        <LeftMenu isNotShow={true} currentPage="chat" />
                                     </Grid>
                                     {/* End of Menu */}
                                     {/* Start of Mid Section */}
@@ -379,45 +340,24 @@ class Index extends Component {
                                             {/* {value === 3 && <TabContainer>
                                             <PatientRoom />
                                         </TabContainer>} */}
-                                        {value === 3 && <TabContainer>
-                                            <PatientPersonalInfo />
-                                        </TabContainer>}
-                                    </div>
-                                    <div className="TabContainerMob">
-                                        {valueMob === 0 && <TabContainer>{
-                                            <LeftPatientData
-                                            upcoming_appointment={this.state.upcoming_appointment}
-                                            OpenGraph={this.OpenGraph}
-                                            date_format={
-                                                this.props.settings &&
-                                                this.props.settings.setting &&
-                                                this.props.settings.setting.date_format
-                                            }
-                                            time_format={
-                                                this.props.settings &&
-                                                this.props.settings.setting &&
-                                                this.props.settings.setting.time_format
-                                            }
-                                            from="patient" 
-                                            added_data={this.state.added_data}
-                                            MoveAppoint={this.MoveAppoint}
-                                            SelectOption={this.SelectOption}
-                                            personalinfo={this.state.personalinfo}
-                                            loggedinUser={this.state.cur_one}
-                                            downloadTrack={(data) => this.downloadTrack(data)}
-                                            DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
-
-                                        }</TabContainer>}
-                                        {valueMob === 1 && <TabContainer>
-                                            <PatientJournal />
-                                        </TabContainer>}
-                                        {valueMob === 2 && <TabContainer>
-                                            <PatientTasks />
-                                        </TabContainer>}
-                                        {valueMob === 3 && <TabContainer>
-                                            <PatientDocuments />
-                                        </TabContainer>}
-                                        {/* {valueMob === 4 && <TabContainer>
+                                            {value === 3 && <TabContainer>
+                                                <PatientPersonalInfo />
+                                            </TabContainer>}
+                                        </div>
+                                        <div className="TabContainerMob">
+                                            {valueMob === 0 && <TabContainer>{
+                                                <LeftPatientData />
+                                            }</TabContainer>}
+                                            {valueMob === 1 && <TabContainer>
+                                                <PatientJournal />
+                                            </TabContainer>}
+                                            {valueMob === 2 && <TabContainer>
+                                                <PatientTasks />
+                                            </TabContainer>}
+                                            {valueMob === 3 && <TabContainer>
+                                                <PatientDocuments />
+                                            </TabContainer>}
+                                            {/* {valueMob === 4 && <TabContainer>
                                             <PatientRoom />
                                         </TabContainer>} */}
                                             {valueMob === 4 && <TabContainer>
@@ -428,8 +368,7 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                    )}
+                        )}
                     </Grid>
                     {this.state.isGraph && (
                         <GraphView

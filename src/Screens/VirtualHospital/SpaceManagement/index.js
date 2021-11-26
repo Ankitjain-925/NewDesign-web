@@ -12,7 +12,7 @@ import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
 import { withRouter } from "react-router-dom";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -68,7 +68,6 @@ class Index extends Component {
   //   this.props.LanguageFetchReducer(languageType);
   //   this.anotherPatient();
   // };
-
 
   //to save and edit the speciality
   SaveSpeciality = () => {
@@ -181,19 +180,15 @@ class Index extends Component {
     });
   };
 
-  //for Searching
-  handleSearch = () => {
-    console.log("Hi! You're searching special headlines.")
-  }
-
   searchFilter = (e) => {
-    this.setState({ SearchValue: e.target.stateLoginValueAim })
+    this.setState({ SearchValue: e.target.value})
     let track1 = this.state.specialityData2;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
-      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+      return JSON.stringify(obj.specialty_name).toLowerCase().includes(e.target?.value?.toLowerCase());
     });
     this.setState({ specialityData: FilterFromSearch1 })
   }
+  
 
   //for update speciality name
   updateEntryState = (e) => {
@@ -287,8 +282,6 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Specialities, DeleteSpeciality, Iunderstandthat, AddSpeciality } = translate;
     const { stateLoginValueAim, House } = this.props;
-    const { specialityData2 } = this.state
-    console.log("specialityData2",this.state.specialityData2)
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -364,7 +357,7 @@ class Index extends Component {
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
                           {this.state.showinput &&<input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
-                              <a onClick={this.handleSearch}>
+                              <a>
                                 {!this.state.showinput ? <img
                                   src={require("assets/virtual_images/search-entries.svg")}
                                   alt=""
@@ -375,11 +368,9 @@ class Index extends Component {
                                   src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput,SearchValue: '', specialityData: this.state.specialityData2, })}}
                                 />}
-                            
-                           
-                            </a>
+                              </a>
                             {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                           </Grid>
                         </Grid>
