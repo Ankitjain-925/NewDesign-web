@@ -16,7 +16,7 @@ import PatientDocument from "Screens/Patient/MyDocuments/index";
 import PatientOnline from "Screens/Patient/More/OnineCoure";
 import PaitnetViewCourses from "Screens/Patient/More/viewCourses";
 import PatientTracker from "Screens/Patient/Tracker/tracker";
-import PatientQuestionnaire from "Screens/Patient/Questionnaire/index.js";
+import Patientjourney from "Screens/Patient/Patientjourney/index.js";
 import PatientTimeLine from "Screens/Patient/Journal/index";
 import PatientChats from "Screens/Patient/Chat/index";
 import PatientTimeLine1 from "Screens/ViewTimelineComponent/index.js";
@@ -95,7 +95,7 @@ import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
 import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
-
+import AddPatient from "Screens/VirtualHospital/AddPatient/index";
 
 class Routermain extends Component {
   render() {
@@ -170,8 +170,8 @@ class Routermain extends Component {
             />
             <Route
               exact
-              path="/patient/Questionnaire"
-              render={(props) => <PatientQuestionnaire {...props} />}
+              path="/patient/patient-journey"
+              render={(props) => <Patientjourney {...props} />}
             />
             <Route
               exact
@@ -514,7 +514,11 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <PatientDetail {...props} />}
             />
-
+             <Route
+              path="/virtualHospital/new-user"
+              exact={true}
+              render={(props) => <AddPatient {...props} />}
+            />
             <Route
               path="/virtualhospital/assign"
               exact={true}

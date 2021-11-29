@@ -243,10 +243,11 @@ export const CurrentBed = (bed) => {
 
 };
 
-export const PatientMoveFromHouse  = async (case_id, user_token, status, inhospital) => {
+export const PatientMoveFromHouse  = async (case_id, user_token, status, inhospital, viewQuestionaire) => {
+  let newObj = viewQuestionaire ? { status: status, inhospital: inhospital, viewQuestionaire: viewQuestionaire} : { status: status, inhospital: inhospital}
   let response = await axios.put(
-    sitedata.data.path + "/cases/AddCase/"+ case_id,
-    { status: status, inhospital: inhospital},
+    sitedata.data.path + "/cases/AddCase/"+ case_id, 
+    newObj,
     commonHeader(user_token))
     if (response) {
         return response

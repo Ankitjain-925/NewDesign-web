@@ -86,7 +86,7 @@ class Index extends Component {
     }
 
     handleChangeTab = (event, value) => {
-        this.setState({ value });
+        this.setState({ value });   
     };
     handleChangeTabMob = (event, valueMob) => {
         this.setState({ valueMob });
@@ -95,7 +95,7 @@ class Index extends Component {
     getUpcomingAppointment() {
         var user_token = this.props.stateLoginValueAim.token;
         axios
-            .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat/6124d4b92a3d8b47fbb03d03", commonHeader(user_token))
+            .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat/"+this.props.match.params.id, commonHeader(user_token))
             .then((response) => {
                 var upcomingData =
                     response.data.data &&
@@ -150,7 +150,7 @@ class Index extends Component {
     getPesonalized = () => {
         this.setState({ loaderImage: true });
         axios
-            .get(sitedata.data.path + "/UserProfile/updateSetting/6124d4b92a3d8b47fbb03d03", commonHeader(this.props.stateLoginValueAim.token))
+            .get(sitedata.data.path + "/UserProfile/updateSetting/"+this.props.match.params.id, commonHeader(this.props.stateLoginValueAim.token))
             .then((responce) => {
                 if (
                     responce.data.hassuccessed &&
@@ -182,7 +182,7 @@ class Index extends Component {
     rightInfo() {
         var user_token = this.props.stateLoginValueAim.token;
         axios
-            .get(sitedata.data.path + "/rightinfo/patient/6124d4b92a3d8b47fbb03d03",
+            .get(sitedata.data.path + "/rightinfo/patient/"+this.props.match.params.id,
                 commonHeader(user_token))
             .then((response) => {
                 this.setState({ personalinfo: response.data.data });
@@ -193,7 +193,7 @@ class Index extends Component {
     cur_one = async () => {
         var user_token = this.props.stateLoginValueAim.token;
         let user_id = this.props.stateLoginValueAim.user._id;
-        let response = await get_cur_one(user_token, "6124d4b92a3d8b47fbb03d03")
+        let response = await get_cur_one(user_token, this.props.match.params.id)
         this.setState({ cur_one: response?.data?.data });
     };
 

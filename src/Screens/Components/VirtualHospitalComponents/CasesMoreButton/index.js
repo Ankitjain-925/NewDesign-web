@@ -44,7 +44,6 @@ class Index extends React.Component {
     }
 
     getListOption=()=>{
-      console.log('this.props.quote?.wards?._id', this.props.quote?.wards?._id)
       var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
       this.setState({ AllRoom: AllRoom });
       this.GetAllBed();
@@ -185,7 +184,6 @@ class Index extends React.Component {
     }
 
     GetAllBed= async ()=>{
-      console.log('this.props.quote?.rooms?._id', this.props.quote?.rooms?._id)
       if(this.props.quote?.speciality?._id && this.props.quote?.wards?._id && this.props.quote?.rooms?._id && this.props?.House?.value){
         var response = await AllBed(this.props.quote?.speciality?._id, this.props.quote?.wards?._id, this.props.quote?.rooms?._id, this.props?.House?.value,
           this.props.stateLoginValueAim.token);
@@ -194,10 +192,7 @@ class Index extends React.Component {
             var finalBed = response?.data?.data.length>0 && response?.data?.data.map((bed)=>{
               return {value: bed, label: bed}
             });
-            this.setState({AllBeds: finalBed},
-              ()=>{
-                console.log('this.state.AllBeds',this.state.AllBeds)
-              })    
+            this.setState({AllBeds: finalBed})    
       }
       else{
         this.setState({AllBeds: []})  

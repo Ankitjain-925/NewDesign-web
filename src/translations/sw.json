@@ -1250,6 +1250,9 @@
 		"Exercise":"Zoezi",
 		"ChatwithCovidconsultant":"Ongea na mshauri wa Covid",
 		"verifyAccount":"Akaunti yako haijathibitishwa, tafadhali angalia akaunti yako ya barua pepe.",
-		"needUnblock": "Akaunti yako bado haijafunguliwa, tafadhali toa kitambulisho chako cha kitaalam au ikiwa umeiwasilisha hivi karibuni, tafadhali tupe hadi masaa 24 kuifungua."
+		"needUnblock": "Akaunti yako bado haijafunguliwa, tafadhali toa kitambulisho chako cha kitaalam au ikiwa umeiwasilisha hivi karibuni, tafadhali tupe hadi masaa 24 kuifungua.",
+		"fillreptcha":"Tafadhali jaza RECAPTCHA",
+		"Tachykardia":"Tachycardia",
+		"Currentpaincondition":"Hali ya maumivu ya sasa"
 	}
 }
