@@ -458,6 +458,7 @@
 		"appointment_booked": "Appointment booked successfully",
 		"upcming_apointment": "Upcoming appointments",
 		"office_visit": "Office visit",
+		"Task":"Task",
 		"cancel_apointmnt": "Cancel appointment",
 		"show_past_apointment": "Show past appointments",
 		"plz_write_short_explnation": "Please write a short explanation of why you have to cancel the appointment. Thank you.",
