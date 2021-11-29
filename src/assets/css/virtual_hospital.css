@@ -9782,11 +9782,28 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.renameButton{
+    background-color: #00ABAF !important;
+    padding:12px;
+    border-radius: 8px;
+}
+.renameButton span{
+    color: #fff!important;
+    font-weight: 500;
+}
 .serchInput {
-    display: inline;
-    margin: auto 9px;
-    border-radius: 7px;
-    padding: 8px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    margin-right:5px;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
 }
 .recaptchaMargin{
     margin-top:12px;
