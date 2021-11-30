@@ -65,7 +65,7 @@ class Index extends Component {
 
   getCase = ()=>{
     this.setState({ loaderImage: true });
-    let user_id = this.props.match.params.case_id;
+    let user_id = this.props.match.params.id;
         axios.get(
         sitedata.data.path + "/cases/AddCase/"+ user_id,
         commonHeader(this.props.stateLoginValueAim.token)

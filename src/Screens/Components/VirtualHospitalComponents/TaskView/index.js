@@ -80,7 +80,7 @@ class PointPain extends Component {
                     <Grid className={data.status === 'done' ? "attchDone" : "attchOpen"}>
                         <Button><label></label>{data.status}</Button>
                     </Grid>
-                    <Assigned assigned_to ={data.assigned_to}/>
+                    <Assigned assigned_to ={data.assinged_to}/>
                     <Grid item xs={6} md={6} className="spcMgntRght7 presEditDot scndOptionIner">
                         <a className="openScndhrf">
                             <img
