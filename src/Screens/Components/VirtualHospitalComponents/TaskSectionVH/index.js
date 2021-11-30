@@ -354,6 +354,38 @@ class Index extends Component {
               <button onClick={onClose}>No</button>
               <button
                 onClick={() => {
+                  this.removebtn(index);
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+  removebtn = (index) => {
+    this.setState({ message: null, openTask: false });
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1>Remove Comment ?</h1>
+            <p>Are you really want to remove this Comment?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
                   this.deleteClickComment(index);
                   onClose();
                 }}
@@ -375,7 +407,7 @@ class Index extends Component {
     this.setState({ newTask: state, openTask: true })
   }
 
-  editComment = (index) => {
+editComment = (index) => {
     this.setState({ editcomment: index });
 
   };
@@ -525,6 +557,40 @@ class Index extends Component {
           >
             <h1>Remove the Task ?</h1>
             <p>Are you sure to remove this Task?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.removeTask2(id);
+                  // onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
+  removeTask2 = (id) => {
+    this.setState({ message: null, openTask: false });
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1>Remove Task?</h1>
+            <p>Are you really want to remove this Task?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
               <button
@@ -1161,6 +1227,7 @@ class Index extends Component {
                                         name="comment"
                                           onChange={(e) => this.oNEditText(e, index) 
                                           }
+                                         
                                           onKeyDown={this.onKeyUp}
                                           value={data?.comment}
                                         >

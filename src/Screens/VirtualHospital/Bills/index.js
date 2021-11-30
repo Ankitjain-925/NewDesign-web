@@ -179,6 +179,39 @@ class Index extends Component {
                             <button onClick={onClose}>No</button>
                             <button
                                 onClick={() => {
+                                    this.removeBills2(data);
+                                    // onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
+    removeBills2 = (data) => {
+        // this.setState({ message: null, openTask: false });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+                        <h1>Remove Bill?</h1>
+                        <p>Are you really want to remove this Bill?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
                                     this.deleteClickBill(data);
                                     onClose();
                                 }}
