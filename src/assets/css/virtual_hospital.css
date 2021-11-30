@@ -1397,7 +1397,7 @@ a.conPainTime img {
     border-radius: 8px !important;
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
 }
 /* .allTimeSel span{
     width: 0px !important;
@@ -1407,7 +1407,7 @@ a.conPainTime img {
     background-color: #E1F7F7 !important;
     color: #00ABAF !important;
     border-color: transparent !important;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
 }
 .typeSel .css-1wa3eu0-placeholder{
     color: #00ABAF !important;
@@ -2441,7 +2441,7 @@ a.bedNum img {
     line-height: 18px;
     width: 100% !important;
     padding: 24px 17px;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
 }
 .srchLft div {
     width: 100%;
@@ -2486,7 +2486,7 @@ a.lineSort {
     font-size: 12px !important;
     width: 136px;
     display: inline-block;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
     text-align: left;
     margin-right: 22px;
 }
@@ -4771,6 +4771,9 @@ button.onlogyBtn {
 .enterSpclMain {
     padding: 38px 28px 12px 28px;
 }
+.enterSpcl {
+    margin-bottom: 12px;
+}
 .addSpeclClose {
     text-align: right;
 }
@@ -4795,9 +4798,6 @@ button.onlogyBtn {
     line-height: 12px;
     font-family: Muli;
     display: block;
-}
-.enterSpcl {
-    margin-bottom: 10px;
 }
 @media (max-width: 599px) {
   .addSpeclContnt {
@@ -5534,7 +5534,7 @@ button.downloadPDF:hover {
 .patntDropUpr {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
-    padding: 2px 2px;
+    padding: 3px 3px;
 }
 .invoiceID, .invoiceID .MuiFormControl-root {
     width: 100%;
@@ -6269,10 +6269,10 @@ button.downloadPDF:hover {
     line-height: 24px;
 }
 .taskNum {
-    width: 100%;
+    min-width: 176px;
     border-radius: 12px;
     background-color: #FAFAFA;
-    display: block;
+    display: inline-block;
     padding: 10px 18px 14px;
     margin-bottom: 18px;
 }
@@ -7049,7 +7049,7 @@ a.srchSort2 {
     font-size: 12px !important;
     width: 89px;
     display: inline-block;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
     text-align: left;
     margin-right: 22px;
 }
@@ -7076,7 +7076,7 @@ a.horzSort2 {
     line-height: 16px;
     display: inline-block;
     vertical-align: middle;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
     margin-right: 20px;
 }
 .showOnly span {
@@ -7269,7 +7269,7 @@ a.horzSort2 {
 }
 .addStafSelect {
     width: 100%;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
     text-align: left;
     font-size: 14px;
     font-weight: 600;
@@ -7279,7 +7279,7 @@ a.horzSort2 {
 .spclSelect {
     font-size: 12px !important;
     width: 100%;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
     text-align: left;
 }
 .spclSelect div div div:first-child {
@@ -7293,7 +7293,7 @@ a.horzSort2 {
     border-radius: 4px;
     background-color: #ECCAFF;
     text-align: center;
-    font-family: Muli !important;
+    font-family: 'Mulish', sans-serif !important;
 }
 .spcldropdown, .spcldropdown2 {
     margin-bottom: 10px;
@@ -8498,7 +8498,6 @@ img.sendDropImg {
     height: 24px;
     width: 24px;
     cursor: pointer;
-    border-radius: 12px;
 }
 .movHead {
     display: flex;
@@ -9071,7 +9070,7 @@ button.crdoLghtBlu2 {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9209,13 +9208,13 @@ button.crdoLghtBlu2 {
     margin-top: 0px !important;
    
 }
-.flowInfo1 {
-    margin-top: 8px;
-    margin-bottom: 12px;
-    /* min-height: 127px; */
-    border-radius: 8px;
-    background-color: #FFFFFF;
-    /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
+    .flowInfo1 {
+        margin-top: 8px;
+        margin-bottom: 12px;
+        /* min-height: 127px; */
+        border-radius: 8px;
+        background-color: #FFFFFF;
+        /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
 }
 .ptntFlowSpc {
     padding-left: 4%;
@@ -9578,9 +9577,11 @@ button.crdoLghtBlu2 {
     margin-bottom: 32px;
   }
   .topLeftSpc {
-    margin-top: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-top: 0px;
+  }
+  .topLeftSpc {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }
 .spcLeft {
@@ -9618,6 +9619,13 @@ button.crdoLghtBlu2 {
     padding: 30px 28px;
     border-top: 3px solid #00ABAF;
     margin-bottom: 35px;
+}
+/* added by tanya */
+.otherBrdrUpr input[type=text]{
+    border:none;
+    border-bottom: 1px solid grey;
+    margin-left:20px;
+    
 }
 .QuesMrktUpr h1 {
     color: #000808;
@@ -9774,6 +9782,65 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.renameButton{
+    background-color: #00ABAF !important;
+    padding:12px;
+    border-radius: 8px;
+}
+.renameButton span{
+    color: #fff!important;
+    font-weight: 500;
+}
+.serchInput {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    margin-right:5px;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.recaptchaMargin{
+    margin-top:12px;
+    margin-bottom: 12px;
+}
+.addTimeTask1 {
+    position: relative !important;
+    margin-left: 10px !important;
+}
+.addTimeTask1span {
+    position: absolute !important;
+    color: red !important;
+}
+.adminMenuRghtUpr a.academy_ul ul{
+    min-width: 200px !important;
+}
+.darkTheme .fillDia .addStafSelect div{
+    background-color: #192020;
+}
+.movHeadMid {
+    width: 60% !important;
+}
+.movHead div {
+    width: 19.3%;
+}
+.actionList {
+    top: 25px !important;
+}
+.add-group-padding{
+    padding-top: 20px;
+}
+.nwEntrCntntIner {
+    height: 75vh !important;
+}
+.medcalFZCntnt .openScndhrf img {
+    height: 20px;
+}
 .manage-dark-back {
     padding: 18px 8px !important;
 }
@@ -9970,7 +10037,7 @@ button.crdoLghtBlu2 {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 32px;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     margin-bottom: 12px;
 }
 .creatDetail {
@@ -9978,7 +10045,7 @@ button.crdoLghtBlu2 {
 }
 .creatInfoIner label {
     color: #404646;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0;
@@ -9992,7 +10059,7 @@ button.crdoLghtBlu2 {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -10016,7 +10083,7 @@ button.crdoLghtBlu2 {
     padding: 7px 6px;
     outline: none;
     color: #000808;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -10041,7 +10108,7 @@ button.crdoLghtBlu2 {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
 }
 .taskDescp textarea {
     border: 1px solid #BFC1C1;
@@ -10051,7 +10118,7 @@ button.crdoLghtBlu2 {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
@@ -10080,7 +10147,7 @@ button.crdoLghtBlu2 {
     padding: 9px 12px;
 }
 .hideTask .MuiFormControlLabel-label {
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     color: #404646;
     font-size: 14px;
     font-weight: 500;
@@ -10128,9 +10195,9 @@ button.crdoLghtBlu2 {
     margin-top: 8px;
 }
 .saveTasks button {
-    background-color: rgb(0 171 175);
+    background-color: rgb(0 171 175) !important;
     color: #ffffff;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 0;
@@ -10153,7 +10220,7 @@ button.crdoLghtBlu2 {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     text-transform: initial;
     padding: 0px;
 }
@@ -10207,6 +10274,7 @@ ul.patientHint li {
 .checkDots ul div{
     width:300px !important;
 }
+
 .stepTdotupper ul li{
     width: 100% !important;
     min-width: 100% !important;
@@ -10301,7 +10369,7 @@ ul.patientHint li {
     letter-spacing: 0;
     line-height: 15px;
     box-shadow: initial !important;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     text-transform: capitalize;
     padding: 8px 4px;
 }
@@ -10338,7 +10406,7 @@ ul.patientHint li {
 .MenuWeb .menuItems ul li a span {
     display: block;
     color: #7F8383;
-    font-family: Muli;
+    font-family: 'Mulish', sans-serif;
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0;
@@ -10766,6 +10834,7 @@ ul.patientHint li {
 .darkTheme .enterSpcl input:-moz-placeholder { 
     color: #bfc1c1;
 }
+
 .darkTheme .creatInfoIner input::-webkit-input-placeholder { 
     color: #bfc1c1;
 }
@@ -10778,69 +10847,13 @@ ul.patientHint li {
 .darkTheme .creatInfoIner input:-moz-placeholder { 
     color: #bfc1c1;
 }
+
 .darkTheme .enterSpcl input, 
 .darkTheme .creatInfoIner input,
-.darkTheme .taskDescp textarea,
-.darkTheme .dueOn .react-date-picker__wrapper {
+.darkTheme .taskDescp textarea {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
-}
-.darkTheme .hideTask {
-    background-color: #192020;
-}
-.darkTheme .hideTask .MuiFormControlLabel-label {
-    color: #00abaf;
-}
-.darkTheme .createDegre {
-    border: 1px solid #7b7b7b;
-    border-radius: 4px;
-}
-.darkTheme .createDegre div {
-    background: #192020 !important;
-    color: #fafafa;
-    border: none;
-}
-.darkTheme .specialFor div {
-    background: #192020;
-    color: #bfc1c1;
-    border: none;
-    border-radius: 4px;
-    border: none;
-}
-.darkTheme .specialFor {
-    border: 1px solid #8e8e8e8a;
-    border-radius: 4px;
-}
-.darkTheme .dueOn .react-date-picker__button svg {
-    background: #00abaf;
-    border-radius: 2px;
-}
-.darkTheme .dueOn input {
-    background-color: transparent;
-    color: #fafafa;
-}
-.darkTheme .dueOn .react-calendar {
-    background: #192020;
-    color: #ffffff;
-}
-.darkTheme .dueOn .ant-picker {
-    background: #192020;
-    color: #bfc1c1;
-    border: 1px solid #8e8e8e8a;
-}
-.darkTheme .dueOn .react-calendar button {
-    color: #c7c7c7;
-}
-.darkTheme .dueOn .react-calendar__tile:enabled:hover, 
-.darkTheme .dueOn .react-calendar__tile:enabled:focus {
-    background-color: #4273a3;
-    color: #ffffff !important;
-}
-.darkTheme .addTime button {
-    border: 1px solid #8e8e8e8a;
-    border-radius: 4px;
-    background-color: #192020;
 }
 .darkTheme .plusWards {
     background: #192020;
@@ -11039,7 +11052,7 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #192020;
+    background: #0c1010;
     color: #dfdfdf;
     border-color: #676565;
 }
@@ -11290,10 +11303,9 @@ ul.patientHint li {
 .darkTheme .invoiceForm label {
     color: #fafafa;
 }
-.darkTheme .cstmSelect div {
+.darkTheme .cstmSelect div:first-child {
     background-color: #192020 !important;
     color: #bfc1c1;
-    border: none;
 }
 .darkTheme .srvcTable h3 {
     color: #fafafa;
@@ -11317,18 +11329,6 @@ ul.patientHint li {
 .darkTheme .addCstmField input[type="text"] {
     background-color: #192020;
     color: #bfc1c1;
-    border: 1px solid #8e8e8e8a;
-}
-.darkTheme .cstmSelect div {
-    height: initial !important;
-    min-height: initial !important;
-}
-.darkTheme .cstmSelect {
-    background-color: transparent;
-    border: 1px solid #8e8e8e8a;
-}
-.darkTheme .patntDropUpr, .darkTheme .invoiceForm input[type="text"] {
-    border: 1px solid #8e8e8e8a;
 }
 .darkTheme .addCstmField input[type="text"]::-webkit-input-placeholder {
     color: #bfc1c1;
@@ -11573,7 +11573,7 @@ ul.patientHint li {
 }
 .darkTheme .nwPatentAdd button {
     color: #00ABAF;
-    background-color: #c8c8c824 !important;
+    background-color: #192020 !important;
 }
 .darkTheme a.lineSort {
     border: 1px solid #8c8c8c;
@@ -11676,8 +11676,7 @@ ul.patientHint li {
 .darkTheme .movHeadMid2 label {
     color: #bfc1c1;
 }
-.darkTheme .roomWardSel div, 
-.darkTheme .bedNumberSel div {
+.darkTheme .roomWardSel div, .darkTheme .bedNumberSel div {
     background-color: #404646;
     border-color: #848484;
     color: #bfc1c1;
@@ -12131,11 +12130,6 @@ ul.patientHint li {
         width: 18px !important;
     }
 }
-@media screen and (min-width: 641px) and (max-width: 1270px){
-    .billInfoData td {
-        padding: 10px 22px !important;
-    }
-}
 a.taskHover span {
     font-weight: 700 !important;
     text-align: center;
@@ -12170,55 +12164,18 @@ a.taskHover:hover span {
     .specialuty-more {
         float: initial !important;
     }
+    a.openScndhrf {
+        margin-top: 20px;
+    }
     .attchNoteMain {
         display: block !important;
         align-items: initial !important;
-    }
-    a.openScndhrf {
-        margin-top: 0px;
-        text-align: right !important;
     }
 }
 @media (max-width: 768px) {
  .creatTaskModel {
     width: 98% !important;
  }
-}
-@media (max-width: 959px){
-    .darkTheme .srchLft {
-        border-right: none;
-        border-bottom: 1px solid #828282;
-    }
-    .ptntFlowSpc .dragdrop-vertical ul.manageDragDrop {
-        display: flex;
-        width: 100%;
-        overflow-y: scroll;
-        min-height: 80vh;
-    }
-}
-@media (max-width: 960px){
-    .addFlow {
-        padding: 0px 15px;
-    }
-    .flowContentAdd{
-        justify-content: center;
-        align-items: center;
-    }
-    .detailInfo {
-        margin-top: 0px !important;
-    }
-    .spcMgntUper{
-        align-items: center;
-        justify-content: center;
-    }
-}
-@media (max-width: 661px){ 
-    .specialuty-more {
-        float: initial !important;
-    }
-    .spcMgntRght7 {
-        text-align: left !important;
-    }
 }
 .darkTheme .fillDia div {
     background: transparent !important;
@@ -12265,47 +12222,19 @@ a.taskHover:hover span {
 .addPatent a  {
     margin-bottom: 15px;
 }
-.menuActv img {
-    background-color: #00abaf;
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    background-color: transparent !important;
+    background: transparent !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
-.dragdrop-horizontal .academy_ul .academyDots.stepTdot{
-    border: 1px solid #969696f2 !important;
-}
-.dragdrop-horizontal .academy_ul .academyDots.stepTdot:hover{
-    border: 1px solid #7FD5D7 !important;
-    border-radius: 8px;
-    background-color: #E1F7F7;
-    outline: none !important;
-}
-.flowInfo1 {
-    margin-left: 18px;
-}
-.darkTheme .profileInfoIner .cntryDrop div:first-child,
-.darkTheme .profileInfoIner .mr_sel div:first-child, 
-.darkTheme .cntryDrop div:first-child, .darkTheme .cntryDrop div,
-
-.darkTheme .mr_sel div:first-child, 
-.darkTheme .cntryDrop div:first-child, 
-.darkTheme .languageSpk div:first-child,
-
-.darkTheme .mr_sel div, 
-.darkTheme .cntryDrop div, 
-.darkTheme .languageSpk div{
-    background-color: #404646 !important;
-    background: #404646 !important;
-}
-.darkTheme .cntryDrop, .darkTheme .profileInfoIner .mr_sel, 
-.darkTheme .profile-language {
-    border: 1px solid #5d5d5d;
-    border-radius: 4px;
-}
-.darkTheme .profileInfoDate .ant-picker {
-    border: 1px solid #5d5d5d !important;
-}
-.darkTheme .profileInfoIner .profile-language div {
-    border: none;
-}
-.darkTheme .kycForms .cntryDrop {
-    border-radius: 3px;
-    border: 1px solid #BFC1C1;
-}
+input:-moz-autofill,
+input:-moz-autofill:hover, 
+input:-moz-autofill:focus, 
+input:-moz-autofill:active{
+    background-color: transparent !important;
+    background: transparent !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+} */
