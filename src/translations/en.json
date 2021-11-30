@@ -1330,7 +1330,13 @@
 		"Lastdoctorvisits":"Last doctor visits",
 		"Upcomingappointment":"Upcoming appointment",
 		"LastDocuments":"Last Documents",
-		"Prescription":"Prescription"
+		"Prescription":"Prescription",
+		"Invoice_ID":"Invoice ID",
+		"Add_service":"Add service"
+		
+		
+		
+
 		
 		
 	}

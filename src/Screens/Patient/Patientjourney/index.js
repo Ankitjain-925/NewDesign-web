@@ -1141,8 +1141,7 @@ handleSubmit2= () =>{
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       long_covid,
-      add_new_entry,
-      new_entry,
+       new_entry,
       blood_pressure,
       blood_sugar,
       condition_pain,
@@ -1166,12 +1165,10 @@ handleSubmit2= () =>{
       weight_bmi,
       edit,
       entry,
-      loadingref,
       respiration,
       anamnesis,
       VaccinationTrial,
-      Seemore10entries
-    } = translate;
+      } = translate;
 
     return (
       <Grid

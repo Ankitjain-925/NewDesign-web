@@ -17,6 +17,9 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
+import {
+    getLanguage
+  } from "translations/index"
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -93,7 +96,8 @@ class Index extends Component {
 
 
     render() {
-        let {Tasks_overview, Open, Donetoday, } = this.state;
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Tasks_overview} = translate;
         return (
             <Grid className={
                 this.props.settings &&

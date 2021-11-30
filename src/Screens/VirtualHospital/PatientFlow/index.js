@@ -34,6 +34,7 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import _ from "lodash";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
+
 class Index extends Component {
   constructor(props) {
     super(props);
