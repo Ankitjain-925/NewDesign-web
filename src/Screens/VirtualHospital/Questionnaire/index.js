@@ -419,7 +419,7 @@ class Index extends Component {
                               {this.state.myQuestions && (
                                 <Grid>
                                   <Grid className="cnfrmDiaMain">
-                                    <p className='errorMsg'>{this.state.errorMsg}</p>
+                                    <p className='err_message'>{this.state.errorMsg}</p>
                                     <Grid className="fillDia">
                                       {/* <Grid> */}
                                         {/* <label>Choose questionnaire type </label> */}
