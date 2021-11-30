@@ -5684,7 +5684,6 @@ a.nxtpag {
     text-align: right;
 }
 .tablePagNum {
-    margin-top: 132px;
     padding: 20px 22px;
 }
 .nwPresCntnt {
@@ -7096,7 +7095,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .MenuLeftDrkUpr .menuItems ul li a img {
     background-color: #4C5252;
-    border: none !important;
+    /* border: none !important; */
 }
 .MenuLeftDrkUpr a.menuActv img {
     background: #00ABAF !important;
@@ -12982,7 +12981,7 @@ a.addNewPlus img {
     border-radius: 8px;
 }
 img.academyDots {
-    border: 1px solid #96969685;
+    border: 1px solid #969696f2;
 }
 .archvSrchInput input {
     border-radius: 12px;
@@ -15927,7 +15926,10 @@ a.clsSltCal {
     background-color: #404646 !important;
     color: #BFC1C1 !important;
 }
-.nwPresModel, .darkTheme, .opinBoxModel, .editBoxModel, .addScrollBar{
+.darkTheme .rrSysto #react-select-2-input {
+    background-color: #192020 !important;
+}
+.nwPresModel, .opinBoxModel, .editBoxModel, .addScrollBar{
     overflow-y: auto !important;
 }
 td.dotsImgColor span.revwRed{
@@ -16401,7 +16403,7 @@ select:-webkit-autofill:focus {
   }
 }
 
-@media screen and (max-width: 40em){
+/* @media screen and (max-width: 40em){
     a.openScndhrf{
       text-align: left !important;
     }
@@ -16409,7 +16411,7 @@ select:-webkit-autofill:focus {
       right: initial !important;
       left: 0px !important;
     }
-}
+} */
 @media (max-width: 1280px){
     .officeVstRght {
         text-align: left !important;
@@ -16478,7 +16480,7 @@ select:-webkit-autofill:focus {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 32px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     margin-bottom: 12px;
 }
 .creatDetail {
@@ -16486,7 +16488,7 @@ select:-webkit-autofill:focus {
 }
 .creatInfoIner label {
     color: #404646;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
@@ -16500,7 +16502,7 @@ select:-webkit-autofill:focus {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
@@ -16517,7 +16519,7 @@ select:-webkit-autofill:focus {
     padding: 7px 6px;
     outline: none;
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
@@ -16542,7 +16544,7 @@ select:-webkit-autofill:focus {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
 }
 .instuteSrch div {
     margin: 0px;
@@ -16555,7 +16557,7 @@ select:-webkit-autofill:focus {
     outline: none;
     width: 100%;
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
@@ -16584,7 +16586,7 @@ select:-webkit-autofill:focus {
     padding: 9px 12px;
 }
 .hideTask .MuiFormControlLabel-label {
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     color: #404646;
     font-size: 14px;
     font-weight: 600;
@@ -16634,7 +16636,7 @@ select:-webkit-autofill:focus {
 .saveTasks button {
     background-color: rgb(0 171 175);
     color: #ffffff;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0;
@@ -16657,7 +16659,7 @@ select:-webkit-autofill:focus {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     text-transform: initial;
     padding: 0px;
 }
@@ -16666,7 +16668,7 @@ select:-webkit-autofill:focus {
 }
 .spcMagnt h1 {
     color: #000808;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     font-size: 28px;
     font-weight: bold;
     letter-spacing: 0;
@@ -16779,7 +16781,7 @@ select:-webkit-autofill:focus {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     margin-bottom: 18px;
 }
 .sympMrktSpc {
@@ -16844,7 +16846,7 @@ select:-webkit-autofill:focus {
     letter-spacing: 0;
     line-height: 18px;
     text-align: center;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     height: 34px;
     padding: 0px 4px;
     min-width: 42px;
@@ -16935,7 +16937,7 @@ select:-webkit-autofill:focus {
     letter-spacing: 0;
     line-height: 18px;
     text-align: center;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     height: 34px;
     width: 42px;
     border: 1px solid #F2F2F2;
@@ -17011,7 +17013,7 @@ ul.duringCovid li {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 16px;
-    font-family: 'Mulish', sans-serif;
+    font-family: Muli;
     margin-right: 12px;
     margin-top: 12px;
 }
@@ -17214,3 +17216,58 @@ ul.duringCovid li:last-child {
 .h-500{
     height: 500px !important;
 }
+
+.spcMgntH1 h1 {
+    color: #000808;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+}
+.academy_ul.stepTdotupper .movHeadLft {
+    text-align: left !important;
+}
+.taskBorder {
+    border-left: 4px solid #00ABAF !important;
+}
+
+/* done by naveen */
+.homeBgDrk span.task_desk {
+    color: #edf2f2!important;
+}
+.filterCursor {
+    cursor: pointer !important;
+}
+.filterApply {
+    padding: 10px !important;
+    background: #00abaf !important;
+}
+
+.timeTask {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.addTimeTask button {
+    height: 44px;
+    width: 78px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    margin-left: 12px !important;
+    color: #7F8383;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-family: Muli;
+    text-transform: initial;
+    padding: 0px;
+}
+
+.borderStyle {
+    border-style: solid;
+    border-width: thin;
+}
+
+/* Done by naveen end here */
