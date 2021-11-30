@@ -48,7 +48,8 @@ class Index extends Component {
       deleteId: false,
       SearchValue: '',
       errorMsg2: '',
-      errorMsg: ''
+      errorMsg: '',
+      errorStatus: false
     };
   }
   handleOpenSpecl = () => {
@@ -191,13 +192,20 @@ class Index extends Component {
     }
     else {
       let length = data.rooms.length
-      if (data && data.rooms && !data.rooms[length - 1].room_name) {
-        this.setState({ errorMsg2: "Please enter room name" })
+      let check = data && data.rooms && data.rooms.map((data, index) => {
+
+        if (data && !data.room_name) {
+          // this.setState({ errorMsg2: "Please enter room name" })
+          this.setState({ errorStatus: true })
+          return true;
+        }
+        else if (data && (data.no_of_bed == false || data.no_of_bed < 1)) {
+          this.setState({ errorStatus: true })
+          return true;
+        }
       }
-      else if (data && data.rooms && (data.rooms[length - 1].no_of_bed == false || data.rooms[length - 1].no_of_bed < 1)) {
-        this.setState({ errorMsg2: "Please enter valid bed numbers" })
-      }
-      else {
+      )
+      if (!check.includes(true)) {
         var state = this.state.speciality;
         var ward = state["wards"] || [];
         if (this.state.isEditWrd) {
@@ -210,6 +218,9 @@ class Index extends Component {
         this.setState({ speciality: state, isEditWrd: false }, () => {
           this.setState({ openWard: false, ward: {} });
         });
+      }
+      else {
+        this.setState({ errorMsg2: 'Please enter valid room data' })
       }
     }
   };
