@@ -34,6 +34,7 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import _ from "lodash";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +49,8 @@ class Index extends Component {
       case: {},
       caseAlready: false,
       AddstpId: false,
-      searchValue: ''
+      searchValue: '',
+      idpinerror: false,
     };
   }
   static defaultProps = {
@@ -68,20 +70,23 @@ class Index extends Component {
     });
 
     var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
-    console.log('this.props.speciality',this.props.speciality) 
-    var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY.map((item) => {
+    var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
       return { label: item.specialty_name, value: item._id };
     })
-    console.log('specsMap specsMap1 ',specsMap, specsMap1 )
+    if (specsMap && specsMap?.length > 0) {
+      specsMap = [...specsMap1, ...specsMap];
+      this.setState({ specialitiesList: specsMap });
+    }
+    else {
+      this.setState({ specialitiesList: specsMap1 });
+    }
 
-    specsMap = [...specsMap1, ...specsMap];
-    this.setState({ specialitiesList: specsMap });
   }
 
-  MovetoTask=(speciality, patient_id)=>{
+  MovetoTask = (speciality, patient_id) => {
     this.props.history.push({
       pathname: '/virtualhospital/tasks',
-      state: { speciality: speciality, user: {value: patient_id}}
+      state: { speciality: speciality, user: { value: patient_id } }
     })
   }
 
@@ -188,10 +193,15 @@ class Index extends Component {
   //Change the value of the step_name
   onChange = (e, index) => {
     var state = this.state.actualData;
-    state[index][e.target.name] = e.target.value;
-    this.setDta(state);
-    this.setState({ edit: false });
-    this.CallApi();
+    var changes = state.filter((newa) => {
+      return newa.step_name?.toLowerCase() === e.target?.value?.toLowerCase();
+    })
+    if (!(changes?.length > 0)) {
+      state[index][e.target.name] = e.target.value;
+      this.setDta(state);
+      this.setState({ edit: false });
+      this.CallApi();
+    }
   };
 
   //Edit the name of step
@@ -202,7 +212,7 @@ class Index extends Component {
   //Add new step
   AddStep = () => {
     var state = this.state.actualData;
-    state.push({ step_name: "Step" + state?.length, case_numbers: [] });
+    state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
     this.setDta(state);
     this.CallApi();
   };
@@ -222,7 +232,7 @@ class Index extends Component {
 
   //Open case model
   openAddPatient = (index = 0) => {
-    this.setState({ openAddP: true, AddstpId: index });
+    this.setState({ openAddP: true, AddstpId: index,  addp: {},idpinerror: false,  case: {}, });
   };
 
   //Close case model
@@ -233,41 +243,41 @@ class Index extends Component {
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
-    if(state[index]?.case_numbers?.length>0){
+    if (state[index]?.case_numbers?.length > 0) {
       confirmAlert({
         customUI: ({ onClose }) => {
           return (
             <Grid className={this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode === "dark"
-            ? "dark-confirm deleteStep"
-            : "deleteStep"}>
-                <Grid className="deleteStepLbl">
-                    <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
-                    <label>Delete Step</label>
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm deleteStep"
+              : "deleteStep"}>
+              <Grid className="deleteStepLbl">
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <label>Delete Step</label>
+              </Grid>
+              <Grid className="deleteStepInfo">
+                <p>All Patients in this Step will be removed from the flow. This action can not be reversed.</p>
+                <Grid><label>Are you sure you want to do this?</label></Grid>
+                <Grid>
+                  <Button onClick={() => { this.DeleteStepOk(state, index) }}>Yes, Delete Step</Button>
+                  <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
                 </Grid>
-                <Grid className="deleteStepInfo">
-                    <p>All Patients in this Step will be removed from the flow. This action can not be reversed.</p>
-                    <Grid><label>Are you sure you want to do this?</label></Grid>
-                    <Grid>
-                        <Button  onClick={() => {this.DeleteStepOk(state, index)}}>Yes, Delete Step</Button>
-                        <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
-                    </Grid>
-                </Grid>
+              </Grid>
             </Grid>
           );
         },
-      }); 
+      });
     }
-    else{
+    else {
       this.DeleteStepOk(state, index)
     }
-    
+
   };
-  
-  DeleteStepOk=(state, index)=>{
-    if(state[index]?.case_numbers?.length>0){
-      var yt = state[index]?.case_numbers.map((item)=>{
+
+  DeleteStepOk = (state, index) => {
+    if (state[index]?.case_numbers?.length > 0) {
+      var yt = state[index]?.case_numbers.map((item) => {
         var response = PatientMoveFromHouse(item._id, this.props.stateLoginValueAim.token, 5, false)
       })
     }
@@ -445,6 +455,10 @@ class Index extends Component {
     this.mapActualToFullData(result);
   }
 
+  newPatient = ()=>{
+    this.props.history.push('/virtualHospital/new-user')
+  }
+
   clearFilters = () => {
     this.setState({
       searchValue: '',
@@ -473,16 +487,16 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
       >
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
-          {}
+          { }
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
               <LeftMenuMobile isNotShow={true} currentPage="flow" />
@@ -496,10 +510,15 @@ class Index extends Component {
                   <Grid className="cmnLftSpc ptntFlowSpc">
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
-                        <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={8} md={8}>
                           <h1>{PatientFlow}</h1>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={6} className="addFlowRght">
+                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
+                        <a onClick={() => this.newPatient()}>
+                            + Create New Patient
+                          </a>
+                        </Grid>
+                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                         <a onClick={() => this.openAddPatient(0)}>
                             + Add patient
                           </a>
@@ -509,7 +528,7 @@ class Index extends Component {
                     <Grid className="srchPatient">
                       <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={5} className="srchLft">
-                        <Input name="searchValue" value={searchValue} placeholder="Search by Patient ID, Patient name, Doctor..." onChange={this.handleSearch} />
+                          <Input name="searchValue" value={searchValue} placeholder="Search by Patient ID, Patient name, Doctor..." onChange={this.handleSearch} />
                           <a><img src={require("assets/virtual_images/InputField.svg")} alt="" title="" /></a>
                         </Grid>
                         <Grid item xs={12} md={7}>
@@ -526,35 +545,48 @@ class Index extends Component {
                               isSearchable={false}
                             />
                             <a
-                              className="lineSort"
+                              className={this.state.view === 'vertical' ? "horzSort" : "lineSort"}
                               onClick={() => {
                                 this.setState({ view: "vertical" });
                               }}
                             >
-                              <img
-                                src={require("assets/virtual_images/lines.png")}
-                                alt=""
-                                title=""
-                              />
+                              {this.state.view === 'vertical' ?
+                                <img
+                                  src={require("assets/virtual_images/active-vertical.png")}
+                                  alt=""
+                                  title=""
+                                /> :
+                                <img
+                                  src={require("assets/virtual_images/lines.png")}
+                                  alt=""
+                                  title=""
+                                />}
                             </a>
                             <a
-                              className="horzSort"
+                              className={this.state.view === 'horizontal' ? "horzSort" : "lineSort"}
                               onClick={() => {
                                 this.setState({ view: "horizontal" });
                               }}
                             >
-                              <img
-                                src={require("assets/virtual_images/timeline-view-active.svg")}
-                                alt=""
-                                title=""
-                              />
+                              {this.state.view === 'horizontal' ?
+
+                                <img
+                                  src={require("assets/virtual_images/active-horizontal.png")}
+                                  alt=""
+                                  title=""
+                                />
+                                : <img
+                                  src={require("assets/virtual_images/non-active-horizontal.png")}
+                                  alt=""
+                                  title=""
+                                />}
                             </a>
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                     <Drags
-                      moveDetial={(id) => this.moveDetial(id)}
+                      moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
                       onKeyDownlogin={this.onKeyDownlogin}
                       editName={this.editName}
@@ -576,7 +608,7 @@ class Index extends Component {
                       updateEntryState3={(e, case_id) => {
                         this.updateEntryState3(e, case_id);
                       }}
-                      MovetoTask={(speciality, patient_id)=>{
+                      MovetoTask={(speciality, patient_id) => {
                         this.MovetoTask(speciality, patient_id)
                       }}
                     />
@@ -589,13 +621,13 @@ class Index extends Component {
         <Modal
           style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
           open={this.state.openAddP} onClose={this.closeAddP}>
-          <Grid  className={
-              this.props.settings &&
+          <Grid className={
+            this.props.settings &&
               this.props.settings.setting &&
               this.props.settings.setting.mode &&
               this.props.settings.setting.mode === "dark"
-                ? "addFlowContnt darkTheme"
-                : "addFlowContnt"}>
+              ? "addFlowContnt darkTheme"
+              : "addFlowContnt"}>
             <Grid className="addFlowIner">
               <Grid className="addFlowLbl">
                 <Grid className="addFlowClose">
