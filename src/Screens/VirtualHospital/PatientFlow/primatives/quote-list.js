@@ -8,7 +8,6 @@ class InnerQuoteList extends React.Component {
     if (nextProps.quotes !== this.props.quotes || nextProps.view !== this.props.view) {
       return true;
     }
-
     return false;
   }
 

@@ -166,8 +166,6 @@ class Index extends Component {
     if (House?.value) {
       return <Redirect to={"/VirtualHospital/space"} />;
     }
-    console.log("currentList2", this.state.currentList2)
-    // console.log("TEXT Name", this.state.txtName)
 
     return (
       <Grid
