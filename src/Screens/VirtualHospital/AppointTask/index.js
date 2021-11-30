@@ -76,6 +76,8 @@ class Index extends Component {
       finaldata: [],
       myEventsList: [],
       appioinmentTimes: [],
+      appioinmentEventList: [],
+      taskEventList: []
     };
   }
 
@@ -95,7 +97,9 @@ class Index extends Component {
     if (start_time) {
       var t1 = start_time.split(":");
     }
-
+    else {
+      var t1 = this.state.startTime.split(":");
+    }
     if (t1 && t1.length > 0) {
       da1.setHours(t1[0]);
       da1.setMinutes(t1[1]);
@@ -117,7 +121,7 @@ class Index extends Component {
 
   //get Add task data
   getTaskData = () => {
-    var finaldata = [];
+    var taskdata = [], appioinmentdata = [];
     this.setState({ loaderImage: true });
     axios
       .get(
@@ -137,49 +141,96 @@ class Index extends Component {
                   data?.due_on?.time &&
                   data?.due_on?.date &&
                   data?.task_name) {
-                  var myTime = data?.due_on?.time
-                  var t1 = myTime.substr(11, 5);
-                  var Time1 = t1.split(":");
-                  // var t2 = myTime.substr(11, 5);
-                  // var Time2 = t2.split(":");
-                  var Time2 = ['06', '23']
-                  var dat1 = new Date(data?.due_on?.date);
-                  var dat2 = new Date(data?.due_on?.date);
-                  if (Time1 && Time1.length > 0) {
-                    dat1.setHours(Time1[0])
-                    dat1.setMinutes(Time1[1])
+
+                  var datetime1 = new Date(data?.due_on?.time);
+                  var hours1 = datetime1.getHours()
+                  var minutes1 = datetime1.getMinutes()
+                  var hourminutes1 = hours1 + ":" + minutes1
+                  var t1 = hourminutes1.split(":")
+                  this.setState({ startTime: hourminutes1 })
+
+                  datetime1.setHours(datetime1.getHours() + 11);
+                  datetime1.setMinutes(datetime1.getMinutes() + 59);
+                  var hours2 = datetime1.getHours()
+                  var minutes2 = datetime1.getMinutes()
+                  var hourminutes2 = hours2 + ":" + minutes2
+                  var t2 = hourminutes2.split(":");
+
+                  var da1 = new Date(data?.due_on?.date);
+                  var da2 = new Date(data?.due_on?.date);
+                  if (t1 && t1.length > 0) {
+                    da1.setHours(t1[0])
+                    da1.setMinutes(t1[1])
                   } else {
-                    dat1.setHours("00");
-                    dat1.setMinutes("00");
+                    da1.setHours("00");
+                    da1.setMinutes("00");
                   }
-                  if (Time2 && Time2.length > 0) {
-                    dat2.setHours(Time2[0]);
-                    dat2.setMinutes(Time2[0]);
+                  if (t2 && t2.length > 0) {
+                    da2.setHours(t2[0]);
+                    da2.setMinutes(t2[0]);
                   } else {
-                    dat2.setHours("00");
-                    dat2.setMinutes("00");
+                    da2.setHours("00");
+                    da2.setMinutes("00");
                   }
                   this[`${indexout}_ref`] = React.createRef();
                   appioinmentTimes.push({
-                    start: new Date(dat1).valueOf(),
-                    end: new Date(dat2).valueOf(),
-
+                    start: new Date(da1).valueOf(),
+                    end: new Date(da2).valueOf(),
                   });
                   var title = data?.task_name;
-                  finaldata.push({
+                  taskdata.push({
                     id: index,
                     title: title,
-                    start: new Date(dat1),
-                    end: new Date(dat2),
+                    start: new Date(da1),
+                    end: new Date(da2),
                     indexout: indexout,
                     fulldata: [data],
                   });
-                  this.setState({ myEventsList: finaldata, appioinmentTimes: appioinmentTimes, })
+                  indexout++;
+                  this.setState({ myEventsList: taskdata, taskEventList: taskdata, appioinmentTimes: appioinmentTimes, })
                 }
-             }else{
-
-             }
-
+              } else {
+                if (data.start_time) {
+                  var t1 = data.start_time.split(":");
+                }
+                if (data.end_time) {
+                  var t2 = data.end_time.split(":");
+                }
+                let da1 = new Date(data.date);
+                let da2 = new Date(data.date);
+                if (t1 && t1.length > 0) {
+                  da1.setHours(t1[0]);
+                  da1.setMinutes(t1[1]);
+                } else {
+                  da1.setHours("00");
+                  da1.setMinutes("00");
+                }
+                if (t2 && t2.length > 0) {
+                  da2.setHours(t2[0]);
+                  da2.setMinutes(t2[1]);
+                } else {
+                  da2.setHours("00");
+                  da2.setMinutes("00");
+                }
+                this[`${indexout}_ref`] = React.createRef();
+                appioinmentTimes.push({
+                  start: new Date(da1).valueOf(),
+                  end: new Date(da2).valueOf(),
+                });
+                appioinmentdata.push({
+                  id: index,
+                  title:
+                    data.patient_info.first_name +
+                    " " +
+                    data.patient_info.last_name,
+                  start: new Date(da1),
+                  end: new Date(da2),
+                  indexout: indexout,
+                  fulldata: [data],
+                });
+              }
+              indexout++;
+              this.setState({ myEventsList: [...this.state.myEventsList, ...appioinmentdata], appioinmentEventList: appioinmentdata, appioinmentTimes: appioinmentTimes, })
             })
         }
         setTimeout(() => {
@@ -297,7 +348,8 @@ class Index extends Component {
     let {
       DetailsQuestions,
       vdo_call,
-      office_visit,
+      // office_visit,
+      Task,
       consultancy_appintment,
     } = translate;
     return (
@@ -368,13 +420,13 @@ class Index extends Component {
                         : data.appointment_type == "online_appointment"
                           ? vdo_call
                           : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
-                            ? this.state.appointmentDatas.appointments[0].custom_text : office_visit
+                            ? this.state.appointmentDatas.appointments[0].custom_text : Task
                       }
                     </span>
                   </Grid>
                   <Grid className="meetVdoRght">
                     <p>
-                      {moment(new Date(data.date), "MM-DD-YYYY").format(
+                      {moment(new Date(data.date || data.due_on.date), "MM-DD-YYYY").format(
                         "D MMM"
                       )}
                       , {this.GetTime(data.start_time)}
@@ -383,7 +435,7 @@ class Index extends Component {
                 </Grid>
                 <Grid className="meetDetail">
                   <h1>{event.title}</h1>
-                  <span>{DetailsQuestions}</span>
+                  {data?.appointment_type == true ? <span>{DetailsQuestions}</span> : <span>{data.description}</span>}
                   <p>{data.annotations}</p>
                 </Grid>
               </Grid>
@@ -440,9 +492,9 @@ class Index extends Component {
                         </AppBar>
                       </Grid>
                       <Grid item xs={12} sm={5} md={6}>
-                        <Grid className="appontTask">
+                        {/* <Grid className="appontTask">
                           <Button>+ Appointment or Task</Button>
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                     </Grid>
                     {tabvalue === 0 && (
@@ -454,10 +506,10 @@ class Index extends Component {
                                 <Calendar
                                   localizer={localizer}
                                   events={this.state.myEventsList}
-                                  // value={this.state.d1}
+                                  value={this.state.data}
                                   startAccessor="start"
                                   endAccessor="end"
-                                  // style={{ minHeight: 900 }}
+                                  style={{ minHeight: 900 }}
                                   popup
                                   style={{ minHeight: 900 }}
                                   onShowMore={(events, date) => { }}
@@ -491,10 +543,92 @@ class Index extends Component {
                       </TabContainer>
                     )}
                     {tabvalue === 1 && (
-                      <TabContainer>Appointments Tab content</TabContainer>
+                      <TabContainer>   <Grid className="timeSchdul">
+                        <Grid className="calenderDetails">
+                          <Grid className="getCalapoint">
+                            <Grid className="getCalBnr">
+                              <Calendar
+                                localizer={localizer}
+                                events={this.state.appioinmentEventList}
+                                value={this.state.data}
+                                startAccessor="start"
+                                endAccessor="end"
+                                style={{ minHeight: 900 }}
+                                popup
+                                style={{ minHeight: 900 }}
+                                onShowMore={(events, date) => { }}
+                                messages={{
+                                  showMore: (total) => (
+                                    <div
+                                      style={{ cursor: "pointer" }}
+                                      onMouseOver={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                      }}
+                                    >
+                                      {`+${total} more`}
+                                    </div>
+                                  ),
+                                }}
+                                components={{
+                                  month: { event: this.EventComponent },
+                                  week: { event: this.EventComponent },
+                                  day: { event: this.EventDaysComponent },
+                                  dateCellWrapper: this.DateCellCompnent,
+                                  toolbar: CalendarToolbar,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          {/* <img src={require('assets/virtual_images/calendar2.jpg')} alt="" title="" /> */}
+                        </Grid>
+                      </Grid>
+                      </TabContainer>
+
                     )}
                     {tabvalue === 2 && (
-                      <TabContainer>Tasks Tab content</TabContainer>
+                      <TabContainer> <Grid className="timeSchdul">
+                        <Grid className="calenderDetails">
+                          <Grid className="getCalapoint">
+                            <Grid className="getCalBnr">
+                              <Calendar
+                                localizer={localizer}
+                                events={this.state.taskEventList}
+                                value={this.state.data}
+                                startAccessor="start"
+                                endAccessor="end"
+                                style={{ minHeight: 900 }}
+                                popup
+                                style={{ minHeight: 900 }}
+                                onShowMore={(events, date) => { }}
+                                messages={{
+                                  showMore: (total) => (
+                                    <div
+                                      style={{ cursor: "pointer" }}
+                                      onMouseOver={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                      }}
+                                    >
+                                      {`+${total} more`}
+                                    </div>
+                                  ),
+                                }}
+                                components={{
+                                  month: { event: this.EventComponent },
+                                  week: { event: this.EventComponent },
+                                  day: { event: this.EventDaysComponent },
+                                  dateCellWrapper: this.DateCellCompnent,
+                                  toolbar: CalendarToolbar,
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+
+                          {/* <img src={require('assets/virtual_images/calendar2.jpg')} alt="" title="" /> */}
+                        </Grid>
+                      </Grid></TabContainer>
                     )}
                   </Grid>
                 </Grid>

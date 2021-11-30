@@ -43,7 +43,7 @@ class SelectField extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let { select } = translate;
     return (
-      <Grid className={this.props.comesFrom === 'morebutton'  ? "rrSysto1" :"rrSysto"}>
+      <Grid className="rrSysto">
         <Grid>
           <label>{this.state.label}</label>
         </Grid>
@@ -57,7 +57,6 @@ class SelectField extends Component {
           isMulti={this.state.isMulti}
           closeMenuOnSelect={this.state.closeMenuOnSelect}
           maxMenuHeight={155}
-          className={this.props.comesFrom === 'morebutton'  ?"addStafSelect" :""}
         />
       </Grid>
     );

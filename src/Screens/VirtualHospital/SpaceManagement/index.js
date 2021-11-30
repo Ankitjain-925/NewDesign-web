@@ -12,7 +12,7 @@ import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
 import { withRouter } from "react-router-dom";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -46,7 +46,10 @@ class Index extends Component {
       specialityData2: [],
       isEditWrd: false,
       deleteId: false,
-      SearchValue: ''
+      SearchValue: '',
+      errorMsg2: '',
+      errorMsg: '',
+      errorStatus: false
     };
   }
   handleOpenSpecl = () => {
@@ -69,50 +72,62 @@ class Index extends Component {
   //   this.anotherPatient();
   // };
 
-
   //to save and edit the speciality
   SaveSpeciality = () => {
+    this.setState({ errorMsg: '' })
     var data = this.state.speciality;
-    if (data._id) {
-      this.setState({ loaderImage: true });
-      axios
-        .put(
-          sitedata.data.path + "/vh/AddSpecialty/" + data._id,
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.getSpeciality();
-          }
-          this.setState({
-            ward: {},
-            speciality: {},
-            loaderImage: false,
-            openSpecl: false,
-          });
-        });
-    } else {
-      this.setState({ loaderImage: true });
-      data.house_id = this.props?.House?.value;
-      axios
-        .post(
-          sitedata.data.path + "/vh/AddSpecialty",
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.getSpeciality();
-          }
-          this.setState({
-            ward: {},
-            speciality: {},
-            loaderImage: false,
-            openSpecl: false,
-          });
-        });
+    if (data && (!data.specialty_name || data.specialty_name.length < 1)) {
+      this.setState({ errorMsg: 'Please enter Speciality name' })
     }
+    else if (data && !data.color) {
+      this.setState({ errorMsg: 'Please select color' })
+    }
+    else if (data && (!data.wards || data.wards.length < 1)) {
+      this.setState({ errorMsg: "Please add atleast one ward" })
+    }
+    else {
+      if (data._id) {
+        this.setState({ loaderImage: true });
+        axios
+          .put(
+            sitedata.data.path + "/vh/AddSpecialty/" + data._id,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getSpeciality();
+            }
+            this.setState({
+              ward: {},
+              speciality: {},
+              loaderImage: false,
+              openSpecl: false,
+            });
+          });
+      } else {
+        this.setState({ loaderImage: true });
+        data.house_id = this.props?.House?.value;
+        axios
+          .post(
+            sitedata.data.path + "/vh/AddSpecialty",
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getSpeciality();
+            }
+            this.setState({
+              ward: {},
+              speciality: {},
+              loaderImage: false,
+              openSpecl: false,
+            });
+          });
+      }
+    }
+
   };
 
   componentDidMount() {
@@ -143,7 +158,7 @@ class Index extends Component {
   handleOpenSpecl4 = () => {
     this.setState({ openSpecl4: true });
   };
-  
+
   handleCloseSpecl4 = () => {
     this.setState({ openSpecl4: false });
   };
@@ -167,33 +182,58 @@ class Index extends Component {
 
   //add the ward of the speciality
   handleOpenRoom = () => {
-    var state = this.state.speciality;
-    var ward = state["wards"] || [];
-    if (this.state.isEditWrd) {
-      ward[this.state.isEditWrd] = this.state.ward;
-      this.setState({ isEditWrd: false });
-    } else {
-      ward.push(this.state.ward);
+    this.setState({ errorMsg2: "" })
+    let data = this.state.ward
+    if ((data && !data.ward_name) || (data && data?.ward_name && data?.ward_name?.length < 1)) {
+      this.setState({ errorMsg2: "Please enter ward name" })
     }
-    state["wards"] = ward;
-    this.setState({ speciality: state, isEditWrd: false }, () => {
-      this.setState({ openWard: false, ward: {} });
-    });
+    else if ((data && !data.rooms)) {
+      this.setState({ errorMsg2: "Please enter alteast one room" })
+    }
+    else {
+      let length = data.rooms.length
+      let check = data && data.rooms && data.rooms.map((data, index) => {
+
+        if (data && !data.room_name) {
+          // this.setState({ errorMsg2: "Please enter room name" })
+          this.setState({ errorStatus: true })
+          return true;
+        }
+        else if (data && (data.no_of_bed == false || data.no_of_bed < 1)) {
+          this.setState({ errorStatus: true })
+          return true;
+        }
+      }
+      )
+      if (!check.includes(true)) {
+        var state = this.state.speciality;
+        var ward = state["wards"] || [];
+        if (this.state.isEditWrd) {
+          ward[this.state.isEditWrd] = this.state.ward;
+          this.setState({ isEditWrd: false });
+        } else {
+          ward.push(this.state.ward);
+        }
+        state["wards"] = ward;
+        this.setState({ speciality: state, isEditWrd: false }, () => {
+          this.setState({ openWard: false, ward: {} });
+        });
+      }
+      else {
+        this.setState({ errorMsg2: 'Please enter valid room data' })
+      }
+    }
   };
 
-  //for Searching
-  handleSearch = () => {
-    console.log("Hi! You're searching special headlines.")
-  }
-
   searchFilter = (e) => {
-    this.setState({ SearchValue: e.target.stateLoginValueAim })
+    this.setState({ SearchValue: e.target.value})
     let track1 = this.state.specialityData2;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
-      return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
+      return JSON.stringify(obj.specialty_name).toLowerCase().includes(e.target?.value?.toLowerCase());
     });
     this.setState({ specialityData: FilterFromSearch1 })
   }
+  
 
   //for update speciality name
   updateEntryState = (e) => {
@@ -232,7 +272,7 @@ class Index extends Component {
     this.setState({ speciality: state });
   };
 
-  //for update the rooms in the wards                                                                                                                                                       
+  //for update the rooms in the wards                                                                                                    
   updateEntryState3 = (ward) => {
     var state = this.state.ward;
     state["rooms"] = ward;
@@ -274,9 +314,9 @@ class Index extends Component {
       this.setState({ showError: true })
     }
   };
-   //For change Institutes
-   MoveInstitute = () => {
-    this.props.houseSelect({value: null});
+  //For change Institutes
+  MoveInstitute = () => {
+    this.props.houseSelect({ value: null });
     this.props.history.push('/virtualHospital/institutes')
   };
   onEditspec = (data) => {
@@ -287,8 +327,6 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Specialities, DeleteSpeciality, Iunderstandthat, AddSpeciality } = translate;
     const { stateLoginValueAim, House } = this.props;
-    const { specialityData2 } = this.state
-    console.log("specialityData2",this.state.specialityData2)
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -302,6 +340,7 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+
     return (
       <Grid className={
         this.props.settings &&
@@ -326,21 +365,21 @@ class Index extends Component {
                 {/* Start of Right Section */}
                 <Grid item xs={12} md={11}>
                   <Grid className="topLeftSpc">
-                  <Grid className="extSetting">
-                      <a onClick={()=>this.MoveInstitute()}>
-                          <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
-                          Back to Change Hospital</a>
-                  </Grid>
-                  <Grid container direction="row" alignItems="center">
-                  <Grid item xs={6} sm={6} md={6}>
-                    <Grid className="spcMgntH1"><h1>Space Management</h1></Grid>
-                  </Grid>
-                  <Grid item xs={6} sm={6} md={6} className="addFlowRght">
-                    <a onClick={this.handleOpenSpecl}>
-                      + Add a new Speciality
-                    </a>
-                  </Grid>
-                  </Grid>
+                    <Grid className="extSetting">
+                      <a onClick={() => this.MoveInstitute()}>
+                        <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
+                        Back to Change Hospital</a>
+                    </Grid>
+                    <Grid container direction="row" alignItems="center">
+                      <Grid item xs={6} sm={6} md={6}>
+                        <Grid className="spcMgntH1"><h1>Space Management</h1></Grid>
+                      </Grid>
+                      <Grid item xs={6} sm={6} md={6} className="addFlowRght">
+                        <a onClick={this.handleOpenSpecl}>
+                          + Add a new Speciality
+                        </a>
+                      </Grid>
+                    </Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
@@ -364,7 +403,7 @@ class Index extends Component {
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
                           {this.state.showinput &&<input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
-                              <a onClick={this.handleSearch}>
+                              <a>
                                 {!this.state.showinput ? <img
                                   src={require("assets/virtual_images/search-entries.svg")}
                                   alt=""
@@ -375,11 +414,9 @@ class Index extends Component {
                                   src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput,SearchValue: '', specialityData: this.state.specialityData2, })}}
                                 />}
-                            
-                           
-                            </a>
+                              </a>
                             {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                           </Grid>
                         </Grid>
@@ -573,6 +610,7 @@ class Index extends Component {
               </Grid>
               <Grid className="enterSpclUpr">
                 <Grid className="enterSpclMain">
+                  <p className='err_message'>{this.state.errorMsg}</p>
                   <Grid className="enterSpcl">
                     <Grid container direction="row">
                       <Grid item xs={10} md={11}>
@@ -645,6 +683,7 @@ class Index extends Component {
                             <Grid className="">
                               <Grid className="addWardsUpr">
                                 <Grid className="addWardsIner">
+                                  <p className='err_message'>{this.state.errorMsg2}</p>
                                   <Grid item xs={12} md={12}>
                                     <VHfield
                                       label="Ward"

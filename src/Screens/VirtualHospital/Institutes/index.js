@@ -9,16 +9,13 @@ import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
 import { Table } from 'reactstrap';
 import sitedata from "sitedata";
-import {
-  commonHeader,
-  commonCometDelHeader,
-} from "component/CommonHeader/index";
+import { commonHeader } from "component/CommonHeader/index";
+import Loader from 'Screens/Components/Loader/index';
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "./selecthouseaction";
 import { Redirect, Route } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getLanguage } from "translations/index";
 import { Button } from "@material-ui/core/index";
@@ -32,15 +29,13 @@ class Index extends Component {
       searchValue: '',
       showPopup: false,
       showRename: false,
-      renameTxt: 'Rename',
-      txtName: '',
+      txtName: {},
       showinput: false
     };
   }
   componentDidMount = () => {
     this.allHouses();
     this.getSetting();
-    // this.handleSetting();
   };
 
   redirectSpace = (data) => {
@@ -113,13 +108,8 @@ class Index extends Component {
       });
   };
 
-  //for Search and Setting
-  handleSearch = () => {
-    console.log("Hii, You're Searching Something.")
-  }
-
   SearchFilter = (e) => {
-    this.setState({ searchValue: e.target.stateLoginValueAim })
+    this.setState({ searchValue: e.target.value })
     let track1 = this.state.currentList2;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
       return JSON.stringify(obj).toLowerCase().includes(e.target?.value?.toLowerCase());
@@ -128,16 +118,27 @@ class Index extends Component {
   }
 
   //for rename popup
-  renamePopup = (value) => {
-    this.setState({ showRename: value })
+  renamePopup = (item) => {
+    this.setState({ showRename: item.value, txtName: item })
   }
-
-  renamePopup2 = (value) => {
-    this.setState({ showRename: '' })
+  renamePopup2 = (item) => {
+    const user_token = this.props.stateLoginValueAim.token;
+    this.setState({ showRename: false, loaderImage: true })
+    axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+      houses: this.state.currentList
+  }, commonHeader(user_token)).then((responce) => {
+      if (responce.data.hassuccessed) {
+          this.setState({ loaderImage: false,  succUpdate: true, });
+          setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
+          this.allHouses();
+      }
+  })
   }
 
   handletxtName = (e) => {
-    this.setState({ txtName: e.target.value })
+    var txtName = this.state.txtName
+   txtName[e.target.name] =  e.target.value 
+   this.setState({txtName: txtName})
   }
 
   //for PopUp Opening and Closing
@@ -165,8 +166,6 @@ class Index extends Component {
     if (House?.value) {
       return <Redirect to={"/VirtualHospital/space"} />;
     }
-    console.log("currentList2", this.state.currentList2)
-    // console.log("TEXT Name", this.state.txtName)
 
     return (
       <Grid
@@ -180,6 +179,7 @@ class Index extends Component {
         }
       >
         <Grid className="homeBgIner">
+        {this.state.loaderImage && <Loader />}
           <Grid className="homeBgIner vh-section">
             <Grid container direction="row" justify="center">
               <Grid item xs={12} md={12}>
@@ -211,7 +211,7 @@ class Index extends Component {
                           <Grid item xs={12} md={3}>
                             <Grid className="settingInfo">
                             {this.state.showinput && <input className="serchInput" name="Search" placeholder="Search" value={this.state.searchValue} onChange={this.SearchFilter} />}
-                              <a onClick={this.handleSearch}>
+                              <a>
                                 {!this.state.showinput ? <img
                                   src={require("assets/virtual_images/search-entries.svg")}
                                   alt=""
@@ -222,7 +222,7 @@ class Index extends Component {
                                   src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
+                                  onClick={()=>{this.setState({showinput: !this.state.showinput, currentList: this.state.currentList2, searchValue: ''})}}
                                 />}
                               </a>
                               <a onClick={this.handleOpenPopUp}>
@@ -259,25 +259,22 @@ class Index extends Component {
                                     <Table>
                                       <thead>
                                         <tr>
-                                          <th>House Name</th>
+                                          <th>Hospitals</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        {
-                                          currentList2 && currentList2.map((item) => (
+                                        {currentList2 && currentList2.map((item) => (
                                             <tr>
-                                              {console.log("this.state.showRename", this.state.showRename)}
                                               {this.state.showRename === item.value ? (
-                                                <td ><input type="text" name="name" onChange={this.handletxtName} value={this.state.txtName} /> </td>
+                                                <td className="creatInfoIner" ><input type="text" name="label" onChange={(e) => this.handletxtName(e)} value={this.state.txtName?.label || ''} /> </td>
                                               ) : (
                                                 <td> {item.group_name && item.label} </td>
                                               )
                                               }
-                                              {/* <td>{item.group_name && item.label}</td> */}
                                               {this.state.showRename === item.value ? (
-                                                <td> <Button onClick={() => this.renamePopup2(item.value)} className="btn-warning ml-10" color="primary">Save</Button> </td>
+                                                <td> <Button onClick={() => this.renamePopup2(item)} className="renameButton" >Save</Button> </td>
                                               ) : (
-                                                <td> <Button onClick={() => this.renamePopup(item.value)} className="btn-warning ml-10" color="primary">Rename</Button> </td>
+                                                <td> <Button onClick={() => this.renamePopup(item)} className="renameButton" >Rename</Button> </td>
                                               )}
                                             </tr>
                                           ))

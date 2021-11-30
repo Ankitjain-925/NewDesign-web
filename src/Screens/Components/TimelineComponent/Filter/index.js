@@ -200,7 +200,6 @@ class FilterSec extends Component {
       { value: "second_opinion", label: secnd_openion },
       { value: "sick_certificate", label: sick_cert },
       { value: "smoking_status", label: smoking_status },
-      { value: "task", label: "task" },
       { value: "vaccination", label: vaccination },
       { value: "weight_bmi", label: weight_bmi },
     ];
