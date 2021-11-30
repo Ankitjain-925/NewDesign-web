@@ -6191,11 +6191,20 @@ img.addBlue {
     line-height: 20px;
 }
 img.openScnd {
-    height: 24px;
+    height: 24px !important;
     width: 24px;
     cursor: pointer;
     border-radius: 5px;
 }
+
+.bg-color-card {
+    background-color: #E5E6E6 !important ;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .scndOptionIner ul li a {
     display: flex;
     align-items: flex-start;
@@ -17199,21 +17208,9 @@ ul.duringCovid li:last-child {
 .darkTheme .enrgyLbl a,.darkTheme .fatiqueQues a, .darkTheme .symptomsType a {
     background-color: #363636;
 }
-.spcMgntH1 h1 {
-    color: #000808;
-    font-size: 28px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: 40px;
-}
-.academy_ul.stepTdotupper ul div {
+.form-box{
+    margin-bottom:15px !important;
     width: 100% !important;
-}
-.academy_ul.stepTdotupper .movHeadLft {
-    text-align: left !important;
-}
-.taskBorder {
-    border-left: 4px solid #00ABAF !important;
 }
 
 .h-500{
