@@ -44,7 +44,6 @@ class Index extends React.Component {
     }
 
     getListOption=()=>{
-      console.log('this.props.quote?.wards?._id', this.props.quote?.wards?._id)
       var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
       this.setState({ AllRoom: AllRoom });
       this.GetAllBed();
@@ -185,7 +184,6 @@ class Index extends React.Component {
     }
 
     GetAllBed= async ()=>{
-      console.log('this.props.quote?.rooms?._id', this.props.quote?.rooms?._id)
       if(this.props.quote?.speciality?._id && this.props.quote?.wards?._id && this.props.quote?.rooms?._id && this.props?.House?.value){
         var response = await AllBed(this.props.quote?.speciality?._id, this.props.quote?.wards?._id, this.props.quote?.rooms?._id, this.props?.House?.value,
           this.props.stateLoginValueAim.token);
@@ -194,10 +192,7 @@ class Index extends React.Component {
             var finalBed = response?.data?.data.length>0 && response?.data?.data.map((bed)=>{
               return {value: bed, label: bed}
             });
-            this.setState({AllBeds: finalBed},
-              ()=>{
-                console.log('this.state.AllBeds',this.state.AllBeds)
-              })    
+            this.setState({AllBeds: finalBed})    
       }
       else{
         this.setState({AllBeds: []})  
@@ -302,8 +297,8 @@ MovetoTask=()=>{
                            <Grid className="positionDrop">
                            <Select
                               name="professional"
-                              onChange={(e) =>
-                                  this.updateEntryState3(e)}
+                              comesFrom = "morebutton"
+                              onChange={(e) => this.updateEntryState3(e)}
                               value={this.state.assignedTo}
                               options={this.props.professional_id_list}
                               placeholder="Search & Select"
@@ -326,6 +321,7 @@ MovetoTask=()=>{
                              <Grid className="fillDia">
                                <Grid>
                                  <SelectField
+                                 comesFrom = "morebutton"
                                    isSearchable={true}
                                    name="type"
                                    label="Wards"
@@ -338,6 +334,7 @@ MovetoTask=()=>{
                                </Grid>
                                {this.props.quote?.wards?._id && <Grid>
                                  <SelectField
+                                 comesFrom = "morebutton"
                                    isSearchable={true}
                                    name="type"
                                    label="Room"
@@ -348,6 +345,7 @@ MovetoTask=()=>{
                                </Grid>}
                                {this.props.quote?.rooms?._id && <Grid>
                                  <SelectField
+                                 comesFrom = "morebutton"
                                    isSearchable={true}
                                    name="type"
                                    label="Bed"

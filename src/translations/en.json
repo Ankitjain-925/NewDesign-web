@@ -1304,7 +1304,7 @@
 		"Attachments":"Attachments",
 		"Roomname":"Roomname",              
 		"Bedsinroom":"Beds in room",
-		"AssignHouse":"Assign Hospitals",
+		"AssignHouse":"Assign House",
 		"AddTask":"Add Task",
 		"AddSpecialty":"Add Speciality",
 		"ChangeStaff":"Change Staff",
@@ -1331,7 +1331,6 @@
 		"Upcomingappointment":"Upcoming appointment",
 		"LastDocuments":"Last Documents",
 		"Prescription":"Prescription"
-		
 		
 	}
 }
