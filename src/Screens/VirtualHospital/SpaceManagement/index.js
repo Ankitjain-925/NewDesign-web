@@ -83,7 +83,7 @@ class Index extends Component {
       this.setState({ errorMsg: 'Please select color' })
     }
     else if (data && (!data.wards || data.wards.length < 1)) {
-      this.setState({ errorMsg: "Please add ward" })
+      this.setState({ errorMsg: "Please add atleast one ward" })
     }
     else {
       if (data._id) {
@@ -188,7 +188,7 @@ class Index extends Component {
       this.setState({ errorMsg2: "Please enter ward name" })
     }
     else if ((data && !data.rooms)) {
-      this.setState({ errorMsg2: "Please enter room data" })
+      this.setState({ errorMsg2: "Please enter alteast one room" })
     }
     else {
       let length = data.rooms.length
@@ -203,7 +203,6 @@ class Index extends Component {
           this.setState({ errorStatus: true })
           return true;
         }
-
       }
       )
       if (!check.includes(true)) {

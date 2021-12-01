@@ -22,7 +22,6 @@ import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { Redirect, Route } from "react-router-dom";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import DateFormat from "Screens/Components/DateFormat/index";
@@ -34,7 +33,8 @@ import { getLanguage } from "translations/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
 import { MultiFilter } from "../../MultiFilter/index";
-import FileViews from "../../TimelineComponent/FileViews/index";
+
+
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -87,7 +87,9 @@ class Index extends Component {
       OpenTaskCss: '',
       ArchivedTasksCss: '',
       text: '',
-      errorMsg : ''
+      errorMsg: '',
+      openServ: false,
+      editcomment: false
     };
   }
 
@@ -223,15 +225,15 @@ class Index extends Component {
 
   // submit Task model
   handleTaskSubmit = () => {
-    this.setState({errorMsg : ""})
+    this.setState({ errorMsg: "" })
 
     var data = this.state.newTask;
     if (!data.task_name || (data && data.task_name && data.task_name.length < 1)) {
-      this.setState({errorMsg : "Task title can't be empty"})
+      this.setState({ errorMsg: "Task title can't be empty" })
 
     }
     else if (!data.patient || (data && data.patient && data.patient.length < 1)) {
-      this.setState({errorMsg : "Please select a Patient"})
+      this.setState({ errorMsg: "Please select a Patient" })
     }
     else {
 
@@ -262,8 +264,8 @@ class Index extends Component {
               this.props.getAddTaskData();
               this.handleCloseTask()
             }
-            else{
-              this.setState({errorMsg : "Somthing went wrong, Please try again"})
+            else {
+              this.setState({ errorMsg: "Somthing went wrong, Please try again" })
             }
           });
       } else {
@@ -321,7 +323,7 @@ class Index extends Component {
           })
           .catch(function (error) {
             console.log(error);
-            this.setState({errorMsg : "Somthing went wrong, Please try again"})
+            this.setState({ errorMsg: "Somthing went wrong, Please try again" })
           });
       }
     }
@@ -372,6 +374,23 @@ class Index extends Component {
     state['comments'] = array
     this.setState({ newTask: state, openTask: true })
   }
+
+  editComment = (index) => {
+    this.setState({ editcomment: index });
+
+  };
+
+  oNEditText(e , index) {
+    var state = this.state.newTask
+    state['comments'][index]['comment'] = e.target.value;
+    this.setState({ newTask: state });
+  }
+
+  onKeyUp = (e) => {
+    if (e.key === "Enter") {
+      this.editComment(false);
+    }
+  };
 
   // For adding a date,time
   updateEntryState1 = (value, name) => {
@@ -714,9 +733,6 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      Tasks_overview,
-      Open,
-      Donetoday,
       CreateaTask,
       ForPatient,
       Taskdescription,
@@ -958,27 +974,27 @@ class Index extends Component {
                             <Grid item xs={12} md={12} className="dueOn">
                               <label>{Dueon}</label>
                               <Grid className="timeTask">
-                              <Grid item xs={10} md={10}>
-                                {/* {this.state.openDate ? ( */}
-                                <DateFormat
-                                  name="date"
-                                  value={
-                                    this.state.newTask?.due_on?.date
-                                      ? new Date(
-                                        this.state.newTask?.due_on?.date
-                                      )
-                                      : new Date()
-                                  }
-                                  notFullBorder
-                                  date_format={this.state.date_format}
-                                  onChange={(e) =>
-                                    this.updateEntryState1(e, "date")
-                                  }
-                                  disabled={this.props.comesFrom === 'Professional' ? true : false}
-                                />
-                              </Grid>
-                              <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
-                              {this.state.openDate ? (
+                                <Grid item xs={10} md={10}>
+                                  {/* {this.state.openDate ? ( */}
+                                  <DateFormat
+                                    name="date"
+                                    value={
+                                      this.state.newTask?.due_on?.date
+                                        ? new Date(
+                                          this.state.newTask?.due_on?.date
+                                        )
+                                        : new Date()
+                                    }
+                                    notFullBorder
+                                    date_format={this.state.date_format}
+                                    onChange={(e) =>
+                                      this.updateEntryState1(e, "date")
+                                    }
+                                    disabled={this.props.comesFrom === 'Professional' ? true : false}
+                                  />
+                                </Grid>
+                                <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
+                                  {this.state.openDate ? (
 
                                     <Button
                                       onClick={() => {
@@ -988,26 +1004,26 @@ class Index extends Component {
                                       Add time
                                     </Button>
 
-                              ) : (
-                                <>
-                                <TimeFormat
-                                className = "timeFormatTask"
-                                  name="time"
-                                  value={
-                                    this.state.newTask?.due_on?.time
-                                          ? new Date(
-                                            this.state.newTask?.due_on?.time
-                                          )
-                                          : new Date()
-                                      }
-                                      time_format={this.state.time_format}
-                                      onChange={(e) =>
-                                        this.updateEntryState1(e, "time")
-                                      }
-                                      disabled={this.props.comesFrom === 'Professional' ? true : false}
-                                    />
-                                    <span className="addTimeTask1span" onClick={()=>{this.setState({openDate: true})}}>Remove time</span>
-                                  </>
+                                  ) : (
+                                    <>
+                                      <TimeFormat
+                                        className="timeFormatTask"
+                                        name="time"
+                                        value={
+                                          this.state.newTask?.due_on?.time
+                                            ? new Date(
+                                              this.state.newTask?.due_on?.time
+                                            )
+                                            : new Date()
+                                        }
+                                        time_format={this.state.time_format}
+                                        onChange={(e) =>
+                                          this.updateEntryState1(e, "time")
+                                        }
+                                        disabled={this.props.comesFrom === 'Professional' ? true : false}
+                                      />
+                                      <span className="addTimeTask1span" onClick={() => { this.setState({ openDate: true }) }}>Remove time</span>
+                                    </>
                                   )
                                   }
                                 </Grid>
@@ -1124,6 +1140,7 @@ class Index extends Component {
                           {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
                             <Grid><label>Comments</label></Grid>
                             {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
+
                               <Grid className="cmntIner cmntInerBrdr">
 
                                 <Grid className="cmntMsgs">
@@ -1138,10 +1155,24 @@ class Index extends Component {
                                         this.props.settings?.setting?.time_format
                                       )}</span>
                                     </Grid>
-                                    <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
+                                    <Grid className="cmntMsgsCntnt">
+                                      {this.state.editcomment === index ?
+                                        <textarea type="text"
+                                        name="comment"
+                                          onChange={(e) => this.oNEditText(e, index) 
+                                          }
+                                          onKeyDown={this.onKeyUp}
+                                          value={data?.comment}
+                                        >
+                                        </textarea>
+                                        :
+                                        <p>{data?.comment}</p>}
+                                    </Grid>
+                                    {/* {console.log('data?.comment', data)} */}
                                     {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
-                                      {/* <Button onClick={() => this.editDocComment(data)}>Edit</Button> */}
+                                      {/* <Button onClick={() => this.editComment(data)}>Edit</Button> */}
                                       <Button onClick={() => this.removeComment(index)}>Delete</Button>
+                                      <Button onClick={() => this.editComment(index)}>Edit</Button>
                                     </Grid>}
                                   </Grid>
                                 </Grid>
@@ -1156,7 +1187,7 @@ class Index extends Component {
                                     e.target.value
                                   )
                                 }
-                                value={this.state.newComment}
+                                value={this.state.newComment?.comment}
                               ></textarea>
 
                               <Button onClick={(e) => this.handleComment()}>Add Comment</Button>
