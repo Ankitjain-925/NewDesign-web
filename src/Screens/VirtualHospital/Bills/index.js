@@ -206,7 +206,7 @@ class Index extends Component {
                                 : "react-confirm-alert-body"
                         }
                     >
-                        <h1>Remove Bill?</h1>
+                        <h1 class="alert-btn">Remove Bill?</h1>
                         <p>Are you really want to remove this Bill?</p>
                         <div className="react-confirm-alert-button-group">
                             <button onClick={onClose}>No</button>

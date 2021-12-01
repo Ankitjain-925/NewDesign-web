@@ -212,7 +212,7 @@ class Index extends Component {
             }
           >
 
-            <h1>Remove Service ?</h1>
+            <h1 class="alert-btn">Remove Service ?</h1>
 
             <p>Are you really want to remove this Service?</p>
             <div className="react-confirm-alert-button-group">

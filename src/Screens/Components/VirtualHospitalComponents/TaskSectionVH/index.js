@@ -348,10 +348,11 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1>Remove the Comment ?</h1>
+            <h1 >Remove the Comment ?</h1>
             <p>Are you sure to remove this Comment?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
+              
               <button
                 onClick={() => {
                   this.removebtn(index);
@@ -359,6 +360,7 @@ class Index extends Component {
               >
                 Yes
               </button>
+              
             </div>
           </div>
         );
@@ -380,10 +382,11 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1>Remove Comment ?</h1>
+            <h1 class ="alert-btn">Remove Comment ?</h1>
             <p>Are you really want to remove this Comment?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
+              
               <button
                 onClick={() => {
                   this.deleteClickComment(index);
@@ -392,6 +395,7 @@ class Index extends Component {
               >
                 Yes
               </button>
+            
             </div>
           </div>
         );
@@ -589,7 +593,7 @@ editComment = (index) => {
                 : "react-confirm-alert-body"
             }
           >
-            <h1>Remove Task?</h1>
+            <h1 class="alert-btn">Remove Task?</h1>
             <p>Are you really want to remove this Task?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
