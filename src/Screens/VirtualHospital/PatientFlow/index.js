@@ -219,6 +219,7 @@ class Index extends Component {
   //Set data according to package
   setDta = (stepData) => {
     var author = getAuthor(stepData);
+    console.log("STEP DATA", stepData)
     stepData.map((item, index1) => {
       item?.case_numbers?.length > 0 &&
         item.case_numbers.map((data, index) => {
@@ -231,7 +232,7 @@ class Index extends Component {
 
   //Open case model
   openAddPatient = (index = 0) => {
-    this.setState({ openAddP: true, AddstpId: index,  addp: {},idpinerror: false,  case: {}, });
+    this.setState({ openAddP: true, AddstpId: index, addp: {}, idpinerror: false, case: {}, });
   };
 
   //Close case model
@@ -454,7 +455,7 @@ class Index extends Component {
     this.mapActualToFullData(result);
   }
 
-  newPatient = ()=>{
+  newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
 
@@ -513,12 +514,12 @@ class Index extends Component {
                           <h1>{PatientFlow}</h1>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
-                        <a onClick={() => this.newPatient()}>
+                          <a onClick={() => this.newPatient()}>
                             + Create New Patient
                           </a>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
-                        <a onClick={() => this.openAddPatient(0)}>
+                          <a onClick={() => this.openAddPatient(0)}>
                             + Add patient
                           </a>
                         </Grid>
