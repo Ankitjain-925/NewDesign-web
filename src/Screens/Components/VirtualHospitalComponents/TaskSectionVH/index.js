@@ -411,7 +411,7 @@ class Index extends Component {
     this.setState({ newTask: state, openTask: true })
   }
 
-editComment = (index) => {
+  editComment = (index) => {
     this.setState({ editcomment: index });
 
   };
@@ -1231,7 +1231,7 @@ editComment = (index) => {
                                         name="comment"
                                           onChange={(e) => this.oNEditText(e, index) 
                                           }
-                                         
+
                                           onKeyDown={this.onKeyUp}
                                           value={data?.comment}
                                         >
