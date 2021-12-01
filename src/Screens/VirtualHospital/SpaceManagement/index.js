@@ -11,6 +11,7 @@ import RoomView from "Screens/Components/VirtualHospitalComponents/RoomView/inde
 import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
+import { confirmAlert } from "react-confirm-alert";
 import { withRouter } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
@@ -293,6 +294,42 @@ class Index extends Component {
     return "";
   };
 
+  removeSpeciality = () =>{
+  this.handleCloseWarn();
+  confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+
+            <h1 class="alert-btn">Delete Speciality?</h1>
+
+            <p>Are you really want to delete this Speciality?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.deleteClick();
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
   deleteClick = () => {
     if (this.state.wardDel && this.state.roomDel && this.state.patDel && this.state.deleteId) {
       this.setState({ loaderImage: true });
@@ -493,7 +530,7 @@ class Index extends Component {
                                 </p>
                               </Grid>
                               <Grid className="selectWarn">
-                                <Button className="selWarnBtn" onClick={() => { this.deleteClick() }}>
+                                <Button className="selWarnBtn" onClick={() => { this.removeSpeciality() }}>
                                   Yes, Delete Speciality
                                 </Button>
                                 <Button onClick={this.handleCloseWarn}>Cancel, Keep Speciality</Button>

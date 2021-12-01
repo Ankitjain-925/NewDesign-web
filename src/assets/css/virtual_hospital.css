@@ -9670,6 +9670,12 @@ button.crdoLghtBlu2 {
 .asnswerSbmt {
     margin-top: 16px;
 }
+.alert-btn{
+    color:red;
+    font-weight:600;
+    font-size:18px;
+    margin-bottom:10px;
+}
 .QuesMrktUpr p {
     color: #404646;
     font-size: 14px;

@@ -260,7 +260,7 @@ class Index extends Component {
                 <p>All Patients in this Step will be removed from the flow. This action can not be reversed.</p>
                 <Grid><label>Are you sure you want to do this?</label></Grid>
                 <Grid>
-                  <Button onClick={() => { this.DeleteStepOk(state, index) }}>Yes, Delete Step</Button>
+                  <Button onClick={() => { this.removestep2(state, index) }}>Yes, Delete Step</Button>
                   <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
                 </Grid>
               </Grid>
@@ -273,6 +273,39 @@ class Index extends Component {
       this.DeleteStepOk(state, index)
     }
 
+  };
+  removestep2 = (index) => {
+    var state = this.state.actualData;
+   confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">Remove Step?</h1>
+            <p>Are you really want to remove this Step?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.DeleteStepOk(state, index);
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
   };
 
   DeleteStepOk = (state, index) => {
