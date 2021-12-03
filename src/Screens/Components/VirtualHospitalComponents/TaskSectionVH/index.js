@@ -1252,7 +1252,7 @@ class Index extends Component {
                                         name="comment"
                                           onChange={(e) => this.oNEditText(e, index) 
                                           }
-                                         
+
                                           onKeyDown={this.onKeyUp}
                                           value={data?.comment}
                                         >

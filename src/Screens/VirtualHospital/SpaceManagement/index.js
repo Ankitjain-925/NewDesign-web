@@ -25,6 +25,7 @@ import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
 import {
   getLanguage
 } from "translations/index"
@@ -221,7 +222,7 @@ class Index extends Component {
         });
       }
       else {
-        this.setState({ errorMsg2: 'Please enter valid room data' })
+        this.setState({ errorMsg2: 'Please enter valid room name or number of beds' })
       }
     }
   };
@@ -597,7 +598,11 @@ class Index extends Component {
                                             title=""
                                           />
                                           {this.bednumbers(item.rooms)} beds
-                                          <span>32 available</span>
+                                          
+                                          <AvailablebedListing 
+                                            speciality_id= {data._id}
+                                            ward_id={item._id}
+                                          />
                                         </li>
                                       </ul>
                                     </Grid>
