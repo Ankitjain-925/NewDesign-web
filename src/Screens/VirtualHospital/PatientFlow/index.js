@@ -7,7 +7,9 @@ import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { getPatientData } from "Screens/Components/CommonApi/index";
 import {
+  AllRoomList,
   getSteps,
   getAuthor,
   updateInActualData,
@@ -34,7 +36,6 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import _ from "lodash";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
-
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +60,7 @@ class Index extends Component {
   boardRef;
 
   componentDidMount() {
+    this.getPatientData();
     this.getProfessionalData();
     var steps = getSteps(
       this.props?.House?.value,
@@ -80,7 +82,6 @@ class Index extends Component {
     else {
       this.setState({ specialitiesList: specsMap1 });
     }
-
   }
 
   MovetoTask = (speciality, patient_id) => {
@@ -232,7 +233,7 @@ class Index extends Component {
 
   //Open case model
   openAddPatient = (index = 0) => {
-    this.setState({ openAddP: true, AddstpId: index,  addp: {},idpinerror: false,  case: {}, });
+    this.setState({ openAddP: true, AddstpId: index, addp: {}, idpinerror: false, case: {}, });
   };
 
   //Close case model
@@ -260,7 +261,7 @@ class Index extends Component {
                 <p>All Patients in this Step will be removed from the flow. This action can not be reversed.</p>
                 <Grid><label>Are you sure you want to do this?</label></Grid>
                 <Grid>
-                  <Button onClick={() => { this.DeleteStepOk(state, index) }}>Yes, Delete Step</Button>
+                  <Button onClick={() => { this.removestep2(state, index) }}>Yes, Delete Step</Button>
                   <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
                 </Grid>
               </Grid>
@@ -273,6 +274,39 @@ class Index extends Component {
       this.DeleteStepOk(state, index)
     }
 
+  };
+  removestep2 = (index) => {
+    var state = this.state.actualData;
+   confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">Remove Step?</h1>
+            <p>Are you really want to remove this Step?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.DeleteStepOk(state, index);
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
   };
 
   DeleteStepOk = (state, index) => {
@@ -455,7 +489,7 @@ class Index extends Component {
     this.mapActualToFullData(result);
   }
 
-  newPatient = ()=>{
+  newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
 
@@ -477,12 +511,145 @@ class Index extends Component {
     );
     this.setState({ fullData: authorQuoteMap });
   }
+  handleCloseFil = () => {
+    this.setState({ openFil: false })
+  }
+  handleOpenFil = () => {
+    this.setState({ openFil: true })
+  }
+
+  // Get the Patient data
+  getPatientData = async () => {
+    this.setState({ loaderImage: true });
+    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
+    if (response.isdata) {
+      // console.log("response.isdata", response.PatientList1)
+      this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
+        if (this.props.location?.state?.user) {
+          let user =
+            this.state.users1.length > 0 &&
+            this.state.users1.filter(
+              (user) =>
+                user.value === this.props.location?.state?.user.value
+            );
+
+          if (user?.length > 0) {
+            this.setState({ q: user[0]?.name, selectedUser: user[0] });
+          }
+          this.updateEntryState2(this.props.location?.state?.user);
+        }
+      });
+    }
+    else {
+      this.setState({ loaderImage: false });
+    }
+  };
+
+  //Change the UserList
+  onChange = (event) => {
+    const q = event.target.value.toLowerCase();
+    this.setState({ q }, () => this.filterList());
+  };
+
+  filterList = () => {
+    let users = this.state.users1;
+    let q = this.state.q;
+    users =
+      users &&
+      users.length > 0 &&
+      users.filter(function (user) {
+        return (
+          user.label.toLowerCase().indexOf(q) != -1 ||
+          user.profile_id.toLowerCase().indexOf(q) != -1
+        );
+        // return  // returns true or false
+      });
+    this.setState({ filteredUsers: users });
+    if (this.state.q == "") {
+      this.setState({ filteredUsers: [] });
+    }
+  };
+
+  myColor(position) {
+    if (this.state.active === position) {
+      return "#00a891";
+    }
+    return "";
+  }
+
+  color(position) {
+    if (this.state.active === position) {
+      return "white";
+    }
+    return "";
+  }
+
+  //User list will be show/hide
+  toggle = () => {
+    this.setState({
+      shown: !this.state.shown,
+    });
+  };
+
+  //Select the patient name
+  updateEntryState2 = (user) => {
+    var user1 = this.state.users?.length > 0 &&
+      this.state.users.filter((data) => data.patient_id === user.value);
+    if (user1 && user1.length > 0) {
+      const state = this.state.newTask;
+      state["patient"] = user1[0];
+      state["patient_id"] = user1[0].patient_id;
+      state["case_id"] = user1[0].case_id;
+      this.setState({ newTask: state });
+    }
+  };
+
+  onFieldChange2 = (e) => {
+    if (e && e.length > 0) {
+
+      var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
+        console.log("specsMap", item);
+        if (item && item.length > 0) { }
+        let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
+          return item._id;
+        })
+        return { specialty_name: item.specialty_name, _id: item._id, ward_id: data };
+      })
+      this.setState({ Allspeciality: specsMap })
+    }
+  }
+
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber } =
       translate;
     const { searchValue, specialitiesList, selectedOption } = this.state;
+    const userList =
+      this.state.filteredUsers &&
+      this.state.filteredUsers.map((user) => {
+
+        return (
+          <li
+            key={user.id}
+            style={{
+              background: this.myColor(user.id),
+              color: this.color(user.id),
+            }}
+            value={user.profile_id}
+            onClick={() => {
+              this.setState({ q: user.label, selectedUser: user });
+              this.updateEntryState2(user);
+              this.toggle(user.id);
+              this.setState({ filteredUsers: [] });
+            }}
+          >
+            {user.label} ( {user.profile_id} )
+          </li>
+        );
+      });
+
+
     return (
       <Grid
         className={
@@ -514,12 +681,12 @@ class Index extends Component {
                           <h1>{PatientFlow}</h1>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
-                        <a onClick={() => this.newPatient()}>
+                          <a onClick={() => this.newPatient()}>
                             + Create New Patient
                           </a>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
-                        <a onClick={() => this.openAddPatient(0)}>
+                          <a onClick={() => this.openAddPatient(0)}>
                             + Add patient
                           </a>
                         </Grid>
@@ -533,9 +700,111 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght">
-                            <a className="srchSort" onClick={this.clearFilters}>
+
+                            {/* <a onClick={this.clearFilters}> */}
+                            <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilters}>Clear all filters</label></Grid>
+                            {/* </a> */}
+
+                            <a className="srchSort" onClick={this.handleOpenFil}>
                               <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
+
+                            <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
+
+                              <Grid className="fltrClear">
+                                <Grid className="fltrClearIner">
+                                  <Grid className="fltrLbl">
+                                    <Grid className="fltrLblClose">
+                                      <a onClick={this.handleCloseFil}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
+                                    </Grid>
+                                    <label>Filters</label>
+                                  </Grid>
+
+
+                                  <Grid className="fltrForm">
+                                    <Grid className="fltrInput">
+                                      <label>Patient</label>
+
+                                      <Grid>
+                                        <input
+                                          type="text"
+                                          placeholder={"Search & Select"}
+                                          value={this.state.q}
+                                          onChange={this.onChange}
+                                        />
+                                        <ul className={this.state.shown && "patientHint"}>
+                                          {userList}
+                                        </ul>
+                                      </Grid>
+
+                                    </Grid>
+                                    <Grid className="fltrInput">
+                                      <label>Staff</label>
+                                      <Grid className="addInput">
+                                        <Select
+                                          name="professional"
+                                          // onChange={(e) => this.updateEntryState4(e)}
+                                          value={this.state.assignedTo2}
+                                          options={this.state.professional_id_list}
+                                          placeholder="Filter by Staff"
+                                          isMulti={true}
+                                          isSearchable={true}
+                                        />
+                                      </Grid>
+                                    </Grid>
+                                    <Grid className="fltrInput">
+                                      <label>Speciality</label>
+                                      <Grid className="addInput">
+                                        <Select
+                                          onChange={(e) => this.onFieldChange2(e)}
+                                          options={this.state.specialitiesList}
+                                          name="specialty_name"
+                                          value={this.state.selectSpec2}
+                                          placeholder="Filter by Speciality"
+                                          isMulti={true}
+                                          isSearchable={true} />
+                                      </Grid>
+                                    </Grid>
+                                   
+                                      <Grid className="fltrInput">
+                                        <label>Ward</label>
+                                        <Grid className="addInput">
+                                          <Select
+                                            // onChange={(e) => this.onFieldChange2(e)}
+                                            options={this.state.specilaityList}
+                                            name="specialty_name"
+                                            value={this.state.selectSpec2}
+                                            placeholder="Filter by Ward"
+                                            isMulti={true}
+                                            isSearchable={true} />
+                                        </Grid>
+                                      </Grid>
+
+                                    <Grid className="fltrInput">
+                                      <label>Room</label>
+                                      <Grid className="addInput">
+                                        <Select
+                                          // onChange={(e) => this.onFieldChange2(e)}
+                                          options={this.state.specilaityList}
+                                          name="specialty_name"
+                                          value={this.state.selectSpec2}
+                                          placeholder="Filter by Room"
+                                          isMulti={true}
+                                          isSearchable={true} />
+                                      </Grid>
+                                    </Grid>
+
+                                  </Grid>
+                                  <Grid className="aplyFltr">
+                                    <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
+                                    <Grid className="aplyRght"><Button onClick={this.clearFilters}>Apply filters</Button></Grid>
+                                  </Grid>
+
+                                </Grid>
+                              </Grid>
+                            </Modal>
+
+
                             <Select
                               value={selectedOption}
                               onChange={this.onChooseSpeciality}
