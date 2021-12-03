@@ -182,7 +182,7 @@ class Index extends Component {
   };
 
   //add the ward of the speciality
-  handleOpenRoom = () => {
+  handleOpenRoom = () => { 
     this.setState({ errorMsg2: "" })
     let data = this.state.ward
     if ((data && !data.ward_name) || (data && data?.ward_name && data?.ward_name?.length < 1)) {
