@@ -34,7 +34,6 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import _ from "lodash";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
-
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -51,12 +50,21 @@ class Index extends Component {
       AddstpId: false,
       searchValue: '',
       idpinerror: false,
+      openPopup: false
     };
   }
   static defaultProps = {
     isCombineEnabled: false,
   };
   boardRef;
+
+  handleOpenPopup = () => {
+    this.setState({ openPopup: true })
+  }
+
+  handleClosePopup = () => {
+    this.setState({ openPopup: false })
+  }
 
   componentDidMount() {
     this.getProfessionalData();
@@ -212,10 +220,23 @@ class Index extends Component {
   //Add new step
   AddStep = () => {
     var state = this.state.actualData;
-    state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
+    // POpupOPen
+    this.setState({ openPopup: true })
+    // textbox -> step_name: "Step" + (new Date()).getTime();
+
+    // step_name--
+    // state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
+
+    // this.setDta(state);
+    // this.CallApi();
+  };
+
+  OnAdd = () => {
+    var state = this.state.actualData;
+    state.push({ step_name: this.state.step_name, case_numbers: [] });
     this.setDta(state);
     this.CallApi();
-  };
+  }
 
   //Set data according to package
   setDta = (stepData) => {
@@ -684,6 +705,39 @@ class Index extends Component {
             </Grid>
           </Grid>
         </Modal>
+
+        {/* +add step pop-up */}
+        <Modal
+          open={this.state.openPopup}
+          onClose={this.handleClosePopup}
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "darkTheme addWrnModel"
+              : "addWrnModel"
+          }
+        >
+          <Grid className="addWrnContnt">
+            <Grid className="addWrnIner">
+              <Grid className="addWrnLbl">
+                <h5>Add Step</h5>
+                <Grid className="addWrnClose">
+                  <a onClick={this.handleClosePopup}>
+                    <img
+                      src={require("assets/virtual_images/closefancy.png")}
+                      alt=""
+                      title=""
+                    />
+                  </a>
+                </Grid>
+                <Input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Add Name" type="text" />
+                <Button color="primary" onClick={this.OnAdd}>Add</Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Modal>
       </Grid>
     );
   }
@@ -696,8 +750,8 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { speciality } = state.Speciality;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
+  // const {Doctorsetget} = state.Doctorset;
+  // const {catfil} = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
