@@ -28,7 +28,7 @@ import { getPatientData } from "Screens/Components/CommonApi/index";
 import { PatientMoveFromHouse } from "../PatientFlow/data";
 import {
     getLanguage
-  } from "translations/index"
+  } from "translations/index";
 
 
 const customStyles = {
@@ -186,7 +186,6 @@ class Index extends Component {
         else {
             state[name] = e;
         }
-
         this.setState({ addinvoice: state });
     }
 
@@ -311,7 +310,7 @@ class Index extends Component {
         //     this.setState({ loaderImage: false })``;
         // });
         // }
-        else {
+        // else {
             data.house_id = this.props?.House?.value;
             data.services = this.state.items
             data.created_at = new Date();
@@ -328,33 +327,32 @@ class Index extends Component {
             }
             else {
                 this.setState({ loaderImage: true });
-                axios
-                    .post(
-                        sitedata.data.path + "/vh/addInvoice",
-                        data,
-                        commonHeader(this.props.stateLoginValueAim.token)
-                    )
-                    .then((responce) => {
-                        this.setState({ loaderImage: false });
-                        if (responce.data.hassuccessed) {
-                            if (data.status.value == 'paid') {
-                                PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
-                            }
-                            else if(data.status.value == 'overdue'){
-                                PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
-                            }
-                            this.setState({
-                                items: [],
-                                addinvoice: {}, selectedPat: {},
-                            });
-                            this.Billing();
+                axios.post(
+                    sitedata.data.path + "/vh/addInvoice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    if (responce.data.hassuccessed) {
+                        if (data.status.value == 'paid') {
+                            PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
                         }
-                    })
-                    .catch((error) => {
-                        this.setState({ loaderImage: false });
-                    });
+                        else if(data.status.value == 'overdue'){
+                            PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
+                        }
+                        this.setState({
+                            items: [],
+                            addinvoice: {}, selectedPat: {},
+                        });
+                        this.Billing();
+                    }
+                })
+                .catch((error) => {
+                    this.setState({ loaderImage: false });
+                });
             }
-        }
+        // }
     }
 
     //Delete the perticular service confirmation box
@@ -579,7 +577,8 @@ class Index extends Component {
                                                     <Grid container direction="row" alignItems="center" spacing={3}>
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicetitle}</label>
-                                                            <TextField placeholder="Custom service title"
+                                                            <TextField 
+                                                                placeholder="Custom service title"
                                                                 name="custom_title"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_title")
@@ -588,7 +587,8 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicedescription}</label>
-                                                            <TextField placeholder="Custom service description"
+                                                            <TextField 
+                                                                placeholder="Custom service description"
                                                                 name="custom_description"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_description")
@@ -676,8 +676,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid className="servSaveBtn">
                                                     <a onClick={this.handleCloseServ}>
-                                                        <Button
-                                                            onClick={() => this.handleAddUpdate()}>Save & Close</Button>
+                                                        <Button onClick={() => this.handleAddUpdate()}>Save & Close</Button>
                                                     </a>
                                                 </Grid>
                                             </Grid>
