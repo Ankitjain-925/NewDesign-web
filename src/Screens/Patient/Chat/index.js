@@ -12,8 +12,6 @@ import CometChat from "Screens/Components/CometChat";
 import { LanguageFetchReducer } from "Screens/actions";
 import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
-// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-// var doctorArray = ['admin'];
 
 class index extends React.Component {
   constructor(props) {
@@ -129,8 +127,6 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { doctorarrays } = state.Doctorarrays;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -138,8 +134,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     doctorarrays,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

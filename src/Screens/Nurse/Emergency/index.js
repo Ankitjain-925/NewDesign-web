@@ -17,9 +17,7 @@ import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import EmergencyCall from "Screens/Components/EmergencyPage/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";

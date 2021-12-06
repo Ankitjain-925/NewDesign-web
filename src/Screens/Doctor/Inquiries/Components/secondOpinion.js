@@ -17,9 +17,7 @@ import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { LanguageFetchReducer } from "Screens/actions";
 import { getDate, getImage } from "Screens/Components/BasicMethod/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index.js";
 import { commonHeader } from "component/CommonHeader/index";

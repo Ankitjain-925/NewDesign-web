@@ -26,9 +26,7 @@ import SpecialityButton from "Screens/Components/VirtualHospitalComponents/Speci
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 class Index extends Component {
   constructor(props) {

@@ -6,9 +6,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { pure } from "recompose";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class Index extends Component {
   constructor(props) {
     super(props);

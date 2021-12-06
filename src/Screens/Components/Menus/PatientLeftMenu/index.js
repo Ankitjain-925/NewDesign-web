@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import LogOut from "Screens/Components/LogOut/index";
@@ -18,9 +16,7 @@ import axios from "axios";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import Loader from "Screens/Components/Loader/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
@@ -612,8 +608,6 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { fitbit } = state.Fitbit;
   const { withing } = state.Withings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -621,8 +615,6 @@ const mapStateToProps = (state) => {
     settings,
     fitbit,
     withing,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

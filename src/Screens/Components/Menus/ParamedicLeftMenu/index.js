@@ -6,11 +6,7 @@ import { Settings } from "Screens/Login/setting";
 import sitedata from "sitedata";
 import axios from "axios";
 import Modal from "@material-ui/core/Modal";
-import {
-  getLanguage
-} from "translations/index"
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
+import { getLanguage } from "translations/index"
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import LogOut from "Screens/Components/LogOut/index";
@@ -131,15 +127,9 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-      appointments,
       chat_vdocall,
-      capab_Patients,
-      Inquiries,
       emegancy_access,
-      more,
       my_profile,
-      invite_doc,
-      pharma_prescription,
       online_course,
       profile_setting,
       Language,
@@ -375,15 +365,11 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

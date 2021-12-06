@@ -3,14 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import Modal from "@material-ui/core/Modal";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
-import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import sitedata from "sitedata";
 import axios from "axios";
 import Mode from "Screens/Components/ThemeMode/index.js";
@@ -346,23 +342,7 @@ class Index extends Component {
                 <span>{"Institute Groups"}</span>
               </a>
             </li>
-            {/* <li>
-                            <a className="moreMenu">
-                                <img src={require('assets/images/nav-more.svg')} alt="" title="" />
-                                <span>More</span>
-                                <div className="moreMenuList">
-                                    <ul>
-                                        <li><a onClick={() => this.props.history.push("/nurses")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{srvc_Nurses}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/insurances")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{insurance}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/pharmacies")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{pharmacy}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/onlinecourses")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis {online_course}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/topics")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{course_topic}</a></li>
-                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </li> */}
+         
             <li
               className={
                 this.props.currentPage === "createnewuser" ? "menuActv" : ""
@@ -559,15 +539,11 @@ const mapStateToProps = (state) => {
     state.LoginReducerAim ? state.LoginReducerAim : {};
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const {Doctorsetget} = state.Doctorset;
-  // const {catfil} = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import { slide as Menu } from "react-burger-menu";
@@ -16,9 +14,7 @@ import DocSuggetion from "Screens/Components/DocSuggetion/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader } from "component/CommonHeader/index"
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 class Index extends Component {
   constructor(props) {
@@ -39,12 +35,6 @@ class Index extends Component {
   //For loggedout if logged in user is deleted
   componentDidMount() {
     this.getSetting();
-    // new LogOut(
-    //   this.props.stateLoginValueAim.token,
-    //   this.props.stateLoginValueAim.user._id,
-    //   this.logOutClick.bind(this)
-    // );
-    // this.props.Settings(this.props.stateLoginValueAim.token);
   }
 
   getSetting = () => {
@@ -171,14 +161,9 @@ class Index extends Component {
     let {
       appointments,
       chat_vdocall,
-      capab_Patients,
-      Inquiries,
-      emegancy_access,
       more,
       my_doc,
       my_profile,
-      invite_doc,
-      pharma_prescription,
       extra_srvc,
       online_course,
       profile_setting,
@@ -189,7 +174,6 @@ class Index extends Component {
       trackers,
       self_data,
       emrgancy_patient_data,
-      secnd_openion,
       blockchain_access_log,
       jrnl_archive,
     } = translate;
@@ -628,15 +612,11 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

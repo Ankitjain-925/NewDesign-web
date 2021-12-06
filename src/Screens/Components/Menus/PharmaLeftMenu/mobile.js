@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import Timer from "Screens/Components/TimeLogOut/index";
@@ -15,9 +13,7 @@ import axios from "axios";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { commonHeader } from "component/CommonHeader/index"
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -37,11 +33,6 @@ class Index extends Component {
   //For loggedout if logged in user is deleted
   componentDidMount() {
     this.getSetting();
-    // new LogOut(
-    //   this.props.stateLoginValueAim.token,
-    //   this.props.stateLoginValueAim.user._id,
-    //   this.logOutClick.bind(this)
-    // );
   }
 
   getSetting = () => {
@@ -128,17 +119,11 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       prescriptions,
-      appointments,
       chat_vdocall,
       pharmacy_access,
-      capab_Patients,
-      Inquiries,
       emegancy_access,
       archive,
-      more,
       my_profile,
-      invite_doc,
-      pharma_prescription,
       online_course,
       profile_setting,
       Language,
@@ -330,20 +315,7 @@ class Index extends Component {
                       </span>
                     </a>
                   </li>
-                  {/* <li className={this.props.currentPage === 'more' ? "menuActv" : ""}>
-                            <a className="moreMenu">
-                            <img src={require('assets/images/nav-more.svg')} alt="" title="" />
-                            
-                                <span>More</span>
-
-                                <div className="moreMenuList">
-                                    <ul>
-                                        <li><a onClick={this.ArchivePrescription}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Prescriptions Archive</a></li>
-                                    </ul>
-                                </div>
-                            </a>
-
-                        </li> */}
+                 
                   <li
                     className={
                       this.props.currentPage === "profile" ? "menuActv" : ""
@@ -492,15 +464,11 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

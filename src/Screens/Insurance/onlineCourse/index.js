@@ -6,7 +6,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import Loader from "Screens/Components/Loader/index";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import LeftMenu from "Screens/Components/Menus/InsuranceLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/InsuranceLeftMenu/mobile";
@@ -90,16 +90,12 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

@@ -13,9 +13,7 @@ import { pure } from "recompose";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import FatiqueQuestion from "../CovidSymptomsField/FatiqueQuestions";
 
 class Index extends Component {

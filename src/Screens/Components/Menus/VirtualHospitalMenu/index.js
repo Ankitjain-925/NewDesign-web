@@ -14,9 +14,7 @@ import { update_CometUser } from "Screens/Components/CommonApi/index";
 import axios from "axios";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {

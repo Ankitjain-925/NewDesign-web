@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import Timer from "Screens/Components/TimeLogOut/index";
@@ -14,9 +12,7 @@ import sitedata from "sitedata";
 import axios from "axios";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
@@ -37,11 +33,6 @@ class Index extends Component {
   //For loggedout if logged in user is deleted
   componentDidMount() {
     this.getSetting();
-    // new LogOut(
-    //   this.props.stateLoginValueAim.token,
-    //   this.props.stateLoginValueAim.user._id,
-    //   this.logOutClick.bind(this)
-    // );
   }
 
   openLanguageModel = () => {
@@ -130,15 +121,9 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-      appointments,
       chat_vdocall,
-      capab_Patients,
-      Inquiries,
       emegancy_access,
-      more,
       my_profile,
-      invite_doc,
-      pharma_prescription,
       online_course,
       profile_setting,
       Language,
@@ -418,15 +403,11 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

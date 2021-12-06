@@ -20,9 +20,7 @@ import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { AddFavDoc, ConsoleCustom } from "Screens/Components/BasicMethod/index";
 import { authy } from "Screens/Login/authy.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";

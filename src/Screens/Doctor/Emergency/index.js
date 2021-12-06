@@ -17,11 +17,8 @@ import { connect } from "react-redux";
 import { authy } from "Screens/Login/authy.js";
 import { LoginReducerAim } from "Screens/Login/actions";
 import EmergencyCall from "Screens/Components/EmergencyPage/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-
 import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
 
@@ -124,7 +121,6 @@ class Index extends Component {
     let {
       for_geting_emrgancy_data_on_a_click,
       view_emrgncy_data,
-      emergancy_access_for_hospital_doc,
       emrgncy_data_access,
       patient_profile_is_not_correct,
       plz_accept_term_condition,
@@ -202,10 +198,6 @@ class Index extends Component {
                         {/* call Emergency Section */}
                       </Grid>
                     )}
-                  {/* <div className="openParamadic">
-                                        <a onClick={this.handleOpenPara}>Open Paramadic Model</a>
-                                    </div> */}
-
                   {/* Model setup */}
                   <Modal
                     open={this.state.openPara}
@@ -327,8 +319,6 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   const { Emergencysetget } = state.EmergencySet;
   return {
     stateLanguageType,
@@ -337,8 +327,6 @@ const mapStateToProps = (state) => {
     settings,
     Emergencysetget,
     verifyCode,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

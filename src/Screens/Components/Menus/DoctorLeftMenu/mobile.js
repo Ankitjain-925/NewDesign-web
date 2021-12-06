@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import LogOut from "Screens/Components/LogOut/index";
@@ -16,9 +14,7 @@ import axios from "axios";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
 import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { commonHeader } from "component/CommonHeader/index"
@@ -626,15 +622,11 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

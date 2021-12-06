@@ -6,9 +6,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class Loader extends Component {
   constructor(props) {
     super(props);
@@ -119,25 +117,3 @@ const mapStateToProps = (state) => {
 export default pure(
   withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Loader))
 );
-
-// import React, { useState } from "react";
-// import Dropzone from "react-dropzone";
-
-// export default function App( fileUpload ) {
-//   const [fileNames, setFileNames] = useState([]);
-// //   const handleDrop = acceptedFiles =>{
-// //     // console.log('acceptedfiles', acceptedFiles)
-// //     setFileNames(acceptedFiles.map(file => file.name))
-// //   };
-
-//   return (
-//       <Dropzone onDrop={fileUpload}>
-//         {({ getRootProps, getInputProps }) => (
-//           <div {...getRootProps({ className: "dropzone" })}>
-//             <input {...getInputProps()} />
-//             <p>Drag'n'drop files, or click to select files</p>
-//           </div>
-//         )}s
-//       </Dropzone>
-//   );
-// }

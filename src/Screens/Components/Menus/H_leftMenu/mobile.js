@@ -3,15 +3,11 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import { slide as Menu } from "react-burger-menu";
-import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
 import Loader from "Screens/Components/Loader/index";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import Modal from "@material-ui/core/Modal";
 import axios from "axios";
 import sitedata from "sitedata";
@@ -45,7 +41,6 @@ class Index extends Component {
   //For loggedout if logged in user is deleted
   componentDidMount() {
     if (this.props.stateLoginValueAim.token) {
-      // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
       this.props.Settings(this.props.stateLoginValueAim.token);
     } else {
       this.props.history.push("/");
@@ -174,30 +169,19 @@ class Index extends Component {
       capab_Doctors,
       archive,
       SelectLanguage,
-      More,
       Savechanges,
       LanUpdated,
       LanSel,
       documents,
-      paramedic,
       srvc_Nurses,
-      insurance,
-      online_course,
       add_new,
       user,
       my_profile,
-      dark_mode,
       profile_setting,
       Language,
       logout,
-      Patient,
-      find_patient,
-      ID,
-      Status,
-      no_,
-      recEmp_FirstName,
       DarkMode,
-      more,
+    
     } = translate;
 
     return (
@@ -342,23 +326,7 @@ class Index extends Component {
                       <span>{"Institute Groups"}</span>
                     </a>
                   </li>
-                  {/* <li>
-                            <a className="moreMenu">
-                                <img src={require('assets/images/nav-more.svg')} alt="" title="" />
-                                <span>More</span>
-                                <div className="moreMenuList">
-                                    <ul>
-                                        <li><a onClick={() => this.props.history.push("/nurses")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{srvc_Nurses}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/insurances")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{insurance}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/pharmacies")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{pharmacy}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/onlinecourses")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis {online_course}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/topics")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{course_topic}</a></li>
-                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </li> */}
+                 
                   <li
                     className={
                       this.props.currentPage === "createnewuser"
@@ -573,15 +541,11 @@ const mapStateToProps = (state) => {
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

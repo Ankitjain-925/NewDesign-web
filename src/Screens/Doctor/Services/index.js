@@ -27,9 +27,7 @@ import ReactFlagsSelect from "react-flags-select";
 import "react-flags-select/css/react-flags-select.css";
 import "react-flags-select/scss/react-flags-select.scss";
 import npmCountryList from "react-select-country-list";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import {
   AddFavDoc2,
   ConsoleCustom,

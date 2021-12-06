@@ -24,9 +24,7 @@ import CallMessage from "../CallMessage";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from './../../../../../../actions';
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class MessageList extends React.PureComponent {
   loggedInUser = null;
   lastScrollTop = 0;

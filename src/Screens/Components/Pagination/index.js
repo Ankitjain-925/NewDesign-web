@@ -3,9 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { LanguageFetchReducer } from '../../actions';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 class Index extends Component {
   constructor(props) {

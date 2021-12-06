@@ -21,9 +21,7 @@ import Modal from "@material-ui/core/Modal";
 import { withRouter } from "react-router-dom";
 import Rating from "../Rating";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import StripeCheckout from "react-stripe-checkout";
 import $ from "jquery"
 import { getPublishableKey } from "Screens/Components/CardInput/getPriceId"

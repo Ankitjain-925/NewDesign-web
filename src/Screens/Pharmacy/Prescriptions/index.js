@@ -23,9 +23,7 @@ import {
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import ImgaeSec from "Screens/Components/TimelineComponent/ImageSec";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { delete_click_track } from "Screens/Components/CommonApi/index";
 import { commonHeader } from "component/CommonHeader/index";
@@ -96,29 +94,6 @@ class Index extends Component {
         if (response.data.hassuccessed === true) {
           var images = [];
           response.data.data = response.data.data.filter((e) => e != null);
-          // response.data.data &&
-          //   response.data.data.length > 0 &&
-          //   response.data.data.map((data1, index) => {
-          //     data1.attachfile &&
-          //       data1.attachfile.length > 0 &&
-          //       data1.attachfile.map((data, index) => {
-          //         var find = data && data.filename && data.filename;
-          //         if (find) {
-          //           var find1 = find.split(".com/")[1];
-          //           axios
-          //             .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-          //             .then((response2) => {
-          //               if (response2.data.hassuccessed) {
-          //                 images.push({
-          //                   image: find,
-          //                   new_image: response2.data.data,
-          //                 });
-          //                 this.setState({ images: images });
-          //               }
-          //             });
-          //         }
-          //       });
-          //   });
           this.setState({
             Allpre: response.data.data,
             Allpre1: response.data.data,
@@ -665,8 +640,6 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   const { Emergencysetget } = state.EmergencySet;
   return {
     stateLanguageType,
@@ -675,8 +648,6 @@ const mapStateToProps = (state) => {
     settings,
     Emergencysetget,
     verifyCode,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

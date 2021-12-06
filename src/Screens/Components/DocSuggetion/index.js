@@ -7,9 +7,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import CancelIcon from "@material-ui/icons/Cancel";
 import sitedata from "sitedata";
 import axios from "axios";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index"
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat';
 var NewM = false;

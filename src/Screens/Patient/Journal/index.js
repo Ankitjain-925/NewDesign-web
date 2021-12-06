@@ -63,9 +63,7 @@ import { authy } from "Screens/Login/authy.js";
 import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import SPECIALITY from "speciality";
 
 import DownloadFullTrack from "../../Components/DownloadFullTrack/index";

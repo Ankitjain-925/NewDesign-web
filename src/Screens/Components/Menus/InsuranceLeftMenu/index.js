@@ -5,8 +5,6 @@ import sitedata from "sitedata";
 import axios from "axios";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { commonHeader } from "component/CommonHeader/index"
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -15,9 +13,7 @@ import Timer from "Screens/Components/TimeLogOut/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -131,15 +127,9 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-      appointments,
       chat_vdocall,
-      capab_Patients,
-      Inquiries,
       emegancy_access,
-      more,
       my_profile,
-      invite_doc,
-      pharma_prescription,
       online_course,
       profile_setting,
       Language,
@@ -372,16 +362,12 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
-  const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
+  const { settings } = state.Settings;;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

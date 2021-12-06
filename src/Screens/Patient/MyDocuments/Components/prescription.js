@@ -15,9 +15,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Loader from "Screens/Components/Loader/index";
 import { getDate, getImage } from "Screens/Components/BasicMethod/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
 

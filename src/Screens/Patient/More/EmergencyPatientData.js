@@ -11,9 +11,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { Redirect, Route } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import EmergencyCall from "Screens/Components/EmergencyPage/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const path = sitedata.data.path + "/emergency_record";

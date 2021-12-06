@@ -6,8 +6,6 @@ import sitedata from "sitedata";
 import axios from "axios";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import LogOut from "Screens/Components/LogOut/index";
@@ -16,9 +14,7 @@ import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
@@ -406,15 +402,11 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

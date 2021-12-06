@@ -7,9 +7,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import Grid from "@material-ui/core/Grid";
 import { authy } from "Screens/Login/authy.js";
 import Toggle from "react-toggle";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { Settings } from "Screens/Login/setting";
 import {
   NavLink,

@@ -19,9 +19,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {AllRoomList, getSteps, AllWards, PatientMoveFromHouse, setWard, CurrentWard, CurrentRoom, setRoom, AllBed, CurrentBed, setBed } from "Screens/VirtualHospital/PatientFlow/data"; 
 import SelectField from "Screens/Components/Select/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 class Index extends React.Component {
     constructor(props) {

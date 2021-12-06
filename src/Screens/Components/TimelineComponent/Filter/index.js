@@ -10,9 +10,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { overView } from "Screens/Login/journalviewaction";
 import { LanguageFetchReducer } from "Screens/actions";
 import Loader from "Screens/Components/Loader/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Toggle from "react-toggle";
 import { commonHeader } from "component/CommonHeader/index"
 const { RangePicker } = DatePicker;

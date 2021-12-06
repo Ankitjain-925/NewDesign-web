@@ -2,11 +2,7 @@
 
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-// import PhoneInput from 'react-phone-input-2';
-// import 'react-phone-input-2/lib/style.css';
 import { Redirect, Route } from "react-router-dom";
-import sitedata from "sitedata";
-import axios from "axios";
 import { authy } from "Screens/Login/authy.js";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -20,16 +16,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import ProfileSection from "./Components/profileUpdate";
+import ProfileSection from "Screens/Components/CommonProfileSec/profileUpdate";
 import SecuritySection from "Screens/Components/CommonProfileSec/security";
 import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
 import { OptionList } from "Screens/Login/metadataaction";
-import Timezone from "timezon.json";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { getLanguage } from "translations/index"
-import { commonHeader } from "component/CommonHeader/index";
-import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
+import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount"; 
+import {GetLanguageMetadata, getUserData } from "Screens/Components/CommonProfileSec/api";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -69,64 +63,19 @@ class Index extends Component {
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
-      this.GetLanguageMetadata();
+      GetLanguageMetadata(this);
     }
   };
   //   //For getting the dropdowns from the database
   getMetadata() {
     this.setState({ allMetadata: this.props.metadata},
       ()=>{
-          this.GetLanguageMetadata();
+          GetLanguageMetadata(this);
       })
-    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-    //   if (responce && responce.data && responce.data.length > 0) {
-    //     this.setState({ allMetadata: responce.data[0] });
-    //     this.GetLanguageMetadata();
-    //   }
-    // });
   }
-  GetLanguageMetadata = () => {
-    var Alltissues = GetLanguageDropdown(
-      this.state.allMetadata &&
-        this.state.allMetadata.tissue &&
-        this.state.allMetadata.tissue.length > 0 &&
-        this.state.allMetadata.tissue,
-      this.props.stateLanguageType
-    );
-    var zones = GetLanguageDropdown(
-      Timezone && Timezone.length > 0 && Timezone,
-      this.props.stateLanguageType,
-      "timezone"
-    );
-    this.setState({
-      tissue: Alltissues,
-      dates:
-        this.state.allMetadata &&
-        this.state.allMetadata.dates &&
-        this.state.allMetadata.dates.length > 0 &&
-        this.state.allMetadata.dates,
-      times:
-        this.state.allMetadata &&
-        this.state.allMetadata.times &&
-        this.state.allMetadata.times.length > 0 &&
-        this.state.allMetadata.times,
-      timezones: zones,
-    });
-  };
-
   //Get the current User Data
   getUserData() {
-    this.setState({ loaderImage: true });
-    let user_token = this.props.stateLoginValueAim.token;
-    let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id,commonHeader(user_token))
-      .then((response) => {
-        this.setState({ loaderImage: false, LoggedInUser: response.data.data });
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
+    getUserData(this)
   }
 
   render() {
@@ -251,8 +200,6 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -260,8 +207,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     metadata,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(
