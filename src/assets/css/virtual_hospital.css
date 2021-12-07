@@ -6197,6 +6197,7 @@ button.downloadPDF:hover {
     letter-spacing: 0;
     line-height: 16px;
     margin-bottom: 9px;
+    text-transform: capitalize;
 }
 .patntFlowLast label {
     margin-bottom: 0px;
