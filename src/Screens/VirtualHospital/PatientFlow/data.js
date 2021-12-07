@@ -166,6 +166,18 @@ export const AllBed = async (Specilaity_id, ward_id, room_id, house_id, user_tok
       }   
 }
 
+export const AllBedOnWard = async (Specilaity_id, ward_id, house_id, user_token ) => {
+  let response = await axios.post(
+    sitedata.data.path + "/cases/checkbedAvailabilityByWard/",
+    {"house_id": house_id, "specialty_id": Specilaity_id, "ward_id": ward_id},
+    commonHeader(user_token))
+    if (response) {
+        return response
+    } else {
+        return false
+    }   
+}
+
 export const setBed = async (value, case_id, user_token) => {
   if(value){
       let response = await axios.put(

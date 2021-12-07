@@ -11,6 +11,7 @@ import RoomView from "Screens/Components/VirtualHospitalComponents/RoomView/inde
 import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
+import { confirmAlert } from "react-confirm-alert";
 import { withRouter } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
@@ -24,6 +25,7 @@ import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
 import {
   getLanguage
 } from "translations/index"
@@ -220,7 +222,7 @@ class Index extends Component {
         });
       }
       else {
-        this.setState({ errorMsg2: 'Please enter valid room data' })
+        this.setState({ errorMsg2: 'Please enter valid room name or number of beds' })
       }
     }
   };
@@ -291,6 +293,42 @@ class Index extends Component {
       return rooms.reduce((a, v) => (a = a + parseInt(v.no_of_bed)), 0);
     }
     return "";
+  };
+
+  removeSpeciality = () =>{
+  this.handleCloseWarn();
+  confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+
+            <h1 class="alert-btn">Delete Speciality?</h1>
+
+            <p>Are you really want to delete this Speciality?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.deleteClick();
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
   };
 
   deleteClick = () => {
@@ -493,7 +531,7 @@ class Index extends Component {
                                 </p>
                               </Grid>
                               <Grid className="selectWarn">
-                                <Button className="selWarnBtn" onClick={() => { this.deleteClick() }}>
+                                <Button className="selWarnBtn" onClick={() => { this.removeSpeciality() }}>
                                   Yes, Delete Speciality
                                 </Button>
                                 <Button onClick={this.handleCloseWarn}>Cancel, Keep Speciality</Button>
@@ -560,7 +598,11 @@ class Index extends Component {
                                             title=""
                                           />
                                           {this.bednumbers(item.rooms)} beds
-                                          <span>32 available</span>
+                                          
+                                          <AvailablebedListing 
+                                            speciality_id= {data._id}
+                                            ward_id={item._id}
+                                          />
                                         </li>
                                       </ul>
                                     </Grid>
