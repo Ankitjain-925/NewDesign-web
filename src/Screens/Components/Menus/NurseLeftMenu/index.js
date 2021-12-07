@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import Modal from "@material-ui/core/Modal";
-import sitedata from "sitedata";
-import axios from "axios";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
@@ -13,9 +10,8 @@ import Timer from "Screens/Components/TimeLogOut/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { getLanguage } from "translations/index"
-import { commonHeader } from "component/CommonHeader/index"
+import { getSetting } from "../api";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +32,7 @@ class Index extends Component {
 
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    this.getSetting();
+   getSetting(this)
     new LogOut(
       this.props.stateLoginValueAim.token,
       this.props.stateLoginValueAim.user._id,
@@ -44,46 +40,7 @@ class Index extends Component {
     );
   }
 
-  getSetting = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
-      .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
-          this.setState({
-            timeF: {
-              label: responce.data.data.time_format,
-              value: responce.data.data.time_format,
-            },
-            dateF: {
-              label: responce.data.data.date_format,
-              value: responce.data.data.date_format,
-            },
-          });
-          this.props.Settings(responce.data.data);
-        } else {
-          this.props.Settings({
-            user_id: this.props.stateLoginValueAim.user._id,
-          });
-        }
-        this.setState(
-          {
-            loaderImage: false,
-            languageValue:
-              responce.data.data && responce.data.data.language
-                ? responce.data.data.language
-                : "en",
-            mode:
-              responce.data.data && responce.data.data.mode
-                ? responce.data.data.mode
-                : "normal",
-          },
-          () => {
-            this.props.LanguageFetchReducer(this.state.languageValue);
-          }
-        );
-      });
-  };
+
   // Change Language function
   changeLanguage = (e) => {
     this.setState({ languageValue: e.target.value });
@@ -135,15 +92,9 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-      appointments,
       chat_vdocall,
-      capab_Patients,
-      Inquiries,
       emegancy_access,
-      more,
       my_profile,
-      invite_doc,
-      pharma_prescription,
       online_course,
       profile_setting,
       Language,
@@ -353,7 +304,7 @@ class Index extends Component {
                         <Mode
                            mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
                           name="mode"
-                          getSetting={this.getSetting}
+                          getSetting={()=>getSetting(this)}
                         />
                       </a>
                     </li>
@@ -385,7 +336,7 @@ class Index extends Component {
           </ul>
         </Grid>
         <SetLanguage
-          getSetting={this.getSetting}
+          getSetting={()=>getSetting(this)}
           openFancyLanguage={this.state.openFancyLanguage}
           languageValue={this.state.languageValue}
           handleCloseFancyLanguage={this.handleCloseFancyLanguage}

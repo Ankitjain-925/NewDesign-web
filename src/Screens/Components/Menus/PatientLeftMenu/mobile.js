@@ -7,15 +7,13 @@ import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import { slide as Menu } from "react-burger-menu";
 import Timer from "Screens/Components/TimeLogOut/index";
-import sitedata from "sitedata";
-import axios from "axios";
+import LogOut from "Screens/Components/LogOut/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import DocSuggetion from "Screens/Components/DocSuggetion/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import { commonHeader } from "component/CommonHeader/index"
 import { getLanguage } from "translations/index"
-
+import { getSetting } from "../api";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -33,50 +31,15 @@ class Index extends Component {
   }
 
   //For loggedout if logged in user is deleted
-  componentDidMount() {
-    this.getSetting();
+  componentDidMount() { 
+    new LogOut(
+      this.props.stateLoginValueAim.token,
+      this.props.stateLoginValueAim.user._id,
+      this.logOutClick.bind(this)
+    );
+    getSetting(this);
   }
 
-  getSetting = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting", commonHeader(this.props.stateLoginValueAim.token))
-      .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
-          this.setState({
-            timeF: {
-              label: responce.data.data.time_format,
-              value: responce.data.data.time_format,
-            },
-            dateF: {
-              label: responce.data.data.date_format,
-              value: responce.data.data.date_format,
-            },
-          });
-          this.props.Settings(responce.data.data);
-        } else {
-          this.props.Settings({
-            user_id: this.props.stateLoginValueAim.user._id,
-          });
-        }
-        this.setState(
-          {
-            loaderImage: false,
-            languageValue:
-              responce.data.data && responce.data.data.language
-                ? responce.data.data.language
-                : "en",
-            mode:
-              responce.data.data && responce.data.data.mode
-                ? responce.data.data.mode
-                : "normal",
-          },
-          () => {
-            this.props.LanguageFetchReducer(this.state.languageValue);
-          }
-        );
-      });
-  };
   //For close the model
   openLanguageModel = () => {
     this.setState({ openFancyLanguage: true });
@@ -550,7 +513,7 @@ class Index extends Component {
                               <Mode
                                  mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
                                 name="mode"
-                                getSetting={this.getSetting}
+                                getSetting={()=>getSetting(this)}
                               />
                             </a>
                           </li>
@@ -595,7 +558,7 @@ class Index extends Component {
         </Grid>
         {/* For set the language  */}
         <SetLanguage
-          getSetting={this.getSetting}
+          getSetting={()=>getSetting(this)}
           openFancyLanguage={this.state.openFancyLanguage}
           languageValue={this.state.languageValue}
           handleCloseFancyLanguage={this.handleCloseFancyLanguage}

@@ -8,16 +8,14 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { slide as Menu } from "react-burger-menu";
 import Timer from "Screens/Components/TimeLogOut/index";
 import Loader from "Screens/Components/Loader/index";
-import Modal from "@material-ui/core/Modal";
-import axios from "axios";
-import sitedata from "sitedata";
 import Mode from "Screens/Components/ThemeMode/index.js";
-import { commonHeader } from "component/CommonHeader/index";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import * as translationEN from "../../../hospital_Admin/translations/en_json_proofread_13072020.json";
 import * as translationDE from "../../../hospital_Admin/translations/de.json";
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
-
+import LogOut from "Screens/Components/LogOut/index";
+import SetLanguage from "Screens/Components/SetLanguage/index.js";
+import { getSetting } from "../api";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -40,55 +38,13 @@ class Index extends Component {
 
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    if (this.props.stateLoginValueAim.token) {
-      this.props.Settings(this.props.stateLoginValueAim.token);
-    } else {
-      this.props.history.push("/");
-    }
+    new LogOut(
+      this.props.stateLoginValueAim.token,
+      this.props.stateLoginValueAim.user._id,
+      this.logOutClick.bind(this)
+    );
+   getSetting(this)
   }
-  getSetting = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(
-        sitedata.data.path + "/UserProfile/updateSetting",
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
-          this.setState({
-            timeF: {
-              label: responce.data.data.time_format,
-              value: responce.data.data.time_format,
-            },
-            dateF: {
-              label: responce.data.data.date_format,
-              value: responce.data.data.date_format,
-            },
-          });
-          this.props.Settings(responce.data.data);
-        } else {
-          this.props.Settings({
-            user_id: this.props.stateLoginValueAim.user._id,
-          });
-        }
-        this.setState(
-          {
-            loaderImage: false,
-            languageValue:
-              responce.data.data && responce.data.data.language
-                ? responce.data.data.language
-                : "en",
-            mode:
-              responce.data.data && responce.data.data.mode
-                ? responce.data.data.mode
-                : "normal",
-          },
-          () => {
-            this.props.LanguageFetchReducer(this.state.languageValue);
-          }
-        );
-      });
-  };
 
   openLanguageModel() {
     this.setState({ openFancyLanguage: true });
@@ -108,32 +64,6 @@ class Index extends Component {
   // Change Language function
   changeLanguage = (e) => {
     this.setState({ languageValue: e.target.value });
-  };
-  //For set the language
-  SetLanguage = () => {
-    this.setState({ loaderImage: true });
-    if (!this.state.languageValue) {
-      this.setState({ loaderImage: false, languageBlank: true });
-    } else {
-      this.setState({ languageBlank: false });
-      axios
-        .put(
-          sitedata.data.path + "/UserProfile/updateSetting",
-          {
-            language: this.state.languageValue,
-            user_id: this.props.stateLoginValueAim.user._id,
-            user_profile_id: this.props.stateLoginValueAim.user.profile_id,
-          },
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({ PassDone: true, loaderImage: false });
-          this.props.Settings(this.props.stateLoginValueAim.token);
-          setTimeout(() => {
-            this.setState({ PassDone: false, openFancyLanguage: false });
-          }, 5000);
-        });
-    }
   };
 
   //For logout the User
@@ -168,10 +98,6 @@ class Index extends Component {
       capab_Patients,
       capab_Doctors,
       archive,
-      SelectLanguage,
-      Savechanges,
-      LanUpdated,
-      LanSel,
       documents,
       srvc_Nurses,
       add_new,
@@ -406,7 +332,7 @@ class Index extends Component {
                                     : "normal"
                                 }
                                 name="mode"
-                                getSetting={this.getSetting}
+                                getSetting={()=>getSetting(this)}
                               />
                             </a>
                           </li>
@@ -438,95 +364,13 @@ class Index extends Component {
             </a>
           </Grid>
         </Grid>
-        <Modal
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          open={this.state.openFancyLanguage}
-          onClose={this.handleCloseFancyLanguage}
-        >
-          <Grid className="LanguageBoxMain">
-            <Grid className="nwPresCourse">
-              <Grid className="nwPresCloseBtn nwEntrCloseBtnAdd">
-                <a onClick={this.handleCloseFancyLanguage}>
-                  <img
-                    src={require("assets/images/close-search.svg")}
-                    alt=""
-                    title=""
-                  />
-                </a>
-              </Grid>
-              <Grid>
-                <label>{SelectLanguage}</label>
-              </Grid>
-            </Grid>
-            {this.state.PassDone && (
-              <div className="success_message">{LanUpdated}</div>
-            )}
-            {this.state.languageBlank && (
-              <div className="err_message">{LanSel}</div>
-            )}
-            <div className="languageHead"></div>
-            <Grid className="languageBox SetLanguage">
-              <Grid className="row">
-                <Grid className="col-sm-6 col-xl-6">
-                  <Grid>
-                    <input
-                      value="en"
-                      onChange={this.changeLanguage}
-                      name="language"
-                      type="radio"
-                      checked={
-                        this.state.languageValue == "en" ? "checked" : ""
-                      }
-                    />
-                    <label>
-                      <img
-                        src={require("assets/images/english.png")}
-                        alt="English"
-                        title="English"
-                      />
-                      English (English)
-                    </label>
-                  </Grid>
-                </Grid>
-                <Grid className="col-sm-6 col-xl-6">
-                  <Grid>
-                    <input
-                      value="de"
-                      onChange={this.changeLanguage}
-                      name="language"
-                      type="radio"
-                      checked={
-                        this.state.languageValue == "de" ? "checked" : ""
-                      }
-                    />
-                    <label>
-                      <img
-                        src={require("assets/images/german.jpg")}
-                        alt="Germany"
-                        title="Germany"
-                      />
-                      German (Deutsch)
-                    </label>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid className="infoShwHidBrdr2"></Grid>
-            <Grid className="infoShwHidIner2">
-              <Grid className="infoShwSave2">
-                <input
-                  type="submit"
-                  value={Savechanges}
-                  onClick={this.SetLanguage}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Modal>
+        <SetLanguage
+          getSetting={()=>getSetting(this)}
+          openFancyLanguage={this.state.openFancyLanguage}
+          languageValue={this.state.languageValue}
+          handleCloseFancyLanguage={this.handleCloseFancyLanguage}
+          openLanguageModel={this.openLanguageModel}
+        />
         <CreateAdminUser
           addCreate={this.state.addCreate}
           handleCloseCreate={this.handleCloseCreate}

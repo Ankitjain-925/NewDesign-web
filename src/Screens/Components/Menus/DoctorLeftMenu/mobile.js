@@ -11,14 +11,13 @@ import { slide as Menu } from "react-burger-menu";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import sitedata from "sitedata";
 import axios from "axios";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
 import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import { getLanguage } from "translations/index"
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { commonHeader } from "component/CommonHeader/index"
-
+import { getSetting } from "../api";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -37,13 +36,12 @@ class Index extends Component {
 
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    this.getSetting();
-    // new LogOut(
-    //   this.props.stateLoginValueAim.token,
-    //   this.props.stateLoginValueAim.user._id,
-    //   this.logOutClick.bind(this)
-    // );
-    this.getUserData();
+    new LogOut(
+      this.props.stateLoginValueAim.token,
+      this.props.stateLoginValueAim.user._id,
+      this.logOutClick.bind(this)
+    );
+   getSetting(this)
   }
 
   getSetting = () => {
@@ -86,27 +84,6 @@ class Index extends Component {
         );
       });
   };
-
-  getUserData() {
-    this.setState({ loaderImage: true, UpDataDetails: [] });
-    let user_token = this.props.stateLoginValueAim.token;
-    let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id,  commonHeader(user_token))
-      .then((response) => {
-        this.setState({ loaderImage: false });
-
-        this.setState({
-          UpDataDetails: response.data.data,
-          city: response.data.data.city,
-          area: response.data.data.area,
-          profile_id: response.data.data.profile_id,
-        });
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
-  }
 
   handleOpenInvt = () => {
     this.setState({ openInvt: true });
@@ -543,7 +520,7 @@ class Index extends Component {
                               <Mode
                                  mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
                                 name="mode"
-                                getSetting={this.getSetting}
+                                getSetting={()=>getSetting(this)}
                               />
                             </a>
                           </li>
@@ -604,11 +581,11 @@ class Index extends Component {
         {/* End of Pharmacy Prescription */}
         {/* For set the language  */}
         <SetLanguage
-          getSetting={this.getSetting}
+          getSetting={()=>getSetting(this)}
           openFancyLanguage={this.state.openFancyLanguage}
           languageValue={this.state.languageValue}
           handleCloseFancyLanguage={this.handleCloseFancyLanguage}
-          getSetting={this.getSetting}
+          getSetting={()=>getSetting(this)}
           openLanguageModel={this.openLanguageModel}
         />
       </Grid>

@@ -11,7 +11,6 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { Redirect, Route } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import EmergencyCall from "Screens/Components/EmergencyPage/index";
-import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const path = sitedata.data.path + "/emergency_record";
@@ -25,9 +24,6 @@ class Index extends Component {
   componentDidMount() {}
 
   render() {
-    let translate = getLanguage(this.props.stateLanguageType)
-    let { ur_emergancy_data } = translate;
-
     const { stateLoginValueAim } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -86,17 +82,12 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
-
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

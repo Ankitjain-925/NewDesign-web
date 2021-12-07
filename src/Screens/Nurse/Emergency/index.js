@@ -208,10 +208,6 @@ class Index extends Component {
                         {/* call Emergency Section */}
                       </Grid>
                     )}
-                  {/* <div className="openParamadic">
-                                        <a onClick={this.handleOpenPara}>Open Paramadic Model</a>
-                                    </div> */}
-
                   {/* Model setup */}
                   <Modal
                     open={this.state.openPara}
@@ -333,9 +329,6 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   const { Emergencysetget } = state.EmergencySet;
   return {
     stateLanguageType,
@@ -344,8 +337,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     Emergencysetget,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(
