@@ -14,9 +14,11 @@ class Index extends React.Component {
         return (
             <>
                 <Grid className="patntFlow">
+               
                     <p>{this.state.step_name}</p>
                     <Grid className="patntFlowIner">
-                        {this.state.counts?.length > 0 && this.state.counts?.map((data1) => (
+                        {this.props.counts?.length > 0 && this.props.counts.map((data1) => (
+                           
                             <>
                                 <Grid container direction="row" alignItems="center">
                                     <Grid item xs={8} md={8}><label>{data1.step_name}</label></Grid>

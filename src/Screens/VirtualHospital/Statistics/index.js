@@ -59,10 +59,7 @@ class Index extends Component {
         this.setState({ tabvalue });
     };
 
-    
-    
-
-    componentDidMount() {
+     componentDidMount() {
         this.getStatistics();
         this.getrightinfo();
     }
@@ -77,8 +74,7 @@ class Index extends Component {
             .then((response) => {
                 if (response.data.hassuccessed) {
                     this.setState({ Statistics: response.data.data });
-                    console.log("statistics", this.state.Statistics)
-                }
+                   }
                 this.setState({ loaderImage: false });
             });
     }
@@ -92,10 +88,9 @@ class Index extends Component {
             )
             .then((response) => {
                 if (response.data.hassuccessed) {
-                    this.setState({ patientflow_data: response.data.data });
-                    console.log("info", this.state.patientflow_data)
-
-                }
+                    var finalData = response.data.data && response.data.data.length>0 && response.data.data.filter((item)=> item.step_name)
+                    this.setState({ patientflow_data:  finalData});
+             }
                 this.setState({ loaderImage: false });
             });
     }
@@ -137,23 +132,25 @@ class Index extends Component {
                                             <Grid container direction="row" spacing={3}>
                                                 <Grid item xs={12} md={9}>
                                                     <Grid container direction="row" className="staticsAmtUpr" spacing={3}>
-                                                        {/* <Grid item xs={12} md={3}>
+                                                        <Grid item xs={12} md={3}>
                                                             <Grid className="staticsAmt">
                                                                 <Grid><a><img src={require('assets/virtual_images/hotel-bed-2.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid><label>1,845</label><p>Total Patients</p></Grid>
+                                                                <Grid><label>{this.state.Statistics[0]}</label><p>Total Patients</p></Grid>
                                                             </Grid>
-                                                        </Grid> */}
+                                                        </Grid>
 
-                                                        <TotalPatientView />
+                                                        {/* <TotalPatientView /> */}
 
                                                         <Grid item xs={12} md={4}>
                                                             <Grid>
+                                                            {/* {this.state.Statistics?.length > 0 && this.state.Statistics.map((data) => ( */}
+                                                               {/* console.log("data",data), */}
                                                                 <Grid className="staticsAmt">
                                                                     <Grid><a><img src={require('assets/virtual_images/user-group-conversation.svg')} alt="" title="" /></a></Grid>
-                                                                    <Grid className="staticsAmtMid"><label>34</label><p>Doctors</p></Grid>
-                                                                    <Grid><label>72</label><p>Nurses</p></Grid>
+                                                                    <Grid className="staticsAmtMid"><label>{this.state.Statistics[1]}</label><p>Doctors</p></Grid>
+                                                                    <Grid><label>{this.state.Statistics[2]}</label><p>Nurses</p></Grid>
                                                                 </Grid>
-
+                                                            {/* ))} */}
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
@@ -263,13 +260,13 @@ class Index extends Component {
                                                         {/* <p>{data.step_name}</p> */}
                                                             <StatisticsPatientFlow 
 
-                                                                   step_name={"Patient Flow"}
+                                                                 step_name={"Patient Flow"}
                                                                  counts={this.state.patientflow_data} 
-                                                               
-
+                                                                
+                                                                
 
                                                              />,
-                                                             {/* { console.log('data',data)}   */}
+                                                              {/* { console.log('this.state.patientflow_data6765546546456',this.state.patientflow_data)}    */}
                                                             {/* { console.log('data.heading',data.heading)}  */}
 
                                                         </>
