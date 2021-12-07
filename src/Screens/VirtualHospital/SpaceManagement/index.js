@@ -228,14 +228,14 @@ class Index extends Component {
   };
 
   searchFilter = (e) => {
-    this.setState({ SearchValue: e.target.value})
+    this.setState({ SearchValue: e.target.value })
     let track1 = this.state.specialityData2;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
       return JSON.stringify(obj.specialty_name).toLowerCase().includes(e.target?.value?.toLowerCase());
     });
     this.setState({ specialityData: FilterFromSearch1 })
   }
-  
+
 
   //for update speciality name
   updateEntryState = (e) => {
@@ -440,21 +440,21 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                          {this.state.showinput &&<input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
-                              <a>
-                                {!this.state.showinput ? <img
-                                  src={require("assets/virtual_images/search-entries.svg")}
-                                  alt=""
-                                  title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
-                                />:
-                                 <img
+                            {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
+                            <a>
+                              {!this.state.showinput ? <img
+                                src={require("assets/virtual_images/search-entries.svg")}
+                                alt=""
+                                title=""
+                                onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                              /> :
+                                <img
                                   src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput,SearchValue: '', specialityData: this.state.specialityData2, })}}
+                                  onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: '', specialityData: this.state.specialityData2, }) }}
                                 />}
-                              </a>
+                            </a>
                             {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                           </Grid>
                         </Grid>
