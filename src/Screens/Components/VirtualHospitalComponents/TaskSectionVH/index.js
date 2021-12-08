@@ -524,6 +524,7 @@ class Index extends Component {
   };
 
   FilterText = (e) => {
+    console.log("e",e)
     this.setState({ text: e.target.value })
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
