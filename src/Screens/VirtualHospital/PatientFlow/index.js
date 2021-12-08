@@ -56,7 +56,8 @@ class Index extends Component {
       SelectedStep: '',
       errorMsg: '',
       StepService: {},
-      StepNameList: []
+      StepNameList: [],
+      name:''
     };
   }
   static defaultProps = {
@@ -111,6 +112,7 @@ class Index extends Component {
   //For calling the API
   CallApi = () => {
     var deep = _.cloneDeep(this.state.actualData);
+    console.log("deep",deep)
     deep.map((item) => {
       item.case_numbers = item.case_numbers.map((element) => {
         if (element._id) {
@@ -236,10 +238,11 @@ class Index extends Component {
     // this.setDta(state);
     // this.CallApi();
   };
-
+  handleName = (e) => {
+    this.setState({step_name : e.target.value})
+  }
   OnAdd = () => {
     var state = this.state.actualData;
-    console.log("STATE", this.state.actualData)
     state.push({ step_name: this.state.step_name, case_numbers: [] });
     this.setDta(state);
     this.CallApi();
@@ -351,7 +354,6 @@ class Index extends Component {
   AddCase = () => {
     this.setState({ errorMsg: '' })
     var data = this.state.addp;
-    console.log("Data", data)
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please Enter Case Number' })
     }
@@ -1038,7 +1040,8 @@ class Index extends Component {
                     />
                   </a>
                 </Grid>
-                <Input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Add Name" type="text" />
+                <Input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Add Name" value={this.state.step_name} 
+                onChange={this.handleName} type="text" />
                 <Button color="primary" onClick={this.OnAdd}>Add</Button>
               </Grid>
             </Grid>
