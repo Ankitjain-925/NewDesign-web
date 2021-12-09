@@ -246,6 +246,8 @@ class Index extends Component {
     state.push({ step_name: this.state.step_name, case_numbers: [] });
     this.setDta(state);
     this.CallApi();
+    this.setState({ openPopup: false , step_name: ''})
+
   }
 
   //Set data according to package
