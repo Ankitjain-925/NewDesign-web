@@ -21,8 +21,12 @@ import {
 } from "component/CommonHeader/index";
 import Loader from "Screens/Components/Loader/index";
 import FileUploader from "Screens/Components/FileUploader/index";
-import {blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
-import { getLanguage } from "translations/index"
+import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
+import {
+  getLanguage
+} from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { S3Image } from "Screens/Components/GetS3Images/index";
 
@@ -46,8 +50,11 @@ class Index extends Component {
       instituteId: '',
       showHouses: false,
       editId: '',
-      image: []
+      image: [],
+      errorMsg: '',
+      errorHospMsg: ''
     };
+    console.log("This state", this.state)
   }
   //open the institute group
   openInstitute = () => {
@@ -69,7 +76,7 @@ class Index extends Component {
 
   EditInstitute = (instituteId) => {
     let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);
-    this.setState({ openGroup: true, institute_groups: result, houses: result?.houses, image: [{filename: result.group_logo, filetype: "png"}]});
+    this.setState({ openGroup: true, institute_groups: result, houses: result?.houses, image: [{ filename: result.group_logo, filetype: "png" }] });
   };
 
   editHospital = (editData) => {
@@ -95,26 +102,109 @@ class Index extends Component {
     this.setState({ hospitalData: state });
   };
 
-  deleteGroup=(id)=>{
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
-      this.setState({ loaderImage: true });
+  deleteGroup = (id) => {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+    this.setState({ loaderImage: true });
     axios
       .delete(
         sitedata.data.path +
-          `/hospitaladmin/AddGroup/${institute_id}/${id}`,
+        `/hospitaladmin/AddGroup/${institute_id}/${id}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
           this.getallGroups();
         }
+        console.log("Response", responce)
         this.setState({ loaderImage: false });
       });
 
   }
 
-  deleteHospital = (id) => {
-    alert("Complete this function.");
+  deleteHospital = (index) => {
+    this.setState({ openGroup: false });
+    var data = this.state.institute_groups;
+    console.log("DATA", data)
+
+    if (data?.houses?.length > 0) {
+      console.log("DATA", data)
+
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <Grid className={this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm deleteStep"
+              : "deleteStep"}>
+              <Grid className="deleteStepLbl">
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <label>Delete Step</label>
+              </Grid>
+              <Grid className="deleteStepInfo">
+                <p>This hospital will be removed. This action can not be reversed.</p>
+                <Grid><label>Are you sure you want to do this?</label></Grid>
+                <Grid>
+                  <Button onClick={() => { this.removeInstitute(data, index) }}>Yes, Delete</Button>
+                  <Button onClick={() => { onClose(); }}>Cancel</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          );
+        },
+      });
+    }
+    else {
+      this.DeleteInstitute(data, index)
+    }
+  };
+
+  removeInstitute = (index) => {
+    var data = this.state.institute_groups;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">Remove institute?</h1>
+            <p>Are you really want to remove this?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.DeleteInstitute(data, index);
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
+  DeleteInstitute = (data, index) => {
+    var data = this.state.institute_groups;
+    // let housesArray = this.state.hospitalData
+    console.log("Data2", data)
+    // if (data?.houses?.length > 0) {
+    //   var yt = data?.houses?.map((item) => {
+    //     var response = this.state.housesArray(item._id, this.props.stateLoginValueAim.token, 5, false)
+    //   })
+    // }
+    data.splice(index, 1);
+    this.setState({ institute_groups: data });
+    this.props.onChange(data);
   }
 
   componentDidMount() {
@@ -122,21 +212,23 @@ class Index extends Component {
   }
 
   getallGroups = () => {
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
     axios
       .get(
         sitedata.data.path +
-          `/hospitaladmin/institute/${institute_id}`,
+        `/hospitaladmin/institute/${institute_id}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         var totalPage = Math.ceil(
-          responce.data?.data?.institute_groups?.length/ 10
+          responce.data?.data?.institute_groups?.length / 10
         );
         if (responce.data.hassuccessed && responce.data.data) {
-          this.setState({  totalPage: totalPage,
-            currentPage: 1, AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id },
+          this.setState({
+            totalPage: totalPage,
+            currentPage: 1, AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id
+          },
             () => {
               if (totalPage > 1) {
                 var pages = [];
@@ -151,45 +243,63 @@ class Index extends Component {
                 this.setState({ GroupList: this.state.AllGroupList });
               }
             })
-            this.setState({ loaderImage: false });
-        }});
+          this.setState({ loaderImage: false });
         }
-      
+      });
+  }
+
   SaveGroup = () => {
+    this.setState({ errorMsg: "" })
+
     var data = this.state.institute_groups;
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
-    this.setState({ loaderImage: true });
-    if(data._id){
-      axios
-      .put(
-        sitedata.data.path +
-          `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
-        data,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.getallGroups();
-          this.setState({institute_groups: {},})
-        }
-        this.setState({ loaderImage: false, openGroup: false});
-      });
+
+    if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
+      this.setState({ errorMsg: "Institution Name can't be empty" })
     }
-    else{
-      axios
-      .put(
-        sitedata.data.path +
-        `/hospitaladmin/AddGroup/${institute_id}`,
-        data,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.getallGroups();
-          this.setState({institute_groups: {},})
-        }
-        this.setState({ loaderImage: false, openGroup: false});
-      });
+    else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
+      this.setState({ errorMsg: "Institution Description Note can't be empty" })
+    }
+    else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
+      this.setState({ errorMsg: "Select atleast one hospital" })
+    }
+    else {
+      var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+      this.setState({ loaderImage: true });
+      if (data._id) {
+        axios
+          .put(
+            sitedata.data.path +
+            `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getallGroups();
+              this.setState({ institute_groups: {}, })
+            }
+            else {
+              this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+            }
+            this.setState({ loaderImage: false, openGroup: false });
+          });
+      }
+      else {
+        axios
+          .put(
+            sitedata.data.path +
+            `/hospitaladmin/AddGroup/${institute_id}`,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getallGroups();
+              this.setState({ institute_groups: {}, })
+            }
+            this.setState({ loaderImage: false, openGroup: false });
+          });
+      }
     }
   };
 
@@ -214,23 +324,30 @@ class Index extends Component {
   };
 
   saveHospital = (e) => {
+    this.setState({ errorHospMsg: "" })
     let date = new Date();
     let housesArray = this.state.houses;
     let hospitalObject = this.state.hospitalData;
-
-    if (this.state.editId) {
-      let objIndex = housesArray.findIndex((item => item._id == this.state.editId));
-      housesArray[objIndex].house_name = hospitalObject.house_name
-      housesArray[objIndex].house_description = hospitalObject.house_description
-      housesArray[objIndex].house_logo = hospitalObject.hospitalObject
-    } else {
-      hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
-      housesArray.push(this.state.hospitalData);
+    if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
+      this.setState({ errorHospMsg: "Hospital Name can't be empty" })
     }
+    else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
+      this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
+    } else {
+      if (this.state.editId) {
+        let objIndex = housesArray.findIndex((item => item._id == this.state.editId));
+        housesArray[objIndex].house_name = hospitalObject.house_name
+        housesArray[objIndex].house_description = hospitalObject.house_description
+        housesArray[objIndex].house_logo = hospitalObject.hospitalObject
+      } else {
+        hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
+        housesArray.push(this.state.hospitalData);
+      }
 
-    var state = this.state.institute_groups;
-    state["houses"] = housesArray;
-    this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+      var state = this.state.institute_groups;
+      state["houses"] = housesArray;
+      this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+    }
   }
 
   fileUpload = async (event, caseValue) => {
@@ -361,17 +478,17 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let {} = translate;
+    let { } = translate;
     return (
-      <Grid 
-      className={
-        this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
-          ? "homeBg darkTheme"
-          : "homeBg"
-      }>
+      <Grid
+        className={
+          this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
+            ? "homeBg darkTheme"
+            : "homeBg"
+        }>
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
@@ -406,7 +523,7 @@ class Index extends Component {
                             item
                             xs={12}
                             md={4}
-                            onClick={() =>  this.EditInstitute(item._id)}
+                            onClick={() => this.EditInstitute(item._id)}
                           >
                             <Grid className="medcalFZCntnt">
                               <Grid className="presEditDot scndOptionIner">
@@ -459,26 +576,26 @@ class Index extends Component {
                               </Grid>
                               <p>{item.group_description}</p>
 
-                              {this.state.showHouses &&            
-                              <Grid>
-                                <Table>
-                                  <Thead>
-                                    <Tr>
-                                      <Th>Hospitals</Th>
-                                    </Tr>
-                                  </Thead>
-                                  <Tbody>
-                                    {item?.houses.length > 0 &&
-                                      item?.houses.map((data, index) => (
-                                        <Tr>
-                                          <Td>
-                                            {data.house_name}
-                                          </Td>
-                                        </Tr>
-                                      ))}
-                                  </Tbody>
-                                </Table>
-                              </Grid>
+                              {this.state.showHouses &&
+                                <Grid>
+                                  <Table>
+                                    <Thead>
+                                      <Tr>
+                                        <Th>Hospitals</Th>
+                                      </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                      {item?.houses.length > 0 &&
+                                        item?.houses.map((data, index) => (
+                                          <Tr>
+                                            <Td>
+                                              {data.house_name}
+                                            </Td>
+                                          </Tr>
+                                        ))}
+                                    </Tbody>
+                                  </Table>
+                                </Grid>
                               }
                             </Grid>
                           </Grid>
@@ -486,7 +603,7 @@ class Index extends Component {
                       <Grid
                         xs={12}
                         md={4}
-                       >
+                      >
                         <Grid className="medcalFZCntnt bg-color-card cursor-pointer" onClick={() => {
                           this.openInstitute();
                         }}>
@@ -600,9 +717,9 @@ class Index extends Component {
                       onClose={this.closeInstitute}
                       className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark"
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
                           ? "addSpeclModel darkTheme"
                           : "addSpeclModel"
                       }
@@ -623,6 +740,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                         <Grid className="enterSpclUpr">
+                          <div className="err_message">{this.state.errorMsg}</div>
                           <Grid className="enterSpclMain">
                             <Grid className="enterSpcl">
                               <Grid container direction="row">
@@ -732,9 +850,9 @@ class Index extends Component {
                                   </Grid>
                                 </Grid>
                                 <Grid className="spclSaveBtn saveNclose">
-                                <Button onClick={this.openHospitalModal}>+ Enter Hospitals</Button>
-                              </Grid>
-                            
+                                  <Button onClick={this.openHospitalModal}>+ Enter Hospitals</Button>
+                                </Grid>
+
                               </Grid>
                               <Grid className="spclSaveBtn saveNclose">
                                 <Button onClick={this.SaveGroup}>Save</Button>
@@ -746,17 +864,17 @@ class Index extends Component {
                     </Modal>
 
                     <Modal
-                        open={this.state.openHospitalModal}
-                        onClose={this.closeHospitalModal}
-                        className={
-                          this.props.settings &&
+                      open={this.state.openHospitalModal}
+                      onClose={this.closeHospitalModal}
+                      className={
+                        this.props.settings &&
                           this.props.settings.setting &&
                           this.props.settings.setting.mode &&
                           this.props.settings.setting.mode === "dark"
-                            ? "addSpeclModel darkTheme"
-                            : "addSpeclModel"
-                        }
-                      >
+                          ? "addSpeclModel darkTheme"
+                          : "addSpeclModel"
+                      }
+                    >
                       <Grid className="nwEntrCntnt">
                         <Grid className="nwEntrCntntIner">
                           <Grid className="addSpeclLbl">
@@ -774,6 +892,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                           <Grid className="enterSpclUpr">
+                            <div className="err_message">{this.state.errorHospMsg}</div>
                             <Grid className="enterSpclMain">
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">
@@ -795,7 +914,7 @@ class Index extends Component {
                                       onChange={(e) => this.updateHospitalState(e)}
                                     />
                                   </Grid>
-                                  <Grid item xs={10} md={12}  className="form-box">
+                                  <Grid item xs={10} md={12} className="form-box">
                                     <Grid>
                                       <label>Upload Hospital Logo</label>
                                     </Grid>
@@ -813,8 +932,8 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                         </Grid>
-                        </Grid>
-                      </Modal>
+                      </Grid>
+                    </Modal>
 
                   </Grid>
                 </Grid>

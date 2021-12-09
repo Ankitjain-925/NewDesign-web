@@ -56,7 +56,8 @@ class Index extends Component {
       SelectedStep: '',
       errorMsg: '',
       StepService: {},
-      StepNameList: []
+      StepNameList: [],
+      name: ''
     };
   }
   static defaultProps = {
@@ -111,6 +112,7 @@ class Index extends Component {
   //For calling the API
   CallApi = () => {
     var deep = _.cloneDeep(this.state.actualData);
+    // console.log("deep", deep)
     deep.map((item) => {
       item.case_numbers = item.case_numbers.map((element) => {
         if (element._id) {
@@ -236,10 +238,11 @@ class Index extends Component {
     // this.setDta(state);
     // this.CallApi();
   };
-
+  handleName = (e) => {
+    this.setState({ step_name: e.target.value })
+  }
   OnAdd = () => {
     var state = this.state.actualData;
-    console.log("STATE", this.state.actualData)
     state.push({ step_name: this.state.step_name, case_numbers: [] });
     this.setDta(state);
     this.CallApi();
@@ -304,7 +307,7 @@ class Index extends Component {
   };
   removestep2 = (index) => {
     var state = this.state.actualData;
-   confirmAlert({
+    confirmAlert({
       customUI: ({ onClose }) => {
         return (
           <div
@@ -351,7 +354,6 @@ class Index extends Component {
   AddCase = () => {
     this.setState({ errorMsg: '' })
     var data = this.state.addp;
-    console.log("Data", data)
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please Enter Case Number' })
     }
@@ -654,7 +656,7 @@ class Index extends Component {
     if (e && e.length > 0) {
 
       var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
-        console.log("specsMap", item);
+        // console.log("specsMap", item);
         if (item && item.length > 0) { }
         let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
           return item._id;
@@ -724,7 +726,7 @@ class Index extends Component {
                   <Grid className="cmnLftSpc ptntFlowSpc">
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
-                        <Grid item xs={12} sm={8} md={8}>
+                        <Grid item xs={12} sm={6} md={6}>
                           <h1>{PatientFlow}</h1>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
@@ -735,6 +737,13 @@ class Index extends Component {
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a onClick={() => this.openAddPatient(0)}>
                             + Add patient
+                          </a>
+                        </Grid>
+                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
+                          <a 
+                            onClick={()=>{this.AddStep()}}
+                          >
+                            + Add step
                           </a>
                         </Grid>
                       </Grid>
@@ -812,20 +821,20 @@ class Index extends Component {
                                           isSearchable={true} />
                                       </Grid>
                                     </Grid>
-                                   
-                                      <Grid className="fltrInput">
-                                        <label>Ward</label>
-                                        <Grid className="addInput">
-                                          <Select
-                                            // onChange={(e) => this.onFieldChange2(e)}
-                                            options={this.state.specilaityList}
-                                            name="specialty_name"
-                                            value={this.state.selectSpec2}
-                                            placeholder="Filter by Ward"
-                                            isMulti={true}
-                                            isSearchable={true} />
-                                        </Grid>
+
+                                    <Grid className="fltrInput">
+                                      <label>Ward</label>
+                                      <Grid className="addInput">
+                                        <Select
+                                          // onChange={(e) => this.onFieldChange2(e)}
+                                          options={this.state.specilaityList}
+                                          name="specialty_name"
+                                          value={this.state.selectSpec2}
+                                          placeholder="Filter by Ward"
+                                          isMulti={true}
+                                          isSearchable={true} />
                                       </Grid>
+                                    </Grid>
 
                                     <Grid className="fltrInput">
                                       <label>Room</label>
@@ -1028,18 +1037,23 @@ class Index extends Component {
           <Grid className="addWrnContnt">
             <Grid className="addWrnIner">
               <Grid className="addWrnLbl">
-                <h5>Add Step</h5>
-                <Grid className="addWrnClose">
-                  <a onClick={this.handleClosePopup}>
-                    <img
-                      src={require("assets/virtual_images/closefancy.png")}
-                      alt=""
-                      title=""
-                    />
-                  </a>
+                <Grid className="headingFormat">
+                  <Grid className="addWrnClose">
+                    <a onClick={this.handleClosePopup}>
+                      <img
+                        src={require("assets/virtual_images/closefancy.png")}
+                        alt=""
+                        title=""
+                      />
+                    </a>
+                  </Grid>
+                  <label>Add Step</label>
                 </Grid>
-                <Input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Add Name" type="text" />
-                <Button color="primary" onClick={this.OnAdd}>Add</Button>
+                <Grid className="buttonStyle fltrInput">
+                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
+                    onChange={this.handleName} type="text" />
+                  <a color="primary" onClick={this.OnAdd}>Add</a>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>

@@ -115,8 +115,10 @@ class Index extends Component {
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               <ul className="manageDragDrop">
+                {/* {console.log("ordered",ordered)} */}
                 {ordered.map((key, index) => (
                   <li>
+                    {/* {console.log("key",key)} */}
                     <div className="detailInfo">
                     <Column
                         moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
@@ -147,7 +149,7 @@ class Index extends Component {
 
                 ))}
                  <li>
-                 <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
+                 {/* <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid> */}
                  </li>
                  {/* {console.log('this.state.columns', this.state.columns)} */}
               </ul>

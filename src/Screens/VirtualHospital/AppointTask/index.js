@@ -14,7 +14,13 @@ import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import TooltipTrigger from "react-popper-tooltip";
 import "react-popper-tooltip/dist/styles.css";
-import { getLanguage } from "translations/index"
+import Modal from "@material-ui/core/Modal";
+import { getPatientData } from "Screens/Components/CommonApi/index";
+import { Speciality } from "Screens/Login/speciality.js";
+import { AppointFilter } from "Screens/Components/MultiFilter/index.js";
+import {
+  getLanguage
+} from "translations/index"
 import Select from "react-select";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -31,14 +37,6 @@ import {
 } from "component/CommonHeader/index";
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "../Institutes/selecthouseaction";
-import { Redirect, Route } from "react-router-dom";
-import { AddFavDoc2 } from "Screens/Components/BasicMethod/index";
-
-const options = [
-  { value: "data1", label: "Data1" },
-  { value: "data2", label: "Data2" },
-  { value: "data3", label: "Data3" },
-];
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
@@ -68,23 +66,60 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      q: "",
       tabvalue: 0,
       selectedOption: null,
       events: [],
       finaldata: [],
-      myEventsList: [],
       appioinmentTimes: [],
       appioinmentEventList: [],
-      taskEventList: []
+      taskEventList: [],
+      myEventsList:[],
+      openFil: false,
+      specilaityList: [],
+      check: {},
+      tabvalue: this.props.tabvalue || 0,
+      myEventsListCss: '',
+      appioinmentEventListCss: '',
+      taskEventListCss: '',
     };
   }
 
+
+  componentDidUpdate = (prevProps) => {
+    if (
+      prevProps.tabvalue !== this.props.tabvalue ||
+      prevProps.myEventsList !== this.props.myEventsList ||
+      prevProps.appioinmentEventList !== this.props.appioinmentEventList ||
+      prevProps.taskEventList !== this.props.taskEventList    
+    ) {
+      this.setState({
+        tabvalue: this.props.tabvalue || 0,
+        myEventsList: this.props.myEventsList,
+        appioinmentEventList: this.props.appioinmentEventList,
+        taskEventList: this.props.taskEventList,
+      });
+    }
+    if (prevProps.patient !== this.props.patient) {
+      let user = { value: this.props.patient?.patient_id }
+      this.updateEntryState2(user);
+    }
+  };
+
   componentDidMount() {
     this.getTaskData();
+    this.getPatientData();
+    this.specailityList();
   }
 
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
+    if (tabvalue == 0 || tabvalue == 2) {
+      this.setState({ showField: false })
+    }
+    else if (tabvalue == 1) {
+      this.setState({ showField: true })
+    }
   };
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
@@ -127,6 +162,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
+        console.log("response", response)
         if (response.data.hassuccessed) {
           let indexout = 0;
           let appioinmentTimes = [];
@@ -443,11 +479,184 @@ class Index extends Component {
     );
   };
 
+  //open fiter modal
+  handleCloseFil = () => {
+    this.setState({ openFil: false })
+  }
+  // close filter modal
+  handleOpenFil = () => {
+    this.setState({ openFil: true, q: "" })
+  }
+
+  updateUserFilter = (e) => {
+    this.setState({ userFilter: e })
+  }
+
+  //On Changing the specialty id
+  updateSpecFilter = (e) => {
+    this.setState({ specFilter: e })
+  }
+
+  //state change on add
+  updateTaskFilter = (e) => {
+    const state = this.state.check;
+    state[e.target.name] = e.target.value;
+    this.setState({ taskFilter: state });
+  }
+
+  //Change the UserList
+  onChange = (event) => {
+    console.log("event", event.target.value)
+    const q = event.target.value.toLowerCase();
+    this.setState({ q }, () => this.filterList());
+  };
+
+  // Get the Patient data
+  getPatientData = async () => {
+    this.setState({ loaderImage: true });
+    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
+    if (response.isdata) {
+      this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
+        if (this.props.location?.state?.user) {
+          let user =
+            this.state.users1.length > 0 &&
+            this.state.users1.filter(
+              (user) =>
+                user.value === this.props.location?.state?.user.value
+            );
+
+          if (user?.length > 0) {
+            this.setState({ q: user[0]?.name, selectedUser: user[0] });
+          }
+          this.updateEntryState2(this.props.location?.state?.user);
+        }
+      });
+    }
+    else {
+      this.setState({ loaderImage: false });
+    }
+  };
+
+  filterList = () => {
+    let users = this.state.users1;
+    let q = this.state.q;
+    users =
+      users &&
+      users.length > 0 &&
+      users.filter(function (user) {
+        return (
+          user.label.toLowerCase().indexOf(q) != -1 ||
+          user.profile_id.toLowerCase().indexOf(q) != -1
+        );
+        // return  // returns true or false
+      });
+    this.setState({ filteredUsers: users });
+    if (this.state.q == "") {
+      this.setState({ filteredUsers: [] });
+    }
+  };
+
+  myColor(position) {
+    if (this.state.active === position) {
+      return "#00a891";
+    }
+    return "";
+  }
+
+  color(position) {
+    if (this.state.active === position) {
+      return "white";
+    }
+    return "";
+  }
+
+  //User list will be show/hide
+  toggle = () => {
+    this.setState({
+      shown: !this.state.shown,
+    });
+  };
+
+  //Select the patient name
+  updateEntryState2 = (user) => {
+    var user1 = this.state.users?.length > 0 &&
+      this.state.users.filter((data) => data.patient_id === user.value);
+    if (user1 && user1.length > 0) {
+      const state = this.state.newTask;
+      state["patient"] = user1[0];
+      state["patient_id"] = user1[0].patient_id;
+      state["case_id"] = user1[0].case_id;
+      this.setState({ newTask: state });
+    }
+  };
+
+  //to get the speciality list
+  specailityList = () => {
+    var spec =
+      this.props.speciality?.SPECIALITY &&
+      this.props?.speciality?.SPECIALITY.length > 0 &&
+      this.props?.speciality?.SPECIALITY.map((data) => {
+        return { label: data.specialty_name, value: data._id };
+      });
+    this.setState({ specilaityList: spec });
+  };
+
+  
+  applyFilter = () => {
+    let { userFilter, specFilter, taskFilter, tabvalue } = this.state
+    let tasks = ''
+    if (tabvalue === 0) {
+      tasks = this.state.myEventsList
+    }
+    else if (tabvalue === 1) {
+      tasks = this.state.appioinmentEventList
+    }
+    else if (tabvalue === 2) {
+      tasks = this.state.taskEventList
+    }
+
+    let data = AppointFilter(userFilter, specFilter, taskFilter, tasks)
+
+    if (tabvalue === 0) {
+      this.setState({ myEventsList: data, myEventsListCss: 'filterApply' })
+    }
+    else if (tabvalue === 1) {
+      this.setState({ appioinmentEventList: data, appioinmentEventListCss: 'filterApply' })
+    }
+    else if (tabvalue === 2) {
+      this.setState({ taskEventList: data, taskEventCss: 'filterApply' })
+    }
+    this.handleCloseFil();
+
+  }
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {} =
           translate;
     const { tabvalue, selectedOption, events, data } = this.state;
+    const userList =
+      this.state.filteredUsers &&
+      this.state.filteredUsers.map((user) => {
+        return (
+          <li
+            key={user.id}
+            style={{
+              background: this.myColor(user.id),
+              color: this.color(user.id),
+            }}
+            value={user.profile_id}
+            onClick={() => {
+              this.setState({ q: user.label, selectedUser: user });
+              this.updateEntryState2(user);
+              this.toggle(user.id);
+              this.setState({ filteredUsers: [] });
+            }}
+          >
+            {user.label} ( {user.profile_id} )
+          </li>
+        );
+      });
     return (
       <Grid
         className={
@@ -488,11 +697,17 @@ class Index extends Component {
                             <Tab label="Tasks" className="appTabIner" />
                           </Tabs>
                         </AppBar>
+
                       </Grid>
+
                       <Grid item xs={12} sm={5} md={6}>
-                        {/* <Grid className="appontTask">
-                          <Button>+ Appointment or Task</Button>
-                        </Grid> */}
+                        <Grid className="appontTask">
+                          {/* <Button>+ Appointment or Task</Button> */}
+                          <a className="srchSort" onClick={this.handleOpenFil}>
+                            <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
+                          </a>
+                        </Grid>
+
                       </Grid>
                     </Grid>
                     {tabvalue === 0 && (
@@ -501,7 +716,9 @@ class Index extends Component {
                           <Grid className="calenderDetails">
                             <Grid className="getCalapoint">
                               <Grid className="getCalBnr">
+
                                 <Calendar
+
                                   localizer={localizer}
                                   events={this.state.myEventsList}
                                   value={this.state.data}
@@ -632,6 +849,109 @@ class Index extends Component {
                 </Grid>
 
                 {/* End of Right Section */}
+                <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
+
+                  <Grid className="fltrClear">
+                    <Grid className="fltrClearIner">
+                      <Grid className="fltrLbl">
+                        <Grid className="fltrLblClose">
+                          <a onClick={this.handleCloseFil}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
+                        </Grid>
+                        <label>Filters</label>
+                      </Grid>
+                      {/* <Grid item xs={12} sm={7} md={6}> */}
+                      <AppBar position="static" className="modAppTabs">
+                        <Tabs
+                          value={tabvalue}
+                          onChange={this.handleChangeTab}
+                        >
+                          <Tab label="All" className="appTabIner" />
+                          <Tab label="Appointments" className="appTabIner" />
+                          <Tab label="Tasks" className="appTabIner" />
+                        </Tabs>
+                      </AppBar>
+
+                      {/* </Grid> */}
+
+                      <Grid className="fltrForm">
+                        <Grid className="fltrInput">
+                          <label>Patient</label>
+                          <Grid className="addInput">
+
+                            <Select
+                              name="professional"
+                              onChange={(e) => this.updateUserFilter(e)}
+                              value={this.state.userFilter}
+                              options={this.state.users1}
+                              placeholder="Filter by patient"
+                              className="addStafSelect"
+                              isMulti={true}
+                              isSearchable={true}
+                            />
+                          </Grid>
+
+                        </Grid>
+                        {!this.state.showField && (<>
+                          <Grid className="fltrInput">
+                            <label>Speciality</label>
+                            <Grid className="addInput">
+                              <Select
+                                onChange={(e) => this.updateSpecFilter(e)}
+                                options={this.state.specilaityList}
+                                name="specialty_name"
+                                value={this.state.specFilter}
+                                placeholder="Filter by Speciality"
+                                isMulti={true}
+                                isSearchable={true} />
+                            </Grid>
+                          </Grid>
+
+                          <Grid className="fltrInput">
+                            <Grid><label>Task status:</label></Grid>
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  name="open"
+                                  value={this.state.check && this.state.check.open && this.state.check.open == 'true' ? false : true}
+                                  color="#00ABAF"
+                                  checked={this.state.check.open}
+                                  onChange={(e) =>
+                                    this.updateTaskFilter(e)
+                                  }
+                                />
+                              }
+                              label="Open"
+                            />
+
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  name="done"
+                                  value={this.state.check && this.state.check.done && this.state.check.done == 'true' ? false : true}
+                                  color="#00ABAF"
+                                  checked={this.state.check.done}
+                                  onChange={(e) =>
+                                    this.updateTaskFilter(e)
+                                  }
+                                />
+                              }
+                              label="Done"
+                            />
+
+                          </Grid>
+                        </>)}
+
+                      </Grid>
+
+                      <Grid className="aplyFltr">
+                        <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
+                        <Grid className="aplyRght"><Button onClick={this.applyFilter}>Apply filters</Button></Grid>
+                      </Grid>
+
+                    </Grid>
+                  </Grid>
+                </Modal>
+
               </Grid>
             </Grid>
           </Grid>
@@ -647,6 +967,7 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { speciality } = state.Speciality;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -654,6 +975,7 @@ const mapStateToProps = (state) => {
     House,
     settings,
     verifyCode,
+    speciality
   };
 };
 export default withRouter(
@@ -663,5 +985,6 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
+    Speciality,
   })(Index)
 );
