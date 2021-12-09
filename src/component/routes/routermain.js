@@ -18,6 +18,7 @@ import PaitnetViewCourses from "Screens/Patient/More/viewCourses";
 import PatientTracker from "Screens/Patient/Tracker/tracker";
 import PatientTimeLine from "Screens/Patient/Journal/index";
 import PatientChats from "Screens/Patient/Chat/index";
+import Patientjourney from "Screens/Patient/Patientjourney/index.js";
 import PatientTimeLine1 from "Screens/ViewTimelineComponent/index.js";
 import PatientBlockchain from "Screens/Patient/More/blockchain.js";
 import PatientarchiveJournal from "Screens/Patient/More/archiveJournal.js";
@@ -152,6 +153,11 @@ class Routermain extends Component {
               exact
               path="/patient/documents"
               render={(props) => <PatientDocument {...props} />}
+            />
+             <Route
+              exact
+              path="/patient/Patient-journey"
+              render={(props) => <Patientjourney {...props} />}
             />
             <Route
               exact
