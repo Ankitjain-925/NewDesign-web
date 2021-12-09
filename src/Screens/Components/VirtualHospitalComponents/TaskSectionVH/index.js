@@ -874,6 +874,8 @@ class Index extends Component {
           </li>
         );
       });
+      let {userFilter, assignedTo2, selectSpec2, selectWard ,selectRoom} = this.state
+      console.log("checking alll data",userFilter, assignedTo2, selectSpec2, selectWard ,selectRoom)
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1519,7 +1521,7 @@ class Index extends Component {
                     <Grid className="addInput">
                       <Select
                         name="professional"
-                        onChange={(e) => this.updateEntryState4(e)}
+                        onChange={(e) => this.updateEntryState4(e)} 
                         value={this.state.assignedTo2}
                         options={this.state.professional_id_list}
                         placeholder="Filter by Staff"
@@ -1534,9 +1536,9 @@ class Index extends Component {
                     <Grid className="addInput">
                       <Select
                         onChange={(e) => this.onFieldChange2(e)}
-                        options={this.state.specilaityList}
+                        options={this.state.specilaityList} 
                         name="specialty_name"
-                        value={this.state.selectSpec2}
+                        value={this.state.selectSpec2} 
                         placeholder="Filter by Speciality"
                         isMulti={false}
                         isSearchable={true} />
@@ -1548,7 +1550,7 @@ class Index extends Component {
                     <Grid className="addInput">
                       <Select
                         onChange={(e) => this.onWardChange(e)}
-                        options={this.state.wardList}
+                        options={this.state.wardList} 
                         name="ward_name"
                         value={this.state.selectWard}
                         placeholder="Filter by Ward"
