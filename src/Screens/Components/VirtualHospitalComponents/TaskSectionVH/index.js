@@ -330,7 +330,7 @@ class Index extends Component {
   };
 
   updateCommemtState = (e) => {
-    this.setState({ newComment: e });
+    this.setState({ newComment: e ,});
   }
 
   removeComment = (index) => {
@@ -352,7 +352,7 @@ class Index extends Component {
             <p>Are you sure to remove this Comment?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
-              
+
               <button
                 onClick={() => {
                   this.removebtn(index);
@@ -360,7 +360,7 @@ class Index extends Component {
               >
                 Yes
               </button>
-              
+
             </div>
           </div>
         );
@@ -382,11 +382,11 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 class ="alert-btn">Remove Comment ?</h1>
+            <h1 class="alert-btn">Remove Comment ?</h1>
             <p>Are you really want to remove this Comment?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
-              
+
               <button
                 onClick={() => {
                   this.deleteClickComment(index);
@@ -395,7 +395,7 @@ class Index extends Component {
               >
                 Yes
               </button>
-            
+
             </div>
           </div>
         );
@@ -416,17 +416,17 @@ class Index extends Component {
 
   };
 
-  oNEditText(e , index) {
+  oNEditText(e, index) {
     var state = this.state.newTask
     state['comments'][index]['comment'] = e.target.value;
     this.setState({ newTask: state });
   }
 
-  onKeyUp = (e) => {
-    if (e.key === "Enter") {
-      this.editComment(false);
-    }
-  };
+  // onKeyUp = (e) => {
+  //   if (e.key === "Enter") {
+  //     
+  //   }
+  // };
 
   // For adding a date,time
   updateEntryState1 = (value, name) => {
@@ -613,6 +613,7 @@ class Index extends Component {
   };
 
   FilterText = (e) => {
+    console.log("e",e)
     this.setState({ text: e.target.value })
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
@@ -1225,7 +1226,28 @@ class Index extends Component {
                                         this.props.settings?.setting?.time_format
                                       )}</span>
                                     </Grid>
-                                    <Grid className="cmntMsgsCntnt">
+                                    <Grid className="addComit">
+                                    {this.state.editcomment === index ? <>
+                                      <textarea
+                                        placeholder="Edit Comment"
+                                        name="comment"
+                                        onChange={(e) =>
+                                          this.oNEditText(
+                                            e,index
+                                          )
+                                        }
+                                        
+                                        value={data?.comment}
+                                      ></textarea> 
+                                      <Button onClick={() => this.editComment(false)}>Submit</Button>
+
+                                      </>
+                                       :
+                                        <p>{data?.comment}</p>}
+
+                                     
+                                    </Grid>
+                                    {/* <Grid className="cmntMsgsCntnt">
                                       {this.state.editcomment === index ?
                                         <textarea type="text"
                                         name="comment"
@@ -1238,12 +1260,13 @@ class Index extends Component {
                                         </textarea>
                                         :
                                         <p>{data?.comment}</p>}
-                                    </Grid>
+                                    </Grid> */}
                                     {/* {console.log('data?.comment', data)} */}
                                     {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
                                       {/* <Button onClick={() => this.editComment(data)}>Edit</Button> */}
                                       <Button onClick={() => this.removeComment(index)}>Delete</Button>
                                       <Button onClick={() => this.editComment(index)}>Edit</Button>
+
                                     </Grid>}
                                   </Grid>
                                 </Grid>
