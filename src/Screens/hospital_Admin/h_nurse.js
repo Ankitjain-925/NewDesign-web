@@ -43,84 +43,83 @@ class Index extends Component {
             showInquiry: false,
             AddPrescription: {},
             successfullsent: false,
-            addCreate:false,
-            current_user : {},
-            openDetial : false,
-            MypatientsData : [],
+            addCreate: false,
+            current_user: {},
+            openDetial: false,
+            MypatientsData: [],
             UpDataDetails: {},
-            current_user : {},
-            Housesoptions :[],
+            current_user: {},
+            Housesoptions: [],
             currentHouses: [],
-            openHouse : false,
-            house:{},
+            openHouse: false,
+            house: {},
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
     }
     getallGroups = () => {
-        var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+        var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
         this.setState({ loaderImage: true });
         axios
-          .get(
-            sitedata.data.path +
-              `/hospitaladmin/institute/${institute_id}`,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            if (responce.data.hassuccessed && responce.data.data) {
-                var Housesoptions = [];
-                if(responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length>0){
-                    responce.data.data.institute_groups.map((data)=>{
-                        data?.houses && data.houses.length>0 && data.houses.map((item)=>{
-                            Housesoptions.push({
-                                group_name : data.group_name,
-                                label: item.house_name,
-                                value: item.house_id
+            .get(
+                sitedata.data.path +
+                `/hospitaladmin/institute/${institute_id}`,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed && responce.data.data) {
+                    var Housesoptions = [];
+                    if (responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length > 0) {
+                        responce.data.data.institute_groups.map((data) => {
+                            data?.houses && data.houses.length > 0 && data.houses.map((item) => {
+                                Housesoptions.push({
+                                    group_name: data.group_name,
+                                    label: item.house_name,
+                                    value: item.house_id
+                                })
+                                this.setState({ Housesoptions: Housesoptions });
                             })
-                            this.setState({ Housesoptions:  Housesoptions});
                         })
-                    })
+                    }
                 }
-            }
-            this.setState({ loaderImage: false });
-          });
-      };
-    
+                this.setState({ loaderImage: false });
+            });
+    };
+
     componentDidMount = () => {
         this.getAllkyc()
         this.getNurses();
         this.getallGroups();
     }
 
-    search_user = (event)=> {
+    search_user = (event) => {
         if (event.target.value == '') {
-               this.setState({ MypatientsData: this.state.forSearch })
+            this.setState({ MypatientsData: this.state.forSearch })
             this.onChangePage(1)
         } else {
             let serach_value = SearchUser(event.target.value, this.state.forSearch)
             this.setState({ MypatientsData: serach_value })
         }
     }
-    handleOpenCreate=()=>{
-        this.setState({addCreate: true})
+    handleOpenCreate = () => {
+        this.setState({ addCreate: true })
     }
-    handleCloseCreate=()=>{
+    handleCloseCreate = () => {
         this.getNurses()
-        this.setState({addCreate: false})
+        this.setState({ addCreate: false })
     }
     onChangePage = (pageNumber) => {
         this.setState({ MypatientsData: this.state.AllNurse.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
     }
 
-    getAllkyc()
-    {
+    getAllkyc() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/User/getAllKyc',
-           commonHeader(user_token)
+            commonHeader(user_token)
         )
             .then((response) => {
                 this.setState({ getAllkyc: response.data.data });
-            }).catch((error) => {});
+            }).catch((error) => { });
 
     }
 
@@ -131,7 +130,7 @@ class Index extends Component {
         )
             .then((response) => {
                 if (response.data.data) {
-                    var images =[];
+                    var images = [];
                     this.setState({ AllUsers: response.data.data });
                     const AllNurse = this.state.AllUsers.filter((value, key) =>
                         value.type === 'nurse');
@@ -143,33 +142,33 @@ class Index extends Component {
                     this.setState({ AllNurse: AllNurse })
                     var totalPage = Math.ceil(AllNurse.length / 10);
                     this.setState({ totalPage: totalPage, currentPage: 1 },
-                    () => {
-                        if (totalPage > 1) {
-                            var pages = [];
-                            for (var i = 1; i <= this.state.totalPage; i++) {
-                                pages.push(i)
+                        () => {
+                            if (totalPage > 1) {
+                                var pages = [];
+                                for (var i = 1; i <= this.state.totalPage; i++) {
+                                    pages.push(i)
+                                }
+                                this.setState({ MypatientsData: AllNurse.slice(0, 10), pages: pages })
                             }
-                            this.setState({ MypatientsData: AllNurse.slice(0, 10), pages: pages })
-                        }
-                        else {
-                            this.setState({ MypatientsData: AllNurse })
-                        }
-                    })  
-                this.setState({ forSearch: AllNurse })
-                    AllNurse && AllNurse.length>0 && AllNurse.map((item)=>{
+                            else {
+                                this.setState({ MypatientsData: AllNurse })
+                            }
+                        })
+                    this.setState({ forSearch: AllNurse })
+                    AllNurse && AllNurse.length > 0 && AllNurse.map((item) => {
                         var find = item && item.image && item.image
                         if (find) {
                             var find1 = find.split('.com/')[1]
                             axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                            .then((response2) => {
-                                if (response2.data.hassuccessed) {
-                                    item.new_image = response2.data.data
-                                    images.push({ image: find, new_image: response2.data.data })
-                                    this.setState({ images: images })
-                                }
-                            })
+                                .then((response2) => {
+                                    if (response2.data.hassuccessed) {
+                                        item.new_image = response2.data.data
+                                        images.push({ image: find, new_image: response2.data.data })
+                                        this.setState({ images: images })
+                                    }
+                                })
                         }
-                    })  
+                    })
                 }
                 else {
                     this.setState({ AllNurse: [] });
@@ -178,7 +177,7 @@ class Index extends Component {
     }
 
     submitDelete = (deletekey, profile_id, bucket) => {
-        let translate={};
+        let translate = {};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -186,10 +185,10 @@ class Index extends Component {
             case "de":
                 translate = translationDE.text
                 break;
-            default :
+            default:
                 translate = translationEN.text
         }
-        let {DeleteUser, Yes, No, click_on_YES_user} = translate;
+        let { DeleteUser, Yes, No, click_on_YES_user } = translate;
         confirmAlert({
             title: DeleteUser,
             message: click_on_YES_user,
@@ -206,109 +205,118 @@ class Index extends Component {
 
     };
 
-    deleteClick=(deletekey, profile_id, bucket) =>{
+    deleteClick = (deletekey, profile_id, bucket) => {
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/admin/deleteUser/' + deletekey+'?bucket='+bucket, commonHeader(user_token))
+        axios.delete(sitedata.data.path + '/admin/deleteUser/' + deletekey + '?bucket=' + bucket, commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false });
-                var data = JSON.stringify({"permanent":true});
+                var data = JSON.stringify({ "permanent": true });
 
                 var config = {
-                  method: 'delete',
-                  url: 'https://api-eu.cometchat.io/v2.0/users/'+profile_id.toLowerCase(),
-                  headers: commonCometDelHeader(),
-                  data : data
+                    method: 'delete',
+                    url: 'https://api-eu.cometchat.io/v2.0/users/' + profile_id.toLowerCase(),
+                    headers: commonCometDelHeader(),
+                    data: data
                 };
-                
+
                 axios(config)
-                .then(function (response) { })
-                .catch(function (error) { });
+                    .then(function (response) { })
+                    .catch(function (error) { });
                 this.getNurses();
                 //   this.MessageUser();
-            }).catch((error) => {});
+            }).catch((error) => { });
     }
 
-    BlockUser=(patient_id, isblock)=>{
+    BlockUser = (patient_id, isblock) => {
         var data = blockClick(patient_id, isblock, this.props.stateLoginValueAim.token)
         this.getNurses();
     }
-    openDetail =(patient)=>{
-        this.setState({openDetial : true, current_user : patient})
+    openDetail = (patient) => {
+        this.setState({ openDetial: true, current_user: patient })
     }
-    CloseDetail =()=>{
-        this.setState({openDetial : false})
+    CloseDetail = () => {
+        this.setState({ openDetial: false })
     }
 
     assignHouse = (patient) => {
-        this.setState({openHouse: true, current_user: patient})
-      };
-    
-      closeHouse = () => {
-        this.setState({openHouse: false})
-      };
-    
-      updateEntryState1 = (value, name)=>{
-        this.setState({ house: value });
-      }
-    
-      SaveAssignHouse =()=>{
-        var userid = this.state.current_user._id;
-        this.setState({ loaderImage: true });
-        axios
-          .put(
-            sitedata.data.path +
-              `/hospitaladmin/assignedHouse/${userid}`,
-              this.state.house,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            if (responce.data.hassuccessed) {
-                this.setState({assignedhouse: true})
-                setTimeout(()=>{
-                  this.setState({assignedhouse: false, openHouse: false,})
-                }, 5000)
-                this.getallGroups();
-                this.getNurses(this.state.current_user._id);
-            }
-            else{
-              this.setState({alredyExist: true})
-              setTimeout(()=>{
-                this.setState({alredyExist: false})
-              }, 5000)
-            }
-            this.setState({ loaderImage: false });
-          });
-        // /assignedHouse/:
-      }
+        this.setState({ openHouse: true, current_user: patient })
+    };
 
-      deleteHouse=(deleteId)=>{
+    closeHouse = () => {
+        this.setState({ openHouse: false })
+    };
+
+    updateEntryState1 = (value, name) => {
+        this.setState({ house: value });
+    }
+
+    SaveAssignHouse = () => {
+        var userid = this.state.current_user._id;
+        var housevalue = this.state.house;
+        this.setState({ loaderImage: true });
+        if (housevalue && housevalue?.length > 0) {
+            axios
+                .put(
+                    sitedata.data.path +
+                    `/hospitaladmin/assignedHouse/${userid}`,
+                    this.state.house,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    if (responce.data.hassuccessed) {
+                        this.setState({ assignedhouse: true })
+                        setTimeout(() => {
+                            this.setState({ assignedhouse: false, openHouse: false })
+                        }, 5000)
+                        this.getallGroups();
+                        this.getNurses(this.state.current_user._id);
+                    }
+                    // else {
+                    //     this.setState({ alredyExist: true })
+                    //     setTimeout(() => {
+                    //         this.setState({ alredyExist: false })
+                    //     }, 5000)
+                    // }
+                    this.setState({ loaderImage: false });
+                });
+        }
+        else {
+            this.setState({ blankerror: true, assignedhouse: false })
+            setTimeout(() => {
+                this.setState({ blankerror: false })
+            }, 5000)
+        }
+        // /assignedHouse/:
+    }
+
+    deleteHouse = (deleteId) => {
         var userid = this.state.current_user._id;
         this.setState({ loaderImage: true });
         axios
-          .delete(
-            sitedata.data.path +
-              `/hospitaladmin/assignedHouse/${userid}/${deleteId}`,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            if (responce.data.hassuccessed) {
-                this.setState({ deleteHouses: true})
-                setTimeout(()=>{
-                  this.setState({deleteHouses: false, openHouse: false})
-                }, 5000)
-                this.getallGroups();
-                this.getNurses(this.state.current_user._id);
-            }
-            this.setState({ loaderImage: false });
-          });
-      }
+            .delete(
+                sitedata.data.path +
+                `/hospitaladmin/assignedHouse/${userid}/${deleteId}`,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed) {
+                    this.setState({ deleteHouses: true })
+                    setTimeout(() => {
+                        this.setState({ deleteHouses: false, openHouse: false })
+                    }, 5000)
+                    this.getallGroups();
+                    this.getNurses(this.state.current_user._id);
+                }
+                this.setState({ loaderImage: false });
+            });
+    }
 
     render() {
-        if(this.props.stateLoginValueAim.user.type != "hospitaladmin"){
+        if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
         }
-        let translate={};
+        let translate = {};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -316,22 +324,22 @@ class Index extends Component {
             case "de":
                 translate = translationDE.text
                 break;
-            default :
+            default:
                 translate = translationEN.text
         }
-        let { srvc_Nurses, add_new, Nurse, find_nurse, ID, Status, no_, previous, next, 
+        let { srvc_Nurses, add_new, Nurse, find_nurse, ID, Status, no_, previous, next,
             recEmp_FirstName, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 
         return (
             <Grid className={
                 this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
-                 {this.state.loaderImage && <Loader />}
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
+                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -345,7 +353,7 @@ class Index extends Component {
                                 <H_LeftMenu isNotShow={true} currentPage="nurse_List" />
                                 {/* End of Website Menu */}
 
-                                <CreateAdminUser addCreate={this.state.addCreate} handleCloseCreate={this.handleCloseCreate} openBy="nurse"/>
+                                <CreateAdminUser addCreate={this.state.addCreate} handleCloseCreate={this.handleCloseCreate} openBy="nurse" />
 
                                 <Grid item xs={12} md={10} className="adminMenuRghtUpr">
                                     <Grid container direction="row" justifyContent="center" className="archvOpinLbl">
@@ -381,9 +389,9 @@ class Index extends Component {
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
-                                            {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((nurse, i) => (
+                                                {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((nurse, i) => (
                                                     <Tr>
-                                                          <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
+                                                        <Td>{((this.state.currentPage - 1) * 10) + i + 1}</Td>
                                                         <Td><img className="doctor_pic" src={nurse && nurse.image ? getImage(nurse.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {nurse.first_name && nurse.first_name}</Td>
                                                         <Td>{nurse.last_name && nurse.last_name}</Td>
@@ -397,21 +405,21 @@ class Index extends Component {
                                                             <a className="academy_ul">
                                                                 <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
                                                                 <ul>
-                                                                <li onClick={()=>this.openDetail(nurse)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={()=>this.BlockUser(nurse._id, nurse.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{nurse.isblock && nurse.isblock == true ?'Unblock': 'Block'}</a></li>
+                                                                    <li onClick={() => this.openDetail(nurse)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={() => this.BlockUser(nurse._id, nurse.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{nurse.isblock && nurse.isblock == true ? 'Unblock' : 'Block'}</a></li>
                                                                     <li onClick={() => this.assignHouse(nurse)}>
-                                                                    <a>
-                                                                        <span>
-                                                                        <img
-                                                                            src={require("assets/images/admin/details1.svg")}
-                                                                            alt=""
-                                                                            title=""
-                                                                        />
-                                                                        </span>
-                                                                        Assign Hospitals
-                                                                    </a>
+                                                                        <a>
+                                                                            <span>
+                                                                                <img
+                                                                                    src={require("assets/images/admin/details1.svg")}
+                                                                                    alt=""
+                                                                                    title=""
+                                                                                />
+                                                                            </span>
+                                                                            Assign Hospitals
+                                                                        </a>
                                                                     </li>
-                                                                    <li onClick={()=>this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                    <li onClick={() => this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>
@@ -429,7 +437,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                                        <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                                                         {/* {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                                         {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                                             <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
@@ -453,7 +461,7 @@ class Index extends Component {
                                         deleteHouse={this.deleteHouse}
                                         updateEntryState1={this.updateEntryState1}
                                     />
-                                    <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user}/>
+                                    <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user} />
                                 </Grid>
                             </Grid>
                         </Grid>

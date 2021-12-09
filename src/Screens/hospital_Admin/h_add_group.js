@@ -23,6 +23,7 @@ import Loader from "Screens/Components/Loader/index";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import "react-confirm-alert/src/react-confirm-alert.css";
+
 import {
   getLanguage
 } from "translations/index"
@@ -49,7 +50,9 @@ class Index extends Component {
       instituteId: '',
       showHouses: false,
       editId: '',
-      image: []
+      image: [],
+      errorMsg: '',
+      errorHospMsg: ''
     };
     console.log("This state", this.state)
   }
@@ -101,7 +104,6 @@ class Index extends Component {
 
   deleteGroup = (id) => {
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
-    console.log("Institute ID", institute_id)
     this.setState({ loaderImage: true });
     axios
       .delete(
@@ -247,40 +249,57 @@ class Index extends Component {
   }
 
   SaveGroup = () => {
+    this.setState({ errorMsg: "" })
+
     var data = this.state.institute_groups;
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
-    this.setState({ loaderImage: true });
-    if (data._id) {
-      axios
-        .put(
-          sitedata.data.path +
-          `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.getallGroups();
-            this.setState({ institute_groups: {}, })
-          }
-          this.setState({ loaderImage: false, openGroup: false });
-        });
+
+    if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
+      this.setState({ errorMsg: "Institution Name can't be empty" })
+    }
+    else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
+      this.setState({ errorMsg: "Institution Description Note can't be empty" })
+    }
+    else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
+      this.setState({ errorMsg: "Select atleast one hospital" })
     }
     else {
-      axios
-        .put(
-          sitedata.data.path +
-          `/hospitaladmin/AddGroup/${institute_id}`,
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.getallGroups();
-            this.setState({ institute_groups: {}, })
-          }
-          this.setState({ loaderImage: false, openGroup: false });
-        });
+      var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+      this.setState({ loaderImage: true });
+      if (data._id) {
+        axios
+          .put(
+            sitedata.data.path +
+            `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getallGroups();
+              this.setState({ institute_groups: {}, })
+            }
+            else {
+              this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+            }
+            this.setState({ loaderImage: false, openGroup: false });
+          });
+      }
+      else {
+        axios
+          .put(
+            sitedata.data.path +
+            `/hospitaladmin/AddGroup/${institute_id}`,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.getallGroups();
+              this.setState({ institute_groups: {}, })
+            }
+            this.setState({ loaderImage: false, openGroup: false });
+          });
+      }
     }
   };
 
@@ -305,23 +324,30 @@ class Index extends Component {
   };
 
   saveHospital = (e) => {
+    this.setState({ errorHospMsg: "" })
     let date = new Date();
     let housesArray = this.state.houses;
     let hospitalObject = this.state.hospitalData;
-
-    if (this.state.editId) {
-      let objIndex = housesArray.findIndex((item => item._id == this.state.editId));
-      housesArray[objIndex].house_name = hospitalObject.house_name
-      housesArray[objIndex].house_description = hospitalObject.house_description
-      housesArray[objIndex].house_logo = hospitalObject.hospitalObject
-    } else {
-      hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
-      housesArray.push(this.state.hospitalData);
+    if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
+      this.setState({ errorHospMsg: "Hospital Name can't be empty" })
     }
+    else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
+      this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
+    } else {
+      if (this.state.editId) {
+        let objIndex = housesArray.findIndex((item => item._id == this.state.editId));
+        housesArray[objIndex].house_name = hospitalObject.house_name
+        housesArray[objIndex].house_description = hospitalObject.house_description
+        housesArray[objIndex].house_logo = hospitalObject.hospitalObject
+      } else {
+        hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
+        housesArray.push(this.state.hospitalData);
+      }
 
-    var state = this.state.institute_groups;
-    state["houses"] = housesArray;
-    this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+      var state = this.state.institute_groups;
+      state["houses"] = housesArray;
+      this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+    }
   }
 
   fileUpload = async (event, caseValue) => {
@@ -714,6 +740,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                         <Grid className="enterSpclUpr">
+                          <div className="err_message">{this.state.errorMsg}</div>
                           <Grid className="enterSpclMain">
                             <Grid className="enterSpcl">
                               <Grid container direction="row">
@@ -865,6 +892,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                           <Grid className="enterSpclUpr">
+                            <div className="err_message">{this.state.errorHospMsg}</div>
                             <Grid className="enterSpclMain">
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">

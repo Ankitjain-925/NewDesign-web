@@ -59,10 +59,10 @@ class Index extends Component {
       current_user: {},
       openDetial: false,
       MypatientsData: [],
-      Housesoptions :[],
+      Housesoptions: [],
       currentHouses: [],
-      openHouse : false,
-      house:{},
+      openHouse: false,
+      house: {},
       UpDataDetails: {}
     };
     // new Timer(this.logOutClick.bind(this))
@@ -70,29 +70,29 @@ class Index extends Component {
   }
 
   getallGroups = () => {
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
     axios
       .get(
         sitedata.data.path +
-          `/hospitaladmin/institute/${institute_id}`,
+        `/hospitaladmin/institute/${institute_id}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
-            var Housesoptions = [];
-            if(responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length>0){
-                responce.data.data.institute_groups.map((data)=>{
-                    data?.houses && data.houses.length>0 && data.houses.map((item)=>{
-                        Housesoptions.push({
-                            group_name : data.group_name,
-                            label: item.house_name,
-                            value: item.house_id
-                        })
-                        this.setState({ Housesoptions:  Housesoptions});
-                    })
+          var Housesoptions = [];
+          if (responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length > 0) {
+            responce.data.data.institute_groups.map((data) => {
+              data?.houses && data.houses.length > 0 && data.houses.map((item) => {
+                Housesoptions.push({
+                  group_name: data.group_name,
+                  label: item.house_name,
+                  value: item.house_id
                 })
-            }
+                this.setState({ Housesoptions: Housesoptions });
+              })
+            })
+          }
         }
         this.setState({ loaderImage: false });
       });
@@ -118,12 +118,12 @@ class Index extends Component {
   handleOpenCreate = () => {
     this.setState({ addCreate: true });
   };
-  
+
   handleCloseCreate = () => {
     this.getAdminstaff();
     this.setState({ addCreate: false });
   };
-  
+
   onChangePage = (pageNumber) => {
     this.setState({
       MypatientsData: this.state.AllNurse.slice(
@@ -141,7 +141,7 @@ class Index extends Component {
       .then((response) => {
         this.setState({ getAllkyc: response.data.data });
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   getAdminstaff = (user_id) => {
@@ -149,8 +149,8 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          "/admin/allHospitalusers/" +
-          this.props.stateLoginValueAim.user.institute_id,
+        "/admin/allHospitalusers/" +
+        this.props.stateLoginValueAim.user.institute_id,
         commonHeader(user_token)
       )
       .then((response) => {
@@ -207,7 +207,7 @@ class Index extends Component {
           this.setState({ AllNurse: [] });
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   submitDelete = (deletekey, profile_id, bucket) => {
@@ -244,10 +244,10 @@ class Index extends Component {
     axios
       .delete(
         sitedata.data.path +
-          "/admin/deleteUser/" +
-          deletekey +
-          "?bucket=" +
-          bucket,
+        "/admin/deleteUser/" +
+        deletekey +
+        "?bucket=" +
+        bucket,
         commonHeader(user_token)
       )
       .then((response) => {
@@ -264,12 +264,12 @@ class Index extends Component {
         };
 
         axios(config)
-          .then(function (response) {})
-          .catch(function (error) {});
+          .then(function (response) { })
+          .catch(function (error) { });
         this.getAdminstaff();
         //   this.MessageUser();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   BlockUser = (patient_id, isblock) => {
@@ -290,62 +290,72 @@ class Index extends Component {
   };
 
   assignHouse = (patient) => {
-    this.setState({openHouse: true, current_user: patient})
+    this.setState({ openHouse: true, current_user: patient })
   };
 
   closeHouse = () => {
-    this.setState({openHouse: false})
+    this.setState({ openHouse: false })
   };
 
-  updateEntryState1 = (value, name)=>{
+  updateEntryState1 = (value, name) => {
     this.setState({ house: value });
   }
 
-  SaveAssignHouse =()=>{
+  SaveAssignHouse = () => {
     var userid = this.state.current_user._id;
+    var housevalue = this.state.house;
     this.setState({ loaderImage: true });
-    axios
-      .put(
-        sitedata.data.path +
+    if (housevalue && housevalue?.length > 0) {
+      axios
+        .put(
+          sitedata.data.path +
           `/hospitaladmin/assignedHouse/${userid}`,
           this.state.house,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-            this.setState({assignedhouse: true})
-            setTimeout(()=>{
-              this.setState({assignedhouse: false, openHouse: false,})
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            this.setState({ assignedhouse: true, blankerror: false, house: {} })
+            setTimeout(() => {
+              this.setState({ assignedhouse: false, openHouse: false, house: {} })
             }, 5000)
             this.getallGroups();
             this.getAdminstaff(this.state.current_user._id);
-        }
-        else{
-          this.setState({alredyExist: true})
-          setTimeout(()=>{
-            this.setState({alredyExist: false})
-          }, 3000)
-        }
-        this.setState({ loaderImage: false });
-      });
+          }
+          // else {
+          //   this.setState({ alredyExist: true })
+          //   setTimeout(() => {
+          //     this.setState({ alredyExist: false })
+          //   }, 3000)
+          // }
+          this.setState({ loaderImage: false });
+        });
+    }
+    else {
+      this.setState({ blankerror: true, assignedhouse: false })
+      setTimeout(() => {
+        this.setState({ blankerror: false })
+      }, 5000)
+    }
+    this.setState({ loaderImage: false });
     // /assignedHouse/:
   }
-  deleteHouse=(deleteId)=>{
+  deleteHouse = (deleteId) => {
     var userid = this.state.current_user._id;
     this.setState({ loaderImage: true });
     axios
       .delete(
         sitedata.data.path +
-          `/hospitaladmin/assignedHouse/${userid}/${deleteId}`,
+        `/hospitaladmin/assignedHouse/${userid}/${deleteId}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-            this.setState({ deleteHouses: true})
-            setTimeout(()=>{
-              this.setState({deleteHouses: false, openHouse: false})
-            }, 5000)
-            this.getallGroups();
+          this.setState({ deleteHouses: true })
+          setTimeout(() => {
+            this.setState({ deleteHouses: false, openHouse: false })
+          }, 5000)
+          this.getallGroups();
           this.getAdminstaff(this.state.current_user._id);
         }
         this.setState({ loaderImage: false });
@@ -387,7 +397,7 @@ class Index extends Component {
     } = translate;
 
     return (
-      <Grid  className={
+      <Grid className={
         this.props.settings &&
           this.props.settings.setting &&
           this.props.settings.setting.mode &&
@@ -437,7 +447,7 @@ class Index extends Component {
                     className="archvSrchInput"
                   >
                     <Grid item xs={12} md={12}>
-                
+
                       {" "}
                       <input
                         onChange={this.search_user}
@@ -611,6 +621,7 @@ class Index extends Component {
                     Housesoptions={this.state.Housesoptions}
                     current_user={this.state.current_user}
                     alredyExist={this.state.alredyExist}
+                    blankerror={this.state.blankerror}
                     closeHouse={this.closeHouse}
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}

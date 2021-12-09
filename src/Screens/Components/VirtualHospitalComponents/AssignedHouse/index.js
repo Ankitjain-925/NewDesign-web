@@ -23,11 +23,34 @@ class PointPain extends Component {
       currentHouses: this.props.currentHouses,
       deleteHouses: this.props.deleteHouses,
       assignedhouse: this.props.assignedhouse,
-      blankerror: this.props.blankerror
+      blankerror: this.props.blankerror,
+      alredyExist: false
     };
   }
 
   updateEntryState1 = (value, name) => {
+    this.setState({ alredyExist: false, assignedhouse: false })
+
+    let data = this.state.current_user?.houses
+    let id1 = data && data.length > 0 && data.map((item) => {
+      return item && item.value
+    })
+    let id2 = value && value.length > 0 && value.map((item) => {
+      return item && item.value;
+    })
+    let length1 = id1 && id1.length
+    let length2 = id2 && id2.length
+
+    for (var i = 0; i < length1; i++) {
+      for (var j = 0; j < length2; j++) {
+
+        let status = id1[i] == id2[j]
+        if (status == true) {
+          this.setState({ alredyExist: true })
+          break;
+        }
+      }
+    }
     this.props.updateEntryState1(value);
   }
   //on adding new data
@@ -136,7 +159,7 @@ class PointPain extends Component {
 
 
                   <Grid className="spclSaveBtn saveNclose">
-                    <Button onClick={() => this.props.SaveAssignHouse()}>Save</Button>
+                    {this.state.alredyExist === false && (<Button onClick={() => this.props.SaveAssignHouse()}>Save</Button>)}
                   </Grid>
                 </Grid>
               </Grid>

@@ -279,12 +279,12 @@ class Index extends Component {
                         this.getallGroups();
                         this.getDoctors(this.state.current_user._id);
                     }
-                    else {
-                        this.setState({ alredyExist: true })
-                        setTimeout(() => {
-                            this.setState({ alredyExist: false })
-                        }, 5000)
-                    }
+                    // else {
+                    //     this.setState({ alredyExist: true })
+                    //     setTimeout(() => {
+                    //         this.setState({ alredyExist: false })
+                    //     }, 5000)
+                    // }
                     this.setState({ loaderImage: false });
                 });
         }
