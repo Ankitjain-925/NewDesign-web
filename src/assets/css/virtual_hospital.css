@@ -12253,6 +12253,8 @@ input:-moz-autofill:active{
 }
 
 .buttonStyle a{
+    display: flex !important;
+    justify-content: center;
     border-radius: 8px;
     background-color: #00ABAF;
     color: #FFFFFF !important;
@@ -12266,7 +12268,7 @@ input:-moz-autofill:active{
     min-width: 156px;
     display: inline-block;
     cursor: pointer;
-    margin-left: 20px;
+    margin-top: 20px;
 }
 
 .headingFormat label{

@@ -1050,7 +1050,7 @@ class Index extends Component {
                   <label>Add Step</label>
                 </Grid>
                 <Grid className="buttonStyle fltrInput">
-                  <Input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
+                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
                     onChange={this.handleName} type="text" />
                   <a color="primary" onClick={this.OnAdd}>Add</a>
                 </Grid>
