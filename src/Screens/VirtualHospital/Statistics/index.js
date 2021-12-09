@@ -26,8 +26,8 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
 import {
     getLanguage
-  }from "translations/index"
-  
+} from "translations/index"
+
 
 function TabContainer(props) {
     return (
@@ -48,27 +48,56 @@ class Index extends Component {
             selectedCountry: null,
             date: new Date(),
             tabvalue: 0,
-            patient_data: [
-                {
-                    heading: 'Patients in Flow',
-                    data:
-                        [
-                            { label: "Reception", value: "2" },
-                            { label: "Waiting Rooms", value: "16" },
-                            { label: "Waiting Rooms", value: "16" },
-                            { label: "Billing", value: "0" }
-                        ]
-                }
-            ]
+            patientflow_data: [],
+            Statistics: {},
+            rightinfo: [],    
+            
 
         }
     };
     handleChangeTab = (event, tabvalue) => {
         this.setState({ tabvalue });
     };
+
+     componentDidMount() {
+        this.getStatistics();
+        this.getrightinfo();
+    }
+
+    getStatistics = () => {
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/statisticstopinfo/600c15c2c983431790f904c3-1627046889451",
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    this.setState({ Statistics: response.data.data });
+                   }
+                this.setState({ loaderImage: false });
+            });
+    }
+
+    getrightinfo = () => {
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/stasticsrightinfo/600c15c2c983431790f904c3-1627046889451",
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    var finalData = response.data.data && response.data.data.length>0 && response.data.data.filter((item)=> item.step_name)
+                    this.setState({ patientflow_data:  finalData});
+             }
+                this.setState({ loaderImage: false });
+            });
+    }
+
     render() {
-       let translate = getLanguage(this.props.stateLanguageType);
-       let {Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation } = translate;
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation } = translate;
         const { tabvalue } = this.state;
         return (
             <Grid className={
@@ -103,20 +132,25 @@ class Index extends Component {
                                             <Grid container direction="row" spacing={3}>
                                                 <Grid item xs={12} md={9}>
                                                     <Grid container direction="row" className="staticsAmtUpr" spacing={3}>
-                                                        {/* <Grid item xs={12} md={3}>
+                                                        <Grid item xs={12} md={3}>
                                                             <Grid className="staticsAmt">
                                                                 <Grid><a><img src={require('assets/virtual_images/hotel-bed-2.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid><label>1,845</label><p>Total Patients</p></Grid>
+                                                                <Grid><label>{this.state.Statistics[0]}</label><p>Total Patients</p></Grid>
                                                             </Grid>
-                                                        </Grid> */}
+                                                        </Grid>
 
-                                                        <TotalPatientView />
+                                                        {/* <TotalPatientView /> */}
 
                                                         <Grid item xs={12} md={4}>
-                                                            <Grid className="staticsAmt">
-                                                                <Grid><a><img src={require('assets/virtual_images/user-group-conversation.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid className="staticsAmtMid"><label>34</label><p>Doctors</p></Grid>
-                                                                <Grid><label>72</label><p>Nurses</p></Grid>
+                                                            <Grid>
+                                                            {/* {this.state.Statistics?.length > 0 && this.state.Statistics.map((data) => ( */}
+                                                               {/* console.log("data",data), */}
+                                                                <Grid className="staticsAmt">
+                                                                    <Grid><a><img src={require('assets/virtual_images/user-group-conversation.svg')} alt="" title="" /></a></Grid>
+                                                                    <Grid className="staticsAmtMid"><label>{this.state.Statistics[1]}</label><p>Doctors</p></Grid>
+                                                                    <Grid><label>{this.state.Statistics[2]}</label><p>Nurses</p></Grid>
+                                                                </Grid>
+                                                            {/* ))} */}
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
@@ -219,15 +253,25 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid> */}
 
-                                                    {this.state.patient_data?.length > 0 && this.state.patient_data?.map((data, index) => (
+                                                    {/* {this.state.patientflow_data?.length > 0 && this.state.patientflow_data?.map((data) => ( */}
+                                                        
+                                                      
                                                         <>
-                                                            <StatisticsPatientFlow
-                                                                label={data.heading}
-                                                                value={data.data}
-                                                            />,
+                                                        {/* <p>{data.step_name}</p> */}
+                                                            <StatisticsPatientFlow 
+
+                                                                 step_name={"Patient Flow"}
+                                                                 counts={this.state.patientflow_data} 
+                                                                
+                                                                
+
+                                                             />,
+                                                              {/* { console.log('this.state.patientflow_data6765546546456',this.state.patientflow_data)}    */}
+                                                            {/* { console.log('data.heading',data.heading)}  */}
 
                                                         </>
-                                                    ))}
+                                                        
+                                                    {/* ))} */}
 
                                                     <Grid className="patntFlow">
                                                         <p>Activity Counter</p>

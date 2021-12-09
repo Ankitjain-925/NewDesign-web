@@ -255,6 +255,44 @@ class Index extends Component {
               <button onClick={onClose}>No</button>
               <button
                 onClick={() => {
+                  this. removeQuestions2(status, perticular_id);
+                  // onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
+  removeQuestions2 = (status, perticular_id) => {
+    this.setState({ message: null });
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            {status && status === "remove" ? (
+              <h1 class="alert-btn">Remove Question ?</h1>
+            ) : (
+              <h1>Remove the Question ?</h1>
+            )}
+            <p>Are you really want to remove this Question?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
                   this.deleteClickQuestion(status, perticular_id);
                   onClose();
                 }}

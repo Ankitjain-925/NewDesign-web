@@ -65,7 +65,7 @@ export const get_track = async (user_token, user_id) => {
     }
 }
 
-export const getPatientData = async (user_token, house_id) => {
+export const getPatientData = async (user_token, house_id, comesFrom) => {
     let response = await axios.get( sitedata.data.path + "/vh/getPatientFromVH/" + house_id,    
     commonHeader(user_token))
     if (response.data.hassuccessed) {
@@ -84,6 +84,8 @@ export const getPatientData = async (user_token, house_id) => {
                 first_name: response.data?.data[i].patient?.first_name,
                 image: response.data?.data[i].patient?.image,
                 profile_id: response.data?.data[i].patient?.profile_id,
+                case_id: response.data?.data[i]._id,
+                patient_id: response.data?.data[i].patient_id
             })
             PatientList1.push({ profile_id: response.data?.data[i].patient?.profile_id, value: response.data?.data[i]?.patient_id, label: name })
         }
@@ -128,8 +130,6 @@ export const update_entry_state = async (e, state, stateLoginValueAim) => {
 export const delete_click_track = async (user_token, user_id, deletekey) => {
     let response = await axios.delete(sitedata.data.path + "/User/AddTrack/" + user_id + "/" + deletekey,
     commonHeader(user_token))
-
-
     if (response) {
         return response
     } else {
@@ -159,7 +159,6 @@ export const download_track = async (data, stateLoginValueAim) => {
             data.time_taken.map((time_taken, i) => {
                 let dateTime = moment(time_taken.value)
                 let time = dateTime.format("HH:MM")
-                let date = dateTime.format("DD-MM-YYYY")
                 let data1 = `${time}`
                 timeArray1.push(data1)
             })

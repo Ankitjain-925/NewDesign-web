@@ -28,7 +28,7 @@ import Loader from "Screens/Components/Loader/index";
 import { getLanguage } from "translations/index"
 import { Redirect, Route } from 'react-router-dom';
 import filterate from 'reducers/Filterthis';
-import {PatientMoveFromHouse} from '../PatientFlow/data'
+import { PatientMoveFromHouse } from '../PatientFlow/data'
 
 function TabContainer(props) {
     return (
@@ -113,7 +113,7 @@ class Index extends Component {
                 if (status == 'paid') {
                     PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
                 }
-                else if(status == 'overdue'){
+                else if (status == 'overdue') {
                     PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
                 }
                 this.setState({ setStatus: false });
@@ -179,6 +179,39 @@ class Index extends Component {
                             <button onClick={onClose}>No</button>
                             <button
                                 onClick={() => {
+                                    this.removeBills2(data);
+                                    // onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
+    removeBills2 = (data) => {
+        // this.setState({ message: null, openTask: false });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+                        <h1 class="alert-btn">Remove Bill?</h1>
+                        <p>Are you really want to remove this Bill?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
                                     this.deleteClickBill(data);
                                     onClose();
                                 }}
@@ -216,6 +249,37 @@ class Index extends Component {
         var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
         this.fetchbillsdata(ApiStatus, value);
     };
+
+
+downloadInvoicePdf = (datas) => {
+    var invoice = datas;
+    axios
+    .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
+        { responseType: "blob" }
+      )
+      .then((res) => {
+        this.setState({ loaderImage: false });
+        var data = new Blob([res.data]);
+        if (typeof window.navigator.msSaveBlob === "function") {
+          // If it is IE that support download blob directly.
+          window.navigator.msSaveBlob(data, "report.pdf");
+        } else {
+          var blob = data;
+          var link = document.createElement("a");
+          link.href = window.URL.createObjectURL(blob);
+          link.download = "report.pdf";
+          document.body.appendChild(link);
+          link.click(); // create an <a> element and simulate the click operation.
+        }
+       
+      })
+      .catch((err) => {
+        this.setState({ loaderImage: false });
+      })
+      .catch((err) => {
+        this.setState({ loaderImage: false });
+      });
+     };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -304,7 +368,7 @@ class Index extends Component {
                                                                     <ul className="actionPdf">
                                                                         <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
                                                                         <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
-                                                                        <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
+                                                                        <a onClick={() => { this.downloadInvoicePdf(data)}}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">

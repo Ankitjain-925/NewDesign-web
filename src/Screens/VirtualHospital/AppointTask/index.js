@@ -639,6 +639,9 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {} =
+          translate;
     const { tabvalue, selectedOption, events, data } = this.state;
     const userList =
       this.state.filteredUsers &&
