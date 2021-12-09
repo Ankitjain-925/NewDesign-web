@@ -12245,3 +12245,36 @@ input:-moz-autofill:active{
     background: transparent !important;
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 } */
+
+
+/* css by naveen start here */
+.buttonStyle {
+    padding-top: 15px;
+}
+
+.buttonStyle a{
+    border-radius: 8px;
+    background-color: #00ABAF;
+    color: #FFFFFF !important;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 16px;
+    font-family: Muli;
+    text-align: center;
+    padding: 10px 10px;
+    min-width: 156px;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.headingFormat label{
+    color: #000808;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 32px;
+    font-family: Muli;
+}
+/* css by naveen end here */
