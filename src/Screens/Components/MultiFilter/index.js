@@ -1,39 +1,40 @@
 import { data } from "jquery"
 
 export const MultiFilter = (user, assignedTo, Speciality, fullData) => {
+    console.log("fullData", fullData)
     let fullarray = []
 
     const assignedToFunc = (array1) => {
-            let assignedToNew = []
-            assignedToNew = assignedTo.map((item) => {
-                return item?.value
-            })
+        let assignedToNew = []
+        assignedToNew = assignedTo.map((item) => {
+            return item?.value
+        })
 
-            let fullarray2 = []
-            let list = []
-            let array2 = array1.filter((item) => {
-                assignedToNew.includes(item.assinged_to.map((item) => {
-                    list.push(item.user_id)
-                }))
-                return list
-            })
-            if (Speciality && Speciality.length > 0) {
-                var spec = SpecialityFunc(array2)
-                return spec;
-            }
-            else {
-                return array2;
-            }
-        
+        let fullarray2 = []
+        let list = []
+        let array2 = array1.filter((item) => {
+            assignedToNew.includes(item.assinged_to.map((item) => {
+                list.push(item.user_id)
+            }))
+            return list
+        })
+        if (Speciality && Speciality.length > 0) {
+            var spec = SpecialityFunc(array2)
+            return spec;
+        }
+        else {
+            return array2;
+        }
+
     }
     const SpecialityFunc = (array2) => {
-            let SpecialityNew = []
-            SpecialityNew = Speciality.map((item) => {
-                return item?.value
-            })
+        let SpecialityNew = []
+        SpecialityNew = Speciality.map((item) => {
+            return item?.value
+        })
 
-            let array3 = array2.filter((item) => SpecialityNew.includes(item.speciality._id))
-            return array3;
+        let array3 = array2.filter((item) => SpecialityNew.includes(item?.speciality?._id))
+        return array3;
     }
     const userFunc = () => {
         if (user && user.length > 0) {
@@ -41,16 +42,16 @@ export const MultiFilter = (user, assignedTo, Speciality, fullData) => {
             usersNew = user.map((item) => {
                 return item?.profile_id
             })
-            var array1 = fullData.filter((item) => usersNew.includes(item.patient.profile_id))
+            var array1 = fullData.filter((item) => usersNew.includes(item?.patient?.profile_id))
             if (assignedTo && assignedTo.length > 0) {
-               var assigned = assignedToFunc(array1)
-               return assigned;
+                var assigned = assignedToFunc(array1)
+                return assigned;
             }
             else if (Speciality && Speciality.length > 0) {
                 var spec1 = SpecialityFunc(array1)
                 return spec1;
             }
-            else{
+            else {
                 return array1;
             }
         }
@@ -62,11 +63,88 @@ export const MultiFilter = (user, assignedTo, Speciality, fullData) => {
             var spec2 = SpecialityFunc(fullData)
             return spec2;
         }
-        else{
+        else {
             return fullData;
         }
     }
 
-     var findData =    userFunc(fullData)
-     return findData;
+    var findData = userFunc(fullData)
+    return findData;
+}
+
+
+
+
+export const AppointFilter = (user, Speciality, Choosetask, fullData) => {
+    console.log("user", user, "Speciality", Speciality, "Choosetask", Choosetask)
+    console.log("fullData", fullData)
+
+    // const ChoosetaskFunc = (array1) => {
+    //     let assignedToNew = []
+    //     assignedToNew = assignedTo.map((item) => {
+    //         return item?.value
+    //     })
+
+    //     let fullarray2 = []
+    //     let list = []
+    //     let array2 = array1.filter((item) => {
+    //         assignedToNew.includes(item.assinged_to.map((item) => {
+    //             list.push(item.user_id)
+    //         }))
+    //         return list
+    //     })
+    //     if (Speciality && Speciality.length > 0) {
+    //         var spec = SpecialityFunc(array2)
+    //         return spec;
+    //     }
+    //     else {
+    //         return array2;
+    //     }
+
+    // }
+
+    const SpecialityFunc = (array2) => {
+        let SpecialityNew = []
+        SpecialityNew = Speciality.map((item) => {
+            return item?.value
+        })
+
+        let array3 = array2.filter((item) => SpecialityNew.includes(item?.speciality?._id))
+        return array3;
+    }
+
+    const userFunc = () => {
+        if (user && user.length > 0) {
+            let usersNew = []
+            usersNew = user.map((item) => {
+                return item?.profile_id
+
+            })
+            var array1 = fullData.filter((item) => usersNew.includes(item?.patient?.profile_id))
+            if (Speciality && Speciality.length > 0) {
+                var spec1 = SpecialityFunc(array1)
+                return spec1;
+            }
+            // else if (Choosetask && Choosetask.length > 0) {
+            //     var task1 = ChoosetaskFunc(array1)
+            //     return task1;
+            // }
+            else {
+                return array1;
+            }
+        }
+        else if (Speciality && Speciality.length > 0) {
+            var spec1 = SpecialityFunc(array1)
+            return spec1;
+        }
+        // else if (Choosetask && Choosetask.length > 0) {
+        //     var task1 = ChoosetaskFunc(array1)
+        //     return task1;
+        // }
+        else {
+            return fullData;
+        }
+    }
+    var findData = userFunc(fullData)
+    return findData;
 }
