@@ -9,9 +9,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Loader from "Screens/Components/Loader/index";
 import axios from "axios";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {

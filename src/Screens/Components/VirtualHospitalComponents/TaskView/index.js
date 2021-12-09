@@ -8,9 +8,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import SelectField from "Screens/Components/Select/index";
 import Button from "@material-ui/core/Button";
 import { Settings } from 'Screens/Login/setting';
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";

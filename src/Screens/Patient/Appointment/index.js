@@ -36,9 +36,7 @@ import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import sitedata from "sitedata";
 import Autocomplete from "./Autocomplete";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
 import Loader from "Screens/Components/Loader/index";

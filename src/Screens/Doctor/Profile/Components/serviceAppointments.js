@@ -9,9 +9,7 @@ import moment from "moment";
 import sitedata, { data } from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 import Toggle from "react-toggle";
 import FormControlLabel from "@material-ui/core/FormControlLabel";

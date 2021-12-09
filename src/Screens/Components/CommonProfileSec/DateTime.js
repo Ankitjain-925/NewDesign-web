@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import sitedata from 'sitedata';
-import axios from 'axios';
 import { Currency } from "currency1"
 import Loader from 'Screens/Components/Loader/index';
 import Select from 'react-select';
@@ -11,7 +9,7 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { LanguageFetchReducer } from 'Screens/actions';
 import { getLanguage } from "translations/index";
-import { commonHeader } from "component/CommonHeader/index"
+import { getSetting, ChangeFormat, SetFormat } from "./datetimeapi";
 
 var languages = [{ value: 'ar', label: 'Arabian' },
 { value: 'ch', label: 'Chinese' },
@@ -41,82 +39,13 @@ class Index extends Component {
             timeF: {},
             timezone: {},
         };
-        // new Timer(this.logOutClick.bind(this)) 
     }
 
     componentDidMount = () => {
-        this.getSetting()
+        getSetting(this)
     }
 
-    //For getting the existing settings
-    getSetting = () => {
-        this.setState({ loaderImage: true })
-        axios.get(sitedata.data.path + '/UserProfile/updateSetting',
-            commonHeader(this.props.stateLoginValueAim.token))
-            .then((responce) => {
-                if (responce.data.hassuccessed && responce.data.data) {
-                    if (responce.data?.data?.msg_language) {
-                        let msg_language = responce.data.data.msg_language;
-                        let filterData = languages && languages.length > 0 && languages.filter((data) => data.value === msg_language)
-                        if (filterData && filterData.length > 0) {
-                            this.setState({ msg_language: filterData[0] })
-                        }
-                    }
-                    if (responce.data?.data?.currency) {
-                        let currency = responce.data.data.currency;
-                        let filterData = Currency && Currency.length > 0 && Currency.filter((data) => data.value === currency.country)
-                        if (filterData && filterData.length > 0) {
-                            this.setState({ currency: filterData[0] })
-                        }
-                    }
-                    this.setState({ timezone: responce.data.data.timezone, timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
-                    this.props.Settings(responce.data.data);
-                }
-                else {
-                    this.props.Settings({ user_id: this.props.stateLoginValueAim.user._id });
-                }
-                this.setState({ loaderImage: false })
-            })
-    }
-
-    //For Change Format State
-    ChangeFormat = (event, name) => {
-        if (name === 'date_format') { this.setState({ dateF: event }) }
-        else if (name === 'timezone') { this.setState({ timezone: event }) }
-        else if (name === 'msg_language') { this.setState({ msg_language: event }) }
-        else if (name === 'currency') {
-            this.setState({ currency: event })
-        }
-        else { this.setState({ timeF: event }) }
-        const state = this.state.Format;
-        if (name === 'timezone') { state[name] = event }
-        else { state[name] = event && event.value; }
-        this.setState({ Format: state })
-    }
-
-    //For Set Format
-    SetFormat = () => {
-        this.setState({ loaderImage: true })
-        let { currency } = this.state
-        let data = {
-            country: currency.value,
-            currency: currency.label
-        }
-        axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
-            date_format: this.state.Format.date_format,
-            time_format: this.state.Format.time_format,
-            timezone: this.state.Format.timezone,
-            msg_language: this.state.Format.msg_language,
-            user_id: this.props.LoggedInUser._id,
-            user_profile_id: this.props.LoggedInUser.profile_id,
-            currency: data
-        }, commonHeader(this.props.stateLoginValueAim.token)
-        ).then((responce) => {
-            this.setState({ PassDone: true, loaderImage: false })
-            this.getSetting();
-            setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
-        })
-    }
+  
 
     render() {
         let { currency } = this.state
@@ -141,7 +70,7 @@ class Index extends Component {
                                 <Grid>
                                     <Select
                                         value={this.state.dateF}
-                                        onChange={(e) => this.ChangeFormat(e, 'date_format')}
+                                        onChange={(e) => ChangeFormat(e, 'date_format', this)}
                                         options={this.state.dates}
                                         placeholder={date_format}
                                         name="date_format"
@@ -155,7 +84,7 @@ class Index extends Component {
                                 <Grid>
                                     <Select
                                         value={this.state.timeF}
-                                        onChange={(e) => this.ChangeFormat(e, 'time_format')}
+                                        onChange={(e) => ChangeFormat(e, 'time_format', this)}
                                         options={this.state.times}
                                         placeholder={time_format}
                                         name="time_format"
@@ -170,7 +99,7 @@ class Index extends Component {
                                 <Grid>
                                     <Select
                                         value={this.state.timezone}
-                                        onChange={(e) => this.ChangeFormat(e, 'timezone')}
+                                        onChange={(e) => ChangeFormat(e, 'timezone',  this)}
                                         options={this.state.timezones}
                                         placeholder={time_zone}
                                         name="timezone"
@@ -184,7 +113,7 @@ class Index extends Component {
                                 <Grid>
                                     <Select
                                         value={this.state.msg_language}
-                                        onChange={(e) => this.ChangeFormat(e, 'msg_language')}
+                                        onChange={(e) => ChangeFormat(e, 'msg_language', this)}
                                         options={languages}
                                         placeholder={SMSEmailLanguage}
                                         name="msg_language"
@@ -198,7 +127,7 @@ class Index extends Component {
                                 <Grid>
                                     <Select
                                         value={currency}
-                                        onChange={(e) => this.ChangeFormat(e, 'currency')}
+                                        onChange={(e) => ChangeFormat(e, 'currency', this)}
                                         options={Currency}
                                         placeholder={choose_currency}
                                         name="currency"
@@ -209,7 +138,7 @@ class Index extends Component {
                             </Grid>
 
                             <Grid className="timDatSubmit">
-                                <input type="submit" onClick={this.SetFormat} value={save_change} />
+                                <input type="submit" onClick={()=>SetFormat(this)} value={save_change} />
                             </Grid>
 
                         </Grid>
@@ -225,15 +154,11 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        //   Doctorsetget,
-        //   catfil
     }
 };
 export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

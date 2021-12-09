@@ -14,9 +14,7 @@ import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import TooltipTrigger from "react-popper-tooltip";
 import "react-popper-tooltip/dist/styles.css";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Select from "react-select";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";

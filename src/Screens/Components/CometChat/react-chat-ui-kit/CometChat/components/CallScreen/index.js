@@ -6,9 +6,7 @@ import Draggable from "react-draggable";
 import { CometChatManager } from "../../util/controller";
 import { Resizable, ResizableBox } from 'react-resizable';
 import "react-resizable/css/styles.css";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { CallScreenManager } from "./controller";
 import * as enums from "../../util/enums.js";
 import FullscreenIcon from '@material-ui/icons/Fullscreen';

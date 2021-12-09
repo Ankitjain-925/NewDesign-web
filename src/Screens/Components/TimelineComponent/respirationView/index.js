@@ -15,9 +15,7 @@ import { pure } from "recompose";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class Index extends Component {
   constructor(props) {
     super(props);

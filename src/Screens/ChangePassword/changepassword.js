@@ -20,9 +20,7 @@ import {
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index"
 
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 const path = sitedata.data.path + "/UserProfile";
 var letter = /([a-zA-Z])+([ -~])*/,
@@ -557,4 +555,3 @@ export default connect(mapStateToProps, {
   authy,
   Settings,
 })(Index);
-// export default Index;

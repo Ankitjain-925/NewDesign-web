@@ -51,9 +51,7 @@ import FloatArrowUp from "Screens/Components/FloatArrowUp/index";
 import DiagnosisFields from "Screens/Components/TimelineComponent/DiagnosisFields/index";
 import moment from "moment";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { authy } from "Screens/Login/authy.js";
 import { FormatListBulleted } from "@material-ui/icons";
 import PFields from "Screens/Components/TimelineComponent/PFields/index.js";

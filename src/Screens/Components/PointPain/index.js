@@ -4,9 +4,7 @@ import $ from "jquery";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class PointPain extends Component {
   constructor(props) {
     super(props);
@@ -37,64 +35,19 @@ class PointPain extends Component {
 
   //For set the canvas and image
   componentDidMount = () => {
-    // var canvas = $('#'+this.state.id)[0];
-    // // get reference to canvas context
-    // var context = canvas.getContext('2d');
-    // context.canvas.width = 100;
-    // context.canvas.height = 150;
-    // // create an empty image
-    // var img = new Image();
-    // // after loading...
-    // img.onload = function() {
-    //     // draw the image onto the canvas
-    //     context.drawImage(img, 0, 0, 100, 150);
-    // }
-    // if(this.props.gender === 'female')
-    // {
-    //    img.src= require('assets/images/FEMALE_BODY.svg');
-    // }
-    // else
-    // {
-    //     img.src= require('assets/images/MALE_BODY.svg');
-    // }
+    
   };
 
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.id !== this.props.id) {
       this.setState({ painPoint: this.props.painPoint });
-      // var canvas = $('#'+this.state.id)[0];
-      // // get reference to canvas context
-      // var context = canvas.getContext('2d');
-      // context.canvas.width = 100;
-      // context.canvas.height = 150;
-      // // create an empty image
-      // var img = new Image();
-      // // after loading...
-      // img.onload = function() {
-      //     // draw the image onto the canvas
-      //     context.drawImage(img, 0, 0, 100, 150);
-      // }
-      // if(this.props.gender === 'female')
-      // {
-      //    img.src= require('assets/images/FEMALE_BODY.svg');
-      // }
-      // else
-      // {
-      //     img.src= require('assets/images/MALE_BODY.svg');
-      // }
+      
     }
     if (prevProps.painPoint !== this.props.painPoint) {
       this.setState({ painPoint: this.props.painPoint });
     }
   };
-
-  // shouldComponentUpdate(nextProps, nextState){
-  //     return nextProps.painPoint !== this.props.painPoint || nextProps.isView !== this.props.isView
-  //     ||nextProps.label !== this.props.label || nextProps.id !== this.props.id ||
-  //     nextState.painPoint !== this.state.painPoint || nextState.isView !== this.state.isView
-  //     ||nextState.label !== this.state.label
-  // }
 
   //On add and Update points
   updatedemo = (e) => {

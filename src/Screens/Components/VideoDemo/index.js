@@ -7,9 +7,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { LanguageFetchReducer } from "Screens/actions";
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 class Index extends Component {
   constructor(props) {

@@ -23,9 +23,7 @@ import HC_more from "highcharts/highcharts-more"; //module3
 // Import Highcharts
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 HC_more(Highcharts); //init modules
 

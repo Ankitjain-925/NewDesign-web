@@ -19,9 +19,7 @@ import { authy } from "Screens/Login/authy.js";
 import PrecriptionList from "./Components/prescription.js";
 import SickCertificateList from "./Components/sickCertificate.js";
 import SentPrescriptionList from "./Components/sentPricription.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { Redirect } from "react-router-dom";
 import SecondOpinion from "./Components/secondOpinion";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";

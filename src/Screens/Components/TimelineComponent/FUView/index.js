@@ -11,9 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { LanguageFetchReducer } from "Screens/actions";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {

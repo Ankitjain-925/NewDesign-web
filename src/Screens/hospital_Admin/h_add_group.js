@@ -22,9 +22,7 @@ import {
 import Loader from "Screens/Components/Loader/index";
 import FileUploader from "Screens/Components/FileUploader/index";
 import {blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { S3Image } from "Screens/Components/GetS3Images/index";
 

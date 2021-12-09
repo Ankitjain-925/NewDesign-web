@@ -13,9 +13,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import sitedata from "sitedata";
 import axios from "axios";
 import Geocode from "react-geocode";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index";
 
 class Index extends Component {

@@ -23,9 +23,7 @@ import { authy } from "Screens/Login/authy.js";
 import { getImage } from "Screens/Components/BasicMethod/index";
 import { Redirect } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Loader from "Screens/Components/Loader/index.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";

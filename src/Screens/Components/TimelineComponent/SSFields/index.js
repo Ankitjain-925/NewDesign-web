@@ -7,9 +7,7 @@ import DateFormat from "Screens/Components/DateFormat/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 import { pure } from "recompose";
 class Index extends Component {

@@ -14,9 +14,7 @@ import { connect } from "react-redux";
 import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 import AllL_Ps from "Screens/Components/Parameters/parameter.js";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 HC_more(Highcharts); //init module
 
 class Index extends Component {

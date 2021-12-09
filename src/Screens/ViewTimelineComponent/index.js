@@ -20,9 +20,7 @@ import Temprature from "Screens/Components/Temprature/index";
 import ShowHide from "Screens/Components/ShowHide/index";
 import PainPoint from "Screens/Components/PointPain/index";
 import FileUploader from "Screens/Components/FileUploader/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import moment from "moment";
 
 const options = [

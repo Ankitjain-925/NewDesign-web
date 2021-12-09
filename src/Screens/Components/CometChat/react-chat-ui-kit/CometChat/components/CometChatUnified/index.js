@@ -10,9 +10,7 @@ import CometChatUserDetail from "../CometChatUserDetail";
 import CometChatGroupDetail from "../CometChatGroupDetail";
 import MessageThread from "../MessageThread";
 import CallScreen from "../CallScreen";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class CometChatUnified extends React.Component {
   constructor(props) {
    super(props);
