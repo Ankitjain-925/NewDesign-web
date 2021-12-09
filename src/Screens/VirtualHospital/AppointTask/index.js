@@ -508,7 +508,7 @@ class Index extends Component {
   //state change on add
   updateTaskFilter = (e) => {
     const state = this.state.check;
-    state[e.target.name] = e.target.value;
+    state[e.target.name] = e.target.value == "true" ? true : false;
     this.setState({ taskFilter: state });
   }
 
@@ -920,7 +920,7 @@ class Index extends Component {
                               control={
                                 <Checkbox
                                   name="open"
-                                  value={this.state.check && this.state.check.open && this.state.check.open == 'true' ? false : true}
+                                  value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
                                   color="#00ABAF"
                                   checked={this.state.check.open}
                                   onChange={(e) =>
@@ -935,7 +935,7 @@ class Index extends Component {
                               control={
                                 <Checkbox
                                   name="done"
-                                  value={this.state.check && this.state.check.done && this.state.check.done == 'true' ? false : true}
+                                  value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
                                   color="#00ABAF"
                                   checked={this.state.check.done}
                                   onChange={(e) =>
