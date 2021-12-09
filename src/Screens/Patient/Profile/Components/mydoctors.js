@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import sitedata from 'sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
-import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
 import Modal from '@material-ui/core/Modal';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Select from 'react-select';
 import Loader from 'Screens/Components/Loader/index';
-import { getImage, AddFavDoc } from 'Screens/Components/BasicMethod/index';
-import {
-    getLanguage
-} from "translations/index"
-import { commonHeader } from 'component/CommonHeader/index';
+import { getImage } from 'Screens/Components/BasicMethod/index';
+import {  getLanguage } from "translations/index"
+import {deleteClickDoctor, alldoctor, alldocs, AddFmilyDoc, UpdateDoc, addDoctor} from './mdapi';
 var doctorArray = [];
 
 class Index extends Component {
@@ -62,83 +58,15 @@ class Index extends Component {
     handleCloseTrust = () => {
         this.setState({ openTrust: false });
     };
-
-
+    
     componentDidMount() {
-        this.alldoctor();
-        this.alldocs();
+        alldoctor(this, alldoctor);
+        alldocs(this);
     }
 
     //For Filter the Doctor
     componentWillReceiveProps(nextProps) {
         this.setState({ users: nextProps.users, filteredUsers: nextProps.users }, () => this.filterList());
-    }
-
-    //Get the all doctor 
-    alldocs = () => {
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',
-            commonHeader(user_token)).then((response) => {
-                var images = [], Reccimages = [];
-                response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
-                    var find = datas && datas.image && datas.image
-                    if (find) {
-                        var find1 = find.split('.com/')[1]
-                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                            .then((response2) => {
-                                if (response2.data.hassuccessed) {
-                                    images.push({ image: find, new_image: response2.data.data })
-                                    this.setState({ images: images })
-                                }
-                            })
-                    }
-                })
-                this.setState({ allDocData1: response.data.data })
-                this.getUserData();
-            })
-    }
-
-    //Get the current User Data
-    getUserData = () => {
-        this.setState({ loaderImage: true });
-        var myfavDoctors = [];
-        var reccomend = [];
-        let user_token = this.props.stateLoginValueAim.token
-        let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
-            commonHeader(user_token)).then((response) => {
-                var myFilterData = [];
-                if (response.data.data.family_doc && response.data.data.family_doc.length > 0) {
-                    response.data.data.family_doc.map((item) => {
-                        myFilterData = this.state.family_doc_list && this.state.family_doc_list.length > 0 && this.state.family_doc_list.filter((ind) =>
-                            ind.value === item);
-                    })
-                }
-                this.setState({ family_doc: myFilterData, family_doc1: response.data.data.family_doc })
-                if (response.data.data.fav_doctor) {
-                    for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
-                        if (response.data.data.fav_doctor[i].doctor) {
-                            var datas = this.state.allDocData1 && this.state.allDocData1.length > 0 && this.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
-                            if (datas && datas.length > 0) {
-                                if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
-                                    reccomend.push(datas[0])
-                                }
-                                else {
-                                    myfavDoctors.push(datas[0])
-                                }
-                            }
-                            this.setState({ loaderImage: false });
-                        }
-                    }
-
-                    if (response.data.data.fav_doctor.length == 0) {
-                        this.setState({ loaderImage: false });
-                    }
-                    this.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend })
-                }
-            }).catch((error) => {
-                this.setState({ loaderImage: false });
-            });
     }
 
     //User list will be show/hide
@@ -168,35 +96,6 @@ class Index extends Component {
         }
     }
 
-    //Get All doctors
-    alldoctor = () => {
-        var FamilyList = [], FamilyList1 = [];
-        doctorArray = [];
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers',
-            commonHeader(user_token)).then((response) => {
-                this.setState({ allDocData: response.data.data })
-                for (let i = 0; i < this.state.allDocData.length; i++) {
-                    var name = '';
-                    if (this.state.allDocData[i].first_name && this.state.allDocData[i].last_name) {
-                        name = this.state.allDocData[i].first_name + ' ' + this.state.allDocData[i].last_name
-                    }
-                    else if (this.state.allDocData[i].first_name) {
-                        name = this.state.allDocData[i].first_name
-                    }
-                    doctorArray.push({
-                        name: name,
-                        id: this.state.allDocData[i]._id,
-                        profile_id: this.state.allDocData[i].profile_id,
-                        alies_id: this.state.allDocData[i].alies_id
-                    })
-                    FamilyList.push({ value: this.state.allDocData[i]._id, label: name })
-                    FamilyList1.push({ profile_id: this.state.allDocData[i].profile_id, value: this.state.allDocData[i]._id, label: name })
-                }
-                this.setState({ users: doctorArray, family_doc_list: FamilyList, family_doc_list1: FamilyList1 })
-            })
-    }
-
     //For remove the doctor in the trusted Doctor
     removeDoctor = (doctor) => {
         let translate = getLanguage(this.props.stateLanguageType)
@@ -209,7 +108,7 @@ class Index extends Component {
                         <p>{r_u_sure_remove_doctor}</p>
                         <div className="react-confirm-alert-button-group">
                             <button
-                                onClick={() => { this.deleteClickDoctor(doctor); onClose() }}
+                                onClick={() => { deleteClickDoctor(doctor, this); onClose() }}
                             >
                                 {yes}
                             </button>
@@ -221,103 +120,6 @@ class Index extends Component {
                         </div>
                     </div>
                 );
-            }
-        })
-    }
-
-    //For Add the Doctor
-    addDoctor = () => {
-        this.setState({ already: false, SelectUser: false })
-        if ((this.state.doctorId.doctor_id === '' || !this.state.doctorId.doctor_id) && (this.state.selectedUser === '')) {
-            this.setState({ SelectUser: true })
-        } else {
-            var doctor_id
-            if (this.state.doctorId.doctor_id != '' && this.state.selectedUser != '' && this.state.doctorId.doctor_id != undefined) {
-                doctor_id = this.state.doctorId.doctor_id
-                // profile_id= this.state.selectedprofile
-            } else {
-                if (this.state.doctorId.doctor_id != '' && this.state.doctorId.doctor_id != undefined) {
-                    doctor_id = this.state.doctorId.doctor_id
-                    // profile_id= this.state.selectedprofile
-                }
-                if (this.state.selectedUser != '' && this.state.selectedUser != undefined) {
-                    doctor_id = this.state.selectedUser
-                    // profile_id= this.state.selectedprofile
-                }
-            }
-            const user_token = this.props.stateLoginValueAim.token;
-            if (doctor_id != '' && doctor_id != undefined) {
-                this.setState({ loaderImage: true })
-                axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
-                    doctor: doctor_id,
-                    profile_id: this.state.selectedprofile,
-                }, commonHeader(user_token)).then((responce) => {
-                    this.setState({ loaderImage: false, q: '', filteredUsers: [] })
-                    if (responce.data.hassuccessed == true) {
-                        this.setState({ succset: true });
-                        setTimeout(() => { this.setState({ succset: false }) }, 5000)
-                        axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + doctor_id, {
-                            profile_id: this.props.stateLoginValueAim.user.profile_id
-                        },
-                            commonHeader(user_token)).then((responce) => { })
-                        this.setState({ selectedUser: '', })
-                        this.getUserData();
-                    } else {
-                        this.setState({ selectedUser: '' })
-                        this.setState({ already: true })
-                        this.getUserData();
-                    }
-                })
-            }
-        }
-    }
-
-    //For add/edit family doctor
-    AddFmilyDoc = () => {
-        if (this.state.family_doc1 && this.state.family_doc1.length > 0) {
-            this.setState({ Nodoc: false, loaderImage: true })
-            var myFilterData = this.state.family_doc_list1 && this.state.family_doc_list1.length > 0 && this.state.family_doc_list1.filter((ind) =>
-                ind.value === this.state.family_doc.value);
-            if (myFilterData && myFilterData.length > 0 && myFilterData[0] && myFilterData[0].profile_id) {
-                AddFavDoc(myFilterData[0].profile_id, myFilterData[0].profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
-            }
-            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-                family_doc: this.state.family_doc1
-            }, commonHeader(this.props.stateLoginValueAim.token)).then((responce) => {
-                if (this.props.comesFrom) {
-                    this.props.EditFamilyDoc();
-                }
-                this.getUserData();
-                this.setState({ PassDone: true, loaderImage: false })
-                setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
-
-            })
-        } else {
-            this.setState({ Nodoc: true })
-        }
-    }
-
-    //Send doctor reccomendation to trusted doctor 
-    UpdateDoc = (id) => {
-        this.setState({ recAdd: false, already1: false, loaderImage: true })
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.put(sitedata.data.path + '/UserProfile/AddRecDoc', {
-            doctor: id,
-            profile_id: id,
-        }, commonHeader(user_token)).then((responce) => {
-            this.setState({ loaderImage: false, q: '', filteredUsers: [] });
-            if (responce.data.hassuccessed == true) {
-                this.setState({ recAdd: true })
-                setTimeout(() => { this.setState({ recAdd: false }) }, 5000)
-                axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + id, {
-                    profile_id: this.props.stateLoginValueAim.user.profile_id
-                }, commonHeader(user_token)).then((responce) => { })
-                this.setState({ selectedUser: '', })
-                this.getUserData();
-            } else {
-                this.setState({ already1: true })
-                this.setState({ selectedUser: '' })
-                this.getUserData();
             }
         })
     }
@@ -344,34 +146,11 @@ class Index extends Component {
         return "";
     }
 
-    //For geting the Images of the doctors
-    // getImage = (image) => {
-    //     const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
-    //         value.image === image);
-    //     if (myFilterData && myFilterData.length > 0) {
-    //         return myFilterData[0].new_image;
-    //     }
-    // }
-
-    //After confirm User delete from My doctor
-    deleteClickDoctor = (doctor) => {
-        this.setState({ loaderImage: true });
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/UserProfile/favDocs/' + doctor + '/' + this.props.stateLoginValueAim.user.profile_id,
-            commonHeader(user_token)).then((response) => {
-                this.setState({ loaderImage: false, removes: true });
-                setTimeout(() => { this.setState({ removes: false }) }, 5000)
-                this.getUserData();
-            }).catch((error) => {
-                this.setState({ loaderImage: false });
-            });
-    }
-
     // On Select Family Docotor
     onSelectFamilyDoc(event) {
         var family_doc = [event.value];
         this.setState({ family_doc: event, family_doc1: family_doc });
-     
+
     }
 
     render() {
@@ -419,7 +198,7 @@ class Index extends Component {
                                 {/* <Grid ><p></p></Grid> */}
                             </Grid>
                             <Grid item xs={12} md={this.props.comesFrom ? 12 : 3}>
-                                <Grid className="addFmlyDoc"><a onClick={this.AddFmilyDoc}>+ {add_a_family_doc}</a></Grid>
+                                <Grid className="addFmlyDoc"><a onClick={()=>AddFmilyDoc(this)}>+ {add_a_family_doc}</a></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -453,22 +232,6 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                         ))}
-
-                        {/* <Grid className="trstaddDocUpr">
-                        <Grid container direction="row" alignItems="center" spacing={2}>
-                            <Grid item xs={12} md={9}>
-                                <Grid className="trstmkFmlyDoc">
-                                    <Grid container direction="row" alignItems="center">
-                                        <Grid item xs={12} md={4}><a><img src={require('assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
-                                        <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12} md={3}>
-                                <Grid className="trstaddFmlyDoc"><a>Remove</a></Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid> */}
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item xs={12} md={9}></Grid>
                             <Grid item xs={12} md={3}>
@@ -500,7 +263,7 @@ class Index extends Component {
                                             {userList}
                                         </ul>
                                     </Grid>
-                                    <Grid><input type="submit" value={add_to_trusted_doc} onClick={() => this.addDoctor()} /></Grid>
+                                    <Grid><input type="submit" value={add_to_trusted_doc} onClick={() => addDoctor(this)} /></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>
@@ -526,7 +289,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <Grid className="recaddFmlyDoc"><a onClick={() => { this.UpdateDoc(index.profile_id) }}>+ {add_to_trusted_doc}</a></Grid>
+                                            <Grid className="recaddFmlyDoc"><a onClick={() => { UpdateDoc(index.profile_id, this) }}>+ {add_to_trusted_doc}</a></Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
