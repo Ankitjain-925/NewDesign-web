@@ -17,9 +17,7 @@ import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import EmergencyCall from "Screens/Components/EmergencyPage/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
@@ -210,10 +208,6 @@ class Index extends Component {
                         {/* call Emergency Section */}
                       </Grid>
                     )}
-                  {/* <div className="openParamadic">
-                                        <a onClick={this.handleOpenPara}>Open Paramadic Model</a>
-                                    </div> */}
-
                   {/* Model setup */}
                   <Modal
                     open={this.state.openPara}
@@ -335,9 +329,6 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   const { Emergencysetget } = state.EmergencySet;
   return {
     stateLanguageType,
@@ -346,8 +337,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     Emergencysetget,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

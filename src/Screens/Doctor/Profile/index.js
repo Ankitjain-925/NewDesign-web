@@ -10,9 +10,7 @@ import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
 import { authy } from "Screens/Login/authy.js";
 import { OptionList } from "Screens/Login/metadataaction";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";

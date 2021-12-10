@@ -25,9 +25,7 @@ import QRCode from "qrcode.react";
 import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 

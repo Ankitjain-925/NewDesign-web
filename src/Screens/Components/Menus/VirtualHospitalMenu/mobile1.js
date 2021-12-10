@@ -20,9 +20,7 @@ import axios from "axios";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import Loader from "Screens/Components/Loader/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index"
 
 class Index extends Component {

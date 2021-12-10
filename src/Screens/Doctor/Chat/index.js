@@ -7,8 +7,6 @@ import { Settings } from "Screens/Login/setting";
 import { connect } from "react-redux";
 import { Doctorarrays } from "Screens/Login/doctorarray";
 import { Redirect, Route } from "react-router-dom";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import CometChat from "../../Components/CometChat";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -132,8 +130,6 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { doctorarrays } = state.Doctorarrays;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -141,8 +137,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     doctorarrays,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

@@ -10,9 +10,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {

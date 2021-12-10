@@ -10,9 +10,7 @@ import { GroupListManager } from "./controller";
 import CometChatCreateGroup from "../CometChatCreateGroup";
 import GroupView from "../GroupView";
 import "./style.scss";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 class CometChatGroupList extends React.Component {
   timeout;

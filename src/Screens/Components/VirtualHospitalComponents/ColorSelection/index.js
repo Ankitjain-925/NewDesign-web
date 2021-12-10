@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 // import Switch, { Case, Default } from 'react-switch-case';
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 
 var ColorOption = [

@@ -9,9 +9,7 @@ import Iframeview from "../../FrameUse/index";
 import { ConsoleCustom } from "../../BasicMethod/index";
 import axios from "axios";
 import sitedata from "sitedata";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class Index extends Component {
   constructor(props) {
     super(props);

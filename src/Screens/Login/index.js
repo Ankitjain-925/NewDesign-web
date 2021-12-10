@@ -20,9 +20,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import sitedata from "sitedata";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonNoTokentHeader } from "component/CommonHeader/index";
 import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
 import { Doctorset } from "Screens/Doctor/actions";
@@ -30,9 +28,7 @@ import * as actions from "Screens/Components/CometChat/store/action";
 import Toggle from "react-toggle";
 import queryString from "query-string";
 import Loader from "Screens/Components/Loader/index";
-import Virtualindex from "Screens/VirtualHospital/Statistics/index";
 const path = sitedata.data.path + "/UserProfile";
-
 
 class Index extends Component {
   constructor(props) {
@@ -67,13 +63,6 @@ class Index extends Component {
     this.props.LanguageFetchReducer(languageType);
   }
 
-  // componentDidMount = () => {
-  //      this.logoutUser();
-  //     if (this.props.stateLanguageType !== 'English') {
-  //         this.setState({ dropDownValue: this.props.stateLanguageType })
-  //     }
-  // }
-
   componentDidMount = () => {
     actions.logout();
     this.logoutUser();
@@ -105,9 +94,7 @@ class Index extends Component {
     this.props.LanguageFetchReducer(languageType);
     this.anotherPatient();
   };
-  // Settings = () => {
-  //     this.props.Settings('loggedOut' , 'normal');
-  // }
+
   anotherPatient = () => {
     var user_id = null;
     var pin = null;
@@ -128,14 +115,7 @@ class Index extends Component {
   forgotPassword = () => {
     this.props.history.push("/forgot-password");
   };
-  // logoutUser = () => {
-  //     let email = "";
-  //     let password = "";
-  //     this.props.LoginReducerAim(email, password);
-  //     this.props.authy(false);
-  //     let languageType = 'en';
-  //     this.props.LanguageFetchReducer(languageType);
-  // }
+
   handleChange = (input, value) => {
     this.setState({
       [input]: value,
@@ -297,9 +277,6 @@ class Index extends Component {
         return <Redirect to={"/doctor"} />;
       }
     }
-
-
-
     if (
       stateLoginValueAim.token !== 450 &&
       stateLoginValueAim.user.type === "adminstaff" &&
@@ -700,5 +677,3 @@ export default connect(mapStateToProps, {
   OptionList,
   Invoices,
 })(Index);
-
-// / export default Index;

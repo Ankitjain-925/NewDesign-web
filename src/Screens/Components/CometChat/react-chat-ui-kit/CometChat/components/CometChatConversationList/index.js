@@ -13,9 +13,7 @@ import { connect } from "react-redux";
 import * as actions from '../../../../store/action';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from './../../../../../../actions';
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class CometChatConversationList extends React.Component {
 
   constructor(props) {

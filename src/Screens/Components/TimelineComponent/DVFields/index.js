@@ -13,9 +13,7 @@ import { connect } from "react-redux";
 import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
-import {
-  getLanguage
-} from "translations/index";
+import { getLanguage } from "translations/index";
 import { commonHeader } from "component/CommonHeader/index";
 import { pure } from "recompose";
 

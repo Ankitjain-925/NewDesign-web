@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import Loader from "Screens/Components/Loader/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -12,9 +10,7 @@ import Modal from "@material-ui/core/Modal";
 import sitedata from "sitedata";
 import axios from "axios";
 import CreatableSelect from "react-select/creatable";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index";
 
 

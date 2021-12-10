@@ -5,9 +5,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class PointPain extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +31,7 @@ class PointPain extends Component {
       this.setState({ openEntry: this.props.openEntry });
     }
   };
+
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.openEntry !== this.props.openEntry ||
@@ -40,7 +39,9 @@ class PointPain extends Component {
       nextProps.openBy !== this.props.openBy
     );
   }
+
   componentDidMount = () => {};
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {

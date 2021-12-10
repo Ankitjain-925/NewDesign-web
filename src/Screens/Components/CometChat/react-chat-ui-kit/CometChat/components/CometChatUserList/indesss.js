@@ -11,9 +11,7 @@ import * as enums from '../../util/enums.js';
 import { connect } from "react-redux";
 import sitedata from "sitedata";
 import { LoginReducerAim } from "Screens/Login/actions";
-import {
-  getLanguage
-} from "translations/index";
+import { getLanguage } from "translations/index";
 import { commonHeader } from "component/CommonHeader/index";
 class CometChatUserList extends React.PureComponent {
   timeout;

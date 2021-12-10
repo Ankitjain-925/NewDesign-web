@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import sitedata from 'sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
-import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
 import Loader from 'Screens/Components/Loader/index';
 import DateFormat from 'Screens/Components/DateFormat/index'
-import {
-    getLanguage
-  } from "translations/index"
-import { commonHeader } from 'component/CommonHeader/index';
+import { getLanguage } from "translations/index"
+import {updateDatetime, optSettting, getUserData} from './rmapi';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -33,61 +28,10 @@ class Index extends Component {
             opt_until: '',
             iserr: false,
         };
-        // new Timer(this.logOutClick.bind(this)) 
     }
 
     componentDidMount() {
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
-        this.getUserData();
-    }
-
-
-    //Check all valiedation for the Opt
-    optSettting = () => {
-        if (this.state.opt_set === 'until') {
-            if (this.state.opt_until && this.state.opt_until !== '') {
-                this.SaveOptSetting();
-
-            }
-            else {
-                this.setState({ iserr: true })
-            }
-        }
-        else {
-            this.SaveOptSetting();
-        }
-    }
-
-    //For update the Date Time when using Until
-    updateDatetime = (str) => {
-        if (!str || str === 'undefined' || str === null || str === '') {
-            return str;
-        }
-        else {
-            var n = str.includes("Z");
-            if (n) {
-                var t = str.split(":")
-                t.pop()
-                var re = t.join(":")
-                return re;
-            }
-            else { return str }
-        }
-    }
-
-    //For save the opt setting
-    SaveOptSetting = () => {
-        this.setState({ loaderImage: true });
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.put(sitedata.data.path + '/UserProfile/Rigt_management', {
-            emergency_access: this.state.emergency_access,
-            opt: this.state.opt,
-            opt_set: this.state.opt_set,
-            opt_until: this.state.opt_until
-        }, commonHeader(user_token))
-            .then((responce) => {
-                this.setState({ loaderImage: false });
-            })
+        getUserData(this);
     }
 
     //Set the emergency access state
@@ -95,48 +39,10 @@ class Index extends Component {
         this.setState({ emergency_access: changeEvent.target.value });
     }
 
-    //Get the right Management information from the DB
-    getUserData = () => {
-        this.setState({ loaderImage: true });
-        let user_token = this.props.stateLoginValueAim.token
-        let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, commonHeader(user_token)).then((response) => {
-            this.setState({ loaderImage: false });
-            if (response) {
-                if (response.data.data.Rigt_management[0].activated_general_right) {
-                    this.setState({ selectedOption: response.data.data.Rigt_management[0].activated_general_right })
-                }
-                if (response.data.data.Rigt_management[0].emergency_access) {
-                    this.setState({ emergency_access: response.data.data.Rigt_management[0].emergency_access })
-                }
-                if (response.data.data.Rigt_management[0].exclude_all_doctors) {
-                    this.setState({ exclude_doctors: response.data.data.Rigt_management[0].exclude_all_doctors })
-                }
-                if (response.data.data.Rigt_management[0].who_else_other_than_me) {
-                    this.setState({ StandardSetting: response.data.data.Rigt_management[0].who_else_other_than_me })
-                }
-                if (response.data.data.Rigt_management[0].who_else_other_than_me_newEntries) {
-                    this.setState({ newStandardSetting: response.data.data.Rigt_management[0].who_else_other_than_me_newEntries })
-                }
-                if (response.data.data.Rigt_management[0].opt) {
-                    this.setState({ opt: response.data.data.Rigt_management[0].opt })
-                }
-                if (response.data.data.Rigt_management[0].opt_set) {
-                    this.setState({ opt_set: response.data.data.Rigt_management[0].opt_set })
-                }
-                if (response.data.data.Rigt_management[0].opt_until) {
-                    this.setState({ opt_until: response.data.data.Rigt_management[0].opt_until })
-                }
-            }
-        }).catch((error) => {
-            this.setState({ loaderImage: false });
-        });
-    }
     // On change the Date
     onChange = (date) => {
         this.setState({ opt_until: date })
     }
-
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
@@ -183,17 +89,7 @@ class Index extends Component {
                                 <Grid className="vsblAllTim">
                                     <Grid container direction="row" alignItems="center">
                                         <Grid item xs={12} md={8}>
-
                                             <DateFormat name="opt_until" value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
-                                            {/* <DateFormat value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} name="opt_until" value={this.updateDatetime()} onChange={(date) => { this.setState({ opt_until: date }) }} /> */}
-                                            {/* <TextField
-                                                type="datetime-local"
-                                                defaultValue="2018-08-24T10:30"
-                                                name="opt_until" value={this.updateDatetime(this.state.opt_until)} onChange={(e) => { this.setState({ opt_until: e.target.value }) }}
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                            /> */}
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -202,7 +98,7 @@ class Index extends Component {
 
                         <Grid container direction="row" alignItems="center">
                             <Grid item xs={12} md={8} className="rghtMgntBtn">
-                                <input type="submit" onClick={this.optSettting.bind(this)} value={save_change} />
+                                <input type="submit" onClick={()=>optSettting(this)} value={save_change} />
                             </Grid>
                         </Grid>
 
@@ -216,15 +112,11 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        //   Doctorsetget,
-        //   catfil
     }
 };
 export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

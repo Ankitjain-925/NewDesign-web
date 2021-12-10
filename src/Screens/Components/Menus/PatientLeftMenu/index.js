@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
 import LogOut from "Screens/Components/LogOut/index";
@@ -12,16 +10,12 @@ import Timer from "Screens/Components/TimeLogOut/index";
 import { Fitbit } from "Screens/Patient/Tracker/fitbit";
 import { Withings } from "Screens/Patient/Tracker/withing.js";
 import DocSuggetion from "Screens/Components/DocSuggetion/index.js";
-import sitedata from "sitedata";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import axios from "axios";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import Loader from "Screens/Components/Loader/index";
-import {
-  getLanguage
-} from "translations/index"
-import { commonHeader } from "component/CommonHeader/index"
+import { getLanguage } from "translations/index"
+import { getSetting } from "../api";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -47,50 +41,8 @@ class Index extends Component {
       this.props.stateLoginValueAim.user._id,
       this.logOutClick.bind(this)
     );
-    this.getSetting();
+   getSetting(this)
   }
-
-  getSetting = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
-      .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
-          this.setState({
-            timeF: {
-              label: responce.data.data.time_format,
-              value: responce.data.data.time_format,
-            },
-            dateF: {
-              label: responce.data.data.date_format,
-              value: responce.data.data.date_format,
-            },
-          });
-          this.props.Settings(responce.data.data);
-        } else {
-          this.props.Settings({
-            user_id: this.props.stateLoginValueAim.user._id,
-          });
-        }
-        this.setState(
-          {
-            loaderImage: false,
-            languageValue:
-              responce.data.data && responce.data.data.language
-                ? responce.data.data.language
-                : "en",
-            mode:
-              responce.data.data && responce.data.data.mode
-                ? responce.data.data.mode
-                : "normal",
-          },
-          () => {
-            this.props.LanguageFetchReducer(this.state.languageValue);
-          }
-        );
-      });
-  };
-
   //For close the model
   openLanguageModel = () => {
     this.setState({ openFancyLanguage: true });
@@ -559,7 +511,7 @@ class Index extends Component {
                         <Mode
                           mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
                           name="mode"
-                          getSetting={this.getSetting}
+                          getSetting={()=>getSetting(this)}
                         />
                       </a>
                     </li>
@@ -593,7 +545,7 @@ class Index extends Component {
         {/* for Language update */}
 
         <SetLanguage
-          getSetting={this.getSetting}
+          getSetting={()=>getSetting(this)}
           openFancyLanguage={this.state.openFancyLanguage}
           languageValue={this.state.languageValue}
           handleCloseFancyLanguage={this.handleCloseFancyLanguage}
@@ -612,8 +564,6 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { fitbit } = state.Fitbit;
   const { withing } = state.Withings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -621,8 +571,6 @@ const mapStateToProps = (state) => {
     settings,
     fitbit,
     withing,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

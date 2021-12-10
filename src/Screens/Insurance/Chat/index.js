@@ -6,19 +6,12 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-// import { Doctorset } from 'Screens/Doctor/actions';
-// import { filterate } from 'Screens/Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import CometChat from "Screens/Components/CometChat";
 import { Doctorarrays } from "Screens/Login/doctorarray";
 import { LanguageFetchReducer } from "Screens/actions";
-import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
-import sitedata from "sitedata.js";
 import { authy } from "Screens/Login/authy.js";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-
-// var doctorArray = ['admin'];
 
 class index extends React.Component {
   constructor(props) {
@@ -50,10 +43,6 @@ class index extends React.Component {
     );
   }
 
-  // componentDidMount()
-  // {
-  //     // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
-  // }
   componentWillMount() {
     if (this.props.stateLoginValueAim.user) {
       this.setState({ loaderImage: true });
@@ -101,8 +90,7 @@ class index extends React.Component {
             <Grid container direction="row">
               <LeftMenu isNotShow={true} currentPage="chat" />
               <LeftMenuMobile isNotShow={true} currentPage="chat" />
-              {/* <Notification /> */}
-
+           
               <Grid item xs={12} md={11}>
                 {/* Inbox page Content */}
                 <Grid
@@ -138,8 +126,6 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { doctorarrays } = state.Doctorarrays;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -147,8 +133,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     doctorarrays,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

@@ -5,9 +5,7 @@ import CometChatUserList from "../../CometChatUserList";
 import CometChatGroupList from "../../CometChatGroupList";
 import CometChatConversationList from "../../CometChatConversationList";
 import CometChatUserInfoScreen from "../../CometChatUserInfoScreen";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 
 const navbar = (props) => {

@@ -55,9 +55,7 @@ import DiagnosisFields from "Screens/Components/TimelineComponent/DiagnosisField
 import moment from "moment";
 import { authy } from "Screens/Login/authy.js";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";

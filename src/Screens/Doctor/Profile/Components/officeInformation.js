@@ -9,9 +9,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // ES6

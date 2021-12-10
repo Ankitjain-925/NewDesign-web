@@ -37,14 +37,6 @@ import {
 } from "component/CommonHeader/index";
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "../Institutes/selecthouseaction";
-import { Redirect, Route } from "react-router-dom";
-import { AddFavDoc2 } from "Screens/Components/BasicMethod/index";
-
-const options = [
-  { value: "data1", label: "Data1" },
-  { value: "data2", label: "Data2" },
-  { value: "data3", label: "Data3" },
-];
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);

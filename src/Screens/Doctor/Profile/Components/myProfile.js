@@ -29,9 +29,7 @@ import * as SwitzerlandC from "Screens/Components/insuranceCompanies/switzerland
 import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
 import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import {update_CometUser} from "Screens/Components/CommonApi/index";
 import Loader from "Screens/Components/Loader/index";
 import DateFormat from "Screens/Components/DateFormat/index";

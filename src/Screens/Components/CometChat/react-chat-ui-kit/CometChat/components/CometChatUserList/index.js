@@ -11,9 +11,7 @@ import * as enums from '../../util/enums.js';
 import { connect } from "react-redux";
 import sitedata from "sitedata";
 import { LoginReducerAim } from "Screens/Login/actions";
-import {
-  getLanguage
-} from "translations/index";
+import { getLanguage } from "translations/index";
 import {DebounceInput} from 'react-debounce-input';
 import { LanguageFetchReducer } from "Screens/actions";
 import { commonHeader } from "component/CommonHeader/index";

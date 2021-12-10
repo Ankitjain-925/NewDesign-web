@@ -4,9 +4,7 @@ import classNames from "classnames";
 import "./style.scss";
 
 import { CometChat } from "@cometchat-pro/chat"
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import roundedPlus from "./resources/rounded-plus-grey-icon.svg";
 import sendBlue from "./resources/send-blue-icon.svg";
 

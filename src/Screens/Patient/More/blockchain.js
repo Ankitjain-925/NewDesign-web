@@ -22,9 +22,7 @@ import {
   getTime,
   SortByEntry,
 } from "Screens/Components/BasicMethod/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import {
   GetShowLabel1,
   GetLanguageDropdown
