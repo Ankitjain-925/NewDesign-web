@@ -72,8 +72,9 @@ class Index extends Component {
   };
 
   EditInstitute = (instituteId) => {
-    let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);
+    let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);  
     this.setState({ openGroup: true, institute_groups: result, houses: result?.houses, image: [{ filename: result.group_logo, filetype: "png" }] });
+   
   };
 
   editHospital = (editData) => {
@@ -139,6 +140,20 @@ class Index extends Component {
           responce.data?.data?.institute_groups?.length / 10
         );
         if (responce.data.hassuccessed && responce.data.data) {
+          if(responce.data?.data?.institute_groups){
+          var elements = responce.data?.data?.institute_groups
+          elements.sort((a, b) => {
+            let fa = a.group_name.toLowerCase(),
+              fb = b.group_name.toLowerCase();
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+        }
           this.setState({
             totalPage: totalPage,
             currentPage: 1, AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id
@@ -155,6 +170,7 @@ class Index extends Component {
                 });
               } else {
                 this.setState({ GroupList: this.state.AllGroupList });
+
               }
             })
           this.setState({ loaderImage: false });
@@ -276,6 +292,7 @@ class Index extends Component {
       let fileName = fileParts[0];
       let fileType = fileParts[1];
       const compressedFile = await resizeFile(file);
+
 
       var data = blobToFile(compressedFile, file.name)
       axios
@@ -649,7 +666,7 @@ class Index extends Component {
                             </a>
                           </Grid>
                           <Grid>
-                            <label>Add Institution</label>
+                            {/* <label>Add Institution</label> */}
                           </Grid>
                         </Grid>
                         <Grid className="enterSpclUpr">
