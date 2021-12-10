@@ -54,8 +54,8 @@ class Index extends Component {
       errorMsg: '',
       errorHospMsg: ''
     };
-    console.log("This state", this.state)
   }
+
   //open the institute group
   openInstitute = () => {
     this.setState({ openGroup: true, institute_groups: {} });
@@ -102,7 +102,76 @@ class Index extends Component {
     this.setState({ hospitalData: state });
   };
 
+
+  //Delete the Groups
   deleteGroup = (id) => {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+    if (institute_id) {
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <Grid className={this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm deleteStep"
+              : "deleteStep"}>
+              <Grid className="deleteStepLbl">
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <label>Delete Group</label>
+              </Grid>
+              <Grid className="deleteStepInfo">
+                <p>All hospitals in this Step will be removed from the group. This action can not be reversed.</p>
+                <Grid><label>Are you sure you want to do this?</label></Grid>
+                <Grid>
+                  <Button onClick={() => { this.removeGroup(id) }}>Yes, Delete Step</Button>
+                  <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          );
+        },
+      });
+    }
+    else {
+      this.DeleteGroupOk(id)
+    }
+
+  };
+  removeGroup = (id) => {
+    // var state = this.state.actualData;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">Remove Group?</h1>
+            <p>Are you really want to remove this Group?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.DeleteGroupOk(id);
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
+  DeleteGroupOk = (id) => {
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
     axios
@@ -115,20 +184,14 @@ class Index extends Component {
         if (responce.data.hassuccessed) {
           this.getallGroups();
         }
-        console.log("Response", responce)
         this.setState({ loaderImage: false });
       });
-
   }
 
   deleteHospital = (index) => {
     this.setState({ openGroup: false });
     var data = this.state.institute_groups;
-    console.log("DATA", data)
-
     if (data?.houses?.length > 0) {
-      console.log("DATA", data)
-
       confirmAlert({
         customUI: ({ onClose }) => {
           return (
@@ -139,13 +202,13 @@ class Index extends Component {
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
                 <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
-                <label>Delete Step</label>
+                <label>Delete Hospital</label>
               </Grid>
               <Grid className="deleteStepInfo">
                 <p>This hospital will be removed. This action can not be reversed.</p>
                 <Grid><label>Are you sure you want to do this?</label></Grid>
                 <Grid>
-                  <Button onClick={() => { this.removeInstitute(data, index) }}>Yes, Delete</Button>
+                  <Button onClick={() => { this.removeInstitute(index, data) }}>Yes, Delete</Button>
                   <Button onClick={() => { onClose(); }}>Cancel</Button>
                 </Grid>
               </Grid>
@@ -155,7 +218,7 @@ class Index extends Component {
       });
     }
     else {
-      this.DeleteInstitute(data, index)
+      this.DeleteInstitute(index, data)
     }
   };
 
@@ -174,7 +237,7 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 class="alert-btn">Remove institute?</h1>
+            <h1 class="alert-btn">Remove hospital?</h1>
             <p>Are you really want to remove this?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
@@ -194,17 +257,20 @@ class Index extends Component {
   };
 
   DeleteInstitute = (data, index) => {
-    var data = this.state.institute_groups;
-    // let housesArray = this.state.hospitalData
-    console.log("Data2", data)
-    // if (data?.houses?.length > 0) {
-    //   var yt = data?.houses?.map((item) => {
-    //     var response = this.state.housesArray(item._id, this.props.stateLoginValueAim.token, 5, false)
-    //   })
-    // }
-    data.splice(index, 1);
-    this.setState({ institute_groups: data });
-    this.props.onChange(data);
+    if (data && data?.houses && data?.houses?.length > 0) {
+      var house = data?.houses
+      house.splice(index, 1);
+   
+      // this.setState({ institute_groups: data });
+      // this.props.onChange(data);
+ 
+      // let housesArray = this.state.hospitalData
+      // if (data?.houses?.length > 0) {
+      //   var yt = data?.houses?.map((item) => {
+      //     var response = this.state.housesArray(item._id, this.props.stateLoginValueAim.token, 5, false)
+      //   })
+      // }
+    }
   }
 
   componentDidMount() {
@@ -225,6 +291,20 @@ class Index extends Component {
           responce.data?.data?.institute_groups?.length / 10
         );
         if (responce.data.hassuccessed && responce.data.data) {
+          if (responce.data?.data?.institute_groups) {
+            var elements = responce.data?.data?.institute_groups
+            elements.sort((a, b) => {
+              let fa = a.group_name.toLowerCase(),
+                fb = b.group_name.toLowerCase();
+              if (fa < fb) {
+                return -1;
+              }
+              if (fa > fb) {
+                return 1;
+              }
+              return 0;
+            });
+          }
           this.setState({
             totalPage: totalPage,
             currentPage: 1, AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id
@@ -241,6 +321,7 @@ class Index extends Component {
                 });
               } else {
                 this.setState({ GroupList: this.state.AllGroupList });
+
               }
             })
           this.setState({ loaderImage: false });
@@ -363,6 +444,7 @@ class Index extends Component {
       let fileName = fileParts[0];
       let fileType = fileParts[1];
       const compressedFile = await resizeFile(file);
+
 
       var data = blobToFile(compressedFile, file.name)
       axios

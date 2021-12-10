@@ -22,6 +22,7 @@ import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { Redirect, Route } from "react-router-dom";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import DateFormat from "Screens/Components/DateFormat/index";
@@ -33,8 +34,7 @@ import { getLanguage } from "translations/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
 import { MultiFilter } from "../../MultiFilter/index";
-
-
+import FileViews from "../../TimelineComponent/FileViews/index";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -76,14 +76,10 @@ class Index extends Component {
       hope: false,
       openDate: true,
       specilaityList: [],
-      wardList: [],
-      roomList:[],  
       assignedTo: [],
       assignedTo2: '',
       selectSpec: {},
       selectSpec2: '',
-      selectWard: '',
-      selectRoom: '',
       DoneTask: this.props.DoneTask,
       noWards: false,
       AllTaskCss: '',
@@ -91,11 +87,7 @@ class Index extends Component {
       OpenTaskCss: '',
       ArchivedTasksCss: '',
       text: '',
-      errorMsg: '',
-      openServ: false,
-      editcomment: false,
-      check: {},
-      allWards : '' 
+      errorMsg : ''
     };
   }
 
@@ -198,7 +190,7 @@ class Index extends Component {
       // newTask : Fileadd
     });
   };
-  
+
   //User list will be show/hide
   toggle = () => {
     this.setState({
@@ -228,22 +220,18 @@ class Index extends Component {
       newComment: ''
     });
   }
-  updateTaskFilter = (e) => {
-    const state = this.state.check;
-    state[e.target.name] = e.target.value == "true" ? true : false;
-    this.setState({ taskFilter: state });
-  }
+
   // submit Task model
   handleTaskSubmit = () => {
-    this.setState({ errorMsg: "" })
+    this.setState({errorMsg : ""})
 
     var data = this.state.newTask;
     if (!data.task_name || (data && data.task_name && data.task_name.length < 1)) {
-      this.setState({ errorMsg: "Task title can't be empty" })
+      this.setState({errorMsg : "Task title can't be empty"})
 
     }
     else if (!data.patient || (data && data.patient && data.patient.length < 1)) {
-      this.setState({ errorMsg: "Please select a Patient" })
+      this.setState({errorMsg : "Please select a Patient"})
     }
     else {
 
@@ -274,8 +262,8 @@ class Index extends Component {
               this.props.getAddTaskData();
               this.handleCloseTask()
             }
-            else {
-              this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+            else{
+              this.setState({errorMsg : "Somthing went wrong, Please try again"})
             }
           });
       } else {
@@ -333,14 +321,14 @@ class Index extends Component {
           })
           .catch(function (error) {
             console.log(error);
-            this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+            this.setState({errorMsg : "Somthing went wrong, Please try again"})
           });
       }
     }
   };
 
   updateCommemtState = (e) => {
-    this.setState({ newComment: e, });
+    this.setState({ newComment: e });
   }
 
   removeComment = (index) => {
@@ -358,45 +346,10 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 >Remove the Comment ?</h1>
+            <h1>Remove the Comment ?</h1>
             <p>Are you sure to remove this Comment?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
-
-              <button
-                onClick={() => {
-                  this.removebtn(index);
-                }}
-              >
-                Yes
-              </button>
-
-            </div>
-          </div>
-        );
-      },
-    });
-  };
-  removebtn = (index) => {
-    this.setState({ message: null, openTask: false });
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                ? "dark-confirm react-confirm-alert-body"
-                : "react-confirm-alert-body"
-            }
-          >
-            <h1 class="alert-btn">Remove Comment ?</h1>
-            <p>Are you really want to remove this Comment?</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
-
               <button
                 onClick={() => {
                   this.deleteClickComment(index);
@@ -405,7 +358,6 @@ class Index extends Component {
               >
                 Yes
               </button>
-
             </div>
           </div>
         );
@@ -420,23 +372,6 @@ class Index extends Component {
     state['comments'] = array
     this.setState({ newTask: state, openTask: true })
   }
-
-  editComment = (index) => {
-    this.setState({ editcomment: index });
-
-  };
-
-  oNEditText(e, index) {
-    var state = this.state.newTask
-    state['comments'][index]['comment'] = e.target.value;
-    this.setState({ newTask: state });
-  }
-
-  // onKeyUp = (e) => {
-  //   if (e.key === "Enter") {
-  //     
-  //   }
-  // };
 
   // For adding a date,time
   updateEntryState1 = (value, name) => {
@@ -575,40 +510,6 @@ class Index extends Component {
               <button onClick={onClose}>No</button>
               <button
                 onClick={() => {
-                  this.removeTask2(id);
-                  // onClose();
-                }}
-              >
-                Yes
-              </button>
-            </div>
-          </div>
-        );
-      },
-    });
-  };
-
-  removeTask2 = (id) => {
-    this.setState({ message: null, openTask: false });
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                ? "dark-confirm react-confirm-alert-body"
-                : "react-confirm-alert-body"
-            }
-          >
-            <h1 class="alert-btn">Remove Task?</h1>
-            <p>Are you really want to remove this Task?</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
-              <button
-                onClick={() => {
                   this.deleteClickTask(id);
                   onClose();
                 }}
@@ -623,6 +524,7 @@ class Index extends Component {
   };
 
   FilterText = (e) => {
+    console.log("e",e)
     this.setState({ text: e.target.value })
     let track1 = this.props.AllTasks;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
@@ -733,7 +635,7 @@ class Index extends Component {
   // Clear filter
   clearFilter = () => {
     let { tabvalue2, DoneTask, OpenTask, ArchivedTasks } = this.state
-    this.setState({ userFilter: '', assignedTo2: '', selectSpec2: '', AllTasks: this.props.AllTasks, DoneTask: this.props.DoneTask, OpenTask: this.props.OpenTask, ArchivedTasks: this.props.ArchivedTasks, wardList :'', roomList: '', allWards: '' })
+    this.setState({ userFilter: '', assignedTo2: '', selectSpec2: '', AllTasks: this.props.AllTasks, DoneTask: this.props.DoneTask, OpenTask: this.props.OpenTask, ArchivedTasks: this.props.ArchivedTasks })
     // if (tabvalue2 === 0) {
     //   this.setState({ AllTasks: this.props.AllTasks, AllTaskCss: '' })
     // }
@@ -815,6 +717,8 @@ class Index extends Component {
   onRoomChange = (e) => {
     this.setState({selectRoom : e})
   }
+   
+
   onFieldChange = (e) => {
     const state = this.state.newTask;
     this.setState({ selectSpec: e });
@@ -841,6 +745,9 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      Tasks_overview,
+      Open,
+      Donetoday,
       CreateaTask,
       ForPatient,
       Taskdescription,
@@ -877,6 +784,7 @@ class Index extends Component {
         );
       });
       let {userFilter, assignedTo2, selectSpec2, selectWard ,selectRoom} = this.state
+
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1082,27 +990,27 @@ class Index extends Component {
                             <Grid item xs={12} md={12} className="dueOn">
                               <label>{Dueon}</label>
                               <Grid className="timeTask">
-                                <Grid item xs={10} md={10}>
-                                  {/* {this.state.openDate ? ( */}
-                                  <DateFormat
-                                    name="date"
-                                    value={
-                                      this.state.newTask?.due_on?.date
-                                        ? new Date(
-                                          this.state.newTask?.due_on?.date
-                                        )
-                                        : new Date()
-                                    }
-                                    notFullBorder
-                                    date_format={this.state.date_format}
-                                    onChange={(e) =>
-                                      this.updateEntryState1(e, "date")
-                                    }
-                                    disabled={this.props.comesFrom === 'Professional' ? true : false}
-                                  />
-                                </Grid>
-                                <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
-                                  {this.state.openDate ? (
+                              <Grid item xs={10} md={10}>
+                                {/* {this.state.openDate ? ( */}
+                                <DateFormat
+                                  name="date"
+                                  value={
+                                    this.state.newTask?.due_on?.date
+                                      ? new Date(
+                                        this.state.newTask?.due_on?.date
+                                      )
+                                      : new Date()
+                                  }
+                                  notFullBorder
+                                  date_format={this.state.date_format}
+                                  onChange={(e) =>
+                                    this.updateEntryState1(e, "date")
+                                  }
+                                  disabled={this.props.comesFrom === 'Professional' ? true : false}
+                                />
+                              </Grid>
+                              <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
+                              {this.state.openDate ? (
 
                                     <Button
                                       onClick={() => {
@@ -1112,26 +1020,26 @@ class Index extends Component {
                                       Add time
                                     </Button>
 
-                                  ) : (
-                                    <>
-                                      <TimeFormat
-                                        className="timeFormatTask"
-                                        name="time"
-                                        value={
-                                          this.state.newTask?.due_on?.time
-                                            ? new Date(
-                                              this.state.newTask?.due_on?.time
-                                            )
-                                            : new Date()
-                                        }
-                                        time_format={this.state.time_format}
-                                        onChange={(e) =>
-                                          this.updateEntryState1(e, "time")
-                                        }
-                                        disabled={this.props.comesFrom === 'Professional' ? true : false}
-                                      />
-                                      <span className="addTimeTask1span" onClick={() => { this.setState({ openDate: true }) }}>Remove time</span>
-                                    </>
+                              ) : (
+                                <>
+                                <TimeFormat
+                                className = "timeFormatTask"
+                                  name="time"
+                                  value={
+                                    this.state.newTask?.due_on?.time
+                                          ? new Date(
+                                            this.state.newTask?.due_on?.time
+                                          )
+                                          : new Date()
+                                      }
+                                      time_format={this.state.time_format}
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e, "time")
+                                      }
+                                      disabled={this.props.comesFrom === 'Professional' ? true : false}
+                                    />
+                                    <span className="addTimeTask1span" onClick={()=>{this.setState({openDate: true})}}>Remove time</span>
+                                  </>
                                   )
                                   }
                                 </Grid>
@@ -1248,7 +1156,6 @@ class Index extends Component {
                           {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
                             <Grid><label>Comments</label></Grid>
                             {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
-
                               <Grid className="cmntIner cmntInerBrdr">
 
                                 <Grid className="cmntMsgs">
@@ -1263,46 +1170,10 @@ class Index extends Component {
                                         this.props.settings?.setting?.time_format
                                       )}</span>
                                     </Grid>
-                                    <Grid className="addComit">
-                                      {this.state.editcomment === index ? <>
-                                        <textarea
-                                          placeholder="Edit Comment"
-                                          name="comment"
-                                          onChange={(e) =>
-                                            this.oNEditText(
-                                              e, index
-                                            )
-                                          }
-
-                                          value={data?.comment}
-                                        ></textarea>
-                                        <Button onClick={() => this.editComment(false)}>Submit</Button>
-
-                                      </>
-                                        :
-                                        <p>{data?.comment}</p>}
-
-
-                                    </Grid>
-                                    {/* <Grid className="cmntMsgsCntnt">
-                                      {this.state.editcomment === index ?
-                                        <textarea type="text"
-                                        name="comment"
-                                          onChange={(e) => this.oNEditText(e, index) 
-                                          }
-
-                                          onKeyDown={this.onKeyUp}
-                                          value={data?.comment}
-                                        >
-                                        </textarea>
-                                        :
-                                        <p>{data?.comment}</p>}
-                                    </Grid> */}
+                                    <Grid className="cmntMsgsCntnt"><p>{data?.comment}</p></Grid>
                                     {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
-                                      {/* <Button onClick={() => this.editComment(data)}>Edit</Button> */}
+                                      {/* <Button onClick={() => this.editDocComment(data)}>Edit</Button> */}
                                       <Button onClick={() => this.removeComment(index)}>Delete</Button>
-                                      <Button onClick={() => this.editComment(index)}>Edit</Button>
-
                                     </Grid>}
                                   </Grid>
                                 </Grid>
@@ -1317,7 +1188,7 @@ class Index extends Component {
                                     e.target.value
                                   )
                                 }
-                                value={this.state.newComment?.comment}
+                                value={this.state.newComment}
                               ></textarea>
 
                               <Button onClick={(e) => this.handleComment()}>Add Comment</Button>
@@ -1469,39 +1340,6 @@ class Index extends Component {
               <TabContainer>
                 <Grid className="fltrForm">
                   <Grid className="fltrInput">
-                    <label>Task status</label>
-                    <Grid className="addInput">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="open"
-                            value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
-                            color="#00ABAF"
-                            checked={this.state.check.open}
-                            onChange={(e) =>
-                              this.updateTaskFilter(e)
-                            }
-                          />
-                        }
-                        label="Open"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="done"
-                            value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
-                            color="#00ABAF"
-                            checked={this.state.check.done}
-                            onChange={(e) =>
-                              this.updateTaskFilter(e)
-                            }
-                          />
-                        }
-                        label="Done"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid className="fltrInput">
                     <label>Patient</label>
                     <Grid className="addInput">
 
@@ -1522,7 +1360,7 @@ class Index extends Component {
                     <Grid className="addInput">
                       <Select
                         name="professional"
-                        onChange={(e) => this.updateEntryState4(e)} 
+                        onChange={(e) => this.updateEntryState4(e)}
                         value={this.state.assignedTo2}
                         options={this.state.professional_id_list}
                         placeholder="Filter by Staff"
@@ -1537,44 +1375,28 @@ class Index extends Component {
                     <Grid className="addInput">
                       <Select
                         onChange={(e) => this.onFieldChange2(e)}
-                        options={this.state.specilaityList} 
+                        options={this.state.specilaityList}
                         name="specialty_name"
-                        value={this.state.selectSpec2} 
+                        value={this.state.selectSpec2}
                         placeholder="Filter by Speciality"
-                        isMulti={false}
+                        isMulti={true}
                         isSearchable={true} />
                     </Grid>
                   </Grid>
-                  {this.state.wardList && this.state.wardList.length > 0 &&
-                  <Grid className="fltrInput">
-                    <label>Ward</label>
-                    <Grid className="addInput">
-                      <Select
-                        onChange={(e) => this.onWardChange(e)}
-                        options={this.state.wardList} 
-                        name="ward_name"
-                        value={this.state.selectWard}
-                        placeholder="Filter by Ward"
-                        isMulti={false}
-                        isSearchable={true} />
-                    </Grid>
-                  </Grid>
-                  }
-                  {this.state.roomList && this.state.roomList.length > 0 &&
-                  <Grid className="fltrInput">
-                    <label>Room</label>
-                    <Grid className="addInput">
-                      <Select
-                        onChange={(e) => this.onRoomChange(e)}
-                        options={this.state.roomList}
-                        name="room_name"
-                        value={this.state.selectRoom}
-                        placeholder="Filter by Room"
-                        isMulti={false}
-                        isSearchable={true} />
-                    </Grid>
-                  </Grid>
-  }
+                  {/* <Grid className="fltrInput">
+                                        <label>Ward</label>
+                                        <Grid className="addInput">
+                                            <input type="text" placeholder="Filter by Ward" />
+                                            <img src={require('../../../../assets/images/add.svg')} alt="" title="" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="fltrInput">
+                                        <label>Room</label>
+                                        <Grid className="addInput">
+                                            <input type="text" placeholder="Filter by Room" />
+                                            <img src={require('../../../../assets/images/add.svg')} alt="" title="" />
+                                        </Grid>
+                                    </Grid> */}
                 </Grid>
                 <Grid className="aplyFltr">
                   <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
