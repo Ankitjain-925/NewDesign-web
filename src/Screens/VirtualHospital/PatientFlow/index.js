@@ -83,6 +83,10 @@ class Index extends Component {
     );
     steps.then((data) => {
       var stepData = data ? data : [];
+      let stepValues = stepData && stepData.length > 0 && stepData.map((item) => {
+        return item && {label : item.step_name, value : item._id}
+      })
+      this.setState({StepNameList : stepValues})
       this.setDta(stepData);
     });
 
@@ -281,7 +285,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false });
+    this.setState({ openAddP: false,SelectedStep: '' });
   };
 
   //Delete the Step
@@ -370,7 +374,7 @@ class Index extends Component {
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please Enter Case Number' })
     }
-    else if (data && !this.state.step_name) {
+    else if (data && !this.state.SelectedStep && this.state.SelectedStep.length < 0) {
       this.setState({ errorMsg: 'Please select step' })
     }
     else {
@@ -420,9 +424,15 @@ class Index extends Component {
                       case_id: responce1.data.data,
                     });
                   } else {
-                    state[0].case_numbers.push({ case_id: responce1.data.data });
+                    let indexData = ''
+                    state && state.length > 0 && state.filter((item,index) => {
+                      if(item.step_name.toLowerCase() ==  this.state.SelectedStep.label.toLowerCase()){
+                        indexData =  index;
+                      }
+                    }) 
+                    state[indexData].case_numbers.push({ case_id: responce1.data.data });
                   }
-                  this.setState({ AddstpId: false });
+                  this.setState({ AddstpId: false,SelectedStep: '' });
                   this.setDta(state);
                   this.CallApi();
                 } else {
@@ -477,7 +487,8 @@ class Index extends Component {
   };
 
   //for selecting Step name
-  onSelectingStep = () => {
+  onSelectingStep = (e) => {
+    this.setState({SelectedStep : e})
     // var NewData = this.state.actualData;
     // // console.log("STATE", this.state.actualData);
     // NewData.push(this.state.StepService)
