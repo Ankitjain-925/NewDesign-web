@@ -784,6 +784,7 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
+    this.setState({selectRoom : '', selectWard: ''})
     let data = JSON.parse(localStorage.getItem("redux_localstorage_simple"));
     let specialityList = data && data.Speciality && data.Speciality.speciality && data.Speciality.speciality.SPECIALITY.filter((item) =>{
       return item && item._id == e.value;
@@ -797,6 +798,7 @@ class Index extends Component {
 
   // ward Change
   onWardChange = (e) =>{
+    this.setState({selectRoom : ''})
     let {allWards} = this.state
     let wardDetails = allWards && allWards.length > 0 && allWards.filter((item) => {
       return item && item._id == e.value;
@@ -875,7 +877,6 @@ class Index extends Component {
         );
       });
       let {userFilter, assignedTo2, selectSpec2, selectWard ,selectRoom} = this.state
-      console.log("checking alll data",userFilter, assignedTo2, selectSpec2, selectWard ,selectRoom)
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
