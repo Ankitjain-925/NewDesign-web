@@ -669,7 +669,7 @@ class Index extends Component {
     if (e && e.length > 0) {
 
       var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
-        // console.log("specsMap", item);
+        
         if (item && item.length > 0) { }
         let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
           return item._id;
