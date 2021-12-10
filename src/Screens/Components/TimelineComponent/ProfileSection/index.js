@@ -10,9 +10,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import Loader from "Screens/Components/Loader";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { pure } from "recompose";
 import { commonHeader , commonCometHeader} from "component/CommonHeader/index";
 

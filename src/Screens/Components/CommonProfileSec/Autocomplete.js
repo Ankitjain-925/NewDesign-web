@@ -4,9 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class Autocomplete extends React.Component {
   constructor(props) {
     super(props);
@@ -43,6 +41,8 @@ class Autocomplete extends React.Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
+    let { search_city } = translate;
+
     return (
       <input
         ref={this.autocompleteInput}
@@ -57,7 +57,6 @@ class Autocomplete extends React.Component {
     );
   }
 }
-
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
 

@@ -5,13 +5,9 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { LanguageFetchReducer } from "Screens/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
-import { commonHeader } from "component/CommonHeader/index"
-import sitedata from "sitedata";
-import axios from "axios";
+import { ChangePass, ChangePassword, Change2fa } from "./securityapi";
 import Loader from "Screens/Components/Loader/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -31,186 +27,7 @@ class Index extends Component {
       fillall: false,
     };
   }
-
-  //For Change Password State
-  // ChangePass = (e) => {
-  //   const state = this.state.Password;
-  //   state[e.target.name] = e.target.value;
-  //   this.setState({ Password: state }, () => {
-  //     if (
-  //       this.state.Current_state.password !== this.state.Password.current_pass
-  //     ) {
-  //       this.setState({ notmatch: true, fillall: false });
-  //     } else {
-  //       this.setState({ notmatch: false, fillall: false });
-  //     }
-  //   });
-  // };
-
-  // // For Change Password
-  // ChangePassword = () => {
-  //   if (
-  //     this.state.Password.new_pass &&
-  //     this.state.Password.new_pass !== "" &&
-  //     this.state.Password.current_pass &&
-  //     this.state.Password.current_pass !== ""
-  //   ) {
-  //     if (!this.state.notmatch) {
-  //       if (
-  //         this.state.Password.new_pass !== "" &&
-  //         this.state.Password.new_pass === this.state.Password.new_pass_comfirm
-  //       ) {
-  //         this.setState({
-  //           notVlidpass: false,
-  //           notmatchCon: false,
-  //           loaderImage: true,
-  //           fillall: false,
-  //         });
-  //         if (
-  //           this.state.Password.new_pass.match(letter) &&
-  //           this.state.Password.new_pass.match(number) &&
-  //           this.state.Password.new_pass.match(specialchar)
-  //         ) {
-  //           axios
-  //             .put(
-  //               sitedata.data.path + "/UserProfile/Users/update",
-  //               {
-  //                 password: this.state.Password.new_pass,
-  //               },
-  //               {
-  //                 headers: {
-  //                   token: this.props.user_token,
-  //                   Accept: "application/json",
-  //                   "Content-Type": "application/json",
-  //                 },
-  //               }
-  //             )
-  //             .then((responce) => {
-  //               this.setState({ PassDone: true, loaderImage: false });
-  //               setTimeout(() => {
-  //                 this.setState({ PassDone: false });
-  //               }, 5000);
-  //             });
-  //         } else {
-  //           this.setState({
-  //             notmatchCon: false,
-  //             notVlidpass: true,
-  //             loaderImage: false,
-  //             fillall: false,
-  //           });
-  //         }
-  //       } else {
-  //         this.setState({ notmatchCon: true, fillall: false });
-  //       }
-  //     }
-  //   } else {
-  //     this.setState({ fillall: true });
-  //   }
-  // };
-
-  //For Change Password State For version V4
-  ChangePass = (e) => {
-    const state = this.state.Password;
-    state[e.target.name] = e.target.value;
-    if (
-      e.target.value &&
-      e.target.value.length > 0 &&
-      e.target.name === "current_pass"
-    ) {
-      axios
-        .post(
-          sitedata.data.path + "/UserProfile/Users/checkPass",
-          {
-            password: this.state.Password.current_pass,
-          },
-          commonHeader(this.props.user_token)
-        )
-        .then((responce) => {
-          if (responce.data.data) {
-            this.setState({ notmatch: false, fillall: false });
-          } else {
-            this.setState({ notmatch: true, fillall: false });
-          }
-        });
-    }
-    this.setState({ Password: state });
-  };
-
-  //For Change Password
-  ChangePassword = () => {
-    if (
-      this.state.Password.new_pass &&
-      this.state.Password.new_pass !== "" &&
-      this.state.Password.current_pass &&
-      this.state.Password.current_pass !== ""
-    ) {
-      if (!this.state.notmatch) {
-        if (
-          this.state.Password.new_pass !== "" &&
-          this.state.Password.new_pass === this.state.Password.new_pass_comfirm
-        ) {
-          this.setState({
-            notVlidpass: false,
-            notmatchCon: false,
-            loaderImage: true,
-            fillall: false,
-          });
-          if (
-            this.state.Password.new_pass.match(letter) &&
-            this.state.Password.new_pass.match(number) &&
-            this.state.Password.new_pass.match(specialchar)
-          ) {
-            axios
-              .put(
-                sitedata.data.path + "/UserProfile/Users/changePass",
-                {
-                  password: this.state.Password.new_pass,
-                },
-                commonHeader(this.props.user_token)
-              )
-              .then((responce) => {
-                this.setState({ PassDone: true, loaderImage: false });
-                setTimeout(() => {
-                  this.setState({ PassDone: false });
-                }, 5000);
-              });
-          } else {
-            this.setState({
-              notmatchCon: false,
-              notVlidpass: true,
-              loaderImage: false,
-              fillall: false,
-            });
-          }
-        } else {
-          this.setState({ notmatchCon: true, fillall: false });
-        }
-      }
-    } else {
-      this.setState({ fillall: true });
-    }
-  };
-
-  // for Enable/Disable 2fa
-  Change2fa = () => {
-    this.setState({ is2fa: !this.state.is2fa }, () => {
-      this.setState({ loaderImage: true });
-      axios
-        .put(
-          sitedata.data.path + "/UserProfile/Users/update",
-          {
-            is2fa: this.state.is2fa,
-          },
-          commonHeader(this.props.user_token)
-        )
-        .then((responce) => {
-          this.setState({ is2faDone: true, loaderImage: false });
-          setTimeout(() => {
-            this.setState({ is2faDone: false });
-          }, 5000);
-        });
-    });
-  };
+  
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
@@ -278,7 +95,7 @@ class Index extends Component {
                   <input
                     type="password"
                     name="current_pass"
-                    onChange={this.ChangePass}
+                    onChange={(e)=> ChangePass(e, this)}
                   />
                 </Grid>
               </Grid>
@@ -288,7 +105,7 @@ class Index extends Component {
                   <input
                     type="password"
                     name="new_pass"
-                    onChange={this.ChangePass}
+                    onChange={(e)=> ChangePass(e, this)}
                   />
                 </Grid>
 
@@ -474,7 +291,7 @@ class Index extends Component {
                   <input
                     type="password"
                     name="new_pass_comfirm"
-                    onChange={this.ChangePass}
+                    onChange={(e)=> ChangePass(e, this)}
                   />
                 </Grid>
               </Grid>
@@ -483,7 +300,7 @@ class Index extends Component {
                   <input
                     type="submit"
                     value={change_password}
-                    onClick={this.ChangePassword}
+                    onClick={()=>ChangePassword(this)}
                   />
                 </Grid>
               </Grid>
@@ -507,7 +324,7 @@ class Index extends Component {
                 <Grid>
                   <input
                     type="submit"
-                    onClick={this.Change2fa}
+                    onClick={()=>Change2fa(this)}
                     value={
                       this.state.is2fa
                         ? `${Disable} ${two_fac_auth}`
@@ -531,15 +348,11 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

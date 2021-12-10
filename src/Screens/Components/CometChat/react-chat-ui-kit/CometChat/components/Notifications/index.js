@@ -7,9 +7,7 @@ import CallScreen from "../CallScreen";
 import CancelIcon from '@material-ui/icons/Cancel';
 import * as enums from '../../util/enums.js';
 import { withRouter } from "react-router-dom";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat'; 
 var NewM = false
 class Notification extends React.Component {

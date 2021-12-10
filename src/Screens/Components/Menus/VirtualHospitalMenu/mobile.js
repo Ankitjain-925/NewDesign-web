@@ -9,17 +9,13 @@ import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
 import { Fitbit } from "Screens/Patient/Tracker/fitbit";
 import { Withings } from "Screens/Patient/Tracker/withing.js";
-import sitedata from "sitedata";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import axios from "axios";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { slide as Menu } from "react-burger-menu";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
-import { commonHeader } from "component/CommonHeader/index"
+import { getSetting } from "../api";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -38,56 +34,13 @@ class Index extends Component {
 
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    this.getSetting();
-    // new LogOut(
-    //   this.props.stateLoginValueAim.token,
-    //   this.props.stateLoginValueAim.user._id,
-    //   this.logOutClick.bind(this)
-    // );
-    // this.props.Settings(this.props.stateLoginValueAim.token);
+   getSetting(this)
+    new LogOut(
+      this.props.stateLoginValueAim.token,
+      this.props.stateLoginValueAim.user._id,
+      this.logOutClick.bind(this)
+    );
   }
-
-getSetting = () => {
-  this.setState({ loaderImage: true });
-  axios
-    .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
-    .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-        this.setState({
-          timeF: {
-            label: responce.data.data.time_format,
-            value: responce.data.data.time_format,
-          },
-          dateF: {
-            label: responce.data.data.date_format,
-            value: responce.data.data.date_format,
-          },
-        });
-        this.props.Settings(responce.data.data);
-      } else {
-        this.props.Settings({
-          user_id: this.props.stateLoginValueAim.user._id,
-        });
-      }
-      this.setState(
-        {
-          loaderImage: false,
-          languageValue:
-            responce.data.data && responce.data.data.language
-              ? responce.data.data.language
-              : "en",
-          mode:
-            responce.data.data && responce.data.data.mode
-              ? responce.data.data.mode
-              : "normal",
-        },
-        () => {
-          this.props.LanguageFetchReducer(this.state.languageValue);
-        }
-      );
-    });
-};
-
 //For close the model
 openLanguageModel = () => {
   this.setState({ openFancyLanguage: true });
@@ -169,29 +122,12 @@ Questionaires = () => {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-      appointments,
-      chat_vdocall,
-      capab_Patients,
-      Inquiries,
-      emegancy_access,
-      more,
-      my_doc,
       my_profile,
-      invite_doc,
-      pharma_prescription,
-      extra_srvc,
-      online_course,
       profile_setting,
       Language,
       DarkMode,
       logout,
-      journal,
-      trackers,
-      self_data,
-      emrgancy_patient_data,
-      secnd_openion,
-      blockchain_access_log,
-      jrnl_archive,
+  
     } = translate;
     return (
       <Grid
@@ -551,7 +487,7 @@ Questionaires = () => {
                         <Mode
                           mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
                           name="mode"
-                          getSetting={this.getSetting}
+                          getSetting={()=>getSetting(this)}
                         />
                       </a>
                     </li>
@@ -596,7 +532,7 @@ Questionaires = () => {
         </Grid>
         {/* For set the language  */}
         <SetLanguage
-          getSetting={this.getSetting}
+          getSetting={()=>getSetting(this)}
           openFancyLanguage={this.state.openFancyLanguage}
           languageValue={this.state.languageValue}
           handleCloseFancyLanguage={this.handleCloseFancyLanguage}

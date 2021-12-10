@@ -52,12 +52,27 @@ class Index extends Component {
       AddstpId: false,
       searchValue: '',
       idpinerror: false,
+      openPopup: false,
+      SelectedStep: '',
+      errorMsg: '',
+      StepService: {},
+      StepNameList: [],
+      name: '',
+      stepError : ''
     };
   }
   static defaultProps = {
     isCombineEnabled: false,
   };
   boardRef;
+
+  handleOpenPopup = () => {
+    this.setState({ openPopup: true })
+  }
+
+  handleClosePopup = () => {
+    this.setState({ openPopup: false , step_name: '', stepError : ''})
+  }
 
   componentDidMount() {
     this.getPatientData();
@@ -98,6 +113,7 @@ class Index extends Component {
   //For calling the API
   CallApi = () => {
     var deep = _.cloneDeep(this.state.actualData);
+    // console.log("deep", deep)
     deep.map((item) => {
       item.case_numbers = item.case_numbers.map((element) => {
         if (element._id) {
@@ -213,10 +229,37 @@ class Index extends Component {
   //Add new step
   AddStep = () => {
     var state = this.state.actualData;
-    state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
+    // POpupOPen
+    this.setState({ openPopup: true })
+    // textbox -> step_name: "Step" + (new Date()).getTime();
+
+    // step_name--
+    // state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
+
+    // this.setDta(state);
+    // this.CallApi();
+  };
+  handleName = (e) => {
+    this.setState({ step_name: e.target.value })
+  }
+  OnAdd = () => {
+    this.setState({stepError : ''})
+
+    var state = this.state.actualData;
+    let allSteps = state && state.length > 0 && state.map((item) => {
+      return item && item.step_name.toLowerCase();
+    })
+    let check = allSteps.includes(this.state.step_name.toLowerCase())
+    if(check === false){
+    state.push({ step_name: this.state.step_name, case_numbers: [] });
     this.setDta(state);
     this.CallApi();
-  };
+    this.setState({ openPopup: false , step_name: ''})
+    }
+    else if(check === true){
+      this.setState({stepError : 'Step name already exist'})
+    }
+  }
 
   //Set data according to package
   setDta = (stepData) => {
@@ -261,7 +304,7 @@ class Index extends Component {
                 <p>All Patients in this Step will be removed from the flow. This action can not be reversed.</p>
                 <Grid><label>Are you sure you want to do this?</label></Grid>
                 <Grid>
-                  <Button onClick={() => { this.DeleteStepOk(state, index) }}>Yes, Delete Step</Button>
+                  <Button onClick={() => { this.removestep2(state, index) }}>Yes, Delete Step</Button>
                   <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
                 </Grid>
               </Grid>
@@ -274,6 +317,39 @@ class Index extends Component {
       this.DeleteStepOk(state, index)
     }
 
+  };
+  removestep2 = (index) => {
+    var state = this.state.actualData;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">Remove Step?</h1>
+            <p>Are you really want to remove this Step?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.DeleteStepOk(state, index);
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
   };
 
   DeleteStepOk = (state, index) => {
@@ -289,74 +365,82 @@ class Index extends Component {
 
   //On Add case
   AddCase = () => {
+    this.setState({ errorMsg: '' })
     var data = this.state.addp;
-    data.institute_id =
-      this.props.stateLoginValueAim?.user?.institute_id?.length > 0
-        ? this.props.stateLoginValueAim?.user?.institute_id[0]
-        : "";
-    this.setState({ loaderImage: true });
-    axios
-      .post(
-        sitedata.data.path + "/vh/checkPatient",
-        data,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          var case_data = {
-            house_id: this.props?.House.value,
-            inhospital: true,
-            case_number: this.state.case.case_number,
-            patient_id: responce.data.data._id,
-            patient: {
-              first_name: responce.data.data.first_name,
-              last_name: responce.data.data.last_name,
-              image: responce.data.data.image,
-              profile_id: responce.data.data.profile_id,
-              alies_id: responce.data.data.alies_id,
-            },
-          };
-          axios
-            .post(
-              sitedata.data.path + "/cases/AddCase",
-              case_data,
-              commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce1) => {
-              if (responce1.data.hassuccessed) {
-                this.setState({
-                  idpinerror: false,
-                  openAddP: false,
-                  case: {},
-                  addp: {},
-                });
-                var state = this.state.actualData;
-                if (this.state.AddstpId) {
-                  state[this.state.AddstpId].case_numbers.push({
-                    case_id: responce1.data.data,
+    if (data && !this.state.case.case_number) {
+      this.setState({ errorMsg: 'Please Enter Case Number' })
+    }
+    else if (data && !this.state.step_name) {
+      this.setState({ errorMsg: 'Please select step' })
+    }
+    else {
+      data.institute_id =
+        this.props.stateLoginValueAim?.user?.institute_id?.length > 0
+          ? this.props.stateLoginValueAim?.user?.institute_id[0]
+          : "";
+      this.setState({ loaderImage: true });
+      axios
+        .post(
+          sitedata.data.path + "/vh/checkPatient",
+          data,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            var case_data = {
+              house_id: this.props?.House.value,
+              inhospital: true,
+              case_number: this.state.case.case_number,
+              patient_id: responce.data.data._id,
+              patient: {
+                first_name: responce.data.data.first_name,
+                last_name: responce.data.data.last_name,
+                image: responce.data.data.image,
+                profile_id: responce.data.data.profile_id,
+                alies_id: responce.data.data.alies_id,
+              },
+            };
+            axios
+              .post(
+                sitedata.data.path + "/cases/AddCase",
+                case_data,
+                commonHeader(this.props.stateLoginValueAim.token)
+              )
+              .then((responce1) => {
+                if (responce1.data.hassuccessed) {
+                  this.setState({
+                    idpinerror: false,
+                    openAddP: false,
+                    case: {},
+                    addp: {},
                   });
+                  var state = this.state.actualData;
+                  if (this.state.AddstpId) {
+                    state[this.state.AddstpId].case_numbers.push({
+                      case_id: responce1.data.data,
+                    });
+                  } else {
+                    state[0].case_numbers.push({ case_id: responce1.data.data });
+                  }
+                  this.setState({ AddstpId: false });
+                  this.setDta(state);
+                  this.CallApi();
                 } else {
-                  state[0].case_numbers.push({ case_id: responce1.data.data });
+                  this.setState({ caseAlready: true, loaderImage: false });
+                  setTimeout(() => {
+                    this.setState({ caseAlready: false });
+                  }, 3000);
                 }
-                this.setState({ AddstpId: false });
-                // console.log('state', state, responce1.data.data )
-                this.setDta(state);
-                this.CallApi();
-              } else {
-                this.setState({ caseAlready: true, loaderImage: false });
-                setTimeout(() => {
-                  this.setState({ caseAlready: false });
-                }, 3000);
-              }
-            });
-          this.setState({ loaderImage: false });
-        } else {
-          this.setState({ idpinerror: true, loaderImage: false });
-          setTimeout(() => {
-            this.setState({ idpinerror: false });
-          }, 3000);
-        }
-      });
+              });
+            this.setState({ loaderImage: false });
+          } else {
+            this.setState({ idpinerror: true, loaderImage: false });
+            setTimeout(() => {
+              this.setState({ idpinerror: false });
+            }, 3000);
+          }
+        });
+    }
   };
 
   //On change the case
@@ -391,6 +475,16 @@ class Index extends Component {
     }
     this.mapActualToFullData(result);
   };
+
+  //for selecting Step name
+  onSelectingStep = () => {
+    // var NewData = this.state.actualData;
+    // // console.log("STATE", this.state.actualData);
+    // NewData.push(this.state.StepService)
+    // this.state.actualData.push({ label: this.state.step_name, value: this.state.SelectedStep })
+    // console.log("STATE", this.state.actualData);  
+
+  }
 
   moveStep = (to, from, item) => {
     var result = {
@@ -575,7 +669,7 @@ class Index extends Component {
     if (e && e.length > 0) {
 
       var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
-        console.log("specsMap", item);
+        
         if (item && item.length > 0) { }
         let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
           return item._id;
@@ -589,9 +683,10 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber } =
+    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber } =
       translate;
-    const { searchValue, specialitiesList, selectedOption } = this.state;
+
+    const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep } = this.state;
     const userList =
       this.state.filteredUsers &&
       this.state.filteredUsers.map((user) => {
@@ -644,7 +739,7 @@ class Index extends Component {
                   <Grid className="cmnLftSpc ptntFlowSpc">
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
-                        <Grid item xs={12} sm={8} md={8}>
+                        <Grid item xs={12} sm={6} md={6}>
                           <h1>{PatientFlow}</h1>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
@@ -655,6 +750,13 @@ class Index extends Component {
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a onClick={() => this.openAddPatient(0)}>
                             + Add patient
+                          </a>
+                        </Grid>
+                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
+                          <a 
+                            onClick={()=>{this.AddStep()}}
+                          >
+                            + Add step
                           </a>
                         </Grid>
                       </Grid>
@@ -732,20 +834,20 @@ class Index extends Component {
                                           isSearchable={true} />
                                       </Grid>
                                     </Grid>
-                                   
-                                      <Grid className="fltrInput">
-                                        <label>Ward</label>
-                                        <Grid className="addInput">
-                                          <Select
-                                            // onChange={(e) => this.onFieldChange2(e)}
-                                            options={this.state.specilaityList}
-                                            name="specialty_name"
-                                            value={this.state.selectSpec2}
-                                            placeholder="Filter by Ward"
-                                            isMulti={true}
-                                            isSearchable={true} />
-                                        </Grid>
+
+                                    <Grid className="fltrInput">
+                                      <label>Ward</label>
+                                      <Grid className="addInput">
+                                        <Select
+                                          // onChange={(e) => this.onFieldChange2(e)}
+                                          options={this.state.specilaityList}
+                                          name="specialty_name"
+                                          value={this.state.selectSpec2}
+                                          placeholder="Filter by Ward"
+                                          isMulti={true}
+                                          isSearchable={true} />
                                       </Grid>
+                                    </Grid>
 
                                     <Grid className="fltrInput">
                                       <label>Room</label>
@@ -882,6 +984,7 @@ class Index extends Component {
                 {this.state.idpinerror && (
                   <div className="err_message">ID and PIN is not correct</div>
                 )}
+                <p className="err_message">{this.state.errorMsg}</p>
                 <Grid className="patentInfoTxt">
                   <Grid>
                     <label>{PatientID}</label>
@@ -912,8 +1015,58 @@ class Index extends Component {
                     onChange={this.onChangeCase}
                   />
                 </Grid>
+                <label>Step Name</label>
+                <Grid className="patentInfoTxt">
+                  <Select
+                    value={SelectedStep}
+                    onChange={this.onSelectingStep}
+                    options={StepNameList}
+                    placeholder="Select Step Name"
+                    className="allSpec"
+                    isSearchable={false}
+                  />
+                </Grid>
                 <Grid className="patentInfoBtn">
                   <Button onClick={this.AddCase}>Add Patient to Flow</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Modal>
+
+        {/* +add step pop-up */}
+        <Modal
+          open={this.state.openPopup}
+          onClose={this.handleClosePopup}
+          className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "darkTheme addWrnModel"
+              : "addWrnModel"
+          }
+        >
+          <Grid className="addWrnContnt">
+            <Grid className="addWrnIner">
+              <Grid className="addWrnLbl">
+                <Grid className="headingFormat">
+                  <Grid className="addWrnClose">
+                    <a onClick={this.handleClosePopup}>
+                      <img
+                        src={require("assets/virtual_images/closefancy.png")}
+                        alt=""
+                        title=""
+                      />
+                    </a>
+                  </Grid>
+                  <label>Add Step</label>
+                </Grid>
+                <p className='err_message'>{this.state.stepError}</p>
+                <Grid className="buttonStyle fltrInput">
+                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
+                    onChange={this.handleName} type="text" />
+                  <a color="primary" onClick={this.OnAdd}>Add</a>
                 </Grid>
               </Grid>
             </Grid>
@@ -931,8 +1084,8 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { speciality } = state.Speciality;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
+  // const {Doctorsetget} = state.Doctorset;
+  // const {catfil} = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,

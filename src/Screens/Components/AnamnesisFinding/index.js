@@ -7,9 +7,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { GetShowLabel1 } from "../GetMetaData/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { pure } from "recompose";
 class AnamnesisFinding extends Component {
   constructor(props) {

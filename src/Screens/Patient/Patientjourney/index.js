@@ -66,9 +66,7 @@ import { authy } from "Screens/Login/authy.js";
 import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import SPECIALITY from "speciality";
 
 import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
@@ -77,6 +75,8 @@ import { get_cur_one, get_gender, get_track, delete_click_track, download_track 
 import { commonHeader } from "component/CommonHeader/index.js";
 
 var Datas = [];
+
+
 
 class Index extends Component {
   constructor(props) {
@@ -129,8 +129,8 @@ class Index extends Component {
       otherField: false,
       options: [],
       rating: "",
-      final_Submit :[],
-      answers:[]
+      final_Submit: [],
+      answers: [],
 
 
     };
@@ -178,29 +178,47 @@ class Index extends Component {
 
   handleSubmit = (_id) => {
     const answers = this.state.answers;
-     if(this.state.ratingValue){
-    var rating=this.state.ratingValue
-   answers.push({_id, rating
-     } );
-    this.setState({
-      answers,
-      rating: ""
-    });
-  }else{
-    answers.push({_id, data:this.state.updateTrack
-    } );
-   this.setState({
-     answers,
-    updateTrack:[]
-   });
-  
-  }
-console.log("answer", answers)
+    if (this.state.ratingValue) {
+      var rating = this.state.ratingValue
+      answers.push({
+        _id, rating
+      });
+      this.setState({
+        answers,
+        rating: ""
+      });
+    } else {
+      answers.push({
+        _id, data: this.state.updateTrack
+      });
+      this.setState({
+        answers,
+        updateTrack: []
+      });
+
+    }
+    console.log("answer", answers)
   };
-handleSubmit2= () =>{
-  console.log("answers", this.state.answers)
-  
-};
+
+
+  handleSubmit2 = () => {
+    console.log("answers", this.state.answers)
+    var data = this.state.answers;
+    data.viewQuestionaire = false;
+    data.submitQuestionaire = true;
+    axios
+      .get(
+        sitedata.data.path + '/vh/patientjourney/' + this.props.stateLoginValueAim.user._id,
+        commonHeader(this.props.stateLoginValueAim.token),
+      )
+      .then((response) => {
+        if (response.data.hassuccessed) {
+          this.setState({ data: response.data.data });
+         
+        }
+        this.setState({ loaderImage: false });
+      });
+ };
 
   options = (e) => {
     const state = this.state.updateTrack;
@@ -707,13 +725,13 @@ handleSubmit2= () =>{
     this.setState({ loaderImage: true });
     axios
       .get(
-        sitedata.data.path + "/questionaire/GetQuestionaire/60fabfe5b3394533f7f9a6dc-1629196687215",
-        commonHeader(this.props.stateLoginValueAim.token)
+        sitedata.data.path + '/vh/patientjourneyQue/' + this.props.stateLoginValueAim.user._id,
+        commonHeader(this.props.stateLoginValueAim.token),
       )
       .then((response) => {
         if (response.data.hassuccessed) {
           this.setState({ AllQuestions: response.data.data });
-          // console.log("Questionnaire", this.state.AllQuestions)
+          console.log("Questionnaire", this.state.AllQuestions)
         }
         this.setState({ loaderImage: false });
       });
@@ -1141,7 +1159,6 @@ handleSubmit2= () =>{
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       long_covid,
-      add_new_entry,
       new_entry,
       blood_pressure,
       blood_sugar,
@@ -1166,11 +1183,9 @@ handleSubmit2= () =>{
       weight_bmi,
       edit,
       entry,
-      loadingref,
       respiration,
       anamnesis,
       VaccinationTrial,
-      Seemore10entries
     } = translate;
 
     return (
@@ -1369,9 +1384,9 @@ handleSubmit2= () =>{
 
                             )
                           ))}</Grid>    </Grid>
-                                  <Grid item xs={12} md={12}>
-                                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2()}>Final Submit</Button></Grid>
-                                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2()}>Final Submit</Button></Grid>
+                      </Grid>
                       {/* <div>
                         {this.state.allTrack &&
                           this.state.allTrack.length > 0 ? (

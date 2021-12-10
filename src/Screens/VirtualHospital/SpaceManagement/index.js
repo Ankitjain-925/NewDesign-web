@@ -11,6 +11,7 @@ import RoomView from "Screens/Components/VirtualHospitalComponents/RoomView/inde
 import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
+import { confirmAlert } from "react-confirm-alert";
 import { withRouter } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
@@ -24,9 +25,8 @@ import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {
-  getLanguage
-} from "translations/index"
+import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
+import { getLanguage } from "translations/index"
 
 class Index extends Component {
   constructor(props) {
@@ -48,7 +48,8 @@ class Index extends Component {
       deleteId: false,
       SearchValue: '',
       errorMsg2: '',
-      errorMsg: ''
+      errorMsg: '',
+      errorStatus: false
     };
   }
   handleOpenSpecl = () => {
@@ -180,7 +181,7 @@ class Index extends Component {
   };
 
   //add the ward of the speciality
-  handleOpenRoom = () => {
+  handleOpenRoom = () => { 
     this.setState({ errorMsg2: "" })
     let data = this.state.ward
     if ((data && !data.ward_name) || (data && data?.ward_name && data?.ward_name?.length < 1)) {
@@ -191,13 +192,20 @@ class Index extends Component {
     }
     else {
       let length = data.rooms.length
-      if (data && data.rooms && !data.rooms[length - 1].room_name) {
-        this.setState({ errorMsg2: "Please enter room name" })
+      let check = data && data.rooms && data.rooms.map((data, index) => {
+
+        if (data && !data.room_name) {
+          // this.setState({ errorMsg2: "Please enter room name" })
+          this.setState({ errorStatus: true })
+          return true;
+        }
+        else if (data && (data.no_of_bed == false || data.no_of_bed < 1)) {
+          this.setState({ errorStatus: true })
+          return true;
+        }
       }
-      else if (data && data.rooms && (data.rooms[length - 1].no_of_bed == false || data.rooms[length - 1].no_of_bed < 1)) {
-        this.setState({ errorMsg2: "Please enter valid bed numbers" })
-      }
-      else {
+      )
+      if (!check.includes(true)) {
         var state = this.state.speciality;
         var ward = state["wards"] || [];
         if (this.state.isEditWrd) {
@@ -211,18 +219,21 @@ class Index extends Component {
           this.setState({ openWard: false, ward: {} });
         });
       }
+      else {
+        this.setState({ errorMsg2: 'Please enter valid room name or number of beds' })
+      }
     }
   };
 
   searchFilter = (e) => {
-    this.setState({ SearchValue: e.target.value})
+    this.setState({ SearchValue: e.target.value })
     let track1 = this.state.specialityData2;
     let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
       return JSON.stringify(obj.specialty_name).toLowerCase().includes(e.target?.value?.toLowerCase());
     });
     this.setState({ specialityData: FilterFromSearch1 })
   }
-  
+
 
   //for update speciality name
   updateEntryState = (e) => {
@@ -280,6 +291,42 @@ class Index extends Component {
       return rooms.reduce((a, v) => (a = a + parseInt(v.no_of_bed)), 0);
     }
     return "";
+  };
+
+  removeSpeciality = () =>{
+  this.handleCloseWarn();
+  confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+
+            <h1 class="alert-btn">Delete Speciality?</h1>
+
+            <p>Are you really want to delete this Speciality?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.deleteClick();
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
   };
 
   deleteClick = () => {
@@ -391,21 +438,21 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                          {this.state.showinput &&<input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
-                              <a>
-                                {!this.state.showinput ? <img
-                                  src={require("assets/virtual_images/search-entries.svg")}
-                                  alt=""
-                                  title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
-                                />:
-                                 <img
+                            {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={this.searchFilter} />}
+                            <a>
+                              {!this.state.showinput ? <img
+                                src={require("assets/virtual_images/search-entries.svg")}
+                                alt=""
+                                title=""
+                                onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                              /> :
+                                <img
                                   src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput,SearchValue: '', specialityData: this.state.specialityData2, })}}
+                                  onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: '', specialityData: this.state.specialityData2, }) }}
                                 />}
-                              </a>
+                            </a>
                             {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                           </Grid>
                         </Grid>
@@ -482,7 +529,7 @@ class Index extends Component {
                                 </p>
                               </Grid>
                               <Grid className="selectWarn">
-                                <Button className="selWarnBtn" onClick={() => { this.deleteClick() }}>
+                                <Button className="selWarnBtn" onClick={() => { this.removeSpeciality() }}>
                                   Yes, Delete Speciality
                                 </Button>
                                 <Button onClick={this.handleCloseWarn}>Cancel, Keep Speciality</Button>
@@ -549,7 +596,11 @@ class Index extends Component {
                                             title=""
                                           />
                                           {this.bednumbers(item.rooms)} beds
-                                          <span>32 available</span>
+                                          
+                                          <AvailablebedListing 
+                                            speciality_id= {data._id}
+                                            ward_id={item._id}
+                                          />
                                         </li>
                                       </ul>
                                     </Grid>

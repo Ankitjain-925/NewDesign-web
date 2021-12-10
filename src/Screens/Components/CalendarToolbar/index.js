@@ -5,12 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Select from "react-select";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import sitedata from "sitedata";
-import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
@@ -70,19 +66,6 @@ class Index extends Toolbar {
           .getAuthInstance()
           .signIn()
           .then(() => {
-            //  var event = {
-            //    'summary': 'New event By Me',
-            //    'description': 'A chance to hear more about Google\'s developer products.',
-            //    'start': {
-            //      'dateTime': new Date(),
-            //      'timeZone': 'Asia/Kolkata'
-            //    },
-            //    'end': {
-            //      'dateTime': "2020-08-21T09:00:00-07:00",
-            //      'timeZone': 'Asia/Kolkata'
-            //    }
-            //  };
-
             this.state.myEventsList1 &&
               this.state.myEventsList1.length > 0 &&
               this.state.myEventsList1.map((event) => {
@@ -96,15 +79,6 @@ class Index extends Toolbar {
                 });
               });
           });
-
-        // var request = gapi.client.calendar.events.insert({
-        //   'calendarId': 'primary',
-        //   'resource': event
-        // });
-
-        // request.execute(function(event) {
-        //   appendPre('Event created: ' + event.htmlLink);
-        // });
       });
     };
 

@@ -5,9 +5,7 @@ import { MessageHeaderManager } from "./controller";
 import sitedata from "sitedata";
 import Avatar from "../Avatar";
 import { SvgAvatar } from '../../util/svgavatar';
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import * as enums from '../../util/enums.js';
 
 import StatusIndicator from "../StatusIndicator";

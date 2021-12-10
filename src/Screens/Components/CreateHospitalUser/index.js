@@ -78,7 +78,6 @@ class Index extends Component {
         this.setState({ hidden_confirm: !this.state.hidden_confirm });
     }
 
-
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.addCreate !== this.props.addCreate) {
@@ -436,17 +435,11 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
     const { stateLanguageType } = state.LanguageReducer;
      const { settings } = state.Settings;
-    // const {Doctorsetget} = state.Doctorset;
-    // const {catfil} = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        //   Doctorsetget,
-        //   catfil
     }
 };
 export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
-
-

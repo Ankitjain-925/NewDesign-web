@@ -19,6 +19,7 @@ import Loader from "Screens/Components/Loader/index";
 import { Redirect, Route } from "react-router-dom";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
+import { getLanguage } from "translations/index"
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -111,6 +112,8 @@ class Index extends Component {
   };
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {} = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||

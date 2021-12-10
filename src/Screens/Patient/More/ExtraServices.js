@@ -18,9 +18,7 @@ import { authy } from "Screens/Login/authy.js";
 import HomePage from 'Screens/Components/CardInput/PayforSubscription';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
 const stripePromise = loadStripe('pk_test_qoJaLAHMXbv3fzci2AEcmkYX');

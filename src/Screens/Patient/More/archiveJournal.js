@@ -19,9 +19,7 @@ import {
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
 import Loader from "Screens/Components/Loader/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { authy } from "Screens/Login/authy.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { get_gender, get_cur_one, delete_click_track } from "Screens/Components/CommonApi/index";

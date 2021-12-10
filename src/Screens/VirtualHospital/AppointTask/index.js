@@ -37,14 +37,6 @@ import {
 } from "component/CommonHeader/index";
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "../Institutes/selecthouseaction";
-import { Redirect, Route } from "react-router-dom";
-import { AddFavDoc2 } from "Screens/Components/BasicMethod/index";
-
-const options = [
-  { value: "data1", label: "Data1" },
-  { value: "data2", label: "Data2" },
-  { value: "data3", label: "Data3" },
-];
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
@@ -508,7 +500,7 @@ class Index extends Component {
   //state change on add
   updateTaskFilter = (e) => {
     const state = this.state.check;
-    state[e.target.name] = e.target.value;
+    state[e.target.name] = e.target.value == "true" ? true : false;
     this.setState({ taskFilter: state });
   }
 
@@ -639,6 +631,9 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {} =
+          translate;
     const { tabvalue, selectedOption, events, data } = this.state;
     const userList =
       this.state.filteredUsers &&
@@ -917,7 +912,7 @@ class Index extends Component {
                               control={
                                 <Checkbox
                                   name="open"
-                                  value={this.state.check && this.state.check.open && this.state.check.open == 'true' ? false : true}
+                                  value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
                                   color="#00ABAF"
                                   checked={this.state.check.open}
                                   onChange={(e) =>
@@ -932,7 +927,7 @@ class Index extends Component {
                               control={
                                 <Checkbox
                                   name="done"
-                                  value={this.state.check && this.state.check.done && this.state.check.done == 'true' ? false : true}
+                                  value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
                                   color="#00ABAF"
                                   checked={this.state.check.done}
                                   onChange={(e) =>

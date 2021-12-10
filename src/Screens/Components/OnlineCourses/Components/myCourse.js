@@ -12,9 +12,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Rating from "../../Rating";
 import Loader from "Screens/Components/Loader/index.js";
-import {
-  getLanguage
-} from "translations/index";
+import { getLanguage } from "translations/index";
 import { commonHeader } from "component/CommonHeader/index"
 function TabContainer(props) {
   return (

@@ -3,34 +3,30 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from "react-select";
 import ReactFlagsSelect from "react-flags-select";
-import sitedata from "sitedata";
-import axios from "axios";
 import { withRouter } from "react-router-dom";
-import QRCode from "qrcode.react";
 import { connect } from "react-redux";
-import { OptionList } from "Screens/Login/metadataaction";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import Autocomplete from "../Autocomplete.js";
+import Autocomplete from "./Autocomplete.js";
 import npmCountryList from "react-select-country-list";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
 import Loader from "Screens/Components/Loader/index";
+import QRCode from "qrcode.react";
 import DateFormat from "Screens/Components/DateFormat/index";
 import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
+import { OptionList } from "Screens/Login/metadataaction";
+import { getLanguage } from "translations/index"
 import {
-  getLanguage
-} from "translations/index"
-import { update_CometUser } from "Screens/Components/CommonApi/index";
-import SPECIALITY from "speciality";
-import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import { commonHeader, commonCometHeader } from "component/CommonHeader/index.js";
+  GetLanguageMetadata, handleChange_multi, changePin, changeAlies, ChangeIDPIN, fileUpload,
+  saveUserData, onChange, onSelectDegree, updateFlags, updateEntryState1, getUserData, copyText
+} from "./profileapi";
+
 
 var datas = [];
-var insurances = [];
 
 class Index extends Component {
   constructor(props) {
@@ -96,12 +92,45 @@ class Index extends Component {
       ChangedPIN: false,
       DuplicateAlies: false,
       toSmall: false,
+      toSmall1: false,
       phonevalidate: false,
       image: false,
     };
     // new Timer(this.logOutClick.bind(this))
   }
 
+  fileUpload = async (event, filed_name) => {
+    if (event[0].type === "image/jpeg" || event[0].type === "image/png") {
+     fileUpload(event, this);
+    } else {
+      let translate = getLanguage(this.props.stateLanguageType)
+      let { plz_upload_png_jpeg, ok } = translate;
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div
+              className={
+                this.props.settings.setting.mode === "dark"
+                  ? "dark-confirm react-confirm-alert-body"
+                  : "react-confirm-alert-body"
+              }
+            >
+              <h1>{plz_upload_png_jpeg}</h1>
+              <div className="react-confirm-alert-button-group">
+                <button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  {ok}
+                </button>
+              </div>
+            </div>
+          );
+        },
+      });
+    }
+  };
   // On change the Birthday
   onChange = (date) => {
     const state = this.state.UpDataDetails;
@@ -111,7 +140,7 @@ class Index extends Component {
 
   componentDidMount() {
     this.getMetadata();
-    this.getUserData();
+    getUserData(this);
     /*---location---*/
     this.city = new google.maps.places.Autocomplete(
       this.autocompleteInput.current,
@@ -122,22 +151,6 @@ class Index extends Component {
     var npmCountry = npmCountryList().getData();
     this.setState({ selectCountry: npmCountry });
   }
-
-  // Copy the Profile id and PIN
-  copyText = (copyT) => {
-    this.setState({ copied: false });
-    var copyText = document.getElementById(copyT);
-    var textArea = document.createElement("textarea");
-    textArea.value = copyText.textContent;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("Copy");
-    textArea.remove();
-    this.setState({ copied: true });
-    setTimeout(() => {
-      this.setState({ copied: false });
-    }, 5000);
-  };
 
   //For update the mobile number
   updateMOBILE = (str) => {
@@ -163,25 +176,7 @@ class Index extends Component {
 
   //Update the states
   updateEntryState1 = (e) => {
-    const state = this.state.UpDataDetails;
-    if (e.target.name === "mobile") {
-      state[e.target.name] = this.state.flag_mobile + "-" + e.target.value;
-      this.setState({ mobile: e.target.value });
-    }
-    if (e.target.name === "fax") {
-      state[e.target.name] = this.state.flag_fax + "-" + e.target.value;
-      this.setState({ fax: e.target.value });
-    }
-    if (e.target.name === "phone") {
-      state[e.target.name] = this.state.flag_phone + "-" + e.target.value;
-      this.setState({ phone: e.target.value });
-    }
-    if (e.target.name === "emergency_number") {
-      state[e.target.name] =
-        this.state.flag_emergency_number + "-" + e.target.value;
-      this.setState({ phone: e.target.value });
-    }
-    this.setState({ UpDataDetails: state });
+    updateEntryState1(e, this);
   };
 
   //For open QR code
@@ -198,37 +193,6 @@ class Index extends Component {
   };
   handlePinClose = (key) => {
     this.setState({ [key]: false });
-  };
-
-  //For change the title of user
-  onSelectDegree(event) {
-    this.setState({ title: event });
-    const state = this.state.UpDataDetails;
-    state["title"] = event.label;
-    this.setState({ UpDataDetails: state });
-  }
-
-  //For update the flags
-  updateFlags = (e, name) => {
-    const state = this.state.UpDataDetails;
-    if (name === "flag_mobile") {
-      state["mobile"] = e + "-" + this.state.mobile;
-      this.setState({ flag_mobile: e });
-    }
-    if (name === "flag_fax") {
-      state["fax"] = e + "-" + this.state.fax;
-      this.setState({ flag_fax: e });
-    }
-
-    if (name === "flag_phone") {
-      state["phone"] = e + "-" + this.state.phone;
-      this.setState({ flag_phone: e });
-    }
-    if (name === "flag_emergency_number") {
-      state["emergency_number"] = e + "-" + this.state.phone;
-      this.setState({ flag_emergency_number: e });
-    }
-    this.setState({ UpDataDetails: state });
   };
 
   //For chnaging the Place of city.
@@ -248,281 +212,17 @@ class Index extends Component {
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
-      this.GetLanguageMetadata();
+      GetLanguageMetadata(this);
     }
   };
 
   //For getting the dropdowns from the database
   getMetadata() {
-    this.setState({ allMetadata: this.props.metadata }, () => {
-      this.GetLanguageMetadata();
-    });
-    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-    //   if (responce && responce.data && responce.data.length > 0) {
-    //     this.setState({ allMetadata: responce.data[0] });
-    //     this.GetLanguageMetadata();
-    //   }
-    // });
+    this.setState({ allMetadata: this.props.metadata },
+      () => {
+        GetLanguageMetadata(this);
+      })
   }
-
-  GetLanguageMetadata = () => {
-    var Allgender = GetLanguageDropdown(
-      this.state.allMetadata &&
-        this.state.allMetadata.gender &&
-        this.state.allMetadata.gender.length > 0 &&
-        this.state.allMetadata.gender,
-      this.props.stateLanguageType
-    );
-    this.setState({
-      genderdata: Allgender,
-      languageData:
-        this.state.allMetadata &&
-        this.state.allMetadata.languages &&
-        this.state.allMetadata.languages.length > 0 &&
-        this.state.allMetadata.languages,
-      specialityData: GetLanguageDropdown(
-        SPECIALITY.speciality.english,
-        this.props.stateLanguageType
-      ),
-      title_degreeData:
-        this.state.allMetadata &&
-        this.state.allMetadata.title_degreeData &&
-        this.state.allMetadata.title_degreeData.length > 0 &&
-        this.state.allMetadata.title_degreeData,
-    });
-  };
-
-  //For change the language and the Speciality
-  handleChange_multi = (event, name) => {
-    const state = this.state.UpDataDetails;
-    if (name == "languages") {
-      this.setState({ name_multi: event });
-      state["language"] =
-        event && Array.prototype.map.call(event, (s) => s.value);
-    }
-    if (name == "speciality") {
-      this.setState({ speciality_multi: event });
-    }
-    this.setState({ UpDataDetails: state });
-  };
-
-  //For update the state of the Profile
-  handleChange1 = (e) => {
-    const state = this.state.userDetails;
-    state[e.target.name] = e.target.value;
-    this.setState({ userDetails: state });
-  };
-
-  //Save the User profile
-  saveUserData = () => {
-    if (
-      this.state.insuranceDetails.insurance !== "" &&
-      this.state.insuranceDetails.insurance_number !== "" &&
-      this.state.insuranceDetails.insurance_country !== ""
-    ) {
-      if (
-        datas.some(
-          (data) => data.insurance === this.state.insuranceDetails.insurance
-        )
-      ) {
-      } else {
-        datas.push(this.state.insuranceDetails);
-        this.setState({ insurancefull: datas });
-      }
-    }
-    if (
-      this.state.flag_emergency_number &&
-      this.state.flag_emergency_number === "" &&
-      this.state.flag_emergency_number === "undefined"
-    ) {
-      this.setState({ flag_emergency_number: "DE" });
-    }
-    if (
-      this.state.flag_mobile &&
-      this.state.flag_mobile === "" &&
-      this.state.flag_mobile === "undefined"
-    ) {
-      this.setState({ flag_mobile: "DE" });
-    }
-    if (
-      this.state.flag_phone &&
-      this.state.flag_phone === "" &&
-      this.state.flag_phone === "undefined"
-    ) {
-      this.setState({ flag_phone: "DE" });
-    }
-    if (
-      this.state.flag_fax &&
-      this.state.flag_fax === "" &&
-      this.state.flag_fax === "undefined"
-    ) {
-      this.setState({ flag_fax: "DE" });
-    }
-    this.setState({ loaderImage: true, phonevalidate: false });
-    this.setState({ regisError1: "" });
-    this.setState({ regisError2: "" });
-    const user_token = this.props.stateLoginValueAim.token;
-    this.setState({
-      insuranceDetails: {
-        insurance: "",
-        insurance_number: "",
-        insurance_country: "",
-      },
-    });
-    var parent_id = this.state.UpDataDetails.parent_id
-      ? this.state.UpDataDetails.parent_id
-      : "0";
-    axios
-      .put(
-        sitedata.data.path + "/UserProfile/Users/update",
-        {
-          type: "paramedic",
-          pin: this.state.UpDataDetails.pin,
-          first_name: this.state.UpDataDetails.first_name,
-          last_name: this.state.UpDataDetails.last_name,
-          nick_name: this.state.UpDataDetails.nick_name,
-          title: this.state.UpDataDetails.title,
-          birthday: this.state.UpDataDetails.birthday,
-          language: this.state.UpDataDetails.language,
-          speciality: this.state.speciality_multi,
-          phone: this.state.UpDataDetails.phone,
-          mobile: this.state.UpDataDetails.mobile,
-          fax: this.state.UpDataDetails.fax,
-          website: this.state.UpDataDetails.website,
-          email: this.state.UpDataDetails.email,
-          password: this.state.UpDataDetails.password,
-          sex: this.state.UpDataDetails.sex,
-          street: this.state.UpDataDetails.street,
-          city: this.state.city,
-          area: this.state.area,
-          address: this.state.UpDataDetails.address,
-          emergency_contact_name: this.state.UpDataDetails
-            .emergency_contact_name,
-          emergency_email: this.state.UpDataDetails.emergency_email,
-          emergency_number: this.state.UpDataDetails.emergency_number,
-          family_doc: this.state.UpDataDetails.family_doc,
-          insurance: datas,
-          is2fa: this.state.UpDataDetails.is2fa,
-          country: this.state.UpDataDetails.country,
-          pastal_code: this.state.UpDataDetails.pastal_code,
-        },
-        commonHeader(user_token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.setState({
-            editInsuranceOpen: false,
-            addInsuranceOpen: false,
-            succUpdate: true,
-            insuranceDetails: {
-              insurance: "",
-              insurance_number: "",
-              insurance_country: "",
-            },
-          });
-          this.setState({ loaderImage: false });
-          setTimeout(() => {
-            this.setState({ succUpdate: false });
-          }, 5000);
-          this.getUserData();
-          axios
-            .put(
-              "https://api-eu.cometchat.io/v2.0/users/" +
-                this.state.profile_id.toLowerCase(),
-              {
-                name:
-                  this.state.UpDataDetails.first_name +
-                  " " +
-                  this.state.UpDataDetails.last_name,
-              },
-              commonCometHeader()
-            )
-            .then((res) => {
-              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-            });
-        } else {
-          this.setState({ loaderImage: false });
-          if (responce.data.message === "Phone is not verified") {
-            this.setState({ phonevalidate: true });
-          }
-          this.setState({ error3: true });
-          setTimeout(() => {
-            this.setState({ error3: false });
-          }, 5000);
-        }
-      });
-  };
-  // Check the Alies is duplicate or not
-  changePin = (e) => {
-    const state = this.state.UpDataDetails;
-    state[e.target.name] = e.target.value;
-    this.setState({ UpDataDetails: state });
-    if (e.target.value.length > 3 && e.target.value !== "") {
-      this.setState({ toSmall1: false });
-    } else {
-      this.setState({ toSmall1: true });
-    }
-  };
-
-  //Chnage Id Pin by here
-  ChangeIDPIN = () => {
-    if (
-      !this.state.DuplicateAlies &&
-      !this.state.toSmall &&
-      !this.state.toSmall1
-    ) {
-      this.setState({ loaderImage: true });
-      const user_token = this.props.stateLoginValueAim.token;
-      axios
-        .put(
-          sitedata.data.path + "/UserProfile/Users/update",
-          {
-            pin: this.state.UpDataDetails.pin,
-            alies_id: this.state.UpDataDetails.alies_id,
-          },
-          commonHeader(user_token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.setState({ ChangedPIN: true });
-            setTimeout(() => {
-              this.setState({ ChangedPIN: false });
-            }, 5000);
-          }
-          this.setState({ loaderImage: false });
-          this.getUserData();
-          this.handlePinClose("chngPinOpen");
-        });
-    }
-  };
-
-  // Check the Alies is duplicate or not
-  changeAlies = (e) => {
-    const state = this.state.UpDataDetails;
-    state[e.target.name] = e.target.value;
-    this.setState({ UpDataDetails: state });
-    if (e.target.value.length > 5 && e.target.value !== "") {
-      this.setState({ loaderImage: true, toSmall: false });
-      const user_token = this.props.stateLoginValueAim.token;
-      axios
-        .get(
-          sitedata.data.path +
-            "/UserProfile/checkAlies?alies_id=" +
-            e.target.value,
-          commonHeader(user_token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            this.setState({ DuplicateAlies: true });
-          } else {
-            this.setState({ DuplicateAlies: false });
-          }
-          this.setState({ loaderImage: false });
-        });
-    } else {
-      this.setState({ toSmall: true });
-    }
-  };
 
   //For open the Insurance Edit popup
   editKYCopen(event, i) {
@@ -531,82 +231,6 @@ class Index extends Component {
       insuranceDetails: event,
       editIndex: i,
     });
-  }
-
-  //For getting User Data
-  getUserData() {
-    this.setState({ loaderImage: true });
-    let user_token = this.props.stateLoginValueAim.token;
-    let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
-      .then((response) => {
-        this.setState({ loaderImage: false });
-        var title = {},
-          titlefromD = response.data.data.title;
-        var language = [],
-          languagefromD = response.data.data.language;
-        if (languagefromD && languagefromD.length > 0) {
-          languagefromD.map((item) => {
-            language.push({ value: item, label: item.replace(/_/g, " ") });
-          });
-        }
-        if (titlefromD && titlefromD !== "") {
-          title = { label: titlefromD, value: titlefromD };
-        }
-        if (response.data.data.mobile && response.data.data.mobile !== "") {
-          let mob = response.data.data.mobile.split("-");
-          if (mob && mob.length > 0) {
-            this.setState({ flag_mobile: mob[0] });
-          }
-        }
-        if (response.data.data.phone && response.data.data.phone !== "") {
-          let pho = response.data.data.phone.split("-");
-          if (pho && pho.length > 0) {
-            this.setState({ flag_phone: pho[0] });
-          }
-        }
-        if (response.data.data.fax && response.data.data.fax !== "") {
-          let fx = response.data.data.fax.split("-");
-          if (fx && fx.length > 0) {
-            this.setState({ flag_fax: fx[0] });
-          }
-        }
-        if (
-          response.data.data.emergency_number &&
-          response.data.data.emergency_number !== ""
-        ) {
-          let fen = response.data.data.emergency_number.split("-");
-          if (fen && fen.length > 0) {
-            this.setState({ flag_emergency_number: fen[0] });
-          }
-        }
-        this.setState({
-          UpDataDetails: response.data.data,
-          city: response.data.data.city,
-          area: response.data.data.area,
-          profile_id: response.data.data.profile_id,
-        });
-        this.setState({
-          speciality_multi: this.state.UpDataDetails.speciality,
-        });
-        this.setState({ name_multi: language, title: title });
-        this.setState({
-          insurancefull: this.state.UpDataDetails.insurance,
-          insuranceDetails: {
-            insurance: "",
-            insurance_number: "",
-            insurance_type: "",
-          },
-        });
-        datas = this.state.UpDataDetails.insurance;
-        var find =
-          response.data && response.data.data && response.data.data.image;
-        this.SettingImage(find);
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
   }
 
   //Update the State
@@ -640,150 +264,9 @@ class Index extends Component {
     this.setState({ UpDataDetails: state });
   };
 
-  //For setting the image
-  SettingImage = (find) => {
-    if (find) {
-      find = find.split(".com/")[1];
-      axios
-        .get(sitedata.data.path + "/aws/sign_s3?find=" + find)
-        .then((response) => {
-          if (response.data.hassuccessed) {
-            this.setState({ image: response.data.data });
-            setTimeout(() => {
-              this.setState({ loaderImage: false });
-            }, 5000);
-          }
-        });
-    }
-  };
-  //FOR UPLOADING THE IMAGE
-  saveUserData1 = () => {
-    this.setState({ loaderImage: true });
-    const user_token = this.props.stateLoginValueAim.token;
-    axios
-      .put(
-        sitedata.data.path + "/UserProfile/Users/updateImage",
-        {
-          image: this.state.uploadedimage,
-        },
-        commonHeader(user_token)
-      )
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        axios
-          .put(
-            "https://api-eu.cometchat.io/v2.0/users/" +
-              this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
-            {
-              avatar: this.state.uploadedimage,
-            },
-            commonCometHeader()
-          )
-          .then((res) => {
-            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-          });
-        var find1 = this.state.uploadedimage;
-        this.SettingImage(find1);
-      });
-  };
-  //For upload the Profile pic
-  fileUpload = async (event, filed_name) => {
-    if (event[0].type === "image/jpeg" || event[0].type === "image/png") {
-      this.setState({ loaderImage: true });
-      // let reader = new FileReader();
-      let file = event[0];
-      this.setState({
-        loaderImage: true,
-        imagePreviewUrl1: URL.createObjectURL(file),
-      });
-      // reader.onloadend = () => {
-      //   this.setState({
-      //     file: file,
-      //     imagePreviewUrl1: reader.result,
-      //   });
-      // };
-      // let user_token = this.props.stateLoginValueAim.token;
-      // reader.readAsDataURL(file);
-      let fileParts = event[0].name.split(".");
-      let fileName = fileParts[0];
-      let fileType = fileParts[1];
-      const compressedFile = await resizeFile(file);
-
-      var data = blobToFile(compressedFile, file.name)
-
-      axios
-        .post(sitedata.data.path + "/aws/sign_s3", {
-          fileName: data.name,
-          fileType: fileType,
-          folders: this.props.stateLoginValueAim.user.profile_id + "/",
-          bucket: this.props.stateLoginValueAim.user.bucket,
-        })
-        .then((response) => {
-          var returnData = response.data.data.returnData;
-          var signedRequest = returnData.signedRequest;
-          var url = returnData.url;
-          if (fileType === "pdf") {
-            fileType = "application/pdf";
-          }
-          // Put the fileType in the headers for the upload
-          var options = {
-            headers: {
-              "Content-Type": fileType,
-            },
-          };
-          axios
-            .put(signedRequest, data, options)
-            .then((result) => {
-              this.setState(
-                {
-                  uploadedimage:
-                    response.data.data.returnData.url +
-                    "&bucket=" +
-                    this.props.stateLoginValueAim.user.bucket,
-                  loaderImage: false,
-                },
-                () => {
-                  this.saveUserData1();
-                }
-              );
-            })
-            .catch((error) => {});
-        })
-        .catch((error) => {});
-    } else {
-      let translate = getLanguage(this.props.stateLanguageType);
-      let { plz_upload_png_jpeg, ok } = translate;
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <div
-              className={
-                this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
-                  ? "dark-confirm react-confirm-alert-body"
-                  : "react-confirm-alert-body"
-              }
-            >
-              <h1>{plz_upload_png_jpeg}</h1>
-              <div className="react-confirm-alert-button-group">
-                <button
-                  onClick={() => {
-                    onClose();
-                  }}
-                >
-                  {ok}
-                </button>
-              </div>
-            </div>
-          );
-        },
-      });
-    }
-  };
 
   render() {
-    let translate = getLanguage(this.props.stateLanguageType);
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       profile_info,
       profile,
@@ -800,9 +283,9 @@ class Index extends Component {
       changed,
       profile_id_taken,
       profile_id_greater_then_5,
+      other,
       male,
       female,
-      other,
       save_change,
       email,
       title,
@@ -841,6 +324,7 @@ class Index extends Component {
     return (
       <div>
         {this.state.loaderImage && <Loader />}
+
         <Grid className="profileMy">
           <Grid className="profileInfo">
             {this.state.copied && (
@@ -852,13 +336,13 @@ class Index extends Component {
             {this.state.error3 && (
               <div className="err_message">{profile_not_updated}</div>
             )}
-            {this.state.phonevalidate && (
-              <div className="err_message">{mobile_number_not_valid}</div>
-            )}
             {this.state.ChangedPIN && (
               <div className="success_message">
                 {profile} {ID} {and} {pin} {is} {changed}
               </div>
+            )}
+            {this.state.phonevalidate && (
+              <div className="err_message">{mobile_number_not_valid}</div>
             )}
             <h1>
               {profile} {information}
@@ -883,7 +367,7 @@ class Index extends Component {
                     <a>
                       <img
                         src={require("assets/images/copycopy.svg")}
-                        onClick={() => this.copyText("profile_id")}
+                        onClick={() => copyText("profile_id", this)}
                         alt=""
                         title=""
                       />
@@ -906,7 +390,7 @@ class Index extends Component {
                     <a>
                       <img
                         src={require("assets/images/copycopy.svg")}
-                        onClick={() => this.copyText("profile_pin")}
+                        onClick={() => copyText("profile_pin", this)}
                         alt=""
                         title=""
                       />
@@ -999,7 +483,7 @@ class Index extends Component {
                       <input
                         type="text"
                         name="alies_id"
-                        onChange={this.changeAlies}
+                        onChange={(e) => changeAlies(e, this)}
                         value={this.state.UpDataDetails.alies_id}
                       />
                     </Grid>
@@ -1012,7 +496,7 @@ class Index extends Component {
                       <input
                         type="text"
                         name="pin"
-                        onChange={this.changePin}
+                        onChange={(e) => changePin(e, this)}
                         value={this.state.UpDataDetails.pin}
                       />
                     </Grid>
@@ -1021,7 +505,7 @@ class Index extends Component {
                   <Grid>
                     <input
                       type="submit"
-                      onClick={this.ChangeIDPIN}
+                      onClick={() => ChangeIDPIN(this)}
                       value={save_change}
                     />
                   </Grid>
@@ -1061,7 +545,7 @@ class Index extends Component {
                     <Grid>
                       <Select
                         value={this.state.title}
-                        onChange={(e) => this.onSelectDegree(e)}
+                        onChange={(e) => onSelectDegree(e, this)}
                         options={this.state.title_degreeData}
                         placeholder="Mr."
                         name="title"
@@ -1104,11 +588,7 @@ class Index extends Component {
                   <Grid item xs={12} md={4}>
                     <label>{dob}</label>
                     <Grid>
-                      {/* <DatePicker
-                                                name="birthday"
-                                                value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
-                                                onChange={this.onChange}
-                                            /> */}
+
                       <DateFormat
                         name="birthday"
                         value={
@@ -1116,12 +596,11 @@ class Index extends Component {
                             ? new Date(this.state.UpDataDetails.birthday)
                             : new Date()
                         }
-                        onChange={this.onChange}
                         date_format={
                           this.props.settings.setting &&
                           this.props.settings.setting.date_format
                         }
-                        onChange={this.onChange}
+                        onChange={(e) => onChange(e, this)}
                       />
                     </Grid>
                   </Grid>
@@ -1192,11 +671,10 @@ class Index extends Component {
                     <label>{city}</label>
                     <Grid>
                       <Autocomplete
-                        onChange={this.OnChangeCity}
                         value={this.state.city}
                         stateLanguageType={this.props.stateLanguageType}
                         onPlaceChanged={this.updateEntryCity.bind(this)}
-                      />
+                      />{" "}
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={4}>
@@ -1245,12 +723,12 @@ class Index extends Component {
                     <Grid>
                       {this.updateFLAG(this.state.UpDataDetails.phone) &&
                         this.updateFLAG(this.state.UpDataDetails.phone) !==
-                          "" && (
+                        "" && (
                           <ReactFlagsSelect
-                          searchable={true}
+                            searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
-                              this.updateFlags(e, "flag_phone");
+                              updateFlags(e, "flag_phone", this);
                             }}
                             name="flag_phone"
                             showSelectedLabel={false}
@@ -1284,12 +762,12 @@ class Index extends Component {
                     <Grid>
                       {this.updateFLAG(this.state.UpDataDetails.mobile) &&
                         this.updateFLAG(this.state.UpDataDetails.mobile) !==
-                          "" && (
+                        "" && (
                           <ReactFlagsSelect
-                          searchable={true}
+                            searchable={true}
                             placeholder="Country Code"
                             onSelect={(e) => {
-                              this.updateFlags(e, "flag_mobile");
+                              updateFlags(e, "flag_mobile", this);
                             }}
                             name="flag_mobile"
                             showSelectedLabel={false}
@@ -1329,7 +807,7 @@ class Index extends Component {
                         name="languages"
                         closeMenuOnSelect={false}
                         onChange={(e) => {
-                          this.handleChange_multi(e, "languages");
+                          handleChange_multi(e, "languages", this);
                         }}
                         options={this.state.languageData}
                         placeholder=""
@@ -1343,35 +821,30 @@ class Index extends Component {
                   <Grid className="clear"></Grid>
                 </Grid>
               </Grid>
-              <Grid className="kycForms sprtImg">
-                <Grid item xs={12} md={12}>
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    spacing={2}
-                  >
-                    <Grid item xs={12} md={6}>
-                      <FileUploader
-                        name="uploadImage"
-                        fileUpload={this.fileUpload}
-                        isMulti={false}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      {this.state.image && this.state.image !== "" && (
-                        <img
-                          className="ProfileImage"
-                          onClick={() => GetUrlImage1(this.state.image)}
-                          src={this.state.image}
-                          alt=""
-                          title=""
-                        />
-                      )}
-                    </Grid>
+            </Grid>
+            <Grid className="kycForms sprtImg">
+              <Grid item xs={12} md={11}>
+                <Grid container direction="row" alignItems="center" spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <FileUploader
+                      name="uploadImage"
+                      fileUpload={(e)=>this.fileUpload(e)}
+                      isMulti={false}
+                    />
                   </Grid>
-                  <Grid className="clear"></Grid>
+                  <Grid item xs={12} md={6}>
+                    {this.state.image && this.state.image !== "" && (
+                      <img
+                        className="ProfileImage"
+                        onClick={() => GetUrlImage1(this.state.image)}
+                        src={this.state.image}
+                        alt=""
+                        title=""
+                      />
+                    )}
+                  </Grid>
                 </Grid>
+                <Grid className="clear"></Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -1386,7 +859,7 @@ class Index extends Component {
               <Grid>
                 <input
                   type="submit"
-                  onClick={this.saveUserData}
+                  onClick={() => saveUserData(this, datas)}
                   value={save_change}
                 />
               </Grid>
@@ -1407,23 +880,16 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { metadata } = state.OptionList;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
     metadata,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(
-  connect(mapStateToProps, {
-    LoginReducerAim,
-    LanguageFetchReducer,
-    Settings,
-    OptionList,
-  })(Index)
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, OptionList })(
+    Index
+  )
 );

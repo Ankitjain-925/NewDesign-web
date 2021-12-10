@@ -22,6 +22,8 @@ import {
 import Loader from "Screens/Components/Loader/index";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 import {
   getLanguage
 } from "translations/index"
@@ -52,6 +54,7 @@ class Index extends Component {
       errorMsg: '',
       errorHospMsg: ''
     };
+    console.log("This state", this.state)
   }
   //open the institute group
   openInstitute = () => {
@@ -113,13 +116,96 @@ class Index extends Component {
         if (responce.data.hassuccessed) {
           this.getallGroups();
         }
+        console.log("Response", responce)
         this.setState({ loaderImage: false });
       });
 
   }
 
-  deleteHospital = (id) => {
-    alert("Complete this function.");
+  deleteHospital = (index) => {
+    this.setState({ openGroup: false });
+    var data = this.state.institute_groups;
+    console.log("DATA", data)
+
+    if (data?.houses?.length > 0) {
+      console.log("DATA", data)
+
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <Grid className={this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === "dark"
+              ? "dark-confirm deleteStep"
+              : "deleteStep"}>
+              <Grid className="deleteStepLbl">
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <label>Delete Step</label>
+              </Grid>
+              <Grid className="deleteStepInfo">
+                <p>This hospital will be removed. This action can not be reversed.</p>
+                <Grid><label>Are you sure you want to do this?</label></Grid>
+                <Grid>
+                  <Button onClick={() => { this.removeInstitute(data, index) }}>Yes, Delete</Button>
+                  <Button onClick={() => { onClose(); }}>Cancel</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          );
+        },
+      });
+    }
+    else {
+      this.DeleteInstitute(data, index)
+    }
+  };
+
+  removeInstitute = (index) => {
+    var data = this.state.institute_groups;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 class="alert-btn">Remove institute?</h1>
+            <p>Are you really want to remove this?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>No</button>
+              <button
+                onClick={() => {
+                  this.DeleteInstitute(data, index);
+                  onClose();
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  };
+
+  DeleteInstitute = (data, index) => {
+    var data = this.state.institute_groups;
+    // let housesArray = this.state.hospitalData
+    console.log("Data2", data)
+    // if (data?.houses?.length > 0) {
+    //   var yt = data?.houses?.map((item) => {
+    //     var response = this.state.housesArray(item._id, this.props.stateLoginValueAim.token, 5, false)
+    //   })
+    // }
+    data.splice(index, 1);
+    this.setState({ institute_groups: data });
+    this.props.onChange(data);
   }
 
   componentDidMount() {
@@ -182,6 +268,7 @@ class Index extends Component {
     this.setState({ errorMsg: "" })
 
     var data = this.state.institute_groups;
+
     if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
       this.setState({ errorMsg: "Institution Name can't be empty" })
     }

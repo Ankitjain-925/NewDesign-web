@@ -25,7 +25,10 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
-import { PatientMoveFromHouse } from "../PatientFlow/data"
+import { PatientMoveFromHouse } from "../PatientFlow/data";
+import {
+    getLanguage
+  } from "translations/index";
 
 
 const customStyles = {
@@ -183,7 +186,6 @@ class Index extends Component {
         else {
             state[name] = e;
         }
-
         this.setState({ addinvoice: state });
     }
 
@@ -308,7 +310,7 @@ class Index extends Component {
         //     this.setState({ loaderImage: false })``;
         // });
         // }
-        else {
+        // else {
             data.house_id = this.props?.House?.value;
             data.services = this.state.items
             data.created_at = new Date();
@@ -325,33 +327,32 @@ class Index extends Component {
             }
             else {
                 this.setState({ loaderImage: true });
-                axios
-                    .post(
-                        sitedata.data.path + "/vh/addInvoice",
-                        data,
-                        commonHeader(this.props.stateLoginValueAim.token)
-                    )
-                    .then((responce) => {
-                        this.setState({ loaderImage: false });
-                        if (responce.data.hassuccessed) {
-                            if (data.status.value == 'paid') {
-                                PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
-                            }
-                            else if(data.status.value == 'overdue'){
-                                PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
-                            }
-                            this.setState({
-                                items: [],
-                                addinvoice: {}, selectedPat: {},
-                            });
-                            this.Billing();
+                axios.post(
+                    sitedata.data.path + "/vh/addInvoice",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false });
+                    if (responce.data.hassuccessed) {
+                        if (data.status.value == 'paid') {
+                            PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
                         }
-                    })
-                    .catch((error) => {
-                        this.setState({ loaderImage: false });
-                    });
+                        else if(data.status.value == 'overdue'){
+                            PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
+                        }
+                        this.setState({
+                            items: [],
+                            addinvoice: {}, selectedPat: {},
+                        });
+                        this.Billing();
+                    }
+                })
+                .catch((error) => {
+                    this.setState({ loaderImage: false });
+                });
             }
-        }
+        // }
     }
 
     //Delete the perticular service confirmation box
@@ -405,6 +406,9 @@ class Index extends Component {
     }
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {InvoiceID, Patient , Status, Services , Addservice , Customservicetitle ,Customservicedescription , Editservice } =
+          translate;
         const { selectedOption } = this.state;
         const { addinvoice } = this.state;
         return (
@@ -451,7 +455,7 @@ class Index extends Component {
                                                 <p className='err_message'>{this.state.finishError}</p>
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
 
-                                                    <label>Invoice ID</label>
+                                                    <label>{InvoiceID}</label>
                                                     <Grid item xs={12} md={3} className="invoiceID">
                                                         {/* <TextField placeholder="Invoice ID" value="548756" /> */}
                                                         <VHfield
@@ -464,7 +468,7 @@ class Index extends Component {
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <label>Patient</label>
+                                                        <label>{Patient}</label>
                                                         <Grid>
                                                             <Select
                                                                 name="patient"
@@ -479,7 +483,7 @@ class Index extends Component {
                                                     </Grid>
 
                                                     <Grid item xs={12} md={3}>
-                                                        <label>Status</label>
+                                                        <label>{Status}</label>
                                                         <Select
                                                             name="status"
                                                             placeholder="Draft"
@@ -496,7 +500,7 @@ class Index extends Component {
 
 
                                             <Grid className="srvcTable">
-                                                <h3>Services</h3>
+                                                <h3>{Services}</h3>
                                                 <Table>
                                                     <Thead>
                                                         <Tr>
@@ -530,7 +534,7 @@ class Index extends Component {
                                                     <p className='err_message'>{this.state.error}</p>
                                                     <Grid container direction="row" alignItems="center" spacing={3}>
                                                         <Grid item xs={12} md={4}>
-                                                            <label>Add service</label>
+                                                            <label>{Addservice}</label>
                                                             <Select
                                                                 value={this.state.service?.service || ''}
                                                                 name="service"
@@ -572,8 +576,9 @@ class Index extends Component {
                                                 {this.state.viewCutom && <Grid className="addCstmField">
                                                     <Grid container direction="row" alignItems="center" spacing={3}>
                                                         <Grid item xs={12} md={4}>
-                                                            <label>Custom service title</label>
-                                                            <TextField placeholder="Custom service title"
+                                                            <label>{Customservicetitle}</label>
+                                                            <TextField 
+                                                                placeholder="Custom service title"
                                                                 name="custom_title"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_title")
@@ -581,8 +586,9 @@ class Index extends Component {
                                                                 value={this.state.service?.custom_title || ''} />
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
-                                                            <label>Custom service description</label>
-                                                            <TextField placeholder="Custom service description"
+                                                            <label>{Customservicedescription}</label>
+                                                            <TextField 
+                                                                placeholder="Custom service description"
                                                                 name="custom_description"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_description")
@@ -627,7 +633,7 @@ class Index extends Component {
                                                         </a>
                                                     </Grid>
                                                     <Grid>
-                                                        <label>Edit service</label>
+                                                        <label>{Editservice}</label>
                                                     </Grid>
                                                 </Grid>
 
@@ -670,8 +676,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid className="servSaveBtn">
                                                     <a onClick={this.handleCloseServ}>
-                                                        <Button
-                                                            onClick={() => this.handleAddUpdate()}>Save & Close</Button>
+                                                        <Button onClick={() => this.handleAddUpdate()}>Save & Close</Button>
                                                     </a>
                                                 </Grid>
                                             </Grid>

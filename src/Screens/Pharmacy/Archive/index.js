@@ -20,13 +20,10 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
   getDate,
-  getTime,
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import ImgaeSec from "Screens/Components/TimelineComponent/ImageSec";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { delete_click_track } from "Screens/Components/CommonApi/index.js";
 import { commonHeader } from "component/CommonHeader/index.js";
@@ -93,29 +90,6 @@ class Index extends Component {
         if (response.data.hassuccessed === true) {
           // var images = [];
           response.data.data = response.data.data.filter((e) => e != null);
-          // response.data.data &&
-          //   response.data.data.length > 0 &&
-          //   response.data.data.map((data1, index) => {
-          //     data1.attachfile &&
-          //       data1.attachfile.length > 0 &&
-          //       data1.attachfile.map((data, index) => {
-          //         var find = data && data.filename && data.filename;
-          //         if (find) {
-          //           var find1 = find.split(".com/")[1];
-          //           axios
-          //             .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-          //             .then((response2) => {
-          //               if (response2.data.hassuccessed) {
-          //                 images.push({
-          //                   image: find,
-          //                   new_image: response2.data.data,
-          //                 });
-          //                 this.setState({ images: images });
-          //               }
-          //             });
-          //         }
-          //       });
-          //   });
           this.setState({
             Allpre: response.data.data,
             Allpre1: response.data.data,
@@ -134,21 +108,6 @@ class Index extends Component {
         this.setState({ loaderImage: false });
       });
   };
-
-  //For open the file of prescription
-  // openFile = (attachfile) => {
-  //   var find = attachfile && attachfile;
-  //   if (find) {
-  //     var find1 = find.split(".com/")[1];
-  //     axios
-  //       .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-  //       .then((res) => {
-  //         if (res.data.hassuccessed) {
-  //           window.open(res.data.data);
-  //         }
-  //       });
-  //   }
-  // };
 
   //Confirm popup for Delete
   DeleteTrack = (deletekey) => {
@@ -420,11 +379,7 @@ class Index extends Component {
                                 <Td>{getDate(item.datetime_on)}</Td>
                                 <Td className="presImg">
                                   <ImgaeSec data={item.patient_image} />
-                                  {/* <img
-                                    src={require("assets/images/dr1.jpg")}
-                                    alt=""
-                                    title=""
-                                  /> */}
+                                 
                                   {item.patient_name && item.patient_name}
                                   <p>
                                     - ( {item.patient_alies_id &&
@@ -432,11 +387,7 @@ class Index extends Component {
                                   </p>
                                 </Td>
                                 <Td className="presImg">
-                                  {/* <img
-                                    src={require("assets/images/dr1.jpg")}
-                                    alt=""
-                                    title=""
-                                  /> */}
+                                 
                                   <ImgaeSec data={item.created_by_image} />
                                   {item.created_by_temp && item.created_by_temp}
                                 </Td>
@@ -558,8 +509,6 @@ class Index extends Component {
                                           </div>
                                         )
                                       )}
-
-                                    {/* <img src={require('assets/images/prescriptions.jpg')} alt="" title="" /> */}
                                   </Grid>
                                 </Grid>
                               </Grid>
@@ -587,8 +536,6 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
   const { Emergencysetget } = state.EmergencySet;
   return {
     stateLanguageType,
@@ -597,8 +544,6 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     Emergencysetget,
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

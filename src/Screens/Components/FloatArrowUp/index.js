@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 export default class FloatArrowUp extends Component {
   constructor(props) {
     super(props);

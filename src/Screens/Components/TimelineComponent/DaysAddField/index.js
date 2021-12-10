@@ -5,9 +5,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import MMHG from "Screens/Components/mmHgField/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 
 import { pure } from "recompose";
 class AnamnesisFinding extends Component {

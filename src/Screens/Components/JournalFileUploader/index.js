@@ -10,9 +10,7 @@ import axios from "axios";
 import Loader from "./../Loader/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import { getImage } from "./../BasicMethod/index";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 class ImageUploderView extends Component {
   constructor(props) {
     super(props);

@@ -5,9 +5,7 @@ import RLDD from "react-list-drag-and-drop/lib/RLDD";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { pure } from "recompose";
 var data = [];
 

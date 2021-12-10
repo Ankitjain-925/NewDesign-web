@@ -32,9 +32,7 @@ import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAcco
 import Timezone from "timezon.json";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { pure } from "recompose";
 import { commonHeader } from "component/CommonHeader/index";
 function TabContainer(props) {
