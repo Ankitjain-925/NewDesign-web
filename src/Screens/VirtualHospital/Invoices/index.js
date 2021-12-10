@@ -347,6 +347,9 @@ class Index extends Component {
                         });
                         this.Billing();
                     }
+                    else{
+                        this.setState({ finishError: 'Invoice Id is already exists' })
+                    }
                 })
                 .catch((error) => {
                     this.setState({ loaderImage: false });
@@ -700,7 +703,6 @@ const mapStateToProps = (state) => {
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
-    const { invoices } = state.Invoices;
     const { metadata } = state.OptionList;
     return {
         stateLanguageType,

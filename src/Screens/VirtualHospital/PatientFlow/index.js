@@ -57,7 +57,9 @@ class Index extends Component {
       errorMsg: '',
       StepService: {},
       StepNameList: [],
-      name: ''
+      name: '',
+      inOtherAlready: false,
+      alreadyData: {}
     };
   }
   static defaultProps = {
@@ -357,7 +359,7 @@ class Index extends Component {
     this.setState({ errorMsg: '' })
     var data = this.state.addp;
     if (data && !this.state.case.case_number) {
-      this.setState({ errorMsg: 'Please Enter Case Number' })
+      this.setState({ errorMsg: 'Please enter case number' })
     }
     else if (data && !this.state.step_name) {
       this.setState({ errorMsg: 'Please select step' })
@@ -367,6 +369,7 @@ class Index extends Component {
         this.props.stateLoginValueAim?.user?.institute_id?.length > 0
           ? this.props.stateLoginValueAim?.user?.institute_id[0]
           : "";
+      data.house_id = this.props?.House.value;
       this.setState({ loaderImage: true });
       axios
         .post(
@@ -415,17 +418,26 @@ class Index extends Component {
                   this.setDta(state);
                   this.CallApi();
                 } else {
-                  this.setState({ caseAlready: true, loaderImage: false });
-                  setTimeout(() => {
-                    this.setState({ caseAlready: false });
-                  }, 3000);
+                  this.setState({ caseAlready: true, loaderImage: false});
+                setTimeout(() => {
+                  this.setState({ caseAlready: false});
+                }, 3000);
                 }
               });
             this.setState({ loaderImage: false });
           } else {
-            this.setState({ idpinerror: true, loaderImage: false });
+            console.log('sdfdfsdf', responce.data);
+                  if(responce.data.data){
+                    console.log('11111',);
+                    this.setState({ inOtherAlready: true, loaderImage: false, alreadyData : responce.data.data});
+                  }
+                  else{
+                    console.log('22222',);
+
+                  this.setState({ idpinerror: true, loaderImage: false });
+                  }
             setTimeout(() => {
-              this.setState({ idpinerror: false });
+              this.setState({ idpinerror: false, inOtherAlready: false,  alreadyData: {} });
             }, 3000);
           }
         });
@@ -970,6 +982,12 @@ class Index extends Component {
                     Case Already exists in hospital
                   </div>
                 )}
+                {this.state.inOtherAlready && (
+                  <div className="err_message">
+                    Case Already exists in other hospital - <b>{this.state.alreadyData?.house?.house_name}</b> of Insititution - <b>{this.state.alreadyData?.institute_groups?.group_name}</b>
+                  </div>
+                )}
+                
                 {this.state.idpinerror && (
                   <div className="err_message">ID and PIN is not correct</div>
                 )}
