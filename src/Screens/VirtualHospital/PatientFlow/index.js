@@ -57,7 +57,8 @@ class Index extends Component {
       errorMsg: '',
       StepService: {},
       StepNameList: [],
-      name: ''
+      name: '',
+      stepError : ''
     };
   }
   static defaultProps = {
@@ -70,7 +71,7 @@ class Index extends Component {
   }
 
   handleClosePopup = () => {
-    this.setState({ openPopup: false })
+    this.setState({ openPopup: false , step_name: '', stepError : ''})
   }
 
   componentDidMount() {
@@ -242,12 +243,22 @@ class Index extends Component {
     this.setState({ step_name: e.target.value })
   }
   OnAdd = () => {
+    this.setState({stepError : ''})
+
     var state = this.state.actualData;
+    let allSteps = state && state.length > 0 && state.map((item) => {
+      return item && item.step_name.toLowerCase();
+    })
+    let check = allSteps.includes(this.state.step_name.toLowerCase())
+    if(check === false){
     state.push({ step_name: this.state.step_name, case_numbers: [] });
     this.setDta(state);
     this.CallApi();
     this.setState({ openPopup: false , step_name: ''})
-
+    }
+    else if(check === true){
+      this.setState({stepError : 'Step name already exist'})
+    }
   }
 
   //Set data according to package
@@ -658,7 +669,7 @@ class Index extends Component {
     if (e && e.length > 0) {
 
       var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
-        // console.log("specsMap", item);
+        
         if (item && item.length > 0) { }
         let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
           return item._id;
@@ -1051,6 +1062,7 @@ class Index extends Component {
                   </Grid>
                   <label>Add Step</label>
                 </Grid>
+                <p className='err_message'>{this.state.stepError}</p>
                 <Grid className="buttonStyle fltrInput">
                   <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
                     onChange={this.handleName} type="text" />
