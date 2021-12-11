@@ -687,8 +687,7 @@ class Index extends Component {
   //On Changing the specialty id
   onFieldChange2 = (e) => {
     this.setState({selectRoom : '', selectWard: ''})
-    let data = JSON.parse(localStorage.getItem("redux_localstorage_simple"));
-    let specialityList = data && data.Speciality && data.Speciality.speciality && data.Speciality.speciality.SPECIALITY.filter((item) =>{
+    let specialityList = this.props?.Speciality?.speciality?.SPECIALITY.filter((item) =>{
       return item && item._id == e.value;
     })
     let wardsFullData = specialityList && specialityList.length > 0 && specialityList[0].wards
@@ -826,7 +825,6 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <div className="err_message">{this.state.errorMsg}</div>
                     <Grid className="creatDetail">
                       <Grid className="creatInfoIner">
                         <Grid
@@ -1194,7 +1192,7 @@ class Index extends Component {
                               <Button onClick={(e) => this.handleComment()}>Add Comment</Button>
                             </Grid>
                           </Grid>}
-
+                          <div className="err_message">{this.state.errorMsg}</div>
                           <Grid item xs={12} md={12} className="saveTasks">
                             <a>
                               <Button onClick={() => this.handleTaskSubmit()}>

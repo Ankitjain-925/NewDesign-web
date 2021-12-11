@@ -493,7 +493,7 @@ p.regOnlog {
 /* Added By ANKITA */
 
 .err_message {
-    text-align: center;
+    text-align: center !important;
     color: red;
     font-weight: 600;
 }

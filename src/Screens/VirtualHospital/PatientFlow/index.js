@@ -1112,8 +1112,6 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { speciality } = state.Speciality;
-  // const {Doctorsetget} = state.Doctorset;
-  // const {catfil} = state.filterate;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -1122,8 +1120,6 @@ const mapStateToProps = (state) => {
     verifyCode,
     House,
     speciality
-    //   Doctorsetget,
-    //   catfil
   };
 };
 export default withRouter(

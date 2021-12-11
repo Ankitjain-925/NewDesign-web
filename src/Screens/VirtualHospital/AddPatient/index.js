@@ -8,7 +8,6 @@ import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { OptionList } from "Screens/Login/metadataaction";
-import QRCode from 'qrcode.react';
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import npmCountryList from 'react-select-country-list'
@@ -21,7 +20,6 @@ import * as PhillipinesC from 'Screens/Components/insuranceCompanies/phillippine
 import * as SwitzerlandC from 'Screens/Components/insuranceCompanies/switzerland.json';
 import * as AmericaC from 'Screens/Components/insuranceCompanies/us.json';
 import * as ThailandC from 'Screens/Components/insuranceCompanies/thailand.json';
-import Autocomplete from 'Screens/Components/Autocomplete/index';
 import { LanguageFetchReducer } from 'Screens/actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from 'Screens/Components/Loader/index';
@@ -131,6 +129,12 @@ class Index extends Component {
         // new Timer(this.logOutClick.bind(this)) 
     }
 
+    ScrolltoTop = () => {
+        window.scroll({
+            top: 0,
+            behavior: "smooth",
+          })
+    }
       //on recaptcha click
     onChangeRec = (value) => {
         this.setState({ recaptcha: value });
@@ -383,6 +387,7 @@ class Index extends Component {
                 } else {
                   var country_code = "de";
                 }
+                console.log('area')
                 if (this.state.recaptcha) {
                 var getBucket = contry?.length > 0 && contry.filter((value, key) =>value.code === country_code.toUpperCase());
                 var savedata = this.state.UpDataDetails;
@@ -393,8 +398,8 @@ class Index extends Component {
                 savedata.lan = this.props.stateLanguageType;
                 savedata.parent_id = parent_id;
                 savedata.insurance = datas;
-                savedata.area = this.state.area;
-                savedata.city = this.state.city;
+                // savedata.area = this.state.area;
+                // savedata.city = this.state.city;
                 savedata.emergency_contact_name = this.state.contact_partner.name;
                 savedata.emergency_relation = this.state.contact_partner.relation;
                 savedata.emergency_email = this.state.contact_partner.email;
@@ -425,12 +430,14 @@ class Index extends Component {
                         .then((res) => { });
                     
                     } else if (responce.data.message === "Phone is not verified") {
+                        this.ScrolltoTop();
                       this.setState({
                         successfull: false,
                         Mnotvalid: true,
                         alreadyerror: false,
                       });
                     } else {
+                        this.ScrolltoTop();
                       this.setState({
                         successfull: false,
                         alreadyerror: true,
@@ -443,18 +450,23 @@ class Index extends Component {
                 }
                 else {
                     this.setState({ regisError: "Please fill the RECAPTCHA" });
+                    this.ScrolltoTop();
                   }
               } else {
                 this.setState({ regisError: plz_fill_mob_number });
+                this.ScrolltoTop();
               }
             } else {
               this.setState({ regisError: pswd_not_valid });
+              this.ScrolltoTop();
             }
           } else {
             this.setState({ regisError: email_not_valid });
+            this.ScrolltoTop();
           }
         } else {
           this.setState({ regisError: plz_fill_fullname_user });
+          this.ScrolltoTop();
         }
         
     }
@@ -1005,28 +1017,29 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
 
-                            <Grid className="profileInfoIner">
+                            {/* <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
                                         <label>{street} {add}</label>
                                         <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
                                     </Grid>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
 
-                            <Grid className="profileInfoIner">
+                            {/* <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
                                         <label>{city}</label>
                                         <Grid>
-                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
+                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        
                                         </Grid>
+                                    </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>{postal_code}</label>
                                         <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
                                     </Grid>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
 
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
