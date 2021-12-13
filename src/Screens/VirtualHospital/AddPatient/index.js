@@ -398,8 +398,8 @@ class Index extends Component {
                 savedata.lan = this.props.stateLanguageType;
                 savedata.parent_id = parent_id;
                 savedata.insurance = datas;
-                // savedata.area = this.state.area;
-                // savedata.city = this.state.city;
+                savedata.area = this.state.area;
+                savedata.city = this.state.city;
                 savedata.emergency_contact_name = this.state.contact_partner.name;
                 savedata.emergency_relation = this.state.contact_partner.relation;
                 savedata.emergency_email = this.state.contact_partner.email;
