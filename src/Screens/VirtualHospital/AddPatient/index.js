@@ -355,7 +355,7 @@ class Index extends Component {
     var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(elementValue);
   };
-    //Save the User profile
+   //Save the User profile
     saveUserData = () => {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
@@ -387,8 +387,7 @@ class Index extends Component {
                 } else {
                   var country_code = "de";
                 }
-                console.log('area')
-                if (this.state.recaptcha) {
+              if (this.state.recaptcha) {
                 var getBucket = contry?.length > 0 && contry.filter((value, key) =>value.code === country_code.toUpperCase());
                 var savedata = this.state.UpDataDetails;
                 var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
@@ -398,8 +397,10 @@ class Index extends Component {
                 savedata.lan = this.props.stateLanguageType;
                 savedata.parent_id = parent_id;
                 savedata.insurance = datas;
+                if(this.state.city){
                 savedata.area = this.state.area;
                 savedata.city = this.state.city;
+                }
                 savedata.emergency_contact_name = this.state.contact_partner.name;
                 savedata.emergency_relation = this.state.contact_partner.relation;
                 savedata.emergency_email = this.state.contact_partner.email;
@@ -452,6 +453,9 @@ class Index extends Component {
                     this.setState({ regisError: "Please fill the RECAPTCHA" });
                     this.ScrolltoTop();
                   }
+                // }else {
+                //     this.setState({ regisError: "Please fill the city "});
+                // }
               } else {
                 this.setState({ regisError: plz_fill_mob_number });
                 this.ScrolltoTop();
