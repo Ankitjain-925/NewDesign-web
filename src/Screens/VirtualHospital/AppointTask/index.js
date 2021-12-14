@@ -74,37 +74,18 @@ class Index extends Component {
       appioinmentTimes: [],
       appioinmentEventList: [],
       taskEventList: [],
-      myEventsList:[],
+      myEventsList: [],
       openFil: false,
       specilaityList: [],
       check: {},
-      tabvalue: this.props.tabvalue || 0,
-      myEventsListCss: '',
-      appioinmentEventListCss: '',
-      taskEventListCss: '',
+      wardList: [],
+      setFilter: "All",
+      userFilter: '',
+      selectSpec2: '',
+      selectWard: '',
+      selectRoom: ''
     };
   }
-
-
-  componentDidUpdate = (prevProps) => {
-    if (
-      prevProps.tabvalue !== this.props.tabvalue ||
-      prevProps.myEventsList !== this.props.myEventsList ||
-      prevProps.appioinmentEventList !== this.props.appioinmentEventList ||
-      prevProps.taskEventList !== this.props.taskEventList    
-    ) {
-      this.setState({
-        tabvalue: this.props.tabvalue || 0,
-        myEventsList: this.props.myEventsList,
-        appioinmentEventList: this.props.appioinmentEventList,
-        taskEventList: this.props.taskEventList,
-      });
-    }
-    if (prevProps.patient !== this.props.patient) {
-      let user = { value: this.props.patient?.patient_id }
-      this.updateEntryState2(user);
-    }
-  };
 
   componentDidMount() {
     this.getTaskData();
@@ -114,11 +95,12 @@ class Index extends Component {
 
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
-    if (tabvalue == 0 || tabvalue == 2) {
-      this.setState({ showField: false })
-    }
-    else if (tabvalue == 1) {
-      this.setState({ showField: true })
+    if (tabvalue == 0) {
+      this.setState({ showField: false, setFilter: "All", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
+    } else if (tabvalue == 1) {
+      this.setState({ showField: true, setFilter: "Appointment", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
+    } else {
+      this.setState({ showField: false, setFilter: "Tasks", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
     }
   };
   handleChange = (selectedOption) => {
@@ -162,116 +144,123 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
-        console.log("response", response)
         if (response.data.hassuccessed) {
-          let indexout = 0;
-          let appioinmentTimes = [];
-          response.data.data &&
-            response.data.data.length > 0 &&
-            response.data.data.map((data, index) => {
-              if (data && data.task_name) {
-                if (data &&
-                  data?.due_on &&
-                  data?.due_on?.time &&
-                  data?.due_on?.date &&
-                  data?.task_name) {
-
-                  var datetime1 = new Date(data?.due_on?.time);
-                  var hours1 = datetime1.getHours()
-                  var minutes1 = datetime1.getMinutes()
-                  var hourminutes1 = hours1 + ":" + minutes1
-                  var t1 = hourminutes1.split(":")
-                  this.setState({ startTime: hourminutes1 })
-
-                  datetime1.setHours(datetime1.getHours() + 11);
-                  datetime1.setMinutes(datetime1.getMinutes() + 59);
-                  var hours2 = datetime1.getHours()
-                  var minutes2 = datetime1.getMinutes()
-                  var hourminutes2 = hours2 + ":" + minutes2
-                  var t2 = hourminutes2.split(":");
-
-                  var da1 = new Date(data?.due_on?.date);
-                  var da2 = new Date(data?.due_on?.date);
-                  if (t1 && t1.length > 0) {
-                    da1.setHours(t1[0])
-                    da1.setMinutes(t1[1])
-                  } else {
-                    da1.setHours("00");
-                    da1.setMinutes("00");
-                  }
-                  if (t2 && t2.length > 0) {
-                    da2.setHours(t2[0]);
-                    da2.setMinutes(t2[0]);
-                  } else {
-                    da2.setHours("00");
-                    da2.setMinutes("00");
-                  }
-                  this[`${indexout}_ref`] = React.createRef();
-                  appioinmentTimes.push({
-                    start: new Date(da1).valueOf(),
-                    end: new Date(da2).valueOf(),
-                  });
-                  var title = data?.task_name;
-                  taskdata.push({
-                    id: index,
-                    title: title,
-                    start: new Date(da1),
-                    end: new Date(da2),
-                    indexout: indexout,
-                    fulldata: [data],
-                  });
-                  indexout++;
-                  this.setState({ myEventsList: taskdata, taskEventList: taskdata, appioinmentTimes: appioinmentTimes, })
-                }
-              } else {
-                if (data.start_time) {
-                  var t1 = data.start_time.split(":");
-                }
-                if (data.end_time) {
-                  var t2 = data.end_time.split(":");
-                }
-                let da1 = new Date(data.date);
-                let da2 = new Date(data.date);
-                if (t1 && t1.length > 0) {
-                  da1.setHours(t1[0]);
-                  da1.setMinutes(t1[1]);
-                } else {
-                  da1.setHours("00");
-                  da1.setMinutes("00");
-                }
-                if (t2 && t2.length > 0) {
-                  da2.setHours(t2[0]);
-                  da2.setMinutes(t2[1]);
-                } else {
-                  da2.setHours("00");
-                  da2.setMinutes("00");
-                }
-                this[`${indexout}_ref`] = React.createRef();
-                appioinmentTimes.push({
-                  start: new Date(da1).valueOf(),
-                  end: new Date(da2).valueOf(),
-                });
-                appioinmentdata.push({
-                  id: index,
-                  title:
-                    data.patient_info.first_name +
-                    " " +
-                    data.patient_info.last_name,
-                  start: new Date(da1),
-                  end: new Date(da2),
-                  indexout: indexout,
-                  fulldata: [data],
-                });
-              }
-              indexout++;
-              this.setState({ myEventsList: [...this.state.myEventsList, ...appioinmentdata], appioinmentEventList: appioinmentdata, appioinmentTimes: appioinmentTimes, })
-            })
+          this.showDataCalendar(response)
         }
         setTimeout(() => {
           this.setState({ loaderImage: false });
         }, 3000);
       })
   };
+
+  showDataCalendar = (response) => {
+    let indexout = 0;
+    let appioinmentTimes = [];
+    var taskdata = [], appioinmentdata = [];
+    response.data && response.data.data &&
+      response.data.data.length > 0 &&
+      response.data.data.map((data, index) => {
+        if (data && data.task_name) {
+          this.setState({ loaderImage: true });
+          if (data &&
+            data?.due_on &&
+            data?.due_on?.time &&
+            data?.due_on?.date &&
+            data?.task_name) {
+
+            var datetime1 = new Date(data?.due_on?.time);
+            var hours1 = datetime1.getHours()
+            var minutes1 = datetime1.getMinutes()
+            var hourminutes1 = hours1 + ":" + minutes1
+            var t1 = hourminutes1.split(":")
+            this.setState({ startTime: hourminutes1 })
+
+            datetime1.setHours(datetime1.getHours() + 11);
+            datetime1.setMinutes(datetime1.getMinutes() + 59);
+            var hours2 = datetime1.getHours()
+            var minutes2 = datetime1.getMinutes()
+            var hourminutes2 = hours2 + ":" + minutes2
+            var t2 = hourminutes2.split(":");
+
+            var da1 = new Date(data?.due_on?.date);
+            var da2 = new Date(data?.due_on?.date);
+            if (t1 && t1.length > 0) {
+              da1.setHours(t1[0])
+              da1.setMinutes(t1[1])
+            } else {
+              da1.setHours("00");
+              da1.setMinutes("00");
+            }
+            if (t2 && t2.length > 0) {
+              da2.setHours(t2[0]);
+              da2.setMinutes(t2[0]);
+            } else {
+              da2.setHours("00");
+              da2.setMinutes("00");
+            }
+            this[`${indexout}_ref`] = React.createRef();
+            appioinmentTimes.push({
+              start: new Date(da1).valueOf(),
+              end: new Date(da2).valueOf(),
+            });
+            var title = data?.task_name;
+            taskdata.push({
+              id: index,
+              title: title,
+              start: new Date(da1),
+              end: new Date(da2),
+              indexout: indexout,
+              fulldata: [data],
+            });
+            indexout++;
+            this.setState({ myEventsList: taskdata, taskEventList: taskdata, appioinmentTimes: appioinmentTimes, })
+            this.setState({ loaderImage: true });
+          }
+        } else {
+          if (data.start_time) {
+            var t1 = data.start_time.split(":");
+          }
+          if (data.end_time) {
+            var t2 = data.end_time.split(":");
+          }
+          let da1 = new Date(data.date);
+          let da2 = new Date(data.date);
+          if (t1 && t1.length > 0) {
+            da1.setHours(t1[0]);
+            da1.setMinutes(t1[1]);
+          } else {
+            da1.setHours("00");
+            da1.setMinutes("00");
+          }
+          if (t2 && t2.length > 0) {
+            da2.setHours(t2[0]);
+            da2.setMinutes(t2[1]);
+          } else {
+            da2.setHours("00");
+            da2.setMinutes("00");
+          }
+          this[`${indexout}_ref`] = React.createRef();
+          appioinmentTimes.push({
+            start: new Date(da1).valueOf(),
+            end: new Date(da2).valueOf(),
+          });
+          appioinmentdata.push({
+            id: index,
+            title:
+              data.patient_info.first_name +
+              " " +
+              data.patient_info.last_name,
+            start: new Date(da1),
+            end: new Date(da2),
+            indexout: indexout,
+            fulldata: [data],
+          });
+        }
+        indexout++;
+        this.setState({ myEventsList: [...this.state.myEventsList, ...appioinmentdata], appioinmentEventList: appioinmentdata, appioinmentTimes: appioinmentTimes, })
+      })
+  }
+
 
   EventComponent = (data) => {
     return (
@@ -489,15 +478,10 @@ class Index extends Component {
   }
 
   updateUserFilter = (e) => {
+    console.log("userFilter", e)
     this.setState({ userFilter: e })
   }
 
-  //On Changing the specialty id
-  updateSpecFilter = (e) => {
-    this.setState({ specFilter: e })
-  }
-
-  //state change on add
   updateTaskFilter = (e) => {
     const state = this.state.check;
     state[e.target.name] = e.target.value == "true" ? true : false;
@@ -506,7 +490,6 @@ class Index extends Component {
 
   //Change the UserList
   onChange = (event) => {
-    console.log("event", event.target.value)
     const q = event.target.value.toLowerCase();
     this.setState({ q }, () => this.filterList());
   };
@@ -601,39 +584,83 @@ class Index extends Component {
     this.setState({ specilaityList: spec });
   };
 
-  
-  applyFilter = () => {
-    let { userFilter, specFilter, taskFilter, tabvalue } = this.state
-    let tasks = ''
-    if (tabvalue === 0) {
-      tasks = this.state.myEventsList
-    }
-    else if (tabvalue === 1) {
-      tasks = this.state.appioinmentEventList
-    }
-    else if (tabvalue === 2) {
-      tasks = this.state.taskEventList
-    }
-
-    let data = AppointFilter(userFilter, specFilter, taskFilter, tasks)
-
-    if (tabvalue === 0) {
-      this.setState({ myEventsList: data, myEventsListCss: 'filterApply' })
-    }
-    else if (tabvalue === 1) {
-      this.setState({ appioinmentEventList: data, appioinmentEventListCss: 'filterApply' })
-    }
-    else if (tabvalue === 2) {
-      this.setState({ taskEventList: data, taskEventCss: 'filterApply' })
-    }
-    this.handleCloseFil();
-
+  //On Changing the specialty id
+  onFieldChange2 = (e) => {
+    this.setState({ selectRoom: '', selectWard: '' })
+    let data = JSON.parse(localStorage.getItem("redux_localstorage_simple"));
+    let specialityList = data && data.Speciality && data.Speciality.speciality && data.Speciality.speciality.SPECIALITY.filter((item) => {
+      return item && item._id == e.value;
+    })
+    let wardsFullData = specialityList && specialityList.length > 0 && specialityList[0].wards
+    let wards_data = wardsFullData && wardsFullData.length > 0 && wardsFullData.map((item) => {
+      return { label: item.ward_name, value: item._id }
+    })
+    this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
   }
+
+  // ward Change
+  onWardChange = (e) => {
+    this.setState({ selectRoom: '' })
+    let { allWards } = this.state
+    let wardDetails = allWards && allWards.length > 0 && allWards.filter((item) => {
+      return item && item._id == e.value;
+    })
+    let roomsData = wardDetails && wardDetails.length > 0 && wardDetails[0].rooms
+    let rooms = roomsData && roomsData.length > 0 && roomsData.map((item) => {
+      return { label: item.room_name, value: item._id }
+    })
+    this.setState({ selectWard: e, roomList: rooms })
+  }
+
+  //room cahnge
+  onRoomChange = (e) => {
+    this.setState({ selectRoom: e })
+  }
+
+  applyFilter = () => {
+    let { selectSpec2, selectWard, selectRoom, userFilter, setFilter, check } = this.state
+    // console.log("selectSpec2", selectSpec2, "selectWard", selectWard, "selectRoom", selectRoom, "userFilter", userFilter, "setFilter", setFilter, "check", check)
+    var id = userFilter && userFilter?.length > 0 && userFilter.map((data) => { return data.value })
+    let done = check && check?.done && check.done == true ? 'done' : ''
+    let open = check && check?.open && check.open == true ? 'open' : ''
+    let status = [done, open]
+
+    var data = { house_id: this.props.House?.value, };
+    if (selectWard?.value) { data.ward_id = selectWard?.value }
+    if (selectRoom?.value) { data.room_id = selectRoom?.value }
+    if (setFilter) { data.filter = setFilter }
+    // if (status && status.length > 0) { data.status = status }
+    if (selectSpec2?.value) { data.speciality_id = selectSpec2?.value }
+    if (userFilter && userFilter.length > 0) { data.patient_id = userFilter && userFilter.length > 0 && userFilter.map((item) => { return item.value }) }
+    axios.post(
+      sitedata.data.path + "/vh/CalenderFilter",
+      data,
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          console.log("reponse", responce)
+          this.showDataCalendar(responce)
+          this.setState({ loaderImage: false, openFil: false });
+        }
+      })
+      .catch((error) => {
+        this.setState({ loaderImage: false });
+      });
+  }
+
+  clearFilter = () => {
+    this.setState({ loaderImage: true });
+    this.setState({ userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false });
+    this.getTaskData();
+    this.setState({ loaderImage: false });
+  }
+
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {} =
-          translate;
+    let { } =
+      translate;
     const { tabvalue, selectedOption, events, data } = this.state;
     const userList =
       this.state.filteredUsers &&
@@ -896,50 +923,86 @@ class Index extends Component {
                             <label>Speciality</label>
                             <Grid className="addInput">
                               <Select
-                                onChange={(e) => this.updateSpecFilter(e)}
+                                onChange={(e) => this.onFieldChange2(e)}
                                 options={this.state.specilaityList}
                                 name="specialty_name"
-                                value={this.state.specFilter}
+                                value={this.state.selectSpec2}
                                 placeholder="Filter by Speciality"
-                                isMulti={true}
+                                isMulti={false}
                                 isSearchable={true} />
                             </Grid>
                           </Grid>
 
+
+                          {this.state.wardList && this.state.wardList.length > 0 &&
+                            <Grid className="fltrInput">
+                              <label>Ward</label>
+                              <Grid className="addInput">
+                                <Select
+                                  onChange={(e) => this.onWardChange(e)}
+                                  options={this.state.wardList}
+                                  name="ward_name"
+                                  value={this.state.selectWard}
+                                  placeholder="Filter by Ward"
+                                  isMulti={false}
+                                  isSearchable={true} />
+                              </Grid>
+                            </Grid>
+                          }
+
+                          {this.state.roomList && this.state.roomList.length > 0 &&
+                            <Grid className="fltrInput">
+                              <label>Room</label>
+                              <Grid className="addInput">
+                                <Select
+                                  onChange={(e) => this.onRoomChange(e)}
+                                  options={this.state.roomList}
+                                  name="room_name"
+                                  value={this.state.selectRoom}
+                                  placeholder="Filter by Room"
+                                  isMulti={false}
+                                  isSearchable={true} />
+                              </Grid>
+                            </Grid>
+                          }
+
                           <Grid className="fltrInput">
                             <Grid><label>Task status:</label></Grid>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  name="open"
-                                  value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
-                                  color="#00ABAF"
-                                  checked={this.state.check.open}
-                                  onChange={(e) =>
-                                    this.updateTaskFilter(e)
-                                  }
-                                />
-                              }
-                              label="Open"
-                            />
-
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  name="done"
-                                  value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
-                                  color="#00ABAF"
-                                  checked={this.state.check.done}
-                                  onChange={(e) =>
-                                    this.updateTaskFilter(e)
-                                  }
-                                />
-                              }
-                              label="Done"
-                            />
+                            <Grid className="addInput">
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    name="open"
+                                    value={this.state.check && this.state.check.open && this.state.check.open == true ? true : false}
+                                    color="#00ABAF"
+                                    checked={this.state.check.open}
+                                    onChange={(e) =>
+                                      this.updateTaskFilter(e)
+                                    }
+                                  />
+                                }
+                                label="Open"
+                              />
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    name="done"
+                                    value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
+                                    color="#00ABAF"
+                                    checked={this.state.check.done}
+                                    onChange={(e) =>
+                                      this.updateTaskFilter(e)
+                                    }
+                                  />
+                                }
+                                label="Done"
+                              />
+                            </Grid>
 
                           </Grid>
                         </>)}
+
+
 
                       </Grid>
 
