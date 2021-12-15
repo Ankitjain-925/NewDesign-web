@@ -215,6 +215,7 @@ class Index extends Component {
             indexout++;
             this.setState({ myEventsList: taskdata, taskEventList: taskdata, appioinmentTimes: appioinmentTimes, })
             this.setState({ loaderImage: true });
+            this.handleCloseFil();
           }
         } else {
           if (data.start_time) {
@@ -258,6 +259,7 @@ class Index extends Component {
         }
         indexout++;
         this.setState({ myEventsList: [...this.state.myEventsList, ...appioinmentdata], appioinmentEventList: appioinmentdata, appioinmentTimes: appioinmentTimes, })
+        this.handleCloseFil();
       })
   }
 
@@ -629,7 +631,7 @@ class Index extends Component {
     if (selectWard?.value) { data.ward_id = selectWard?.value }
     if (selectRoom?.value) { data.room_id = selectRoom?.value }
     if (setFilter) { data.filter = setFilter }
-    // if (status && status.length > 0) { data.status = status }
+    if (status && status.length > 0) { data.status = status }
     if (selectSpec2?.value) { data.speciality_id = selectSpec2?.value }
     if (userFilter && userFilter.length > 0) { data.patient_id = userFilter && userFilter.length > 0 && userFilter.map((item) => { return item.value }) }
     axios.post(
