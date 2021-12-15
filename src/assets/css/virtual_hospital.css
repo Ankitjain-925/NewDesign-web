@@ -9789,6 +9789,10 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.addFlowIner, .addSpeclContnt {
+    height: 75vh;
+    overflow: auto;
+}
 .renameButton{
     background-color: #00ABAF !important;
     padding:12px;

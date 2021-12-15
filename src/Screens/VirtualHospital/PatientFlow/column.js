@@ -41,6 +41,7 @@ export default class Column extends Component {
   }
 
   onChange=(e)=>{
+    console.log('safdsa222222dfsdf')
     this.props.onChange(e)
   }
 
@@ -66,8 +67,9 @@ export default class Column extends Component {
                       forceNotifyByEnter={true}
                       forceNotifyOnBlur={true}
                       minLength={0}
-                      debounceTimeout={3000}
+                      debounceTimeout={2000}
                       onChange={e => this.onChange(e)}
+                      value={title}
                     />
                     </div>
                     : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title}</label>}

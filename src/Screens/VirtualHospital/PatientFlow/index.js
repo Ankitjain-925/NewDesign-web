@@ -59,7 +59,8 @@ class Index extends Component {
       StepNameList: [],
       name: '',
       inOtherAlready: false,
-      alreadyData: {}
+      alreadyData: {},
+      search: {}
     };
   }
   static defaultProps = {
@@ -84,11 +85,8 @@ class Index extends Component {
     );
     steps.then((data) => {
       var stepData = data ? data : [];
-      let stepValues = stepData && stepData.length > 0 && stepData.map((item) => {
-        return item && {label : item.step_name, value : item._id}
-      })
-      this.setState({StepNameList : stepValues})
       this.setDta(stepData);
+      this.GetStep();
     });
 
     var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
@@ -104,6 +102,14 @@ class Index extends Component {
     }
   }
 
+  GetStep = ()=>{
+    var state = this.state.actualData;
+    let allSteps = state && state.length > 0 && state.map((item) => {
+      return { label : item && item.step_name , vlaue: item && item._id }
+    })
+    this.setState({StepNameList: allSteps})
+  }
+  
   MovetoTask = (speciality, patient_id) => {
     this.props.history.push({
       pathname: '/virtualhospital/tasks',
@@ -118,7 +124,6 @@ class Index extends Component {
   //For calling the API
   CallApi = () => {
     var deep = _.cloneDeep(this.state.actualData);
-    // console.log("deep", deep)
     deep.map((item) => {
       item.case_numbers = item.case_numbers.map((element) => {
         if (element._id) {
@@ -233,33 +238,26 @@ class Index extends Component {
 
   //Add new step
   AddStep = () => {
-    var state = this.state.actualData;
-    // POpupOPen
     this.setState({ openPopup: true })
-    // textbox -> step_name: "Step" + (new Date()).getTime();
-
-    // step_name--
-    // state.push({ step_name: "Step" + (new Date()).getTime(), case_numbers: [] });
-
-    // this.setDta(state);
-    // this.CallApi();
   };
+
   handleName = (e) => {
     this.setState({ step_name: e.target.value })
   }
+
   OnAdd = () => {
     this.setState({stepError : ''})
-
     var state = this.state.actualData;
     let allSteps = state && state.length > 0 && state.map((item) => {
       return item && item.step_name.toLowerCase();
     })
-    let check = allSteps.includes(this.state.step_name.toLowerCase())
+    let check = allSteps?.length>0 && allSteps.includes(this.state.step_name.toLowerCase())
     if(check === false){
-    state.push({ step_name: this.state.step_name, case_numbers: [] });
-    this.setDta(state);
-    this.CallApi();
-    this.setState({ openPopup: false , step_name: ''})
+      state.push({ step_name: this.state.step_name, case_numbers: [] });
+      this.setDta(state);
+      this.CallApi();
+      this.GetStep();
+      this.setState({ openPopup: false , step_name: ''})
     }
     else if(check === true){
       this.setState({stepError : 'Step name already exist'})
@@ -288,6 +286,14 @@ class Index extends Component {
   closeAddP = () => {
     this.setState({ openAddP: false,SelectedStep: '' });
   };
+
+   // Set patient and status data
+   onFieldChange1 = (e, name) => {
+    const state = this.state.search;
+    state[name] = e && e.length>0 ? e.map((item) => {return item.value}) : []
+     this.setState({ selectedPat: e })
+    this.setState({ search: state });
+}
 
   //Delete the Step
   DeleteStep = (index) => {
@@ -321,8 +327,8 @@ class Index extends Component {
     else {
       this.DeleteStepOk(state, index)
     }
-
   };
+
   removestep2 = (index) => {
     var state = this.state.actualData;
     confirmAlert({
@@ -366,16 +372,18 @@ class Index extends Component {
     state.splice(index, 1);
     this.setDta(state);
     this.CallApi();
+    this.GetStep();
   }
 
   //On Add case
   AddCase = () => {
     this.setState({ errorMsg: '' })
     var data = this.state.addp;
+    console.log('sdfsdf11111',this.state.SelectedStep)
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please enter case number' })
     }
-    else if (data && !this.state.SelectedStep && this.state.SelectedStep.length < 0) {
+    else if (data && !this.state.SelectedStep) {
       this.setState({ errorMsg: 'Please select step' })
     }
     else {
@@ -499,13 +507,8 @@ class Index extends Component {
 
   //for selecting Step name
   onSelectingStep = (e) => {
+    console.log('dsfsdf', e);
     this.setState({SelectedStep : e})
-    // var NewData = this.state.actualData;
-    // // console.log("STATE", this.state.actualData);
-    // NewData.push(this.state.StepService)
-    // this.state.actualData.push({ label: this.state.step_name, value: this.state.SelectedStep })
-    // console.log("STATE", this.state.actualData);  
-
   }
 
   moveStep = (to, from, item) => {
@@ -594,9 +597,11 @@ class Index extends Component {
     );
     this.setState({ fullData: authorQuoteMap });
   }
+
   handleCloseFil = () => {
     this.setState({ openFil: false })
   }
+
   handleOpenFil = () => {
     this.setState({ openFil: true })
   }
@@ -628,11 +633,11 @@ class Index extends Component {
     }
   };
 
-  //Change the UserList
-  onChange = (event) => {
-    const q = event.target.value.toLowerCase();
-    this.setState({ q }, () => this.filterList());
-  };
+  // //Change the UserList
+  // onChange = (event) => {
+  //   const q = event.target.value.toLowerCase();
+  //   this.setState({ q }, () => this.filterList());
+  // };
 
   filterList = () => {
     let users = this.state.users1;
@@ -701,7 +706,6 @@ class Index extends Component {
       this.setState({ Allspeciality: specsMap })
     }
   }
-
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -817,15 +821,22 @@ class Index extends Component {
                                       <label>Patient</label>
 
                                       <Grid>
-                                        <input
+                                        {/* <input
                                           type="text"
                                           placeholder={"Search & Select"}
                                           value={this.state.q}
                                           onChange={this.onChange}
                                         />
-                                        <ul className={this.state.shown && "patientHint"}>
-                                          {userList}
-                                        </ul>
+                                        */}
+                                         <Select
+                                          name="patient"
+                                          options={this.state.users1}
+                                          placeholder="Search & Select"
+                                          onChange={(e) => this.onFieldChange1(e, "patient")}
+                                          value={this.state.selectedPat || ''}
+                                          className="addStafSelect"
+                                          isMulti={true}
+                                          isSearchable={true} />
                                       </Grid>
 
                                     </Grid>
@@ -834,12 +845,12 @@ class Index extends Component {
                                       <Grid className="addInput">
                                         <Select
                                           name="professional"
-                                          // onChange={(e) => this.updateEntryState4(e)}
                                           value={this.state.assignedTo2}
                                           options={this.state.professional_id_list}
                                           placeholder="Filter by Staff"
                                           isMulti={true}
                                           isSearchable={true}
+                                          onChange={(e) => this.onFieldChange1(e, "staff")}
                                         />
                                       </Grid>
                                     </Grid>
