@@ -32,6 +32,7 @@ import { PatientMoveFromHouse } from '../PatientFlow/data'
 import Modal from "@material-ui/core/Modal";
 import Select from "react-select";
 import { getPatientData } from 'Screens/Components/CommonApi/index';
+import { MultiFilter2 } from '../../Components/MultiFilter'
 
 function TabContainer(props) {
     return (
@@ -65,7 +66,13 @@ class Index extends Component {
             newTask: {},
             PatientList: [],
             PatientStatus: [],
-            SpecialityData: []
+            SpecialityData: [],
+            AllPatients: this.props.AllPatients,
+            AllSpecialities: this.props.AllSpecialities,
+            AllStatus: this.props.AllStatus,
+            AllPatientCss: '',
+            AllSpcialityCss: '',
+            AllStatusCss: ''
 
         }
     };
@@ -90,7 +97,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
         let patientList = response && response.patientArray && response.patientArray.length > 0 && response.patientArray.map((item) => {
-            return { label: item.first_name + " " + item.last_name, value: item.patient_id }
+            return { label: item.first_name + " " + item.last_name, value: item.profile_id }
         })
         this.setState({ PatientList: patientList })
 
@@ -168,35 +175,15 @@ class Index extends Component {
 
     // Apply Filter
     applyFilter = () => {
-        // let { userFilter, userFilter2, userFilter3, tabvalue } = this.state
-        // let bills = ''
-        // if (tabvalue === 0) {
-        //     tasks = this.props.AllTasks
-        // }
-        // else if (tabvalue === 1) {
-        //     tasks = this.props.DoneTask
-        // }
-        // else if (tabvalue === 2) {
-        //     tasks = this.props.OpenTask
-        // }
-        // else if (tabvalue === 3) {
-        //     tasks = this.props.ArchivedTasks
-        // }
-        // let data = MultiFilter(userFilter, assignedTo2, selectSpec2, tasks)
-
-        // if (tabvalue === 0) {
-        //     this.setState({ AllTasks: data, AllTaskCss: 'filterApply' })
-        // }
-        // else if (tabvalue === 1) {
-        //     this.setState({ DoneTask: data, DoneTaskCss: 'filterApply' })
-        // }
-        // else if (tabvalue === 2) {
-        //     this.setState({ OpenTask: data, OpenTaskCss: 'filterApply' })
-        // }
-        // else if (tabvalue === 3) {
-        //     this.setState({ ArchivedTasks: data, ArchivedTasksCss: 'filterApply' })
-        // }
-
+        // let fullData = this.state.bills_data
+        let { userFilter, userFilter3, userFilter2 } = this.state
+        let data = MultiFilter2(userFilter, userFilter3, userFilter2)
+        // console.log("ALL DATAAAA",userFilter, userFilter3, userFilter2)
+        console.log("DATA", data)
+        this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
+        this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
+        this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
+        // this.handleClosePopUp();
     }
 
     // Update status acc. to their particular id

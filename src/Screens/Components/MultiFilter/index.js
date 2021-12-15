@@ -1,7 +1,6 @@
 import { data } from "jquery"
 
 export const MultiFilter = (user, assignedTo, Speciality, fullData) => {
-    console.log("fullData", fullData)
     let fullarray = []
 
     const assignedToFunc = (array1) => {
@@ -77,7 +76,6 @@ export const MultiFilter = (user, assignedTo, Speciality, fullData) => {
 
 export const AppointFilter = (user, Speciality, Choosetask, fullData) => {
     console.log("user", user, "Speciality", Speciality, "Choosetask", Choosetask)
-    console.log("fullData", fullData)
 
     // const ChoosetaskFunc = (array1) => {
     //     let assignedToNew = []
@@ -148,3 +146,58 @@ export const AppointFilter = (user, Speciality, Choosetask, fullData) => {
     var findData = userFunc(fullData)
     return findData;
 }
+
+export const MultiFilter2 = (users, specialities, statusValue, fullData) => {
+    let user = users
+    let Speciality = specialities
+    let status = statusValue
+    
+    const statusFunc = (array1) => {
+        let stats = []
+        stats = stats.map((item) => {
+            return item?.value
+        })
+        let array2 = array1.filter((item) => {
+            stats.includes(item?.status?.label)
+        })
+        return array2;
+    }
+
+    // const SpecialityFunc = (array1) => {
+    //     // let SpecialityNew = []
+    //     // SpecialityNew = Speciality.map((item) => {
+    //     //     return item?.value
+    //     // })
+
+    //     // let array3 = array1.filter((item) => SpecialityNew.includes(item?.speciality?._id))
+    //     return array1;
+    // }
+    const userFunc = (status) => {
+        if (user && user.length > 0) {
+            let usersNew = []
+            usersNew = user.map((item) => {
+                return item?.value
+            })
+            var array1 = fullData.filter((item) => usersNew.includes(item?.patient?.profile_id))
+            if (status && status.length > 0) {
+                var status = statusFunc(array1)
+                return status;
+            }
+            else {
+                return array1;
+            }
+        }
+
+        else if (status && status.length > 0) {
+            var stat = statusFunc(fullData)
+            return stat;
+        }
+        else {
+            return fullData;
+        }
+    }
+    var findData = userFunc(fullData)
+    return findData;
+
+}
+
