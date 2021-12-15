@@ -151,7 +151,7 @@ export const MultiFilter2 = (users, specialities, statusValue, fullData) => {
     let user = users
     let Speciality = specialities
     let status = statusValue
-    
+
     const statusFunc = (array1) => {
         let stats = []
         stats = stats.map((item) => {
@@ -172,13 +172,14 @@ export const MultiFilter2 = (users, specialities, statusValue, fullData) => {
     //     // let array3 = array1.filter((item) => SpecialityNew.includes(item?.speciality?._id))
     //     return array1;
     // }
-    const userFunc = (status) => {
+    const userFunc = () => {
         if (user && user.length > 0) {
             let usersNew = []
             usersNew = user.map((item) => {
                 return item?.value
             })
-            var array1 = fullData.filter((item) => usersNew.includes(item?.patient?.profile_id))
+            var array1 = fullData.filter((item) =>
+                usersNew.includes(item?.patient?.profile_id))
             if (status && status.length > 0) {
                 var status = statusFunc(array1)
                 return status;

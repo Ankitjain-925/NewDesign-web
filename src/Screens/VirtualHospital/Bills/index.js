@@ -170,16 +170,19 @@ class Index extends Component {
 
     // Clear Filter
     clearFilter = () => {
-        this.setState({ userFilter: '', userFilter3: '', userFilter2: '', showPopup: false })
+        this.setState({
+            userFilter: '', userFilter3: '', userFilter2: '',
+            AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
+            AllStatus: this.props.AllStatus, showPopup: false
+        })
     }
 
     // Apply Filter
     applyFilter = () => {
-        // let fullData = this.state.bills_data
+        let fullData = this.state.AllBills
         let { userFilter, userFilter3, userFilter2 } = this.state
-        let data = MultiFilter2(userFilter, userFilter3, userFilter2)
-        // console.log("ALL DATAAAA",userFilter, userFilter3, userFilter2)
-        console.log("DATA", data)
+        let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
+        console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
         this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
         this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
         this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
