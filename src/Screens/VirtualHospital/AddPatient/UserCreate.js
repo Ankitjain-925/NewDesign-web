@@ -537,10 +537,10 @@ class Index extends Component {
                 axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
                     name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
                 },
-                commonCometHeader())
+                    commonCometHeader())
                     .then((res) => {
-                        var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-                     })
+                        var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
+                    })
             }
             else {
                 this.setState({ loaderImage: false });
@@ -593,7 +593,7 @@ class Index extends Component {
         if (e.target.value.length > 5 && e.target.value !== '') {
             this.setState({ loaderImage: true, toSmall: false });
             const user_token = this.props.stateLoginValueAim.token;
-            axios.get(sitedata.data.path + '/UserProfile/checkAlies?alies_id=' + e.target.value,  commonHeader(user_token)).then((responce) => {
+            axios.get(sitedata.data.path + '/UserProfile/checkAlies?alies_id=' + e.target.value, commonHeader(user_token)).then((responce) => {
                 if (responce.data.hassuccessed) { this.setState({ DuplicateAlies: true }) }
                 else { this.setState({ DuplicateAlies: false }) }
                 this.setState({ loaderImage: false });
@@ -898,546 +898,546 @@ class Index extends Component {
 
         return (
             <Grid
-        className={
-          this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
-            ? "homeBg homeBgDrk"
-            : "homeBg"
-        } >
-        <Grid className="homeBgIner">
-          <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={12}>
-              <Grid container direction="row">
-                {/* Website Menu */}
-                <LeftMenu isNotShow={true} currentPage="profile" />
-                <LeftMenuMobile isNotShow={true} currentPage="profile" />
-                {/* Website Mid Content */}
-                <Grid item xs={12} md={10} lg={8}>
-                  <Grid className="profilePkg ">
-                    <Grid className="profilePkgIner1">
-                      {/* Tabs  */}
-                      
-                    </Grid>
-                    <Grid className="profilePkgIner2">
-            <div>
-                {this.state.loaderImage && <Loader />}
-                <Grid className="profileMy">
-                    <Grid className="profileInfo">
-                        {this.state.copied && <div className="success_message">{info_copied}</div>}
-                        {this.state.succUpdate && <div className="success_message">{profile_updated}</div>}
-                        {this.state.error3 && <div className="err_message">{profile_not_updated}</div>}
-                        {this.state.phonevalidate && <div className="err_message">{mobile_number_not_valid}</div>}
-                        {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
-                        <h1>{profile} {information}</h1>
-                        <p>{profile_info}</p>
-                    </Grid>
-                </Grid>
-                <Grid className="profileId">
-                    <Grid container direction="row" alignItems="center">
-                        <Grid item xs={12} md={8}>
-                            <Grid className="profileIdLft">
-                                <Grid container direction="row" alignItems="center" spacing={1}>
-                                    <Grid item xs={12} md={7}>
-                                        <label>{profile} {ID}</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
-                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_id')} alt="" title="" /></a>
-                                        <a><img src={require('assets/images/qr-code.svg')} onClick={this.handleQrOpen} alt="" title="" /></a>
-                                    </Grid>
-                                    <Grid item xs={12} md={5}>
-                                        <label>{pin}</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
-                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        {/* QR Model setup */}
-                        <Modal
-                            open={this.state.qrOpen}
-                            onClose={this.handleQrClose}
-                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme qrBoxModel" : "qrBoxModel"}>
-                            <Grid className="qrBoxCntnt">
-                                <Grid className="qrCourse">
-                                    <Grid className="qrCloseBtn">
-                                        <a onClick={this.handleQrClose}>
-                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                        </a>
-                                    </Grid>
-                                    <Grid><label>{profile} {QR_code}</label></Grid>
-                                </Grid>
-                                <Grid className="qrCourseImg">
-                                    <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
-                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose} /></Grid>
-                                </Grid>
-                            </Grid>
-                        </Modal>
-                        {/* End of QR Model setup */}
-                        <Grid item xs={12} md={4}>
-                            <Grid className="profileIdRght">
-                                <a onClick={this.handlePinOpen}>{Change} {ID} / {pin}</a>
-                            </Grid>
-                        </Grid>
-                        {/* Change ID and Pin */}
-                        <Modal
-                            open={this.state.chngPinOpen}
-                            onClose={() => this.handlePinClose("chngPinOpen")}
-                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
+                className={
+                    this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "homeBg homeBgDrk"
+                        : "homeBg"
+                } >
+                <Grid className="homeBgIner">
+                    <Grid container direction="row" justify="center">
+                        <Grid item xs={12} md={12}>
+                            <Grid container direction="row">
+                                {/* Website Menu */}
+                                <LeftMenu isNotShow={true} currentPage="profile" />
+                                <LeftMenuMobile isNotShow={true} currentPage="profile" />
+                                {/* Website Mid Content */}
+                                <Grid item xs={12} md={10} lg={8}>
+                                    <Grid className="profilePkg ">
+                                        <Grid className="profilePkgIner1">
+                                            {/* Tabs  */}
 
-                            <Grid className="editBoxCntnt">
-                                <Grid className="editCourse">
-                                    <Grid className="editCloseBtn">
-                                        <a onClick={() => this.handlePinClose("chngPinOpen")}>
-                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                        </a>
-                                    </Grid>
-                                    <Grid><label>{edit} {ID} {and} {pin}</label></Grid>
-                                    <p>{edit_id_pin}</p>
-                                </Grid>
-                                <Grid className="editPinform">
-                                    <Grid className="editField">
-                                        <label>{profile} {ID}</label>
-                                        <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={this.state.UpDataDetails.alies_id} /></Grid>
-                                        {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
-                                        {this.state.toSmall && <p>{profile_id_greater_then_5}</p>}
-                                    </Grid>
-                                    <Grid className="editField">
-                                        <label>{pin}</label>
-                                        <Grid><input type="text" name="pin" onChange={this.changePin} value={this.state.UpDataDetails.pin} /></Grid>
-                                        {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
-                                    </Grid>
-                                    <Grid>
-                                        <input type="submit" onClick={this.ChangeIDPIN} value={save_change} />
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Modal>
-                        {/* End of Change ID and Pin */}
-                    </Grid>
-                </Grid>
-
-                <Grid container direction="row" alignItems="center">
-                    <Grid item xs={12} md={8}>
-                        <Grid className="profileInfo">
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={12}>
-                                        <label>{email}</label>
-                                        <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} disabled /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-
-                            <Grid className="profileInfoIner titleDegre">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={3}>
-                                        <label>{title} / {degree}</label>
-                                        <Grid>
-                                            <Select
-                                                value={this.state.title}
-                                                onChange={(e) => this.onSelectDegree(e)}
-                                                options={this.state.title_degreeData}
-                                                placeholder="Mr."
-                                                name="title"
-                                                isSearchable={false}
-                                                className="mr_sel"
-
-                                            />
                                         </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <label>{first} {name}</label>
-                                        <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name} onChange={this.updateEntryState} /></Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <label>{last} {name}</label>
-                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name} /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                                        <Grid className="profilePkgIner2">
+                                            <div>
+                                                {this.state.loaderImage && <Loader />}
+                                                <Grid className="profileMy">
+                                                    <Grid className="profileInfo">
+                                                        {this.state.copied && <div className="success_message">{info_copied}</div>}
+                                                        {this.state.succUpdate && <div className="success_message">{profile_updated}</div>}
+                                                        {this.state.error3 && <div className="err_message">{profile_not_updated}</div>}
+                                                        {this.state.phonevalidate && <div className="err_message">{mobile_number_not_valid}</div>}
+                                                        {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
+                                                        <h1>{profile} {information}</h1>
+                                                        <p>{profile_info}</p>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="profileId">
+                                                    <Grid container direction="row" alignItems="center">
+                                                        <Grid item xs={12} md={8}>
+                                                            <Grid className="profileIdLft">
+                                                                <Grid container direction="row" alignItems="center" spacing={1}>
+                                                                    <Grid item xs={12} md={7}>
+                                                                        <label>{profile} {ID}</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
+                                                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_id')} alt="" title="" /></a>
+                                                                        <a><img src={require('assets/images/qr-code.svg')} onClick={this.handleQrOpen} alt="" title="" /></a>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={5}>
+                                                                        <label>{pin}</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
+                                                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* QR Model setup */}
+                                                        <Modal
+                                                            open={this.state.qrOpen}
+                                                            onClose={this.handleQrClose}
+                                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme qrBoxModel" : "qrBoxModel"}>
+                                                            <Grid className="qrBoxCntnt">
+                                                                <Grid className="qrCourse">
+                                                                    <Grid className="qrCloseBtn">
+                                                                        <a onClick={this.handleQrClose}>
+                                                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
+                                                                        </a>
+                                                                    </Grid>
+                                                                    <Grid><label>{profile} {QR_code}</label></Grid>
+                                                                </Grid>
+                                                                <Grid className="qrCourseImg">
+                                                                    <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
+                                                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose} /></Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Modal>
+                                                        {/* End of QR Model setup */}
+                                                        <Grid item xs={12} md={4}>
+                                                            <Grid className="profileIdRght">
+                                                                <a onClick={this.handlePinOpen}>{Change} {ID} / {pin}</a>
+                                                            </Grid>
+                                                        </Grid>
+                                                        {/* Change ID and Pin */}
+                                                        <Modal
+                                                            open={this.state.chngPinOpen}
+                                                            onClose={() => this.handlePinClose("chngPinOpen")}
+                                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
 
-                            <Grid className="profileInfoDate">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={4}>
-                                        <label>{dob}</label>
-                                        <Grid>
-                                            {/* <DatePicker
+                                                            <Grid className="editBoxCntnt">
+                                                                <Grid className="editCourse">
+                                                                    <Grid className="editCloseBtn">
+                                                                        <a onClick={() => this.handlePinClose("chngPinOpen")}>
+                                                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
+                                                                        </a>
+                                                                    </Grid>
+                                                                    <Grid><label>{edit} {ID} {and} {pin}</label></Grid>
+                                                                    <p>{edit_id_pin}</p>
+                                                                </Grid>
+                                                                <Grid className="editPinform">
+                                                                    <Grid className="editField">
+                                                                        <label>{profile} {ID}</label>
+                                                                        <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={this.state.UpDataDetails.alies_id} /></Grid>
+                                                                        {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
+                                                                        {this.state.toSmall && <p>{profile_id_greater_then_5}</p>}
+                                                                    </Grid>
+                                                                    <Grid className="editField">
+                                                                        <label>{pin}</label>
+                                                                        <Grid><input type="text" name="pin" onChange={this.changePin} value={this.state.UpDataDetails.pin} /></Grid>
+                                                                        {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
+                                                                    </Grid>
+                                                                    <Grid>
+                                                                        <input type="submit" onClick={this.ChangeIDPIN} value={save_change} />
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Modal>
+                                                        {/* End of Change ID and Pin */}
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container direction="row" alignItems="center">
+                                                    <Grid item xs={12} md={8}>
+                                                        <Grid className="profileInfo">
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={12}>
+                                                                        <label>{email}</label>
+                                                                        <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} disabled /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid className="profileInfoIner titleDegre">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={3}>
+                                                                        <label>{title} / {degree}</label>
+                                                                        <Grid>
+                                                                            <Select
+                                                                                value={this.state.title}
+                                                                                onChange={(e) => this.onSelectDegree(e)}
+                                                                                options={this.state.title_degreeData}
+                                                                                placeholder="Mr."
+                                                                                name="title"
+                                                                                isSearchable={false}
+                                                                                className="mr_sel"
+
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{first} {name}</label>
+                                                                        <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name} onChange={this.updateEntryState} /></Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{last} {name}</label>
+                                                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name} /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid className="profileInfoDate">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{dob}</label>
+                                                                        <Grid>
+                                                                            {/* <DatePicker
                                                 name="birthday"
                                                 value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
                                                 onChange={this.onChange}
                                             /> */}
-                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{gender}</label>
-                                        <Grid>
-                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>{male}</a>
-                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>{female}</a>
-                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'other' && "SelectedGender"}> {other}</a>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                                                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{gender}</label>
+                                                                        <Grid>
+                                                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>{male}</a>
+                                                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>{female}</a>
+                                                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'other' && "SelectedGender"}> {other}</a>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{marital_status}</label>
-                                        <Grid>
-                                            <Select
-                                                placeholder={select_marital_status}
-                                                options={this.state.AllMaritalOption}
-                                                value={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel1(
-                                                    this.state.handleMaritalStatus,
-                                                    this.state.UpDataDetails.marital_status.value,
-                                                    this.props.stateLanguageType
-                                                )}
-                                                // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
-                                                onChange={this.handleMaritalStatus} />
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{marital_status}</label>
+                                                                        <Grid>
+                                                                            <Select
+                                                                                placeholder={select_marital_status}
+                                                                                options={this.state.AllMaritalOption}
+                                                                                value={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel1(
+                                                                                    this.state.handleMaritalStatus,
+                                                                                    this.state.UpDataDetails.marital_status.value,
+                                                                                    this.props.stateLanguageType
+                                                                                )}
+                                                                                // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
+                                                                                onChange={this.handleMaritalStatus} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{street} {add}</label>
-                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{street} {add}</label>
+                                                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{city}</label>
-                                        <Grid>
-                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
-                                        </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <label>{postal_code}</label>
-                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{city}</label>
+                                                                        <Grid>
+                                                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{postal_code}</label>
+                                                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{country}</label>
-                                        <Grid>
-                                            <Select
-                                                value={this.state.UpDataDetails.country}
-                                                onChange={(e) => this.EntryValueName(e, 'country')}
-                                                options={this.state.selectCountry}
-                                                placeholder=""
-                                                isSearchable={true}
-                                                name="country"
-                                                className="cntryDrop"
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}></Grid>
-                                    <Grid className="clear"></Grid>
-                                </Grid>
-                            </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{country}</label>
+                                                                        <Grid>
+                                                                            <Select
+                                                                                value={this.state.UpDataDetails.country}
+                                                                                onChange={(e) => this.EntryValueName(e, 'country')}
+                                                                                options={this.state.selectCountry}
+                                                                                placeholder=""
+                                                                                isSearchable={true}
+                                                                                name="country"
+                                                                                className="cntryDrop"
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}></Grid>
+                                                                    <Grid className="clear"></Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{home_telephone}</label>
-                                        <Grid>
-                                            {this.updateFLAG(this.state.UpDataDetails.phone) && this.updateFLAG(this.state.UpDataDetails.phone) !== '' &&
-                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
-                                                <input type="text"
-                                                    className="Mobile_extra"
-                                                    placeholder={phone}
-                                                    name="phone"
-                                                    onChange={this.updateEntryState1}
-                                                    value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone)}
-                                                />
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}></Grid>
-                                    <Grid className="clear"></Grid>
-                                </Grid>
-                            </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{home_telephone}</label>
+                                                                        <Grid>
+                                                                            {this.updateFLAG(this.state.UpDataDetails.phone) && this.updateFLAG(this.state.UpDataDetails.phone) !== '' &&
+                                                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
+                                                                            <input type="text"
+                                                                                className="Mobile_extra"
+                                                                                placeholder={phone}
+                                                                                name="phone"
+                                                                                onChange={this.updateEntryState1}
+                                                                                value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone)}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}></Grid>
+                                                                    <Grid className="clear"></Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{mobile_number}</label>
-                                        <Grid>
-                                            {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
-                                                <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
-                                                <input type="text"
-                                                    className="Mobile_extra"
-                                                    placeholder={mobile}
-                                                    name="mobile"
-                                                    type="text"
-                                                    onChange={this.updateEntryState1}
-                                                    value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile)}
-                                                />
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}></Grid>
-                                    <Grid className="clear"></Grid>
-                                </Grid>
-                            </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{mobile_number}</label>
+                                                                        <Grid>
+                                                                            {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
+                                                                                <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
+                                                                            <input type="text"
+                                                                                className="Mobile_extra"
+                                                                                placeholder={mobile}
+                                                                                name="mobile"
+                                                                                type="text"
+                                                                                onChange={this.updateEntryState1}
+                                                                                value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile)}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}></Grid>
+                                                                    <Grid className="clear"></Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{Languages} {spoken}</label>
-                                        <Grid>
-                                            <Select
-                                                value={this.state.name_multi}
-                                                name="languages"
-                                                closeMenuOnSelect={false}
-                                                onChange={(e) => { this.handleChange_multi(e, 'languages') }}
-                                                options={this.state.languageData}
-                                                placeholder=""
-                                                isSearchable={true}
-                                                className="profile-language"
-                                                isMulti={true}
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}></Grid>
-                                    <Grid className="clear"></Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={4}>
-                                        <label>{Blood}</label>
-                                        <Grid>
-                                            <Select
-                                                value={this.state.bloods}
-                                                name="bloodgroup"
-                                                onChange={(e) => { this.onSelectBlood(e, 'bloodgroup') }}
-                                                options={this.state.bloodgroup}
-                                                placeholder=""
-                                                isSearchable={false}
-                                                className="profile-language"
-                                            />
-                                        </Grid>
-                                    </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{Languages} {spoken}</label>
+                                                                        <Grid>
+                                                                            <Select
+                                                                                value={this.state.name_multi}
+                                                                                name="languages"
+                                                                                closeMenuOnSelect={false}
+                                                                                onChange={(e) => { this.handleChange_multi(e, 'languages') }}
+                                                                                options={this.state.languageData}
+                                                                                placeholder=""
+                                                                                isSearchable={true}
+                                                                                className="profile-language"
+                                                                                isMulti={true}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}></Grid>
+                                                                    <Grid className="clear"></Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{Blood}</label>
+                                                                        <Grid>
+                                                                            <Select
+                                                                                value={this.state.bloods}
+                                                                                name="bloodgroup"
+                                                                                onChange={(e) => { this.onSelectBlood(e, 'bloodgroup') }}
+                                                                                options={this.state.bloodgroup}
+                                                                                placeholder=""
+                                                                                isSearchable={false}
+                                                                                className="profile-language"
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
 
-                                    <Grid item xs={12} md={4}>
-                                        <label>{Rhesus}</label>
-                                        <Grid>
-                                            <Select
-                                                value={this.state.rhesus}
-                                                name="rhesus"
-                                                onChange={(e) => { this.onSelectRshesus(e, 'rhesus') }}
-                                                options={this.state.rhesusgroup}
-                                                placeholder=""
-                                                isSearchable={false}
-                                                className="profile-language"
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}></Grid>
-                                    <Grid className="clear"></Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={4}></Grid>
-                    <Grid className="clear"></Grid>
-                </Grid>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{Rhesus}</label>
+                                                                        <Grid>
+                                                                            <Select
+                                                                                value={this.state.rhesus}
+                                                                                name="rhesus"
+                                                                                onChange={(e) => { this.onSelectRshesus(e, 'rhesus') }}
+                                                                                options={this.state.rhesusgroup}
+                                                                                placeholder=""
+                                                                                isSearchable={false}
+                                                                                className="profile-language"
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}></Grid>
+                                                                    <Grid className="clear"></Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={4}></Grid>
+                                                    <Grid className="clear"></Grid>
+                                                </Grid>
 
-                <Grid>
+                                                <Grid>
 
-                    <Grid className="insrnceTbl"><h3>{emergency} {Contact}</h3></Grid>
-                    <Grid className="emrgncyFrmInpt">
-                        <Grid><label>{Register_Name}</label></Grid>
-                        <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
-                    </Grid>
-                    <Grid className="emrgncyFrmInpt">
-                        <Grid><label>{relation}</label></Grid>
-                        <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
-                    </Grid>
-                    <Grid className="emrgncyFrmInpt">
-                        <Grid><label>{telephone_nmbr}</label></Grid>
-                        <Grid>
-                            {/* <PhoneInput
+                                                    <Grid className="insrnceTbl"><h3>{emergency} {Contact}</h3></Grid>
+                                                    <Grid className="emrgncyFrmInpt">
+                                                        <Grid><label>{Register_Name}</label></Grid>
+                                                        <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
+                                                    </Grid>
+                                                    <Grid className="emrgncyFrmInpt">
+                                                        <Grid><label>{relation}</label></Grid>
+                                                        <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
+                                                    </Grid>
+                                                    <Grid className="emrgncyFrmInpt">
+                                                        <Grid><label>{telephone_nmbr}</label></Grid>
+                                                        <Grid>
+                                                            {/* <PhoneInput
                             country={'us'}
                             value={this.state.phone}
                             onChange={phone => this.setState({ phone })}
                         /> */}
-                            {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
-                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_emergency_number') }} name="flag_emergency_number" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
-                            <input type="text"
-                                className="Mobile_extra Emergency_number"
-                                placeholder={phone}
-                                onChange={this.updateEntryState11}
-                                value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number)}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid className="emrgncyFrmInpt">
-                        <Grid><label>{email}</label></Grid>
-                        <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
-                    </Grid>
-                </Grid>
-                <Grid className="insrnceTbl">
-                    <Grid><h3>{insurance}</h3></Grid>
-                    <Grid className="profileIdRght">
-                        <a onClick={this.handleAddInsurance}>{Addcompany}</a>
-                    </Grid>
-                    {/* Add more insurance model Open */}
-                    <Modal
-                        open={this.state.addInsuranceOpen}
-                        onClose={() => this.handlePinClose("addInsuranceOpen")}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
-                        <Grid className="editBoxCntnt">
-                            <Grid className="editCourse">
-                                <Grid className="editCloseBtn">
-                                    <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
-                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                    </a>
-                                </Grid>
-                                <Grid><label>{add_more} {insurance}</label></Grid>
-                            </Grid>
-                            <Grid className="editPinform">
-                                <Grid className="editField">
-                                    {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
-                                    {this.state.insu1 && <div className="err_message">{InsurancecompanyError}</div>}
-                                    <label>{country} {of} {insurance}</label>
-                                    <Grid>
-                                        <Select
-                                            onChange={this.selectCountry}
-                                            options={this.state.selectCountry}
-                                            placeholder=""
-                                            isSearchable={true}
-                                            name="insurance_country"
-                                            className="cntryDrop"
-                                        />
+                                                            {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
+                                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_emergency_number') }} name="flag_emergency_number" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
+                                                            <input type="text"
+                                                                className="Mobile_extra Emergency_number"
+                                                                placeholder={phone}
+                                                                onChange={this.updateEntryState11}
+                                                                value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number)}
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="emrgncyFrmInpt">
+                                                        <Grid><label>{email}</label></Grid>
+                                                        <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="insrnceTbl">
+                                                    <Grid><h3>{insurance}</h3></Grid>
+                                                    <Grid className="profileIdRght">
+                                                        <a onClick={this.handleAddInsurance}>{Addcompany}</a>
+                                                    </Grid>
+                                                    {/* Add more insurance model Open */}
+                                                    <Modal
+                                                        open={this.state.addInsuranceOpen}
+                                                        onClose={() => this.handlePinClose("addInsuranceOpen")}
+                                                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
+                                                        <Grid className="editBoxCntnt">
+                                                            <Grid className="editCourse">
+                                                                <Grid className="editCloseBtn">
+                                                                    <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
+                                                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
+                                                                    </a>
+                                                                </Grid>
+                                                                <Grid><label>{add_more} {insurance}</label></Grid>
+                                                            </Grid>
+                                                            <Grid className="editPinform">
+                                                                <Grid className="editField">
+                                                                    {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
+                                                                    {this.state.insu1 && <div className="err_message">{InsurancecompanyError}</div>}
+                                                                    <label>{country} {of} {insurance}</label>
+                                                                    <Grid>
+                                                                        <Select
+                                                                            onChange={this.selectCountry}
+                                                                            options={this.state.selectCountry}
+                                                                            placeholder=""
+                                                                            isSearchable={true}
+                                                                            name="insurance_country"
+                                                                            className="cntryDrop"
+                                                                        />
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="editField">
+                                                                    <label>{insurance} {company}</label>
+                                                                    <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance) && insuranceDetails.insurance} onChange={this.insuranceForm} /></Grid>
+                                                                    <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
+                                                                        {companyList}
+                                                                    </ul>
+                                                                </Grid>
+
+                                                                <Grid className="editField">
+                                                                    <label>{insurance} {number}</label>
+                                                                    <Grid><input type="text" name="insurance_number" onChange={(e) => this.insuranceForm(e)} /></Grid>
+                                                                </Grid>
+                                                                <Grid>
+                                                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Modal>
+                                                    {/* Add more insurance model Close */}
+                                                    <Table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{country} {of} {insurance}</th>
+                                                                <th>{insurance} {company}</th>
+                                                                <th>{insurance} {number}</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {insurancefull && insurancefull.length > 0 && insurancefull.map((insu, i) => (
+                                                                <tr>
+                                                                    <td>{this.filterCountry(insu.insurance_country)}</td>
+                                                                    <td>{insu.insurance}</td>
+                                                                    <td>{insu.insurance_number}</td>
+                                                                    <td className="presEditDot scndOptionIner pivoted"><a className="openScndhrf">
+                                                                        <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
+                                                                        <ul>
+                                                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('assets/images/edit.svg')} alt="" title="" />{edit}</a></li>
+                                                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('assets/images/close-search.svg')} alt="" title="" />{Delete}</a></li>
+                                                                        </ul>
+                                                                    </a></td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </Table>
+                                                    {/* Edit insurance model OPen */}
+                                                    <Modal
+                                                        open={this.state.editInsuranceOpen}
+                                                        onClose={() => this.handlePinClose("editInsuranceOpen")}
+                                                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
+                                                        <Grid className="editBoxCntnt">
+                                                            <Grid className="editCourse">
+                                                                <Grid className="editCloseBtn">
+                                                                    <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
+                                                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
+                                                                    </a>
+                                                                </Grid>
+                                                                <Grid><label>{edit} {insurance}</label></Grid>
+                                                            </Grid>
+                                                            <Grid className="editPinform">
+                                                                <Grid className="editField">
+                                                                    {this.state.insu1 && <div className="err_message">{InsurancecompanyError}</div>}
+                                                                    {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
+                                                                    <label>{country} {of} {insurance}</label>
+                                                                    <Grid>
+                                                                        <Select
+                                                                            value={datas && datas[editIndex] && datas[editIndex].insurance_country ? this.filterCountry1(datas[editIndex] && datas[editIndex].insurance_country) : ''}
+                                                                            onChange={(event) => this.updatesinsurancesCountry(editIndex, event)}
+                                                                            options={this.state.selectCountry}
+                                                                            placeholder=""
+                                                                            isSearchable={true}
+                                                                            name="insurance_country"
+                                                                            className="cntryDrop"
+                                                                        />
+                                                                    </Grid>
+                                                                </Grid>
+
+                                                                <Grid className="editField">
+                                                                    <label>{insurance} {company}</label>
+                                                                    <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
+                                                                    <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
+                                                                        {companyList}
+                                                                    </ul>
+                                                                </Grid>
+
+                                                                <Grid className="editField">
+                                                                    <label>{insurance} {number}</label>
+                                                                    <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
+                                                                </Grid>
+                                                                <Grid>
+                                                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Modal>
+                                                    {/* Edit insurance Model close */}
+                                                </Grid>
+
+                                                <Grid className="infoSub">
+                                                    <Grid container direction="row" alignItems="center" spacing={2}>
+                                                        <Grid item xs={12} md={5}>
+                                                            <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={7}></Grid>
+                                                        <Grid className="clear"></Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </div>
+                                        </Grid>
+                                        {/* End of Tabs */}
                                     </Grid>
                                 </Grid>
-                                <Grid className="editField">
-                                    <label>{insurance} {company}</label>
-                                    <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance) && insuranceDetails.insurance} onChange={this.insuranceForm} /></Grid>
-                                    <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
-                                        {companyList}
-                                    </ul>
-                                </Grid>
-
-                                <Grid className="editField">
-                                    <label>{insurance} {number}</label>
-                                    <Grid><input type="text" name="insurance_number" onChange={(e) => this.insuranceForm(e)} /></Grid>
-                                </Grid>
-                                <Grid>
-                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
-                                </Grid>
+                                {/* Website Right Content */}
+                                <Grid item xs={12} md={3}></Grid>
+                                {/* End of Website Right Content */}
                             </Grid>
                         </Grid>
-                    </Modal>
-                    {/* Add more insurance model Close */}
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>{country} {of} {insurance}</th>
-                                <th>{insurance} {company}</th>
-                                <th>{insurance} {number}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {insurancefull && insurancefull.length > 0 && insurancefull.map((insu, i) => (
-                                <tr>
-                                    <td>{this.filterCountry(insu.insurance_country)}</td>
-                                    <td>{insu.insurance}</td>
-                                    <td>{insu.insurance_number}</td>
-                                    <td className="presEditDot scndOptionIner pivoted"><a className="openScndhrf">
-                                        <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
-                                        <ul>
-                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('assets/images/edit.svg')} alt="" title="" />{edit}</a></li>
-                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('assets/images/close-search.svg')} alt="" title="" />{Delete}</a></li>
-                                        </ul>
-                                    </a></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                    {/* Edit insurance model OPen */}
-                    <Modal
-                        open={this.state.editInsuranceOpen}
-                        onClose={() => this.handlePinClose("editInsuranceOpen")}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
-                        <Grid className="editBoxCntnt">
-                            <Grid className="editCourse">
-                                <Grid className="editCloseBtn">
-                                    <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
-                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                    </a>
-                                </Grid>
-                                <Grid><label>{edit} {insurance}</label></Grid>
-                            </Grid>
-                            <Grid className="editPinform">
-                                <Grid className="editField">
-                                    {this.state.insu1 && <div className="err_message">{InsurancecompanyError}</div>}
-                                    {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
-                                    <label>{country} {of} {insurance}</label>
-                                    <Grid>
-                                        <Select
-                                            value={datas && datas[editIndex] && datas[editIndex].insurance_country ? this.filterCountry1(datas[editIndex] && datas[editIndex].insurance_country) : ''}
-                                            onChange={(event) => this.updatesinsurancesCountry(editIndex, event)}
-                                            options={this.state.selectCountry}
-                                            placeholder=""
-                                            isSearchable={true}
-                                            name="insurance_country"
-                                            className="cntryDrop"
-                                        />
-                                    </Grid>
-                                </Grid>
-
-                                <Grid className="editField">
-                                    <label>{insurance} {company}</label>
-                                    <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
-                                    <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
-                                        {companyList}
-                                    </ul>
-                                </Grid>
-
-                                <Grid className="editField">
-                                    <label>{insurance} {number}</label>
-                                    <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
-                                </Grid>
-                                <Grid>
-                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Modal>
-                    {/* Edit insurance Model close */}
-                </Grid>
-
-                <Grid className="infoSub">
-                    <Grid container direction="row" alignItems="center" spacing={2}>
-                        <Grid item xs={12} md={5}>
-                            <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
-                        </Grid>
-                        <Grid item xs={12} md={7}></Grid>
-                        <Grid className="clear"></Grid>
                     </Grid>
                 </Grid>
-            </div>
             </Grid>
-                    {/* End of Tabs */}
-                  </Grid>
-                </Grid>
-                {/* Website Right Content */}
-                <Grid item xs={12} md={3}></Grid>
-                {/* End of Website Right Content */}
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
         );
     }
 }

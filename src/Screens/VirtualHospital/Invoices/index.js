@@ -28,7 +28,7 @@ import { getPatientData } from "Screens/Components/CommonApi/index";
 import { PatientMoveFromHouse } from "../PatientFlow/data";
 import {
     getLanguage
-  } from "translations/index";
+} from "translations/index";
 
 
 const customStyles = {
@@ -311,34 +311,34 @@ class Index extends Component {
         // });
         // }
         // else {
-            data.house_id = this.props?.House?.value;
-            data.services = this.state.items
-            data.created_at = new Date();
+        data.house_id = this.props?.House?.value;
+        data.services = this.state.items
+        data.created_at = new Date();
 
-            if (!data.invoice_id) {
-                this.setState({ finishError: "Invoice Id can't be empty" })
-            }
-            else if (!data.patient || (data.patient && data.patient.length < 1)) {
-                this.setState({ finishError: "Please select patient" })
-            }
-            else if (!data.services || (data.services.length < 1)) {
+        if (!data.invoice_id) {
+            this.setState({ finishError: "Invoice Id can't be empty" })
+        }
+        else if (!data.patient || (data.patient && data.patient.length < 1)) {
+            this.setState({ finishError: "Please select patient" })
+        }
+        else if (!data.services || (data.services.length < 1)) {
 
-                this.setState({ finishError: "Please add atleast one service" })
-            }
-            else {
-                this.setState({ loaderImage: true });
-                axios.post(
-                    sitedata.data.path + "/vh/addInvoice",
-                    data,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
+            this.setState({ finishError: "Please add atleast one service" })
+        }
+        else {
+            this.setState({ loaderImage: true });
+            axios.post(
+                sitedata.data.path + "/vh/addInvoice",
+                data,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
                 .then((responce) => {
                     this.setState({ loaderImage: false });
                     if (responce.data.hassuccessed) {
                         if (data.status.value == 'paid') {
                             PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 2, false, true)
                         }
-                        else if(data.status.value == 'overdue'){
+                        else if (data.status.value == 'overdue') {
                             PatientMoveFromHouse(data.case_id, this.props.stateLoginValueAim.token, 3)
                         }
                         this.setState({
@@ -347,14 +347,14 @@ class Index extends Component {
                         });
                         this.Billing();
                     }
-                    else{
+                    else {
                         this.setState({ finishError: 'Invoice Id is already exists' })
                     }
                 })
                 .catch((error) => {
                     this.setState({ loaderImage: false });
                 });
-            }
+        }
         // }
     }
 
@@ -410,8 +410,8 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {InvoiceID, Patient , Status, Services , Addservice , Customservicetitle ,Customservicedescription , Editservice } =
-          translate;
+        let { InvoiceID, Patient, Status, Services, Addservice, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close } =
+            translate;
         const { selectedOption } = this.state;
         const { addinvoice } = this.state;
         return (
@@ -580,7 +580,7 @@ class Index extends Component {
                                                     <Grid container direction="row" alignItems="center" spacing={3}>
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicetitle}</label>
-                                                            <TextField 
+                                                            <TextField
                                                                 placeholder="Custom service title"
                                                                 name="custom_title"
                                                                 onChange={(e) =>
@@ -590,7 +590,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicedescription}</label>
-                                                            <TextField 
+                                                            <TextField
                                                                 placeholder="Custom service description"
                                                                 name="custom_description"
                                                                 onChange={(e) =>
@@ -602,7 +602,7 @@ class Index extends Component {
                                                 </Grid>}
                                             </Grid>
                                             <Grid className="invoiceAmnt">
-                                                <p>Invoice amount</p>
+                                                <p>{InvoiceAmount}</p>
                                                 <label>{this.state.addinvoice.total_amount} €</label>
                                                 <Grid>
                                                     <Button onClick={() => { this.finishInvoice() }}>Finish Invoice</Button>
@@ -679,7 +679,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid className="servSaveBtn">
                                                     <a onClick={this.handleCloseServ}>
-                                                        <Button onClick={() => this.handleAddUpdate()}>Save & Close</Button>
+                                                        <Button onClick={() => this.handleAddUpdate()}>{save_and_close}</Button>
                                                     </a>
                                                 </Grid>
                                             </Grid>

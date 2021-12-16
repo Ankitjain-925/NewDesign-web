@@ -126,19 +126,19 @@ class Index extends Component {
     this.setState({ showRename: false, loaderImage: true })
     axios.put(sitedata.data.path + '/UserProfile/Users/update', {
       houses: this.state.currentList
-  }, commonHeader(user_token)).then((responce) => {
+    }, commonHeader(user_token)).then((responce) => {
       if (responce.data.hassuccessed) {
-          this.setState({ loaderImage: false,  succUpdate: true, });
-          setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
-          this.allHouses();
+        this.setState({ loaderImage: false, succUpdate: true, });
+        setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
+        this.allHouses();
       }
-  })
+    })
   }
 
   handletxtName = (e) => {
     var txtName = this.state.txtName
-   txtName[e.target.name] =  e.target.value 
-   this.setState({txtName: txtName})
+    txtName[e.target.name] = e.target.value
+    this.setState({ txtName: txtName })
   }
 
   //for PopUp Opening and Closing
@@ -152,7 +152,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Institution } = translate;
+    let { Institution, Hospitals } = translate;
     const { stateLoginValueAim, House } = this.props;
     const { currentList2 } = this.state;
     if (
@@ -179,7 +179,7 @@ class Index extends Component {
         }
       >
         <Grid className="homeBgIner">
-        {this.state.loaderImage && <Loader />}
+          {this.state.loaderImage && <Loader />}
           <Grid className="homeBgIner vh-section">
             <Grid container direction="row" justify="center">
               <Grid item xs={12} md={12}>
@@ -210,20 +210,20 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={12} md={3}>
                             <Grid className="settingInfo">
-                            {this.state.showinput && <input className="serchInput" name="Search" placeholder="Search" value={this.state.searchValue} onChange={this.SearchFilter} />}
+                              {this.state.showinput && <input className="serchInput" name="Search" placeholder="Search" value={this.state.searchValue} onChange={this.SearchFilter} />}
                               <a>
                                 {!this.state.showinput ? <img
                                   src={require("assets/virtual_images/search-entries.svg")}
                                   alt=""
                                   title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput})}}
-                                />:
-                                 <img
-                                  src={require("assets/images/close-search.svg")}
-                                  alt=""
-                                  title=""
-                                  onClick={()=>{this.setState({showinput: !this.state.showinput, currentList: this.state.currentList2, searchValue: ''})}}
-                                />}
+                                  onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                                /> :
+                                  <img
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
+                                    onClick={() => { this.setState({ showinput: !this.state.showinput, currentList: this.state.currentList2, searchValue: '' }) }}
+                                  />}
                               </a>
                               <a onClick={this.handleOpenPopUp}>
                                 <img
@@ -259,25 +259,25 @@ class Index extends Component {
                                     <Table>
                                       <thead>
                                         <tr>
-                                          <th>Hospitals</th>
+                                          <th>{Hospitals}</th>
                                         </tr>
                                       </thead>
                                       <tbody>
                                         {currentList2 && currentList2.map((item) => (
-                                            <tr>
-                                              {this.state.showRename === item.value ? (
-                                                <td className="creatInfoIner" ><input type="text" name="label" onChange={(e) => this.handletxtName(e)} value={this.state.txtName?.label || ''} /> </td>
-                                              ) : (
-                                                <td> {item.group_name && item.label} </td>
-                                              )
-                                              }
-                                              {this.state.showRename === item.value ? (
-                                                <td> <Button onClick={() => this.renamePopup2(item)} className="renameButton" >Save</Button> </td>
-                                              ) : (
-                                                <td> <Button onClick={() => this.renamePopup(item)} className="renameButton" >Rename</Button> </td>
-                                              )}
-                                            </tr>
-                                          ))
+                                          <tr>
+                                            {this.state.showRename === item.value ? (
+                                              <td className="creatInfoIner" ><input type="text" name="label" onChange={(e) => this.handletxtName(e)} value={this.state.txtName?.label || ''} /> </td>
+                                            ) : (
+                                              <td> {item.group_name && item.label} </td>
+                                            )
+                                            }
+                                            {this.state.showRename === item.value ? (
+                                              <td> <Button onClick={() => this.renamePopup2(item)} className="renameButton" >Save</Button> </td>
+                                            ) : (
+                                              <td> <Button onClick={() => this.renamePopup(item)} className="renameButton" >Rename</Button> </td>
+                                            )}
+                                          </tr>
+                                        ))
                                         }
                                       </tbody>
                                     </Table>
