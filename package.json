@@ -13,6 +13,8 @@
     "bootstrap": "^4.4.1",
     "browser-image-compression": "^1.0.14",
     "chroma-js": "^2.1.2",
+    "ckeditor": "^4.12.1",
+    "ckeditor4-react": "^2.1.0",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "dwv": "^0.27.1 ",

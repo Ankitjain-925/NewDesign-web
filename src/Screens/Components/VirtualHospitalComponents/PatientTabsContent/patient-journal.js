@@ -5,6 +5,27 @@ import ReactTooltip from "react-tooltip";
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import TextField from '@material-ui/core/TextField';
+// import CKEditor from 'ckeditor4-react';
+import { Button } from '@material-ui/core';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from "Screens/actions";
+import { Settings } from "Screens/Login/setting";
+import { authy } from 'Screens/Login/authy.js';
+// import { houseSelect } from "../Institutes/selecthouseaction";
+import { OptionList } from "Screens/Login/metadataaction";
+// import { Invoices } from 'Screens/Login/invoices.js';
+import { LoginReducerAim } from "Screens/Login/actions";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import NotesEditor from "Screens/Components/Editor/index";
+import { getPatientData } from "Screens/Components/CommonApi/index";
+
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -25,14 +46,94 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: null
+            noWards: false,
+            value: 0,
+            selectedOption: null,
+            newdata: [],
+            buttonField: false,
+            users1: {},
+            selectedPat: {},
+            addinvoice: {},
+
         };
     }
-    handleChange = selectedOption => {
+
+    componentDidMount(){
+        this.getPatientData();
+    }
+    handleChange = (selectedOption) => {
         this.setState({ selectedOption });
+      };
+    handleOpenRvw = () => {
+        this.setState({ noWards: true });
+    }
+    handleCloseRvw = () => {
+        this.setState({ noWards: false });
+    }
+    handleChangeTab = (event, value) => {
+        this.setState({ value });
     };
+
+    handleSubmit = () => {
+        console.log("data", this.state.newdata)
+};
+  
+    handleChange2 = (e, name) => {
+        var state = this.state.newdata
+        state[name] = e.value
+        this.setState({ newdata: state });
+ };
+    handleChange1 = (e, name) => {
+        var state = this.state.newdata;
+        state[name] = e.target.value
+        this.setState({ newdata: state });
+};
+    updateEntryState1 = (value, name) => {
+        var state = this.state.newdata;
+        state[name] = value;
+        this.setState({ newdata: state });
+    };
+    updateEntryState2 = (e) => {
+        if (e === true) {
+            this.setState({ buttonField: true })
+        } else {
+            this.setState({ buttonField: false })
+        }
+        // console.log("e", e, name)
+    }
+    onFieldChange1 = (e, name) => {
+        const state = this.state.addinvoice;
+        if (name === 'patient') {
+            var checkCase = this.state.users.filter((item) => item.profile_id === e.profile_id)
+            if (checkCase && checkCase.length > 0) {
+                state[name] = checkCase[0];
+
+                state['case_id'] = checkCase[0].case_id;
+                this.setState({ selectedPat: e })
+            }
+        }
+        else {
+            state[name] = e;
+        }
+        this.setState({ addinvoice: state });
+    }
+
+     //Get patient list
+    getPatientData = async () => {
+        this.setState({ loaderImage: true });
+        let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
+        if (response.isdata) {
+            this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
+        }
+        else {
+            this.setState({ loaderImage: false });
+        }
+    }
+
+
+
     render() {
-        const { selectedOption } = this.state;
+        const { value, selectedOption } = this.state;
         return (
             <Grid>
                 <Grid className="journalAdd">
@@ -44,13 +145,198 @@ class Index extends Component {
                                 </Grid>
                                 <Grid item xs={12} md={6} sm={6}>
                                     <Grid className="AddEntrynw">
-                                        <a>+ Add new entry</a>
+                                        <a onClick={this.handleOpenRvw}>+ Add new entry</a>
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
+                {/*start modal*/}
+                < Modal open={this.state.noWards} onClose={this.handleCloseRvw} >
+                    <Grid className="sendSpecific" >
+                        <Grid className="sendSpecificIner" >
+                            <Grid className="sendSpecificBtm" >
+                                <Grid className="sendSpecifiClose" >
+                                    <a onClick={this.handleCloseRvw}> <img src={require("assets/virtual_images/closefancy.png")} alt="" title="" /> </a>
+                                </Grid>
+                                < Grid ><label>New entry</label></Grid >
+                                <Grid>
+                                    <select>
+                                        <option>Journal Promotion 1 </option>
+                                        <option > Journal Promotion 2 </option>
+                                        <option > Journal Promotion 3 </option>
+                                    </select>
+                                </Grid>
+                            </Grid>
+                            <Grid className="spcificInfo" >
+                                <Grid className="tabHeading" >
+                                    <label>Who would you like to send this to ? </label>
+                                </Grid>
+                                <AppBar position="static" className="spcificTabs" >
+                                    <Tabs value={value} onChange={this.handleChangeTab} >
+                                        <Tab label="Specific Patients" />
+                                        <Tab label="All Patients" />
+                                    </Tabs>
+                                </AppBar>
+                                {value === 0 && <TabContainer>
+                                    <Grid className="sendSpecInfo" >
+                                        <Grid className="sendTo specBtm" >
+                                            <Grid><label>Send to </label></Grid >
+                                             <Grid className="sendDropUpr" > 
+                                                <Grid className="sendDropDwn" >
+                                                    <Select
+                                                        name="patient"
+                                                        options={this.state.users1}
+                                                        placeholder="Search & Select"
+                                                        onChange={(e) => this.onFieldChange1(e, "patient")}
+                                                        value={this.state.selectedPat || ''}
+                                                        className="addStafSelect"
+                                                        isMulti={true}
+                                                        isSearchable={true} />
+                                                    {/* <Grid className="sendImg" > </Grid> */}
+                                                    {/* <Grid > <label>James Morrison </label><p>P_mDnkbR30d</p > </Grid> */}
+                                                    {/* <Grid className="sendRmv" > </Grid> */}
+                                                </Grid>
+                                                {/* <img src={require} alt="" title="" className="sendDropImg" /> */}
+                                         </Grid> 
+                                        </Grid>
+                                        <Grid className="specBtm" >
+                                            <Grid><label>Promotion type</label></Grid >
+                                            <Grid>
+                                                <Select
+                                                    onChange={(e) => { this.handleChange2(e, "Promotion type") }}
+                                                    options={options}
+                                                    placeholder="Hints"
+                                                    isSearchable={true}
+                                                    className="promotionSelect"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid className="specBtm sendSpecInput" >
+                                            <Grid><label>Title </label></Grid >
+                                            <Grid><TextField
+
+                                                placeholder="Enter title name"
+                                                onChange={(e) => { this.handleChange1(e, "title") }} /></Grid >
+                                        </Grid>
+                                        <Grid className="cnfrmDiaMain">
+                                            <Grid className="fillDia">
+                                                <Grid><label>Text </label></Grid >
+                                                <NotesEditor
+                                                    label={Text}
+                                                    onChange={(e) => this.updateEntryState1(e, "Text")}
+                                                    value={this.state.newdata.Text}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid className="specBtm sendSpecInput" >
+                                            {/* <CKEditor data="<p>Choose from a selection of short understandable lessons on topics you’re 
+                                                      most interested in.Courses are held by specialists in their fields.< /p>" />
+                                            <img src={require} alt='' title='' className="ckImg" /> */}
+                                        </Grid>
+
+                                        <Grid className="specBtm endPst" >
+                                            <FormControlLabel
+                                                control={<Checkbox
+                                                    // name="Add button at the end of post"
+                                                    name="end_post"
+                                                    checked={this.state.newdata?.post}
+                                                    onChange={(e) =>
+                                                        this.updateEntryState2(
+                                                            e.target.checked,
+                                                            "post"
+                                                        )}
+                                                />
+                                                }
+                                                label="Add button at the end of post"
+                                            />
+                                        </Grid>
+                                        {this.state.buttonField === true && (
+                                            <Grid className="specBtm sendSpecInput" >
+                                                <Grid><label>Set button text </label></Grid >
+                                                <Grid><TextField placeholder="Set button text"
+                                                    onChange={(e) => { this.handleChange1(e, "Set button text") }} /> </Grid>
+                                            </Grid>
+                                        )}
+                                        <Grid className="publishProm" > <Button onClick={() => this.handleSubmit()}>Save</Button></Grid >
+                                    </Grid>
+                                </TabContainer>}
+                                {value === 1 && <TabContainer>
+                                    <Grid className="sendSpecInfo" >
+                                        <Grid className="specBtm" >
+                                            <Grid><label>Promotion type</label></Grid >
+                                            <Grid>
+                                                <Select
+                                                    onChange={(e) => { this.handleChange2(e, "Promotion type") }}
+                                                    options={options}
+                                                    placeholder="Hints"
+                                                    isSearchable={true}
+                                                    className="promotionSelect" />
+                                            </Grid>
+                                        </Grid>
+                                        < Grid className="specBtm sendSpecInput" >
+                                            <Grid><label>Title </label></Grid >
+                                            <Grid><TextField
+
+                                                placeholder="Enter title name "
+                                                onChange={(e) => { this.handleChange1(e, "title") }}
+                                            /></Grid >
+                                        </Grid>
+                                        <Grid className="cnfrmDiaMain">
+                                            <Grid className="fillDia">
+                                                <Grid><label>Text </label></Grid >
+                                                <NotesEditor
+                                                    // name="text"
+                                                    label={Text}
+                                                    onChange={(e) => this.updateEntryState1(e, "Text")}
+                                                    value={this.state.newdata.Text}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        < Grid className="specBtm sendSpecInput" >
+                                            {/* <CKEditor data="<p>Choose from a selection of short understandable lessons on topics you’re 
+                                                      most interested in.Courses are held by specialists in their fields.< /p>" />
+                                            <img src={require} alt='' title='' className="ckImg" /> */}
+                                        </Grid>
+                                        < Grid className="specBtm endPst" >
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        name="end_post"
+                                                        checked={this.state.newdata?.post}
+                                                        onChange={(e) =>
+                                                            this.updateEntryState2(
+                                                                e.target.checked,
+                                                                "post"
+                                                            )}
+                                                    />
+                                                }
+                                                label="Add button at the end of post"
+                                            />
+                                        </Grid>
+                                        {this.state.buttonField === true && (
+                                            < Grid className="specBtm sendSpecInput" >
+                                                <Grid><label>Set button text </label></Grid >
+                                                <Grid><TextField
+
+                                                    placeholder="Set button text"
+                                                    // value={newdata} 
+                                                    onChange={(e) => { this.handleChange1(e, "Set button text") }}
+
+
+                                                /> </Grid>
+                                            </Grid>
+                                        )}
+                                        < Grid className="publishProm" ><Button onClick={() => this.handleSubmit()}>Save</Button></Grid >
+                                    </Grid>
+
+                                </TabContainer>}
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Modal>
+                {/*end modal*/}
                 {/* Search for Website */}
                 <Grid container direction="row">
                     <Grid item xs={12} md={11}>
@@ -502,4 +788,26 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+        state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    // const { House } = state.houseSelect
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    const { metadata } = state.OptionList;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        // House,
+        settings,
+        verifyCode,
+        metadata,
+    };
+};
+export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, OptionList })(
+        Index
+    )
+);

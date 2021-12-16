@@ -763,9 +763,10 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token),
       )
       .then((response) => {
+        // console.log('response',response)
         if (response.data.hassuccessed) {
           this.setState({ view: response.data.data });
-          // console.log("view", this.state.view)
+          console.log("view", this.state.view)
         }
         this.setState({ loaderImage: false });
       });

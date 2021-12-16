@@ -260,10 +260,10 @@ class Index extends Component {
     if (data && data?.houses && data?.houses?.length > 0) {
       var house = data?.houses
       house.splice(index, 1);
-   
+
       // this.setState({ institute_groups: data });
       // this.props.onChange(data);
- 
+
       // let housesArray = this.state.hospitalData
       // if (data?.houses?.length > 0) {
       //   var yt = data?.houses?.map((item) => {
@@ -605,7 +605,7 @@ class Index extends Component {
                             item
                             xs={12}
                             md={4}
-                            onClick={() => this.EditInstitute(item._id)}
+                          // onClick={() => this.EditInstitute(item._id)}
                           >
                             <Grid className="medcalFZCntnt">
                               <Grid className="presEditDot scndOptionIner">
@@ -655,10 +655,10 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <label>{item.group_name}</label>
-                              </Grid>
+                               </Grid>
                               <p>{item.group_description}</p>
+                               {this.state.showHouses &&
 
-                              {this.state.showHouses &&
                                 <Grid>
                                   <Table>
                                     <Thead>
@@ -672,6 +672,7 @@ class Index extends Component {
                                           <Tr>
                                             <Td>
                                               {data.house_name}
+                                             
                                             </Td>
                                           </Tr>
                                         ))}

@@ -6227,6 +6227,11 @@ button.downloadPDF:hover {
     min-height: 110vh;
     padding: 26px 16px;
 }
+/* added by Tanya */
+.spcificInfo .MuiTypography-root.MuiTypography-body1{
+    padding: 24px 0px!important;
+}
+
 .tskOverView h1 {
     color: #000808;
     font-family: Muli;
