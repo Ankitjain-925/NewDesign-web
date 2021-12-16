@@ -80,6 +80,7 @@ export const getSpecialty = (current) => {
               updateTrack: {},
             });
             getAllServices(current);
+            handleCloseServ(current);
           });
       } else {
         data.house_id = current.props?.House?.value;
@@ -87,7 +88,7 @@ export const getSpecialty = (current) => {
           .post(sitedata.data.path + "/vh/AddService", data, commonHeader(current.props.stateLoginValueAim.token))
           .then((responce) => {
             getAllServices(current);
-            current.handleCloseServ();
+            handleCloseServ(current);
           })
           .catch(function (error) {
             console.log(error);
@@ -163,3 +164,23 @@ export const getSpecialty = (current) => {
     state['specialty_id'] = e?.length > 0 && e.map((data) => { return data.value });
     current.setState({ updateTrack: state });
   }
+
+  //Modal Open
+  export const handleOpenServ = (current) => {
+    current.setState({ openServ: true, updateTrack: {} });
+  };
+
+  //Modal Close
+  export const handleCloseServ = (current) => {
+    current.setState({ openServ: false });
+  };
+  export const updateEntryState1 = (e, current) => {
+    const state = current.state.updateTrack;
+    state[e.target.name] = e.target.value;
+    current.setState({ updateTrack: state });
+  };
+
+  // Open Edit Model
+  export const editService = (data, current) => {
+    current.setState({ updateTrack: data, openServ: true });
+  };

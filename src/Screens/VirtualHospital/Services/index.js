@@ -18,7 +18,8 @@ import { Settings } from "Screens/Login/setting";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
-import { getSpecialty, getAllServices, handleSubmit, getSpecialtyData, selectedID, deleteClickService, onChangePage, onFieldChange } from "./api";
+import { getSpecialty, getAllServices, handleSubmit, getSpecialtyData,selectedID, deleteClickService, onChangePage, 
+  handleOpenServ, handleCloseServ, updateEntryState1, editService, onFieldChange } from "./api";
 import { getLanguage } from "translations/index"
 
 class Index extends Component {
@@ -44,28 +45,7 @@ class Index extends Component {
     getAllServices(this);
   }
 
-
-  //Modal Open
-  handleOpenServ = () => {
-    this.setState({ openServ: true, updateTrack: {} });
-  };
-
-  //Modal Close
-  handleCloseServ = () => {
-    this.setState({ openServ: false });
-  };
-  updateEntryState1 = (e) => {
-    const state = this.state.updateTrack;
-    state[e.target.name] = e.target.value;
-    this.setState({ updateTrack: state });
-  };
-
-  // Open Edit Model
-  editService = (data) => {
-    this.setState({ updateTrack: data, openServ: true });
-  };
-
-
+  
   //Delete the perticular service confirmation box
   removeServices = (id) => {
     this.setState({ message: null, openTask: false });
@@ -207,7 +187,7 @@ class Index extends Component {
                           </Button>
                           <Modal
                             open={this.state.openServ}
-                            onClose={this.handleCloseServ}
+                            onClose={()=>handleCloseServ(this)}
                             className={
                               this.props.settings &&
                                 this.props.settings.setting &&
@@ -220,7 +200,7 @@ class Index extends Component {
                             <Grid className="addServContnt">
                               <Grid className="addSpeclLbl">
                                 <Grid className="addSpeclClose">
-                                  <a onClick={this.handleCloseServ}>
+                                  <a onClick={()=>handleCloseServ(this)}>
                                     <img
                                       src={require("assets/virtual_images/closefancy.png")}
                                       alt=""
@@ -242,7 +222,7 @@ class Index extends Component {
                                       name="title"
                                       placeholder="Enter Service name"
                                       onChange={(e) =>
-                                        this.updateEntryState1(e)
+                                       updateEntryState1(e, this)
                                       }
                                       value={this.state.updateTrack.title}
                                     />
@@ -254,7 +234,7 @@ class Index extends Component {
                                       name="description"
                                       placeholder="Enter service short description"
                                       onChange={(e) =>
-                                        this.updateEntryState1(e)
+                                       updateEntryState1(e, this)
                                       }
                                       value={
                                         this.state.updateTrack.description
@@ -282,7 +262,7 @@ class Index extends Component {
                                       name="price"
                                       placeholder="Enter service price"
                                       onChange={(e) =>
-                                        this.updateEntryState1(e)
+                                       updateEntryState1(e, this)
                                       }
                                       value={this.state.updateTrack.price}
                                     />
@@ -383,7 +363,7 @@ class Index extends Component {
                                           <li>
                                             <a
                                               onClick={() => {
-                                                this.editService(data);
+                                                editService(data, this);
                                               }}
                                             >
                                               <img

@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import Button from "@material-ui/core/Button";
 import CasesMoreButton from "Screens/Components/VirtualHospitalComponents/CasesMoreButton/index";
 import { checkTheIndex } from "../data";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";

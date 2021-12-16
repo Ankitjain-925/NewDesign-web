@@ -23,14 +23,6 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import { getLanguage } from "translations/index";
 
-
-
-const options = [
-  { value: 'data1', label: 'Data1' },
-  { value: 'data2', label: 'Data2' },
-  { value: 'data3', label: 'Data3' },
-];
-
 class Index extends Component {
 
   constructor(props) {

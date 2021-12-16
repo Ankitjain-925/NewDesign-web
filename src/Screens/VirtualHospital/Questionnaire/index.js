@@ -591,11 +591,11 @@ class Index extends Component {
                                 </Grid>
                               )}
                               <Grid className="infoSub2">
-                                <a
-                                // onClick={this.handleCloseQues}
+                                <a 
+                                onClick={() => this.handleSubmit()}
                                 >
-                                  <Button onClick={() => this.handleSubmit()}>
-                                    {save_and_close}
+                                  <Button>
+                                  {save_and_close}
                                   </Button>
                                 </a>
                               </Grid>
@@ -749,9 +749,9 @@ class Index extends Component {
                                 </Grid>
                               )}
                               <Grid className="infoSub2">
-                                <a onClick={this.handleEditCloseQues}>
-                                  <Button onClick={() => this.handleeditSubmit()}>
-                                    {save_and_close}
+                                <a onClick={() => {this.handleeditSubmit(); this.handleEditCloseQues()}} >
+                                  <Button >
+                                  {save_and_close}
                                   </Button>
                                 </a>
                               </Grid>
