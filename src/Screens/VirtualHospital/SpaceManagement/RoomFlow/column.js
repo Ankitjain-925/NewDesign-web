@@ -3,12 +3,15 @@ import { Draggable } from "react-beautiful-dnd";
 import QuoteList from "./primatives/quote-list";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { getLanguage } from "translations/index"
 
 export default class Column extends Component {
   render() {
     const title = this.props.title;
     const quotes = this.props.quotes;
-    const index = this.props.index;                                
+    const index = this.props.index;
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { Move_patient_here } = translate;
 
     return (
 
@@ -56,7 +59,7 @@ export default class Column extends Component {
                   <img src={require('assets/virtual_images/bed2.png')} alt="" title="" />
                   <span>1</span>
                 </Grid>
-                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>Move patient here </Button> </Grid>}
+                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>{Move_patient_here}</Button> </Grid>}
               </Grid>
 
               <Grid className="drListMain2">
@@ -64,7 +67,7 @@ export default class Column extends Component {
                   <img src={require('assets/virtual_images/bed2.png')} alt="" title="" />
                   <span>1</span>
                 </Grid>
-                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>Move patient here </Button> </Grid>}
+                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>{Move_patient_here}</Button> </Grid>}
               </Grid>
 
               <Grid className="drListMain2">
@@ -72,7 +75,7 @@ export default class Column extends Component {
                   <img src={require('assets/virtual_images/bed2.png')} alt="" title="" />
                   <span>1</span>
                 </Grid>
-                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>Move patient here </Button> </Grid>}
+                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>{Move_patient_here}</Button> </Grid>}
               </Grid>
 
               <Grid className="drListMain2">
@@ -80,7 +83,7 @@ export default class Column extends Component {
                   <img src={require('assets/virtual_images/bed2.png')} alt="" title="" />
                   <span>1</span>
                 </Grid>
-                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>Move patient here </Button> </Grid>}
+                {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>{Move_patient_here}</Button> </Grid>}
               </Grid>
 
               <QuoteList
@@ -95,7 +98,7 @@ export default class Column extends Component {
                 internalScroll={this.props.isScrollable}
                 isCombineEnabled={Boolean(this.props.isCombineEnabled)}
               />
-              {/* {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>Move patient here </Button> </Grid>} */}
+              {/* {this.props.view === 'vertical' && <Grid className="drListRght2"><Button>{Move_patient_here}</Button> </Grid>} */}
             </Grid>
 
 

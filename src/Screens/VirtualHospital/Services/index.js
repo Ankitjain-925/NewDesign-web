@@ -18,7 +18,7 @@ import { Settings } from "Screens/Login/setting";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
-import { getSpecialty, getAllServices, handleSubmit, getSpecialtyData,selectedID, deleteClickService, onChangePage, onFieldChange } from "./api";
+import { getSpecialty, getAllServices, handleSubmit, getSpecialtyData, selectedID, deleteClickService, onChangePage, onFieldChange } from "./api";
 import { getLanguage } from "translations/index"
 
 class Index extends Component {
@@ -44,7 +44,7 @@ class Index extends Component {
     getAllServices(this);
   }
 
-  
+
   //Modal Open
   handleOpenServ = () => {
     this.setState({ openServ: true, updateTrack: {} });
@@ -65,10 +65,12 @@ class Index extends Component {
     this.setState({ updateTrack: data, openServ: true });
   };
 
-  
+
   //Delete the perticular service confirmation box
   removeServices = (id) => {
     this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { removeService, sure_removeService, No, Yes } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -83,18 +85,18 @@ class Index extends Component {
             }
           >
 
-            <h1>Remove the Service ?</h1>
+            <h1>{removeService}</h1>
 
-            <p>Are you sure to remove this Service?</p>
+            <p>{sure_removeService}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.removeServices2(id);
                   // onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -105,6 +107,8 @@ class Index extends Component {
 
   removeServices2 = (id) => {
     this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { removeService, really_want_to_remove_service, No, Yes } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -119,18 +123,18 @@ class Index extends Component {
             }
           >
 
-            <h1 class="alert-btn">Remove Service ?</h1>
+            <h1 class="alert-btn">{removeService}</h1>
 
-            <p>Are you really want to remove this Service?</p>
+            <p>{really_want_to_remove_service}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   deleteClickService(id, this);
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -140,10 +144,11 @@ class Index extends Component {
   };
 
 
- 
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Addnewservice, Services, Specialty } = translate;
+    let { Addnewservice, Services, speciality, newService,
+      save_and_close, all, General, srvc, Price, editService, deleteService } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -198,7 +203,7 @@ class Index extends Component {
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc">
                           <Button onClick={this.handleOpenServ}>
-                            + New Service
+                            {newService}
                           </Button>
                           <Modal
                             open={this.state.openServ}
@@ -229,7 +234,7 @@ class Index extends Component {
                               </Grid>
 
                               <Grid className="enterServMain">
-                              <div className="err_message">{this.state.errorMsg}</div>
+                                <div className="err_message">{this.state.errorMsg}</div>
                                 <Grid className="enterSpcl">
                                   <Grid>
                                     <VHfield
@@ -257,14 +262,14 @@ class Index extends Component {
                                     />
                                   </Grid>
 
-                                  <label className="specbutton1">Specialty</label>
+                                  <label className="specbutton1">{speciality}</label>
                                   <Grid className="sevicessection">
                                     <Select
                                       onChange={(e) => onFieldChange(e, this)}
                                       options={this.state.AllSpeciality}
                                       name="specialty_name"
                                       isSearchable={true}
-                                     
+
                                       className="mr_sel"
                                       isMulti={true}
                                       value={selectedID(this.state.updateTrack.specialty_id, this)}
@@ -287,7 +292,7 @@ class Index extends Component {
                               <Grid className="servSaveBtn">
                                 <a>
                                   <Button
-                                    onClick={() => handleSubmit(this)}>Save & Close</Button>
+                                    onClick={() => handleSubmit(this)}>{save_and_close}</Button>
                                 </a>
                               </Grid>
                             </Grid>
@@ -330,10 +335,10 @@ class Index extends Component {
                     {/* End of Bread Crumb */}
                     <Grid className="cardioGrup">
                       <Grid className="cardioGrupBtn">
-                        <Button onClick={() => { getSpecialtyData(false, this) }} className={!this.state.speciality_id ? "cardioActv" : ""} variant="contained">{"All"}</Button>
-                        <Button onClick={() => { getSpecialtyData('general', this) }} className={this.state.speciality_id === 'general' ? "cardioActv" : ""} variant="contained">{"General"}</Button>
+                        <Button onClick={() => { getSpecialtyData(false, this) }} className={!this.state.speciality_id ? "cardioActv" : ""} variant="contained">{all}</Button>
+                        <Button onClick={() => { getSpecialtyData('general', this) }} className={this.state.speciality_id === 'general' ? "cardioActv" : ""} variant="contained">{General}</Button>
                         {this.state.AllSpeciality?.length > 0 && this.state.AllSpeciality.map((item) => (
-                          <Button onClick={() => {getSpecialtyData(item.value, this) }} className={this.state.speciality_id === item.value ? "cardioActv" : ""} variant="contained">{item.label}</Button>
+                          <Button onClick={() => { getSpecialtyData(item.value, this) }} className={this.state.speciality_id === item.value ? "cardioActv" : ""} variant="contained">{item.label}</Button>
                         ))}
 
                       </Grid>
@@ -344,8 +349,8 @@ class Index extends Component {
                       <Table>
                         <Thead>
                           <Tr>
-                            <Th>Service</Th>
-                            <Th>Price</Th>
+                            <Th>{srvc}</Th>
+                            <Th>{Price}</Th>
                             <Th></Th>
                           </Tr>
                         </Thead>
@@ -386,7 +391,7 @@ class Index extends Component {
                                                 alt=""
                                                 title=""
                                               />
-                                              Edit Service
+                                              {editService}
                                             </a>
                                           </li>
 
@@ -401,7 +406,7 @@ class Index extends Component {
                                                 alt=""
                                                 title=""
                                               />
-                                              Delete Service
+                                              {deleteService}
                                             </a>
                                           </li>
                                         </ul>

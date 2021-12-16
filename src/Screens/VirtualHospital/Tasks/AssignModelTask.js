@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Select from 'react-select';
 import { Button } from '@material-ui/core';
+import { getLanguage } from 'translations/index';
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -30,6 +31,8 @@ class Index extends Component {
     };
     render() {
         const { selectedOption } = this.state;
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { AddStaff, MovePatient, JamesMorrison, P_mDnkbR30d, GregoryHouseMD, MarkAndersonMD, AhmadNazeri, AngelaLongoria, ConanMatusov, EzequielDengra, save_and_close } = translate;
         return (
             <Grid className="homeBg darkTheme">
                 <Grid className="homeBgIner">
@@ -43,7 +46,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}>
                                             <Grid className="topLeftSpc">
                                                 <Grid className="NoWardLink">
-                                                    <a onClick={this.handleNoWard}>Add staff</a>
+                                                    <a onClick={this.handleNoWard}>{AddStaff}</a>
                                                 </Grid>
                                                 <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
                                                     <Grid className="addStaff">
@@ -57,18 +60,18 @@ class Index extends Component {
                                                                                     <img src={require('assets/virtual_images/closebtn.png')} alt="" title="" />
                                                                                 </a>
                                                                             </Grid>
-                                                                            <label>Move patient</label>
+                                                                            <label>{MovePatient}</label>
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid className="addStafClient">
                                                                         <Grid className="addStafClientLft">
                                                                             <img src={require('assets/virtual_images/james.jpg')} alt="" title="" />
                                                                         </Grid>
-                                                                        <Grid><label>James Morrison</label><p>P_mDnkbR30d</p></Grid>
+                                                                        <Grid><label>{JamesMorrison}</label><p>{P_mDnkbR30d}</p></Grid>
                                                                     </Grid>
                                                                     <Grid className="addStafMgnt">
                                                                         <Grid className="addStafdrop">
-                                                                            <Grid><label>Add staff</label></Grid>
+                                                                            <Grid><label>{AddStaff}</label></Grid>
                                                                             <Select value={selectedOption} onChange={this.handleSpecial2} options={options}
                                                                                 placeholder="Search & Select" className="addStafSelect" isSearchable={false} />
                                                                         </Grid>
@@ -77,7 +80,7 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/dr2.jpg')} alt="" title="" /></a>
-                                                                                <span>Gregory House M.D.</span>
+                                                                                <span>{GregoryHouseMD}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -86,7 +89,7 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
-                                                                                <span>Mark Anderson M.D.</span>
+                                                                                <span>{MarkAndersonMD}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -95,7 +98,7 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/BernhardBreil.png')} alt="" title="" /></a>
-                                                                                <span>Ahmad Nazeri</span>
+                                                                                <span>{AhmadNazeri}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -104,7 +107,7 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/YehoushuaWestover.png')} alt="" title="" /></a>
-                                                                                <span>Angela Longoria</span>
+                                                                                <span>{AngelaLongoria}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -113,7 +116,7 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/102.png')} alt="" title="" /></a>
-                                                                                <span>Conan Matusov</span>
+                                                                                <span>{ConanMatusov}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -122,7 +125,7 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/101.png')} alt="" title="" /></a>
-                                                                                <span>Ezequiel Dengra</span>
+                                                                                <span>{EzequielDengra}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -131,7 +134,7 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/YehoushuaWestover.png')} alt="" title="" /></a>
-                                                                                <span>Angela Longoria</span>
+                                                                                <span>{AngelaLongoria}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -140,14 +143,14 @@ class Index extends Component {
                                                                         <Grid className="stafLst">
                                                                             <Grid className="stafLft">
                                                                                 <a><img src={require('assets/virtual_images/102.png')} alt="" title="" /></a>
-                                                                                <span>Conan Matusov</span>
+                                                                                <span>{ConanMatusov}</span>
                                                                             </Grid>
                                                                             <Grid className="stafRght">
                                                                                 <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-                                                                    <Grid className="addStafClos"><Button>Save & Close</Button></Grid>
+                                                                    <Grid className="addStafClos"><Button>{save_and_close}</Button></Grid>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>

@@ -50,7 +50,7 @@ export default class Column extends Component {
     const quotes = this.props.quotes;
     const index = this.props.index;
     let translate = getLanguage(this.props.stateLanguageType);
-    let { move_all_patients, move_step } = translate;
+    let { move_all_patients, move_step, AddNewPatient } = translate;
 
     return (
       <Draggable draggableId={title} index={index}>
@@ -136,7 +136,7 @@ export default class Column extends Component {
                           : <label onDoubleClick={() => this.props.editName(index)}>{title}</label>}
                         </Grid></label></Grid>
                       <Grid item xs={12} sm={6} md={6} className="addPatent">
-                        <a className="addNwPatnt" onClick={() => { this.props.openAddPatient(index) }}>+ Add a new patient</a>
+                        <a className="addNwPatnt" onClick={() => { this.props.openAddPatient(index) }}>{AddNewPatient}</a>
                         <Grid className="checkDotsRght">
                           <a className="academy_ul stepTdotupper">
                             <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
@@ -205,7 +205,7 @@ export default class Column extends Component {
               updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
               MovetoTask={(speciality, patient_id) => { this.props.MovetoTask(speciality, patient_id) }}
             />
-            {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(index) }}>+ Add a new patient</Button></Grid>}
+            {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(index) }}>{AddNewPatient}</Button></Grid>}
           </div>
         )}
       </Draggable>

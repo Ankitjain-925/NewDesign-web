@@ -181,7 +181,7 @@ class Index extends Component {
   };
 
   //add the ward of the speciality
-  handleOpenRoom = () => { 
+  handleOpenRoom = () => {
     this.setState({ errorMsg2: "" })
     let data = this.state.ward
     if ((data && !data.ward_name) || (data && data?.ward_name && data?.ward_name?.length < 1)) {
@@ -293,9 +293,11 @@ class Index extends Component {
     return "";
   };
 
-  removeSpeciality = () =>{
-  this.handleCloseWarn();
-  confirmAlert({
+  removeSpeciality = () => {
+    this.handleCloseWarn();
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { deleteSpeciality, No, Yes, really_want_to_delete_speciality } = translate;
+    confirmAlert({
       customUI: ({ onClose }) => {
         return (
           <div
@@ -309,18 +311,18 @@ class Index extends Component {
             }
           >
 
-            <h1 class="alert-btn">Delete Speciality?</h1>
+            <h1 class="alert-btn">{deleteSpeciality}</h1>
 
-            <p>Are you really want to delete this Speciality?</p>
+            <p>{really_want_to_delete_speciality}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.deleteClick();
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -361,7 +363,9 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Specialities, DeleteSpeciality, Iunderstandthat, AddSpeciality } = translate;
+    let { Specialities, Iunderstandthat, AddSpeciality,
+      BacktoChangeHospital, addNewSpeciality, SpaceManagement, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
+      yesDeleteSpeciality, cancelKeepSpeciality, Room, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close } = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -404,15 +408,15 @@ class Index extends Component {
                     <Grid className="extSetting">
                       <a onClick={() => this.MoveInstitute()}>
                         <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
-                        Back to Change Hospital</a>
+                        {BacktoChangeHospital}</a>
                     </Grid>
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} sm={6} md={6}>
-                        <Grid className="spcMgntH1"><h1>Space Management</h1></Grid>
+                        <Grid className="spcMgntH1"><h1>{SpaceManagement}</h1></Grid>
                       </Grid>
                       <Grid item xs={6} sm={6} md={6} className="addFlowRght">
                         <a onClick={this.handleOpenSpecl}>
-                          + Add a new Speciality
+                          {addNewSpeciality}
                         </a>
                       </Grid>
                     </Grid>
@@ -424,7 +428,7 @@ class Index extends Component {
                             <ul>
                               <li>
                                 <a>
-                                  <span>Institution</span>
+                                  <span>{Institution}</span>
                                   <label>{this.props?.House?.label}</label>
                                 </a>
                               </li>
@@ -488,7 +492,7 @@ class Index extends Component {
 
                             {this.state.showError && (
                               <div className="err_message">
-                                Please select the all condition for delete the speciality
+                                {select_all_conditions_to_delete_speciality}
                               </div>
                             )}
                           </Grid>
@@ -524,15 +528,14 @@ class Index extends Component {
                               </Grid>
                               <Grid className="confirmActn">
                                 <p>
-                                  Please confirm that you understand the
-                                  consequences of your action.
+                                  {PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction}
                                 </p>
                               </Grid>
                               <Grid className="selectWarn">
                                 <Button className="selWarnBtn" onClick={() => { this.removeSpeciality() }}>
-                                  Yes, Delete Speciality
+                                  {yesDeleteSpeciality}
                                 </Button>
-                                <Button onClick={this.handleCloseWarn}>Cancel, Keep Speciality</Button>
+                                <Button onClick={this.handleCloseWarn}>{cancelKeepSpeciality}</Button>
                               </Grid>
                             </Grid>
                           </Grid>
@@ -587,7 +590,7 @@ class Index extends Component {
                                           {item?.rooms?.length
                                             ? item?.rooms?.length
                                             : 0}{" "}
-                                          rooms
+                                          {Room}
                                         </li>
                                         <li>
                                           <img
@@ -596,9 +599,9 @@ class Index extends Component {
                                             title=""
                                           />
                                           {this.bednumbers(item.rooms)} beds
-                                          
-                                          <AvailablebedListing 
-                                            speciality_id= {data._id}
+
+                                          <AvailablebedListing
+                                            speciality_id={data._id}
                                             ward_id={item._id}
                                           />
                                         </li>
@@ -644,7 +647,7 @@ class Index extends Component {
                   </a>
                 </Grid>
                 <Grid>
-                  {this.state.speciality._id ? <label>Edit <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> Delete Speciality</span></label> :
+                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> {DeleteSpeciality}</span></label> :
                     <label>{AddSpeciality}</label>}
                 </Grid>
               </Grid>
@@ -716,7 +719,7 @@ class Index extends Component {
                               }
                             >
                               <p onClick={this.handleOpenWard}>
-                                + Add a Ward
+                                {AddWard}
                               </p>
                             </Grid>
                           ) : (
@@ -754,7 +757,7 @@ class Index extends Component {
                                         });
                                       }}
                                     >
-                                      Cancel
+                                      {cancel}
                                     </Button>
                                     {this.state.isEditWrd ? (
                                       <Button
@@ -763,7 +766,7 @@ class Index extends Component {
                                           this.handleOpenRoom();
                                         }}
                                       >
-                                        Update Ward
+                                        {UpdateWard}
                                       </Button>
                                     ) : (
                                       <Button
@@ -772,7 +775,7 @@ class Index extends Component {
                                           this.handleOpenRoom();
                                         }}
                                       >
-                                        Save Ward
+                                        {SaveWard}
                                       </Button>
                                     )}
                                   </Grid>
@@ -785,7 +788,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="spclSaveBtn saveNclose">
                       <Button onClick={this.SaveSpeciality}>
-                        Save & Close
+                        {save_and_close}
                       </Button>
                     </Grid>
                   </Grid>
