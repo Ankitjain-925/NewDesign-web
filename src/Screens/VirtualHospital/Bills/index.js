@@ -373,7 +373,7 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Billing } = translate;
+        let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
         return (
             <Grid className={
@@ -451,12 +451,12 @@ class Index extends Component {
                                                                                 />
                                                                             </a>
                                                                         </Grid>
-                                                                        <label>Filters</label>
+                                                                        <label>{filters}</label>
                                                                     </Grid>
                                                                     <TabContainer>
                                                                         <Grid className="fltrForm">
                                                                             <Grid className="fltrInput">
-                                                                                <label>Patient</label>
+                                                                                <label>{Patient}</label>
                                                                                 <Grid className="addInput">
                                                                                     <Select
                                                                                         name="professional"
@@ -471,7 +471,7 @@ class Index extends Component {
                                                                                 </Grid>
                                                                             </Grid>
                                                                             <Grid className="fltrInput">
-                                                                                <label>Speciality</label>
+                                                                                <label>{speciality}</label>
                                                                                 <Grid className="addInput">
                                                                                     <Select
                                                                                         name="professional"
@@ -486,7 +486,7 @@ class Index extends Component {
                                                                                 </Grid>
                                                                             </Grid>
                                                                             <Grid className="fltrInput">
-                                                                                <label>Status</label>
+                                                                                <label>{Status}</label>
                                                                                 <Grid className="addInput">
                                                                                     <Select
                                                                                         onChange={this.onStatusChange}
@@ -518,11 +518,11 @@ class Index extends Component {
                                             <Table>
                                                 <Thead>
                                                     <Tr>
-                                                        <Th>ID</Th>
-                                                        <Th>Patient</Th>
-                                                        <Th>Date</Th>
-                                                        <Th>Status</Th>
-                                                        <Th>Total</Th>
+                                                        <Th>{ID}</Th>
+                                                        <Th>{Patient}</Th>
+                                                        <Th>{date}</Th>
+                                                        <Th>{Status}</Th>
+                                                        <Th>{total}</Th>
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>

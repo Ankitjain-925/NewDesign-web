@@ -3,20 +3,21 @@ import { Draggable } from "react-beautiful-dnd";
 import QuoteList from "./primatives/quote-list";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import {DebounceInput} from 'react-debounce-input';
- 
+import { DebounceInput } from 'react-debounce-input';
+import { getLanguage } from "translations/index"
+
 export default class Column extends Component {
 
   constructor(props) {
     super(props);
-  
+
     // Creating a reference
     this.box = React.createRef();
   }
   state = {
-    title : this.props.title,
-    quotes : this.props.quotes,
-    index : this.props.index,
+    title: this.props.title,
+    quotes: this.props.quotes,
+    index: this.props.index,
     inneerSec: false,
     edit: this.props.edit
   };
@@ -25,7 +26,7 @@ export default class Column extends Component {
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.title !== this.props.title || prevProps.quotes !== this.props.quotes || prevProps.index !== this.props.index) {
-      this.setState({title: this.props.title, quotes: this.props.quotes, index: this.props.index});
+      this.setState({ title: this.props.title, quotes: this.props.quotes, index: this.props.index });
     }
   };
 
@@ -36,11 +37,11 @@ export default class Column extends Component {
 
   handleOutsideClick = (event) => {
     if (this?.box && !this.box?.current?.contains(event.target)) {
-      this.setState({edit: false})
+      this.setState({ edit: false })
     }
   }
 
-  onChange=(e)=>{
+  onChange = (e) => {
     this.props.onChange(e)
   }
 
@@ -48,6 +49,8 @@ export default class Column extends Component {
     const title = this.props.title;
     const quotes = this.props.quotes;
     const index = this.props.index;
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { move_all_patients, move_step } = translate;
 
     return (
       <Draggable draggableId={title} index={index}>
@@ -79,46 +82,46 @@ export default class Column extends Component {
                           <ul>
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Move Step"}</a></li>
+                            <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{move_step}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
                             </Grid>}
                             {this.state.inneerSec==='move_all' &&
                             <div>
                               <Grid className="movHead">
-                                    <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                                    <Grid  className="movHeadMid"><label>Move All Patient</label></Grid>
-                                    <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
-                                </Grid>
-                                <Grid className="positionDrop">
-                                {this.props.ordered?.length>0 &&  this.props.ordered.map((item)=>(
-                                    <Grid><label onClick={()=>{this.props.moveAllPatient(item, index, quotes)}}>{item}</label></Grid>
+                                <Grid onClick={() => this.setState({ inneerSec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
+                                <Grid className="movHeadMid"><label>{move_all_patients}</label></Grid>
+                                <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                              </Grid>
+                              <Grid className="positionDrop">
+                                {this.props.ordered?.length > 0 && this.props.ordered.map((item) => (
+                                  <Grid><label onClick={() => { this.props.moveAllPatient(item, index, quotes) }}>{item}</label></Grid>
                                 ))}
-                                </Grid>
-                            </div> 
-                            }
-                            {this.state.inneerSec==='step_move' &&
+                              </Grid>
+                            </div>
+                          }
+                          {this.state.inneerSec === 'step_move' &&
                             <div>
-                                <Grid className="movHead">
-                                    <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                                    <Grid className="movHeadMid"><label>Move Step</label></Grid>
-                                    <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
-                                </Grid>
-                                <Grid className="positionDrop">
-                                {this.props.ordered?.length>0 &&  this.props.ordered.map((item, index1)=>(
-                                    <Grid><label onClick={()=>{this.props.moveStep(index1, index, item)}}>{index1}</label></Grid>
+                              <Grid className="movHead">
+                                <Grid onClick={() => this.setState({ inneerSec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
+                                <Grid className="movHeadMid"><label>{move_step}</label></Grid>
+                                <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                              </Grid>
+                              <Grid className="positionDrop">
+                                {this.props.ordered?.length > 0 && this.props.ordered.map((item, index1) => (
+                                  <Grid><label onClick={() => { this.props.moveStep(index1, index, item) }}>{index1}</label></Grid>
                                 ))}
-                                </Grid>
-                            </div> 
-                            }
-                          </ul>
-                          
-                    </a>
-                    {/* <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" /> */}
-                  </Grid>
-                </div>:
-                <Grid className="receLbl">
-                  <Grid container direction="row" justify="center" alignItems="center">
+                              </Grid>
+                            </div>
+                          }
+                        </ul>
+
+                      </a>
+                      {/* <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" /> */}
+                    </Grid>
+                  </div> :
+                  <Grid className="receLbl">
+                    <Grid container direction="row" justify="center" alignItems="center">
                       <Grid item xs={12} sm={6} md={6}><label>
                       <Grid>{this.props.edit===index ? 
                       <div ref={this.box}>
@@ -142,7 +145,7 @@ export default class Column extends Component {
                           <ul>
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Move Step"}</a></li>
+                            <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{move_step}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
                             </Grid>}
@@ -179,9 +182,9 @@ export default class Column extends Component {
                     </a>
                     </Grid>
                       </Grid>
+                    </Grid>
                   </Grid>
-                </Grid>
-              }
+                }
               </Grid>
             </div>
               <QuoteList
