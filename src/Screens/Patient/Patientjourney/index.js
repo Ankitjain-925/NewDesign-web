@@ -16,7 +16,7 @@ import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import { LanguageFetchReducer } from "Screens/actions";
 import AddEntry from "Screens/Components/AddEntry/index";
-import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedData/index";
+
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction.js";
@@ -208,10 +208,7 @@ class Index extends Component {
 
 
   handleSubmit2 = (qustiondata, index) => {
-    console.log("qustiondata",qustiondata)
     var data = this.state.answers;
-    // data.viewQuestionaire = false;
-    // data.submitQuestionaire = true;
     axios
       .post(
         sitedata.data.path + '/questionaire/AddAnswerspatient',
@@ -1281,15 +1278,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                       {/* Model setup */}
-                      <PersonalizedData
-                        settings={this.props.settings}
-                        SetPersonalized={this.SetPesonalized}
-                        added_data={this.state.added_data}
-                        personalised_card={this.state.personalised_card}
-                        openDash={this.state.openDash}
-                        onChange={this.UpdatePersonalized}
-                        handleCloseDash={this.handleCloseDash}
-                      />
+                  
                       {/* End of Model setup */}
 
                       {/* For the filter section */}
