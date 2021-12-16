@@ -29,6 +29,10 @@ import { getLanguage } from "translations/index"
 import { Redirect, Route } from 'react-router-dom';
 import filterate from 'reducers/Filterthis';
 import { PatientMoveFromHouse } from '../PatientFlow/data'
+import Modal from "@material-ui/core/Modal";
+import Select from "react-select";
+import { getPatientData } from 'Screens/Components/CommonApi/index';
+import { MultiFilter2 } from '../../Components/MultiFilter'
 
 function TabContainer(props) {
     return (
@@ -53,18 +57,64 @@ class Index extends Component {
             bills_data: {},
             setStatus: false,
             AllStatus: {},
-            finalStatus: {}
+            finalStatus: {},
+            showPopup: false,
+            userFilter: '',
+            userFilter2: '',
+            userFilter3: '',
+            users1: [],
+            newTask: {},
+            PatientList: [],
+            PatientStatus: [],
+            SpecialityData: [],
+            AllPatients: this.props.AllPatients,
+            AllSpecialities: this.props.AllSpecialities,
+            AllStatus: this.props.AllStatus,
+            AllPatientCss: '',
+            AllSpcialityCss: '',
+            AllStatusCss: ''
+
         }
     };
 
     componentDidMount() {
         this.getMetadata();
         this.fetchbillsdata('all', 0);
+        this.getPatientData();
+        this.getSpeciality();
+        let statusList = [{ label: "Paid", value: "Paid" }, { label: "Issued", value: "Issued" },
+        { label: "Draft", value: "Draft" }, { label: "Overdue", value: "Overdue" }]
+        this.setState({ PatientStatus: statusList })
     }
 
     // For print invoice
     printInvoice() {
         window.print();
+    }
+
+    //patient list
+    getPatientData = async () => {
+        this.setState({ loaderImage: true });
+        let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
+        let patientList = response && response.patientArray && response.patientArray.length > 0 && response.patientArray.map((item) => {
+            return { label: item.first_name + " " + item.last_name, value: item.profile_id }
+        })
+        this.setState({ PatientList: patientList })
+
+    }
+
+    // for Speciality
+    getSpeciality = () => {
+        let spec = JSON.parse(localStorage.getItem("redux_localstorage_simple"))
+        let data = spec && spec.Speciality && spec.Speciality.speciality && spec.Speciality.speciality.SPECIALITY
+        let speciality_list = data && data.length > 0 && data.map((item) => {
+            return { label: item.specialty_name, value: item._id }
+        })
+        this.setState({ SpecialityData: speciality_list })
+    }
+
+    updateEntryState4 = (e) => {
+        this.setState({ userFilter3: e })
     }
 
     // For page change 
@@ -82,6 +132,15 @@ class Index extends Component {
         this.setState({ setStatus: true })
     }
 
+    //for PopUp Opening and Closing
+    handleOpenPopUp = () => {
+        this.setState({ showPopup: true })
+    }
+
+    handleClosePopUp = () => {
+        this.setState({ showPopup: false })
+    }
+
     //get list of list
     getMetadata = () => {
         this.setState({ allMetadata: this.props.metadata },
@@ -97,6 +156,37 @@ class Index extends Component {
                     AllStatus: AllStatus,
                 });
             })
+    }
+
+    //Patient name
+    updateUserFilter = (e) => {
+        this.setState({ userFilter: e })
+    }
+
+    //Status list
+    onStatusChange = (e) => {
+        this.setState({ userFilter2: e })
+    }
+
+    // Clear Filter
+    clearFilter = () => {
+        this.setState({
+            userFilter: '', userFilter3: '', userFilter2: '',
+            AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
+            AllStatus: this.props.AllStatus, showPopup: false
+        })
+    }
+
+    // Apply Filter
+    applyFilter = () => {
+        let fullData = this.state.AllBills
+        let { userFilter, userFilter3, userFilter2 } = this.state
+        let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
+        console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
+        this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
+        this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
+        this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
+        // this.handleClosePopUp();
     }
 
     // Update status acc. to their particular id
@@ -251,40 +341,40 @@ class Index extends Component {
     };
 
 
-downloadInvoicePdf = (datas) => {
-    var invoice = datas;
-    axios
-    .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
-        { responseType: "blob" }
-      )
-      .then((res) => {
-        this.setState({ loaderImage: false });
-        var data = new Blob([res.data]);
-        if (typeof window.navigator.msSaveBlob === "function") {
-          // If it is IE that support download blob directly.
-          window.navigator.msSaveBlob(data, "report.pdf");
-        } else {
-          var blob = data;
-          var link = document.createElement("a");
-          link.href = window.URL.createObjectURL(blob);
-          link.download = "report.pdf";
-          document.body.appendChild(link);
-          link.click(); // create an <a> element and simulate the click operation.
-        }
-       
-      })
-      .catch((err) => {
-        this.setState({ loaderImage: false });
-      })
-      .catch((err) => {
-        this.setState({ loaderImage: false });
-      });
-     };
+    downloadInvoicePdf = (datas) => {
+        var invoice = datas;
+        axios
+            .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
+                { responseType: "blob" }
+            )
+            .then((res) => {
+                this.setState({ loaderImage: false });
+                var data = new Blob([res.data]);
+                if (typeof window.navigator.msSaveBlob === "function") {
+                    // If it is IE that support download blob directly.
+                    window.navigator.msSaveBlob(data, "report.pdf");
+                } else {
+                    var blob = data;
+                    var link = document.createElement("a");
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "report.pdf";
+                    document.body.appendChild(link);
+                    link.click(); // create an <a> element and simulate the click operation.
+                }
+
+            })
+            .catch((err) => {
+                this.setState({ loaderImage: false });
+            })
+            .catch((err) => {
+                this.setState({ loaderImage: false });
+            });
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Billing } = translate;
-        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data } = this.state;
+        let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
+        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
@@ -335,7 +425,89 @@ downloadInvoicePdf = (datas) => {
                                                 </Grid>
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
-                                                        <a><img src={require('assets/virtual_images/sort.png')} alt="" title="" /></a>
+                                                        <a onClick={this.handleOpenPopUp}>
+                                                            <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
+                                                        </a>
+                                                        <Modal
+                                                            open={this.state.showPopup}
+                                                            onClose={this.handleClosePopUp}
+                                                            className={
+                                                                this.props.settings &&
+                                                                    this.props.settings.setting &&
+                                                                    this.props.settings.setting.mode === "dark"
+                                                                    ? "darkTheme paraBoxModel"
+                                                                    : "paraBoxModel"
+                                                            }
+                                                        >
+                                                            <Grid className="fltrClear">
+                                                                <Grid className="fltrClearIner">
+                                                                    <Grid className="fltrLbl">
+                                                                        <Grid className="fltrLblClose">
+                                                                            <a onClick={this.handleClosePopUp}>
+                                                                                <img
+                                                                                    src={require("assets/images/close-search.svg")}
+                                                                                    alt=""
+                                                                                    title=""
+                                                                                />
+                                                                            </a>
+                                                                        </Grid>
+                                                                        <label>{filters}</label>
+                                                                    </Grid>
+                                                                    <TabContainer>
+                                                                        <Grid className="fltrForm">
+                                                                            <Grid className="fltrInput">
+                                                                                <label>{Patient}</label>
+                                                                                <Grid className="addInput">
+                                                                                    <Select
+                                                                                        name="professional"
+                                                                                        onChange={this.updateUserFilter}
+                                                                                        value={this.state.userFilter}
+                                                                                        options={PatientList}
+                                                                                        placeholder="Filter by Patient"
+                                                                                        className="addStafSelect"
+                                                                                        isMulti={true}
+                                                                                        isSearchable={true}
+                                                                                    />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                            <Grid className="fltrInput">
+                                                                                <label>{speciality}</label>
+                                                                                <Grid className="addInput">
+                                                                                    <Select
+                                                                                        name="professional"
+                                                                                        onChange={this.updateEntryState4}
+                                                                                        value={this.state.userFilter3}
+                                                                                        options={SpecialityData}
+                                                                                        placeholder="Filter by Speciality"
+                                                                                        className="addStafSelect"
+                                                                                        isMulti={true}
+                                                                                        isSearchable={true}
+                                                                                    />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                            <Grid className="fltrInput">
+                                                                                <label>{Status}</label>
+                                                                                <Grid className="addInput">
+                                                                                    <Select
+                                                                                        onChange={this.onStatusChange}
+                                                                                        options={PatientStatus}
+                                                                                        name="specialty_name"
+                                                                                        value={this.state.userFilter2}
+                                                                                        placeholder="Filter by Status"
+                                                                                        className="addStafSelect"
+                                                                                        isMulti={true}
+                                                                                        isSearchable={true} />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid className="aplyFltr">
+                                                                            <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
+                                                                            <Grid className="aplyRght"><Button onClick={this.applyFilter}>Apply filters</Button></Grid>
+                                                                        </Grid>
+                                                                    </TabContainer>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Modal>
                                                         <a><img src={require('assets/virtual_images/search-entries.svg')} alt="" title="" /></a>
                                                         <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
                                                     </Grid>
@@ -346,11 +518,11 @@ downloadInvoicePdf = (datas) => {
                                             <Table>
                                                 <Thead>
                                                     <Tr>
-                                                        <Th>ID</Th>
-                                                        <Th>Patient</Th>
-                                                        <Th>Date</Th>
-                                                        <Th>Status</Th>
-                                                        <Th>Total</Th>
+                                                        <Th>{ID}</Th>
+                                                        <Th>{Patient}</Th>
+                                                        <Th>{date}</Th>
+                                                        <Th>{Status}</Th>
+                                                        <Th>{total}</Th>
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
@@ -368,7 +540,7 @@ downloadInvoicePdf = (datas) => {
                                                                     <ul className="actionPdf">
                                                                         <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
                                                                         <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
-                                                                        <a onClick={() => { this.downloadInvoicePdf(data)}}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
+                                                                        <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">

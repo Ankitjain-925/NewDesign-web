@@ -29,7 +29,6 @@ class InnerQuoteList extends React.Component {
             provided={dragProvided}
             view={this.props.view}
           />
-
         )}
       </Draggable>
     ));

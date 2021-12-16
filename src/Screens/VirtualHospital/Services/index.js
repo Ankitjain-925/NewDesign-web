@@ -6,8 +6,6 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
-import axios from "axios";
-import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
 import { withRouter } from "react-router-dom";
@@ -17,10 +15,11 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
-import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
+import { getSpecialty, getAllServices, handleSubmit, getSpecialtyData,selectedID, deleteClickService, onChangePage, 
+  handleOpenServ, handleCloseServ, updateEntryState1, editService, onFieldChange } from "./api";
 import { getLanguage } from "translations/index"
 
 class Index extends Component {
@@ -42,123 +41,11 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    this.getSpecialty();
-    this.getAllServices();
+    getSpecialty(this);
+    getAllServices(this);
   }
 
-  getSpecialty = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(
-        sitedata.data.path + "/vh/AddSpecialty/" + this.props?.House?.value,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
-          var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
-            return ({ label: item.specialty_name, value: item._id })
-          })
-          this.setState({ AllSpeciality: newArray });
-        }
-        this.setState({ loaderImage: false });
-      });
-  };
-  //Modal Open
-  handleOpenServ = () => {
-    this.setState({ openServ: true, updateTrack: {} });
-  };
-
-  //Modal Close
-  handleCloseServ = () => {
-    this.setState({ openServ: false });
-  };
-  updateEntryState1 = (e) => {
-    const state = this.state.updateTrack;
-    state[e.target.name] = e.target.value;
-    this.setState({ updateTrack: state });
-  };
-
-  //For adding the New Service and Update Service
-  handleSubmit = () => {
-    this.setState({ errorMsg: '' })
-    var data = this.state.updateTrack;
-    if (!data.title || (data && data?.title && data?.title.length < 1)) {
-      this.setState({ errorMsg:"Please enter Service Name" })
-    }
-    else if (!data.price || (data && data?.price && data?.price < 1)) {
-      this.setState({ errorMsg: "Please enter a valid price" })
-    }
-    else {
-      if (this.state.updateTrack._id) {
-        axios
-          .put(
-            sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            this.setState({
-              updateTrack: {},
-            });
-            this.getAllServices();
-          });
-      } else {
-        data.house_id = this.props?.House?.value;
-        axios
-          .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
-          .then((responce) => {
-            this.getAllServices();
-            this.handleCloseServ();
-          })
-          .catch(function (error) {
-            console.log(error);
-            this.setState({ errorMsg: "Somthing went wrong, Please try again" })
-
-          });
-      }
-    }
-  };
-  // Open Edit Model
-  editService = (data) => {
-    this.setState({ updateTrack: data, openServ: true });
-  };
-
-  // For getting the Service and implement Pagination
-  getAllServices = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(
-        sitedata.data.path + "/vh/GetService/" + this.props?.House?.value,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((response) => {
-        var totalPage = Math.ceil(response.data.data.length / 10);
-        this.setState(
-          {
-            AllServices: response.data.data,
-            loaderImage: false,
-            totalPage: totalPage,
-            currentPage: 1,
-          },
-          () => {
-            this.setState({ loaderImage: false });
-            if (totalPage > 1) {
-              var pages = [];
-              for (var i = 1; i <= this.state.totalPage; i++) {
-                pages.push(i);
-              }
-              this.setState({
-                services_data: this.state.AllServices.slice(0, 10),
-                pages: pages,
-              });
-            } else {
-              this.setState({ services_data: this.state.AllServices });
-            }
-          }
-        );
-      });
-  };
-
+  
   //Delete the perticular service confirmation box
   removeServices = (id) => {
     this.setState({ message: null, openTask: false });
@@ -219,7 +106,7 @@ class Index extends Component {
               <button onClick={onClose}>No</button>
               <button
                 onClick={() => {
-                  this.deleteClickService(id);
+                  deleteClickService(id, this);
                   onClose();
                 }}
               >
@@ -231,73 +118,9 @@ class Index extends Component {
       },
     });
   };
-  deleteClickService(id) {
-    axios
-      .delete(sitedata.data.path + "/vh/AddService/" + id, commonHeader(this.props.stateLoginValueAim.token))
-      .then((response) => {
-        this.getAllServices();
-      })
-      .catch((error) => { });
-  }
 
-  onChangePage = (pageNumber) => {
-    this.setState({
-      services_data: this.state.AllServices.slice(
-        (pageNumber - 1) * 10,
-        pageNumber * 10
-      ),
-      currentPage: pageNumber,
-    });
-  };
 
-  //On Changing the specialty id 
-  onFieldChange = (e) => { 
-    const state = this.state.updateTrack;
-    state['specialty_id'] = e?.length > 0 && e.map((data) => { return data.value });
-    this.setState({ updateTrack: state });
-  }
-
-  selectedID = (id) => {
-    if (!id) return []; 
-    else{
-      var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => id?.includes(item.value))
-      if (data && data.length > 0) {
-        return data;
-      }
-      return [];
-    }
-   
-  }
-
-  getSpecialtyData = (id) => {
-    if (id) {
-      this.setState({ speciality_id: id })
-      if (id === 'general') {
-        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => !data.speciality_id)
-      }
-      else {
-        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => (data?.speciality_id && data?.speciality_id.includes(id)))
-      }
-    }
-    else {
-      this.setState({ speciality_id: false })
-      var filterData = this.state.AllServices;
-    }
-    var totalPage = Math.ceil(filterData.length / 10);
-    if (totalPage > 1) {
-      var pages = [];
-      for (var i = 1; i <= this.state.totalPage; i++) {
-        pages.push(i);
-      }
-      this.setState({
-        services_data: filterData.slice(0, 10),
-        pages: pages,
-      });
-    } else {
-      this.setState({ services_data: filterData });
-    }
-  }
-
+ 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Addnewservice, Services, Specialty } = translate;
@@ -354,12 +177,12 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc">
-                          <Button onClick={this.handleOpenServ}>
+                          <Button onClick={()=>handleOpenServ(this)}>
                             + New Service
                           </Button>
                           <Modal
                             open={this.state.openServ}
-                            onClose={this.handleCloseServ}
+                            onClose={()=>handleCloseServ(this)}
                             className={
                               this.props.settings &&
                                 this.props.settings.setting &&
@@ -372,7 +195,7 @@ class Index extends Component {
                             <Grid className="addServContnt">
                               <Grid className="addSpeclLbl">
                                 <Grid className="addSpeclClose">
-                                  <a onClick={this.handleCloseServ}>
+                                  <a onClick={()=>handleCloseServ(this)}>
                                     <img
                                       src={require("assets/virtual_images/closefancy.png")}
                                       alt=""
@@ -394,7 +217,7 @@ class Index extends Component {
                                       name="title"
                                       placeholder="Enter Service name"
                                       onChange={(e) =>
-                                        this.updateEntryState1(e)
+                                       updateEntryState1(e, this)
                                       }
                                       value={this.state.updateTrack.title}
                                     />
@@ -406,7 +229,7 @@ class Index extends Component {
                                       name="description"
                                       placeholder="Enter service short description"
                                       onChange={(e) =>
-                                        this.updateEntryState1(e)
+                                       updateEntryState1(e, this)
                                       }
                                       value={
                                         this.state.updateTrack.description
@@ -417,14 +240,14 @@ class Index extends Component {
                                   <label className="specbutton1">Specialty</label>
                                   <Grid className="sevicessection">
                                     <Select
-                                      onChange={(e) => this.onFieldChange(e)}
+                                      onChange={(e) => onFieldChange(e, this)}
                                       options={this.state.AllSpeciality}
                                       name="specialty_name"
                                       isSearchable={true}
                                      
                                       className="mr_sel"
                                       isMulti={true}
-                                      value={this.selectedID(this.state.updateTrack.specialty_id)}
+                                      value={selectedID(this.state.updateTrack.specialty_id, this)}
                                     />
                                   </Grid>
 
@@ -434,7 +257,7 @@ class Index extends Component {
                                       name="price"
                                       placeholder="Enter service price"
                                       onChange={(e) =>
-                                        this.updateEntryState1(e)
+                                       updateEntryState1(e, this)
                                       }
                                       value={this.state.updateTrack.price}
                                     />
@@ -444,7 +267,7 @@ class Index extends Component {
                               <Grid className="servSaveBtn">
                                 <a>
                                   <Button
-                                    onClick={() => this.handleSubmit()}>Save & Close</Button>
+                                    onClick={() => handleSubmit(this)}>Save & Close</Button>
                                 </a>
                               </Grid>
                             </Grid>
@@ -487,10 +310,10 @@ class Index extends Component {
                     {/* End of Bread Crumb */}
                     <Grid className="cardioGrup">
                       <Grid className="cardioGrupBtn">
-                        <Button onClick={() => { this.getSpecialtyData(false) }} className={!this.state.speciality_id ? "cardioActv" : ""} variant="contained">{"All"}</Button>
-                        <Button onClick={() => { this.getSpecialtyData('general') }} className={this.state.speciality_id === 'general' ? "cardioActv" : ""} variant="contained">{"General"}</Button>
+                        <Button onClick={() => { getSpecialtyData(false, this) }} className={!this.state.speciality_id ? "cardioActv" : ""} variant="contained">{"All"}</Button>
+                        <Button onClick={() => { getSpecialtyData('general', this) }} className={this.state.speciality_id === 'general' ? "cardioActv" : ""} variant="contained">{"General"}</Button>
                         {this.state.AllSpeciality?.length > 0 && this.state.AllSpeciality.map((item) => (
-                          <Button onClick={() => { this.getSpecialtyData(item.value) }} className={this.state.speciality_id === item.value ? "cardioActv" : ""} variant="contained">{item.label}</Button>
+                          <Button onClick={() => {getSpecialtyData(item.value, this) }} className={this.state.speciality_id === item.value ? "cardioActv" : ""} variant="contained">{item.label}</Button>
                         ))}
 
                       </Grid>
@@ -535,7 +358,7 @@ class Index extends Component {
                                           <li>
                                             <a
                                               onClick={() => {
-                                                this.editService(data);
+                                                editService(data, this);
                                               }}
                                             >
                                               <img
@@ -589,7 +412,7 @@ class Index extends Component {
                                   currentPage={this.state.currentPage}
                                   pages={this.state.pages}
                                   onChangePage={(page) => {
-                                    this.onChangePage(page);
+                                    onChangePage(page, this);
                                   }}
                                 />
                               </Grid>

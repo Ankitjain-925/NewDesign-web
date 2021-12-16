@@ -15,6 +15,7 @@ import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getLanguage } from "translations/index"
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { getSetting } from "../api";
+import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -63,6 +64,7 @@ class Index extends Component {
       let languageType = "en";
       this.props.LanguageFetchReducer(languageType);
       this.props.houseSelect({value: null});
+      this.props.Speciality(false)
       this.props.Fitbit({
         lifetimeStats: {},
         device: [],
@@ -538,8 +540,7 @@ const mapStateToProps = (state) => {
   const { fitbit } = state.Fitbit;
   const { withing } = state.Withings;
   const { House } = state.houseSelect;
-  // const { Doctorsetget } = state.Doctorset;
-  // const { catfil } = state.filterate;
+  const { speciality } = state.Speciality;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -548,8 +549,7 @@ const mapStateToProps = (state) => {
     fitbit,
     withing,
     House,
-    //   Doctorsetget,
-    //   catfil
+    speciality
   };
 };
 export default withRouter(
@@ -559,6 +559,7 @@ export default withRouter(
     LoginReducerAim,
     LanguageFetchReducer,
     Settings,
-    houseSelect
+    houseSelect,
+    Speciality
   })(Index)
 );

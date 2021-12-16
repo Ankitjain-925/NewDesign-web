@@ -95,7 +95,8 @@ class Index extends Component {
       openServ: false,
       editcomment: false,
       check: {},
-      allWards: ''
+      allWards: '',
+      newComment: ''
     };
   }
 
@@ -1358,7 +1359,7 @@ class Index extends Component {
                                     e.target.value
                                   )
                                 }
-                                value={this.state.newComment?.comment}
+                                value={this.state.newComment || ''}
                               ></textarea>
 
                               <Button onClick={(e) => this.handleComment()}>Add Comment</Button>

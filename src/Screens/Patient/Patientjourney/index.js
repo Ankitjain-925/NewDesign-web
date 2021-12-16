@@ -16,9 +16,11 @@ import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import { LanguageFetchReducer } from "Screens/actions";
 import AddEntry from "Screens/Components/AddEntry/index";
-import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedData/index";
+
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction.js";
+import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
 import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -131,6 +133,9 @@ class Index extends Component {
       rating: "",
       final_Submit: [],
       answers: [],
+      view:[],
+      house_name:'',
+      house_id:'',
 
 
     };
@@ -177,6 +182,7 @@ class Index extends Component {
   }
 
   handleSubmit = (_id) => {
+    // console.log('updateTrack',this.state.updateTrack)
     const answers = this.state.answers;
     if (this.state.ratingValue) {
       var rating = this.state.ratingValue
@@ -201,21 +207,27 @@ class Index extends Component {
   };
 
 
-  handleSubmit2 = () => {
-    console.log("answers", this.state.answers)
+  handleSubmit2 = (qustiondata, index) => {
     var data = this.state.answers;
-    data.viewQuestionaire = false;
-    data.submitQuestionaire = true;
     axios
-      .get(
-        sitedata.data.path + '/vh/patientjourney/' + this.props.stateLoginValueAim.user._id,
-        commonHeader(this.props.stateLoginValueAim.token),
+      .post(
+        sitedata.data.path + '/questionaire/AddAnswerspatient',
+        {
+          answers:data,
+          house_name: qustiondata[index]?.house_name,
+          patient_id:this.props.stateLoginValueAim.user._id,
+          house_id:qustiondata[index]?.house_id,
+           questionaire_id:qustiondata[index]?._id,
+          
+          },
+           commonHeader(this.props.stateLoginValueAim.token),
       )
       .then((response) => {
-        if (response.data.hassuccessed) {
-          this.setState({ data: response.data.data });
+      if (response.data.hassuccessed) {
+        this.getQuestionnaire();
          
         }
+        
         this.setState({ loaderImage: false });
       });
  };
@@ -223,12 +235,13 @@ class Index extends Component {
   options = (e) => {
     const state = this.state.updateTrack;
     var data = state.options ? state.options : []
+    console.log('e',state.options ? state.options : [])
     if (e.target.checked == true) {
       data.push(e.target.value);
     }
     else {
 
-      if (data.indexOf(e.target.value) > -1) {
+      if (data.indexOf(e.target.value) > 0) {
         var index = data.indexOf(e.target.value)
         data.splice(index, 1);
       }
@@ -583,6 +596,8 @@ class Index extends Component {
     this.getPesonalized();
     this.verifyRecipet();
     this.getQuestionnaire();
+    this.viewdata();
+    
   }
 
   verifyRecipet = () => {
@@ -732,6 +747,22 @@ class Index extends Component {
         if (response.data.hassuccessed) {
           this.setState({ AllQuestions: response.data.data });
           console.log("Questionnaire", this.state.AllQuestions)
+        }
+        this.setState({ loaderImage: false });
+      });
+  }
+
+  viewdata = () => {
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path + '/vh/patientjourney/' + this.props.stateLoginValueAim.user._id,
+        commonHeader(this.props.stateLoginValueAim.token),
+      )
+      .then((response) => {
+        if (response.data.hassuccessed) {
+          this.setState({ view: response.data.data });
+          // console.log("view", this.state.view)
         }
         this.setState({ loaderImage: false });
       });
@@ -1145,7 +1176,7 @@ class Index extends Component {
   };
 
   render() {
-    const { stateLoginValueAim, Doctorsetget } = this.props;
+    const { stateLoginValueAim, Doctorsetget,House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
@@ -1156,6 +1187,8 @@ class Index extends Component {
     ) {
       return <Redirect to={"/"} />;
     }
+    
+   
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       long_covid,
@@ -1244,15 +1277,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                       {/* Model setup */}
-                      <PersonalizedData
-                        settings={this.props.settings}
-                        SetPersonalized={this.SetPesonalized}
-                        added_data={this.state.added_data}
-                        personalised_card={this.state.personalised_card}
-                        openDash={this.state.openDash}
-                        onChange={this.UpdatePersonalized}
-                        handleCloseDash={this.handleCloseDash}
-                      />
+                  
                       {/* End of Model setup */}
 
                       {/* For the filter section */}
@@ -1268,8 +1293,9 @@ class Index extends Component {
                       {/* For Empty Entry */}
                       <Grid item xs={12} md={8}>
                         <Grid>
-                          {this.state.AllQuestions?.length > 0 && this.state.AllQuestions.map((data1) => (
-                            data1?.questions.map((data) => (
+                          {this.state.AllQuestions?.length > 0 && this.state.AllQuestions.map((data1, index) => (
+                            <>
+                                                       {data1?.questions.map((data) => (
                               // console.log("data", data),
 
                               <>
@@ -1382,11 +1408,13 @@ class Index extends Component {
                               </>
                             )
 
-                            )
-                          ))}</Grid>    </Grid>
-                      <Grid item xs={12} md={12}>
-                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2()}>Final Submit</Button></Grid>
+                            )}
+                             <Grid item xs={12} md={12}>
+                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2(this.state.AllQuestions, index)}>Final Submit</Button></Grid>
                       </Grid>
+                            </>
+                          ))}</Grid>    </Grid>
+                     
                       {/* <div>
                         {this.state.allTrack &&
                           this.state.allTrack.length > 0 ? (
@@ -2267,6 +2295,7 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
+  const { House } = state.houseSelect;
   const { verifyCode } = state.authy;
   const { metadata } = state.OptionList;
   // const { Doctorsetget } = state.Doctorset;
@@ -2278,6 +2307,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     metadata,
+    House,
     //   Doctorsetget,
     //   catfil
   };
@@ -2289,5 +2319,6 @@ export default pure(withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    houseSelect,
   })(Index))
 );
