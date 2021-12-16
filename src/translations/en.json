@@ -1332,11 +1332,9 @@
 		"LastDocuments":"Last Documents",
 		"Prescription":"Prescription",
 		"Invoice_ID":"Invoice ID",
-		"Add_service":"Add service"
+		"Add_service":"Add service",
+		"Created_user_id_pin":"Created User ID and PIN"
 		
-		
-		
-
 		
 	}
 }

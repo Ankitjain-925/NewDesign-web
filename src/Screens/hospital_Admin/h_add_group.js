@@ -25,10 +25,6 @@ import { getLanguage } from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { S3Image } from "Screens/Components/GetS3Images/index";
 
-const specialistOptions = [
-  { value: "Specialist1", label: "Specialist1" },
-  { value: "Specialist2", label: "Specialist2" },
-];
 
 class Index extends Component {
   constructor(props) {
@@ -53,7 +49,7 @@ class Index extends Component {
 
   //open the institute group
   openInstitute = () => {
-    this.setState({ openGroup: true, institute_groups: {} });
+    this.setState({ openGroup: true, institute_groups: {}, houses: [] });
   };
   //close the institute group
   closeInstitute = () => {

@@ -41,7 +41,6 @@ export default class Column extends Component {
   }
 
   onChange=(e)=>{
-    console.log('safdsa222222dfsdf')
     this.props.onChange(e)
   }
 
@@ -72,14 +71,14 @@ export default class Column extends Component {
                       value={title}
                     />
                     </div>
-                    : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title}</label>}
+                    : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title?.substr (0, 12)} {title.length>12 && <>...</>}</label>}
                   </Grid>
                   <Grid className="checkDotsRght">
                     <a className="academy_ul stepTdotupper">
                         <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
-                            <li><a onClick={()=>{this.props.openAddPatient(index)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
+                            <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Move Step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
@@ -128,20 +127,21 @@ export default class Column extends Component {
                       forceNotifyByEnter={true}
                       forceNotifyOnBlur={true}
                       minLength={0}
-                      debounceTimeout={5000}
-                      onChange={e => this.props.onChange(e)}
+                      debounceTimeout={2000}
+                      onChange={e => this.onChange(e)}
+                      value={title}
                     />
                     </div>
-                    : <label onDoubleClick={()=>this.props.editName(index)}>{title}</label>}
+                    : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title?.substr (0, 12)} {title.length>12 && <>...</>}</label>}
                   </Grid></label></Grid>
                       <Grid item xs={12} sm={6} md={6} className="addPatent">
-                          <a className="addNwPatnt" onClick={()=>{this.props.openAddPatient(index)}}>+ Add a new patient</a>
+                          <a className="addNwPatnt" onClick={()=>{this.props.openAddPatient(title)}}>+ Add a new patient</a>
                           <Grid className="checkDotsRght">
                           <a className="academy_ul stepTdotupper">
                         <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
-                            <li><a onClick={()=>{this.props.openAddPatient(index)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
+                            <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Move Step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
@@ -204,7 +204,7 @@ export default class Column extends Component {
                 updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                 MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
               />
-             {this.props.view==='vertical' && <Grid className="nwPatentAdd"><Button onClick={()=>{this.props.openAddPatient(index)}}>+ Add a new patient</Button></Grid>}
+             {this.props.view==='vertical' && <Grid className="nwPatentAdd"><Button onClick={()=>{this.props.openAddPatient(title)}}>+ Add a new patient</Button></Grid>}
           </div>
         )}
       </Draggable>

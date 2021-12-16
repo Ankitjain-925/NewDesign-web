@@ -87,7 +87,8 @@ class Index extends Component {
       OpenTaskCss: '',
       ArchivedTasksCss: '',
       text: '',
-      errorMsg : ''
+      errorMsg : '',
+      newComment: ''
     };
   }
 
@@ -1186,7 +1187,7 @@ class Index extends Component {
                                     e.target.value
                                   )
                                 }
-                                value={this.state.newComment}
+                                value={this.state.newComment || ''}
                               ></textarea>
 
                               <Button onClick={(e) => this.handleComment()}>Add Comment</Button>

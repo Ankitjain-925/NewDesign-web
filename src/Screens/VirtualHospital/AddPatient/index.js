@@ -680,7 +680,7 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Register_characters,  Register_Passwordshould,  Register_letter, Register_number, Register_special, Register_Password,
+        let { Created_user_id_pin, Register_characters,  Register_Passwordshould,  Register_letter, Register_number, Register_special, Register_Password,
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
@@ -734,7 +734,7 @@ class Index extends Component {
                                     <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                 </a>
                             </Grid>
-                            <Grid><label>Created User ID and PIN</label></Grid>
+                            <Grid><label>{Created_user_id_pin}</label></Grid>
                         </Grid>
                         <Grid className="editPinform">
                             <Grid className="editField">

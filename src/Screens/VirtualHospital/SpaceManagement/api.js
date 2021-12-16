@@ -25,7 +25,7 @@ export const SaveSpeciality = (current) => {
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            current.getSpeciality();
+            getSpeciality(current);
           }
           current.setState({
             ward: {},
@@ -45,7 +45,7 @@ export const SaveSpeciality = (current) => {
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            current.getSpeciality();
+            getSpeciality(current);
           }
           current.setState({
             ward: {},

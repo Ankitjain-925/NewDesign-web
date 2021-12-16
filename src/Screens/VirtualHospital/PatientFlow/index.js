@@ -49,7 +49,6 @@ class Index extends Component {
       addp: {},
       case: {},
       caseAlready: false,
-      AddstpId: false,
       searchValue: '',
       idpinerror: false,
       openPopup: false,
@@ -278,8 +277,14 @@ class Index extends Component {
   };
 
   //Open case model
-  openAddPatient = (index = 0) => {
-    this.setState({ openAddP: true, AddstpId: index, addp: {}, idpinerror: false, case: {}, });
+  openAddPatient = (step_name='') => {
+    if(step_name && step_name !== ''){
+      var finalsection = this.state.StepNameList?.length>0 && this.state.StepNameList.filter((data) => data.label.toLowerCase()==step_name.toLowerCase())
+      if(finalsection && finalsection.length>0){
+        this.setState({SelectedStep: finalsection[0] })
+      }
+    }
+    this.setState({ openAddP: true, addp: {}, idpinerror: false, case: {}, });
   };
 
   //Close case model
@@ -378,8 +383,7 @@ class Index extends Component {
   //On Add case
   AddCase = () => {
     this.setState({ errorMsg: '' })
-    var data = this.state.addp;
-    console.log('sdfsdf11111',this.state.SelectedStep)
+    var data = this.state.addp;  console.log(this.state.SelectedStep)
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please enter case number' })
     }
@@ -429,20 +433,14 @@ class Index extends Component {
                     addp: {},
                   });
                   var state = this.state.actualData;
-                  if (this.state.AddstpId) {
-                    state[this.state.AddstpId].case_numbers.push({
-                      case_id: responce1.data.data,
-                    });
-                  } else {
-                    let indexData = ''
-                    state && state.length > 0 && state.filter((item,index) => {
-                      if(item.step_name.toLowerCase() ==  this.state.SelectedStep.label.toLowerCase()){
-                        indexData =  index;
-                      }
-                    }) 
-                    state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                  }
-                  this.setState({ AddstpId: false,SelectedStep: '' });
+                  let indexData = ''
+                  state && state.length > 0 && state.filter((item,index) => {
+                    if(item.step_name.toLowerCase() ==  this.state.SelectedStep.label.toLowerCase()){
+                      indexData =  index;
+                    }
+                  }) 
+                  state[indexData].case_numbers.push({ case_id: responce1.data.data });
+                  this.setState({SelectedStep: '' });
                   this.setDta(state);
                   this.CallApi();
                 } else {
@@ -454,14 +452,10 @@ class Index extends Component {
               });
             this.setState({ loaderImage: false });
           } else {
-            console.log('sdfdfsdf', responce.data);
                   if(responce.data.data){
-                    console.log('11111',);
                     this.setState({ inOtherAlready: true, loaderImage: false, alreadyData : responce.data.data});
                   }
                   else{
-                    console.log('22222',);
-
                   this.setState({ idpinerror: true, loaderImage: false });
                   }
             setTimeout(() => {
@@ -507,7 +501,6 @@ class Index extends Component {
 
   //for selecting Step name
   onSelectingStep = (e) => {
-    console.log('dsfsdf', e);
     this.setState({SelectedStep : e})
   }
 
@@ -611,7 +604,6 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response.isdata) {
-      // console.log("response.isdata", response.PatientList1)
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
@@ -774,7 +766,7 @@ class Index extends Component {
                           </a>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
-                          <a onClick={() => this.openAddPatient(0)}>
+                          <a onClick={() => this.openAddPatient()}>
                             + Add patient
                           </a>
                         </Grid>
@@ -794,16 +786,10 @@ class Index extends Component {
                           <a><img src={require("assets/virtual_images/InputField.svg")} alt="" title="" /></a>
                         </Grid>
                         <Grid item xs={12} md={7}>
-                          <Grid className="srchRght">
-
-                            {/* <a onClick={this.clearFilters}> */}
-                            <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilters}>Clear all filters</label></Grid>
-                            {/* </a> */}
-
+                          <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilters}>Clear all filters</label>
                             <a className="srchSort" onClick={this.handleOpenFil}>
                               <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
-
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
 
                               <Grid className="fltrClear">
@@ -821,13 +807,6 @@ class Index extends Component {
                                       <label>Patient</label>
 
                                       <Grid>
-                                        {/* <input
-                                          type="text"
-                                          placeholder={"Search & Select"}
-                                          value={this.state.q}
-                                          onChange={this.onChange}
-                                        />
-                                        */}
                                          <Select
                                           name="patient"
                                           options={this.state.users1}
@@ -1054,7 +1033,7 @@ class Index extends Component {
                     onChange={this.onChangeCase}
                   />
                 </Grid>
-                <label>Step Name</label>
+                <label>Step</label>
                 <Grid className="patentInfoTxt">
                   <Select
                     value={SelectedStep}

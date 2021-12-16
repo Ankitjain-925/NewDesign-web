@@ -9789,6 +9789,11 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.filtersec {
+    color: #00abaf;
+    font-weight: 700;
+    margin: auto 10px;
+}
 .addFlowIner, .addSpeclContnt {
     height: 75vh;
     overflow: auto;
