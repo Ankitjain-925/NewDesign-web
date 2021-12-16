@@ -72,7 +72,7 @@ class Index extends Component {
   }
 
   handleClosePopup = () => {
-    this.setState({ openPopup: false , step_name: '', stepError : ''})
+    this.setState({ openPopup: false, step_name: '', stepError: '' })
   }
 
   componentDidMount() {
@@ -85,9 +85,9 @@ class Index extends Component {
     steps.then((data) => {
       var stepData = data ? data : [];
       let stepValues = stepData && stepData.length > 0 && stepData.map((item) => {
-        return item && {label : item.step_name, value : item._id}
+        return item && { label: item.step_name, value: item._id }
       })
-      this.setState({StepNameList : stepValues})
+      this.setState({ StepNameList: stepValues })
       this.setDta(stepData);
     });
 
@@ -248,21 +248,21 @@ class Index extends Component {
     this.setState({ step_name: e.target.value })
   }
   OnAdd = () => {
-    this.setState({stepError : ''})
+    this.setState({ stepError: '' })
 
     var state = this.state.actualData;
     let allSteps = state && state.length > 0 && state.map((item) => {
       return item && item.step_name.toLowerCase();
     })
     let check = allSteps.includes(this.state.step_name.toLowerCase())
-    if(check === false){
-    state.push({ step_name: this.state.step_name, case_numbers: [] });
-    this.setDta(state);
-    this.CallApi();
-    this.setState({ openPopup: false , step_name: ''})
+    if (check === false) {
+      state.push({ step_name: this.state.step_name, case_numbers: [] });
+      this.setDta(state);
+      this.CallApi();
+      this.setState({ openPopup: false, step_name: '' })
     }
-    else if(check === true){
-      this.setState({stepError : 'Step name already exist'})
+    else if (check === true) {
+      this.setState({ stepError: 'Step name already exist' })
     }
   }
 
@@ -286,13 +286,15 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false,SelectedStep: '' });
+    this.setState({ openAddP: false, SelectedStep: '' });
   };
 
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
     if (state[index]?.case_numbers?.length > 0) {
+      let translate = getLanguage(this.props.stateLanguageType);
+      let { deleteStep, yes_deleteStep, all_patient_removed_cannot_be_reversed, are_you_sure, cancel_keepStep } = translate;
       confirmAlert({
         customUI: ({ onClose }) => {
           return (
@@ -303,14 +305,14 @@ class Index extends Component {
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
                 <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
-                <label>Delete Step</label>
+                <label>{deleteStep}</label>
               </Grid>
               <Grid className="deleteStepInfo">
-                <p>All Patients in this Step will be removed from the flow. This action can not be reversed.</p>
-                <Grid><label>Are you sure you want to do this?</label></Grid>
+                <p>{all_patient_removed_cannot_be_reversed}</p>
+                <Grid><label>{are_you_sure}</label></Grid>
                 <Grid>
-                  <Button onClick={() => { this.removestep2(state, index) }}>Yes, Delete Step</Button>
-                  <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
+                  <Button onClick={() => { this.removestep2(state, index) }}>{yes_deleteStep}</Button>
+                  <Button onClick={() => { onClose(); }}>{cancel_keepStep}</Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -325,6 +327,8 @@ class Index extends Component {
   };
   removestep2 = (index) => {
     var state = this.state.actualData;
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { removeStep, really_want_to_remove, No, Yes } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -338,17 +342,17 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 class="alert-btn">Remove Step?</h1>
-            <p>Are you really want to remove this Step?</p>
+            <h1 class="alert-btn">{removeStep}</h1>
+            <p>{really_want_to_remove}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.DeleteStepOk(state, index);
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -427,37 +431,37 @@ class Index extends Component {
                     });
                   } else {
                     let indexData = ''
-                    state && state.length > 0 && state.filter((item,index) => {
-                      if(item.step_name.toLowerCase() ==  this.state.SelectedStep.label.toLowerCase()){
-                        indexData =  index;
+                    state && state.length > 0 && state.filter((item, index) => {
+                      if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+                        indexData = index;
                       }
-                    }) 
+                    })
                     state[indexData].case_numbers.push({ case_id: responce1.data.data });
                   }
-                  this.setState({ AddstpId: false,SelectedStep: '' });
+                  this.setState({ AddstpId: false, SelectedStep: '' });
                   this.setDta(state);
                   this.CallApi();
                 } else {
-                  this.setState({ caseAlready: true, loaderImage: false});
-                setTimeout(() => {
-                  this.setState({ caseAlready: false});
-                }, 3000);
+                  this.setState({ caseAlready: true, loaderImage: false });
+                  setTimeout(() => {
+                    this.setState({ caseAlready: false });
+                  }, 3000);
                 }
               });
             this.setState({ loaderImage: false });
           } else {
             console.log('sdfdfsdf', responce.data);
-                  if(responce.data.data){
-                    console.log('11111',);
-                    this.setState({ inOtherAlready: true, loaderImage: false, alreadyData : responce.data.data});
-                  }
-                  else{
-                    console.log('22222',);
+            if (responce.data.data) {
+              console.log('11111',);
+              this.setState({ inOtherAlready: true, loaderImage: false, alreadyData: responce.data.data });
+            }
+            else {
+              console.log('22222',);
 
-                  this.setState({ idpinerror: true, loaderImage: false });
-                  }
+              this.setState({ idpinerror: true, loaderImage: false });
+            }
             setTimeout(() => {
-              this.setState({ idpinerror: false, inOtherAlready: false,  alreadyData: {} });
+              this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
             }, 3000);
           }
         });
@@ -499,7 +503,7 @@ class Index extends Component {
 
   //for selecting Step name
   onSelectingStep = (e) => {
-    this.setState({SelectedStep : e})
+    this.setState({ SelectedStep: e })
     // var NewData = this.state.actualData;
     // // console.log("STATE", this.state.actualData);
     // NewData.push(this.state.StepService)
@@ -691,7 +695,7 @@ class Index extends Component {
     if (e && e.length > 0) {
 
       var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
-        
+
         if (item && item.length > 0) { }
         let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
           return item._id;
@@ -705,7 +709,8 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber } =
+    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
+      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters, case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution } =
       translate;
 
     const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep } = this.state;
@@ -771,14 +776,14 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a onClick={() => this.openAddPatient(0)}>
-                            + Add patient
+                            {AddPatient}
                           </a>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
-                          <a 
-                            onClick={()=>{this.AddStep()}}
+                          <a
+                            onClick={() => { this.AddStep() }}
                           >
-                            + Add step
+                            {AddStep}
                           </a>
                         </Grid>
                       </Grid>
@@ -793,7 +798,7 @@ class Index extends Component {
                           <Grid className="srchRght">
 
                             {/* <a onClick={this.clearFilters}> */}
-                            <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilters}>Clear all filters</label></Grid>
+                            <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilters}>{clear_all_filters}</label></Grid>
                             {/* </a> */}
 
                             <a className="srchSort" onClick={this.handleOpenFil}>
@@ -808,13 +813,13 @@ class Index extends Component {
                                     <Grid className="fltrLblClose">
                                       <a onClick={this.handleCloseFil}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
                                     </Grid>
-                                    <label>Filters</label>
+                                    <label>{filters}</label>
                                   </Grid>
 
 
                                   <Grid className="fltrForm">
                                     <Grid className="fltrInput">
-                                      <label>Patient</label>
+                                      <label>{Patient}</label>
 
                                       <Grid>
                                         <input
@@ -830,7 +835,7 @@ class Index extends Component {
 
                                     </Grid>
                                     <Grid className="fltrInput">
-                                      <label>Staff</label>
+                                      <label>{Staff}</label>
                                       <Grid className="addInput">
                                         <Select
                                           name="professional"
@@ -844,7 +849,7 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
                                     <Grid className="fltrInput">
-                                      <label>Speciality</label>
+                                      <label>{speciality}</label>
                                       <Grid className="addInput">
                                         <Select
                                           onChange={(e) => this.onFieldChange2(e)}
@@ -858,7 +863,7 @@ class Index extends Component {
                                     </Grid>
 
                                     <Grid className="fltrInput">
-                                      <label>Ward</label>
+                                      <label>{Ward}</label>
                                       <Grid className="addInput">
                                         <Select
                                           // onChange={(e) => this.onFieldChange2(e)}
@@ -872,7 +877,7 @@ class Index extends Component {
                                     </Grid>
 
                                     <Grid className="fltrInput">
-                                      <label>Room</label>
+                                      <label>{Room}</label>
                                       <Grid className="addInput">
                                         <Select
                                           // onChange={(e) => this.onFieldChange2(e)}
@@ -887,8 +892,8 @@ class Index extends Component {
 
                                   </Grid>
                                   <Grid className="aplyFltr">
-                                    <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
-                                    <Grid className="aplyRght"><Button onClick={this.clearFilters}>Apply filters</Button></Grid>
+                                    <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>{clear_all_filters}</label></Grid>
+                                    <Grid className="aplyRght"><Button onClick={this.clearFilters}>{applyFilters}</Button></Grid>
                                   </Grid>
 
                                 </Grid>
@@ -1000,17 +1005,17 @@ class Index extends Component {
               <Grid className="patentInfo">
                 {this.state.caseAlready && (
                   <div className="err_message">
-                    Case Already exists in hospital
+                    {case_already_exists_in_hospital}
                   </div>
                 )}
                 {this.state.inOtherAlready && (
                   <div className="err_message">
-                    Case Already exists in other hospital - <b>{this.state.alreadyData?.house?.house_name}</b> of Insititution - <b>{this.state.alreadyData?.institute_groups?.group_name}</b>
+                    {case_already_exists_in_other_hospital} <b>{this.state.alreadyData?.house?.house_name}</b> {ofInstitution}<b>{this.state.alreadyData?.institute_groups?.group_name}</b>
                   </div>
                 )}
-                
+
                 {this.state.idpinerror && (
-                  <div className="err_message">ID and PIN is not correct</div>
+                  <div className="err_message">{id_and_pin_not_correct}</div>
                 )}
                 <p className="err_message">{this.state.errorMsg}</p>
                 <Grid className="patentInfoTxt">
@@ -1043,7 +1048,7 @@ class Index extends Component {
                     onChange={this.onChangeCase}
                   />
                 </Grid>
-                <label>Step Name</label>
+                <label>{step_name}</label>
                 <Grid className="patentInfoTxt">
                   <Select
                     value={SelectedStep}
@@ -1055,7 +1060,7 @@ class Index extends Component {
                   />
                 </Grid>
                 <Grid className="patentInfoBtn">
-                  <Button onClick={this.AddCase}>Add Patient to Flow</Button>
+                  <Button onClick={this.AddCase}>{add_patient_to_flow}</Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -1088,13 +1093,13 @@ class Index extends Component {
                       />
                     </a>
                   </Grid>
-                  <label>Add Step</label>
+                  <label>{add_step}</label>
                 </Grid>
                 <p className='err_message'>{this.state.stepError}</p>
                 <Grid className="buttonStyle fltrInput">
                   <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
                     onChange={this.handleName} type="text" />
-                  <a color="primary" onClick={this.OnAdd}>Add</a>
+                  <a color="primary" onClick={this.OnAdd}>{Add}</a>
                 </Grid>
               </Grid>
             </Grid>

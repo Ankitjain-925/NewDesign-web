@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from 'swiper/core';
 import SpecialityList from "Screens/Components/VirtualHospitalComponents/SpecialityList/index";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton/index";
-import { getLanguage }from "translations/index";
+import { getLanguage } from "translations/index";
 SwiperCore.use([Pagination]);
 var new_data = [{
     speciality_name: 'Cardiology', color: "#EE5253", backgroundColor: "#FBD4D4",
@@ -23,7 +23,7 @@ var new_data1 = [{
 class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {GermanMedicalCenterFZLLC, Neurology, AdultsWard, SpaceManagement} = translate;
+        let { GermanMedicalCenterFZLLC, Neurology, AdultsWard, SpaceManagement, Institution, speciality, Ward } = translate;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -36,7 +36,7 @@ class Index extends Component {
                                     <LeftMenu isNotShow={true} currentPage="chat" />
                                 </Grid>
                                 {/* End of Menu */}
-                             {/* Start of Right Section */}
+                                {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
                                         <Grid className="breadCrumbUpr breadCrumbUprMob">
@@ -44,9 +44,9 @@ class Index extends Component {
                                                 <Grid item xs={9} md={9}>
                                                     <Grid className="roomBreadCrumb roomBreadCrumbMob">
                                                         <ul>
-                                                            <li><a><span>Institution</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
-                                       t                     <li><a><span>Speciality</span><label>{Neurology}</label></a></li>
-                                                            <li><a><span>Ward</span><label>{AdultsWard}</label></a></li>
+                                                            <li><a><span>{Institution}</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
+                                                            t                     <li><a><span>{speciality}</span><label>{Neurology}</label></a></li>
+                                                            <li><a><span>{Ward}</span><label>{AdultsWard}</label></a></li>
                                                         </ul>
                                                     </Grid>
                                                 </Grid>
@@ -66,8 +66,8 @@ class Index extends Component {
                                                 <Grid item xs={9} md={9}>
                                                     <Grid className="roomBreadCrumb">
                                                         <ul>
-                                                            <li><a><span>Institution</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
-                                                            <li><a><span>Speciality</span><label>{Neurology}</label></a></li>
+                                                            <li><a><span>{Institution}</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
+                                                            <li><a><span>{speciality}</span><label>{Neurology}</label></a></li>
                                                             <li><a><span>Ward</span><label>{AdultsWard}</label></a></li>
                                                         </ul>
                                                     </Grid>
@@ -89,23 +89,23 @@ class Index extends Component {
                                                     <SwiperSlide>
 
                                                         {new_data?.length > 0 && new_data.map((data) => (
-                                                           <>
-                                                            < SpecialityButton
-                                                                label={data.speciality_name}
-                                                                color={data.color}
-                                                                backgroundColor={data.backgroundColor}
-                                                            />
-                                                            {data?.total_wards?.length > 0 && data?.total_wards?.map((data3) => (
-                                                                < SpecialityList
-                                                                    label={data3.ward_name}
-                                                                    rooms={data3.room}
-                                                                    beds={data3.no_of_bed}
-                                                                    available={data3.available}
+                                                            <>
+                                                                < SpecialityButton
+                                                                    label={data.speciality_name}
+                                                                    color={data.color}
+                                                                    backgroundColor={data.backgroundColor}
                                                                 />
-                                                            ))}
+                                                                {data?.total_wards?.length > 0 && data?.total_wards?.map((data3) => (
+                                                                    < SpecialityList
+                                                                        label={data3.ward_name}
+                                                                        rooms={data3.room}
+                                                                        beds={data3.no_of_bed}
+                                                                        available={data3.available}
+                                                                    />
+                                                                ))}
 
-                                                           </>
-                                                        ) )}
+                                                            </>
+                                                        ))}
 
 
                                                         {/* <Grid className="wardsGrup">

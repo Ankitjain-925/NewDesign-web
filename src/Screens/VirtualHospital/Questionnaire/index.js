@@ -21,12 +21,12 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Pagination from "Screens/Components/Pagination/index";
 import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
-import {  getLanguage }from "translations/index"
+import { getLanguage } from "translations/index"
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SelectByTwo from "Screens/Components/SelectbyTwo/index";
 
-const options = [{label: "Classic", value: "classic"}, {label: "Rating scale", value: "rating_scale"}];
+const options = [{ label: "Classic", value: "classic" }, { label: "Rating scale", value: "rating_scale" }];
 class Index extends Component {
   constructor(props) {
     super(props)
@@ -48,7 +48,7 @@ class Index extends Component {
       editQues: false,
       loaderImage: false,
       editopenOpti: false,
-      errorMsg:''
+      errorMsg: ''
     }
   }
 
@@ -58,12 +58,12 @@ class Index extends Component {
 
   //Modal Open 
   handleOpenQues = () => {
-    this.setState({ openQues: true,  openOpti: this.state.myQuestions?.type==='classic'? true : false, });
+    this.setState({ openQues: true, openOpti: this.state.myQuestions?.type === 'classic' ? true : false, });
   }
 
   //Modal Close
   handleCloseQues = () => {
-    this.setState({ openQues: false});
+    this.setState({ openQues: false });
   }
   //Modal edit Open
   handleEditCloseQues = () => {
@@ -73,20 +73,20 @@ class Index extends Component {
   //state change on add
   updateEntryState1 = (e, name, index) => {
     var state = this.state.myQuestions;
-    if(name==='type'){
-      state=[{}];
+    if (name === 'type') {
+      state = [{}];
       state[index][name] = e.value;
-      let setView = e.value === 'classic' ? true: false;
-      this.setState({openOpti : setView})
+      let setView = e.value === 'classic' ? true : false;
+      this.setState({ openOpti: setView })
     }
-    else if(name==='options' || name==='other' || name==='multiple_answer'){
+    else if (name === 'options' || name === 'other' || name === 'multiple_answer') {
       state[index][name] = e;
     }
-    else{
+    else {
       state[index][name] = e.target.value;
     }
     this.setState({ myQuestions: state });
-    console.log("myQuestions",this.state.myQuestions)
+    console.log("myQuestions", this.state.myQuestions)
   }
 
   // for delete choice fields
@@ -134,34 +134,34 @@ class Index extends Component {
         .catch(function (error) {
           console.log(error);
         });
-     }
+    }
   }
 
   handleSubmit = () => {
-    this.setState({errorMsg : ""})
+    this.setState({ errorMsg: "" })
     // this.setState({myQuestions: {} ,openOpti: true})
     var myQuestions = this.state.AllQuestions;
     myQuestions = [...myQuestions, ...this.state.myQuestions]
     let length = myQuestions.length
-    if(!myQuestions[length-1]?.type || (myQuestions[length-1]?.type.length < 1)){
-      this.setState({errorMsg : "Please select question type"})
+    if (!myQuestions[length - 1]?.type || (myQuestions[length - 1]?.type.length < 1)) {
+      this.setState({ errorMsg: "Please select question type" })
     }
-    else if(myQuestions[length-1].type == "rating_scale"){
-      if(!myQuestions[length-1].title || myQuestions[length-1].title.length < 1){
-        this.setState({errorMsg : "Title can't be empty"})
+    else if (myQuestions[length - 1].type == "rating_scale") {
+      if (!myQuestions[length - 1].title || myQuestions[length - 1].title.length < 1) {
+        this.setState({ errorMsg: "Title can't be empty" })
       }
-      else if(!myQuestions[length-1].question || myQuestions[length-1].question.length < 1){
-        this.setState({errorMsg : "Question can't be empty"})
+      else if (!myQuestions[length - 1].question || myQuestions[length - 1].question.length < 1) {
+        this.setState({ errorMsg: "Question can't be empty" })
       }
-      else{
+      else {
         this.conditionFunc(myQuestions)
       }
     }
-    else if(myQuestions[length-1].type == "classic"){
-      if(!myQuestions[length-1].question || myQuestions[length-1].question.length < 1){
-        this.setState({errorMsg : "Question can't be empty"})
+    else if (myQuestions[length - 1].type == "classic") {
+      if (!myQuestions[length - 1].question || myQuestions[length - 1].question.length < 1) {
+        this.setState({ errorMsg: "Question can't be empty" })
       }
-      else{
+      else {
         this.conditionFunc(myQuestions)
       }
     }
@@ -176,7 +176,7 @@ class Index extends Component {
         {
           questions: this.state.AllQuestions
         },
-         commonHeader(this.props.stateLoginValueAim.token)
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         this.setState({
@@ -194,7 +194,7 @@ class Index extends Component {
         sitedata.data.path +
         `/questionaire/GetQuestionaire/${this.props?.House?.value}`,
         commonHeader(this.props.stateLoginValueAim.token)
-        
+
       )
       .then((response) => {
         var totalPage = Math.ceil(
@@ -232,6 +232,8 @@ class Index extends Component {
   //Delete the perticular question confirmation box
   removeQuestions = (status, perticular_id) => {
     this.setState({ message: null });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { removeQuestion, No, Yes, are_you_sure_removeQuestion } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -246,20 +248,20 @@ class Index extends Component {
             }
           >
             {status && status === "remove" ? (
-              <h1>Remove the Question ?</h1>
+              <h1>{removeQuestion}</h1>
             ) : (
-              <h1>Remove the Question ?</h1>
+              <h1>{removeQuestion}</h1>
             )}
-            <p>Are you sure to remove this Question?</p>
+            <p>{are_you_sure_removeQuestion}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
-                  this. removeQuestions2(status, perticular_id);
+                  this.removeQuestions2(status, perticular_id);
                   // onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -270,6 +272,8 @@ class Index extends Component {
 
   removeQuestions2 = (status, perticular_id) => {
     this.setState({ message: null });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { Yes, No, removeQuestion, are_you_sure_removeQuestion } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -284,20 +288,20 @@ class Index extends Component {
             }
           >
             {status && status === "remove" ? (
-              <h1 class="alert-btn">Remove Question ?</h1>
+              <h1 class="alert-btn">{removeQuestion}</h1>
             ) : (
-              <h1>Remove the Question ?</h1>
+              <h1>{removeQuestion}</h1>
             )}
-            <p>Are you really want to remove this Question?</p>
+            <p>{are_you_sure_removeQuestion}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.deleteClickQuestion(status, perticular_id);
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -305,11 +309,11 @@ class Index extends Component {
       },
     });
   };
-//Manage edit questionnaire
+  //Manage edit questionnaire
   editQuestion = (data, _id) => {
-    this.setState({ editQuestions: data, editQues: true, editopenOpti: data?.type==='classic'? true : false });
+    this.setState({ editQuestions: data, editQues: true, editopenOpti: data?.type === 'classic' ? true : false });
   };
-//Delete the quesitonnaire
+  //Delete the quesitonnaire
   deleteClickQuestion(status, perticular_id) {
     const newQuestion = [...this.state.questions_data];
     var QuesAy = newQuestion?.length > 0 &&
@@ -325,14 +329,14 @@ class Index extends Component {
         {
           questions: QuesAy,
         },
-         commonHeader(this.props.stateLoginValueAim.token)
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         this.setState({ loaderImage: false });
         this.getAllQuestions();
       });
   }
-//update the state on eidt the questionnaire
+  //update the state on eidt the questionnaire
   editQuestionState = (e, name) => {
     var QuesAy = this.state.editQuestions;
     if (name === 'options') {
@@ -341,10 +345,10 @@ class Index extends Component {
     else if (name === 'type') {
       QuesAy = {};
       QuesAy["type"] = e.value;
-      let setView = e.value === 'classic' ? true: false;
-      this.setState({editopenOpti : setView})
+      let setView = e.value === 'classic' ? true : false;
+      this.setState({ editopenOpti: setView })
     }
-    else if(name==='multiple_answer' || name === 'other'){
+    else if (name === 'multiple_answer' || name === 'other') {
       QuesAy[name] = e.target.checked;
     }
     else {
@@ -352,7 +356,7 @@ class Index extends Component {
     }
     this.setState({ editQuestions: QuesAy });
   }
-//on changing the page
+  //on changing the page
   onChangePage = (pageNumber) => {
     this.setState({
       questions_data: this.state.AllQuestions.slice(
@@ -362,16 +366,16 @@ class Index extends Component {
       currentPage: pageNumber,
     });
   };
-//get the selected value of type of question
-  SelectedValue=(value)=>{
-    var selected = options?.length>0 && options.filter((e)=> e.value===value)
-    if(selected?.length>0) return selected[0]
+  //get the selected value of type of question
+  SelectedValue = (value) => {
+    var selected = options?.length > 0 && options.filter((e) => e.value === value)
+    if (selected?.length > 0) return selected[0]
     return {}
   }
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {AddQuestionnaire, EditQuestionnaire } = translate;
+    let { AddQuestionnaire, EditQuestionnaire, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of } = translate;
     const { questions_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -387,7 +391,7 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
-    var placeholders = "Enter choice 1" 
+    var placeholders = "Enter choice 1"
     return (
       <Grid
         className={
@@ -426,7 +430,7 @@ class Index extends Component {
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc que-mbottom">
                           <Button onClick={this.handleOpenQues}>
-                            + New Question
+                            {NewQuestion}
                           </Button>
                           <Modal
                             open={this.state.openQues}
@@ -461,15 +465,15 @@ class Index extends Component {
                                     <p className='err_message'>{this.state.errorMsg}</p>
                                     <Grid className="fillDia">
                                       {/* <Grid> */}
-                                        {/* <label>Choose questionnaire type </label> */}
-                                        <Grid className="fillDia">
-                                          <SelectByTwo
-                                            name="situation"
-                                            label={"Choose questionnaire type"}
-                                            options={options}
-                                            onChange={(e) => this.updateEntryState1(e, "type",0)}
-                                            value={this.SelectedValue(this.state.myQuestions[0]?.type) }
-                                          />
+                                      {/* <label>Choose questionnaire type </label> */}
+                                      <Grid className="fillDia">
+                                        <SelectByTwo
+                                          name="situation"
+                                          label={"Choose questionnaire type"}
+                                          options={options}
+                                          onChange={(e) => this.updateEntryState1(e, "type", 0)}
+                                          value={this.SelectedValue(this.state.myQuestions[0]?.type)}
+                                        />
                                       </Grid>
                                       {this.state.openOpti ? (
                                         <>
@@ -498,9 +502,9 @@ class Index extends Component {
                                               name="question"
                                               placeholder="Enter a question"
                                               onChange={(e) =>
-                                                this.updateEntryState1(e, "question",0)
+                                                this.updateEntryState1(e, "question", 0)
                                               }
-                                            value={ this.state.myQuestions[0]?.question }
+                                              value={this.state.myQuestions[0]?.question}
                                             />
                                           </Grid>
 
@@ -514,8 +518,8 @@ class Index extends Component {
                                               }
                                               comesFrom={'questionaire'}
                                               roomArray={
-                                              this.state.myQuestions[0]?.options
-                                            }
+                                                this.state.myQuestions[0]?.options
+                                              }
                                             />
                                           </Grid>
 
@@ -539,7 +543,7 @@ class Index extends Component {
 
                                           </Grid>
                                         </>
-                                      ):(
+                                      ) : (
                                         <>
                                           <Grid className="questionfieldprop">
                                             <VHfield
@@ -547,20 +551,20 @@ class Index extends Component {
                                               name="title"
                                               placeholder="Enter title"
                                               onChange={(e) =>
-                                                this.updateEntryState1(e, "title",0)
+                                                this.updateEntryState1(e, "title", 0)
                                               }
-                                            value={ this.state.myQuestions[0]?.title }
+                                              value={this.state.myQuestions[0]?.title}
                                             />
                                           </Grid>
 
                                           <Grid item xs={12} md={12} className="taskDescp">
-                                            <label>Questionnaire description</label>
+                                            <label>{QuestionnaireDescription}</label>
                                             <Grid>
                                               <textarea
                                                 placeholder="Enter description"
                                                 name="description"
                                                 onChange={(e) =>
-                                                  this.updateEntryState1(e, "description",0)
+                                                  this.updateEntryState1(e, "description", 0)
                                                 }
                                                 value={this.state.myQuestions[0]?.description}
                                               >
@@ -574,9 +578,9 @@ class Index extends Component {
                                               name="question"
                                               placeholder="Enter question"
                                               onChange={(e) =>
-                                                this.updateEntryState1(e, "question",0)
+                                                this.updateEntryState1(e, "question", 0)
                                               }
-                                            value={ this.state.myQuestions[0]?.question }
+                                              value={this.state.myQuestions[0]?.question}
                                             />
                                           </Grid>
 
@@ -587,11 +591,11 @@ class Index extends Component {
                                 </Grid>
                               )}
                               <Grid className="infoSub2">
-                                <a 
+                                <a
                                 // onClick={this.handleCloseQues}
                                 >
                                   <Button onClick={() => this.handleSubmit()}>
-                                    Save & Close
+                                    {save_and_close}
                                   </Button>
                                 </a>
                               </Grid>
@@ -622,16 +626,16 @@ class Index extends Component {
                                   </a>
                                 </Grid>
                                 <Grid>
-                                  <label>{"Edit Questionnaire"}</label>
+                                  <label>{EditQuestionnaire}</label>
                                 </Grid>
                               </Grid>
                               {this.state.myQuestions && (
                                 <Grid>
                                   <Grid className="cnfrmDiaMain">
                                     <Grid className="fillDia">
-                                        <Grid className="fillDia">
-                                        
-                                        </Grid>
+                                      <Grid className="fillDia">
+
+                                      </Grid>
                                       {this.state.editopenOpti ? (
                                         <>
                                           <Grid>
@@ -660,7 +664,7 @@ class Index extends Component {
                                               onChange={(e) =>
                                                 this.editQuestionState(e, "question")
                                               }
-                                            value={ this.state.editQuestions?.question }
+                                              value={this.state.editQuestions?.question}
                                             />
                                           </Grid>
 
@@ -673,7 +677,7 @@ class Index extends Component {
                                                 this.editQuestionState(e, "options")
                                               }
                                               comesFrom={'questionaire'}
-                                              roomArray={ this.state.editQuestions?.options }
+                                              roomArray={this.state.editQuestions?.options}
                                             />
                                           </Grid>
 
@@ -696,7 +700,7 @@ class Index extends Component {
 
                                           </Grid>
                                         </>
-                                      ):(
+                                      ) : (
                                         <>
                                           <Grid className="questionfieldprop">
                                             <VHfield
@@ -706,12 +710,12 @@ class Index extends Component {
                                               onChange={(e) =>
                                                 this.editQuestionState(e, "title")
                                               }
-                                            value={ this.state.editQuestions?.title }
+                                              value={this.state.editQuestions?.title}
                                             />
                                           </Grid>
 
                                           <Grid item xs={12} md={12} className="taskDescp">
-                                            <label>Questionnaire description</label>
+                                            <label>{QuestionnaireDescription}</label>
                                             <Grid>
                                               <textarea
                                                 placeholder="Enter description"
@@ -733,7 +737,7 @@ class Index extends Component {
                                               onChange={(e) =>
                                                 this.editQuestionState(e, "question")
                                               }
-                                            value={ this.state.editQuestions?.question }
+                                              value={this.state.editQuestions?.question}
                                             />
                                           </Grid>
 
@@ -741,13 +745,13 @@ class Index extends Component {
                                       )}
                                     </Grid>
                                   </Grid>
-                               
+
                                 </Grid>
                               )}
                               <Grid className="infoSub2">
                                 <a onClick={this.handleEditCloseQues}>
                                   <Button onClick={() => this.handleeditSubmit()}>
-                                    Save & Close
+                                    {save_and_close}
                                   </Button>
                                 </a>
                               </Grid>
@@ -799,7 +803,7 @@ class Index extends Component {
                                             alt=""
                                             title=""
                                           />
-                                          Edit Question
+                                          {EditQuestion}
                                         </a>
                                       </li>
                                       {data.status !== "remove" && (
@@ -814,7 +818,7 @@ class Index extends Component {
                                               alt=""
                                               title=""
                                             />
-                                            Delete Question
+                                            {DeleteQuestion}
                                           </a>
                                         </li>
                                       )}
@@ -831,7 +835,7 @@ class Index extends Component {
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
                               <a>
-                                {this.state.currentPage} of {this.state.totalPage}
+                                {this.state.currentPage} {of} {this.state.totalPage}
                               </a>
                             </Grid>
                           </Grid>
@@ -873,7 +877,7 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
