@@ -16,17 +16,12 @@ import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile";
 import "./style.css";
 import Modal from "@material-ui/core/Modal";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
-import {
-  commonHeader,
-} from "component/CommonHeader/index";
+import { commonHeader } from "component/CommonHeader/index";
 import Loader from "Screens/Components/Loader/index";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { S3Image } from "Screens/Components/GetS3Images/index";
 
@@ -80,7 +75,7 @@ class Index extends Component {
   };
 
   editHospital = (editData) => {
-    this.setState({ openHospitalModal: true, hospitalData: editData, editId: editData._id });
+    this.setState({ openHospitalModal: true, hospitalData: editData, editId: editData.house_id });
   };
 
   //add hospitals
@@ -104,7 +99,8 @@ class Index extends Component {
 
 
   //Delete the Groups
-  deleteGroup = (id) => {
+  deleteGroup = (e, id) => {
+    e.stopPropagation();
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     if (institute_id) {
       confirmAlert({
@@ -137,6 +133,7 @@ class Index extends Component {
     }
 
   };
+
   removeGroup = (id) => {
     // var state = this.state.actualData;
     confirmAlert({
@@ -217,13 +214,9 @@ class Index extends Component {
         },
       });
     }
-    else {
-      this.DeleteInstitute(index, data)
-    }
   };
 
-  removeInstitute = (index) => {
-    var data = this.state.institute_groups;
+  removeInstitute = (index, data) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -243,7 +236,7 @@ class Index extends Component {
               <button onClick={onClose}>No</button>
               <button
                 onClick={() => {
-                  this.DeleteInstitute(data, index);
+                  this.DeleteInstitute(index, data);
                   onClose();
                 }}
               >
@@ -256,20 +249,13 @@ class Index extends Component {
     });
   };
 
-  DeleteInstitute = (data, index) => {
+  DeleteInstitute = (index, data) => {
     if (data && data?.houses && data?.houses?.length > 0) {
       var house = data?.houses
       house.splice(index, 1);
-   
-      // this.setState({ institute_groups: data });
-      // this.props.onChange(data);
- 
-      // let housesArray = this.state.hospitalData
-      // if (data?.houses?.length > 0) {
-      //   var yt = data?.houses?.map((item) => {
-      //     var response = this.state.housesArray(item._id, this.props.stateLoginValueAim.token, 5, false)
-      //   })
-      // }
+      var datas = this.state.institute_groups;
+      data['houses'] = house;
+      this.setState({ institute_groups: datas, openGroup: true });
     }
   }
 
@@ -416,15 +402,14 @@ class Index extends Component {
       this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
     } else {
       if (this.state.editId) {
-        let objIndex = housesArray.findIndex((item => item._id == this.state.editId));
+        let objIndex = housesArray.findIndex((item => item.house_id == this.state.editId));
         housesArray[objIndex].house_name = hospitalObject.house_name
         housesArray[objIndex].house_description = hospitalObject.house_description
-        housesArray[objIndex].house_logo = hospitalObject.hospitalObject
+        housesArray[objIndex].house_logo = hospitalObject.house_logo
       } else {
         hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
         housesArray.push(this.state.hospitalData);
       }
-
       var state = this.state.institute_groups;
       state["houses"] = housesArray;
       this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
@@ -633,8 +618,8 @@ class Index extends Component {
                                     </li>
                                     <li>
                                       <a
-                                        onClick={() => {
-                                          this.deleteGroup(item._id);
+                                        onClick={(e) => {
+                                          this.deleteGroup(e, item._id);
                                         }}
                                       >
                                         <img
@@ -698,102 +683,7 @@ class Index extends Component {
                   </Grid>
 
                   <Grid>
-                    {/* <Grid className="presOpinionIner">
-                      {this.state.loaderImage && <Loader />}
-                      <Table>
-                        <Thead>
-                          <Tr>
-                            <Th>Group Institute</Th>
-                            <Th>Hospitals</Th>
-                          </Tr>
-                        </Thead>
-                        <Tbody>
-                          {this.state.GroupList &&
-                            this.state.GroupList.length > 0 &&
-                            this.state.GroupList.map((data, index) => (
-                              <Tr>
-                                <Td>
-                                  {data.group_name
-                                    ? data.group_name
-                                    : "Not mentioned"}
-                                </Td>
-                                <Td>
-                                  {data?.houses?.length > 0
-                                    ? this.getHousesNames(data?.houses)
-                                    : ""}
-                                </Td>
-                                <Td className="presEditDot scndOptionIner">
-                                  <a className="openScndhrf">
-                                    <img
-                                      src={require("assets/images/three_dots_t.png")}
-                                      alt=""
-                                      title=""
-                                      className="openScnd"
-                                    />
-                                    <ul>
-                                      <li>
-                                        <a
-                                          onClick={() => {
-                                             this.EditInstitute(data._id);
-                                          }}
-                                        >
-                                          <img
-                                            src={require("assets/images/details.svg")}
-                                            alt=""
-                                            title=""
-                                          />
-                                          Edit Group
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a
-                                          onClick={() => {
-                                            this.deleteGroup(data._id);
-                                          }}
-                                        >
-                                          <img
-                                            src={require("assets/images/edit.svg")}
-                                            alt=""
-                                            title=""
-                                          />
-                                          Delete
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </a>
-                                </Td>
-                              </Tr>
-                            ))}
-                        </Tbody>
-                      </Table>
-
-                      <Grid className="tablePagNum">
-                        <Grid container direction="row">
-                          <Grid item xs={12} md={6}>
-                            <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12} md={6}>
-                            {this.state.totalPage > 1 && (
-                              <Grid className="prevNxtpag">
-                                <Pagination
-                                  totalPage={this.state.totalPage}
-                                  currentPage={this.state.currentPage}
-                                  pages={this.state.pages}
-                                  onChangePage={(page) => {
-                                    this.onChangePage(page);
-                                  }}
-                                />
-                              </Grid>
-                            )}
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid> */}
+                    
                     <Modal
                       open={this.state.openGroup}
                       onClose={this.closeInstitute}
@@ -827,6 +717,7 @@ class Index extends Component {
                             <Grid className="enterSpcl">
                               <Grid container direction="row">
                                 <Grid item xs={10} md={12} className="form-box">
+                                  
                                   <VHfield
                                     label="Institution Name"
                                     name="group_name"
@@ -850,11 +741,6 @@ class Index extends Component {
                                   </Grid>
                                   <FileUploader
                                     name="group_logo"
-                                    attachfile={
-                                      this.state.image
-                                        ? this.state.image
-                                        : []
-                                    }
                                     fileUpload={(file) => { this.fileUpload(file, 'group_logo') }}
                                     comesFrom="journal"
                                     isMulti={false}

@@ -71,6 +71,7 @@ class Index extends Component {
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={12} md={1} className="descpCntntLft">
+                 {   console.log("item",item)}
                     {newdate(item.datetime_on)}
                 </Grid>
                 <Grid item xs={12} md={10} className="descpCntntRght">

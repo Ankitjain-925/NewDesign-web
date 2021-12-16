@@ -18,8 +18,8 @@ import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction.js";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import { Button } from '@material-ui/core';
-import VideoDemo from "Screens/Components/VideoDemo/index";
 import {
   mySorter,
   SortByEntry,
@@ -34,9 +34,9 @@ import FloatArrowUp from "../../Components/FloatArrowUp/index";
 import { authy } from "Screens/Login/authy.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { getLanguage } from "translations/index"
-import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 import { get_cur_one, get_gender, get_track, delete_click_track, download_track } from "Screens/Components/CommonApi/index.js";
 import { commonHeader } from "component/CommonHeader/index.js";
+import ViewJourney from "Screens/Components/TimelineComponent/ViewJourney/index";
 
 var Datas = [];
 
@@ -117,6 +117,13 @@ class Index extends Component {
     allTrack = allTrack?.length > 0 && allTrack?.slice(0, defaultValue);
     this.setState({ allTrack: allTrack })
   }
+  //For Close the Graphs
+  CloseGraph = () => {
+    this.rightInfo();
+    this.getTrack();
+    this.setState({ isGraph: false });
+  };
+
   OpenGraph = (current_Graph) => {
     this.setState({ current_Graph: current_Graph, isGraph: true });
   };
@@ -152,15 +159,11 @@ class Index extends Component {
       });
 
     }
-    console.log("answer", answers)
   };
 
 
   handleSubmit2 = (qustiondata, index) => {
-    console.log("qustiondata", qustiondata)
     var data = this.state.answers;
-    // data.viewQuestionaire = false;
-    // data.submitQuestionaire = true;
     axios
       .post(
         sitedata.data.path + '/questionaire/AddAnswerspatient',
@@ -187,7 +190,6 @@ class Index extends Component {
   options = (e) => {
     const state = this.state.updateTrack;
     var data = state.options ? state.options : []
-    console.log('e', state.options ? state.options : [])
     if (e.target.checked == true) {
       data.push(e.target.value);
     }
@@ -471,7 +473,7 @@ class Index extends Component {
         });
       });
   };
- 
+
   //For open Edit
   EidtOption = (value, updateTrack, visibility) => {
     if (value === "vaccination_trial") {
@@ -497,7 +499,7 @@ class Index extends Component {
     this.setState({ selectCountry: npmCountry });
     // this.currentinfo();
     this.cur_one();
-    this.getQuestionnaire();
+    // this.getQuestionnaire();
     this.viewdata();
   }
 
@@ -601,7 +603,6 @@ class Index extends Component {
 
   //Get Questionnaire
   getQuestionnaire = () => {
-    console.log("is",this.props.stateLoginValueAim)
     this.setState({ loaderImage: true });
     axios
       .get(
@@ -609,17 +610,14 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token),
       )
       .then((response) => {
-        console.log("Questionnaire", response)
         if (response.data.hassuccessed) {
           this.setState({ AllQuestions: response.data.data });
-          console.log("Questionnaire", this.state.AllQuestions)
         }
         this.setState({ loaderImage: false });
       });
   }
 
   viewdata = () => {
-    console.log("is",this.props.stateLoginValueAim)
     this.setState({ loaderImage: true });
     axios
       .get(
@@ -627,7 +625,6 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token),
       )
       .then((response) => {
-        console.log("response",response)
         if (response.data.hassuccessed) {
           this.setState({ view: response.data.data });
           console.log("view", this.state.view)
@@ -744,6 +741,34 @@ class Index extends Component {
     this.setState({ updateTrack: {} });
   };
 
+ //For get the Track
+ getTrack = async () => {
+  var user_id = this.props.stateLoginValueAim.user._id;
+  var user_token = this.props.stateLoginValueAim.token;
+  this.setState({ loaderImage: true });
+  let response = await get_track(user_token, user_id)
+  if (response?.data?.hassuccessed === true) {
+    //This is for Aimedis Blockchain Section
+    updateBlockchain(
+      this.props.stateLoginValueAim.user,
+      response.data.data
+    );
+    var images = [];
+    response.data.data = response.data.data.filter((e) => e != null);
+
+    this.rightInfo();
+    this.setState({
+      allTrack1: response.data.data,
+      allTrack2: response.data.data,
+      loaderImage: false,
+      // defaultValue : 10,
+    },
+      () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
+  } else {
+    this.setState({ allTrack1: [], allTrack2: [], allTrack: [], loaderImage: false });
+  }
+};
+
   //For Set Format
   SetPesonalized = (data) => {
     this.setState({ loaderImage: true });
@@ -770,7 +795,7 @@ class Index extends Component {
     this.setState({ cur_one: response?.data?.data });
   };
 
- 
+
 
   //This is for the Download the Track
   downloadTrack = async (data) => {
@@ -821,154 +846,155 @@ class Index extends Component {
 
                   {/* Website Mid Content */}
                   {/* <Grid item xs={12} md={8}> */}
-                    {/* Start of Depression Section */}
-                    <Grid className="descpCntntMain">
-                      <Grid className="journalAdd">
-                        <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
-                            <Grid container direction="row">
-                              <Grid item xs={6} md={6}>
-                                <h1>Patient journey</h1>
-                              </Grid>
-                              <Grid item xs={6} md={6}>
-                                {/* <Grid className="AddEntrynw">
+                  {/* Start of Depression Section */}
+                  <Grid className="descpCntntMain">
+                    <Grid className="journalAdd">
+                      <Grid container direction="row">
+                        <Grid item xs={11} md={11}>
+                          <Grid container direction="row">
+                            <Grid item xs={6} md={6}>
+                              <h1>Patient journey</h1>
+                            </Grid>
+                            <Grid item xs={6} md={6}>
+                              {/* <Grid className="AddEntrynw">
                                   <a onClick={this.handleOpenEntry}> */}
-                                {/* + {add_new_entry} */}
-                                {/* </a>
+                              {/* + {add_new_entry} */}
+                              {/* </a>
                                 </Grid> */}
-                              </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
-                   
-                      {/* For the filter section */}
-                      <FilterSec
-                        FilterText={this.FilterText}
-                        settings={this.props.settings}
-                        FilterData={this.FilterData}
-                        SortData={this.SortData}
-                        ClearData={this.ClearData}
-                        sortBy={this.state.Sort}
-                      />
+                    </Grid>
 
-                      {/* For Empty Entry */}
-                      <Grid item xs={12} md={8}>
-                        <Grid>
-                          {this.state.AllQuestions?.length > 0 && this.state.AllQuestions.map((data1, index) => (
-                            <>
-                              {data1?.questions.map((data) => (
-                                <>
-                                  {data.type === "classic" ?
-                                    <Grid className="QuesMrktUpr">
-                                      <Grid container direction="row">
-                                        <Grid item xs={12} md={12}>
-                                          <Grid className="QuesMrkt">
-                                            <h1>{data?.question}</h1>
-                                          </Grid>
+                    {/* For the filter section */}
+                    <FilterSec
+                      FilterText={this.FilterText}
+                      settings={this.props.settings}
+                      FilterData={this.FilterData}
+                      SortData={this.SortData}
+                      ClearData={this.ClearData}
+                      sortBy={this.state.Sort}
+                    />
+
+                    {/* For Empty Entry */}
+                    <Grid item xs={12} md={8}>
+                      <Grid>
+                        {this.state.AllQuestions?.length > 0 && this.state.AllQuestions.map((data1, index) => (
+                          <>
+                            {data1?.questions.map((data) => (
+                              <>
+                                {data.type === "classic" ?
+                                  <Grid className="QuesMrktUpr">
+                                    <Grid container direction="row">
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="QuesMrkt">
+                                          <h1>{data?.question}</h1>
                                         </Grid>
-                                        <Grid item xs={12} md={12}>
-                                          <Grid className="onlineBox">
-                                            {data?.options.map((data3) => (
-                                              <>
-                                                <Grid><FormControlLabel
-                                                  control={<Checkbox
-                                                    value={data3}
-                                                    checked={this.state.newTask.options ? this.state.newTask.options : null}
-                                                    onChange={
-                                                      this.options
-                                                    }
-                                                    name={data3}
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="onlineBox">
+                                          {data?.options.map((data3) => (
+                                            <>
+                                              <Grid><FormControlLabel
+                                                control={<Checkbox
+                                                  value={data3}
+                                                  checked={this.state.newTask.options ? this.state.newTask.options : null}
+                                                  onChange={
+                                                    this.options
+                                                  }
+                                                  name={data3}
                                                   color="primary"
-                                                  />} />{data3}</Grid>
-                                              </>))}
-                                            {/* <Grid><FormControlLabel control={<Checkbox name="checkedB" color="primary" />} label="asdasdasd" /></Grid>
+                                                />} />{data3}</Grid>
+                                            </>))}
+                                          {/* <Grid><FormControlLabel control={<Checkbox name="checkedB" color="primary" />} label="asdasdasd" /></Grid>
                                                             <Grid><FormControlLabel control={<Checkbox name="checkedB" color="primary" />} label="asdasdasdsad" /></Grid>
                                                             <Grid><FormControlLabel control={<Checkbox name="checkedB" color="primary" />} label="asdasd" /></Grid> */}
-                                            {data?.other === true && (
-                                              <Grid className="otherBrdrUpr">
-                                                <FormControlLabel
-                                                  control={<Checkbox
-                                                    name="other"
-                                                    color="primary"
-                                                    checked={this.state.newTask.other ? this.state.newTask.other : null}
-                                                    onChange={(e) =>
-                                                      this.otheranswer(e.target.checked, "value")
-                                                    }
-                                                    value="checkedB"
-                                                  />
+                                          {data?.other === true && (
+                                            <Grid className="otherBrdrUpr">
+                                              <FormControlLabel
+                                                control={<Checkbox
+                                                  name="other"
+                                                  color="primary"
+                                                  checked={this.state.newTask.other ? this.state.newTask.other : null}
+                                                  onChange={(e) =>
+                                                    this.otheranswer(e.target.checked, "value")
                                                   }
-                                                  label="other" />
-                                                {/* <Grid  className="otherBorder"></Grid> */}
-                                                {this.state.otherField && (
-                                                  <input type="text"
-                                                    onChange={(e) => { this.updateEntry2(e, "other") }
-                                                    }
-                                                    name="other"></input>
-                                                )}
-                                              </Grid>
-                                            )}
-                                          </Grid>
+                                                  value="checkedB"
+                                                />
+                                                }
+                                                label="other" />
+                                              {/* <Grid  className="otherBorder"></Grid> */}
+                                              {this.state.otherField && (
+                                                <input type="text"
+                                                  onChange={(e) => { this.updateEntry2(e, "other") }
+                                                  }
+                                                  name="other"></input>
+                                              )}
+                                            </Grid>
+                                          )}
                                         </Grid>
-                                        <Grid item xs={12} md={12}>
-                                          <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data._id)}>Submit Answer</Button></Grid>
-                                          {/* {console.log('data', data)} */}
-                                        </Grid>
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data._id)}>Submit Answer</Button></Grid>
+                                        {/* {console.log('data', data)} */}
                                       </Grid>
                                     </Grid>
-                                    :
-                                    <Grid className="QuesMrktUpr">
-                                      {/* {console.log("data2", data.type)} */}
-                                      <Grid container direction="row">
-                                        <Grid item xs={12} md={12}>
-                                          <Grid className="QuesMrkt">
-                                            {/* <Grid><a><img src={require('../../assets/images/germanMedical.png')} alt="" title="" /></a></Grid> */}
-                                            {/* <Grid><a><img src={require('../../assets/images/closefancy.png')} alt="" title="" /></a></Grid> */}
-                                          </Grid>
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                          <h1>{data.question}</h1>
-                                          <p>{data.description}</p>
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                          <Grid className="rateExp">
-                                            {/* <h3>How would you rate your experience with us?</h3> */}
-                                            <Grid>
-                                              <ul >
-                                                <li ><a onClick={() => this.setRating(1)}>1</a></li>
-                                                <li><a onClick={() => this.setRating(2)}>2</a></li>
-                                                <li><a onClick={() => this.setRating(3)}>3</a></li>
-                                                <li><a onClick={() => this.setRating(4)}>4</a></li>
-                                                <li><a onClick={() => this.setRating(5)}>5</a></li>
-                                                <li><a onClick={() => this.setRating(6)}>6</a></li>
-                                                <li><a onClick={() => this.setRating(7)}>7</a></li>
-                                                <li><a onClick={() => this.setRating(8)}>8</a></li>
-                                                <li><a onClick={() => this.setRating(9)}>9</a></li>
-                                                <li><a onClick={() => this.setRating(10)}>10</a></li>
-                                              </ul>
-                                            </Grid>
-                                          </Grid>
-
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                          <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data._id)}>Submit Feedback</Button></Grid>
+                                  </Grid>
+                                  :
+                                  <Grid className="QuesMrktUpr">
+                                    {/* {console.log("data2", data.type)} */}
+                                    <Grid container direction="row">
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="QuesMrkt">
+                                          {/* <Grid><a><img src={require('../../assets/images/germanMedical.png')} alt="" title="" /></a></Grid> */}
+                                          {/* <Grid><a><img src={require('../../assets/images/closefancy.png')} alt="" title="" /></a></Grid> */}
                                         </Grid>
                                       </Grid>
-                                    </Grid>}
-                                </>
-                              )
-                              )}
-                              <Grid item xs={12} md={12}>
-                                <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2(this.state.AllQuestions, index)}>Final Submit</Button></Grid>
-                              </Grid>
-                            </>
-                          ))}</Grid></Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <h1>{data.question}</h1>
+                                        <p>{data.description}</p>
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="rateExp">
+                                          {/* <h3>How would you rate your experience with us?</h3> */}
+                                          <Grid>
+                                            <ul >
+                                              <li ><a onClick={() => this.setRating(1)}>1</a></li>
+                                              <li><a onClick={() => this.setRating(2)}>2</a></li>
+                                              <li><a onClick={() => this.setRating(3)}>3</a></li>
+                                              <li><a onClick={() => this.setRating(4)}>4</a></li>
+                                              <li><a onClick={() => this.setRating(5)}>5</a></li>
+                                              <li><a onClick={() => this.setRating(6)}>6</a></li>
+                                              <li><a onClick={() => this.setRating(7)}>7</a></li>
+                                              <li><a onClick={() => this.setRating(8)}>8</a></li>
+                                              <li><a onClick={() => this.setRating(9)}>9</a></li>
+                                              <li><a onClick={() => this.setRating(10)}>10</a></li>
+                                            </ul>
+                                          </Grid>
+                                        </Grid>
 
-                      <div>
-                        {this.state.allTrack &&
-                          this.state.allTrack.length > 0 && (
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                        <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data._id)}>Submit Feedback</Button></Grid>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>}
+                              </>
+                            )
+                            )}
+                            <Grid item xs={12} md={12}>
+                              <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2(this.state.AllQuestions, index)}>Final Submit</Button></Grid>
+                            </Grid>
+                          </>
+                        ))}</Grid></Grid>
+
+                    {/* <div>
+                        {this.state.view &&
+                          this.state.view.length > 0 && (
                           <div>
-                            {this.state.allTrack.map((item, index) => (
+                            {this.state.view.map((item, index) => (
+                              console.log("item",item),
                               <ViewTimeline
                                 indexTimeline={index}
                                 // lrp={AllL_Ps.AllL_Ps.english}
@@ -1016,11 +1042,67 @@ class Index extends Component {
                             </div>}
                           </div>)
                            }
-                      </div>
-                      {/* <ViewTimeline date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
-                    </Grid>
+                      </div> */}
+                    {/* <ViewTimeline date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
+                    <div>
+                      {this.state.view &&
+                        this.state.view.length > 0 && (
+                          <div>
+                            {this.state.view.map((item, index) => (
+                              console.log("item", item),
+                              <ViewJourney
+                                indexTimeline={index}
+                                // lrp={AllL_Ps.AllL_Ps.english}
+                                Allrelation={this.state.Allrelation}
+                                Allreminder={this.state.Allreminder}
+                                Allpain_type={this.state.Allpain_type}
+                                Allsmoking_status={this.state.Allsmoking_status}
+                                Allgender={this.state.Allgender}
+                                AllSpecialty={this.state.AllSpecialty}
+                                Allpain_quality={this.state.Allpain_quality}
+                                Allsituation={this.state.Allsituation}
+                                Pressuresituation={this.state.Pressuresituation}
+                                Anamnesis={this.state.Anamnesis}
+                                TrackRecord={this.state.allTrack1}
+                                OpenGraph={this.OpenGraph}
+                                comesfrom="patient"
+                                downloadTrack={(data) => this.downloadTrack(data)}
+                                images={this.state.images}
+                                DeleteTrack={(deleteKey) =>
+                                  this.DeleteTrack(deleteKey)
+                                }
+                                ArchiveTrack={(data) => this.ArchiveTrack(data)}
+                                EidtOption={(value, updateTrack, visibility) =>
+                                  this.EidtOption(value, updateTrack, visibility)
+                                }
+                                date_format={
+                                  this.props.settings &&
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.date_format
+                                }
+                                time_format={
+                                  this.props.settings.setting.time_format
+                                }
+                                Track={item}
+                                from="patient"
+                              loggedinUser={this.state.cur_one}
+                              patient_gender={this.state.patient_gender}
+                              />
+                            ))}
+                            {/* {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={() => this.LoadMore(this.state.allTrack2)}>
+                              Seemore10entries
+                            </div>} */}
+                            {/* {this.state.loading && <div className="more10entries">
+                              loadingref
+                            </div>} */}
+                          </div>)
+                      }
+                    </div>
+
+
+                  </Grid>
                   {/* </Grid> */}
-               
+
                 </Grid>
               )}
             </Grid>
