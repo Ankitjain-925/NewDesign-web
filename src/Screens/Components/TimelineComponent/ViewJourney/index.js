@@ -47,7 +47,6 @@ class Index extends Component {
     return (
       <div className="timelineGap">
         {item && item?.task_name && (
-          console.log("type", item?.task_name),
           <TaskView
             onlyOverview={this.props.Overview}
             list={this.props.Pressuresituation}
@@ -68,26 +67,25 @@ class Index extends Component {
             time_format={this.props.time_format}
           />
         )}
-        {item.type === "task" && (<p>hello</p>,
-          console.log("type", item),
+        {item && item?.invoice_id && (
           <InvoiceView
-          // onlyOverview={this.props.Overview}
-          //     list={this.props.Pressuresituation}
-          //     TrackRecord={this.state.TrackRecord}
-          //     OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
-          //     comesfrom={this.state.comesfrom}
-          //     downloadTrack={(data) => this.props.downloadTrack(data)}
-          //     images={this.state.images}
-          //     Archive={this.state.Archive}
-          //     DeleteTrack={(deleteKey) => this.props.DeleteTrack(deleteKey)}
-          //     ArchiveTrack={(data) => this.props.ArchiveTrack(data)}
-          //     EidtOption={(value, updateTrack, visibility) =>
-          //       this.props.EidtOption(value, updateTrack, visibility)
-          //     }
-          //     data={item}
-          //     loggedinUser={this.state.loggedinUser}
-          //     date_format={this.props.date_format}
-          //     time_format={this.props.time_format}
+            onlyOverview={this.props.Overview}
+            list={this.props.Pressuresituation}
+            TrackRecord={this.state.TrackRecord}
+            OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
+            comesfrom={this.state.comesfrom}
+            downloadTrack={(data) => this.props.downloadTrack(data)}
+            images={this.state.images}
+            Archive={this.state.Archive}
+            DeleteTrack={(deleteKey) => this.props.DeleteTrack(deleteKey)}
+            ArchiveTrack={(data) => this.props.ArchiveTrack(data)}
+            EidtOption={(value, updateTrack, visibility) =>
+              this.props.EidtOption(value, updateTrack, visibility)
+            }
+            data={item}
+            loggedinUser={this.state.loggedinUser}
+            date_format={this.props.date_format}
+            time_format={this.props.time_format}
           />
         )}
 
@@ -97,7 +95,7 @@ class Index extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { Overview } = state.overView;
+  const { Overview } = state.overView;
 
   return {
     Overview,

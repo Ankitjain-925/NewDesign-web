@@ -132,13 +132,10 @@ class Index extends Component {
     this.setState({ selectedOption });
   };
   setRating = (rating) => {
-    // console.log("rating", rating)
     this.setState({ ratingValue: rating })
-
   }
 
   handleSubmit = (_id) => {
-    // console.log('updateTrack',this.state.updateTrack)
     const answers = this.state.answers;
     if (this.state.ratingValue) {
       var rating = this.state.ratingValue
@@ -204,21 +201,18 @@ class Index extends Component {
     state['options'] = data;
     this.setState({ updateTrack: state },
       () => {
-        // console.log("data", this.state.updateTrack)
       });
 
 
   };
   otheranswer = (value) => {
     this.setState({ otherField: value })
-    // console.log("hello", this.state.otherField)
   }
 
   updateEntry2 = (e, name) => {
     var state = this.state.updateTrack;
     state[name] = e.target.value;
     this.setState({ updateTrack: state });
-    //  console.log("hell", this.state.updateTrack)
   }
 
   //For clear the filter
@@ -627,7 +621,6 @@ class Index extends Component {
       .then((response) => {
         if (response.data.hassuccessed) {
           this.setState({ view: response.data.data });
-          console.log("view", this.state.view)
         }
         this.setState({ loaderImage: false });
       });
@@ -847,6 +840,7 @@ class Index extends Component {
                   {/* Website Mid Content */}
                   {/* <Grid item xs={12} md={8}> */}
                   {/* Start of Depression Section */}
+                  <Grid item xs={11} md={11}>
                   <Grid className="descpCntntMain">
                     <Grid className="journalAdd">
                       <Grid container direction="row">
@@ -862,12 +856,9 @@ class Index extends Component {
                               {/* </a>
                                 </Grid> */}
                             </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-
-                    {/* For the filter section */}
+                            <Grid container direction="row">
+                              <Grid item xs={11} md={11}>
+                                  {/* For the filter section */}
                     <FilterSec
                       FilterText={this.FilterText}
                       settings={this.props.settings}
@@ -877,6 +868,67 @@ class Index extends Component {
                       sortBy={this.state.Sort}
                     />
 
+                            {this.state.view &&
+                              this.state.view.length > 0 && (
+                                <div>
+                                  {this.state.view.map((item, index) => (
+                                    <ViewJourney
+                                      indexTimeline={index}
+                                      // lrp={AllL_Ps.AllL_Ps.english}
+                                      Allrelation={this.state.Allrelation}
+                                      Allreminder={this.state.Allreminder}
+                                      Allpain_type={this.state.Allpain_type}
+                                      Allsmoking_status={this.state.Allsmoking_status}
+                                      Allgender={this.state.Allgender}
+                                      AllSpecialty={this.state.AllSpecialty}
+                                      Allpain_quality={this.state.Allpain_quality}
+                                      Allsituation={this.state.Allsituation}
+                                      Pressuresituation={this.state.Pressuresituation}
+                                      Anamnesis={this.state.Anamnesis}
+                                      TrackRecord={this.state.allTrack1}
+                                      OpenGraph={this.OpenGraph}
+                                      comesfrom="patient"
+                                      downloadTrack={(data) => this.downloadTrack(data)}
+                                      images={this.state.images}
+                                      DeleteTrack={(deleteKey) =>
+                                        this.DeleteTrack(deleteKey)
+                                      }
+                                      ArchiveTrack={(data) => this.ArchiveTrack(data)}
+                                      EidtOption={(value, updateTrack, visibility) =>
+                                        this.EidtOption(value, updateTrack, visibility)
+                                      }
+                                      date_format={
+                                        this.props.settings &&
+                                        this.props.settings.setting &&
+                                        this.props.settings.setting.date_format
+                                      }
+                                      time_format={
+                                        this.props.settings.setting.time_format
+                                      }
+                                      Track={item}
+                                      from="patient"
+                                    loggedinUser={this.state.cur_one}
+                                    patient_gender={this.state.patient_gender}
+                                    />
+                                  ))}
+                                  {/* {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={() => this.LoadMore(this.state.allTrack2)}>
+                                    Seemore10entries
+                                  </div>} */}
+                                  {/* {this.state.loading && <div className="more10entries">
+                                    loadingref
+                                  </div>} */}
+                                </div>)
+                            }
+                          </Grid>
+                        </Grid>
+                              
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    </Grid>
+
+                  
                     {/* For Empty Entry */}
                     <Grid item xs={12} md={8}>
                       <Grid>
@@ -937,13 +989,11 @@ class Index extends Component {
                                       </Grid>
                                       <Grid item xs={12} md={12}>
                                         <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data._id)}>Submit Answer</Button></Grid>
-                                        {/* {console.log('data', data)} */}
                                       </Grid>
                                     </Grid>
                                   </Grid>
                                   :
                                   <Grid className="QuesMrktUpr">
-                                    {/* {console.log("data2", data.type)} */}
                                     <Grid container direction="row">
                                       <Grid item xs={12} md={12}>
                                         <Grid className="QuesMrkt">
@@ -1044,60 +1094,7 @@ class Index extends Component {
                            }
                       </div> */}
                     {/* <ViewTimeline date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
-                    <div>
-                      {this.state.view &&
-                        this.state.view.length > 0 && (
-                          <div>
-                            {this.state.view.map((item, index) => (
-                              console.log("item", item),
-                              <ViewJourney
-                                indexTimeline={index}
-                                // lrp={AllL_Ps.AllL_Ps.english}
-                                Allrelation={this.state.Allrelation}
-                                Allreminder={this.state.Allreminder}
-                                Allpain_type={this.state.Allpain_type}
-                                Allsmoking_status={this.state.Allsmoking_status}
-                                Allgender={this.state.Allgender}
-                                AllSpecialty={this.state.AllSpecialty}
-                                Allpain_quality={this.state.Allpain_quality}
-                                Allsituation={this.state.Allsituation}
-                                Pressuresituation={this.state.Pressuresituation}
-                                Anamnesis={this.state.Anamnesis}
-                                TrackRecord={this.state.allTrack1}
-                                OpenGraph={this.OpenGraph}
-                                comesfrom="patient"
-                                downloadTrack={(data) => this.downloadTrack(data)}
-                                images={this.state.images}
-                                DeleteTrack={(deleteKey) =>
-                                  this.DeleteTrack(deleteKey)
-                                }
-                                ArchiveTrack={(data) => this.ArchiveTrack(data)}
-                                EidtOption={(value, updateTrack, visibility) =>
-                                  this.EidtOption(value, updateTrack, visibility)
-                                }
-                                date_format={
-                                  this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.date_format
-                                }
-                                time_format={
-                                  this.props.settings.setting.time_format
-                                }
-                                Track={item}
-                                from="patient"
-                              loggedinUser={this.state.cur_one}
-                              patient_gender={this.state.patient_gender}
-                              />
-                            ))}
-                            {/* {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={() => this.LoadMore(this.state.allTrack2)}>
-                              Seemore10entries
-                            </div>} */}
-                            {/* {this.state.loading && <div className="more10entries">
-                              loadingref
-                            </div>} */}
-                          </div>)
-                      }
-                    </div>
+                  
 
 
                   </Grid>
