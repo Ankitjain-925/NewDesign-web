@@ -78,7 +78,7 @@ export default class Column extends Component {
                   </Grid>
                   <Grid className="checkDotsRght">
                     <a className="academy_ul stepTdotupper">
-                        <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
+                        <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
@@ -141,7 +141,7 @@ export default class Column extends Component {
                         <a className="addNwPatnt" onClick={() => { this.props.openAddPatient(index) }}>{AddNewPatient}</a>
                         <Grid className="checkDotsRght">
                           <a className="academy_ul stepTdotupper">
-                        <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
+                        <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
