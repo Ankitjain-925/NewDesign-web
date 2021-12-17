@@ -257,6 +257,7 @@
 		"connect": "Conectar",
 		"devices": "Dispositivos",
 		"services": "Servicios",
+		"Price":"Precio",
 		"search_for_device_palce": "Buscar por dispositivo o nombre de servicio...",
 		"view_details": "Visualizar Detalles",
 		"Details": "Detalles",
