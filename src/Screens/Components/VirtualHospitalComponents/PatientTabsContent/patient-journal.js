@@ -5,6 +5,7 @@ import ReactTooltip from "react-tooltip";
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import { getLanguage } from 'translations/index';
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -33,6 +34,13 @@ class Index extends Component {
     };
     render() {
         const { selectedOption } = this.state;
+        let translate = getLanguage(this.props.stateLanguageType)
+        let { date_time, journal, addNewEntry, clear_filters, twenty1, sortBy, May, diagnosis, feeling, relaxed, eighty, RR_diastolic, twenty1May2020803AM, heart_rate,
+            visible, visible_until, MarkAndersonMDDoctor, IllinoisMasonicMedicalCenter, TraveledToAfrica, Yes, sixfebTo26feb, IMG_23_6_2020_09_18, No_name_filePDf,
+            twelve082020, depression, ICD_F32, mild_depresive_episode, DiagnosedBy, MarkAndersonMD, allergy, No, DiagnosedOn, twenty052020, TravelDiagnosis, pain_quality, BurningStabbing,
+            ParagraphOfChronicDemyelination, mmHg, JamesMorrisonPatient, rr_systolic, Normal, one2180, one21, blood_pressure, condition_pain, one23,
+            diary, diary_note, Hidden, KneePain, Acute, pain_areas, pain_intensity, Moderate42, condition_h_r_u, eighty3, pain_type, view_fullscren,
+            Only_field_in_diary_entry_type, Wysiwyg_editor_allow_us_simple_formatting, ParagraphExample, simple_title, Bullet1, Bullet2, Bullet3 } = translate;
         return (
             <Grid>
                 <Grid className="journalAdd">
@@ -40,11 +48,11 @@ class Index extends Component {
                         <Grid item xs={12} md={11}>
                             <Grid container direction="row">
                                 <Grid item xs={12} md={6} sm={6}>
-                                    <h1>Journal</h1>
+                                    <h1>{journal}</h1>
                                 </Grid>
                                 <Grid item xs={12} md={6} sm={6}>
                                     <Grid className="AddEntrynw">
-                                        <a>+ Add new entry</a>
+                                        <a>{addNewEntry}</a>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -102,14 +110,14 @@ class Index extends Component {
                                 </Grid>
                                 <Grid item xs={12} md={2} className="clear_filter">
                                     <Grid className="clear_filterUpr">
-                                        <Grid className="clear_filterLft"><a>Clear filters</a></Grid>
+                                        <Grid className="clear_filterLft"><a>{clear_filters}</a></Grid>
                                         <Grid className="clear_filterRght"><a><img src={require('assets/virtual_images/clearSrch.jpg')} alt="" title="" /></a></Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid className="clear"></Grid>
                             </Grid>
                             <Grid className="sortBySec">
-                                <label>Sort by:</label>
+                                <label>{sortBy}</label>
                                 <input type="text" placeholder="Entry time" className="entrTimeBY" />
                                 <input type="text" placeholder="Diagnosis time" className="diagTimeBY" />
                             </Grid>
@@ -121,27 +129,27 @@ class Index extends Component {
                 <Grid className="descpCntntMain">
                     <Grid container direction="row">
                         <Grid item xs={12} md={1} className="descpCntntLft">
-                            <a>21 <span>May</span></a>
+                            <a>{twenty1} <span>{May}</span></a>
                         </Grid>
                         <Grid item xs={12} md={10} className="descpCntntRght">
                             <Grid className="descpInerRght">
                                 <Grid container direction="row" className="addSpc">
                                     <Grid item xs={6} md={6}>
                                         <Grid className="diagnosImg">
-                                            <a className="diagnosNote"><img src={require('assets/virtual_images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Diagnosis</span> </a>
+                                            <a className="diagnosNote"><img src={require('assets/virtual_images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>{diagnosis}</span> </a>
                                             <a className="diagnosAwrd"><img src={require('assets/virtual_images/confirmed-diagnosis.svg')} alt="" title="" /></a>
                                             <a className="diagnosBus"><img src={require('assets/virtual_images/emergency-diagnosis.svg')} alt="" title="" /></a>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6} md={6}>
                                         <Grid className="vsblSec">
-                                            <a className="vsblEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                            <a className="vsblEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>{visible}</span> </a>
                                             <a className="vsblTime" data-tip data-for="timeIconTip">
                                                 <img src={require('assets/virtual_images/clock.svg')} alt="" title="" />
                                             </a>
                                             <ReactTooltip className="timeIconClas" id="timeIconTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                                <label>Visible until</label>
-                                                <p>12/08/2020</p>
+                                                <label>{visible_until}</label>
+                                                <p>{twelve082020}</p>
                                             </ReactTooltip>
                                             <a className="vsblDots"><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a>
                                         </Grid>
@@ -149,24 +157,24 @@ class Index extends Component {
                                     <Grid className="clear"></Grid>
                                 </Grid>
                                 <Grid className="icd_num addSpc">
-                                    <label>Depression</label>
-                                    <a data-tip data-for="icdtxtTip">ICD: F32.0</a>
+                                    <label>{depression}</label>
+                                    <a data-tip data-for="icdtxtTip">{ICD_F32}</a>
                                     <ReactTooltip className="icdtxtClas" id="icdtxtTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                        <h4>Mild depressive episode</h4>
+                                        <h4>{mild_depresive_episode}</h4>
                                     </ReactTooltip>
                                 </Grid>
                                 <Grid container direction="row" className="addSpc markCntntMain">
                                     <Grid item xs={12} md={5}>
                                         <Grid className="markCntntImg">
                                             <a><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" />
-                                                <span>Mark Anderson M.D. (Doctor)</span>
+                                                <span>{MarkAndersonMDDoctor}</span>
                                             </a>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={7}>
                                         <Grid className="markMDCntntImg">
                                             <a><img src={require('assets/virtual_images/hLogo.jpg')} alt="" title="" />
-                                                <span>Illinois Masonic Medical Center</span>
+                                                <span>{IllinoisMasonicMedicalCenter}</span>
                                             </a>
                                         </Grid>
                                     </Grid>
@@ -178,36 +186,36 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={6} className="diagnoBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Diagnosed by</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>Mark Anderson M.D.</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{DiagnosedBy}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{MarkAndersonMD}.</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="diagnoBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Allergy</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>No</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{allergy}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{No}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="diagnoBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Diagnosed on</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>20/05/2020</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{DiagnosedOn}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{twenty052020}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="diagnoBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Travel Diagnosis</label></Grid>
+                                                        <Grid item xs={5} md={5}><label>{TravelDiagnosis}</label></Grid>
                                                         <Grid item xs={7} md={7}>
-                                                            <span>Yes</span>
+                                                            <span>{Yes}</span>
                                                             <a className="yesInfo" data-tip data-for="yesInfoTip">
                                                                 <img src={require('assets/virtual_images/yesinfo.jpg')} alt="" title="" />
                                                             </a>
                                                             <ReactTooltip className="yesInfoClas" id="yesInfoTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                                                <h4>Traveled to Africa</h4>
-                                                                <p>06/02/2020 - 26/02/2020</p>
+                                                                <h4>{TraveledToAfrica}</h4>
+                                                                <p>{sixfebTo26feb}</p>
                                                             </ReactTooltip>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -222,9 +230,7 @@ class Index extends Component {
                                     <Collapsible trigger="Notes" open="true">
                                         <Grid className="detailCntnt">
                                             <p>
-                                                Multiple lesions again suggest chronic demyelination. Mild atrophy greatest in the
-                                                frontal region may be associated with multiple sclerosis. Findings appear stable when
-                                                compared with the prior study. There is no abnormal enhancement.
+                                                {ParagraphOfChronicDemyelination}
                                             </p>
                                         </Grid>
                                     </Collapsible>
@@ -233,9 +239,9 @@ class Index extends Component {
                                     <Collapsible trigger="Images & Files" open="true">
                                         <Grid className="imgsFile">
                                             <a><img src={require('assets/virtual_images/agedman.png')} alt="" title="" />
-                                                <label>IMG_23_6_2020_09_18.jpg</label></a>
+                                                <label>{IMG_23_6_2020_09_18}</label></a>
                                             <a><img src={require('assets/virtual_images/pdfimg.png')} alt="" title="" />
-                                                <label>No_name_file.pdf</label></a>
+                                                <label>{No_name_filePDf}</label></a>
                                         </Grid>
                                     </Collapsible>
                                 </Grid>
@@ -248,41 +254,41 @@ class Index extends Component {
                 <Grid className="descpCntntMain">
                     <Grid container direction="row" className="descpCntnt">
                         <Grid item xs={12} md={1} className="descpCntntLft">
-                            <a>21 <span>May</span></a>
+                            <a>{twenty1} <span>{May}</span></a>
                         </Grid>
                         <Grid item xs={12} md={10} className="descpCntntRght">
                             <Grid className="descpInerRght">
                                 <Grid container direction="row" className="addSpc">
                                     <Grid item xs={6} md={6}>
                                         <Grid className="conPainImg">
-                                            <a className="conPainNote"><img src={require('assets/virtual_images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Condition and Pain</span> </a>
+                                            <a className="conPainNote"><img src={require('assets/virtual_images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>{condition_pain}</span> </a>
                                             <a className="conPainAwrd"><img src={require('assets/virtual_images/confirmed-diagnosis.svg')} alt="" title="" /></a>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6} md={6}>
                                         <Grid className="conPainSec">
-                                            <a className="conPainEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>Hidden</span> </a>
+                                            <a className="conPainEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>{Hidden}</span> </a>
                                             <a className="conPainDots"><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a>
                                         </Grid>
                                     </Grid>
                                     <Grid className="clear"></Grid>
                                 </Grid>
                                 <Grid className="conPain_num addSpc">
-                                    <label>Knee Pain</label>
-                                    <p>Acute</p>
+                                    <label>{KneePain}</label>
+                                    <p>{Acute}</p>
                                 </Grid>
                                 <Grid container direction="row" className="addSpc conPain_Cntnt">
                                     <Grid item xs={12} md={5}>
                                         <Grid className="conPain_Img">
                                             <a><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" />
-                                                <span>Mark Anderson M.D. (Doctor)</span>
+                                                <span>{MarkAndersonMDDoctor}</span>
                                             </a>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={7}>
                                         <Grid className="conPain_MDCImg">
                                             <a><img src={require('assets/virtual_images/hLogo.jpg')} alt="" title="" />
-                                                <span>Illinois Masonic Medical Center</span>
+                                                <span>{IllinoisMasonicMedicalCenter}</span>
                                             </a>
                                         </Grid>
                                     </Grid>
@@ -291,7 +297,7 @@ class Index extends Component {
                                 <Grid container direction="row" className="addSpc conPainGraph">
                                     <Grid item xs={12} md={5}>
                                         <Grid className="conPainLft">
-                                            <Grid className="conPainArea"><label>Pain areas</label></Grid>
+                                            <Grid className="conPainArea"><label>{pain_areas}</label></Grid>
                                             <a><img src={require('assets/virtual_images/pat22.png')} alt="" title="" /></a>
                                             <a><img src={require('assets/virtual_images/patient-back.svg')} alt="" title="" /></a>
                                         </Grid>
@@ -299,13 +305,13 @@ class Index extends Component {
                                     <Grid item xs={12} md={7}>
                                         <Grid className="conPainRght">
                                             <Grid className="painIntencty">
-                                                <Grid><label>Pain intensity</label></Grid>
-                                                <Grid><a><img src={require('assets/virtual_images/pain.png')} alt="" title="" />Moderate (42)</a></Grid>
+                                                <Grid><label>{pain_intensity}</label></Grid>
+                                                <Grid><a><img src={require('assets/virtual_images/pain.png')} alt="" title="" />{Moderate42}</a></Grid>
                                                 <Grid> <input type="range" /></Grid>
                                             </Grid>
                                             <Grid className="condIntencty">
-                                                <Grid><label>Condition (How are you?)</label></Grid>
-                                                <Grid><a><img src={require('assets/virtual_images/condition.png')} alt="" title="" />83</a></Grid>
+                                                <Grid><label>{condition_h_r_u}</label></Grid>
+                                                <Grid><a><img src={require('assets/virtual_images/condition.png')} alt="" title="" />{eighty3}</a></Grid>
                                                 <Grid> <input type="range" /></Grid>
                                             </Grid>
                                         </Grid>
@@ -318,15 +324,15 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={6} className="painTypeBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Pain type</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>Acute</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{pain_type}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{Acute}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="painTypeBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Pain quality</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>Burning, Stabbing</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{pain_quality}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{BurningStabbing}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
@@ -339,9 +345,7 @@ class Index extends Component {
                                     <Collapsible trigger="Notes" open="true">
                                         <Grid className="painTypeCntnt">
                                             <p>
-                                                Multiple lesions again suggest chronic demyelination. Mild atrophy greatest in the
-                                                frontal region may be associated with multiple sclerosis. Findings appear stable when
-                                                compared with the prior study. There is no abnormal enhancement.
+                                                {ParagraphOfChronicDemyelination}
                                             </p>
                                         </Grid>
                                     </Collapsible>
@@ -355,7 +359,7 @@ class Index extends Component {
                 <Grid className="descpCntntMain">
                     <Grid container direction="row" className="descpCntnt">
                         <Grid item xs={12} md={1} className="descpCntntLft">
-                            <a>21 <span>May</span></a>
+                            <a>{twenty1} <span>{May}</span></a>
                         </Grid>
                         <Grid item xs={12} md={10} className="descpCntntRght">
                             <Grid className="descpInerRght descpInerBlue">
@@ -363,27 +367,27 @@ class Index extends Component {
                                     <Grid item xs={6} md={6}>
                                         <Grid className="blodPrsurImg">
                                             <a className="blodPrsurNote"><img src={require('assets/virtual_images/blood-pressure-sugar.svg')} alt="" title="" />
-                                                <span>Blood Pressure</span>
+                                                <span>{blood_pressure}</span>
                                             </a>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6} md={6}>
                                         <Grid className="bp_vsblSec">
-                                            <a className="bp_vsblEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                            <a className="bp_vsblEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>{visible}</span> </a>
                                             <a className="bp_vsblDots"><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a>
                                         </Grid>
                                     </Grid>
                                     <Grid className="clear"></Grid>
                                 </Grid>
                                 <Grid className="bp_hg addSpc">
-                                    <label>121/80 <span>mmHg</span></label>
-                                    <p>Normal</p>
+                                    <label>{one2180} <span>{mmHg}</span></label>
+                                    <p>{Normal}</p>
                                 </Grid>
                                 <Grid container direction="row" className="addSpc bpJohnMain">
                                     <Grid item xs={12} md={12}>
                                         <Grid className="bpJohnImg">
                                             <a><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" />
-                                                <span>James Morrison (Patient)</span>
+                                                <span>{JamesMorrisonPatient}</span>
                                             </a>
                                         </Grid>
                                     </Grid>
@@ -395,36 +399,36 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={6} className="bloodPreBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>RR Systolic</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>121</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{rr_systolic}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{one21}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="bloodPreBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Feeling</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>Relaxed</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{feeling}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{relaxed}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="bloodPreBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>RR Diastolic</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>80</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{RR_diastolic}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{eighty}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="bloodPreBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Date & Time</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>21/05/2020, 8:03 AM</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{date_time}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{twenty1May2020803AM}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="bloodPreBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Heart Rate</label></Grid>
-                                                        <Grid item xs={7} md={7}><span>123</span></Grid>
+                                                        <Grid item xs={5} md={5}><label>{heart_rate}</label></Grid>
+                                                        <Grid item xs={7} md={7}><span>{one23}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
                                                 </Grid>
@@ -432,7 +436,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid className="bp_graph">
                                                 <Grid><img src={require('assets/virtual_images/gp.png')} alt="" title="" /></Grid>
-                                                <Grid><a>View in fullscreen</a></Grid>
+                                                <Grid><a>{view_fullscren}</a></Grid>
                                             </Grid>
                                         </Grid>
                                     </Collapsible>
@@ -446,7 +450,7 @@ class Index extends Component {
                 <Grid className="descpCntntMain">
                     <Grid container direction="row" className="descpCntnt">
                         <Grid item xs={12} md={1} className="descpCntntLft">
-                            <a>21 <span>May</span></a>
+                            <a>{twenty1} <span>{May}</span></a>
                         </Grid>
                         <Grid item xs={12} md={10} className="descpCntntRght">
                             <Grid className="descpInerRght">
@@ -454,25 +458,25 @@ class Index extends Component {
                                     <Grid item xs={6} md={6}>
                                         <Grid className="diryImg">
                                             <a className="diryNote"><img src={require('assets/virtual_images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" />
-                                                <span>Diary</span> </a>
+                                                <span>{diary}</span> </a>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6} md={6}>
                                         <Grid className="hideSec">
-                                            <a className="hideEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>Hidden</span> </a>
+                                            <a className="hideEye"><img src={require('assets/virtual_images/eye2.png')} alt="" title="" /> <span>{Hidden}</span> </a>
                                             <a className="hideDots"><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a>
                                         </Grid>
                                     </Grid>
                                     <Grid className="clear"></Grid>
                                 </Grid>
                                 <Grid className="diryNotes_hedng addSpc">
-                                    <label>Diary Notes</label>
+                                    <label>{diary_note}</label>
                                 </Grid>
                                 <Grid container direction="row" className="addSpc diryCntntMain">
                                     <Grid item xs={12} md={12}>
                                         <Grid className="diryCntntImg">
                                             <a><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" />
-                                                <span>James Morrison (Patient)</span>
+                                                <span>{JamesMorrisonPatient}</span>
                                             </a>
                                         </Grid>
                                     </Grid>
@@ -481,14 +485,14 @@ class Index extends Component {
                                 <Grid className="addSpc detailMark">
                                     <Collapsible trigger="Notes" open="true">
                                         <Grid className="diryCntntSec">
-                                            <p>This is the only field in Diary entry type. So we can leave it open.</p>
-                                            <p><i>Wysiwyg editor allows us simple formatting, like italic and so…</i></p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis</p>
-                                            <h3>This is a simple title</h3>
+                                            <p>{Only_field_in_diary_entry_type}</p>
+                                            <p><i>{Wysiwyg_editor_allow_us_simple_formatting}</i></p>
+                                            <p>{ParagraphExample}</p>
+                                            <h3>{{ simple_title }}</h3>
                                             <ul>
-                                                <li><a>Bullet 1</a></li>
-                                                <li><a>Bullet 2</a></li>
-                                                <li><a>Bullet 3</a></li>
+                                                <li><a>{Bullet1}</a></li>
+                                                <li><a>{Bullet2}</a></li>
+                                                <li><a>{Bullet3}</a></li>
                                             </ul>
                                         </Grid>
                                     </Collapsible>
