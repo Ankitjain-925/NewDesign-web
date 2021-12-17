@@ -1401,6 +1401,9 @@
 		"P_ukd832kd2": "P_ukd832kd2",
 		"Room1": "Room 1",
 		"Room2": "Room 2",
+		"Room3": "Room 3",
+		"Room4": "Room 4",
+		"Room5": "Room 5",
 		"Bed2": "Bed 2",
 		"ChildrensWardContent": "Childrens Ward Content",
 		"Statistics": "Statistics",
@@ -1458,6 +1461,7 @@
 		"sevenFebat1238": "7 Feb at 12:38",
 		"ShotDescriptionOfThisService": "This can be a short description of this service.",
 		"one": "1",
+		"two": "2",
 		"slash2": "/2",
 		"twentyThousandEuro": "200,00 €",
 		"twentyFourThousandEuro": "240,00 €",
@@ -1512,6 +1516,11 @@
 		"simple_title": "This is a simple title",
 		"Bullet1": "Bullet 1",
 		"Bullet2": "Bullet 2",
-		"Bullet3": "Bullet 3"
+		"Bullet3": "Bullet 3",
+		"PersonalInformation": "Personal Information",
+		"GotoRoomManagement": "Go to Room Management",
+		"RoomsBeds": "Rooms & Beds",
+		"rooms": "rooms",
+		"beds": "beds"
 	}
 }

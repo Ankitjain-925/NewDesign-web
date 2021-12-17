@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Grid";
-
+import { getLanguage } from "translations/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -27,12 +27,14 @@ class Index extends Component {
   };
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { edit, Delete } = translate;
     return (
       <Grid className="">
         {this.state.label && <Grid className={this.props.viewImage ? "spcMgntUpr" : "otherPageSpc"}>
-              {this.props.viewImage ? (
-                 <Grid container direction="row">
-                <Grid item xs={6} md={6} className="specialitybutton-parent">
+          {this.props.viewImage ? (
+            <Grid container direction="row">
+              <Grid item xs={6} md={6} className="specialitybutton-parent">
                 <Button
                   className={
                     this.props.showActive
@@ -47,9 +49,9 @@ class Index extends Component {
                 >
                   {this.state.label}
                 </Button>
-                {this.props.showActive && <span>(current)</span> }
-                </Grid>
-                <Grid
+                {this.props.showActive && <span>(current)</span>}
+              </Grid>
+              <Grid
                 item
                 xs={6}
                 md={6}
@@ -74,7 +76,7 @@ class Index extends Component {
                           alt=""
                           title=""
                         />
-                        Edit
+                        {edit}
                       </a>
                       <a
                         onClick={() => {
@@ -86,23 +88,23 @@ class Index extends Component {
                           alt=""
                           title=""
                         />
-                        Delete
+                        {Delete}
                       </a>
                     </li>
                   </ul>
                 </a>
               </Grid>
-              </Grid>
-                
-              ) : (
-                <Grid container direction="row">
-                <Grid>
+            </Grid>
+
+          ) : (
+            <Grid container direction="row">
+              <Grid>
                 <Button
-                className={
-                  this.props.showActive
-                    ? "specialitybutton acitveButton"
-                    : "specialitybutton"
-                }
+                  className={
+                    this.props.showActive
+                      ? "specialitybutton acitveButton"
+                      : "specialitybutton"
+                  }
                   onClick={this.props.onClick}
                   style={{
                     color: this.state.color,
@@ -112,11 +114,11 @@ class Index extends Component {
                 >
                   {this.state.label}{" "}
                 </Button>
-                {this.props.showActive && <span>(current)</span> }
-                </Grid>
-                </Grid>
-              )}
-           
+                {this.props.showActive && <span>(current)</span>}
+              </Grid>
+            </Grid>
+          )}
+
         </Grid>}
       </Grid>
     );
