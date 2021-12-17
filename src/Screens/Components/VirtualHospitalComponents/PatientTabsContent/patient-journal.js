@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { Settings } from "Screens/Login/setting";
 import { authy } from 'Screens/Login/authy.js';
-// import { houseSelect } from "../Institutes/selecthouseaction";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction"; 
 import { OptionList } from "Screens/Login/metadataaction";
 // import { Invoices } from 'Screens/Login/invoices.js';
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -57,10 +57,11 @@ class Index extends Component {
 
         };
     }
-
-    componentDidMount(){
-        this.getPatientData();
+    componentDidMount() {
+       this.getPatientData(); 
     }
+
+   
     handleChange = (selectedOption) => {
         this.setState({ selectedOption });
       };
@@ -76,12 +77,15 @@ class Index extends Component {
 
     handleSubmit = () => {
         console.log("data", this.state.newdata)
+        this.setState({newdata:{}})
 };
   
     handleChange2 = (e, name) => {
+        // console.log('e',e,name)
         var state = this.state.newdata
         state[name] = e.value
         this.setState({ newdata: state });
+        // console.log('e',e)
  };
     handleChange1 = (e, name) => {
         var state = this.state.newdata;
@@ -102,33 +106,26 @@ class Index extends Component {
         // console.log("e", e, name)
     }
     onFieldChange1 = (e, name) => {
-        const state = this.state.addinvoice;
-        if (name === 'patient') {
-            var checkCase = this.state.users.filter((item) => item.profile_id === e.profile_id)
-            if (checkCase && checkCase.length > 0) {
-                state[name] = checkCase[0];
-
-                state['case_id'] = checkCase[0].case_id;
-                this.setState({ selectedPat: e })
-            }
-        }
-        else {
-            state[name] = e;
-        }
-        this.setState({ addinvoice: state });
+    //   console.log('e',e,name)
+        var state = this.state.newdata;
+        state[name] = e
+        this.setState({ newdata: state });
+        // console.log('nghch',this.state.newdata)
     }
-
-     //Get patient list
+      //Get patient list
     getPatientData = async () => {
-        this.setState({ loaderImage: true });
-        let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
-        if (response.isdata) {
-            this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
-        }
-        else {
-            this.setState({ loaderImage: false });
-        }
+    this.setState({ loaderImage: true });
+    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
+    if (response.isdata) {
+        this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
+        // console.log('users1',this.state.users1)
     }
+    
+    else {
+        this.setState({ loaderImage: false });
+    }
+}
+    
 
 
 
@@ -181,9 +178,18 @@ class Index extends Component {
                                 </AppBar>
                                 {value === 0 && <TabContainer>
                                     <Grid className="sendSpecInfo" >
-                                        <Grid className="sendTo specBtm" >
+                                        {/* <Grid className="sendTo specBtm" > */}
                                             <Grid><label>Send to </label></Grid >
-                                             <Grid className="sendDropUpr" > 
+                                            <Select
+                                                        name="patient"
+                                                        options={this.state.users1}
+                                                        placeholder="Search & Select"
+                                                        onChange={(e) => this.onFieldChange1(e, "patient")}
+                                                        value={this.state.newdata.patient}
+                                                        className="addStafSelect"
+                                                        isMulti={true}
+                                                        isSearchable={true} /> 
+                                             {/* <Grid className="sendDropUpr" > 
                                                 <Grid className="sendDropDwn" >
                                                     <Select
                                                         name="patient"
@@ -193,14 +199,14 @@ class Index extends Component {
                                                         value={this.state.selectedPat || ''}
                                                         className="addStafSelect"
                                                         isMulti={true}
-                                                        isSearchable={true} />
+                                                        isSearchable={true} /> */}
                                                     {/* <Grid className="sendImg" > </Grid> */}
                                                     {/* <Grid > <label>James Morrison </label><p>P_mDnkbR30d</p > </Grid> */}
                                                     {/* <Grid className="sendRmv" > </Grid> */}
-                                                </Grid>
+                                                {/* </Grid> */}
                                                 {/* <img src={require} alt="" title="" className="sendDropImg" /> */}
-                                         </Grid> 
-                                        </Grid>
+                                         {/* </Grid>  */}
+                                        {/* </Grid> */}
                                         <Grid className="specBtm" >
                                             <Grid><label>Promotion type</label></Grid >
                                             <Grid>
@@ -792,7 +798,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
         state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { House } = state.houseSelect
+    const { House } = state.houseSelect;
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     const { metadata } = state.OptionList;
@@ -800,14 +806,14 @@ const mapStateToProps = (state) => {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // House,
+        House,
         settings,
         verifyCode,
         metadata,
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, OptionList })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy,houseSelect, OptionList })(
         Index
     )
 );
