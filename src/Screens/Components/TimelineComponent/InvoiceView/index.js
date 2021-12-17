@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
 import ReactTooltip from "react-tooltip";
-import FileViews from "./../FileViews/index";
+// import FileViews from "./../FileViews/index";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+// import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens//actions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import SpecialityButton from "../../VirtualHospitalComponents/SpecialityButton";
+// import SpecialityButton from "../../VirtualHospitalComponents/SpecialityButton";
 import { getLanguage } from "translations/index";
 import { getDate, newdate, getTime, getImage, } from "../../BasicMethod/index";
 import { pure } from "recompose";
@@ -31,13 +32,11 @@ class Index extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        if (
-            prevProps.data !== this.props.data ||
-            prevProps.loggedinUser !== this.props.loggedinUser
-        ) {
+        if (prevProps.data !== this.props.data ||
+            prevProps.loggedinUser !== this.props.loggedinUser) {
             this.setState({
                 item: this.props.data,
-                loggedinUser: this.props.loggedinUser,
+                loggedinUser: this.props.loggedinUser
             });
         }
         if (prevProps.images !== this.props.images) {
@@ -66,25 +65,28 @@ class Index extends Component {
             Change,
             de_archive,
             Download,
+            Services,
+            Price
         } = translate;
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={12} md={1} className="descpCntntLft">
-                    {newdate(item.due_on.date)}
+                    {console.log("item", item)}
+                    {/* {newdate(item.due_on.date)} */}
                 </Grid>
                 <Grid item xs={12} md={10} className="descpCntntRght">
-                    <Grid className="descpInerRght descpInerBlue taskBorder">
+                    <Grid className="descpInerRght">
                         <Grid container direction="row" className="addSpc">
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
-                                    <a className="blodPrsurNote">
+                                    <a className="diryNote">
                                         <img
-                                            src={require("assets/images/taskImage.svg")}
+                                            src={require("assets/images/condition-diagnosis-family-anamnesis-diary.svg")}
                                             alt=""
                                             title=""
                                         />
-                                        <span>Task</span>
+                                        <span>Invoice</span>
                                     </a>
                                 </Grid>
                             </Grid>
@@ -246,19 +248,20 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="bp_hg addSpc">
-                            {item && item.task_name &&
-                                <label><span>{item.task_name}</span></label>
+                            {item && item.invoice_id &&
+                                <label><span>{item.invoice_id}</span></label>
                             }
                         </Grid>
                         <Grid className="bp_hg addSpc">
                             <label><span>
-                                <SpecialityButton
+                                {/* <SpecialityButton
                                     label={item?.speciality?.specialty_name}
                                     backgroundColor={item?.speciality?.background_color}
                                     viewImage={false}
                                     color={item?.speciality?.color}
                                     showActive={false}
-                                />
+                                /> */}
+                                <label><span>$ {item.total_amount}</span></label>
                             </span></label>
                             {/* <p>Normal</p> */}
                         </Grid>
@@ -277,7 +280,7 @@ class Index extends Component {
                                         </Grid>
                                         <Grid className="clear"></Grid>
                                     </Grid>
-                                    <Grid className="addSpc detailMark">
+                                    {/* <Grid className="addSpc detailMark">
                                         <Collapsible trigger="Assigned to" open="true">
                                             <Grid className="detailCntnt">
                                                 <Grid container direction="row">
@@ -296,11 +299,11 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Collapsible>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid className="addSpc detailMark">
                                         <Collapsible trigger={details} open="true">
                                             <Grid className="detailCntnt">
-                                                <Grid container direction="row">
+                                                {/* <Grid container direction="row">
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
@@ -332,25 +335,101 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="clear"></Grid>
+                                                </Grid> */}
+
+
+                                                <Grid className="srvcTable3">
+                                                    <Table>
+                                                        <Thead>
+                                                            <Tr>
+                                                                <Th>{Services}</Th>
+                                                                <Th>{Price}</Th>
+                                                                <Th>Quantity</Th>
+                                                            </Tr>
+                                                        </Thead>
+                                                        <Tbody>
+                                                            {item?.services?.length > 0 &&
+                                                                item?.services.map((data) => (
+                                                                    <>
+                                                                        <Tr>
+                                                                            <Td>
+                                                                                <label>{data.service}</label>
+                                                                            </Td>
+                                                                            <Td>{data.price}</Td>
+                                                                            <Td>{data.quantity}</Td>
+                                                                            {/* <Td className="srvcDots"> */}
+                                                                            <Td>
+                                                                                {/* <Grid
+                                                                                    item
+                                                                                    xs={6}
+                                                                                    md={6}
+                                                                                    className="spcMgntRght7 presEditDot scndOptionIner"
+                                                                                > */}
+                                                                                {/* <a className="openScndhrf">
+                                                                                        <img
+                                                                                            src={require("assets/images/three_dots_t.png")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                            className="openScnd specialuty-more"
+                                                                                        />
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <a
+                                                                                                    onClick={() => {
+                                                                                                        editService(data, this);
+                                                                                                    }}
+                                                                                                >
+                                                                                                    <img
+                                                                                                        src={require("assets/images/details.svg")}
+                                                                                                        alt=""
+                                                                                                        title=""
+                                                                                                    />
+                                                                                                    Edit Service
+                                                                                                </a>
+                                                                                            </li>
+
+                                                                                            <li
+                                                                                                onClick={() => {
+                                                                                                    this.removeServices(data._id);
+                                                                                                }}
+                                                                                            >
+                                                                                                <a>
+                                                                                                    <img
+                                                                                                        src={require("assets/images/cancel-request.svg")}
+                                                                                                        alt=""
+                                                                                                        title=""
+                                                                                                    />
+                                                                                                    Delete Service
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </a> */}
+                                                                                {/* </Grid> */}
+                                                                            </Td>
+                                                                        </Tr>
+                                                                    </>
+                                                                ))}
+                                                        </Tbody>
+                                                    </Table>
                                                 </Grid>
                                             </Grid>
                                         </Collapsible>
                                     </Grid>
-                                    <Grid className="addSpc detailMark task_desk">
+                                    {/* <Grid className="addSpc detailMark task_desk">
                                         <Collapsible trigger="Description" open="true">
                                             <Grid className="task_desk">
                                                 <span>{item.description}</span>
                                             </Grid>
                                         </Collapsible>
-                                    </Grid>
-                                    <Grid className="addSpc detailMark">
+                                    </Grid> */}
+                                    {/* <Grid className="addSpc detailMark">
                                         <Collapsible trigger="Attachments" open="true">
                                             <FileViews
                                                 images={this.state.images}
                                                 attachfile={item.attachments}
                                             />
                                         </Collapsible>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             }
                         </Collapsible>

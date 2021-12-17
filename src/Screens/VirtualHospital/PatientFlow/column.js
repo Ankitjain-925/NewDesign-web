@@ -50,7 +50,7 @@ export default class Column extends Component {
     const quotes = this.props.quotes;
     const index = this.props.index;
     let translate = getLanguage(this.props.stateLanguageType);
-    let { move_all_patients, move_step } = translate;
+    let { move_all_patients, move_step, AddNewPatient } = translate;
 
     return (
       <Draggable draggableId={title} index={index}>
@@ -78,7 +78,7 @@ export default class Column extends Component {
                   </Grid>
                   <Grid className="checkDotsRght">
                     <a className="academy_ul stepTdotupper">
-                        <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
+                        <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
@@ -138,10 +138,10 @@ export default class Column extends Component {
                     : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title?.substr (0, 12)} {title.length>12 && <>...</>}</label>}
                   </Grid></label></Grid>
                       <Grid item xs={12} sm={6} md={6} className="addPatent">
-                          <a className="addNwPatnt" onClick={()=>{this.props.openAddPatient(title)}}>+ Add a new patient</a>
-                          <Grid className="checkDotsRght">
+                        <a className="addNwPatnt" onClick={() => { this.props.openAddPatient(index) }}>{AddNewPatient}</a>
+                        <Grid className="checkDotsRght">
                           <a className="academy_ul stepTdotupper">
-                        <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
+                        <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
@@ -187,27 +187,27 @@ export default class Column extends Component {
                 }
               </Grid>
             </div>
-              <QuoteList
-                ordered={this.props.ordered}
-                listId={title}
-                listType="QUOTE"
-                style={{
-                  backgroundColor: snapshot.isDragging ? 
-                  "#baf": null
-                }}
-                moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
-                view={this.props.view}
-                quotes={quotes}
-                columns={this.props.columns}
-                internalScroll={this.props.isScrollable}
-                isCombineEnabled={Boolean(this.props.isCombineEnabled)}
-                onDragEnd={(data)=>{this.props.onDragEnd(data)}}
-                setDta={(item)=>this.props.setDta(item)}
-                professional_id_list={this.props.professional_id_list}
-                updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
-                MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
-              />
-             {this.props.view==='vertical' && <Grid className="nwPatentAdd"><Button onClick={()=>{this.props.openAddPatient(title)}}>+ Add a new patient</Button></Grid>}
+            <QuoteList
+              ordered={this.props.ordered}
+              listId={title}
+              listType="QUOTE"
+              style={{
+                backgroundColor: snapshot.isDragging ?
+                  "#baf" : null
+              }}
+              moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
+              view={this.props.view}
+              quotes={quotes}
+              columns={this.props.columns}
+              internalScroll={this.props.isScrollable}
+              isCombineEnabled={Boolean(this.props.isCombineEnabled)}
+              onDragEnd={(data) => { this.props.onDragEnd(data) }}
+              setDta={(item) => this.props.setDta(item)}
+              professional_id_list={this.props.professional_id_list}
+              updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
+              MovetoTask={(speciality, patient_id) => { this.props.MovetoTask(speciality, patient_id) }}
+            />
+            {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(index) }}>{AddNewPatient}</Button></Grid>}
           </div>
         )}
       </Draggable>

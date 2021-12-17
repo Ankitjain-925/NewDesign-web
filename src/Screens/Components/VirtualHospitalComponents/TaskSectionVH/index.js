@@ -779,7 +779,7 @@ class Index extends Component {
       .then((responce) => {
         this.setState({ loaderImage: false });
         if (responce.data.hassuccessed) {
-          return responce.data.data;
+          return responce.data.data ? responce.data.data : [];
         }
       })
       .catch((error) => {
@@ -814,13 +814,8 @@ class Index extends Component {
       else if (tabvalue2 === 2) {
         this.setState({ OpenTask: resp, OpenTaskCss: 'filterApply' })
       }
-      // else if (tabvalue2 === 3) {
-      //   this.setState({ ArchivedTasks: data, ArchivedTasksCss: 'filterApply' })
-      // }
     })
-
     this.handleCloseRvw();
-
   }
 
   //On Changing the specialty id
@@ -1066,57 +1061,6 @@ class Index extends Component {
                               />
                             </Grid>
                           </Grid>
-                          {/* <Grid container direction="row" alignItems="center">
-                            <Grid item xs={10} md={10} className="dueOn">
-                              <label>{Dueon}</label>
-                              <Grid>
-                                {this.state.openDate ? (
-                                  <DateFormat
-                                    name="date"
-                                    value={
-                                      this.state.newTask?.due_on?.date
-                                        ? new Date(
-                                          this.state.newTask?.due_on?.date
-                                        )
-                                        : new Date()
-                                    }
-                                    notFullBorder
-                                    date_format={this.state.date_format}
-                                    onChange={(e) =>
-                                      this.updateEntryState1(e, "date")
-                                    }
-                                    disabled={this.props.comesFrom === 'Professional' ? true : false}
-                                  />
-                                ) : (
-                                  <TimeFormat
-                                    name="time"
-                                    value={
-                                      this.state.newTask?.due_on?.time
-                                        ? new Date(
-                                          this.state.newTask?.due_on?.time
-                                        )
-                                        : new Date()
-                                    }
-                                    time_format={this.state.time_format}
-                                    onChange={(e) =>
-                                      this.updateEntryState1(e, "time")
-                                    }
-                                    disabled={this.props.comesFrom === 'Professional' ? true : false}
-                                  />
-                                )}
-                              </Grid>
-                            </Grid>
-                            <Grid item xs={2} md={2} className="addTime">
-                              <Button
-                                onClick={() => {
-                                  this.openTaskTime();
-                                }}
-                              >
-                                {this.state.openDate ? "Add time" : "Add date"}
-                              </Button>
-                            </Grid>
-                          </Grid> */}
-                          {/* I'm working here */}
 
                           <Grid container direction="row" alignItems="center">
                             <Grid item xs={12} md={12} className="dueOn">
@@ -1324,20 +1268,6 @@ class Index extends Component {
 
 
                                     </Grid>
-                                    {/* <Grid className="cmntMsgsCntnt">
-                                      {this.state.editcomment === index ?
-                                        <textarea type="text"
-                                        name="comment"
-                                          onChange={(e) => this.oNEditText(e, index) 
-                                          }
-
-                                          onKeyDown={this.onKeyUp}
-                                          value={data?.comment}
-                                        >
-                                        </textarea>
-                                        :
-                                        <p>{data?.comment}</p>}
-                                    </Grid> */}
                                     {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
                                       {/* <Button onClick={() => this.editComment(data)}>Edit</Button> */}
                                       <Button onClick={() => this.removeComment(index)}>Delete</Button>
@@ -1407,15 +1337,20 @@ class Index extends Component {
                       title=""
                     />
                   </a>
-                  {tabvalue2 === 0 &&
-                    <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                  {this.props.comesFrom !== 'Professional' &&
+                      <>
+                        {tabvalue2 === 0 &&
+                        <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                      }
+                      {tabvalue2 === 1 &&
+                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                      }
+                      {tabvalue2 === 2 &&
+                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                      }
+                      </>
                   }
-                  {tabvalue2 === 1 &&
-                    <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
-                  }
-                  {tabvalue2 === 2 &&
-                    <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
-                  }
+               
                   {/* {tabvalue2 === 3 &&
                     <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                   } */}
@@ -1426,6 +1361,7 @@ class Index extends Component {
           {tabvalue2 === 0 && (
             <TabContainer>
               <Grid className="allInerTabs">
+                {console.log('AllTasks', this.state.AllTasks)}
                 {this.state.AllTasks.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
@@ -1497,15 +1433,7 @@ class Index extends Component {
                 </Grid>
                 <label>Filters</label>
               </Grid>
-              {/* <AppBar position="static" className="fltrTabs">
-                                <Tabs 
-                                // value={value}
-                                 onChange={this.handleChangeTab}>
-                                    <Tab label="My Tasks" className="fltrtabIner" />
-                                    <Tab label="All Tasks" className="fltrtabIner" />
-                                </Tabs>
-                            </AppBar> */}
-              {/* {value === 0 && */}
+             
               <TabContainer>
                 <Grid className="fltrForm">
                   {tabvalue2 === 0 &&

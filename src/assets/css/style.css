@@ -17250,7 +17250,7 @@ ul.duringCovid li:last-child {
 }
 
 .addTimeTask button {
-    height: 44px;
+    padding: 14px 6px;
     width: 78px;
     border: 1px solid #BFC1C1;
     border-radius: 4px;
