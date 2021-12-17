@@ -706,7 +706,8 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
-      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters, case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution } =
+      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
+       case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient } =
       translate;
 
     const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep } = this.state;
@@ -767,7 +768,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a onClick={() => this.newPatient()}>
-                            + Create New Patient
+                          {CreateNewPatient}
                           </a>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">

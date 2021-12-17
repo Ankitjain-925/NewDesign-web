@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import {
     getLanguage
-  }from "translations/index"
+} from "translations/index"
 
 class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roomArray: this.props.roomArray || [],  
+            roomArray: this.props.roomArray || [],
         }
     }
 
@@ -16,7 +16,7 @@ class Index extends React.Component {
         var RoomAy = this.state.roomArray;
         RoomAy[index][e.target.name] = e.target.value;
         this.setState({ roomArray: RoomAy },
-           ()=> this.props.onChange(this.state.roomArray))
+            () => this.props.onChange(this.state.roomArray))
     }
 
     componentDidUpdate = (prevProps) => {
@@ -32,16 +32,16 @@ class Index extends React.Component {
     };
 
     deleteRooms = (index) => {
-        var RoomAy = this.state.roomArray?.length>0 && this.state.roomArray.filter((data , index1)=>index1 !== index);
+        var RoomAy = this.state.roomArray?.length > 0 && this.state.roomArray.filter((data, index1) => index1 !== index);
         this.setState({ roomArray: RoomAy },
-            ()=>{
+            () => {
                 this.props.onChange(this.state.roomArray)
             });
     };
 
     render() {
-       let translate = getLanguage(this.props.stateLanguageType);
-       let {Roomname, Bedsinroom } = translate;
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { Roomname, Bedsinroom, AddRoom } = translate;
         return (
             <Grid className="roomName">
                 <Grid container direction="row" alignItems="center" spacing={2}>
@@ -99,7 +99,7 @@ class Index extends React.Component {
                             <a onClick={() => this.deleteRooms(index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
                         </Grid>
                     </Grid>))}
-                <Grid className="add_a_room"><a onClick={this.onAddFiled}>+ add a Room</a></Grid>
+                <Grid className="add_a_room"><a onClick={this.onAddFiled}>{AddRoom}</a></Grid>
             </Grid>
         );
     }

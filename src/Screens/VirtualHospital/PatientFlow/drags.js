@@ -4,6 +4,7 @@ import reorder, { reorderQuoteMap } from "./reorder";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
+import { getLanguage } from "translations/index";
 
 class Index extends Component {
   static defaultProps = {
@@ -104,6 +105,8 @@ class Index extends Component {
   render() {
     const columns = this.state.columns;
     const ordered = this.state.ordered;
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { AddStep } = translate;
     const board = (
       <div className={this.props.view === 'vertical' ? "dragdrop-vertical" : "dragdrop-horizontal"}>
         <Droppable
@@ -149,7 +152,7 @@ class Index extends Component {
 
                 ))}
                  <li>
-                      <Grid className="newAddStepBtn"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
+                 <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>{AddStep}</Button></Grid>
                  </li>
                  {/* {console.log('this.state.columns', this.state.columns)} */}
               </ul>
