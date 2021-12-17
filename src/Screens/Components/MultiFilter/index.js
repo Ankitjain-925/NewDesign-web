@@ -75,7 +75,6 @@ export const MultiFilter = (user, assignedTo, Speciality, fullData) => {
 
 
 export const AppointFilter = (user, Speciality, Choosetask, fullData) => {
-    console.log("user", user, "Speciality", Speciality, "Choosetask", Choosetask)
 
     // const ChoosetaskFunc = (array1) => {
     //     let assignedToNew = []
@@ -202,3 +201,144 @@ export const MultiFilter2 = (users, specialities, statusValue, fullData) => {
 
 }
 
+export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomData, fullData) => {
+    const roomFunc = (data) => {
+        let selectedRoom = []
+        selectedRoom.push(roomData.value)
+
+        let list4 = []
+        for (let i = 0; i <= data.length; i++) {
+            let result = data[i]?.case_numbers?.filter((item) => selectedRoom.includes(item && item.rooms && item.rooms._id
+            ))
+            if (result && result.length > 0) {
+                list4.push({ 'case_numbers': result, 'step_name': data[i]?.step_name, '_id': data[i]?._id })
+            }
+        }
+        return list4;
+
+    }
+    const wardFunc = (data) => {
+        let selectedWard = []
+        selectedWard.push(wardData.value)
+
+        let list3 = []
+        for (let i = 0; i <= data.length; i++) {
+            let result = data[i]?.case_numbers?.filter((item) => selectedWard.includes(item && item.wards && item.wards._id
+            ))
+            if (result && result.length > 0) {
+                list3.push({ 'case_numbers': result, 'step_name': data[i]?.step_name, '_id': data[i]?._id })
+            }
+        }
+        if (roomData) {
+            let roomReturn = roomFunc(list3)
+            return roomReturn;
+        }
+        else {
+            return list3;
+        }
+    }
+    const specFunc = (data) => {
+        let selectedSpec = []
+        selectedSpec.push(Speciality.value)
+
+        let list2 = []
+        for (let i = 0; i <= data.length; i++) {
+            let result = data[i]?.case_numbers?.filter((item) => selectedSpec.includes(item && item.speciality && item.speciality._id
+            ))
+            if (result && result.length > 0) {
+                list2.push({ 'case_numbers': result, 'step_name': data[i]?.step_name, '_id': data[i]?._id })
+            }
+        }
+        if (wardData) {
+            let wardReturn = wardFunc(list2);
+            return wardReturn;
+        }
+        else if (roomData) {
+            let roomReturn = roomFunc(list2)
+            return roomReturn;
+        }
+        else {
+            return list2;
+        }
+    }
+
+    const docFunc = (data) => {
+        // temp data passing
+        let docReturn = data
+        // temp data passing end
+
+        if (Speciality) {
+            let returnData = specFunc(docReturn);
+            return returnData;
+        }
+        else if (wardData) {
+            let wardReturn = wardFunc(docReturn);
+            return wardReturn;
+        }
+        else if (roomData) {
+            let roomReturn = roomFunc(docReturn)
+            return roomReturn;
+        }
+        else {
+            return docReturn;
+        }
+    }
+    const patFunc = () => {
+        if (patient && patient.length > 0) {
+            let usersNew = []
+            usersNew = patient.map((item) => {
+                return item?.value
+            })
+            let list = []
+            for (let i = 0; i <= fullData.length; i++) {
+                let data = fullData[i]?.case_numbers?.filter((item) => usersNew.includes(item.patient_id
+                ))
+                if (data && data.length > 0) {
+                    list.push({ 'case_numbers': data, 'step_name': fullData[i]?.step_name, '_id': fullData[i]?._id })
+                }
+            }
+            if (doctor && doctor.length > 0) {
+                let returnData = docFunc(list);
+                return returnData;
+            }
+            else if (Speciality) {
+                let returnData = specFunc(list);
+                return returnData;
+            }
+            else if (wardData) {
+                let wardReturn = wardFunc(list);
+                return wardReturn;
+            }
+            else if (roomData) {
+                let roomReturn = roomFunc(list)
+                return roomReturn;
+            }
+            else {
+                return list;
+            }
+        }
+        else if (doctor && doctor.length > 0) {
+            let returnData = docFunc(fullData);
+            return returnData;
+        }
+        else if (Speciality) {
+            let returnData = specFunc(fullData);
+            return returnData;
+        }
+        else if (wardData) {
+            let wardReturn = wardFunc(fullData);
+            return wardReturn;
+        }
+        else if (roomData) {
+            let roomReturn = roomFunc(fullData)
+            return roomReturn;
+        }
+        else {
+            return fullData;
+        }
+    }
+
+
+    var findData = patFunc(fullData)
+    return findData;
+}
