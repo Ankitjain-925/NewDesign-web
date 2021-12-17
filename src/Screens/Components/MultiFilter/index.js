@@ -208,7 +208,7 @@ export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomDat
 
         let list4 = []
         for (let i = 0; i <= data.length; i++) {
-            let result = data[i]?.case_numbers?.filter((item) => selectedRoom.includes(item && item.rooms && item.rooms._id
+            let result = data[i]?.case_numbers?.filter((item) => selectedRoom.includes(item && item?.rooms && item?.rooms?._id
             ))
             if (result && result.length > 0) {
                 list4.push({ 'case_numbers': result, 'step_name': data[i]?.step_name, '_id': data[i]?._id })
@@ -223,7 +223,7 @@ export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomDat
 
         let list3 = []
         for (let i = 0; i <= data.length; i++) {
-            let result = data[i]?.case_numbers?.filter((item) => selectedWard.includes(item && item.wards && item.wards._id
+            let result = data[i]?.case_numbers?.filter((item) => selectedWard.includes(item && item?.wards && item?.wards?._id
             ))
             if (result && result.length > 0) {
                 list3.push({ 'case_numbers': result, 'step_name': data[i]?.step_name, '_id': data[i]?._id })
@@ -243,7 +243,7 @@ export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomDat
 
         let list2 = []
         for (let i = 0; i <= data.length; i++) {
-            let result = data[i]?.case_numbers?.filter((item) => selectedSpec.includes(item && item.speciality && item.speciality._id
+            let result = data[i]?.case_numbers?.filter((item) => selectedSpec.includes(item && item?.speciality && item?.speciality?._id
             ))
             if (result && result.length > 0) {
                 list2.push({ 'case_numbers': result, 'step_name': data[i]?.step_name, '_id': data[i]?._id })
@@ -263,9 +263,20 @@ export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomDat
     }
 
     const docFunc = (data) => {
-        // temp data passing
-        let docReturn = data
-        // temp data passing end
+
+        let docData = []
+        docData = doctor.map((item) => {
+                return item?.value
+            })
+            let listNew = []
+            for (let i = 0; i <= data.length; i++) {
+                let result = data[i]?.case_numbers?.filter((item) => docData.includes(item && item?.assinged_to && item?.assinged_to[0]?.user_id
+                ))
+                if (result && result.length > 0) {
+                    listNew.push({ 'case_numbers': result, 'step_name': data[i]?.step_name, '_id': data[i]?._id })
+                }
+            }
+        let docReturn = listNew
 
         if (Speciality) {
             let returnData = specFunc(docReturn);
@@ -291,7 +302,7 @@ export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomDat
             })
             let list = []
             for (let i = 0; i <= fullData.length; i++) {
-                let data = fullData[i]?.case_numbers?.filter((item) => usersNew.includes(item.patient_id
+                let data = fullData[i]?.case_numbers?.filter((item) => usersNew.includes(item?.patient_id
                 ))
                 if (data && data.length > 0) {
                     list.push({ 'case_numbers': data, 'step_name': fullData[i]?.step_name, '_id': fullData[i]?._id })

@@ -592,7 +592,6 @@ class Index extends Component {
     let {selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData} = this.state
     var data = _.cloneDeep(actualData);
     let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data )
-    console.log("result",result)
   }
 
   clearFilter = () => {
