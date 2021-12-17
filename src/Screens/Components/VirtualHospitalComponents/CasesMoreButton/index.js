@@ -250,7 +250,7 @@ MovetoTask=()=>{
            <>
             {this.state.loaderImage && <Loader />}
            <a className="academy_ul stepTdotupper">
-                   <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
+                   <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                    <ul>
                         {this.state.firstsec && <>
                             <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`)}}><span className="more-open-detail"></span>{"Open details"}</a></li>

@@ -149,7 +149,7 @@ class Index extends Component {
 
                 ))}
                  <li>
-                 <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
+                      <Grid className="newAddStepBtn"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
                  </li>
                  {/* {console.log('this.state.columns', this.state.columns)} */}
               </ul>
