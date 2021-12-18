@@ -83,7 +83,7 @@ export default class Column extends Component {
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{move_step}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
+                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><p className="more-change-staff-img"><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span><p className="more-change-staff-img2">{"Move All patient in this Step"}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title=""/></p></p> </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
                             </Grid>}
                             {this.state.inneerSec==='move_all' &&
@@ -146,7 +146,7 @@ export default class Column extends Component {
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{move_step}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
+                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><p className="more-change-staff-img"><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span><p className="more-change-staff-img2">{"Move All patient in this Step"}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title=""/></p></p> </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
                             </Grid>}
                             {this.state.inneerSec==='move_all' &&

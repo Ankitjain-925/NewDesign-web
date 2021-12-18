@@ -351,15 +351,6 @@ class Index extends Component {
     );
   };
 
-  // DateCellCompnent = ({ children, value }) => {
-  //   return React.cloneElement(Children.only(children), {
-  //     style: {
-  //       ...children.style,
-  //       // backgroundColor: value < CURRENT_DATE ? 'lightgreen' : 'lightblue',
-  //     },
-  //   });
-  // };
-
   Tooltip = ({
     getTooltipProps,
     getArrowProps,

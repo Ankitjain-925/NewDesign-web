@@ -13562,9 +13562,9 @@ iframe.stripe_checkout_app {
 .showflags{
     position: relative;
 }
-.adminmenuItems .menuActv a img{
+/* .adminmenuItems .menuActv a img{
     background-color: #fff !important;
-}
+} */
 .HospitalAdd .passInst {
     position: relative!important;
     top: unset !important;
@@ -17250,19 +17250,18 @@ ul.duringCovid li:last-child {
 }
 
 .addTimeTask button {
-    padding: 14px 6px;
-    width: 78px;
+    width: 162px;
     border: 1px solid #BFC1C1;
     border-radius: 4px;
-    background-color: #FFFFFF;
-    margin-left: 12px !important;
+    background-color: transparent;
     color: #7F8383;
     font-size: 14px;
+    margin-left: 10px;
     letter-spacing: 0;
     line-height: 18px;
     font-family: Muli;
     text-transform: initial;
-    padding: 0px;
+    padding: 14px 0px;
 }
 
 .borderStyle {

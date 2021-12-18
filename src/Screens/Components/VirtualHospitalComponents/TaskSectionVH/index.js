@@ -140,6 +140,12 @@ class Index extends Component {
           },
         });
         state["speciality"] = this.props.location?.state?.speciality;
+        state["patient"] = this.props.location?.state?.user;
+        this.setState({ newTask: state });
+      }
+      if(this.props.location?.state?.user){
+        const state = this.state.newTask;
+        state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
       }
       this.setState({ openTask: true });
@@ -1066,8 +1072,8 @@ class Index extends Component {
                           <Grid container direction="row" alignItems="center">
                             <Grid item xs={12} md={12} className="dueOn">
                               <label>{Dueon}</label>
-                              <Grid className="timeTask">
-                                <Grid item xs={10} md={10}>
+                              <Grid container direction="row" alignItems="center" className="timeTask">
+                                <Grid item xs={8} md={8}>
                                   {/* {this.state.openDate ? ( */}
                                   <DateFormat
                                     name="date"
@@ -1086,7 +1092,7 @@ class Index extends Component {
                                     disabled={this.props.comesFrom === 'Professional' ? true : false}
                                   />
                                 </Grid>
-                                <Grid item xs={2} md={2} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
+                                <Grid item xs={4} md={4} className={this.state.openDate ? "addTimeTask" : "addTimeTask1"}>
                                   {this.state.openDate ? (
 
                                     <Button
@@ -1330,7 +1336,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={4} sm={4} md={4}>
                 <Grid className="taskSort">
-                  <Input type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText}></Input>
+                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText}/>
                   <a>
                     <img
                       src={require("assets/virtual_images/search-entries.svg")}
@@ -1338,7 +1344,7 @@ class Index extends Component {
                       title=""
                     />
                   </a>
-                  {this.props.comesFrom !== 'Professional' &&
+                  {this.props.comesFrom !== 'Professional' && this.props.comesFrom !=='detailTask' &&
                       <>
                         {tabvalue2 === 0 &&
                         <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>

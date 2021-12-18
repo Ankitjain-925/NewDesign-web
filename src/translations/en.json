@@ -1442,10 +1442,10 @@
 		"createInvoices": "Create Invoices",
 		"dischargeWithoutInvoice": "Discharge without Invoices",
 		"OpenDetails": "Open details",
-		"change_staff": "Change Staff >",
-		"move_patient_to": "Move patient to >",
-		"assign_to_speciality": "Assign to Speciality >",
-		"assign_to_room": "Assign to room >",
+		"change_staff": "Change Staff",
+		"move_patient_to": "Move patient to",
+		"assign_to_speciality": "Assign to Speciality",
+		"assign_to_room": "Assign to room",
 		"DischargePatient": "Discharge Patient",
 		"Please_assign_speciality_first": "Please assign a speciality first"
 	}
