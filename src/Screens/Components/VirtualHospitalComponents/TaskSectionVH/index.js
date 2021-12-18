@@ -32,7 +32,6 @@ import TaskView from "Screens/Components/VirtualHospitalComponents/TaskView/inde
 import { getLanguage } from "translations/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
-import { MultiFilter } from "../../MultiFilter/index";
 
 
 
@@ -827,7 +826,7 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '' })
+    this.setState({ selectRoom: '', selectWard: '',wardList: [],roomList : [] })
     let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
     })
