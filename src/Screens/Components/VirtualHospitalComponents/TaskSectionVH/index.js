@@ -142,11 +142,14 @@ class Index extends Component {
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
       }
-      if(this.props.location?.state?.user){
+      if (this.props.location?.state?.user) {
         const state = this.state.newTask;
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
       }
+      this.setState({ openTask: true });
+    }
+    if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
       this.setState({ openTask: true });
     }
   }
@@ -826,7 +829,7 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '',wardList: [],roomList : [] })
+    this.setState({ selectRoom: '', selectWard: '', wardList: [], roomList: [] })
     let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
     })
@@ -1335,7 +1338,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={4} sm={4} md={4}>
                 <Grid className="taskSort">
-                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText}/>
+                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />
                   <a>
                     <img
                       src={require("assets/virtual_images/search-entries.svg")}
@@ -1343,9 +1346,9 @@ class Index extends Component {
                       title=""
                     />
                   </a>
-                  {this.props.comesFrom !== 'Professional' && this.props.comesFrom !=='detailTask' &&
-                      <>
-                        {tabvalue2 === 0 &&
+                  {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
+                    <>
+                      {tabvalue2 === 0 &&
                         <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                       {tabvalue2 === 1 &&
@@ -1354,9 +1357,9 @@ class Index extends Component {
                       {tabvalue2 === 2 &&
                         <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
-                      </>
+                    </>
                   }
-               
+
                   {/* {tabvalue2 === 3 &&
                     <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                   } */}
@@ -1439,43 +1442,43 @@ class Index extends Component {
                 </Grid>
                 <label>Filters</label>
               </Grid>
-             
+
               <TabContainer>
                 <Grid className="fltrForm">
                   {tabvalue2 === 0 &&
-                  <Grid className="fltrInput">
-                    <label>Task status</label>
-                    <Grid className="addInput">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="open"
-                            value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
-                            color="#00ABAF"
-                            checked={this.state.check.open}
-                            onChange={(e) =>
-                              this.updateTaskFilter(e)
-                            }
-                          />
-                        }
-                        label="Open"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="done"
-                            value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
-                            color="#00ABAF"
-                            checked={this.state.check.done}
-                            onChange={(e) =>
-                              this.updateTaskFilter(e)
-                            }
-                          />
-                        }
-                        label="Done"
-                      />
+                    <Grid className="fltrInput">
+                      <label>Task status</label>
+                      <Grid className="addInput">
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              name="open"
+                              value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
+                              color="#00ABAF"
+                              checked={this.state.check.open}
+                              onChange={(e) =>
+                                this.updateTaskFilter(e)
+                              }
+                            />
+                          }
+                          label="Open"
+                        />
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              name="done"
+                              value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
+                              color="#00ABAF"
+                              checked={this.state.check.done}
+                              onChange={(e) =>
+                                this.updateTaskFilter(e)
+                              }
+                            />
+                          }
+                          label="Done"
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
                   }
                   <Grid className="fltrInput">
                     <label>Patient</label>

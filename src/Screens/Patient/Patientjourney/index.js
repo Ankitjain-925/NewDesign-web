@@ -157,7 +157,7 @@ class Index extends Component {
 
 
   handleSubmit2 = (qustiondata, index) => {
-    console.log('qustiondata',qustiondata)
+    console.log('qustiondata', qustiondata)
     var data = this.state.answers;
     axios
       .post(

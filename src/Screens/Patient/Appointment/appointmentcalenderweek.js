@@ -138,7 +138,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="arng_addEntrynw">
-                                                                <a>+ Arrange an appointment</a>
+                                                                {/* <a>+ Arrange an appointment</a> */}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

@@ -159,7 +159,7 @@ class Index extends Component {
     let appioinmentTimes = [];
     var taskdata = [], appioinmentdata = [];
     let length = response.data.data.length
-    if(length < 1){
+    if (length < 1) {
       this.setState({ myEventsList: [], appioinmentEventList: [], appioinmentTimes: [], taskEventList: [] })
 
     }
@@ -593,7 +593,7 @@ class Index extends Component {
     let wards_data = wardsFullData && wardsFullData.length > 0 && wardsFullData.map((item) => {
       return { label: item.ward_name, value: item._id }
     })
-    this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData }) 
+    this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
   }
 
   // ward Change
@@ -613,6 +613,13 @@ class Index extends Component {
   //room cahnge
   onRoomChange = (e) => {
     this.setState({ selectRoom: e })
+  }
+
+  moveTask = () => {
+    this.props.history.push({
+      pathname: '/virtualHospital/tasks',
+      state: { data: true }
+    })
   }
 
   applyFilter = () => {
@@ -656,7 +663,7 @@ class Index extends Component {
 
   clearFilter = () => {
     this.setState({ loaderImage: true });
-    this.setState({ userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false, allWards:'', wardList: [], roomList:[] });
+    this.setState({ userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false, allWards: '', wardList: [], roomList: [] });
     this.getTaskData();
     this.setState({ loaderImage: false });
   }
@@ -734,7 +741,8 @@ class Index extends Component {
 
                       <Grid item xs={12} sm={5} md={6}>
                         <Grid className="appontTask">
-                          {/* <Button>+ Appointment or Task</Button> */}
+                          <Button>+ Add Appointment</Button>
+                          <Button onClick={() => { this.moveTask() }}>+ Add Task</Button>
                           <a className="srchSort" onClick={this.handleOpenFil}>
                             <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                           </a>
