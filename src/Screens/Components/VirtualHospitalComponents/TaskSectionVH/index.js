@@ -351,6 +351,8 @@ class Index extends Component {
 
   removeComment = (index) => {
     this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType)
+    let { remove_comment, No, Yes, you_sure_to_remove_comment } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -364,17 +366,17 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 >Remove the Comment ?</h1>
-            <p>Are you sure to remove this Comment?</p>
+            <h1 >{remove_comment}</h1>
+            <p>{you_sure_to_remove_comment}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
 
               <button
                 onClick={() => {
                   this.removebtn(index);
                 }}
               >
-                Yes
+                {Yes}
               </button>
 
             </div>
@@ -385,6 +387,8 @@ class Index extends Component {
   };
   removebtn = (index) => {
     this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType)
+    let { RemoveComment, really_want_to_remove_comment, No, Yes } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -398,10 +402,10 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 class="alert-btn">Remove Comment ?</h1>
-            <p>Are you really want to remove this Comment?</p>
+            <h1 class="alert-btn">{RemoveComment}</h1>
+            <p>{really_want_to_remove_comment}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
 
               <button
                 onClick={() => {
@@ -409,7 +413,7 @@ class Index extends Component {
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
 
             </div>
@@ -559,9 +563,11 @@ class Index extends Component {
     }
   };
 
-  //Delete the perticular service confirmation box
+  //{Delete} the perticular service confirmation box
   removeTask = (id) => {
     this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType)
+    let { remove_task, you_sure_to_remove_task, No, Yes } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -575,17 +581,17 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1>Remove the Task ?</h1>
-            <p>Are you sure to remove this Task?</p>
+            <h1>{remove_task}</h1>
+            <p>{you_sure_to_remove_task}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.removeTask2(id);
                   // onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -596,6 +602,8 @@ class Index extends Component {
 
   removeTask2 = (id) => {
     this.setState({ message: null, openTask: false });
+    let translate = getLanguage(this.props.stateLanguageType)
+    let { RemoveTask, really_want_to_remove_task, No, Yes } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -609,17 +617,17 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 class="alert-btn">Remove Task?</h1>
-            <p>Are you really want to remove this Task?</p>
+            <h1 class="alert-btn">{RemoveTask}</h1>
+            <p>{really_want_to_remove_task}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.deleteClickTask(id);
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -888,10 +896,10 @@ class Index extends Component {
       Assignedto,
       Speciallity,
       Dueon,
-      Duplicate,
-      Archive,
-      Markasdone,
-      Attachments,
+      Duplicate, applyFilters, clear_all_filters, Submit,
+      Archive, Delete, edit, AddComment, save_task_and_close,
+      Markasdone, remove_time,
+      Attachments, add_task, Addtime
     } = translate;
     const { tabvalue, tabvalue2, professional_data, newTask, AllTasks, AllTaskCss, DoneTaskCss, OpenTaskCss, ArchivedTasksCss } =
       this.state;
@@ -925,7 +933,7 @@ class Index extends Component {
           </Grid>
           <Grid item xs={12} md={6}>
             {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
-              <Button onClick={this.handleOpenTask}>+ Add Task</Button>
+              <Button onClick={this.handleOpenTask}>{add_task}</Button>
             </Grid>}
           </Grid>
           {/* Model setup */}
@@ -1100,7 +1108,7 @@ class Index extends Component {
                                         this.openTaskTime();
                                       }}
                                     >
-                                      Add time
+                                      {Addtime}
                                     </Button>
 
                                   ) : (
@@ -1121,7 +1129,7 @@ class Index extends Component {
                                         }
                                         disabled={this.props.comesFrom === 'Professional' ? true : false}
                                       />
-                                      <span className="addTimeTask1span" onClick={() => { this.setState({ openDate: true }) }}>Remove time</span>
+                                      <span className="addTimeTask1span" onClick={() => { this.setState({ openDate: true }) }}>{remove_time}</span>
                                     </>
                                   )
                                   }
@@ -1182,7 +1190,7 @@ class Index extends Component {
                                               this.removeTask(id);
                                             }}
                                           >
-                                            Delete
+                                            {Delete}
                                           </label>
                                         </Grid>
                                       </>}
@@ -1267,7 +1275,7 @@ class Index extends Component {
 
                                           value={data?.comment}
                                         ></textarea>
-                                        <Button onClick={() => this.editComment(false)}>Submit</Button>
+                                        <Button onClick={() => this.editComment(false)}>{Submit}</Button>
 
                                       </>
                                         :
@@ -1277,8 +1285,8 @@ class Index extends Component {
                                     </Grid>
                                     {this.props.stateLoginValueAim.user.profile_id === data.comment_by?.profile_id && <Grid>
                                       {/* <Button onClick={() => this.editComment(data)}>Edit</Button> */}
-                                      <Button onClick={() => this.removeComment(index)}>Delete</Button>
-                                      <Button onClick={() => this.editComment(index)}>Edit</Button>
+                                      <Button onClick={() => this.removeComment(index)}>{Delete}</Button>
+                                      <Button onClick={() => this.editComment(index)}>{edit}</Button>
 
                                     </Grid>}
                                   </Grid>
@@ -1297,14 +1305,14 @@ class Index extends Component {
                                 value={this.state.newComment || ''}
                               ></textarea>
 
-                              <Button onClick={(e) => this.handleComment()}>Add Comment</Button>
+                              <Button onClick={(e) => this.handleComment()}>{AddComment}</Button>
                             </Grid>
                           </Grid>}
 
                           <Grid item xs={12} md={12} className="saveTasks">
                             <a>
                               <Button onClick={() => this.handleTaskSubmit()}>
-                                Save Task & Close
+                                {save_task_and_close}
                               </Button>
                             </a>
                           </Grid>
@@ -1355,9 +1363,9 @@ class Index extends Component {
                       {tabvalue2 === 2 &&
                         <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
-                      </>
+                    </>
                   }
-               
+
                   {/* {tabvalue2 === 3 &&
                     <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                   } */}
@@ -1440,43 +1448,43 @@ class Index extends Component {
                 </Grid>
                 <label>Filters</label>
               </Grid>
-             
+
               <TabContainer>
                 <Grid className="fltrForm">
                   {tabvalue2 === 0 &&
-                  <Grid className="fltrInput">
-                    <label>Task status</label>
-                    <Grid className="addInput">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="open"
-                            value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
-                            color="#00ABAF"
-                            checked={this.state.check.open}
-                            onChange={(e) =>
-                              this.updateTaskFilter(e)
-                            }
-                          />
-                        }
-                        label="Open"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            name="done"
-                            value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
-                            color="#00ABAF"
-                            checked={this.state.check.done}
-                            onChange={(e) =>
-                              this.updateTaskFilter(e)
-                            }
-                          />
-                        }
-                        label="Done"
-                      />
+                    <Grid className="fltrInput">
+                      <label>Task status</label>
+                      <Grid className="addInput">
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              name="open"
+                              value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
+                              color="#00ABAF"
+                              checked={this.state.check.open}
+                              onChange={(e) =>
+                                this.updateTaskFilter(e)
+                              }
+                            />
+                          }
+                          label="Open"
+                        />
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              name="done"
+                              value={this.state.check && this.state.check.done && this.state.check.done == true ? false : true}
+                              color="#00ABAF"
+                              checked={this.state.check.done}
+                              onChange={(e) =>
+                                this.updateTaskFilter(e)
+                              }
+                            />
+                          }
+                          label="Done"
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
                   }
                   <Grid className="fltrInput">
                     <label>Patient</label>
@@ -1553,8 +1561,8 @@ class Index extends Component {
                   }
                 </Grid>
                 <Grid className="aplyFltr">
-                  <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
-                  <Grid className="aplyRght"><Button onClick={this.applyFilter}>Apply filters</Button></Grid>
+                  <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>{clear_all_filters}</label></Grid>
+                  <Grid className="aplyRght"><Button onClick={this.applyFilter}>{applyFilters}</Button></Grid>
                 </Grid>
               </TabContainer>
               {/* } */}

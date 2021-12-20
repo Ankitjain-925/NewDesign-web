@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
 
 class Index extends React.Component {
     constructor(props) {
@@ -12,11 +12,11 @@ class Index extends React.Component {
         this.state = {
             // label: this.props.label,
             // name: this.props.name,   }
-    }
+        }
     }
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
-        let {Services, Xray, CTScan } = translate;
+        let { Services, Xray, CTScan, srvc, qty, Price, ShotDescriptionOfThisService, one, twentyThousandEuro, fifteen, twenty } = translate;
         return (
             <>
                 <Grid className="srvcTable">
@@ -24,17 +24,17 @@ class Index extends React.Component {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>Service</Th><Th>Qty</Th><Th>Price</Th><Th></Th>
+                                <Th>{srvc}</Th><Th>{qty}</Th><Th>{Price}</Th><Th></Th>
                             </Tr>
                         </Thead>
                         <Tbody>
                             <Tr>
                                 <Td>
                                     <label>{Xray}</label>
-                                    <p>This can be a short description of this service.</p>
+                                    <p>{ShotDescriptionOfThisService}</p>
                                 </Td>
-                                <Td>1</Td>
-                                <Td>200,00 €</Td>
+                                <Td>{one}</Td>
+                                <Td>{twentyThousandEuro}</Td>
                                 <Td className="xRay-edit">
                                     <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                     <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
@@ -43,10 +43,10 @@ class Index extends React.Component {
                             <Tr>
                                 <Td>
                                     <label>{CTScan}</label>
-                                    <p>This can be a short description of this service.</p>
+                                    <p>{ShotDescriptionOfThisService}</p>
                                 </Td>
-                                <Td>15</Td>
-                                <Td>200,00 €</Td>
+                                <Td>{fifteen}</Td>
+                                <Td>{twentyThousandEuro}</Td>
                                 <Td className="xRay-edit">
                                     <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                     <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
@@ -55,10 +55,10 @@ class Index extends React.Component {
                             <Tr>
                                 <Td>
                                     <label>{Xray}</label>
-                                    <p>This can be a short description of this service.</p>
+                                    <p>{ShotDescriptionOfThisService}</p>
                                 </Td>
-                                <Td>20</Td>
-                                <Td>200,00 €</Td>
+                                <Td>{twenty}</Td>
+                                <Td>{twentyThousandEuro}</Td>
                                 <Td className="xRay-edit">
                                     <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                     <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
@@ -67,10 +67,10 @@ class Index extends React.Component {
                             <Tr>
                                 <Td>
                                     <label>{CTScan}</label>
-                                    <p>This can be a short description of this service.</p>
+                                    <p>{ShotDescriptionOfThisService}</p>
                                 </Td>
-                                <Td>15</Td>
-                                <Td>200,00 €</Td>
+                                <Td>{fifteen}</Td>
+                                <Td>{twentyThousandEuro}</Td>
                                 <Td className="xRay-edit">
                                     <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                     <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
@@ -79,10 +79,10 @@ class Index extends React.Component {
                             <Tr>
                                 <Td>
                                     <label>{Xray}</label>
-                                    <p>This can be a short description of this service.</p>
+                                    <p>{ShotDescriptionOfThisService}</p>
                                 </Td>
-                                <Td>20</Td>
-                                <Td>200,00 €</Td>
+                                <Td>{twenty}</Td>
+                                <Td>{twentyThousandEuro}</Td>
                                 <Td className="xRay-edit">
                                     <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                     <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
