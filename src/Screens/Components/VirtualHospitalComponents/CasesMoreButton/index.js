@@ -336,6 +336,7 @@ class Index extends React.Component {
                               this.setsWard(e)
                             }
                             value={CurrentWard(this.props.quote?.wards)}
+                            className="addStafSelect1"
                           />
                         </Grid>
                         {this.props.quote?.wards?._id && <Grid>
@@ -346,6 +347,7 @@ class Index extends React.Component {
                             option={this.state.AllRoom}
                             onChange={(e) => this.setsRoom(e)}
                             value={CurrentRoom(this.props.quote?.rooms)}
+                            className="addStafSelect1"
                           />
                         </Grid>}
                         {this.props.quote?.rooms?._id && <Grid>
@@ -356,6 +358,7 @@ class Index extends React.Component {
                             option={this.state.AllBeds}
                             onChange={(e) => this.setsBed(e)}
                             value={CurrentBed(this.props.quote?.bed)}
+                            className="addStafSelect1"
                           />
                         </Grid>}
                       </Grid>

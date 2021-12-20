@@ -263,7 +263,6 @@ export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomDat
     }
 
     const docFunc = (data) => {
-
         let docData = []
         docData = doctor.map((item) => {
                 return item?.value
@@ -348,8 +347,6 @@ export const PatientFlowFilter = (patient, doctor, Speciality, wardData, roomDat
             return fullData;
         }
     }
-
-
     var findData = patFunc(fullData)
     return findData;
 }

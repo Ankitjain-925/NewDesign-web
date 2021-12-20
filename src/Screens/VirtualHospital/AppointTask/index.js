@@ -1297,7 +1297,17 @@ class Index extends Component {
 
                 {/* End of Right Section */}
                 <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
-                  <Grid className="fltrClear">
+
+
+                  <Grid  className={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                  ? "nwEntrCntnt fltrClear darkTheme"
+                                  : "nwEntrCntnt fltrClear"
+                              }>
+
                     <Grid className="fltrClearIner">
                       <Grid className="fltrLbl">
                         <Grid className="fltrLblClose">
@@ -1306,7 +1316,7 @@ class Index extends Component {
                         <label>Filters</label>
                       </Grid>
                       {/* <Grid item xs={12} sm={7} md={6}> */}
-                      <AppBar position="static" className="modAppTabs">
+                      <AppBar position="static" className="appTabs modAppTabs">
                         <Tabs
                           value={tabvalue}
                           onChange={this.handleChangeTab}
@@ -1347,6 +1357,7 @@ class Index extends Component {
                                 name="specialty_name"
                                 value={this.state.selectSpec2}
                                 placeholder="Filter by Speciality"
+                                className="addStafSelect"
                                 isMulti={false}
                                 isSearchable={true} />
                             </Grid>
@@ -1364,6 +1375,7 @@ class Index extends Component {
                                   value={this.state.selectWard}
                                   placeholder="Filter by Ward"
                                   isMulti={false}
+                                  className="addStafSelect"
                                   isSearchable={true} />
                               </Grid>
                             </Grid>
@@ -1380,6 +1392,7 @@ class Index extends Component {
                                   value={this.state.selectRoom}
                                   placeholder="Filter by Room"
                                   isMulti={false}
+                                  className="addStafSelect"
                                   isSearchable={true} />
                               </Grid>
                             </Grid>
