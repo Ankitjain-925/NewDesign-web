@@ -96,6 +96,18 @@ class Index extends Component {
     }
 
     render() {
+        const { stateLoginValueAim, House } = this.props;
+        if (
+          stateLoginValueAim.user === "undefined" ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === "undefined" ||
+          stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+          return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+          return <Redirect to={"/VirtualHospital/space"} />;
+        }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation, Statistics, TotalPatients,
             Doctors, Nurses, Oneh23min, AvgTimeToStayInHospital, threeM, sixM, oneY, All, ActivityCounter, AvgTimeOfStay, zeroh43min, zeroh18min, zeroh24min, twelvedays } = translate;

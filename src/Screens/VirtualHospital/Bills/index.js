@@ -372,6 +372,18 @@ class Index extends Component {
     };
 
     render() {
+        const { stateLoginValueAim, House } = this.props;
+        if (
+          stateLoginValueAim.user === "undefined" ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === "undefined" ||
+          stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+          return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+            return <Redirect to={"/VirtualHospital/institutes"} />;
+          }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;

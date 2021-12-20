@@ -34,6 +34,7 @@ import Button from "@material-ui/core/Button";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import _ from "lodash";
+import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
@@ -756,6 +757,19 @@ class Index extends Component {
   }
 
   render() {
+    const { stateLoginValueAim, House } = this.props;
+    if (
+      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.token === 450 ||
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "adminstaff"
+    ) {
+      return <Redirect to={"/"} />;
+    }
+    if (House && House?.value === null) {
+      return <Redirect to={"/VirtualHospital/institutes"} />;
+    }
+   
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,

@@ -256,7 +256,7 @@ class Index extends Component {
                                         </a>
                                       </Grid>
                                     </Grid>
-                                    <Table>
+                                    <Table className="RenameInstitute">
                                       <thead>
                                         <tr>
                                           <th>{Hospitals}</th>

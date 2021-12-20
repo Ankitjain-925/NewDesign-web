@@ -1202,6 +1202,7 @@ class Index extends Component {
                                       >
                                         {this.state.newTask.status ===
                                           "done" ? (
+                                            <Grid className="revwFiles">
                                           <Grid>
                                             <img
                                               src={require("assets/virtual_images/rightTick.png")}
@@ -1209,13 +1210,16 @@ class Index extends Component {
                                               title=""
                                             />
                                           </Grid>
+                                         </Grid>
                                         ) : (
+                                          <Grid className="revwFiles">
                                           <Grid>
                                             <img
                                               src={require("assets/virtual_images/greyImg.jpg")}
                                               alt=""
                                               title=""
                                             />
+                                          </Grid>
                                           </Grid>
                                         )}
                                         <label>{Markasdone}</label>

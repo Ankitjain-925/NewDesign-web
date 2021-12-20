@@ -12,12 +12,12 @@ import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
 import moment from "moment";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
+import { Redirect, Route } from "react-router-dom";
 import TooltipTrigger from "react-popper-tooltip";
 import "react-popper-tooltip/dist/styles.css";
 import Modal from "@material-ui/core/Modal";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Speciality } from "Screens/Login/speciality.js";
-import { AppointFilter } from "Screens/Components/MultiFilter/index.js";
 import {
   getLanguage
 } from "translations/index"
@@ -56,12 +56,6 @@ function TabContainer(props) {
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-//  var da1 = new Date(9, 4, 2021);
-// let da2 = new Date();
-// var d1 = (new Date()).setHours("00");
-// var d2 = (new Date()).setHours("05")
-
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -663,6 +657,18 @@ class Index extends Component {
 
 
   render() {
+    const { stateLoginValueAim, House } = this.props;
+    if (
+      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.token === 450 ||
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "adminstaff"
+    ) {
+      return <Redirect to={"/"} />;
+    }
+    if (House && House?.value === null) {
+      return <Redirect to={"/VirtualHospital/institutes"} />;
+    }
     let translate = getLanguage(this.props.stateLanguageType);
     let { } =
       translate;
@@ -696,7 +702,7 @@ class Index extends Component {
             this.props.settings.setting &&
             this.props.settings.setting.mode &&
             this.props.settings.setting.mode === "dark"
-            ? "homeBg darkTheme"
+            ? "homeBg darkTheme homeBgDrk" 
             : "homeBg"
         }
       >
@@ -735,7 +741,7 @@ class Index extends Component {
                       <Grid item xs={12} sm={5} md={6}>
                         <Grid className="appontTask">
                           {/* <Button>+ Appointment or Task</Button> */}
-                          <a className="srchSort" onClick={this.handleOpenFil}>
+                          <a className="barViewnw" onClick={this.handleOpenFil}>
                             <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                           </a>
                         </Grid>

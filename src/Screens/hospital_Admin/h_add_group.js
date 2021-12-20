@@ -746,7 +746,10 @@ class Index extends Component {
                                   <Grid>
                                     <a>
                                       <label>Current Logo</label>
-                                      <S3Image imgUrl={this.state?.institute_groups?.group_logo} />
+                                      <div className= "institute_logo">
+                                        <S3Image comesFrom="hospital" imgUrl={this.state?.institute_groups?.group_logo} />
+                                      </div>
+
                                     </a>
                                   </Grid>
                                 </Grid>
@@ -901,7 +904,9 @@ class Index extends Component {
                                     <Grid>
                                       <a>
                                         <label>Current Logo</label>
-                                        <S3Image imgUrl={this.state?.hospitalData?.house_logo} />
+                                        <div className= "institute_logo">
+                                        <S3Image comesFrom="hospital" imgUrl={this.state?.hospitalData?.house_logo} />
+                                        </div>
                                       </a>
                                     </Grid>
                                   </Grid>
