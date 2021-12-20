@@ -79,6 +79,7 @@ class Index extends Component {
       specilaityList: [],
       check: {},
       wardList: [],
+      roomList: [],
       setFilter: "All",
       userFilter: '',
       selectSpec2: '',
@@ -99,8 +100,8 @@ class Index extends Component {
       this.setState({ showField: false, setFilter: "All", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
     } else if (tabvalue == 1) {
       this.setState({ showField: true, setFilter: "Appointment", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
-    } else {
-      this.setState({ showField: false, setFilter: "Tasks", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
+    } else if (tabvalue == 2) {
+      this.setState({ showField: false, setFilter: "Task", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
     }
   };
   handleChange = (selectedOption) => {
@@ -157,6 +158,11 @@ class Index extends Component {
     let indexout = 0;
     let appioinmentTimes = [];
     var taskdata = [], appioinmentdata = [];
+    let length = response.data.data.length
+    if(length < 1){
+      this.setState({ myEventsList: [], appioinmentEventList: [], appioinmentTimes: [], taskEventList: [] })
+
+    }
     response.data && response.data.data &&
       response.data.data.length > 0 &&
       response.data.data.map((data, index) => {
@@ -351,15 +357,6 @@ class Index extends Component {
     );
   };
 
-  // DateCellCompnent = ({ children, value }) => {
-  //   return React.cloneElement(Children.only(children), {
-  //     style: {
-  //       ...children.style,
-  //       // backgroundColor: value < CURRENT_DATE ? 'lightgreen' : 'lightblue',
-  //     },
-  //   });
-  // };
-
   Tooltip = ({
     getTooltipProps,
     getArrowProps,
@@ -480,7 +477,6 @@ class Index extends Component {
   }
 
   updateUserFilter = (e) => {
-    console.log("userFilter", e)
     this.setState({ userFilter: e })
   }
 
@@ -597,7 +593,7 @@ class Index extends Component {
     let wards_data = wardsFullData && wardsFullData.length > 0 && wardsFullData.map((item) => {
       return { label: item.ward_name, value: item._id }
     })
-    this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+    this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData }) 
   }
 
   // ward Change
@@ -621,11 +617,19 @@ class Index extends Component {
 
   applyFilter = () => {
     let { selectSpec2, selectWard, selectRoom, userFilter, setFilter, check } = this.state
-    // console.log("selectSpec2", selectSpec2, "selectWard", selectWard, "selectRoom", selectRoom, "userFilter", userFilter, "setFilter", setFilter, "check", check)
     var id = userFilter && userFilter?.length > 0 && userFilter.map((data) => { return data.value })
     let done = check && check?.done && check.done == true ? 'done' : ''
     let open = check && check?.open && check.open == true ? 'open' : ''
-    let status = [done, open]
+    let status = []
+    if (done && done.length > 0) {
+      status = [done]
+    }
+    if (open && open.length > 0) {
+      status = [open]
+    }
+    if ((done && done.length > 0) && (open && open.length > 0)) {
+      status = [done, open]
+    }
 
     var data = { house_id: this.props.House?.value, };
     if (selectWard?.value) { data.ward_id = selectWard?.value }
@@ -641,7 +645,6 @@ class Index extends Component {
     )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-          console.log("reponse", responce)
           this.showDataCalendar(responce)
           this.setState({ loaderImage: false, openFil: false });
         }
@@ -653,7 +656,7 @@ class Index extends Component {
 
   clearFilter = () => {
     this.setState({ loaderImage: true });
-    this.setState({ userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false });
+    this.setState({ userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false, allWards:'', wardList: [], roomList:[] });
     this.getTaskData();
     this.setState({ loaderImage: false });
   }
@@ -975,7 +978,7 @@ class Index extends Component {
                                 control={
                                   <Checkbox
                                     name="open"
-                                    value={this.state.check && this.state.check.open && this.state.check.open == true ? true : false}
+                                    value={this.state.check && this.state.check.open && this.state.check.open == true ? false : true}
                                     color="#00ABAF"
                                     checked={this.state.check.open}
                                     onChange={(e) =>
