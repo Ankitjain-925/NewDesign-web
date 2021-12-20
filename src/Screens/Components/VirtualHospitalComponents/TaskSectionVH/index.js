@@ -96,7 +96,8 @@ class Index extends Component {
       editcomment: false,
       check: {},
       allWards: '',
-      newComment: ''
+      newComment: '',
+      length:''
     };
   }
 
@@ -476,10 +477,14 @@ class Index extends Component {
   };
 
   updateUserFilter = (e) => {
+   var a1 =e?.length
+   console.log("a1",a1)
     this.setState({ userFilter: e })
   }
   //Select the professional name
   updateEntryState4 = (e) => {
+    var a2 =e?.length
+    console.log("a2",a2)
     this.setState({ assignedTo2: e })
   }
   updateEntryState3 = (e) => {
@@ -827,6 +832,8 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
+    var a3=e?.length
+    console.log('a3',a3)
     this.setState({ selectRoom: '', selectWard: '' })
     let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
@@ -840,6 +847,8 @@ class Index extends Component {
 
   // ward Change
   onWardChange = (e) => {
+  var a4= e?.length
+  console.log('a4',a4)
     this.setState({ selectRoom: '' })
     let { allWards } = this.state
     let wardDetails = allWards && allWards.length > 0 && allWards.filter((item) => {
