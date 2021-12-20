@@ -34,8 +34,8 @@ class Index extends Component {
       openTask: false,
       tabvalue: 0,
       tabvalue2: 0,
-      DoneTask:[],
-      AllTasks:[],
+      DoneTask: [],
+      AllTasks: [],
       ArchivedTasks: [],
       loaderImage: false,
       hope: false,
@@ -43,7 +43,7 @@ class Index extends Component {
       specilaityList: [],
       assignedTo: [],
       selectSpec: {},
-      patient:{}
+      patient: {}
     };
   }
 
@@ -63,16 +63,17 @@ class Index extends Component {
     });
   };
 
-  getCase = ()=>{
+  getCase = () => {
     this.setState({ loaderImage: true });
     let user_id = this.props.match.params.id;
-        axios.get(
-        sitedata.data.path + "/cases/AddCase/"+ user_id,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
+    axios.get(
+      sitedata.data.path + "/cases/AddCase/" + user_id,
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
       .then((responce1) => {
         if (responce1.data.hassuccessed) {
-          this.setState({caseData: responce1.data.data, 
+          this.setState({
+            caseData: responce1.data.data,
             patient: {
               last_name: responce1.data.data?.patient?.last_name,
               user_id: responce1.data.data?.patient_id,
@@ -81,9 +82,10 @@ class Index extends Component {
               profile_id: responce1.data.data?.patient?.profile_id,
               type: responce1.data.data?.patient?.type,
               case_id: responce1.data.data?._id,
-            }})
+            }
+          })
         }
-      })  
+      })
   }
 
   //get Add task data
@@ -91,7 +93,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .get(
-        sitedata.data.path + "/vh/PatientsTask/"+this.props.match.params.id,
+        sitedata.data.path + "/vh/PatientsTask/" + this.props.match.params.id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -118,9 +120,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -129,7 +131,7 @@ class Index extends Component {
         <Grid className="homeBgIner">
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
-                <TaskSectiuonVH patient={this.state.patient} getAddTaskData={()=>{this.getAddTaskData()}} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={[]} comesFrom= {"detailTask"} tabvalue2={this.state.tabvalue2}/>
+              <TaskSectiuonVH patient={this.state.patient} getAddTaskData={() => { this.getAddTaskData() }} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={[]} comesFrom={"detailTask"} tabvalue2={this.state.tabvalue2} />
             </Grid>
             {/* End of Right Section */}
           </Grid>

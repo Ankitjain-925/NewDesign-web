@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from '@material-ui/core/Button';
+import { getLanguage } from "translations/index";
 
 class Index extends React.Component {
     constructor(props) {
@@ -14,22 +15,23 @@ class Index extends React.Component {
 
     downloadTrack = () => {
         var invoices = [];
-        {console.log("1176711",this.state.InvoicesData)}
+        { console.log("1176711", this.state.InvoicesData) }
         if (this.state.InvoicesData && this.state.InvoicesData?.length > 0) {
             console.log("1")
-             this.state.InvoicesData.map((data) => {
-                 console.log("2")
-                console.log("1111",data);
+            this.state.InvoicesData.map((data) => {
+                console.log("2")
+                console.log("1111", data);
             });
         }
     }
 
-    printInvoice = () =>
-    {
+    printInvoice = () => {
         window.print();
     }
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType)
+        let { DeleteInvoice, Setstatus, DownloadPDF, PrintInvoice, DuplicateInvoice } = translate;
         return (
             <>
                 <Grid className="drftDwnload">
@@ -46,20 +48,20 @@ class Index extends React.Component {
                                     this.downloadTrack();
                                 }}>
                                     <img src={require('assets/virtual_images/downloadIcon.png')} alt="" title="" />
-                                    Download PDF
+                                    {DownloadPDF}
                                 </Button>
                                 <Button className="downloadDots">
                                     <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
                                     <Grid className="actionList">
                                         <ul className="actionPdf">
-                                       
-                                            <li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li>
-                                           <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
-                                            <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li>
+
+                                            <li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>{DuplicateInvoice}</span></li>
+                                            <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>{PrintInvoice}</span></li></a>
+                                            <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>{DownloadPDF}</span></li>
                                         </ul>
                                         <ul className="setStatus">
-                                            <li><span>Set status</span></li>
-                                            <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li>
+                                            <li><span>{Setstatus}</span></li>
+                                            <li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>{DeleteInvoice}</span></li>
                                         </ul>
                                     </Grid>
                                 </Button>
