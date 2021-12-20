@@ -64,6 +64,7 @@ class Index extends Component {
     }
     //For close the pop up
     handleCloseCreate=()=>{
+        this.setState({ CreateUsers: {} });
         this.props.handleCloseCreate();
     }
     // For set the value for the new entry

@@ -9807,6 +9807,37 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .RenameInstitute th, .RenameInstitute td {
+    color: #cfcfcf;
+}
+.darkTheme p.more-change-staff-img2{
+    color: #C3C3C3 !important;
+}
+p.more-change-staff-img2 {
+    font-family: Muli;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 14px;
+    cursor: pointer;
+
+}
+.newAddStepBtn {
+    margin-top: 30px;
+}
+.modAppTabs .MuiTabs-scroller {
+    padding: 10px;
+}
+.darkTheme .modAppTabs .MuiTabs-scroller {
+    background: #0c1010;
+}
+
+.darkTheme .hideTask .MuiFormControlLabel-label {
+    color: #7d8080;
+}
+.darkTheme .checkboxques
+{
+  background-color: transparent;
+}
 .backFlow1{
     margin: 20px 70px!important;
 }
@@ -12148,7 +12179,7 @@ ul.patientHint li {
 .darkTheme .roomNum2 button span {
     color: #8C00DB!important;
 }
-.darkTheme .flowProfil p, .darkTheme .flowProfil label {
+ .darkTheme .flowProfil label {
     color: #7F8383 !important;
 }
 .darkTheme .rrSysto div .css-2613qy-menu{

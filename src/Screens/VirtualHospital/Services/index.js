@@ -182,7 +182,7 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc">
-                          <Button onClick={this.handleOpenServ}>
+                          <Button onClick={()=>handleOpenServ(this)}>
                             {newService}
                           </Button>
                           <Modal

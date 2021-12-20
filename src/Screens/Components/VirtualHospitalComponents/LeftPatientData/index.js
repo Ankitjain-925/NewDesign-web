@@ -2152,7 +2152,7 @@ class Index extends Component {
                   <p><span>{getDate(
                     this.state.loggedinUser?.birthday,
                     this.props.settings.setting.date_format
-                  )}{" "} (32 years)</span></p>
+                  )}{" "} (32 y ears)</span></p>
                 }
               </Grid>
               <Grid className="entryInfo">

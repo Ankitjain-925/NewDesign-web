@@ -1062,6 +1062,7 @@ class Index extends Component {
                                 options={this.state.specilaityList}
                                 name="specialty_name"
                                 isSearchable={true}
+                                className="addStafSelect"
                                 value={this.state.selectSpec}
                                 isDisabled={this.props.comesFrom === 'Professional' ? true : false}
                               />
