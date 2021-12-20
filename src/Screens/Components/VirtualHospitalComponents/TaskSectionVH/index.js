@@ -142,11 +142,14 @@ class Index extends Component {
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
       }
-      if(this.props.location?.state?.user){
+      if (this.props.location?.state?.user) {
         const state = this.state.newTask;
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
       }
+      this.setState({ openTask: true });
+    }
+    if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
       this.setState({ openTask: true });
     }
   }
@@ -834,7 +837,7 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '',wardList: [],roomList : [] })
+    this.setState({ selectRoom: '', selectWard: '', wardList: [], roomList: [] })
     let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
     })
@@ -1348,7 +1351,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={4} sm={4} md={4}>
                 <Grid className="taskSort">
-                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText}/>
+                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />
                   <a>
                     <img
                       src={require("assets/virtual_images/search-entries.svg")}
@@ -1356,9 +1359,9 @@ class Index extends Component {
                       title=""
                     />
                   </a>
-                  {this.props.comesFrom !== 'Professional' && this.props.comesFrom !=='detailTask' &&
-                      <>
-                        {tabvalue2 === 0 &&
+                  {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
+                    <>
+                      {tabvalue2 === 0 &&
                         <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                       {tabvalue2 === 1 &&
