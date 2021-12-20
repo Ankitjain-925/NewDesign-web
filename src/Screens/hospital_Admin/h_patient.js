@@ -263,7 +263,7 @@ class Index extends Component {
                                             <Tbody>
                                             {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((patient, i) => (
                                                     <Tr>
-                                                          <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
+                                                        <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
                                                         <Td><img className="doctor_pic" src={patient && patient.image ? getImage(patient.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {patient.first_name && patient.first_name}</Td>
                                                         <Td>{patient.last_name && patient.last_name}</Td>
@@ -275,7 +275,7 @@ class Index extends Component {
                                                         }
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots" />
                                                                 <ul>
                                                                     <li onClick={() => this.openDetail(patient)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
                                                                     <li onClick={() => this.BlockUser(patient._id, patient.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{patient.isblock && patient.isblock == true ? 'Unblock' : 'Block'}</a></li>

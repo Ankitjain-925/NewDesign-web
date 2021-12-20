@@ -8,6 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import { getLanguage } from "translations/index";
 
 function TabContainer(props) {
     return (
@@ -31,6 +32,9 @@ class Index extends Component {
     };
     render() {
         const { value } = this.state;
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { SpaceManagement, Institution, speciality, Ward, GermanMedicalCenterFZLLC, Neurology, AdultsWard, Cardiology, Radiology, Oncology,
+            BenitoNoboa, P_ukd832kd2, Room1, Room2, Move_patient_here, AddPatient, ChildrensWardContent } = translate;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -50,16 +54,16 @@ class Index extends Component {
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
-                                        <Grid className="spcMgnt"><h1>Space Management</h1></Grid>
+                                        <Grid className="spcMgnt"><h1>{SpaceManagement}</h1></Grid>
                                         {/* Start of Bread Crumb */}
                                         <Grid className="breadCrumbUpr">
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={12} md={9}>
                                                     <Grid className="roomBreadCrumb">
                                                         <ul>
-                                                            <li><a><span>Institution</span><label>German Medical Center FZ-LLC</label></a></li>
-                                                            <li><a><span>Speciality</span><label>Neurology</label></a></li>
-                                                            <li><a><span>Ward</span><label>Adults Ward</label></a></li>
+                                                            <li><a><span>{Institution}</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
+                                                            <li><a><span>{speciality}</span><label>{Neurology}</label></a></li>
+                                                            <li><a><span>{Ward}</span><label>{AdultsWard}</label></a></li>
                                                         </ul>
                                                     </Grid>
                                                 </Grid>
@@ -75,10 +79,10 @@ class Index extends Component {
                                         <Grid className="wardsGrupUpr">
                                             <Grid className="cardioGrup">
                                                 <Grid className="cardioGrupBtn">
-                                                    <Button variant="contained">Cardiology</Button>
-                                                    <Button variant="contained">Radiology</Button>
-                                                    <Button variant="contained" className="cardioActv">Neurology</Button>
-                                                    <Button variant="contained">Oncology</Button>
+                                                    <Button variant="contained">{Cardiology}</Button>
+                                                    <Button variant="contained">{Radiology}</Button>
+                                                    <Button variant="contained" className="cardioActv">{Neurology}</Button>
+                                                    <Button variant="contained">{Oncology}</Button>
                                                 </Grid>
                                                 <Grid className="cardioTabUpr">
                                                     <AppBar position="static" className="cardioTabs">
@@ -97,7 +101,7 @@ class Index extends Component {
                                                                 <Grid className="roomNum2">
                                                                     <Grid container direction="row">
                                                                         <Grid item xs={6} md={6}>
-                                                                            <Button variant="contained">Room 1</Button>
+                                                                            <Button variant="contained">{Room1}</Button>
                                                                         </Grid>
                                                                         <Grid item xs={6} md={6} className="bedArnge">
                                                                             <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
@@ -112,8 +116,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -128,8 +132,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -144,8 +148,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -160,8 +164,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -191,8 +195,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -207,8 +211,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -223,8 +227,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -239,8 +243,8 @@ class Index extends Component {
                                                                         <Grid className="drRghtIner2">
                                                                             <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                             <Grid>
-                                                                                <Grid><label>Benito Noboa</label></Grid>
-                                                                                <Grid><p>P_ukd832kd2</p></Grid>
+                                                                                <Grid><label>{BenitoNoboa}</label></Grid>
+                                                                                <Grid><p>{P_ukd832kd2}</p></Grid>
                                                                             </Grid>
                                                                             <Grid className="drRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></Grid>
                                                                         </Grid>
@@ -254,7 +258,7 @@ class Index extends Component {
                                                                 <Grid className="roomNum2">
                                                                     <Grid container direction="row">
                                                                         <Grid item xs={6} md={6}>
-                                                                            <Button variant="contained">Room 2</Button>
+                                                                            <Button variant="contained">{Room2}</Button>
                                                                         </Grid>
                                                                         <Grid item xs={6} md={6} className="bedArnge">
                                                                             <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
@@ -267,7 +271,7 @@ class Index extends Component {
                                                                         <span>9</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -276,7 +280,7 @@ class Index extends Component {
                                                                         <span>10</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -285,7 +289,7 @@ class Index extends Component {
                                                                         <span>11</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -294,7 +298,7 @@ class Index extends Component {
                                                                         <span>11</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -305,7 +309,7 @@ class Index extends Component {
                                                                 <Grid className="roomNum2">
                                                                     <Grid container direction="row">
                                                                         <Grid item xs={6} md={6}>
-                                                                            <Button variant="contained">Room 2</Button>
+                                                                            <Button variant="contained">{Room2}</Button>
                                                                         </Grid>
                                                                         <Grid item xs={6} md={6} className="bedArnge">
                                                                             <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
@@ -318,7 +322,7 @@ class Index extends Component {
                                                                         <span>9</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -327,7 +331,7 @@ class Index extends Component {
                                                                         <span>10</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -336,7 +340,7 @@ class Index extends Component {
                                                                         <span>11</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -345,7 +349,7 @@ class Index extends Component {
                                                                         <span>11</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">Move patient here</Button>
+                                                                        <Button variant="contained">{Move_patient_here}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -358,7 +362,7 @@ class Index extends Component {
                                                                 <Grid className="roomNum2">
                                                                     <Grid container direction="row">
                                                                         <Grid item xs={6} md={6}>
-                                                                            <Button variant="contained">Room 2</Button>
+                                                                            <Button variant="contained">{Room2}</Button>
                                                                         </Grid>
                                                                         <Grid item xs={6} md={6} className="bedArnge">
                                                                             <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
@@ -371,7 +375,7 @@ class Index extends Component {
                                                                         <span>9</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">+ Add patient</Button>
+                                                                        <Button variant="contained">{AddPatient}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -380,7 +384,7 @@ class Index extends Component {
                                                                         <span>10</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">+ Add patient</Button>
+                                                                        <Button variant="contained">{AddPatient}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -389,7 +393,7 @@ class Index extends Component {
                                                                         <span>11</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">+ Add patient</Button>
+                                                                        <Button variant="contained">{AddPatient}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="drListMain2">
@@ -398,7 +402,7 @@ class Index extends Component {
                                                                         <span>11</span>
                                                                     </Grid>
                                                                     <Grid className="drListRght2">
-                                                                        <Button variant="contained">+ Add patient</Button>
+                                                                        <Button variant="contained">{AddPatient}</Button>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -412,7 +416,7 @@ class Index extends Component {
                                                                         <Grid className="roomNum2">
                                                                             <Grid container direction="row">
                                                                                 <Grid item xs={12} md={12}>
-                                                                                    <Button variant="contained">Room 2</Button>
+                                                                                    <Button variant="contained">{Room2}</Button>
                                                                                 </Grid>
                                                                                 {/* <Grid item xs={6} md={6} className="bedArnge">
                                                                                      <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
@@ -428,7 +432,7 @@ class Index extends Component {
                                                                                 <span>12</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -440,7 +444,7 @@ class Index extends Component {
                                                                                 <span>13</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -452,7 +456,7 @@ class Index extends Component {
                                                                                 <span>14</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -464,7 +468,7 @@ class Index extends Component {
                                                                                 <span>15</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -476,7 +480,7 @@ class Index extends Component {
                                                                                 <span>16</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -488,7 +492,7 @@ class Index extends Component {
                                                                                 <span>17</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -500,7 +504,7 @@ class Index extends Component {
                                                                                 <span>18</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -512,7 +516,7 @@ class Index extends Component {
                                                                                 <span>19</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -524,7 +528,7 @@ class Index extends Component {
                                                                                 <span>20</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -536,7 +540,7 @@ class Index extends Component {
                                                                                 <span>21</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -548,7 +552,7 @@ class Index extends Component {
                                                                                 <span>22</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -560,7 +564,7 @@ class Index extends Component {
                                                                                 <span>23</span>
                                                                             </Grid>
                                                                             <Grid className="drListRght2">
-                                                                                <Button variant="contained">+ Add patient</Button>
+                                                                                <Button variant="contained">{AddPatient}</Button>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -573,7 +577,7 @@ class Index extends Component {
 
                                             }
                                             {value === 1 && <Grid>
-                                                Childrens Ward Content
+                                                {ChildrensWardContent}
                                             </Grid>}
 
                                         </Grid>

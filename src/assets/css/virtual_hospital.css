@@ -9327,6 +9327,24 @@ button.crdoLghtBlu2 {
     color: #8C00DB;
     background-color: #ECCAFF;
 }
+.darkTheme .newAddStepBtn button{
+    background-color: #404646;
+}   
+.newAddStepBtn button{
+    color: #7F8383;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-align: center;
+    font-family: Muli;
+    text-transform: initial;
+    border-radius: 8px;
+    background-color: #E5E6E6;
+    width: 100%;
+    padding: 14px 0px;
+    cursor: pointer !important;
+}
 .nwPatentAdd button {
     color: #7F8383;
     font-size: 12px;
@@ -9789,6 +9807,74 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.backFlow1{
+    margin: 20px 70px!important;
+}
+.more-change-staff-img2{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    width:100%;
+    color:#404646!important;
+}
+.more-change-staff-img{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.darkTheme .attchDone button span {
+       color: #028B66 !important; 
+}
+.darkTheme .TaskSearch {
+    border: 1px solid #8e8e8e8a;
+    background-color: #192020;
+    color: #fafafa;
+}
+.TaskSearch {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    padding: 4px;
+    box-sizing: border-box !important;
+    color: #000808;
+}
+.darkTheme .hideTask {
+    background-color: #192020;
+    color: #c6dada !important;
+}
+.darkTheme .rrSysto div .css-12jo7m5 {
+    color: #c6dada;
+}
+.stepTdotupper img, a.academy_ul img{
+    padding: 3px;
+}
+.darkTheme a.srchSort {
+    border: #F2F2F2 1px solid;
+    background: transparent;
+}
+.darkTheme .allSpec div {
+    background-color: #192020 !important;
+    background: #192020 !important;
+    border: none;
+    height: initial !important;
+    min-height: initial !important;
+    color: #fafafa;
+}
+.darkTheme .allSpec .css-yk16xz-control {
+    background-color: #202323 !important;
+    border: 1px solid #7d7d7d !important;
+}
+.detailInfo1 {
+    padding: 12px;
+    margin: 45px 6px 0;
+}
+.officVisit img{
+    margin-left:15px;
+}
 .filtersec {
     color: #00abaf;
     font-weight: 700;
@@ -9827,7 +9913,7 @@ button.crdoLghtBlu2 {
 }
 .addTimeTask1 {
     position: relative !important;
-    margin-left: 10px !important;
+    padding-left: 10px !important;
 }
 .addTimeTask1span {
     position: absolute !important;
@@ -10866,7 +10952,7 @@ ul.patientHint li {
 
 .darkTheme .enterSpcl input, 
 .darkTheme .creatInfoIner input,
-.darkTheme .taskDescp textarea {
+.darkTheme .taskDescp textarea, .darkTheme .creatInfoIner .ant-picker {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
@@ -11976,7 +12062,7 @@ ul.patientHint li {
     background-color: #404646;
     border: 1px solid #abaeae;
 }
-.darkTheme .adminmenuItems .menuActv a img {
+.adminmenuItems .menuActv a img {
     background-color: #00abaf !important;
 }
 .darkTheme .archvOpinLbl label {
@@ -12219,7 +12305,7 @@ a.taskHover:hover span {
 .darkTheme .sevicessection {
     border: 1px solid #8e8e8e8a;
 }
-.dragdrop-horizontal .cardioData img.academyDots {
+/* .dragdrop-horizontal .cardioData img.academyDots {
     border: none;
 }
 .dragdrop-horizontal .addPatent img.academyDots {
@@ -12227,7 +12313,7 @@ a.taskHover:hover span {
 }
 .dragdrop-horizontal a.academy_ul.stepTdotupper {
     border: none;
-}
+} */
 .dragdrop-horizontal .nwPatentAdd button {
     margin-bottom: 18px;
 }
