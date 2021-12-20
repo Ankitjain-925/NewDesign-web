@@ -680,7 +680,7 @@ class Index extends Component {
                   </Grid>
 
                   <Grid>
-                    
+
                     <Modal
                       open={this.state.openGroup}
                       onClose={this.closeInstitute}
@@ -714,7 +714,7 @@ class Index extends Component {
                             <Grid className="enterSpcl">
                               <Grid container direction="row">
                                 <Grid item xs={10} md={12} className="form-box">
-                                  
+
                                   <VHfield
                                     label="Institution Name"
                                     name="group_name"
@@ -742,6 +742,14 @@ class Index extends Component {
                                     comesFrom="journal"
                                     isMulti={false}
                                   />
+                                </Grid>
+                                <Grid item xs={10} md={12} className="form-box">
+                                  <Grid>
+                                    <a>
+                                      <label>Current Logo</label>
+                                      <S3Image imgUrl={this.state?.institute_groups?.group_logo} />
+                                    </a>
+                                  </Grid>
                                 </Grid>
                                 <Grid container direction="row" alignItems="center" spacing={2} className="add-group-padding">
                                   <Grid item xs={12} md={12}>
@@ -886,8 +894,17 @@ class Index extends Component {
                                     <FileUploader
                                       name="house_logo"
                                       fileUpload={(file) => { this.fileUpload(file, 'house_logo') }}
+                                      comesFrom="journal"
                                       isMulti={false}
                                     />
+                                  </Grid>
+                                  <Grid item xs={10} md={12} className="form-box">
+                                    <Grid>
+                                      <a>
+                                        <label>Current Logo</label>
+                                        <S3Image imgUrl={this.state?.hospitalData?.house_logo} />
+                                      </a>
+                                    </Grid>
                                   </Grid>
                                 </Grid>
                                 <Grid className="spclSaveBtn saveNclose">

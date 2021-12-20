@@ -8,8 +8,8 @@ import Loader from "Screens/Components/Loader/index";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getPatientData } from "Screens/Components/CommonApi/index";
+import {PatientFlowFilter} from "../../Components/MultiFilter/index"
 import {
-  AllRoomList,
   getSteps,
   getAuthor,
   updateInActualData,
@@ -43,7 +43,7 @@ class Index extends Component {
       selectedOption: null,
       view: "vertical",
       openAddP: false,
-      fullData: {},
+      fullData: {},  
       actualData: [],
       edit: false,
       addp: {},
@@ -59,7 +59,15 @@ class Index extends Component {
       name: '',
       inOtherAlready: false,
       alreadyData: {},
-      search: {}
+      search: {},
+      selectWard: '',
+      wardList: [],
+      selectRoom: '',
+      roomList: [],
+      selectedPat: '',
+      assignedTo2: '',
+      allWards : ''
+
     };
   }
   static defaultProps = {
@@ -88,27 +96,27 @@ class Index extends Component {
       this.GetStep();
     });
 
-    var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
+    // var specsMap1 = [{ label: 'All Specialities', value: 'all' }];
     var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
       return { label: item.specialty_name, value: item._id };
     })
-    if (specsMap && specsMap?.length > 0) {
-      specsMap = [...specsMap1, ...specsMap];
-      this.setState({ specialitiesList: specsMap });
-    }
-    else {
-      this.setState({ specialitiesList: specsMap1 });
-    }
+    // if (specsMap && specsMap?.length > 0) {
+    // specsMap = [...specsMap1, ...specsMap];
+    this.setState({ specialitiesList: specsMap });
+    // }
+    // else {
+    //   this.setState({ specialitiesList: specsMap1 });
+    // }
   }
 
-  GetStep = ()=>{
+  GetStep = () => {
     var state = this.state.actualData;
     let allSteps = state && state.length > 0 && state.map((item) => {
-      return { label : item && item.step_name , vlaue: item && item._id }
+      return { label: item && item.step_name, vlaue: item && item._id }
     })
-    this.setState({StepNameList: allSteps})
+    this.setState({ StepNameList: allSteps })
   }
-  
+
   MovetoTask = (speciality, patient_id) => {
     this.props.history.push({
       pathname: '/virtualhospital/tasks',
@@ -245,18 +253,18 @@ class Index extends Component {
   }
 
   OnAdd = () => {
-    this.setState({stepError : ''})
+    this.setState({ stepError: '' })
     var state = this.state.actualData;
     let allSteps = state && state.length > 0 && state.map((item) => {
       return item && item.step_name.toLowerCase();
     })
-    let check = allSteps?.length>0 && allSteps.includes(this.state.step_name.toLowerCase())
-    if(check === false){
+    let check = allSteps?.length > 0 && allSteps.includes(this.state.step_name.toLowerCase())
+    if (check === false) {
       state.push({ step_name: this.state.step_name, case_numbers: [] });
       this.setDta(state);
       this.CallApi();
       this.GetStep();
-      this.setState({ openPopup: false , step_name: ''})
+      this.setState({ openPopup: false, step_name: '' })
     }
     else if (check === true) {
       this.setState({ stepError: 'Step name already exist' })
@@ -277,11 +285,11 @@ class Index extends Component {
   };
 
   //Open case model
-  openAddPatient = (step_name='') => {
-    if(step_name && step_name !== ''){
-      var finalsection = this.state.StepNameList?.length>0 && this.state.StepNameList.filter((data) => data.label.toLowerCase()==step_name.toLowerCase())
-      if(finalsection && finalsection.length>0){
-        this.setState({SelectedStep: finalsection[0] })
+  openAddPatient = (step_name = '') => {
+    if (step_name && step_name !== '') {
+      var finalsection = this.state.StepNameList?.length > 0 && this.state.StepNameList.filter((data) => data.label.toLowerCase() == step_name.toLowerCase())
+      if (finalsection && finalsection.length > 0) {
+        this.setState({ SelectedStep: finalsection[0] })
       }
     }
     this.setState({ openAddP: true, addp: {}, idpinerror: false, case: {}, });
@@ -292,13 +300,17 @@ class Index extends Component {
     this.setState({ openAddP: false, SelectedStep: '' });
   };
 
-   // Set patient and status data
-   onFieldChange1 = (e, name) => {
+  // Set patient and status data
+  onFieldChange1 = (e, name) => {
     const state = this.state.search;
-    state[name] = e && e.length>0 ? e.map((item) => {return item.value}) : []
-     this.setState({ selectedPat: e })
+    state[name] = e && e.length > 0 ? e.map((item) => { return item.value }) : []
+    this.setState({ selectedPat: e })
     this.setState({ search: state });
-}
+  }
+
+  handleStaff = (e) => {
+    this.setState({ assignedTo2: e })
+  }
 
   //Delete the Step
   DeleteStep = (index) => {
@@ -387,7 +399,7 @@ class Index extends Component {
   //On Add case
   AddCase = () => {
     this.setState({ errorMsg: '' })
-    var data = this.state.addp;  console.log(this.state.SelectedStep)
+    var data = this.state.addp;
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please enter case number' })
     }
@@ -438,13 +450,13 @@ class Index extends Component {
                   });
                   var state = this.state.actualData;
                   let indexData = ''
-                  state && state.length > 0 && state.filter((item,index) => {
-                    if(item.step_name.toLowerCase() ==  this.state.SelectedStep.label.toLowerCase()){
-                      indexData =  index;
+                  state && state.length > 0 && state.filter((item, index) => {
+                    if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+                      indexData = index;
                     }
-                  }) 
+                  })
                   state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                  this.setState({SelectedStep: '' });
+                  this.setState({ SelectedStep: '' });
                   this.setDta(state);
                   this.CallApi();
                 } else {
@@ -456,12 +468,12 @@ class Index extends Component {
               });
             this.setState({ loaderImage: false });
           } else {
-                  if(responce.data.data){
-                    this.setState({ inOtherAlready: true, loaderImage: false, alreadyData : responce.data.data});
-                  }
-                  else{
-                  this.setState({ idpinerror: true, loaderImage: false });
-                  }
+            if (responce.data.data) {
+              this.setState({ inOtherAlready: true, loaderImage: false, alreadyData: responce.data.data });
+            }
+            else {
+              this.setState({ idpinerror: true, loaderImage: false });
+            }
             setTimeout(() => {
               this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
             }, 3000);
@@ -505,7 +517,7 @@ class Index extends Component {
 
   //for selecting Step name
   onSelectingStep = (e) => {
-    this.setState({SelectedStep : e})
+    this.setState({ SelectedStep: e })
   }
 
   moveStep = (to, from, item) => {
@@ -575,14 +587,24 @@ class Index extends Component {
   newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
-
-  clearFilters = () => {
-    this.setState({
-      searchValue: '',
-      selectedOption: { label: 'All Specialities', value: 'all' }
-    });
-    this.mapActualToFullData(this.state.actualData);
+  filterResult =() => {
+    let {selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData} = this.state
+    var data = _.cloneDeep(actualData);
+    let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data )
+    console.log('result', result)
   }
+
+  clearFilter = () => {
+    let {selectedPat, assignedTo2, selectSpec2, selectWard, wardList, roomList, selectRoom} = this.state
+    this.setState({selectedPat : '', assignedTo2 : '', selectSpec2 : '', selectWard: '', wardList: [], roomList: [], selectRoom: ''})
+  }
+  // clearFilters = () => {
+  //   this.setState({
+  //     searchValue: '',
+  //     selectedOption: { label: 'All Specialities', value: 'all' }
+  //   });
+  //   this.mapActualToFullData(this.state.actualData);
+  // }
 
   mapActualToFullData = (result) => {
     const authorQuoteMap = result && result.length > 0 && result.reduce(
@@ -689,24 +711,55 @@ class Index extends Component {
   };
 
   onFieldChange2 = (e) => {
-    if (e && e.length > 0) {
+    this.setState({ selectWard: '', selectRoom: '',wardList: [],roomList : [] })
+    let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
+      return item && item._id == e.value;
+    })
+    let wardsFullData = specialityList && specialityList.length > 0 && specialityList[0].wards
+    let wards_data = wardsFullData && wardsFullData.length > 0 && wardsFullData.map((item) => {
+      return { label: item.ward_name, value: item._id }
+    })
+    this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
 
-      var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
+    // if (e && e.length > 0) {
 
-        if (item && item.length > 0) { }
-        let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
-          return item._id;
-        })
-        return { specialty_name: item.specialty_name, _id: item._id, ward_id: data };
-      })
-      this.setState({ Allspeciality: specsMap })
-    }
+    //   var specsMap = this.props.speciality && this.props.speciality?.SPECIALITY?.length > 0 && this.props.speciality?.SPECIALITY.map((item) => {
+
+    //     if (item && item.length > 0) { }
+    //     let data = item && item.wards && item.wards.length > 0 && item.wards.map((item) => {
+    //       return item._id;
+    //     })
+    //     return { specialty_name: item.specialty_name, _id: item._id, ward_id: data };
+    //   })
+    //   this.setState({ Allspeciality: specsMap })
+
+    // }
+  }
+
+  //ward field data
+  onWardChange = (e) => {
+    this.setState({ selectRoom: '' })
+    let { allWards } = this.state
+    let wardDetails = allWards && allWards.length > 0 && allWards.filter((item) => {
+      return item && item._id == e.value;
+    })
+    let roomsData = wardDetails && wardDetails.length > 0 && wardDetails[0].rooms
+    let rooms = roomsData && roomsData.length > 0 && roomsData.map((item) => {
+      return { label: item.room_name, value: item._id }
+    })
+    this.setState({ selectWard: e, roomList: rooms })
+  }
+
+  //room field data
+  onRoomChange = (e) => {
+    this.setState({ selectRoom: e })
   }
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
-      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters, case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution } =
+      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
+       case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient } =
       translate;
 
     const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep } = this.state;
@@ -733,8 +786,6 @@ class Index extends Component {
           </li>
         );
       });
-
-
     return (
       <Grid
         className={
@@ -767,7 +818,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a onClick={() => this.newPatient()}>
-                            + Create New Patient
+                          {CreateNewPatient}
                           </a>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2} className="addFlowRght">
@@ -791,13 +842,21 @@ class Index extends Component {
                           <a><img src={require("assets/virtual_images/InputField.svg")} alt="" title="" /></a>
                         </Grid>
                         <Grid item xs={12} md={7}>
-                          <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilters}>{clear_all_filters}</label>
+                          <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
                             <a className="srchSort" onClick={this.handleOpenFil}>
                               <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
-
-                              <Grid className="fltrClear">
+                            <Grid  className={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                  ? "nwEntrCntnt fltrClear darkTheme"
+                                  : "nwEntrCntnt fltrClear"
+                              }
+                              >
+                              
                                 <Grid className="fltrClearIner">
                                   <Grid className="fltrLbl">
                                     <Grid className="fltrLblClose">
@@ -812,7 +871,7 @@ class Index extends Component {
                                       <label>{Patient}</label>
 
                                       <Grid>
-                                         <Select
+                                        <Select
                                           name="patient"
                                           options={this.state.users1}
                                           placeholder="Search & Select"
@@ -830,11 +889,12 @@ class Index extends Component {
                                         <Select
                                           name="professional"
                                           value={this.state.assignedTo2}
-                                          options={this.state.professional_id_list}
+                                          options={this.state.professional_id_list} 
                                           placeholder="Filter by Staff"
                                           isMulti={true}
                                           isSearchable={true}
-                                          onChange={(e) => this.onFieldChange1(e, "staff")}
+                                          className="addStafSelect"
+                                          onChange={(e) => this.handleStaff(e)}
                                         />
                                       </Grid>
                                     </Grid>
@@ -847,43 +907,48 @@ class Index extends Component {
                                           name="specialty_name"
                                           value={this.state.selectSpec2}
                                           placeholder="Filter by Speciality"
-                                          isMulti={true}
+                                          className="addStafSelect"
                                           isSearchable={true} />
                                       </Grid>
                                     </Grid>
+                                    {this.state.wardList && this.state.wardList.length > 0 &&
 
-                                    <Grid className="fltrInput">
-                                      <label>{Ward}</label>
-                                      <Grid className="addInput">
-                                        <Select
-                                          // onChange={(e) => this.onFieldChange2(e)}
-                                          options={this.state.specilaityList}
-                                          name="specialty_name"
-                                          value={this.state.selectSpec2}
-                                          placeholder="Filter by Ward"
-                                          isMulti={true}
-                                          isSearchable={true} />
+                                      <Grid className="fltrInput">
+                                        <label>{Ward}</label>
+                                        <Grid className="addInput"> 
+                                          <Select
+                                            onChange={(e) => this.onWardChange(e)}
+                                            options={this.state.wardList}
+                                            name="specialty_name"
+                                            value={this.state.selectWard}
+                                            placeholder="Filter by Ward"
+                                            className="addStafSelect"
+                                            isSearchable={true} />
+                                        </Grid>
                                       </Grid>
-                                    </Grid>
-
-                                    <Grid className="fltrInput">
-                                      <label>{Room}</label>
-                                      <Grid className="addInput">
-                                        <Select
-                                          // onChange={(e) => this.onFieldChange2(e)}
-                                          options={this.state.specilaityList}
-                                          name="specialty_name"
-                                          value={this.state.selectSpec2}
-                                          placeholder="Filter by Room"
-                                          isMulti={true}
-                                          isSearchable={true} />
+                                    }
+                                    {this.state.roomList && this.state.roomList.length > 0 &&
+                                      <Grid className="fltrInput">
+                                        <label>{Room}</label>
+                                        <Grid className="addInput">
+                                          <Select
+                                            onChange={(e) => this.onRoomChange(e)}
+                                            options={this.state.roomList}
+                                            name="specialty_name"
+                                            value={this.state.selectRoom}
+                                            placeholder="Filter by Room"
+                                            className="addStafSelect"
+                                            isSearchable={true} />
+                                        </Grid>
                                       </Grid>
-                                    </Grid>
+                                    }
 
                                   </Grid>
                                   <Grid className="aplyFltr">
                                     <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>{clear_all_filters}</label></Grid>
-                                    <Grid className="aplyRght"><Button onClick={this.clearFilters}>{applyFilters}</Button></Grid>
+                                    <Grid className="aplyRght"><Button 
+                                    onClick={this.filterResult}
+                                    >{applyFilters}</Button></Grid>
                                   </Grid>
 
                                 </Grid>

@@ -194,8 +194,8 @@ class Index extends Component {
       axios
         .put(
           sitedata.data.path +
-            "/UserProfile/Users/update/" +
-            this.props.match.params.id,
+          "/UserProfile/Users/update/" +
+          this.props.match.params.id,
           {
             insurance: datas,
           },
@@ -263,8 +263,8 @@ class Index extends Component {
       axios
         .put(
           sitedata.data.path +
-            "/UserProfile/Users/update/" +
-            this.props.match.params.id,
+          "/UserProfile/Users/update/" +
+          this.props.match.params.id,
           {
             insurance: datas,
           },
@@ -570,45 +570,28 @@ class Index extends Component {
       Contact,
       Register_Name,
       relation,
-      phone,
-      select_marital_status,
+      phone, select_marital_status,
       organ_donar_status,
-      not_an_organ,
-      emergency,
-      telephone_nmbr,
-      marital_status,
-      Rhesus,
-      InsurancecompanyError,
+      not_an_organ, emergency, telephone_nmbr, marital_status, Rhesus, InsurancecompanyError,
       Addcompany,
-      Blood,
-      profile_info,
+      Blood, profile_info,
       profile,
       information,
-      ID,
-      pin,
-      QR_code,
+      ID, pin, QR_code,
       done,
       Change,
       edit_id_pin,
       edit,
-      and,
-      is,
-      changed,
-      profile_id_taken,
+      and, is,
+      changed, profile_id_taken,
       profile_id_greater_then_5,
       save_change,
       email,
       title,
       degree,
       first,
-      last,
-      name,
-      dob,
-      gender,
-      street,
-      add,
-      city,
-      postal_code,
+      last, name,
+      dob, gender, street, add, city, postal_code,
       country,
       home_telephone,
       country_code,
@@ -619,17 +602,14 @@ class Index extends Component {
       mobile_number,
       number,
       mobile,
-      Languages,
-      spoken,
+      Languages, spoken,
       pin_greater_then_4,
       insurance,
       add_more,
       company,
-      of,
-      info_copied,
-      profile_updated,
+      of, info_copied, profile_updated,
       profile_not_updated,
-      mobile_number_not_valid,
+      mobile_number_not_valid, PersonalInformation,
       insurance_added,
     } = translate;
 
@@ -640,7 +620,7 @@ class Index extends Component {
             <Grid item xs={12} md={11}>
               <Grid container direction="row">
                 <Grid item xs={12} md={12} sm={12}>
-                  <h1>Personal Information</h1>
+                  <h1>{PersonalInformation}</h1>
                 </Grid>
               </Grid>
             </Grid>
@@ -652,8 +632,8 @@ class Index extends Component {
           onClose={this.handleQrClose}
           className={
             this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === "dark"
               ? "darkTheme qrBoxModel"
               : "qrBoxModel"
           }
@@ -843,7 +823,7 @@ class Index extends Component {
                         <Grid item xs={12} md={4}>
                           <label>{dob}</label>
                           <Grid>
-                            
+
                             <DateFormat
                               disabled={true}
                               name="birthday"
@@ -920,7 +900,7 @@ class Index extends Component {
                                 )
                               }
                               isDisabled={true}
-                              // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
+                            // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
                             />
                           </Grid>
                         </Grid>
@@ -1199,8 +1179,8 @@ class Index extends Component {
                   onClose={() => this.handlePinClose("addInsuranceOpen")}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
                       ? "darkTheme editBoxModel"
                       : "editBoxModel"
                   }
@@ -1373,8 +1353,8 @@ class Index extends Component {
                   onClose={() => this.handlePinClose("editInsuranceOpen")}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
                       ? "darkTheme editBoxModel"
                       : "editBoxModel"
                   }
@@ -1419,12 +1399,12 @@ class Index extends Component {
                           <Select
                             value={
                               datas &&
-                              datas[editIndex] &&
-                              datas[editIndex].insurance_country
+                                datas[editIndex] &&
+                                datas[editIndex].insurance_country
                                 ? this.filterCountry1(
-                                    datas[editIndex] &&
-                                      datas[editIndex].insurance_country
-                                  )
+                                  datas[editIndex] &&
+                                  datas[editIndex].insurance_country
+                                )
                                 : ""
                             }
                             onChange={(event) =>
@@ -1448,8 +1428,8 @@ class Index extends Component {
                             type="text"
                             value={
                               datas &&
-                              datas[editIndex] &&
-                              datas[editIndex].insurance
+                                datas[editIndex] &&
+                                datas[editIndex].insurance
                                 ? datas[editIndex] && datas[editIndex].insurance
                                 : ""
                             }
@@ -1481,10 +1461,10 @@ class Index extends Component {
                             type="text"
                             value={
                               datas &&
-                              datas[editIndex] &&
-                              datas[editIndex].insurance_number
+                                datas[editIndex] &&
+                                datas[editIndex].insurance_number
                                 ? datas[editIndex] &&
-                                  datas[editIndex].insurance_number
+                                datas[editIndex].insurance_number
                                 : ""
                             }
                             name="insurance_number"

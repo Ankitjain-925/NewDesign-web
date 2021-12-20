@@ -179,7 +179,7 @@ class Index extends Component {
     };
 
     //Get the RIGHT INFO
-    rightInfo() {
+    rightInfo =() =>{
         var user_token = this.props.stateLoginValueAim.token;
         axios
             .get(sitedata.data.path + "/rightinfo/patient/"+this.props.match.params.id,
@@ -329,7 +329,7 @@ class Index extends Component {
                                         </Grid>
                                         <div className="TabContainerWeb">
                                             {value === 0 && <TabContainer>
-                                                <PatientJournal />
+                                                <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph}/>
                                             </TabContainer>}
                                             {value === 1 && <TabContainer>
                                                 <PatientTasks />
@@ -349,7 +349,7 @@ class Index extends Component {
                                                 <LeftPatientData />
                                             }</TabContainer>}
                                             {valueMob === 1 && <TabContainer>
-                                                <PatientJournal />
+                                                <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph}/>
                                             </TabContainer>}
                                             {valueMob === 2 && <TabContainer>
                                                 <PatientTasks />

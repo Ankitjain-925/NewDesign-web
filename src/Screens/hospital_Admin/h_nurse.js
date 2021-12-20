@@ -403,7 +403,7 @@ class Index extends Component {
                                                         }
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots" />
                                                                 <ul>
                                                                     <li onClick={() => this.openDetail(nurse)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
                                                                     <li onClick={() => this.BlockUser(nurse._id, nurse.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{nurse.isblock && nurse.isblock == true ? 'Unblock' : 'Block'}</a></li>

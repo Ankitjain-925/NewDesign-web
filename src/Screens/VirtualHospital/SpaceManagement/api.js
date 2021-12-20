@@ -61,6 +61,7 @@ export const SaveSpeciality = (current) => {
 
 //for getting all speciality
   export const getSpeciality = (current) => {
+    console.log("current",current)
     current.setState({ loaderImage: true });
     axios
       .get(
