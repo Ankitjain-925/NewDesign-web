@@ -663,6 +663,10 @@ class Index extends Component {
 
 
   render() {
+    let filterbedge = this.state.userFilter?.length 
+      // this.state.selectSpec2?.length +
+      // this.state.selectWard?.length
+      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let { } =
       translate;
@@ -737,6 +741,7 @@ class Index extends Component {
                           {/* <Button>+ Appointment or Task</Button> */}
                           <a className="srchSort" onClick={this.handleOpenFil}>
                             <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
+                            <label>{filterbedge}</label>
                           </a>
                         </Grid>
 

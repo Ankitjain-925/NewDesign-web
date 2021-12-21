@@ -372,6 +372,11 @@ class Index extends Component {
     };
 
     render() {
+        let filterbedge = this.state.userFilter?.length +
+        this.state.userFilter3?.length +
+        this.state.userFilter2?.length
+        ;
+
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
@@ -426,7 +431,7 @@ class Index extends Component {
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
                                                         <a onClick={this.handleOpenPopUp}>
-                                                            <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
+                                                            <img src={require('assets/virtual_images/sort.png')} alt="" title="" /><label>{filterbedge}</label>
                                                         </a>
                                                         <Modal
                                                             open={this.state.showPopup}

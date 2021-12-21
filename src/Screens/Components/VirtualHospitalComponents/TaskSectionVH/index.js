@@ -96,7 +96,7 @@ class Index extends Component {
       check: {},
       allWards: '',
       newComment: '',
-      length:''
+      length: ''
     };
   }
 
@@ -143,7 +143,7 @@ class Index extends Component {
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
       }
-      if(this.props.location?.state?.user){
+      if (this.props.location?.state?.user) {
         const state = this.state.newTask;
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
@@ -484,16 +484,17 @@ class Index extends Component {
       this.setState({ newTask: state });
     }
   };
+  // let filterbadge =
+  //     this.state.selectedUserType.length +
+  //     this.state.selectFacility.length +
+  //     this.state.selectedType.length;
 
   updateUserFilter = (e) => {
-   var a1 =e?.length
-   console.log("a1",a1)
-    this.setState({ userFilter: e })
+   this.setState({ userFilter: e })
   }
+
   //Select the professional name
   updateEntryState4 = (e) => {
-    var a2 =e?.length
-    console.log("a2",a2)
     this.setState({ assignedTo2: e })
   }
   updateEntryState3 = (e) => {
@@ -839,8 +840,6 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    var a3=e?.length
-    console.log('a3',a3)
     this.setState({ selectRoom: '', selectWard: '' })
     let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
@@ -850,12 +849,11 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+   
   }
 
   // ward Change
   onWardChange = (e) => {
-  var a4= e?.length
-  console.log('a4',a4)
     this.setState({ selectRoom: '' })
     let { allWards } = this.state
     let wardDetails = allWards && allWards.length > 0 && allWards.filter((item) => {
@@ -897,6 +895,11 @@ class Index extends Component {
   };
 
   render() {
+    let filterbedge = this.state.userFilter?.length +
+      this.state.assignedTo2?.length +
+      this.state.selectSpec2?.length 
+      // this.state.selectWard?.length
+      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
@@ -939,10 +942,11 @@ class Index extends Component {
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
-          </Grid>
+         </Grid>
           <Grid item xs={12} md={6}>
             {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
               <Button onClick={this.handleOpenTask}>{add_task}</Button>
+            {/* <label>{filterbedge}</label> */}
             </Grid>}
           </Grid>
           {/* Model setup */}
@@ -1353,7 +1357,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={4} sm={4} md={4}>
                 <Grid className="taskSort">
-                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText}/>
+                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />
                   <a>
                     <img
                       src={require("assets/virtual_images/search-entries.svg")}
@@ -1361,23 +1365,24 @@ class Index extends Component {
                       title=""
                     />
                   </a>
-                  {this.props.comesFrom !== 'Professional' && this.props.comesFrom !=='detailTask' &&
-                      <>
-                        {tabvalue2 === 0 &&
-                        <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                  {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
+                    <>
+                     
+                      {tabvalue2 === 0 &&
+                        <a className={AllTaskCss}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label> </a>
                       }
                       {tabvalue2 === 1 &&
-                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
                       }
                       {tabvalue2 === 2 &&
-                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
                       }
                     </>
                   }
 
-                  {/* {tabvalue2 === 3 &&
-                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
-                  } */}
+                  {tabvalue2 === 3 &&
+                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label></a>
+                  }
                 </Grid>
               </Grid>
             </Grid>
@@ -1385,7 +1390,7 @@ class Index extends Component {
           {tabvalue2 === 0 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {console.log('AllTasks', this.state.AllTasks)}
+                {/* {console.log('AllTasks', this.state.AllTasks)} */}
                 {this.state.AllTasks.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
@@ -1498,6 +1503,7 @@ class Index extends Component {
                   <Grid className="fltrInput">
                     <label>Patient</label>
                     <Grid className="addInput">
+                      {/* {console.log('userFilter', this.state.userFilter.length)} */}
                       <Select
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}
