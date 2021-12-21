@@ -4757,7 +4757,7 @@ button.onlogyBtn {
 }
 .addSpeclContntIner {
     height: 472px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 .addSpecIner {
     margin-right: 2px;
@@ -9807,10 +9807,93 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
-.darkTheme .checkboxques {
-    background-color: #192020;
+.darkTheme .serchInput {
+    color: #cfcfcf;
+    background: #192020;
 }
-.stepTdotupper img{
+.institute_logo img {
+    height: 200px;
+    width: auto;
+    border-radius: 20px;
+}
+.darkTheme .medcalFZCntnt {
+    background-color: #192020 !important;
+    color: #cfcfcf!important;
+}
+.darkTheme .RenameInstitute th, .RenameInstitute td {
+    color: #cfcfcf;
+}
+.darkTheme p.more-change-staff-img2{
+    color: #C3C3C3 !important;
+}
+p.more-change-staff-img2 {
+    font-family: Muli;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 14px;
+    cursor: pointer;
+
+}
+.newAddStepBtn {
+    margin-top: 30px;
+}
+.modAppTabs .MuiTabs-scroller {
+    padding: 10px;
+}
+.darkTheme .modAppTabs .MuiTabs-scroller {
+    background: #0c1010;
+}
+
+.darkTheme .hideTask .MuiFormControlLabel-label {
+    color: #7d8080;
+}
+.darkTheme .checkboxques
+{
+  background-color: transparent;
+}
+.backFlow1{
+    margin: 20px 70px!important;
+}
+.more-change-staff-img2{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    width:100%;
+    color:#404646!important;
+}
+.more-change-staff-img{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.darkTheme .attchDone button span {
+       color: #028B66 !important; 
+}
+.darkTheme .TaskSearch {
+    border: 1px solid #8e8e8e8a;
+    background-color: #192020;
+    color: #fafafa;
+}
+.TaskSearch {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    padding: 4px;
+    box-sizing: border-box !important;
+    color: #000808;
+}
+.darkTheme .hideTask {
+    background-color: #192020;
+    color: #c6dada !important;
+}
+.darkTheme .rrSysto div .css-12jo7m5 {
+    color: #c6dada;
+}
+.stepTdotupper img, a.academy_ul img{
     padding: 3px;
 }
 .darkTheme a.srchSort {
@@ -9874,7 +9957,7 @@ button.crdoLghtBlu2 {
 }
 .addTimeTask1 {
     position: relative !important;
-    margin-left: 10px !important;
+    padding-left: 10px !important;
 }
 .addTimeTask1span {
     position: absolute !important;
@@ -10913,7 +10996,7 @@ ul.patientHint li {
 
 .darkTheme .enterSpcl input, 
 .darkTheme .creatInfoIner input,
-.darkTheme .taskDescp textarea {
+.darkTheme .taskDescp textarea, .darkTheme .creatInfoIner .ant-picker {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
@@ -12023,7 +12106,7 @@ ul.patientHint li {
     background-color: #404646;
     border: 1px solid #abaeae;
 }
-.darkTheme .adminmenuItems .menuActv a img {
+.adminmenuItems .menuActv a img {
     background-color: #00abaf !important;
 }
 .darkTheme .archvOpinLbl label {
@@ -12109,7 +12192,7 @@ ul.patientHint li {
 .darkTheme .roomNum2 button span {
     color: #8C00DB!important;
 }
-.darkTheme .flowProfil p, .darkTheme .flowProfil label {
+ .darkTheme .flowProfil label {
     color: #7F8383 !important;
 }
 .darkTheme .rrSysto div .css-2613qy-menu{
@@ -12266,7 +12349,7 @@ a.taskHover:hover span {
 .darkTheme .sevicessection {
     border: 1px solid #8e8e8e8a;
 }
-.dragdrop-horizontal .cardioData img.academyDots {
+/* .dragdrop-horizontal .cardioData img.academyDots {
     border: none;
 }
 .dragdrop-horizontal .addPatent img.academyDots {
@@ -12274,7 +12357,7 @@ a.taskHover:hover span {
 }
 .dragdrop-horizontal a.academy_ul.stepTdotupper {
     border: none;
-}
+} */
 .dragdrop-horizontal .nwPatentAdd button {
     margin-bottom: 18px;
 }

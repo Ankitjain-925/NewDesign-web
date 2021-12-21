@@ -463,7 +463,7 @@ class Index extends Component {
                                   : " plusWards"
                               }
                             >
-                              <p onClick={this.handleOpenWard}>
+                              <p onClick={()=>handleOpenWard(this)}>
                                 {AddWard}
                               </p>
                             </Grid>

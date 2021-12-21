@@ -10,7 +10,6 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import {PatientFlowFilter} from "../../Components/MultiFilter/index"
 import {
-  AllRoomList,
   getSteps,
   getAuthor,
   updateInActualData,
@@ -35,6 +34,7 @@ import Button from "@material-ui/core/Button";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import _ from "lodash";
+import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {
@@ -592,6 +592,7 @@ class Index extends Component {
     let {selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData} = this.state
     var data = _.cloneDeep(actualData);
     let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data )
+    console.log('result', result)
   }
 
   clearFilter = () => {
@@ -756,6 +757,19 @@ class Index extends Component {
   }
 
   render() {
+    const { stateLoginValueAim, House } = this.props;
+    if (
+      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.token === 450 ||
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "adminstaff"
+    ) {
+      return <Redirect to={"/"} />;
+    }
+    if (House && House?.value === null) {
+      return <Redirect to={"/VirtualHospital/institutes"} />;
+    }
+   
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
@@ -847,8 +861,16 @@ class Index extends Component {
                               <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
-
-                              <Grid className="fltrClear">
+                            <Grid  className={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                  ? "nwEntrCntnt fltrClear darkTheme"
+                                  : "nwEntrCntnt fltrClear"
+                              }
+                              >
+                              
                                 <Grid className="fltrClearIner">
                                   <Grid className="fltrLbl">
                                     <Grid className="fltrLblClose">
@@ -885,6 +907,7 @@ class Index extends Component {
                                           placeholder="Filter by Staff"
                                           isMulti={true}
                                           isSearchable={true}
+                                          className="addStafSelect"
                                           onChange={(e) => this.handleStaff(e)}
                                         />
                                       </Grid>
@@ -898,6 +921,7 @@ class Index extends Component {
                                           name="specialty_name"
                                           value={this.state.selectSpec2}
                                           placeholder="Filter by Speciality"
+                                          className="addStafSelect"
                                           isSearchable={true} />
                                       </Grid>
                                     </Grid>
@@ -912,6 +936,7 @@ class Index extends Component {
                                             name="specialty_name"
                                             value={this.state.selectWard}
                                             placeholder="Filter by Ward"
+                                            className="addStafSelect"
                                             isSearchable={true} />
                                         </Grid>
                                       </Grid>
@@ -926,6 +951,7 @@ class Index extends Component {
                                             name="specialty_name"
                                             value={this.state.selectRoom}
                                             placeholder="Filter by Room"
+                                            className="addStafSelect"
                                             isSearchable={true} />
                                         </Grid>
                                       </Grid>

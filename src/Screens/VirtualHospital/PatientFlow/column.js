@@ -83,7 +83,7 @@ export default class Column extends Component {
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{move_step}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
+                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><p className="more-change-staff-img"><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span><p className="more-change-staff-img2">{"Move All patient in this Step"}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title=""/></p></p> </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
                             </Grid>}
                             {this.state.inneerSec==='move_all' &&
@@ -138,7 +138,7 @@ export default class Column extends Component {
                     : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title?.substr (0, 12)} {title.length>12 && <>...</>}</label>}
                   </Grid></label></Grid>
                       <Grid item xs={12} sm={6} md={6} className="addPatent">
-                        <a className="addNwPatnt" onClick={() => { this.props.openAddPatient(index) }}>{AddNewPatient}</a>
+                        <a className="addNwPatnt" onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</a>
                         <Grid className="checkDotsRght">
                           <a className="academy_ul stepTdotupper">
                         <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
@@ -146,7 +146,7 @@ export default class Column extends Component {
                             {!this.state.inneerSec && <Grid>
                             <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{move_step}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
+                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><p className="more-change-staff-img"><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span><p className="more-change-staff-img2">{"Move All patient in this Step"}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title=""/></p></p> </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
                             </Grid>}
                             {this.state.inneerSec==='move_all' &&
@@ -207,7 +207,7 @@ export default class Column extends Component {
               updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
               MovetoTask={(speciality, patient_id) => { this.props.MovetoTask(speciality, patient_id) }}
             />
-            {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(index) }}>{AddNewPatient}</Button></Grid>}
+            {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</Button></Grid>}
           </div>
         )}
       </Draggable>
