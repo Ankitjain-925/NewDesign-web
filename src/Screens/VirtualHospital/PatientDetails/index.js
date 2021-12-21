@@ -17,9 +17,8 @@ import { get_cur_one, get_gender, get_track, delete_click_track, download_track 
 import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
 import { confirmAlert } from "react-confirm-alert";
-import {
-    getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index";
+import { Redirect, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -29,11 +28,9 @@ import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import {
     commonHeader,
-    commonCometDelHeader,
 } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
-import { Redirect, Route } from 'react-router-dom';
 
 function TabContainer(props) {
     return (
@@ -248,6 +245,18 @@ class Index extends Component {
     };
 
     render() {
+        const { stateLoginValueAim, House } = this.props;
+        if (
+          stateLoginValueAim.user === "undefined" ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === "undefined" ||
+          stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+          return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+            return <Redirect to={"/VirtualHospital/institutes"} />;
+          }
         const { value } = this.state;
         const { valueMob } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)

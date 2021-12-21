@@ -1542,6 +1542,7 @@
 		"AddComment": "Add Comment",
 		"save_task_and_close": "Save Task & Close",
 		"EditTask": "Edit Task",
-		"DeleteTask": "Delete Task"
+		"DeleteTask": "Delete Task",
+		"Tasks": "Tasks"
 	}
 }

@@ -150,6 +150,9 @@ class Index extends Component {
       }
       this.setState({ openTask: true });
     }
+    if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
+      this.setState({ openTask: true });
+    }
   }
 
   //to get the speciality list
@@ -840,7 +843,7 @@ class Index extends Component {
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
-    this.setState({ selectRoom: '', selectWard: '' })
+    this.setState({ selectRoom: '', selectWard: '', wardList: [], roomList: [] })
     let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
     })
@@ -1215,6 +1218,7 @@ class Index extends Component {
                                       >
                                         {this.state.newTask.status ===
                                           "done" ? (
+                                            <Grid className="revwFiles">
                                           <Grid>
                                             <img
                                               src={require("assets/virtual_images/rightTick.png")}
@@ -1222,13 +1226,16 @@ class Index extends Component {
                                               title=""
                                             />
                                           </Grid>
+                                         </Grid>
                                         ) : (
+                                          <Grid className="revwFiles">
                                           <Grid>
                                             <img
                                               src={require("assets/virtual_images/greyImg.jpg")}
                                               alt=""
                                               title=""
                                             />
+                                          </Grid>
                                           </Grid>
                                         )}
                                         <label>{Markasdone}</label>

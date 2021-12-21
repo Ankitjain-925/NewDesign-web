@@ -4757,7 +4757,7 @@ button.onlogyBtn {
 }
 .addSpeclContntIner {
     height: 472px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 .addSpecIner {
     margin-right: 2px;
@@ -9812,6 +9812,19 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .serchInput {
+    color: #cfcfcf;
+    background: #192020;
+}
+.institute_logo img {
+    height: 200px;
+    width: auto;
+    border-radius: 20px;
+}
+.darkTheme .medcalFZCntnt {
+    background-color: #192020 !important;
+    color: #cfcfcf!important;
+}
 .darkTheme .RenameInstitute th, .RenameInstitute td {
     color: #cfcfcf;
 }

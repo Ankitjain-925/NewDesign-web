@@ -32,6 +32,7 @@ import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from 'Screens/Compon
 import DateFormat from 'Screens/Components/DateFormat/index'
 import { getLanguage } from "translations/index"
 import { commonHeader, commonCometHeader } from 'component/CommonHeader/index';
+import { Redirect, Route } from "react-router-dom";
 var datas = [];
 
 var letter = /([a-zA-Z])+([ -~])*/,
@@ -671,7 +672,7 @@ class Index extends Component {
     }
 
     render() {
-        const { stateLoginValueAim, Doctorsetget } = this.props;
+        const { stateLoginValueAim, House } = this.props;
         const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
         const companyList = this.state.filteredCompany && this.state.filteredCompany.map(company => {
             return (
@@ -688,7 +689,17 @@ class Index extends Component {
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
-
+            if (
+              stateLoginValueAim.user === "undefined" ||
+              stateLoginValueAim.token === 450 ||
+              stateLoginValueAim.token === "undefined" ||
+              stateLoginValueAim.user.type !== "adminstaff"
+            ) {
+              return <Redirect to={"/"} />;
+            }
+            if (House && House?.value === null) {
+              return <Redirect to={"/VirtualHospital/institutes"} />;
+            }
         return (
             <Grid
                 className={
@@ -696,7 +707,7 @@ class Index extends Component {
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
                         this.props.settings.setting.mode === "dark"
-                        ? "homeBg darkTheme"
+                        ? "homeBg homeBgDrk"
                         : "homeBg"
                 }
             >

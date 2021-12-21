@@ -34,6 +34,7 @@ import Button from "@material-ui/core/Button";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import _ from "lodash";
+import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
 class Index extends Component {

@@ -34,12 +34,12 @@ class Index extends Component {
     render() {
         const { selectedOption } = this.state;
         return (
-            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
-                            
-                           <Grid className="MenuMob">
+
+                            <Grid className="MenuMob">
                                 <Grid container direction="row" alignItems="center">
                                     <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
                                         <a><img src={require('assets/images/navigation-drawer.svg')} alt="" title="" /></a>
@@ -174,12 +174,12 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.openSlot}
                                             onClose={this.handleCloseSlot}
-                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
                                             <Grid className="slotBoxCntnt">
                                                 <Grid className="timSltCal">
                                                     <p><img src={require('assets/images/important-info.svg')} alt="" title="" />
                                                         Time slot is already booked on your calendar
-                                                  </p></Grid>
+                                                    </p></Grid>
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
                                                         <img src={require('assets/images/close-search.svg')} alt="" title="" />

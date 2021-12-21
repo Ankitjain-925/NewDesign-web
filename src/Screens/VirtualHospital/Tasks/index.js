@@ -17,6 +17,7 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
+import { Redirect, Route } from "react-router-dom";
 import {
     getLanguage
 } from "translations/index"
@@ -96,6 +97,18 @@ class Index extends Component {
 
 
     render() {
+        const { stateLoginValueAim, House } = this.props;
+        if (
+          stateLoginValueAim.user === "undefined" ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === "undefined" ||
+          stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+          return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+            return <Redirect to={"/VirtualHospital/space"} />;
+          }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Tasks_overview, ShowArchivedTasks } = translate;
         return (
