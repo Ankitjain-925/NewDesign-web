@@ -126,12 +126,10 @@ class Index extends Component {
     this.getPatientData();
     this.getProfessionalData();
     this.specailityList();
-
     if (
       this.props.location?.state?.speciality &&
       this.props.location?.state?.user
     ) {
-      if (this.props.location?.state?.speciality) {
         const state = this.state.newTask;
         this.setState({
           selectSpec: {
@@ -142,12 +140,6 @@ class Index extends Component {
         state["speciality"] = this.props.location?.state?.speciality;
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
-      }
-      if (this.props.location?.state?.user) {
-        const state = this.state.newTask;
-        state["patient"] = this.props.location?.state?.user;
-        this.setState({ newTask: state });
-      }
       this.setState({ openTask: true });
     }
     if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
@@ -174,6 +166,10 @@ class Index extends Component {
       q: "",
       selectSpec: {},
     });
+    if (this.props.patient) {
+      let user = { value: this.props.patient?.patient_id }
+      this.updateEntryState2(user);
+    }
   };
   // close model Add Task
   handleCloseTask = () => {
@@ -546,6 +542,7 @@ class Index extends Component {
           }
           this.updateEntryState2(this.props.location?.state?.user);
         }
+        
       });
     }
     else {
@@ -1397,7 +1394,6 @@ class Index extends Component {
           {tabvalue2 === 0 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {/* {console.log('AllTasks', this.state.AllTasks)} */}
                 {this.state.AllTasks.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
@@ -1461,7 +1457,15 @@ class Index extends Component {
           )}
         </Grid>
         <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
-          <Grid className="fltrClear">
+         
+        <Grid  className={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                  ? "nwEntrCntnt fltrClear darkTheme"
+                                  : "nwEntrCntnt fltrClear"
+                              }>
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
                 <Grid className="fltrLblClose">
@@ -1548,6 +1552,7 @@ class Index extends Component {
                         value={this.state.selectSpec2}
                         placeholder="Filter by Speciality"
                         isMulti={false}
+                        className="addStafSelect"
                         isSearchable={true} />
                     </Grid>
                   </Grid>
@@ -1562,6 +1567,7 @@ class Index extends Component {
                           value={this.state.selectWard}
                           placeholder="Filter by Ward"
                           isMulti={false}
+                          className="addStafSelect"
                           isSearchable={true} />
                       </Grid>
                     </Grid>
@@ -1577,6 +1583,7 @@ class Index extends Component {
                           value={this.state.selectRoom}
                           placeholder="Filter by Room"
                           isMulti={false}
+                          className="addStafSelect"
                           isSearchable={true} />
                       </Grid>
                     </Grid>

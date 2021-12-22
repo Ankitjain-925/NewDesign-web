@@ -327,7 +327,7 @@ class Index extends React.Component {
                 <Grid className="positionDrop">
                   {this.props.quote?.speciality?._id ?
                     <Grid className="cnfrmDiaMain">
-                      <Grid className="fillDia">
+                      <Grid className="fillDias">
                         <Grid>
                           <SelectField
                             isSearchable={true}

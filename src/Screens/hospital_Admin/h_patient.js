@@ -274,7 +274,7 @@ class Index extends Component {
                                                             : <Td><span className="revwGren"></span>{Normal}</Td>
                                                         }
                                                         <Td className="archvDot">
-                                                            <a className="academy_ul">
+                                                            <a className="academy_ul newacademyul">
                                                                 <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots" />
                                                                 <ul>
                                                                     <li onClick={() => this.openDetail(patient)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>

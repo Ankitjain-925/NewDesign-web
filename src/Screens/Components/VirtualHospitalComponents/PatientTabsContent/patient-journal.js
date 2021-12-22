@@ -115,10 +115,69 @@ class Index extends Component {
       //Get patient list
     getPatientData = async () => {
     this.setState({ loaderImage: true });
+<<<<<<< HEAD
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response.isdata) {
         this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
         // console.log('users1',this.state.users1)
+=======
+    let response = await get_track(user_token, user_id)
+
+    if (response?.data?.hassuccessed === true) {
+      //This is for Aimedis Blockchain Section
+      this.props.rightInfo();
+      var images = [];
+      response.data.data = response.data.data.filter((e) => e != null);
+      // response.data.data &&
+      //   response.data.data.length > 0 &&
+      //   response.data.data.map((data1, index) => {
+      //     var find2 = data1 && data1.created_by_image;
+      //     if (find2) {
+      //       var find3 = find2.split(".com/")[1];
+      //       axios
+      //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find3)
+      //         .then((response2) => {
+      //           if (response2.data.hassuccessed) {
+      //             images.push({
+      //               image: find2,
+      //               new_image: response2.data.data,
+      //             });
+      //             this.setState({ images: images });
+      //           }
+      //         });
+      //     }
+      // data1.attachfile &&
+      //   data1.attachfile.length > 0 &&
+      //   data1.attachfile.map((data, index) => {
+      //     var find = data && data.filename && data.filename;
+      //     if (find) {
+      //       var find1 = find.split(".com/")[1];
+      //       axios
+      //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+      //         .then((response2) => {
+      //           if (response2.data.hassuccessed) {
+      //             images.push({
+      //               image: find,
+      //               new_image: response2.data.data,
+      //             });
+      //             this.setState({ images: images });
+      //           }
+      //         });
+      //     }
+      //   });
+      // });
+
+      this.props.rightInfo();
+      this.setState({
+        allTrack1: response.data.data,
+        allTrack2: response.data.data,
+        loaderImage: false,
+        // defaultValue : 10,
+      },
+        () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
+    } else {
+      this.setState({ allTrack1: [], allTrack: [], allTrack2: [], loaderImage: false });
+>>>>>>> d34cba50338baa9161bfb44859d03c0e86d851d7
     }
     
     else {

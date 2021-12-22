@@ -3,18 +3,18 @@ import sitedata from "sitedata";
 import moment from "moment"
 import { commonHeader } from "component/CommonHeader/index"
 
-export const updateCometUser = async (data)=>{
+export const updateCometUser = async (data) => {
     let response = await axios.post(sitedata.data.path + "/cometUserList",
-    data)
-     if (response.data.hassuccessed) {
+        data)
+    if (response.data.hassuccessed) {
         return response
     } else {
         return false
     }
-  }
+}
 
 export const update_CometUser = async (uid, data) => {
-    let response = await axios.put(sitedata.data.path + "/cometUserList/" + uid, data)        
+    let response = await axios.put(sitedata.data.path + "/cometUserList/" + uid, data)
     if (response.data.hassuccessed) {
         return response
     } else {
@@ -44,8 +44,8 @@ export const get_cur_one = async (user_token, user_id) => {
 }
 
 export const get_personalized = async (user_token, user_id) => {
-    let response = await axios.get(sitedata.data.path + "/UserProfile/updateSetting/" + user_id,       
-    commonHeader(user_token)
+    let response = await axios.get(sitedata.data.path + "/UserProfile/updateSetting/" + user_id,
+        commonHeader(user_token)
     )
     if (response.data.hassuccessed) {
         return response
@@ -55,8 +55,8 @@ export const get_personalized = async (user_token, user_id) => {
 }
 
 export const get_track = async (user_token, user_id) => {
-    let response = await axios.get(sitedata.data.path + "/User/AddTrack/" + user_id,        
-    commonHeader(user_token))
+    let response = await axios.get(sitedata.data.path + "/User/AddTrack/" + user_id,
+        commonHeader(user_token))
 
     if (response.data.hassuccessed) {
         return response
@@ -66,8 +66,8 @@ export const get_track = async (user_token, user_id) => {
 }
 
 export const getPatientData = async (user_token, house_id, comesFrom) => {
-    let response = await axios.get( sitedata.data.path + "/vh/getPatientFromVH/" + house_id,    
-    commonHeader(user_token))
+    let response = await axios.get(sitedata.data.path + "/vh/getPatientFromVH/" + house_id,
+        commonHeader(user_token))
     if (response.data.hassuccessed) {
         var patientArray = [], PatientList1 = [];
         for (let i = 0; i < response.data?.data?.length; i++) {
@@ -89,7 +89,7 @@ export const getPatientData = async (user_token, house_id, comesFrom) => {
             })
             PatientList1.push({ profile_id: response.data?.data[i].patient?.profile_id, value: response.data?.data[i]?.patient_id, label: name })
         }
-        return {isdata: true, PatientList1: PatientList1, patientArray: patientArray }
+        return { isdata: true, PatientList1: PatientList1, patientArray: patientArray }
     } else {
         return false
     }
@@ -129,7 +129,7 @@ export const update_entry_state = async (e, state, stateLoginValueAim) => {
 
 export const delete_click_track = async (user_token, user_id, deletekey) => {
     let response = await axios.delete(sitedata.data.path + "/User/AddTrack/" + user_id + "/" + deletekey,
-    commonHeader(user_token))
+        commonHeader(user_token))
     if (response) {
         return response
     } else {

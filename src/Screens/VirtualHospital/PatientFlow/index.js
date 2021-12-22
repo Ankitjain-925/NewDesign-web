@@ -593,12 +593,15 @@ class Index extends Component {
     var data = _.cloneDeep(actualData);
     let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data )
     console.log('result', result)
+    this.mapActualToFullData(result);
   }
 
   clearFilter = () => {
-    let {selectedPat, assignedTo2, selectSpec2, selectWard, wardList, roomList, selectRoom} = this.state
     this.setState({selectedPat : '', assignedTo2 : '', selectSpec2 : '', selectWard: '', wardList: [], roomList: [], selectRoom: ''})
+    this.mapActualToFullData(this.state.actualData);
+    this.handleCloseFil();
   }
+  
   // clearFilters = () => {
   //   this.setState({
   //     searchValue: '',
@@ -608,7 +611,7 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
-    const authorQuoteMap = result && result.length > 0 && result.reduce(
+    const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => ({
         ...previous,
         [author.step_name]: author.case_numbers,
@@ -820,20 +823,16 @@ class Index extends Component {
                   <Grid className="cmnLftSpc ptntFlowSpc">
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
-                        <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={4} md={4}>
                           <h1>{PatientFlow}</h1>
                         </Grid>
-                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
+                        <Grid item xs={12} sm={8} md={8} className="addFlowRght">
                           <a onClick={() => this.newPatient()}>
                           {CreateNewPatient}
                           </a>
-                        </Grid>
-                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a onClick={() => this.openAddPatient()}>
                             {AddPatient}
                           </a>
-                        </Grid>
-                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a
                             onClick={() => { this.AddStep() }}
                           >
@@ -977,17 +976,18 @@ class Index extends Component {
                                 this.setState({ view: "vertical" });
                               }}
                             >
-                              {this.state.view === 'vertical' ?
+                              {/* {this.state.view === 'vertical' ? */}
                                 <img
                                   src={require("assets/virtual_images/active-vertical.png")}
                                   alt=""
                                   title=""
-                                /> :
+                                />
+                                 {/* :
                                 <img
                                   src={require("assets/virtual_images/lines.png")}
                                   alt=""
                                   title=""
-                                />}
+                                />} */}
                             </a>
                             <a
                               className={this.state.view === 'horizontal' ? "horzSort" : "lineSort"}
@@ -995,18 +995,19 @@ class Index extends Component {
                                 this.setState({ view: "horizontal" });
                               }}
                             >
-                              {this.state.view === 'horizontal' ?
+                              {/* {this.state.view === 'horizontal' ? */}
 
                                 <img
                                   src={require("assets/virtual_images/active-horizontal.png")}
                                   alt=""
                                   title=""
                                 />
-                                : <img
+                                {/* : <img
                                   src={require("assets/virtual_images/non-active-horizontal.png")}
                                   alt=""
                                   title=""
-                                />}
+                                /> */}
+                                {/* } */}
                             </a>
                           </Grid>
                         </Grid>
@@ -1117,7 +1118,7 @@ class Index extends Component {
                     onChange={this.onSelectingStep}
                     options={StepNameList}
                     placeholder="Select Step Name"
-                    className="allSpec"
+                    className="allSpec allSpeces"
                     isSearchable={false}
                   />
                 </Grid>

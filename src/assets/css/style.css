@@ -11340,9 +11340,13 @@ a.barViewnw {
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
     margin-right: 28px;
 }
-.newRequestUpr {
-    display: flex;
+.newRequestUpr>div {
+    display: inline-grid;
+    margin: 7px;
 }
+/* .newRequestUpr {
+    display: flex;
+} */
 .newReqInfo label {
     color: #404646;
     font-family: Muli;
