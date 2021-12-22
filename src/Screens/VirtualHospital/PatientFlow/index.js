@@ -1045,7 +1045,7 @@ class Index extends Component {
                     onChange={this.onSelectingStep}
                     options={StepNameList}
                     placeholder="Select Step Name"
-                    className="allSpec"
+                    className="allSpec allSpeces"
                     isSearchable={false}
                   />
                 </Grid>

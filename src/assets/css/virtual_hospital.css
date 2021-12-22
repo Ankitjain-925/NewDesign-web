@@ -7974,9 +7974,6 @@ img.spclDropImg {
 .patentInfo input:-moz-placeholder { 
     color: #484848;
 }
-.patentInfo div {
-    width: 100%;
-}
 .patentInfo {
     padding: 20px 28px 28px;
 }
@@ -12313,3 +12310,44 @@ input:-moz-autofill:active{
     min-width: 66px;
     border-radius: 12px;
 }
+
+
+
+
+
+
+/* Naveen css */
+
+.more-change-staff-img2{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    width:100%;
+    color:#404646!important;
+}
+.more-change-staff-img{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.patentInfoTxt .MuiFormControl-root{
+    width: 100%;
+}
+.allSpeces{
+    width:100%!important;
+}
+.allSpeces .css-g1d714-ValueContainer{
+    padding:0px 8px!important;
+}
+
+
+.invoiceForm .MuiGrid-align-items-xs-center, .addCstmField .MuiGrid-align-items-xs-center{
+    align-items: flex-start!important;
+}
+.addStafSelect input[type="text"], .cstmSelect input[type="text"]{
+    min-height: 35px!important;
+}
+
+
+

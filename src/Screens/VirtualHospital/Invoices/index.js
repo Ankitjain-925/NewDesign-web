@@ -458,8 +458,9 @@ class Index extends Component {
                                                 <p className='err_message'>{this.state.finishError}</p>
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
 
-                                                    <label>{InvoiceID}</label>
+                                                    {/* <label>{InvoiceID}</label> */}
                                                     <Grid item xs={12} md={3} className="invoiceID">
+                                                    <label>{InvoiceID}</label>
                                                         {/* <TextField placeholder="Invoice ID" value="548756" /> */}
                                                         <VHfield
                                                             name="invoice_id"
