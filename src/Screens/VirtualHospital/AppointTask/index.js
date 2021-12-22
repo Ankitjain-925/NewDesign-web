@@ -1153,10 +1153,10 @@ class Index extends Component {
                       </Grid>
 
                       <Grid item xs={12} sm={5} md={6}>
-                        <Grid className="appontTask">
+                        <Grid className="appontTask apponTaskhos">
                           <Button onClick={this.handleAllowAccess}>+ Add Appointment</Button>
                           <Button onClick={() => { this.moveTask() }}>+ Add Task</Button>
-                          <a className="srchSort" onClick={this.handleOpenFil}>
+                          <a className="barViewnw" onClick={this.handleOpenFil}>
                             <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                           </a>
                         </Grid>

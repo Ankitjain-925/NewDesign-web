@@ -613,7 +613,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await get_track(user_token, user_id)
 
-    if (response.data.hassuccessed === true) {
+    if (response?.data?.hassuccessed === true) {
       //This is for Aimedis Blockchain Section
       this.props.rightInfo();
       var images = [];

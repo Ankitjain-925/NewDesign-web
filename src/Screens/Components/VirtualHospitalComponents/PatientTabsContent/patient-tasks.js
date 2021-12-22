@@ -65,9 +65,9 @@ class Index extends Component {
 
   getCase = () => {
     this.setState({ loaderImage: true });
-    let user_id = this.props.match.params.id;
+    let case_id = this.props.match.params.case_id;
     axios.get(
-      sitedata.data.path + "/cases/AddCase/" + user_id,
+      sitedata.data.path + "/cases/AddCase/" + case_id,
       commonHeader(this.props.stateLoginValueAim.token)
     )
       .then((responce1) => {
@@ -76,10 +76,11 @@ class Index extends Component {
             caseData: responce1.data.data,
             patient: {
               last_name: responce1.data.data?.patient?.last_name,
-              user_id: responce1.data.data?.patient_id,
+              patient_id: responce1.data.data?.patient_id,
               image: responce1.data.data?.patient?.image,
               first_name: responce1.data.data?.first_name,
               profile_id: responce1.data.data?.patient?.profile_id,
+              alies_id: responce1.data.data?.patient?.alies_id,
               type: responce1.data.data?.patient?.type,
               case_id: responce1.data.data?._id,
             }

@@ -5572,7 +5572,7 @@ button.downloadPDF:hover {
     line-height: 14px;
     text-align: left;
     text-transform: initial;
-    padding: 16px 20px 0px;
+    padding: 10px 20px 10px;
 }
 .actionList li:last-child {
     margin-bottom: 0px !important;
@@ -9807,6 +9807,46 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.homeBg.darkTheme.homeBgDrk .profileInfoIner input{
+    background-color: transparent !important;
+}
+a.newacademyul ul li img
+{
+ height: 20px!important;
+}
+
+.darkTheme .profilMenuList2 li a img {
+    width: 13px !important;
+}
+.patentInfoTxt {
+    width: 100%;
+}
+.allSpeces{
+    width:100%!important;
+}
+.allSpeces .css-g1d714-ValueContainer{
+    padding:0px 8px!important;
+}
+.darkTheme .fillDias .css-yk16xz-control {
+    background-color: #202323 !important;
+    border: 1px solid #7d7d7d !important;
+}
+.darkTheme .fillDias div {
+    color: #c3c3c3 !important;
+    border-color: #404646 !important;
+}
+@media (max-width: 959px){ 
+    .addFlowRght a {
+        margin: 10px;
+    }
+}
+.addFlowRght a {
+    margin: 0px 10px;
+}
+.apponTaskhos button{
+    margin-left: 10px;
+    margin-right: 10px
+}
 .darkTheme .serchInput {
     color: #cfcfcf;
     background: #192020;
@@ -9820,7 +9860,25 @@ button.crdoLghtBlu2 {
     background-color: #192020 !important;
     color: #cfcfcf!important;
 }
-.darkTheme .RenameInstitute th, .RenameInstitute td {
+.renameHouseh2  {  
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+    padding: 10px;  
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 0px;
+    position: relative;
+}
+.RenameInstitute label {
+    padding:10px;
+}
+.RenameInstitute button {
+    margin:5px;
+    width: 100%;
+}
+.darkTheme .renameHouseh2, .darkTheme .RenameInstitute label {
     color: #cfcfcf;
 }
 .darkTheme p.more-change-staff-img2{
@@ -9961,7 +10019,8 @@ p.more-change-staff-img2 {
 }
 .addTimeTask1span {
     position: absolute !important;
-    color: red !important;
+    color: #00ABAF !important;
+    font-weight:500;
 }
 .adminMenuRghtUpr a.academy_ul ul{
     min-width: 200px !important;

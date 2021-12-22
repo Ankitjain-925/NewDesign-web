@@ -95,7 +95,7 @@ export default class Column extends Component {
                               </Grid>
                               <Grid className="positionDrop">
                                 {this.props.ordered?.length > 0 && this.props.ordered.map((item) => (
-                                  <Grid><label onClick={() => { this.props.moveAllPatient(item, index, quotes) }}>{item}</label></Grid>
+                                  <Grid><label onClick={() => { this.props.moveAllPatient(item, index, quotes) }}>{item} {title === item ? <>(current)</> : ''}</label></Grid>
                                 ))}
                               </Grid>
                             </div>
@@ -153,7 +153,7 @@ export default class Column extends Component {
                             <div>
                               <Grid className="movHead">
                                     <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                                    <Grid  className="movHeadMid"><label>Move All Patient</label></Grid>
+                                    <Grid  className="movHeadMid"><label>{move_all_patients}</label></Grid>
                                     <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                                 </Grid>
                                 <Grid className="positionDrop">
