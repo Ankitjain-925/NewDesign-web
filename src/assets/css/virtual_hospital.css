@@ -9807,6 +9807,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+img.vdoCalNow {
+    margin-left: 9px;
+}
 .homeBg.darkTheme.homeBgDrk .profileInfoIner input{
     background-color: transparent !important;
 }

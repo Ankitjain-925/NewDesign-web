@@ -18,9 +18,7 @@ import "react-popper-tooltip/dist/styles.css";
 import Modal from "@material-ui/core/Modal";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Speciality } from "Screens/Login/speciality.js";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Select from "react-select";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -31,10 +29,7 @@ import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
-import {
-  commonHeader,
-  commonCometDelHeader,
-} from "component/CommonHeader/index";
+import { commonHeader } from "component/CommonHeader/index";
 import { authy } from "Screens/Login/authy.js";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Autocomplete from "Screens/Patient/Appointment/Autocomplete.js";
@@ -44,12 +39,8 @@ import Calendar2 from "react-calendar";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
-import {
-  getDate,
-  getImage,
-  getSpec,
-  timeDiffCalc
-} from "Screens/Components/BasicMethod/index";
+import { getSpec, timeDiffCalc } from "Screens/Components/BasicMethod/index";
+import Loader from "Screens/Components/Loader/index";
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
@@ -283,7 +274,6 @@ class Index extends Component {
         this.handleCloseFil();
       })
   }
-
 
   EventComponent = (data) => {
     return (
@@ -747,7 +737,10 @@ class Index extends Component {
                   });
               }
             }
-            NewArray.push(item);
+            var datas = item?.data?.houses?.length>0 && item.data.houses.filter((item) => item.value === this.props.House?.value)
+            if(datas && datas.length>0){
+              NewArray.push(item);
+            }
           });
         this.setState({ allDocData: NewArray });
         this.setState({ mapMarkers: markerArray });
@@ -1047,6 +1040,16 @@ class Index extends Component {
     this.setState({ UpDataDetails: state });
   };
 
+   //For patient Info..
+   patientinfo(user_id) {
+    var user_token = this.props.stateLoginValueAim.token;
+    axios
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+      .then((response) => {
+        this.setState({ personalinfo: response.data.data, loaderImage: false });
+      });
+  }
+
   bookAppointment = () => {
     var insurance_no =
       this.state.personalinfo?.insurance &&
@@ -1055,11 +1058,11 @@ class Index extends Component {
         this.state.personalinfo?.insurance[0].insurance_number
         ? this.state.personalinfo?.insurance[0].insurance_number
         : "";
-    // this.setState({ loaderImage: true });
+    this.setState({ loaderImage: true });
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .post(sitedata.data.path + "/User/appointment", {
-        patient: this.state.PatientData[0]?.patient_id,
+        patient: this.state.personalinfo?._id,
         doctor_id:
           this.state.selectedDoc?.data && this.state.selectedDoc?.data._id,
         insurance:
@@ -1076,23 +1079,14 @@ class Index extends Component {
         insurance_number: insurance_no,
         annotations: this.state.UpDataDetails.annotations,
         status: "free",
-        // patient_info: {
-        //   patient_id: this.props.stateLoginValueAim.user.profile_id,
-        //   first_name: this.props.stateLoginValueAim.user.first_name,
-        //   last_name: this.props.stateLoginValueAim.user.last_name,
-        //   email: this.props.stateLoginValueAim.user.email,
-        //   birthday: this.props.stateLoginValueAim.user.birthday,
-        //   profile_image: this.props.stateLoginValueAim.user.image,
-        //   bucket: this.props.stateLoginValueAim.user.bucket,
-        // },
         patient_info: {
-          patient_id: this.state.PatientData[0]?.profile_id,
-          first_name: this.state.PatientData[0]?.first_name,
-          last_name: this.state.PatientData[0]?.last_name,
-          // email: this.state.PatientData[0]?.email,
-          // birthday: this.props.stateLoginValueAim.user.birthday,
-          profile_image: this.state.PatientData[0]?.image,
-          // bucket: this.props.stateLoginValueAim.user.bucket,
+          patient_id:  this.state.personalinfo?.profile_id,
+          first_name:  this.state.personalinfo?.first_name,
+          last_name:  this.state.personalinfo?.last_name,
+          email:  this.state.personalinfo?.email,
+          birthday:  this.state.personalinfo?.birthday,
+          profile_image: this.state.personalinfo?.image,
+          bucket:  this.state.personalinfo?.bucket,
         },
         lan: this.props.stateLanguageType,
         docProfile: {
@@ -1131,8 +1125,8 @@ class Index extends Component {
             openFancyVdo: false,
             currentSelected: {},
           });
-          // this.getUpcomingAppointment();
-          // this.getPastAppointment();
+          this.getTaskData();
+          this.getPatientData();
           setTimeout(
             function () {
               this.setState({ successfull: false });
@@ -1204,6 +1198,10 @@ class Index extends Component {
     this.setState({ PatientData: UserList })
   }
 
+  selectPatient = (e)=>{
+    this.patientinfo(e?.value);
+  }
+
   render() {
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -1217,6 +1215,7 @@ class Index extends Component {
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
     }
+    
     let translate = getLanguage(this.props.stateLanguageType);
     let { Appointmentiscanceled,
       select_spec,
@@ -1226,8 +1225,6 @@ class Index extends Component {
       NotAvailable,
       select_specility,
       Details,
-      consultancy_appintment,
-      past_apointment,
       Questions,
       cancel,
       book,
@@ -1324,6 +1321,7 @@ class Index extends Component {
             : "homeBg"
         }
       >
+         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
@@ -1684,7 +1682,7 @@ class Index extends Component {
                               name="patient"
                               options={this.state.users1}
                               placeholder="Search & Select"
-                              onChange={(e) => this.onFieldChange1(e, "patient")}
+                              onChange={(e) => this.selectPatient(e)}
                               // value={this.state.selectedPat || ''}
                               className="addStafSelect"
                               isMulti={false}
