@@ -22,7 +22,7 @@ import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
 import { authy } from 'Screens/Login/authy.js';
 import { Invoices } from 'Screens/Login/invoices.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
-import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
+// import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Redirect, Route } from "react-router-dom";
@@ -458,13 +458,13 @@ class Index extends Component {
                                                 Back to Billing</a>
                                         </Grid>
                                         {/* End of Back common button */}
-                                        {this.state.addinvoice?._id &&
+                                        {/* {this.state.addinvoice?._id &&
                                             <InvoicesDownloadPdf
                                                 label={this.state.addinvoice?.invoice_id}
                                                 status={this.state.addinvoice?.status?.label}
                                                 InvoicesData={this.state.addinvoice}
                                             />
-                                        }
+                                        } */}
 
                                         <Grid className="srvcContent">
                                             <Grid className="invoiceForm">

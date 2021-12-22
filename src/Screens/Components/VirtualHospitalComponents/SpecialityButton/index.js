@@ -49,7 +49,7 @@ class Index extends Component {
                 >
                   {this.state.label}
                 </Button>
-                {this.props.showActive && <span>(current)</span>}
+                {this.props.showActive && <>(current)</>}
               </Grid>
               <Grid
                 item
