@@ -40,6 +40,10 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Autocomplete from "Screens/Patient/Appointment/Autocomplete.js";
 import { GoogleApiWrapper, Map, Marker } from "google-maps-react";
 import Geocode from "react-geocode";
+import Calendar2 from "react-calendar";
+import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
+import SPECIALITY from "speciality";
+import { subspeciality } from "subspeciality.js";
 import {
   getDate,
   getImage,
@@ -93,6 +97,7 @@ class Index extends Component {
       openAllowLoc: false,
       openApoint: false,
       cancelappoint: {},
+      UpDataDetails: [],
     };
   }
 
@@ -100,6 +105,7 @@ class Index extends Component {
     this.getTaskData();
     this.getPatientData();
     this.specailityList();
+    this.getSpecialities();
   }
 
   handleChangeTab = (event, tabvalue) => {
@@ -506,6 +512,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response.isdata) {
+
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
@@ -590,6 +597,14 @@ class Index extends Component {
       });
     this.setState({ specilaityList: spec });
   };
+
+
+  getSpecialities() {
+    this.setState({
+      specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
+      subspecialityData: GetLanguageDropdown(subspeciality.english, this.props.stateLanguageType),
+    });
+  }
 
   //On Changing the specialty id
   onFieldChange2 = (e) => {
@@ -946,7 +961,7 @@ class Index extends Component {
         setTimeout(() => {
           this.setState({ cancelsuccess: false });
         }, 5000);
-        this.getUpcomingAppointment();
+        // this.getUpcomingAppointment();
       })
       .catch((error) => { });
   }
@@ -1004,6 +1019,190 @@ class Index extends Component {
       selectedDate: date1,
     });
   };
+
+  // findAppointment
+  findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
+    apointType = apointType.replace(/['"]+/g, "");
+    this.setState({
+      currentSelected: iA,
+      findDoc: tab,
+      selectedDoc: this.state.allDocData[doc_select],
+      mypoint: {
+        start:
+          this.state.allDocData[doc_select] &&
+          this.state.allDocData[doc_select][apointType][0] &&
+          this.state.allDocData[doc_select][apointType][0][apointDay][iA],
+        end:
+          this.state.allDocData[doc_select] &&
+          this.state.allDocData[doc_select][apointType][0] &&
+          this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+        type: apointType,
+      },
+    });
+  };
+
+  questionDetails = (e) => {
+    const state = this.state.UpDataDetails;
+    state[e.target.name] = e.target.value;
+    this.setState({ UpDataDetails: state });
+  };
+
+  bookAppointment = () => {
+    var insurance_no =
+      this.state.personalinfo?.insurance &&
+        this.state.personalinfo?.insurance.length > 0 &&
+        this.state.personalinfo?.insurance[0] &&
+        this.state.personalinfo?.insurance[0].insurance_number
+        ? this.state.personalinfo?.insurance[0].insurance_number
+        : "";
+    // this.setState({ loaderImage: true });
+    const user_token = this.props.stateLoginValueAim.token;
+    axios
+      .post(sitedata.data.path + "/User/appointment", {
+        patient: this.state.PatientData[0]?.patient_id,
+        doctor_id:
+          this.state.selectedDoc?.data && this.state.selectedDoc?.data._id,
+        insurance:
+          this.state.personalinfo &&
+          this.state.personalinfo?.insurance &&
+          this.state.personalinfo?.insurance?.length > 0 &&
+          this.state.personalinfo?.insurance[0] &&
+          this.state.personalinfo?.insurance[0]?.insurance_number &&
+          this.state.personalinfo?.insurance[0]?.insurance_number,
+        date: this.state.selectedDate,
+        start_time: this.state.mypoint.start,
+        end_time: this.state.mypoint.end,
+        appointment_type: this.state.mypoint.type,
+        insurance_number: insurance_no,
+        annotations: this.state.UpDataDetails.annotations,
+        status: "free",
+        // patient_info: {
+        //   patient_id: this.props.stateLoginValueAim.user.profile_id,
+        //   first_name: this.props.stateLoginValueAim.user.first_name,
+        //   last_name: this.props.stateLoginValueAim.user.last_name,
+        //   email: this.props.stateLoginValueAim.user.email,
+        //   birthday: this.props.stateLoginValueAim.user.birthday,
+        //   profile_image: this.props.stateLoginValueAim.user.image,
+        //   bucket: this.props.stateLoginValueAim.user.bucket,
+        // },
+        patient_info: {
+          patient_id: this.state.PatientData[0]?.profile_id,
+          first_name: this.state.PatientData[0]?.first_name,
+          last_name: this.state.PatientData[0]?.last_name,
+          // email: this.state.PatientData[0]?.email,
+          // birthday: this.props.stateLoginValueAim.user.birthday,
+          profile_image: this.state.PatientData[0]?.image,
+          // bucket: this.props.stateLoginValueAim.user.bucket,
+        },
+        lan: this.props.stateLanguageType,
+        docProfile: {
+          patient_id:
+            this.state.selectedDoc.data &&
+            this.state.selectedDoc.data.profile_id,
+          first_name:
+            this.state.selectedDoc.data &&
+            this.state.selectedDoc.data.first_name,
+          last_name:
+            this.state.selectedDoc.data &&
+            this.state.selectedDoc.data.last_name,
+          email:
+            this.state.selectedDoc.data && this.state.selectedDoc.data.email,
+          birthday:
+            this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
+          profile_image:
+            this.state.selectedDoc.data && this.state.selectedDoc.data.image,
+          speciality:
+            this.state.selectedDoc.data &&
+            this.state.selectedDoc.data.speciality,
+          subspeciality:
+            this.state.selectedDoc.data &&
+            this.state.selectedDoc.data.subspeciality,
+          phone:
+            this.state.selectedDoc.data && this.state.selectedDoc.data.phone,
+        },
+      })
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed === true) {
+          this.setState({
+            successfull: true,
+            openAllowAccess: false,
+            openAllowLoc: false,
+            openFancyVdo: false,
+            currentSelected: {},
+          });
+          // this.getUpcomingAppointment();
+          // this.getPastAppointment();
+          setTimeout(
+            function () {
+              this.setState({ successfull: false });
+            }.bind(this),
+            5000
+          );
+        }
+      });
+  };
+
+  _getHourMinut = (time) => {
+    return time.toString().split(":");
+  };
+
+  Isintime = (currentTime, b_start, b_end) => {
+    if (!currentTime || !b_end || !b_start) return false;
+    let b_start_time, b_end_time, current_time, smint;
+    b_start_time =
+      parseInt(this._getHourMinut(b_start)[0]) * 60 +
+      parseInt(this._getHourMinut(b_start)[1]);
+    b_end_time =
+      parseInt(this._getHourMinut(b_end)[0]) * 60 +
+      parseInt(this._getHourMinut(b_end)[1]);
+    current_time =
+      parseInt(this._getHourMinut(currentTime)[0]) * 60 +
+      parseInt(this._getHourMinut(currentTime)[1]);
+    smint = parseInt(this._getHourMinut(currentTime)[1]);
+
+
+    if (current_time >= b_start_time && current_time < b_end_time) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  Availabledays = (date, days_upto) => {
+    let current_date = new Date();
+    let Newdate = new Date();
+    if (date && days_upto) {
+      current_date = new Date(current_date).setHours(0, 0, 0, 0);
+      Newdate = Newdate.setDate(Newdate.getDate() + parseInt(days_upto))
+      return (new Date(Date.parse(date.replace(/-/gm, '/'))) < current_date || new Date(Date.parse(date.replace(/-/gm, '/'))) >= Newdate);
+    }
+    else {
+      return false;
+    }
+  }
+
+  ExitinHoliday = (date, h_start, h_end) => {
+    if (h_start && h_end && date) {
+      let start_date = new Date(h_start);
+      let end_date = new Date(h_end);
+      start_date = start_date.setHours(0, 0, 0, 0);
+      end_date = end_date.setDate(end_date.getDate() + 1);
+      end_date = new Date(end_date).setHours(0, 0, 0, 0);
+      return (new Date(Date.parse(date.replace(/-/gm, '/'))) >= start_date && new Date(Date.parse(date.replace(/-/gm, '/'))) < end_date);
+    } else {
+      return false;
+    }
+  };
+
+
+  onFieldChange1 = (e) => {
+    let { users } = this.state;
+    let UserList = users && users.length > 0 && users.filter((item) => {
+      return item && item?.patient_id == e.value;
+    })
+    this.setState({ PatientData: UserList })
+  }
 
   render() {
     const { stateLoginValueAim, House } = this.props;
@@ -1081,11 +1280,16 @@ class Index extends Component {
       translate;
 
     const { tabvalue,
+      pastappointment,
       selectedOption,
       specialityData,
+      subspecialityData,
       allDocData,
-      events,
-      data } = this.state;
+      PatientData,
+      date,
+      doc_select,
+      appointType,
+      apointDay } = this.state;
     const userList =
       this.state.filteredUsers &&
       this.state.filteredUsers.map((user) => {
@@ -1116,7 +1320,7 @@ class Index extends Component {
             this.props.settings.setting &&
             this.props.settings.setting.mode &&
             this.props.settings.setting.mode === "dark"
-            ? "homeBg darkTheme homeBgDrk" 
+            ? "homeBg darkTheme homeBgDrk"
             : "homeBg"
         }
       >
@@ -1305,14 +1509,14 @@ class Index extends Component {
                 <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
 
 
-                  <Grid  className={
-                                this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
-                                  ? "nwEntrCntnt fltrClear darkTheme"
-                                  : "nwEntrCntnt fltrClear"
-                              }>
+                  <Grid className={
+                    this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "nwEntrCntnt fltrClear darkTheme"
+                      : "nwEntrCntnt fltrClear"
+                  }>
 
                     <Grid className="fltrClearIner">
                       <Grid className="fltrLbl">
@@ -1480,8 +1684,8 @@ class Index extends Component {
                               name="patient"
                               options={this.state.users1}
                               placeholder="Search & Select"
-                              // onChange={(e) => this.onFieldChange1(e, "patient")}
-                              value={this.state.selectedPat || ''}
+                              onChange={(e) => this.onFieldChange1(e, "patient")}
+                              // value={this.state.selectedPat || ''}
                               className="addStafSelect"
                               isMulti={false}
                               isSearchable={true} />
@@ -1492,7 +1696,7 @@ class Index extends Component {
                           <Select
                             value={selectedOption}
                             onChange={this.handleChangeSelect}
-                            options={this.state.specilaityList}
+                            options={specialityData}
                             placeholder={select_spec}
                             className="sel_specialty"
                           />
@@ -1681,6 +1885,20 @@ class Index extends Component {
                         spacing={2}
                         className="srchAccessLoc"
                       >
+                        <Grid item xs={12} md={4}>
+                          <label>{Patient}</label>
+                          <Grid>
+                            <Select
+                              name="patient"
+                              options={this.state.users1}
+                              placeholder="Search & Select"
+                              onChange={(e) => this.onFieldChange1(e, "patient")}
+                              // value={this.state.selectedPat || ''}
+                              className="addStafSelect"
+                              isMulti={false}
+                              isSearchable={true} />
+                          </Grid>
+                        </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid>
                             <label>{speciality}</label>
@@ -1688,7 +1906,7 @@ class Index extends Component {
                           <Select
                             value={selectedOption}
                             onChange={this.handleChangeSelect}
-                            options={this.state.specilaityList}
+                            options={specialityData}
                             placeholder={select_specility}
                             className="sel_specialty"
                           />
@@ -2086,6 +2304,169 @@ class Index extends Component {
                   </Grid>
                 </Modal>
                 {/* End of {cancel_apointmnt} */}
+
+                <Modal
+                  open={this.state.openFancyVdo}
+                  onClose={this.handleCloseFancyVdo}
+                  className={
+                    this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "darkTheme editBoxModel"
+                      : "editBoxModel"
+                  }
+                >
+                  <Grid className="slotBoxMain">
+                    <Grid className="slotBoxCourse">
+                      <a
+                        onClick={this.handleCloseFancyVdo}
+                        className="timSlotClose"
+                      >
+                        <img
+                          src={require("assets/images/close-search.svg")}
+                          alt=""
+                          title=""
+                        />
+                      </a>
+                      <Grid className="selCalenderUpr">
+                        <Grid className="selCalender">
+                          <Calendar2
+                            onChange={(e) => this.onChange(e)}
+                            value={this.state.date}
+                          />
+                        </Grid>
+                        <Grid className="selTimeSlot">
+                          <Grid>
+                            <label>{slct_time_slot}</label>
+                          </Grid>
+
+                          <Grid className="selTimeAM">
+                            {this.state.appointDate &&
+                              this.state.appointDate.length > 0 ?
+                              (
+                                this.Availabledays(this.state.selectedDate, this.state.appointmentData.appointment_days)
+                                  ?
+                                  <Grid>
+                                    <span>{NotAvailable}!</span>
+                                  </Grid>
+
+                                  : this.ExitinHoliday(this.state.selectedDate, this.state.appointmentData.holidays_start,
+                                    this.state.appointmentData.holidays_end)
+                                    ?
+                                    <Grid>
+                                      <span>{holiday}!</span>
+                                    </Grid> :
+
+                                    (this.state.appointDate.map((data, iA) => {
+                                      if (
+                                        this.Isintime(
+                                          this.state.appointDate[iA],
+                                          this.state.appointmentData.breakslot_start,
+                                          this.state.appointmentData.breakslot_end,
+                                          this.state.appointmentData.holidays_start,
+                                          this.state.appointmentData.holidays_end,
+                                        )
+                                      )
+                                        return;
+
+                                      return (
+                                        <Grid>
+                                          {this.state.appointDate[iA + 1] &&
+                                            this.state.appointDate[iA + 1] !==
+                                            "undefined" &&
+                                            iA === 0 ? (
+                                            <a
+                                              className={
+                                                this.state.currentSelected === 0 &&
+                                                "current_selected"
+                                              }
+                                              onClick={() => {
+                                                this.findAppointment(
+                                                  "tab3",
+                                                  doc_select,
+                                                  appointType,
+                                                  apointDay,
+                                                  iA
+                                                );
+                                              }}
+                                            >
+                                              {this.state.appointDate[iA] +
+                                                " - " +
+                                                this.state.appointDate[iA + 1]}
+                                            </a>
+                                          ) : (
+                                            this.state.appointDate[iA + 1] &&
+                                            this.state.appointDate[iA + 1] !==
+                                            "undefined" && (
+                                              <a
+                                                className={
+                                                  this.state.currentSelected &&
+                                                    this.state.currentSelected === iA
+                                                    ? "current_selected"
+                                                    : ""
+                                                }
+                                                onClick={() => {
+                                                  this.findAppointment(
+                                                    "tab3",
+                                                    doc_select,
+                                                    appointType,
+                                                    apointDay,
+                                                    iA
+                                                  );
+                                                }}
+                                              >
+                                                {this.state.appointDate[iA] +
+                                                  " - " +
+                                                  this.state.appointDate[iA + 1]}
+                                              </a>
+                                            )
+                                          )}
+                                        </Grid>
+                                      );
+                                    })
+                                    )
+
+
+                              )
+                              :
+                              this.state.appointDate !== undefined ? (
+                                <Grid>
+                                  <span>{NotAvailable}!</span>
+                                </Grid>
+                              ) : (
+                                <Grid>
+                                  <span>{NotAvailable}!</span>
+                                </Grid>
+                              )}
+                          </Grid>
+                        </Grid>
+                        <Grid className="delQues">
+                          <Grid>
+                            <label>
+                              {Details} / {Questions}
+                            </label>
+                          </Grid>
+                          <Grid>
+                            <textarea
+                              name="annotations"
+                              onChange={(e) => {
+                                this.questionDetails(e);
+                              }}
+                            ></textarea>
+                          </Grid>
+                          <Grid className="delQuesBook">
+                            <a onClick={this.bookAppointment}>{book}</a>
+                            <a
+                              onClick={this.handleCloseFancyVdo}>
+                              {cancel}
+                            </a>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Modal>
+                {/* End of Video Model */}
 
               </Grid>
             </Grid>
