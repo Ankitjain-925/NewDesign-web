@@ -639,45 +639,7 @@ class Index extends Component {
       this.rightInfo();
       var images = [];
       response.data.data = response.data.data.filter((e) => e != null);
-      // response.data.data &&
-      //   response.data.data.length > 0 &&
-      //   response.data.data.map((data1, index) => {
-      //     var find2 = data1 && data1.created_by_image;
-      //     if (find2) {
-      //       var find3 = find2.split(".com/")[1];
-      //       axios
-      //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find3)
-      //         .then((response2) => {
-      //           if (response2.data.hassuccessed) {
-      //             images.push({
-      //               image: find2,
-      //               new_image: response2.data.data,
-      //             });
-      //             this.setState({ images: images });
-      //           }
-      //         });
-      //     }
-      // data1.attachfile &&
-      //   data1.attachfile.length > 0 &&
-      //   data1.attachfile.map((data, index) => {
-      //     var find = data && data.filename && data.filename;
-      //     if (find) {
-      //       var find1 = find.split(".com/")[1];
-      //       axios
-      //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-      //         .then((response2) => {
-      //           if (response2.data.hassuccessed) {
-      //             images.push({
-      //               image: find,
-      //               new_image: response2.data.data,
-      //             });
-      //             this.setState({ images: images });
-      //           }
-      //         });
-      //     }
-      //   });
-      // });
-
+    
       this.rightInfo();
       this.setState({
         allTrack1: response.data.data,
@@ -697,18 +659,7 @@ class Index extends Component {
     this.setState({ allMetadata: this.props.metadata }, () => {
       this.GetLanguageMetadata();
     });
-    // var user_token = this.props.stateLoginValueAim.token;
-    // axios.get(sitedata.data.path + '/UserProfile/Metadata',
-    //     {
-    //         headers: {
-    //             'token': user_token,
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }).then((response) => {
-    //         this.setState({ allMetadata: response.data[0] })
-    //         this.GetLanguageMetadata();
-    //     })
+   
   }
 
   GetLanguageMetadata = () => {

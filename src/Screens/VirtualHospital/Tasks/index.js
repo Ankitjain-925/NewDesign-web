@@ -17,9 +17,10 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
+import { Redirect, Route } from "react-router-dom";
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -38,12 +39,12 @@ class Index extends Component {
             loaderImage: false,
             Open: 0,
             doneToday: 0,
-            AllTasks :[],
-            DoneTask : [],
+            AllTasks: [],
+            DoneTask: [],
         };
     }
 
-    componentDidMount() { 
+    componentDidMount() {
         this.getAddTaskData();
     }
 
@@ -74,30 +75,42 @@ class Index extends Component {
     getAddTaskData = () => {
         this.setState({ loaderImage: true });
         axios
-        .get(
-            sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
-            commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((response) => {
-            this.setState({ AllTasks: response.data.data })
-            if (response.data.hassuccessed) {
-                var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
-                var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
-                var GetDate = response.data.data?.length > 0 && response.data.data.filter((item) => {
-                    var d1 = (new Date(item.done_on)).setHours(0, 0, 0, 0);
-                    var d2 = (new Date()).setHours(0, 0, 0, 0);
-                    return (d1===d2);
-                })
-                this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open, Open: Open?.length, doneToday : GetDate?.length })
-            }
-            this.setState({ loaderImage: false });
-        });
+            .get(
+                sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.setState({ AllTasks: response.data.data })
+                if (response.data.hassuccessed) {
+                    var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
+                    var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
+                    var GetDate = response.data.data?.length > 0 && response.data.data.filter((item) => {
+                        var d1 = (new Date(item.done_on)).setHours(0, 0, 0, 0);
+                        var d2 = (new Date()).setHours(0, 0, 0, 0);
+                        return (d1 === d2);
+                    })
+                    this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open, Open: Open?.length, doneToday: GetDate?.length })
+                }
+                this.setState({ loaderImage: false });
+            });
     };
 
 
     render() {
+        const { stateLoginValueAim, House } = this.props;
+        if (
+          stateLoginValueAim.user === "undefined" ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === "undefined" ||
+          stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+          return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+            return <Redirect to={"/VirtualHospital/space"} />;
+          }
         let translate = getLanguage(this.props.stateLanguageType);
-        let {Tasks_overview} = translate;
+        let { Tasks_overview, ShowArchivedTasks } = translate;
         return (
             <Grid className={
                 this.props.settings &&
@@ -134,11 +147,11 @@ class Index extends Component {
                                                     <label><span></span>{"Done today"}</label>
                                                     <p>{this.state.doneToday}</p>
                                                 </Grid>
-                                                <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>Show archived tasks</a></p></Grid>
+                                                <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>{ShowArchivedTasks}</a></p></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={10}>
-                                            <TaskSectiuonVH getArchived={()=>this.getArchived()} getAddTaskData={()=>{this.getAddTaskData()}} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={this.state.ArchivedTasks} tabvalue2={this.state.tabvalue2}/>
+                                            <TaskSectiuonVH getArchived={() => this.getArchived()} getAddTaskData={() => { this.getAddTaskData() }} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={this.state.ArchivedTasks} tabvalue2={this.state.tabvalue2} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -170,7 +183,7 @@ const mapStateToProps = (state) => {
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect,  Speciality })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Speciality })(
         Index
     )
 );

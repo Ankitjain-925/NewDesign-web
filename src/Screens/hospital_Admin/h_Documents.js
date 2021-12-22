@@ -46,7 +46,6 @@ class Index extends Component {
         this.getAlldocument();
     }
 
-
     // fancybox open
     handleOpenPres = (data) => {
         this.setState({ openPres: true, openDetail : data });
@@ -259,7 +258,7 @@ class Index extends Component {
                                                     <Th>{no_}</Th>
                                                     <Th>{file_name}</Th>
                                                     <Th>{type}</Th>
-                                                    <Th>{date_last_opened} 111</Th>
+                                                    <Th>{date_last_opened}</Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
@@ -394,15 +393,11 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        //   Doctorsetget,
-        //   catfil
     }
 };
 export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

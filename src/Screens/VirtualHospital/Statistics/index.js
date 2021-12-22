@@ -50,8 +50,8 @@ class Index extends Component {
             tabvalue: 0,
             patientflow_data: [],
             Statistics: {},
-            rightinfo: [],    
-            
+            rightinfo: [],
+
 
         }
     };
@@ -59,7 +59,7 @@ class Index extends Component {
         this.setState({ tabvalue });
     };
 
-     componentDidMount() {
+    componentDidMount() {
         this.getStatistics();
         this.getrightinfo();
     }
@@ -74,7 +74,7 @@ class Index extends Component {
             .then((response) => {
                 if (response.data.hassuccessed) {
                     this.setState({ Statistics: response.data.data });
-                   }
+                }
                 this.setState({ loaderImage: false });
             });
     }
@@ -88,16 +88,29 @@ class Index extends Component {
             )
             .then((response) => {
                 if (response.data.hassuccessed) {
-                    var finalData = response.data.data && response.data.data.length>0 && response.data.data.filter((item)=> item.step_name)
-                    this.setState({ patientflow_data:  finalData});
-             }
+                    var finalData = response.data.data && response.data.data.length > 0 && response.data.data.filter((item) => item.step_name)
+                    this.setState({ patientflow_data: finalData });
+                }
                 this.setState({ loaderImage: false });
             });
     }
 
     render() {
+        const { stateLoginValueAim, House } = this.props;
+        if (
+          stateLoginValueAim.user === "undefined" ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === "undefined" ||
+          stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+          return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+          return <Redirect to={"/VirtualHospital/space"} />;
+        }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation } = translate;
+        let { Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation, Statistics, TotalPatients,
+            Doctors, Nurses, Oneh23min, AvgTimeToStayInHospital, threeM, sixM, oneY, All, ActivityCounter, AvgTimeOfStay, zeroh43min, zeroh18min, zeroh24min, twelvedays } = translate;
         const { tabvalue } = this.state;
         return (
             <Grid className={
@@ -127,7 +140,7 @@ class Index extends Component {
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
                                         <Grid item xs={12} md={12}>
-                                            <Grid className="staticHeading"><h1>Statistics</h1></Grid>
+                                            <Grid className="staticHeading"><h1>{Statistics}</h1></Grid>
 
                                             <Grid container direction="row" spacing={3}>
                                                 <Grid item xs={12} md={9}>
@@ -135,7 +148,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={3}>
                                                             <Grid className="staticsAmt">
                                                                 <Grid><a><img src={require('assets/virtual_images/hotel-bed-2.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid><label>{this.state.Statistics[0]}</label><p>Total Patients</p></Grid>
+                                                                <Grid><label>{this.state.Statistics[0]}</label><p>{TotalPatients}</p></Grid>
                                                             </Grid>
                                                         </Grid>
 
@@ -143,20 +156,20 @@ class Index extends Component {
 
                                                         <Grid item xs={12} md={4}>
                                                             <Grid>
-                                                            {/* {this.state.Statistics?.length > 0 && this.state.Statistics.map((data) => ( */}
-                                                               {/* console.log("data",data), */}
+                                                                {/* {this.state.Statistics?.length > 0 && this.state.Statistics.map((data) => ( */}
+                                                                {/* console.log("data",data), */}
                                                                 <Grid className="staticsAmt">
                                                                     <Grid><a><img src={require('assets/virtual_images/user-group-conversation.svg')} alt="" title="" /></a></Grid>
-                                                                    <Grid className="staticsAmtMid"><label>{this.state.Statistics[1]}</label><p>Doctors</p></Grid>
-                                                                    <Grid><label>{this.state.Statistics[2]}</label><p>Nurses</p></Grid>
+                                                                    <Grid className="staticsAmtMid"><label>{this.state.Statistics[1]}</label><p>{Doctors}</p></Grid>
+                                                                    <Grid><label>{this.state.Statistics[2]}</label><p>{Nurses}</p></Grid>
                                                                 </Grid>
-                                                            {/* ))} */}
+                                                                {/* ))} */}
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={5}>
                                                             <Grid className="staticsAmt">
                                                                 <Grid><a><img src={require('assets/virtual_images/timecheck.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid><label>1h 23min</label><p>Avg. Time of Stay in Hospital</p></Grid>
+                                                                <Grid><label>{Oneh23min}</label><p>{AvgTimeToStayInHospital}</p></Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -215,7 +228,7 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid item xs={12} md={6}>
                                                                     <Grid className="invoicLastMnth">
-                                                                        <label>{Lastmonth}</label><a>3m</a><a>6m</a><a>1y</a><a>All</a>
+                                                                        <label>{Lastmonth}</label><a>{threeM}</a><a>{sixM}</a><a>{oneY}</a><a>{All}</a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -254,29 +267,29 @@ class Index extends Component {
                                                     </Grid> */}
 
                                                     {/* {this.state.patientflow_data?.length > 0 && this.state.patientflow_data?.map((data) => ( */}
-                                                        
-                                                      
-                                                        <>
+
+
+                                                    <>
                                                         {/* <p>{data.step_name}</p> */}
-                                                            <StatisticsPatientFlow 
+                                                        <StatisticsPatientFlow
 
-                                                                 step_name={"Patient Flow"}
-                                                                 counts={this.state.patientflow_data} 
-                                                                
-                                                                
+                                                            step_name={"Patient Flow"}
+                                                            counts={this.state.patientflow_data}
 
-                                                             />,
-                                                              {/* { console.log('this.state.patientflow_data6765546546456',this.state.patientflow_data)}    */}
-                                                            {/* { console.log('data.heading',data.heading)}  */}
 
-                                                        </>
-                                                        
+
+                                                        />,
+                                                        {/* { console.log('this.state.patientflow_data6765546546456',this.state.patientflow_data)}    */}
+                                                        {/* { console.log('data.heading',data.heading)}  */}
+
+                                                    </>
+
                                                     {/* ))} */}
 
                                                     <Grid className="patntFlow">
-                                                        <p>Activity Counter</p>
+                                                        <p>{ActivityCounter}</p>
                                                         <Grid className="actvtyFilter">
-                                                            <a>Last month</a><a>3m</a><a>6m</a><a>1y</a><a>All</a>
+                                                            <a>{Lastmonth}</a><a>{threeM}</a><a>{sixM}</a><a>{oneY}</a><a>{All}</a>
                                                         </Grid>
                                                         <Grid className="patntFlowIner">
                                                             <Grid container direction="row" alignItems="center">
@@ -294,23 +307,23 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="patntFlow">
-                                                        <p>Avg. Time of stay</p>
+                                                        <p>{AvgTimeOfStay}</p>
                                                         <Grid className="patntFlowIner">
                                                             <Grid container direction="row" alignItems="center">
                                                                 <Grid item xs={8} md={8}><label>{WaitingRoom}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>0 h 43 min</span></Grid>
+                                                                <Grid item xs={4} md={4}><span>{zeroh43min}</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center">
                                                                 <Grid item xs={8} md={8}><label>{EmergencyRoom}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>0 h 18 min</span></Grid>
+                                                                <Grid item xs={4} md={4}><span>{zeroh18min}</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center">
                                                                 <Grid item xs={8} md={8}><label>{Examinations}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>0 h 24 min</span></Grid>
+                                                                <Grid item xs={4} md={4}><span>{zeroh24min}</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center" className="patntFlowLast">
                                                                 <Grid item xs={8} md={8}><label>{Observation}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>12 days</span></Grid>
+                                                                <Grid item xs={4} md={4}><span>{twelvedays}</span></Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

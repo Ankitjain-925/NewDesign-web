@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import { getLanguage } from "translations/index"
 
 class Index extends React.Component {
     constructor(props) {
@@ -55,6 +56,8 @@ class Index extends React.Component {
 
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { Choice } = translate
         return (
             <Grid className="roomName-h">
                 {this.state.timeArr && this.state.timeArr.length == 0 && (
@@ -85,7 +88,7 @@ class Index extends React.Component {
                 {this.state.roomArray && this.state.roomArray.length > 0 && this.state.roomArray.map((data, index) => (
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={10} md={10}>
-                            {this.props.comesFrom === 'questionaire' && <Grid className = "labelChoice"><label>Choice {index + 1}</label></Grid>}
+                            {this.props.comesFrom === 'questionaire' && <Grid className="labelChoice"><label>{Choice} {index + 1}</label></Grid>}
                             {this.props.comesFrom === "admin" ?
                                 <input
                                     type="text"

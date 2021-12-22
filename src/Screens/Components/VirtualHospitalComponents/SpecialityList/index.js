@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import { getLanguage } from "translations/index";
 
 class Index extends Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { rooms, beds, avlbl } = translate;
     return (
       <Grid className="roomsNum3">
         <ul>
@@ -30,7 +33,7 @@ class Index extends Component {
               alt=""
               title=""
             />
-            {this.state.rooms} rooms
+            {this.state.rooms} {rooms}
           </li>
           <li>
             <img
@@ -38,8 +41,8 @@ class Index extends Component {
               alt=""
               title=""
             />
-            {this.state.beds} beds
-            <span>{this.state.available} available</span>
+            {this.state.beds} {beds}
+            <span>{this.state.available} {avlbl}</span>
           </li>
         </ul>
       </Grid>

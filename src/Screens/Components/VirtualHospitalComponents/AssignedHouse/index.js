@@ -75,7 +75,7 @@ class PointPain extends Component {
   componentDidMount = () => { };
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
-    let { AssignHouse } = translate;
+    let { AssignHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
     return (
       <Modal
         open={this.state.openHouse}
@@ -110,7 +110,7 @@ class PointPain extends Component {
                 <Grid container direction="row">
                   {this.state.assignedhouse && (
                     <div className="success_message">
-                      House is assigned to User
+                      {House_assigned_to_user}
                     </div>
                   )}
                   {/* {this.state.deleteHouses && (
@@ -120,12 +120,12 @@ class PointPain extends Component {
                   )} */}
                   {this.state.alredyExist && (
                     <div className="err_message">
-                      House is already exist to User
+                      {House_alread_exist_to_user}
                     </div>
                   )}
                   {this.state.blankerror && (
                     <div className="err_message">
-                      Select atleast one house
+                      {Select_atleast_one_house}
                     </div>
                   )}
                   <Grid item xs={10} md={12}>
@@ -139,7 +139,7 @@ class PointPain extends Component {
                     />
                   </Grid>
                   <Grid item xs={10} md={12}>
-                    <b>Assigned Houses -</b>
+                    <b>{AssignedHouses}</b>
                     <Grid container direction="row">
 
                       {this.state.current_user?.houses?.length > 0 && this.state.current_user?.houses.map((item) => (
@@ -148,7 +148,7 @@ class PointPain extends Component {
                             {item.group_name} - {item.label} ({item.value})
                           </Grid>
                           <Grid item xs={2} md={2}>
-                            <a className="delet-house" onClick={() => { this.props.deleteHouse(item.value) }}>Delete</a>
+                            <a className="delet-house" onClick={() => { this.props.deleteHouse(item.value) }}>{Delete}</a>
                           </Grid>
                         </>
                       ))}
@@ -157,7 +157,7 @@ class PointPain extends Component {
 
 
                   <Grid className="spclSaveBtn saveNclose">
-                    {this.state.alredyExist === false && (<Button onClick={() => this.props.SaveAssignHouse()}>Save</Button>)}
+                    {this.state.alredyExist === false && (<Button onClick={() => this.props.SaveAssignHouse()}>{Save}</Button>)}
                   </Grid>
                 </Grid>
               </Grid>

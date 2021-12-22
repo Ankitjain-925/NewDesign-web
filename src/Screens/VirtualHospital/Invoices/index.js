@@ -25,6 +25,7 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
+import { Redirect, Route } from "react-router-dom";
 import { PatientMoveFromHouse } from "../PatientFlow/data";
 import {
     getLanguage
@@ -409,6 +410,18 @@ class Index extends Component {
     }
 
     render() {
+        const { stateLoginValueAim, House } = this.props;
+        if (
+          stateLoginValueAim.user === "undefined" ||
+          stateLoginValueAim.token === 450 ||
+          stateLoginValueAim.token === "undefined" ||
+          stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+          return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+            return <Redirect to={"/VirtualHospital/institutes"} />;
+          }
         let translate = getLanguage(this.props.stateLanguageType);
         let { InvoiceID, Patient, Status, Services, Addservice, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close } =
             translate;

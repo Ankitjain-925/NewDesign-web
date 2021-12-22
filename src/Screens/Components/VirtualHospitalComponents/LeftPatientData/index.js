@@ -2108,7 +2108,7 @@ class Index extends Component {
     const { personalinfo, patientData } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      open,
+      open, slashmin, mmHg, mgdl, bslashmin,
       blood_pressure,
       view_all,
       vdo_call,
@@ -2126,11 +2126,11 @@ class Index extends Component {
       last_document,
       prescriptions,
       sick_cert,
-      Download,
-      respiration
+      Download, sixteen032020, twentyFourThousandEuro,
+      respiration, one, slash2, Neurology, AdultsWard, Room1, Bed2, Examinations, twenty6, two021000248
     } = translate;
     var item = this.state.item;
-    let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight, Height, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, Neurology, LastDocuments, Prescription } = translate;
+    let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight, kg, Height, cm, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, LastDocuments, Prescription } = translate;
     return (
       <Grid className="asignStaf">
         <Grid className="backFlow" onClick={() => { this.props.history.push('/virtualHospital/patient-flow') }}>
@@ -2152,7 +2152,7 @@ class Index extends Component {
                   <p><span>{getDate(
                     this.state.loggedinUser?.birthday,
                     this.props.settings.setting.date_format
-                  )}{" "} (32 years)</span></p>
+                  )}{" "} (32 y ears)</span></p>
                 }
               </Grid>
               <Grid className="entryInfo">
@@ -2192,7 +2192,7 @@ class Index extends Component {
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask">
                       <Grid><label>{CompletedTasks}</label></Grid>
-                      <p><span>1</span>/2</p>
+                      <p><span>{one}</span>{slash2}</p>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
@@ -2216,23 +2216,23 @@ class Index extends Component {
                     </Grid>
                     <Grid>
                       <Grid className="NeuroBtn">
-                        <Grid><Button variant="contained" color="primary">Neurology</Button></Grid>
+                        <Grid><Button variant="contained" color="primary">{Neurology}</Button></Grid>
                         <Grid className="roomsNum">
                           <ul>
-                            <li><img src={require('assets/virtual_images/ward.png')} alt="" title="" />Adults Ward</li>
-                            <li><img src={require('assets/virtual_images/room22.svg')} alt="" title="" />Room 1</li>
-                            <li><img src={require('assets/virtual_images/bedColor.png')} alt="" title="" />Bed 2</li>
+                            <li><img src={require('assets/virtual_images/ward.png')} alt="" title="" />{AdultsWard}</li>
+                            <li><img src={require('assets/virtual_images/room22.svg')} alt="" title="" />{Room1}</li>
+                            <li><img src={require('assets/virtual_images/bedColor.png')} alt="" title="" />{Bed2}</li>
                           </ul>
                         </Grid>
                       </Grid>
                       <Grid className="exmBtn">
-                        <a><img src={require('assets/virtual_images/content-view-column.svg')} alt="" title="" />Examinations</a>
+                        <a><img src={require('assets/virtual_images/content-view-column.svg')} alt="" title="" />{Examinations}</a>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask docsFile entrsSec">
-                      <Grid><label>{Entries}</label></Grid><p>26</p>
+                      <Grid><label>{Entries}</label></Grid><p>{twenty6}</p>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -2254,16 +2254,16 @@ class Index extends Component {
               <Grid container direction="row" alignItems="center">
                 <Grid item xs={12} md={8}>
                   <Grid className="yearSec">
-                    <label>2021-000248</label>
-                    <label>16/03/2020</label>
+                    <label>{two021000248}</label>
+                    <label>{sixteen032020}</label>
                   </Grid>
                   <Grid className="issuePrice">
                     <label className="isuLbl">{Issued}</label>
-                    <label>240,00 €</label>
+                    <label>{twentyFourThousandEuro}</label>
                   </Grid>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <Grid className="yearOpen"><a>Open</a></Grid>
+                  <Grid className="yearOpen"><a>{open}</a></Grid>
                 </Grid>
               </Grid>
             </a>
@@ -2279,7 +2279,7 @@ class Index extends Component {
                     this.state.personalinfo?.weight_bmi[0].weight
                     ? this.state.personalinfo?.weight_bmi[0].weight
                     : "--"}
-                  <span>kg</span></p>
+                  <span>{kg}</span></p>
               </Grid>
               <Grid className="prfilHghtRght">
                 <label>{Height}</label>
@@ -2290,7 +2290,7 @@ class Index extends Component {
                     this.state.personalinfo?.weight_bmi[0].height
                     ? this.state.personalinfo?.weight_bmi[0].height
                     : "--"}
-                  <span>cm</span></p>
+                  <span>{cm}</span></p>
               </Grid>
             </Grid>
             <Grid className="prfilHght">
@@ -2411,7 +2411,7 @@ class Index extends Component {
                               this.state.personalinfo.respiration[
                                 this.state.resprisationLast
                               ].respiration}
-                            <span>/min</span>
+                            <span>{slashmin}</span>
                           </h3>
                           <p>
                             {getDate(
@@ -2531,7 +2531,7 @@ class Index extends Component {
                               this.state.personalinfo.blood_pressure[
                                 this.state.BPLast
                               ].rr_diastolic}{" "}
-                            <span>mmHg</span>
+                            <span>{mmHg}</span>
                           </h3>
                           <p>
                             {getDate(
@@ -2656,7 +2656,7 @@ class Index extends Component {
                                     ].height)) *
                                 10000
                               ).toFixed(2)}{" "}
-                            <span>BMI</span>
+                            <span>{BMI}</span>
                           </h3>
                           <p>
                             {getDate(
@@ -2768,7 +2768,7 @@ class Index extends Component {
                               this.state.personalinfo.blood_pressure[
                                 this.state.HeartLast
                               ].heart_frequncy}{" "}
-                            <span>b/min</span>
+                            <span>{bslashmin}</span>
                           </h3>
                           <p>
                             {getDate(
@@ -4080,7 +4080,7 @@ class Index extends Component {
                               this.state.personalinfo.blood_sugar[
                                 this.state.BSLast
                               ].blood_sugar}{" "}
-                            <span>mg/dl</span>
+                            <span>{mgdl}</span>
                           </h3>
                           <p>
                             {getDate(

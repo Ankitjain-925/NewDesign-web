@@ -1644,7 +1644,7 @@ class Index extends Component {
                 {/* End of Allow Location Access */}
                 <Grid item xs={12} md={3}>
                   {pastappointment && pastappointment == true ? (
-                    <Grid className="apointUpcom 111">
+                    <Grid className="apointUpcom">
                       <h4>{past_apointment}</h4>
                       {this.state.pastAppointment &&
                         this.state.pastAppointment.length > 0 &&
