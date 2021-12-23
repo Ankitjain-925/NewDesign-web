@@ -98,7 +98,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
         let patientList = response && response.patientArray && response.patientArray.length > 0 && response.patientArray.map((item) => {
-            return { label: item.first_name + " " + item.last_name, value: item.profile_id }
+            return { label: item.first_name + " " + item.last_name, value: item.patient_id }
         })
         this.setState({ PatientList: patientList })
 
@@ -180,13 +180,51 @@ class Index extends Component {
 
     // Apply Filter
     applyFilter = () => {
-        let fullData = this.state.AllBills
+        // let fullData = this.state.AllBills
         let { userFilter, userFilter3, userFilter2 } = this.state
-        let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
-        console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
-        this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
-        this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
-        this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
+        let data = {}
+        if (userFilter && userFilter.length > 0) {
+            let Patient_id = userFilter && userFilter.length > 0 && userFilter.map((item) => {
+                return item.value
+            })
+            data['Patient_id'] = Patient_id;
+        }
+
+        if (userFilter3 && userFilter3.length > 0) {
+            let speciality = userFilter3 && userFilter3.length > 0 && userFilter3.map((item) => {
+                return item.value
+            })
+            data['speciality'] = speciality;
+        }
+
+        if (userFilter2 && userFilter2.length > 0) {
+            let status = userFilter2 && userFilter2.length > 0 && userFilter2.map((item) => {
+                return item.value
+            })
+            data['status'] = status;
+        }
+        let dd = axios.post(
+            sitedata.data.path + "/vh/billfilter",
+            data
+            ,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+            .then((response) => {
+                console.log("response",response)
+                // this.setState({ loaderImage: false });
+                // if (responce.data.hassuccessed) {
+                //     return responce.data.data ? responce.data.data : [];
+                // }
+            })
+            .catch((error) => {
+                console.log("error occured",error)
+                this.setState({ loaderImage: false });
+            });
+        // let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
+        // console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
+        // this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
+        // this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
+        // this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
         // this.handleClosePopUp();
     }
 
