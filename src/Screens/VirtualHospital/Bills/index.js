@@ -61,8 +61,8 @@ class Index extends Component {
             finalStatus: {},
             showPopup: false,
             userFilter: '',
-            userFilter2: '',
-            userFilter3: '',
+            statusFilter: '',
+            specFilter: '',
             users1: [],
             newTask: {},
             PatientList: [],
@@ -83,8 +83,8 @@ class Index extends Component {
         this.fetchbillsdata('all', 0);
         this.getPatientData();
         this.getSpeciality();
-        let statusList = [{ label: "Paid", value: "Paid" }, { label: "Issued", value: "Issued" },
-        { label: "Draft", value: "Draft" }, { label: "Overdue", value: "Overdue" }]
+        let statusList = [{ label: "Paid", value: "paid" }, { label: "Issued", value: "issued" },
+        { label: "Draft", value: "draft" }, { label: "Overdue", value: "overdue" }]
         this.setState({ PatientStatus: statusList })
     }
 
@@ -101,7 +101,6 @@ class Index extends Component {
             return { label: item.first_name + " " + item.last_name, value: item.patient_id }
         })
         this.setState({ PatientList: patientList })
-
     }
 
     // for Speciality
@@ -115,7 +114,7 @@ class Index extends Component {
     }
 
     updateEntryState4 = (e) => {
-        this.setState({ userFilter3: e })
+        this.setState({ specFilter: e })
     }
 
     // For page change 
@@ -166,16 +165,17 @@ class Index extends Component {
 
     //Status list
     onStatusChange = (e) => {
-        this.setState({ userFilter2: e })
+        this.setState({ statusFilter: e })
     }
 
     // Clear Filter
     clearFilter = () => {
         this.setState({
-            userFilter: '', userFilter3: '', userFilter2: '',
+            userFilter: '', specFilter: '', statusFilter: '',
             AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
             AllStatus: this.props.AllStatus, showPopup: false
         })
+        this.fetchbillsdata("all", 0)
     }
 
     // Apply Filter
@@ -203,17 +203,20 @@ class Index extends Component {
             })
             data['status'] = status;
         }
-        let dd = axios.post(
+        this.setState({ loaderImage: true });
+       axios.post(
             sitedata.data.path + "/vh/billfilter",
             data
             ,
             commonHeader(this.props.stateLoginValueAim.token)
         )
             .then((response) => {
-            
+                if(response?.data?.hassuccessed){
+                    this.setState({ loaderImage: false, bills_data: response.data.data });
+                }
+                
             })
             .catch((error) => {
-                console.log("error occured",error)
                 this.setState({ loaderImage: false });
             });
     }
@@ -402,11 +405,20 @@ class Index extends Component {
     };
 
     render() {
-        let filterbedge = this.state.userFilter?.length +
-            this.state.userFilter3?.length +
-            this.state.userFilter2?.length
-            ;
+ 
 
+        const { stateLoginValueAim, House } = this.props;
+        if (
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+            return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+            return <Redirect to={"/VirtualHospital/institutes"} />;
+        }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
@@ -461,7 +473,7 @@ class Index extends Component {
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
                                                         <a onClick={this.handleOpenPopUp}>
-                                                            <img src={require('assets/virtual_images/sort.png')} alt="" title="" /><label>{filterbedge}</label>
+                                                            <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
                                                         </a>
                                                         <Modal
                                                             open={this.state.showPopup}
@@ -511,7 +523,7 @@ class Index extends Component {
                                                                                     <Select
                                                                                         name="professional"
                                                                                         onChange={this.updateEntryState4}
-                                                                                        value={this.state.userFilter3}
+                                                                                        value={this.state.specFilter}
                                                                                         options={SpecialityData}
                                                                                         placeholder="Filter by Speciality"
                                                                                         className="addStafSelect"
@@ -527,7 +539,7 @@ class Index extends Component {
                                                                                         onChange={this.onStatusChange}
                                                                                         options={PatientStatus}
                                                                                         name="specialty_name"
-                                                                                        value={this.state.userFilter2}
+                                                                                        value={this.state.statusFilter}
                                                                                         placeholder="Filter by Status"
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
@@ -577,19 +589,7 @@ class Index extends Component {
                                                                         <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
-                                                                    {/* <Grid item xs={12} md={3}>
-                                                                        <label>Status</label>
-                                                                        <Select
-                                                                            name="status"
-                                                                            placeholder="Draft"
-                                                                            onChange={(e) => this.onFieldChange1(e, "status")}
-                                                                            value={this.state.addinvoice?.status || ''}
-                                                                            options={this.state.AllStatus}
-                                                                            className="cstmSelect"
-                                                                            isSearchable={false}
-                                                                            // styles={customStyles}
-                                                                        />
-                                                                    </Grid> */}
+                                                                   
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">
                                                                             <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>Set status</span></li></a>
