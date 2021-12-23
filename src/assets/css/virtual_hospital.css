@@ -9804,6 +9804,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .creatTaskModel {
+    background-color: #404646!important;
+}
 img.vdoCalNow {
     margin-left: 9px;
 }
@@ -10502,6 +10505,19 @@ ul.patientHint li {
 }
 .spacemanageDel img {
     height: 17px;
+}
+.deleteimg {
+    width: 17px;
+    height: 15px;
+    background: url("../virtual_images/bin.svg") no-repeat;
+    display: inline-block;
+}
+.spacemanageDel:hover > .deleteimg {
+    background: url("../virtual_images/binred.svg") no-repeat !important;
+}
+.spacemanageDel:hover{
+    border: 1px solid #EE5253 !important;
+    color: #EE5253 !important;
 }
 .spacemanageDel {
     font-size: 12px;

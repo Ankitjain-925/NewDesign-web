@@ -392,7 +392,7 @@ class Index extends Component {
                   </a>
                 </Grid>
                 <Grid>
-                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> {DeleteSpeciality}</span></label> :
+                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => handleOpenWarn(this.state.speciality._id) }><span className="deleteimg"></span> {DeleteSpeciality}</span></label> :
                     <label>{AddSpeciality}</label>}
                 </Grid>
               </Grid>
@@ -532,7 +532,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <Grid className="spclSaveBtn saveNclose">
-                      <Button onClick={this.SaveSpeciality}>
+                      <Button onClick={()=>SaveSpeciality(this)}>
                         {save_and_close}
                       </Button>
                     </Grid>
