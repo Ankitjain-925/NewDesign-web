@@ -44,6 +44,7 @@ function TabContainer(props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -248,6 +249,7 @@ class Index extends Component {
                 this.fetchbillsdata("all", 0);
             });
     }
+  
 
     // For getting the Bills and implement Pagination
     fetchbillsdata(status, value) {
@@ -410,18 +412,11 @@ class Index extends Component {
     };
 
     render() {
-        const { stateLoginValueAim, House } = this.props;
-        if (
-          stateLoginValueAim.user === "undefined" ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === "undefined" ||
-          stateLoginValueAim.user.type !== "adminstaff"
-        ) {
-          return <Redirect to={"/"} />;
-        }
-        if (House && House?.value === null) {
-            return <Redirect to={"/VirtualHospital/institutes"} />;
-          }
+        let filterbedge = this.state.userFilter?.length +
+            this.state.userFilter3?.length +
+            this.state.userFilter2?.length
+            ;
+
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
@@ -476,7 +471,7 @@ class Index extends Component {
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
                                                         <a onClick={this.handleOpenPopUp}>
-                                                            <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
+                                                            <img src={require('assets/virtual_images/sort.png')} alt="" title="" /><label>{filterbedge}</label>
                                                         </a>
                                                         <Modal
                                                             open={this.state.showPopup}
@@ -592,17 +587,32 @@ class Index extends Component {
                                                                         <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
+                                                                    {/* <Grid item xs={12} md={3}>
+                                                                        <label>Status</label>
+                                                                        <Select
+                                                                            name="status"
+                                                                            placeholder="Draft"
+                                                                            onChange={(e) => this.onFieldChange1(e, "status")}
+                                                                            value={this.state.addinvoice?.status || ''}
+                                                                            options={this.state.AllStatus}
+                                                                            className="cstmSelect"
+                                                                            isSearchable={false}
+                                                                            // styles={customStyles}
+                                                                        />
+                                                                    </Grid> */}
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">
                                                                             <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
-                                                                            {this.state.setStatus &&
-                                                                                <Grid >
-                                                                                    <ul>
+                                                                            {this.state.setStatus  &&
+                                                                          <Grid>
+                                                                                     
+                                                                              <ul>  
+                                                                            
                                                                                         <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
                                                                                         <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span>Draft</span></li></a>
                                                                                         <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span>Issued</span></li></a>
                                                                                         <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span>Overdue</span></li></a>
-                                                                                    </ul>
+                                                                                     </ul>  
                                                                                 </Grid>
                                                                             }
                                                                         </ul>

@@ -19,7 +19,7 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import { getSpecialty, getAllServices, handleSubmit, getSpecialtyData,selectedID, deleteClickService, onChangePage, 
-  handleOpenServ, handleCloseServ, updateEntryState1, editService, onFieldChange } from "./api";
+  handleOpenServ, handleCloseServ, updateEntryState1, EditService, onFieldChange } from "./api";
 import { getLanguage } from "translations/index"
 
 class Index extends Component {
@@ -37,12 +37,14 @@ class Index extends Component {
       updateTrack: {},
       AllSpeciality: [],
       errorMsg: ''
+      
     };
   }
 
   componentDidMount() {
     getSpecialty(this);
     getAllServices(this);
+    
   }
 
   
@@ -128,7 +130,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Addnewservice, Services, speciality, newService,
-      save_and_close, all, General, srvc, Price, editService, deleteService } = translate;
+      save_and_close, all, General, srvc, Price,editService, deleteService } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -360,18 +362,19 @@ class Index extends Component {
                                           className="openScnd specialuty-more"
                                         />
                                         <ul>
-                                          <li>
-                                            <a
+                                          <li
+                                            
                                               onClick={() => {
-                                                editService(data, this);
+                                                EditService(data, this);
                                               }}
-                                            >
+                                              >
+                                              <a>
                                               <img
                                                 src={require("assets/images/details.svg")}
                                                 alt=""
                                                 title=""
                                               />
-                                              {editService}
+                                             {editService}
                                             </a>
                                           </li>
 

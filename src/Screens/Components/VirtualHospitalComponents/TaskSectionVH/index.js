@@ -95,7 +95,8 @@ class Index extends Component {
       editcomment: false,
       check: {},
       allWards: '',
-      newComment: ''
+      newComment: '',
+      length: ''
     };
   }
 
@@ -482,10 +483,15 @@ class Index extends Component {
       this.setState({ newTask: state });
     }
   };
+  // let filterbadge =
+  //     this.state.selectedUserType.length +
+  //     this.state.selectFacility.length +
+  //     this.state.selectedType.length;
 
   updateUserFilter = (e) => {
-    this.setState({ userFilter: e })
+   this.setState({ userFilter: e })
   }
+
   //Select the professional name
   updateEntryState4 = (e) => {
     this.setState({ assignedTo2: e })
@@ -843,6 +849,7 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+   
   }
 
   // ward Change
@@ -888,6 +895,11 @@ class Index extends Component {
   };
 
   render() {
+    let filterbedge = this.state.userFilter?.length +
+      this.state.assignedTo2?.length +
+      this.state.selectSpec2?.length 
+      // this.state.selectWard?.length
+      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
@@ -930,10 +942,11 @@ class Index extends Component {
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
-          </Grid>
+         </Grid>
           <Grid item xs={12} md={6}>
             {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
               <Button onClick={this.handleOpenTask}>{add_task}</Button>
+            {/* <label>{filterbedge}</label> */}
             </Grid>}
           </Grid>
           {/* Model setup */}
@@ -1358,21 +1371,22 @@ class Index extends Component {
                   </a>
                   {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
                     <>
+                     
                       {tabvalue2 === 0 &&
-                        <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={AllTaskCss}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label> </a>
                       }
                       {tabvalue2 === 1 &&
-                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
                       }
                       {tabvalue2 === 2 &&
-                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
                       }
                     </>
                   }
 
-                  {/* {tabvalue2 === 3 &&
-                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
-                  } */}
+                  {tabvalue2 === 3 &&
+                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label></a>
+                  }
                 </Grid>
               </Grid>
             </Grid>
@@ -1500,6 +1514,7 @@ class Index extends Component {
                   <Grid className="fltrInput">
                     <label>Patient</label>
                     <Grid className="addInput">
+                      {/* {console.log('userFilter', this.state.userFilter.length)} */}
                       <Select
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}

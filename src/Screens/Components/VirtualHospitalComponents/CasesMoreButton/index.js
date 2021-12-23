@@ -397,10 +397,12 @@ class Index extends React.Component {
                         color={data?.color}
                         onClick={() => this.setSpeciality(data)}
                         showActive={this.props.quote?.speciality?._id === data._id ? true : false}
+                      
                       />
                     </div>
                   ))}
-
+                
+ 
                 </Grid>
               </div>
             }

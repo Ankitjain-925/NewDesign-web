@@ -109,8 +109,8 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Specialities, Iunderstandthat, AddSpeciality,
-      BacktoChangeHospital, addNewSpeciality, SpaceManagement, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
-      yesDeleteSpeciality, cancelKeepSpeciality, Room, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close } = translate;
+      BacktoChangeHospital, addNewSpeciality,SpaceManagement, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
+      yesDeleteSpeciality, cancelKeepSpeciality, Room, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close} = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||

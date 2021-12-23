@@ -1203,19 +1203,10 @@ class Index extends Component {
   }
 
   render() {
-    const { stateLoginValueAim, House } = this.props;
-    if (
-      stateLoginValueAim.user === "undefined" ||
-      stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "adminstaff"
-    ) {
-      return <Redirect to={"/"} />;
-    }
-    if (House && House?.value === null) {
-      return <Redirect to={"/VirtualHospital/institutes"} />;
-    }
-    
+    let filterbedge = this.state.userFilter?.length 
+      // this.state.selectSpec2?.length +
+      // this.state.selectWard?.length
+      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let { Appointmentiscanceled,
       select_spec,
@@ -1360,6 +1351,7 @@ class Index extends Component {
                           <Button onClick={() => { this.moveTask() }}>+ Add Task</Button>
                           <a className="barViewnw" onClick={this.handleOpenFil}>
                             <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
+                            <label>{filterbedge}</label>
                           </a>
                         </Grid>
 

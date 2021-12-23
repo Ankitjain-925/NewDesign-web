@@ -202,6 +202,7 @@ class Index extends Component {
                                             setTimeout(
                                                  () =>{
                                                     this.setState({ loaderImage: false });
+                                                    this.setState({ CreateUsers: {} });
                                                     this.props.handleCloseCreate();
                                                     if(UserType ==='patient'){this.props.history.push("/h-patients")}
                                                     else if(UserType ==='doctor'){this.props.history.push("/h-doctors")}

@@ -306,7 +306,7 @@ class Index extends Component {
     const state = this.state.search;
     state[name] = e && e.length > 0 ? e.map((item) => { return item.value }) : []
     this.setState({ selectedPat: e })
-    this.setState({ search: state });
+   this.setState({ search: state });
   }
 
   handleStaff = (e) => {
@@ -724,6 +724,7 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+    console.log(" selectSpec2",this.state.selectSpec2)
 
     // if (e && e.length > 0) {
 
@@ -760,19 +761,11 @@ class Index extends Component {
   }
 
   render() {
-    const { stateLoginValueAim, House } = this.props;
-    if (
-      stateLoginValueAim.user === "undefined" ||
-      stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "adminstaff"
-    ) {
-      return <Redirect to={"/"} />;
-    }
-    if (House && House?.value === null) {
-      return <Redirect to={"/VirtualHospital/institutes"} />;
-    }
-   
+    let filterbedge = this.state.selectedPat?.length +
+      this.state.assignedTo2?.length 
+      // this.state.selectSpec2?.length
+      // this.state.selectWard?.length
+      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
@@ -857,7 +850,7 @@ class Index extends Component {
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
                             <a className="srchSort" onClick={this.handleOpenFil}>
-                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
+                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" /><label>{filterbedge}</label> 
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
                             <Grid  className={
