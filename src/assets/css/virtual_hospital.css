@@ -5586,12 +5586,12 @@ button.downloadPDF:hover {
 .actionList li span {
     vertical-align: middle;
 }
-.setStatus li:first-child {
+.setStatus {
     border-top: 1px solid #F2F2F2;
     border-bottom: 1px solid #F2F2F2;
     margin-top: 14px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    /* padding-top: 5px; */
+    /* padding-bottom: 5px; */
     margin-bottom: 0px;
     position: relative;
 }
@@ -5600,15 +5600,15 @@ button.downloadPDF:hover {
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 12px;
+    top: 20px;
     right: 16px;
     background-size: contain;
     background: url("../images/Right.svg") no-repeat center center;
     cursor: pointer;
 }
 .setStatus li:last-child {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .newServc {
     text-align: right;
@@ -12542,4 +12542,44 @@ input:-moz-autofill:active{
 }
 
 
+.enterPricePart1{
+    position: relative;
+}
+.enterPricePart2{
+    position: absolute;
+    top:47px;
+    right:30px;
+    color: #404646;
+    font-weight: 600;
+}
 
+.setStatusPaidPart{
+    border-top: 1px solid #F2F2F2;
+}
+.setStatusNxtPart{
+    padding-top:18px!important;
+    padding-bottom:18px!important;
+}
+
+
+
+/* .setStatus li:first-child {
+    border-top: 1px solid #F2F2F2;
+    border-bottom: 1px solid #F2F2F2;
+    margin-top: 14px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 0px;
+    position: relative;
+}
+.setStatus li:first-child::after{
+    content: "";
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background-size: contain;
+    background: url("../images/Right.svg") no-repeat center center;
+    cursor: pointer;
+} */
