@@ -13106,7 +13106,7 @@ a.academy_ul ul li a {
 }
 a.academy_ul ul li img {
     width: auto !important;
-    height: 16px !important;
+    height: 10px !important;
 }
 .academy_ul:focus .academyDots, .academy_ul:hover .academyDots {
     border: 1px solid #7FD5D7 !important;
