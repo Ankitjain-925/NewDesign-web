@@ -60,8 +60,8 @@ class Index extends Component {
             finalStatus: {},
             showPopup: false,
             userFilter: '',
-            userFilter2: '',
-            userFilter3: '',
+            statusFilter: '',
+            specFilter: '',
             users1: [],
             newTask: {},
             PatientList: [],
@@ -82,8 +82,8 @@ class Index extends Component {
         this.fetchbillsdata('all', 0);
         this.getPatientData();
         this.getSpeciality();
-        let statusList = [{ label: "Paid", value: "Paid" }, { label: "Issued", value: "Issued" },
-        { label: "Draft", value: "Draft" }, { label: "Overdue", value: "Overdue" }]
+        let statusList = [{ label: "Paid", value: "paid" }, { label: "Issued", value: "issued" },
+        { label: "Draft", value: "draft" }, { label: "Overdue", value: "overdue" }]
         this.setState({ PatientStatus: statusList })
     }
 
@@ -97,10 +97,9 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
         let patientList = response && response.patientArray && response.patientArray.length > 0 && response.patientArray.map((item) => {
-            return { label: item.first_name + " " + item.last_name, value: item.profile_id }
+            return { label: item.first_name + " " + item.last_name, value: item.patient_id }
         })
         this.setState({ PatientList: patientList })
-
     }
 
     // for Speciality
@@ -114,7 +113,7 @@ class Index extends Component {
     }
 
     updateEntryState4 = (e) => {
-        this.setState({ userFilter3: e })
+        this.setState({ specFilter: e })
     }
 
     // For page change 
@@ -165,27 +164,51 @@ class Index extends Component {
 
     //Status list
     onStatusChange = (e) => {
-        this.setState({ userFilter2: e })
+        this.setState({ statusFilter: e })
     }
 
     // Clear Filter
     clearFilter = () => {
         this.setState({
-            userFilter: '', userFilter3: '', userFilter2: '',
+            userFilter: '', specFilter: '', statusFilter: '',
             AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
             AllStatus: this.props.AllStatus, showPopup: false
         })
+        this.fetchbillsdata("all", 0)
     }
 
     // Apply Filter
     applyFilter = () => {
-        let fullData = this.state.AllBills
-        let { userFilter, userFilter3, userFilter2 } = this.state
-        let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
-        console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
-        this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
-        this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
-        this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
+        let { userFilter, specFilter, statusFilter } = this.state;
+        this.setState({ loaderImage: true });
+        axios
+            .post(sitedata.data.path + "/vh/billfilter",
+                {
+                    patient_id: userFilter && userFilter.length > 0 && userFilter.map((data) => { return data.value }),
+                    speciality: specFilter && specFilter.length > 0 && specFilter.map((data) => { return data.value }),
+                    status: statusFilter && statusFilter.length > 0 && statusFilter.map((data) => { return data.value }),
+                },
+                commonHeader(this.props.stateLoginValueAim.token))
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    this.setState
+                        ({
+                            bills_data: response.data.data,
+                            loaderImage: false,
+                            showPopup: false
+                        })
+                }
+                else {
+                    this.setState({ loaderImage: false });
+                }
+            })
+            .catch((err) => {
+                this.setState({ loaderImage: false });
+            })
+
+        // this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
+        // this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
+        // this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
         // this.handleClosePopUp();
     }
 
@@ -374,16 +397,16 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, House } = this.props;
         if (
-          stateLoginValueAim.user === "undefined" ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === "undefined" ||
-          stateLoginValueAim.user.type !== "adminstaff"
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
         ) {
-          return <Redirect to={"/"} />;
+            return <Redirect to={"/"} />;
         }
         if (House && House?.value === null) {
             return <Redirect to={"/VirtualHospital/institutes"} />;
-          }
+        }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
@@ -488,7 +511,7 @@ class Index extends Component {
                                                                                     <Select
                                                                                         name="professional"
                                                                                         onChange={this.updateEntryState4}
-                                                                                        value={this.state.userFilter3}
+                                                                                        value={this.state.specFilter}
                                                                                         options={SpecialityData}
                                                                                         placeholder="Filter by Speciality"
                                                                                         className="addStafSelect"
@@ -504,7 +527,7 @@ class Index extends Component {
                                                                                         onChange={this.onStatusChange}
                                                                                         options={PatientStatus}
                                                                                         name="specialty_name"
-                                                                                        value={this.state.userFilter2}
+                                                                                        value={this.state.statusFilter}
                                                                                         placeholder="Filter by Status"
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
