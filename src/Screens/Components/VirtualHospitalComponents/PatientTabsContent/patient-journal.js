@@ -115,13 +115,7 @@ class Index extends Component {
       //Get patient list
     getPatientData = async () => {
     this.setState({ loaderImage: true });
-<<<<<<< HEAD
-    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
-    if (response.isdata) {
-        this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
-        // console.log('users1',this.state.users1)
-=======
-    let response = await get_track(user_token, user_id)
+    let response = await  getPatientData (this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id)
 
     if (response?.data?.hassuccessed === true) {
       //This is for Aimedis Blockchain Section
@@ -177,12 +171,10 @@ class Index extends Component {
         () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
     } else {
       this.setState({ allTrack1: [], allTrack: [], allTrack2: [], loaderImage: false });
->>>>>>> d34cba50338baa9161bfb44859d03c0e86d851d7
-    }
-    
-    else {
-        this.setState({ loaderImage: false });
-    }
+    } 
+    // else {
+    //     this.setState({ loaderImage: false });
+    // }
 }
     
 

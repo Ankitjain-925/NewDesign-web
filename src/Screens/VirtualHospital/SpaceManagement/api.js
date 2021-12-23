@@ -221,7 +221,7 @@ export const handleOpenWard = (current) => {
     current.setState({ ward: state });
   };
 
-  export const handleOpenWarn = (id, current) => {
+  export const handleOpenWarn= (id, current) => {
     current.setState({ openSpecl: false, openWarn: true, deleteId: id });
   }
   export const handleCloseWarn = (current) => {
