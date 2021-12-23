@@ -14939,7 +14939,7 @@ input:focus {
   .officVisit.display-cls{
       display: flex;
   }
-  .darkTheme > div:nth-child(3), .homeBgDrk .tooltip-container {
+.homeBgDrk .tooltip-container {
       background-color: #404646!important;
   }
   .darkTheme label, .darkTheme p, .darkTheme h3, .darkTheme h1 {

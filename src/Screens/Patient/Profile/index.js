@@ -2,8 +2,6 @@
 
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-// import PhoneInput from 'react-phone-input-2';
-// import 'react-phone-input-2/lib/style.css';
 import { Redirect, Route } from "react-router-dom";
 import sitedata from "sitedata";
 import axios from "axios";
@@ -82,14 +80,8 @@ class Index extends Component {
     this.setState({ allMetadata: this.props.metadata }, () => {
       this.GetLanguageMetadata();
     });
-    // axios.get(sitedata.data.path + '/UserProfile/Metadata')
-    // .then((responce) => {
-    //     if (responce && responce.data && responce.data.length > 0) {
-    //         this.setState({ allMetadata: responce.data[0] })
-    //         this.GetLanguageMetadata();
-    //     }
-    // })
   }
+  
   GetLanguageMetadata = () => {
     var Alltissues = GetLanguageDropdown(
       this.state.allMetadata &&

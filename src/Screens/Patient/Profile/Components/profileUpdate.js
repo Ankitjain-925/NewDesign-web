@@ -130,7 +130,7 @@ class Index extends Component {
     if (e.target.name == "insurance") {
       const q = e.target.value.toLowerCase();
       this.setState({ q }, () =>
-        this.filterList(this.state.insuranceDetails.insurance_country)
+        filterList(this.state.insuranceDetails.insurance_country, this)
       );
     }
     state[e.target.name] = e.target.value;
@@ -211,10 +211,11 @@ class Index extends Component {
 
     render() {
         const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
+        console.log('filteredCompany', this.state.filteredCompany)
         const companyList = this.state.filteredCompany && this.state.filteredCompany.map(company => {
             return (
                 <li className="list-group-item" value={company}
-                    onClick={() => { this.setState({ q: company }); toggle(company); this.setState({ filteredCompany: [] }) }}
+                    onClick={() => { this.setState({ q: company }); toggle(company, this); this.setState({ filteredCompany: [] }) }}
                 >{company}</li>
             )
         });

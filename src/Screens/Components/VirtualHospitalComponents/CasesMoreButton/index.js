@@ -214,7 +214,7 @@ class Index extends React.Component {
 
   Discharge = () => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { discharge_all_patients_here, AllPatientsWillBeDischargedFromFlow, What_would_you_do, createInvoices, dischargeWithoutInvoice, cancel } = translate;
+    let { AddSpecialty, MovePatient, ChangeStaff, AssignWardRoom, discharge_all_patients_here, AllPatientsWillBeDischargedFromFlow, What_would_you_do, createInvoices, dischargeWithoutInvoice, cancel } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
