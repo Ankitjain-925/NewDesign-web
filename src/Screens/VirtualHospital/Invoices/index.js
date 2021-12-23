@@ -412,16 +412,16 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, House } = this.props;
         if (
-          stateLoginValueAim.user === "undefined" ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === "undefined" ||
-          stateLoginValueAim.user.type !== "adminstaff"
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
         ) {
-          return <Redirect to={"/"} />;
+            return <Redirect to={"/"} />;
         }
         if (House && House?.value === null) {
             return <Redirect to={"/VirtualHospital/institutes"} />;
-          }
+        }
         let translate = getLanguage(this.props.stateLanguageType);
         let { InvoiceID, Patient, Status, Services, Addservice, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close } =
             translate;
@@ -473,7 +473,7 @@ class Index extends Component {
 
                                                     {/* <label>{InvoiceID}</label> */}
                                                     <Grid item xs={12} md={3} className="invoiceID">
-                                                    <label>{InvoiceID}</label>
+                                                        <label>{InvoiceID}</label>
                                                         {/* <TextField placeholder="Invoice ID" value="548756" /> */}
                                                         <VHfield
                                                             name="invoice_id"
@@ -574,16 +574,17 @@ class Index extends Component {
                                                                 value={this.state.service?.quantity || 0}
                                                             />
                                                         </Grid>
-                                                        <Grid item xs={12} md={2}>
+                                                        <Grid item xs={12} md={2} className="enterPricePart1">
                                                             <VHfield
                                                                 label="Price per quantity"
                                                                 name="per_quantity"
-                                                                placeholder="Enter price €"
+                                                                placeholder="Enter price"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "price_per_quantity")
                                                                 }
                                                                 value={this.state?.service?.price_per_quantity || 0}
                                                             />
+                                                            <p className="enterPricePart2">€</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={2} className="addSrvcBtn">
                                                             <Button onClick={this.handleAddSubmit}>Add</Button>

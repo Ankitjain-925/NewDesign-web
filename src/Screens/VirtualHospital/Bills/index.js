@@ -602,17 +602,15 @@ class Index extends Component {
                                                                     </Grid> */}
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">
-                                                                            <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
-                                                                            {this.state.setStatus  &&
-                                                                          <Grid>
-                                                                                     
-                                                                              <ul>  
-                                                                            
-                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span>Draft</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span>Issued</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span>Overdue</span></li></a>
-                                                                                     </ul>  
+                                                                            <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>Set status</span></li></a>
+                                                                            {this.state.setStatus &&
+                                                                                <Grid >
+                                                                                    <ul className="setStatusPaidPart">
+                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span className="revwGren"></span><span>Paid</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span className="revwGry"></span><span>Draft</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span className="revwYelow"></span><span>Issued</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span className="revwRed"></span><span>Overdue</span></li></a>
+                                                                                    </ul>
                                                                                 </Grid>
                                                                             }
                                                                         </ul>
