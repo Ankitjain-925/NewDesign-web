@@ -392,7 +392,7 @@ class Index extends Component {
                   </a>
                 </Grid>
                 <Grid>
-                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => handleOpenWarn(this.state.speciality._id) }><span className="deleteimg"></span> {DeleteSpeciality}</span></label> :
+                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => handleOpenWarn(this.state.speciality._id, this) }><span className="deleteimg"></span> {DeleteSpeciality}</span></label> :
                     <label>{AddSpeciality}</label>}
                 </Grid>
               </Grid>

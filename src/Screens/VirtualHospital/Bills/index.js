@@ -210,22 +210,12 @@ class Index extends Component {
             commonHeader(this.props.stateLoginValueAim.token)
         )
             .then((response) => {
-                console.log("response",response)
-                // this.setState({ loaderImage: false });
-                // if (responce.data.hassuccessed) {
-                //     return responce.data.data ? responce.data.data : [];
-                // }
+            
             })
             .catch((error) => {
                 console.log("error occured",error)
                 this.setState({ loaderImage: false });
             });
-        // let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
-        // console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
-        // this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
-        // this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
-        // this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
-        // this.handleClosePopUp();
     }
 
     // Update status acc. to their particular id
@@ -577,7 +567,7 @@ class Index extends Component {
                                                             <Td>{data?.invoice_id}</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
                                                             <Td>{data.created_at}</Td>
-                                                            <Td className="greyDot"><span></span>{data?.status?.label}</Td>
+                                                            <Td className=""><span className={data?.status?.value === 'paid' ? "revwGren" : data?.status?.value === 'issued' ? "revwYelow" : data?.status?.value === 'draft' ? "revwGry" : "revwRed"}></span>{data?.status?.label}</Td>
                                                             <Td>{data?.total_amount} €</Td>
                                                             <Td className="billDots"><Button className="downloadDots">
                                                                 <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />

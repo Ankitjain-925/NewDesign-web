@@ -9809,6 +9809,10 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.addCustom{
+    color: #00abaf;  
+    font-weight: 700;
+}
 .darkTheme .creatTaskModel {
     background-color: #404646!important;
 }
@@ -12525,13 +12529,7 @@ input:-moz-autofill:active{
     border-radius: 12px;
 }
 
-
-
-
-
-
 /* Naveen css */
-
 .more-change-staff-img2{
     display: flex;
     align-items:center;
@@ -12555,14 +12553,12 @@ input:-moz-autofill:active{
     padding:0px 8px!important;
 }
 
-
 .invoiceForm .MuiGrid-align-items-xs-center, .addCstmField .MuiGrid-align-items-xs-center{
     align-items: flex-start!important;
 }
 .addStafSelect input[type="text"], .cstmSelect input[type="text"]{
     min-height: 35px!important;
 }
-
 
 .enterPricePart1{
     position: relative;
@@ -12582,26 +12578,3 @@ input:-moz-autofill:active{
     padding-top:18px!important;
     padding-bottom:18px!important;
 }
-
-
-
-/* .setStatus li:first-child {
-    border-top: 1px solid #F2F2F2;
-    border-bottom: 1px solid #F2F2F2;
-    margin-top: 14px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin-bottom: 0px;
-    position: relative;
-}
-.setStatus li:first-child::after{
-    content: "";
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background-size: contain;
-    background: url("../images/Right.svg") no-repeat center center;
-    cursor: pointer;
-} */
