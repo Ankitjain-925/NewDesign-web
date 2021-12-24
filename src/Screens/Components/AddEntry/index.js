@@ -82,7 +82,7 @@ class PointPain extends Component {
             : "addScrollBar"
         }
       >
-        <Grid className="entryBoxCntnt">
+        <Grid className="entryBoxCntnt darkTheme addSpeclContnt">
           <Grid className="entryCourse">
             <Grid className="entryCloseBtn">
               <a onClick={this.handleCloseEntry}>
