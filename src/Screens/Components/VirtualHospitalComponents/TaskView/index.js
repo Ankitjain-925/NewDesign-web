@@ -42,7 +42,7 @@ class PointPain extends Component {
                     <Grid item xs={12} sm={8} md={6}>
                         <Grid className="revwFiles">
                             {data.status === 'done' ? <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid> :
-                                <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>}
+                                <Grid><img src={require('assets/virtual_images/greyImg.png')} alt="" title="" /></Grid>}
                             <Grid className="revwFilesRght">
                                 <Grid> <SpecialityButton
                                     label={data?.speciality?.specialty_name}

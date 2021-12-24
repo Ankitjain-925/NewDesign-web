@@ -671,7 +671,7 @@ class Index extends Component {
                                                                                 _id={data._id}
                                                                             />
                                                                             {/* {cond} */}
-                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={data} index={index} />
+                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={this.state.bills_data[index]} index={index} />
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>

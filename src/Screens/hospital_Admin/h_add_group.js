@@ -851,7 +851,7 @@ class Index extends Component {
                           : "addSpeclModel"
                       }
                     >
-                      <Grid className="nwEntrCntnt">
+                      <Grid className="nwEntrCntnt darkTheme addSpeclContnt">
                         <Grid className="nwEntrCntntIner">
                           <Grid className="addSpeclLbl">
                             <Grid className="addSpeclClose">

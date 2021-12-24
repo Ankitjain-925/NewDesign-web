@@ -1170,7 +1170,26 @@ class Index extends Component {
                                           />
                                           <label>{Duplicate}</label>
                                         </Grid>
+                                        {console.log('dsfsdfsdf', this.state.newTask.archived)}
+                                        {this.state.newTask.archived == true ? (
                                         <Grid
+                                          onClick={() => {
+                                            this.updateEntryState1(
+                                              false,
+                                              "archived"
+                                            );
+                                          }}
+                                          className="activeOntask"
+                                        >
+                                          <img
+                                            src={require("assets/images/archive-white.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          <label>{Archive}</label>
+                                        </Grid>)
+                                          :
+                                          <Grid
                                           onClick={() => {
                                             this.updateEntryState1(
                                               true,
@@ -1179,18 +1198,18 @@ class Index extends Component {
                                           }}
                                         >
                                           <img
-                                            src={require("assets/virtual_images/assign-to.svg")}
+                                            src={require("assets/images/archive.svg")}
                                             alt=""
                                             title=""
                                           />
                                           <label>{Archive}</label>
-                                        </Grid>
+                                        </Grid>}
                                         <Grid>
                                           <img
                                             onClick={(id) => {
                                               this.removeTask(id);
                                             }}
-                                            src={require("assets/virtual_images/assign-to.svg")}
+                                            src={require("assets/images/del.png")}
                                             alt=""
                                             title=""
                                           />
@@ -1211,8 +1230,8 @@ class Index extends Component {
                                       >
                                         {this.state.newTask.status ===
                                           "done" ? (
-                                            <Grid className="revwFiles">
-                                          <Grid>
+                                            <Grid className="revwFiles ">
+                                          <Grid className="activeOntask">
                                             <img
                                               src={require("assets/virtual_images/rightTick.png")}
                                               alt=""
@@ -1224,7 +1243,7 @@ class Index extends Component {
                                           <Grid className="revwFiles">
                                           <Grid>
                                             <img
-                                              src={require("assets/virtual_images/greyImg.jpg")}
+                                              src={require("assets/virtual_images/greyImg.png")}
                                               alt=""
                                               title=""
                                             />
@@ -1343,7 +1362,7 @@ class Index extends Component {
           {/* {tabvalue === 0 && <TabContainer> */}
           <Grid className="taskCntntMng">
             <Grid container direction="row" alignItems="center">
-              <Grid item xs={8} sm={8} md={8}>
+              <Grid item xs={8} sm={6} md={6}>
                 <AppBar position="static" className="billTabs">
                   <Tabs value={tabvalue2} onChange={this.handleChangeTab2}>
                     <Tab label="ALL" className="billtabIner" />
@@ -1355,7 +1374,7 @@ class Index extends Component {
                   </Tabs>
                 </AppBar>
               </Grid>
-              <Grid item xs={4} sm={4} md={4}>
+              <Grid item xs={4} sm={6} md={6}>
                 <Grid className="taskSort">
                   <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />
                   <a>

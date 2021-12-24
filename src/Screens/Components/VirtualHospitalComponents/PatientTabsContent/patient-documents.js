@@ -44,7 +44,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <Grid item xs={12} md={2}>
                                     <Select value={selectedOption} onChange={this.handleChange} options={options} placeholder="All time"
-                                        className="allTimeSel comonSel"
+                                        className=" comonSel"
                                         //isMulti= {true}
                                         isSearchable={false}
                                     />
@@ -55,11 +55,11 @@ class Index extends Component {
                                 </Grid>
                                 <Grid item xs={12} md={3} className="faclity_all">
                                     <Select value={selectedOption} onChange={this.handleChange} options={options}
-                                        placeholder="Doctor: All" className="allTimeSel comonSel" />
+                                        placeholder="Doctor: All" className=" comonSel" />
                                 </Grid>
                                 <Grid item xs={12} md={3} className="faclity_all">
                                     <Select value={selectedOption} onChange={this.handleChange} options={options} placeholder="Facility: All"
-                                        className="allTimeSel comonSel" />
+                                        className=" comonSel" />
                                 </Grid>
                                 <Grid item xs={12} md={2} className="clear_filter">
                                     <Grid className="clear_filterUpr">

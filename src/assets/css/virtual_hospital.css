@@ -1521,10 +1521,10 @@ a.conPainTime img {
 .typeSel .css-6q0nyr-Svg{
     color: #00ABAF !important;
 } */
-.vh-section .comonSel {
+/* .vh-section .comonSel {
     padding-right: 12px !important;
     font-size: 12px !important;
-}
+} */
 /* .clear_filterLft a {
     color: #00ABAF !important;
     font-family: Muli;
@@ -4816,7 +4816,8 @@ button.onlogyBtn {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
     background-color: #FFFFFF;
-    width: 96.5%;
+    /* width: 96.5%; */
+    width:100%;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -6349,7 +6350,7 @@ button.downloadPDF:hover {
     margin-left: 0px !important;
 }
 .taskSort a {
-    height: 32px;
+    height: 34px;
     width: 32px;
     border-radius: 8px;
     background-color: #F2F2F2;
@@ -6396,6 +6397,7 @@ button.downloadPDF:hover {
     height: 32px;
     width: 32px;
     border-radius: 24px;
+    background: #f3f3f3;
 }
 .allInerTabs {
     padding: 34px 34px;
@@ -6776,6 +6778,7 @@ button.downloadPDF:hover {
 .assignSec div {
     display: inline-block;
     min-width: 98px;
+    width: 90px;
     text-align: center;
 }
 .attchFile label {
@@ -9149,7 +9152,7 @@ button.crdoLghtBlu2 {
   }
 
   .addServContnt {
-    width: 580px;
+    max-width: 580px;
     background: #fff;
     margin: 0 auto;
     border: none;
@@ -9176,14 +9179,18 @@ button.crdoLghtBlu2 {
     line-height: 16px;
     text-align: center;
     font-family: Muli;
-    width: 90%;
+    /* width:90%; */
+    width: 100%;
     padding: 14px 12px;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     text-transform: capitalize;
 }
 
 .enterServMain {
-    padding: 38px 12px 12px 28px;
+    /* padding: 38px 12px 12px 28px; */
+    padding:38px 0px 12px 0px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .nwModCloseBtn {
     text-align: right;
@@ -9809,6 +9816,18 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .rrSysto2 div{
+    background-color: #404646 !important;
+}
+.vh-section .srchFilter .comonSel {
+    padding-right: 0px !important;
+}
+.darkTheme .activeOntask img {
+    background-color: #00abaf!important;
+}
+.activeOntask img {
+    background-color: #00abaf!important;
+}
 .addCustom{
     color: #00abaf;  
     font-weight: 700;
@@ -9952,7 +9971,7 @@ p.more-change-staff-img2 {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    padding: 4px;
+    height: 34px;
     box-sizing: border-box !important;
     color: #000808;
 }
@@ -10505,7 +10524,8 @@ ul.patientHint li {
     border-radius: 7px;
 }
 .sevicessection {
-    width: 97%;
+    /* width: 97%; */
+    width:100%;
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -12043,6 +12063,9 @@ ul.patientHint li {
     background-color: #202323 !important;
     border: 1px solid #7d7d7d !important;
 }
+.darkTheme .spclQuesIner .css-yk16xz-control {
+    background-color: transparent!important;
+}
 .darkTheme .emlCreatSub input {
     border: 1px solid #7d7d7d !important;
     background-color: #202323 !important;
@@ -12475,7 +12498,6 @@ input:-moz-autofill:active{
 .buttonStyle {
     padding-top: 15px;
 }
-
 .buttonStyle a{
     display: flex !important;
     justify-content: center;
@@ -12503,8 +12525,6 @@ input:-moz-autofill:active{
     line-height: 32px;
     font-family: Muli;
 }
-/* css by naveen end here */
-/* Adding by Ankit */
 .modAppTabs {
     background-color: #F2F2F2 !important;
     box-shadow: initial !important;
@@ -12528,7 +12548,6 @@ input:-moz-autofill:active{
     min-width: 66px;
     border-radius: 12px;
 }
-
 .logo {
     display: block;
     margin-left: auto;
@@ -12538,22 +12557,21 @@ input:-moz-autofill:active{
     height: 100px;
     width: 100px; 
 }
-
+.printPreview{
+    padding: 15px;
+}
 .printPreviewText {
     font-family: Muli;
-    font-size: 40px !important;
+    font-size: 25px !important;
     font-weight: 600;
     letter-spacing: 10;
 }
-
 .printPreviewlink .relativeCSS {
     display: none !important;
 }
-
 .nextPart{
     text-align:center;
 }
-/* Naveen css */
 .more-change-staff-img2{
     display: flex;
     align-items:center;
@@ -12566,7 +12584,6 @@ input:-moz-autofill:active{
     align-items: center;
     justify-content: flex-start;
 }
-
 .patentInfoTxt .MuiFormControl-root{
     width: 100%;
 }
@@ -12583,7 +12600,6 @@ input:-moz-autofill:active{
 .addStafSelect input[type="text"], .cstmSelect input[type="text"]{
     min-height: 35px!important;
 }
-
 .enterPricePart1{
     position: relative;
 }
@@ -12594,11 +12610,19 @@ input:-moz-autofill:active{
     color: #404646;
     font-weight: 600;
 }
-
 .setStatusPaidPart{
     border-top: 1px solid #F2F2F2;
 }
 .setStatusNxtPart{
     padding-top:18px!important;
     padding-bottom:18px!important;
+}
+.servSaveBtn {
+    margin:0px 30px;
+}
+@media (max-width:580px){
+    .addServContnt{
+        margin-left:10px;
+        margin-right:10px;
+    }
 }
