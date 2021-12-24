@@ -4816,7 +4816,8 @@ button.onlogyBtn {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
     background-color: #FFFFFF;
-    width: 96.5%;
+    /* width: 96.5%; */
+    width:100%;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -9144,7 +9145,7 @@ button.crdoLghtBlu2 {
   }
 
   .addServContnt {
-    width: 580px;
+    max-width: 580px;
     background: #fff;
     margin: 0 auto;
     border: none;
@@ -9171,14 +9172,18 @@ button.crdoLghtBlu2 {
     line-height: 16px;
     text-align: center;
     font-family: Muli;
-    width: 90%;
+    /* width:90%; */
+    width: 100%;
     padding: 14px 12px;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     text-transform: capitalize;
 }
 
 .enterServMain {
-    padding: 38px 12px 12px 28px;
+    /* padding: 38px 12px 12px 28px; */
+    padding:38px 0px 12px 0px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .nwModCloseBtn {
     text-align: right;
@@ -10492,7 +10497,8 @@ ul.patientHint li {
     border-radius: 7px;
 }
 .sevicessection {
-    width: 97%;
+    /* width: 97%; */
+    width:100%;
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -12561,7 +12567,15 @@ input:-moz-autofill:active{
     padding-bottom:18px!important;
 }
 
-
+.servSaveBtn {
+    margin:0px 30px;
+}
+@media (max-width:580px){
+    .addServContnt{
+        margin-left:10px;
+        margin-right:10px;
+    }
+}
 
 /* .setStatus li:first-child {
     border-top: 1px solid #F2F2F2;

@@ -271,8 +271,7 @@ class Index extends Component {
                               </Grid>
                               <Grid className="servSaveBtn">
                                 <a>
-                                  <Button
-                                    onClick={() => handleSubmit(this)}>{save_and_close}</Button>
+                                  <Button onClick={() => handleSubmit(this)}>{save_and_close}</Button>
                                 </a>
                               </Grid>
                             </Grid>
