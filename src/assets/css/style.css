@@ -12907,15 +12907,15 @@ a.timSlotClose {
   }
 }
 a.addNewPlus {
-    border: 1px solid #F2F2F2;
+    /* border: 1px solid #F2F2F2; */
     border-radius: 8px;
     background-color: #FFFFFF;
     padding: 10px 17px;
     display: inline-block;
 }
-a.addNewPlus img {
+/* a.addNewPlus img {
     border: none !important;
-}
+} */
 .adminMenuRghtUpr {
     padding-left: 40px;
     padding-top: 40px;

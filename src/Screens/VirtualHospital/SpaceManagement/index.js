@@ -227,7 +227,7 @@ class Index extends Component {
                             <Grid className="addWrnClose">
                               <a onClick={() => handleCloseWarn(this)}>
                                 <img
-                                  src={require("assets/virtual_images/closefancy.png")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -385,7 +385,7 @@ class Index extends Component {
                 <Grid className="addSpeclClose">
                   <a onClick={this.handleCloseSpecl}>
                     <img
-                      src={require("assets/virtual_images/closefancy.png")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
                     />

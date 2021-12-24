@@ -1004,7 +1004,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}>
                                           <Grid className="QuesMrkt">
                                             {/* <Grid><a><img src={require('../../assets/images/germanMedical.png')} alt="" title="" /></a></Grid> */}
-                                            {/* <Grid><a><img src={require('../../assets/images/closefancy.png')} alt="" title="" /></a></Grid> */}
+                                            {/* <Grid><a><img src={require('../../assets/images/close-search.svg')} alt="" title="" /></a></Grid> */}
                                           </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={12}>

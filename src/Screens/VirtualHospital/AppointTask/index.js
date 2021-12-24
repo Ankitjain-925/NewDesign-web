@@ -1507,7 +1507,7 @@ class Index extends Component {
                     <Grid className="fltrClearIner">
                       <Grid className="fltrLbl">
                         <Grid className="fltrLblClose">
-                          <a onClick={this.handleCloseFil}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
+                          <a onClick={this.handleCloseFil}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a>
                         </Grid>
                         <label>Filters</label>
                       </Grid>

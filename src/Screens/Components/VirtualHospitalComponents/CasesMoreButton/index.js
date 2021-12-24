@@ -60,7 +60,7 @@ class Index extends React.Component {
             ? "dark-confirm deleteStep"
             : "deleteStep"}>
             <Grid className="deleteStepLbl">
-              <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+              <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
               <label>{RemovePatientfromFlow}</label>
             </Grid>
             <Grid className="deleteStepInfo">
@@ -239,7 +239,7 @@ class Index extends React.Component {
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, specialitysec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                <Grid  className="movHeadMid"><label>AddSpecialty</label></Grid>
-                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, specialitysec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, specialitysec : false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
                            {this.props.speciality?.SPECIALITY && this.props?.speciality?.SPECIALITY.length>0 && this.props?.speciality?.SPECIALITY.map((data)=>(
@@ -263,7 +263,7 @@ class Index extends React.Component {
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, changeStaffsec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                <Grid  className="movHeadMid"><label>ChangeStaff</label></Grid>
-                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, changeStaffsec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, changeStaffsec : false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
                            <Select
@@ -284,7 +284,7 @@ class Index extends React.Component {
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, assignroom : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                <Grid  className="movHeadMid"><label>AssignWardRoom</label></Grid>
-                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, assignroom : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, assignroom : false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
                            {this.props.quote?.speciality?._id ? 
@@ -333,7 +333,7 @@ class Index extends React.Component {
                                 <Grid className="movHead">
                                    <Grid onClick={()=>this.setState({firstsec: true, movepatsec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                    <Grid  className="movHeadMid"><label>MovePatient</label></Grid>
-                                   <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, movepatsec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                                   <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, movepatsec : false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                                </Grid>
                                <Grid className="positionDrop">
                                {this.props.ordered?.length>0 &&  this.props.ordered.map((item)=>(
@@ -385,7 +385,7 @@ class Index extends React.Component {
                 <Grid className="movHead">
                   <Grid onClick={() => this.setState({ firstsec: true, specialitysec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                   <Grid className="movHeadMid"><label>{AddSpecialty}</label></Grid>
-                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, specialitysec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, specialitysec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 </Grid>
                 <Grid className="positionDrop">
                   {this.props.speciality?.SPECIALITY && this.props?.speciality?.SPECIALITY.length > 0 && this.props?.speciality?.SPECIALITY.map((data) => (
@@ -411,7 +411,7 @@ class Index extends React.Component {
                 <Grid className="movHead">
                   <Grid onClick={() => this.setState({ firstsec: true, changeStaffsec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                   <Grid className="movHeadMid"><label>{ChangeStaff}</label></Grid>
-                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, changeStaffsec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, changeStaffsec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 </Grid>
                 <Grid className="positionDrop">
                   <Select
@@ -432,7 +432,7 @@ class Index extends React.Component {
                 <Grid className="movHead">
                   <Grid onClick={() => this.setState({ firstsec: true, assignroom: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                   <Grid className="movHeadMid"><label>{AssignWardRoom}</label></Grid>
-                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, assignroom: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, assignroom: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 </Grid>
                 <Grid className="positionDrop">
                   {this.props.quote?.speciality?._id ?
@@ -484,7 +484,7 @@ class Index extends React.Component {
                 <Grid className="movHead">
                   <Grid onClick={() => this.setState({ firstsec: true, movepatsec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                   <Grid className="movHeadMid"><label>{MovePatient}</label></Grid>
-                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, movepatsec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, movepatsec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 </Grid>
                 <Grid className="positionDrop">
                   {this.props.ordered?.length > 0 && this.props.ordered.map((item) => (

@@ -642,7 +642,7 @@ class Index extends Component {
                                                     <Grid className="addSpeclClose">
                                                         <a onClick={this.handleCloseServ}>
                                                             <img
-                                                                src={require("assets/virtual_images/closefancy.png")}
+                                                                src={require("assets/images/close-search.svg")}
                                                                 alt=""
                                                                 title=""
                                                             />

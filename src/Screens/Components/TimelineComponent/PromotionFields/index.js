@@ -118,7 +118,7 @@ class Index extends Component {
                                 <Grid className="sendSpecificIner" >
                                     <Grid className="sendSpecificBtm" >
                                         <Grid className="sendSpecifiClose" >
-                                            <a onClick={this.handleCloseRvw}> <img src={require("assets/virtual_images/closefancy.png")} alt="" title="" /> </a>
+                                            <a onClick={this.handleCloseRvw}> <img src={require("assets/images/close-search.svg")} alt="" title="" /> </a>
                                         </Grid>
                                         < Grid ><label>New entry</label></Grid >
                                         <Grid>

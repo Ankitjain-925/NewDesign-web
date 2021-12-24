@@ -95,7 +95,7 @@ export default class Column extends Component {
                               <Grid className="movHead">
                                 <Grid onClick={() => this.setState({ inneerSec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                 <Grid className="movHeadMid"><label>{move_all_patients}</label></Grid>
-                                <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                                <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                               </Grid>
                               <Grid className="positionDrop">
                                 {this.props.ordered?.length > 0 && this.props.ordered.map((item) => (
@@ -109,7 +109,7 @@ export default class Column extends Component {
                               <Grid className="movHead">
                                 <Grid onClick={() => this.setState({ inneerSec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                 <Grid className="movHeadMid"><label>{move_step}</label></Grid>
-                                <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                                <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                               </Grid>
                               <Grid className="positionDrop">
                                 {this.props.ordered?.length > 0 && this.props.ordered.map((item, index1) => (
@@ -158,7 +158,7 @@ export default class Column extends Component {
                               <Grid className="movHead">
                                     <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                     <Grid  className="movHeadMid"><label>{move_all_patients}</label></Grid>
-                                    <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                                    <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                                 </Grid>
                                 <Grid className="positionDrop">
                                 {this.props.ordered?.length>0 &&  this.props.ordered.map((item)=>(
@@ -172,7 +172,7 @@ export default class Column extends Component {
                                 <Grid className="movHead">
                                     <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                     <Grid className="movHeadMid"><label>Move Step</label></Grid>
-                                    <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                                    <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                                   </Grid>
                                   <Grid className="positionDrop">
                                     {this.props.ordered?.length > 0 && this.props.ordered.map((item, index1) => (

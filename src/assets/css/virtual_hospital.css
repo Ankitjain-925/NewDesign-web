@@ -7940,9 +7940,29 @@ img.spclDropImg {
 .addFlowClose {
     text-align: right;
 }
-.addFlowLbl img {
-    width: 24px;
+.creatLblClose img {
+    height: 26px;
+    width: initial;
     cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #cacaca !important;
+    padding: 4px;
+}
+.addFlowClose img{
+    height: 26px;
+    width: initial;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #cacaca !important;
+    padding: 4px;
+}
+.addWrnClose img {
+    height: 26px;
+    width: initial;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #cacaca !important;
+    padding: 4px;
 }
 .addFlowLbl label {
     font-size: 20px;
@@ -9816,6 +9836,19 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
+    background-color: #404646 !important;
+    color: #fff !important;
+}
+.darkTheme .cntryDropTop, .homeBgDrk .cntryDropTop{
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+}
+a.addNewPlus img {
+    height: 50px;
+    width: 50px !important;
+    margin-left: 9px;
+}
 .darkTheme .rrSysto2 div{
     background-color: #404646 !important;
 }
@@ -10267,6 +10300,8 @@ p.more-change-staff-img2 {
     width: initial;
     cursor: pointer;
     border-radius: 6px;
+    border: 1px solid #cacaca;
+    padding: 4px;
 }
 .creatLbl label {
     color: #000808;
@@ -11449,8 +11484,7 @@ ul.patientHint li {
 }
 .darkTheme .mr_sel div:first-child, .darkTheme .cntryDrop div:first-child, 
 .darkTheme .languageSpk div:first-child {
-    background-color: #192020 !important;
-    background: #192020 !important;
+    background: #404646 !important;
     border: none;
     height: initial !important;
     min-height: initial !important;
@@ -12212,7 +12246,7 @@ ul.patientHint li {
 }
 .darkTheme a.addNewPlus {
     background-color: #404646;
-    border: 1px solid #abaeae;
+    /* border: 1px solid #abaeae; */
 }
 .adminmenuItems .menuActv a img {
     background-color: #00abaf !important;

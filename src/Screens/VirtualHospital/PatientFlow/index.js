@@ -328,7 +328,7 @@ class Index extends Component {
               ? "dark-confirm deleteStep"
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 <label>{deleteStep}</label>
               </Grid>
               <Grid className="deleteStepInfo">
@@ -861,7 +861,7 @@ class Index extends Component {
                                 <Grid className="fltrClearIner">
                                   <Grid className="fltrLbl">
                                     <Grid className="fltrLblClose">
-                                      <a onClick={this.handleCloseFil}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
+                                      <a onClick={this.handleCloseFil}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a>
                                     </Grid>
                                     <label>{filters}</label>
                                   </Grid>
@@ -1055,7 +1055,7 @@ class Index extends Component {
               <Grid className="addFlowLbl">
                 <Grid className="addFlowClose">
                   <a onClick={this.closeAddP}>
-                    <img src={require("assets/virtual_images/closefancy.png")} alt="" title="" />
+                    <img src={require("assets/images/close-search.svg")} alt="" title="" />
                   </a>
                 </Grid>
                 <label>{AddPatienttoFlow}</label>
@@ -1145,7 +1145,7 @@ class Index extends Component {
                   <Grid className="addWrnClose">
                     <a onClick={this.handleClosePopup}>
                       <img
-                        src={require("assets/virtual_images/closefancy.png")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />

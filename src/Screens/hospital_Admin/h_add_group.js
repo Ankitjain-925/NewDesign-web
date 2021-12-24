@@ -108,7 +108,7 @@ class Index extends Component {
               ? "dark-confirm deleteStep"
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 <label>Delete Group</label>
               </Grid>
               <Grid className="deleteStepInfo">
@@ -194,7 +194,7 @@ class Index extends Component {
               ? "dark-confirm deleteStep"
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 <label>Delete Hospital</label>
               </Grid>
               <Grid className="deleteStepInfo">
@@ -698,7 +698,7 @@ class Index extends Component {
                           <Grid className="addSpeclClose">
                             <a onClick={this.closeInstitute}>
                               <img
-                                src={require("assets/virtual_images/closefancy.png")}
+                                src={require("assets/images/close-search.svg")}
                                 alt=""
                                 title=""
                               />
@@ -857,7 +857,7 @@ class Index extends Component {
                             <Grid className="addSpeclClose">
                               <a onClick={this.closeHospitalModal}>
                                 <img
-                                  src={require("assets/virtual_images/closefancy.png")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />

@@ -57,7 +57,7 @@ class Index extends React.Component {
                     <Grid className="addSpeclLbl">
                         <Grid className="addSpeclClose">
                             <a onClick={this.props.handleCloseAssign}>
-                                <img src={require('assets/virtual_images/closefancy.png')} alt="" title="" />
+                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
                             </a>
                         </Grid>
                         <Grid><label>{AddTask}</label></Grid>

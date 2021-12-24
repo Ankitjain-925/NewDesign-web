@@ -966,7 +966,7 @@ class Index extends Component {
                       <Grid className="creatLblClose">
                         <a onClick={this.handleCloseTask}>
                           <img
-                            src={require("assets/virtual_images/closefancy.png")}
+                            src={require("assets/images/close-search.svg")}
                             alt=""
                             title=""
                           />
@@ -1209,7 +1209,7 @@ class Index extends Component {
                                             onClick={(id) => {
                                               this.removeTask(id);
                                             }}
-                                            src={require("assets/images/del.png")}
+                                            src={require("assets/virtual_images/deleteNew.png")}
                                             alt=""
                                             title=""
                                           />
@@ -1484,7 +1484,7 @@ class Index extends Component {
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
                 <Grid className="fltrLblClose">
-                  <a onClick={this.handleCloseRvw}><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" /></a>
+                  <a onClick={this.handleCloseRvw}><img src={require('../../../../assets/images/close-search.svg')} alt="" title="" /></a>
                 </Grid>
                 <label>Filters</label>
               </Grid>
