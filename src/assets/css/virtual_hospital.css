@@ -12039,6 +12039,9 @@ ul.patientHint li {
     background-color: #202323 !important;
     border: 1px solid #7d7d7d !important;
 }
+.darkTheme .spclQuesIner .css-yk16xz-control {
+    background-color: transparent!important;
+}
 .darkTheme .emlCreatSub input {
     border: 1px solid #7d7d7d !important;
     background-color: #202323 !important;
