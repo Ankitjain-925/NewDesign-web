@@ -79,6 +79,14 @@ class Index extends Component {
             AllSpcialityCss: '',
             AllStatusCss: '',
             isLoading: false,
+            allBills: this.props.allBills,
+            issued: this.props.issued,
+            overdue: this.props.overdue,
+            paid: this.props.paid,
+            allBillsCSS: '',
+            overdueCSS: '',
+            issuedCSS: '',
+            paidCSS: ''
 
         }
     };
@@ -212,13 +220,28 @@ class Index extends Component {
         var value = this.state.value;
         var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
         this.fetchbillsdata(ApiStatus, value);
+        this.handleClosePopUp();
     }
 
     // Apply Filter
     applyFilter = () => {
         // let fullData = this.state.AllBills
-        let { userFilter, specFilter, statusFilter } = this.state
+        let { userFilter, specFilter, statusFilter, value } = this.state
         let data = { house_id: this.props.House.value }
+        {
+            if (value === 0) {
+                this.setState({ allBillsCSS: 'filterApply' })
+            }
+            else if (value === 1) {
+                this.setState({  issuedCSS: 'filterApply' })
+            }
+            else if (value === 2) {
+                this.setState({  overdueCSS: 'filterApply' })
+            }
+            else if (value === 3) {
+                this.setState({ paidCSS: 'filterApply' })
+            }
+        }
         if (userFilter && userFilter.length > 0) {
             let Patient_id = userFilter && userFilter.length > 0 && userFilter.map((item) => {
                 return item.value
@@ -239,20 +262,22 @@ class Index extends Component {
             data['status'] = status;
         }
         this.setState({ loaderImage: true });
-       axios.post(
+        axios.post(
             sitedata.data.path + "/vh/billfilter",
             data,
             commonHeader(this.props.stateLoginValueAim.token)
         )
-        .then((response) => {
-            this.setState({showPopup: false})
-            if(response?.data?.hassuccessed){
-                this.setState({ loaderImage: false, bills_data: response.data.data });
-            }
-        })
-        .catch((error) => {
-            this.setState({ loaderImage: false, showPopup: false });
-        });
+            .then((response) => {
+                this.setState({ showPopup: false })
+                if (response?.data?.hassuccessed) {
+                    this.setState({ loaderImage: false, bills_data: response.data.data });
+                }
+            })
+            .catch((error) => {
+                this.setState({ loaderImage: false, showPopup: false });
+            });
+        this.handleClosePopUp();
+
     }
 
     // Update status acc. to their particular id
@@ -276,7 +301,7 @@ class Index extends Component {
                 this.fetchbillsdata("all", 0);
             });
     }
-  
+
 
     // For getting the Bills and implement Pagination
     fetchbillsdata(status, value) {
@@ -439,7 +464,7 @@ class Index extends Component {
     };
 
     render() {
- 
+
 
         const { stateLoginValueAim, House } = this.props;
         if (
@@ -455,7 +480,7 @@ class Index extends Component {
         }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
-        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
+        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
@@ -506,9 +531,21 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
-                                                        <a onClick={this.handleOpenPopUp}>
+                                                        {value === 0 &&
+                                                            <a className={allBillsCSS}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
+                                                        }
+                                                        {value === 1 &&
+                                                            <a className={issuedCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                        }
+                                                        {value === 2 &&
+                                                            <a className={overdueCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                        }
+                                                        {value === 3 &&
+                                                            <a className={paidCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                        }
+                                                        {/* <a className='filterApply' onClick={this.handleOpenPopUp}>
                                                             <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
-                                                        </a>
+                                                        </a> */}
                                                         <Modal
                                                             open={this.state.showPopup}
                                                             onClose={this.handleClosePopUp}
@@ -566,20 +603,22 @@ class Index extends Component {
                                                                                     />
                                                                                 </Grid>
                                                                             </Grid>
-                                                                            <Grid className="fltrInput">
-                                                                                <label>{Status}</label>
-                                                                                <Grid className="addInput">
-                                                                                    <Select
-                                                                                        onChange={this.onStatusChange}
-                                                                                        options={PatientStatus}
-                                                                                        name="specialty_name"
-                                                                                        value={this.state.statusFilter}
-                                                                                        placeholder="Filter by Status"
-                                                                                        className="addStafSelect"
-                                                                                        isMulti={true}
-                                                                                        isSearchable={true} />
+                                                                            {value === 0 &&
+                                                                                < Grid className="fltrInput">
+                                                                                    <label>{Status}</label>
+                                                                                    <Grid className="addInput">
+                                                                                        <Select
+                                                                                            onChange={this.onStatusChange}
+                                                                                            options={PatientStatus}
+                                                                                            name="specialty_name"
+                                                                                            value={this.state.statusFilter}
+                                                                                            placeholder="Filter by Status"
+                                                                                            className="addStafSelect"
+                                                                                            isMulti={true}
+                                                                                            isSearchable={true} />
+                                                                                    </Grid>
                                                                                 </Grid>
-                                                                            </Grid>
+                                                                            }
                                                                         </Grid>
                                                                         <Grid className="aplyFltr">
                                                                             <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
@@ -636,7 +675,7 @@ class Index extends Component {
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
-                                                                   
+
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">
                                                                             <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>Set status</span></li></a>
@@ -692,9 +731,9 @@ class Index extends Component {
                                 {/* End of Right Section */}
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
+                    </Grid >
+                </Grid >
+            </Grid >
         );
     }
 }

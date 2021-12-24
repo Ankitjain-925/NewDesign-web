@@ -19,7 +19,7 @@ export class ComponentToPrint extends React.Component {
             bills_data: {},
             AllBills: {}
         }
-        console.log("this state", this.props)
+        // console.log("this state", this.props)
 
     };
     // canvasEl;
