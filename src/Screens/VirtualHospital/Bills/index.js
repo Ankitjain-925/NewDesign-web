@@ -32,8 +32,10 @@ import { PatientMoveFromHouse } from '../PatientFlow/data'
 import Modal from "@material-ui/core/Modal";
 import Select from "react-select";
 import { getPatientData } from 'Screens/Components/CommonApi/index';
-import { MultiFilter2 } from '../../Components/MultiFilter'
-
+import { MultiFilter2 } from '../../Components/MultiFilter';
+import ReactToPrint, { PrintContext } from 'react-to-print';
+import { ComponentToPrint } from "./ComponentToPrint";
+import { data } from 'jquery';
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -46,8 +48,10 @@ TabContainer.propTypes = {
 };
 
 class Index extends Component {
+    // componentRef = null;
     constructor(props) {
         super(props);
+        this.componentRef = React.createRef();
         this.state = {
             value: 0,
             AllBills: {},
@@ -73,7 +77,8 @@ class Index extends Component {
             AllStatus: this.props.AllStatus,
             AllPatientCss: '',
             AllSpcialityCss: '',
-            AllStatusCss: ''
+            AllStatusCss: '',
+            isLoading: false,
 
         }
     };
@@ -86,11 +91,40 @@ class Index extends Component {
         let statusList = [{ label: "Paid", value: "paid" }, { label: "Issued", value: "issued" },
         { label: "Draft", value: "draft" }, { label: "Overdue", value: "overdue" }]
         this.setState({ PatientStatus: statusList })
+
     }
+    //for print preview
+
+    // handleOnBeforeGetContent = () => {
+    //     console.log("onBeforeGetContent called");
+    //     this.setState({ isLoading: true });
+
+    //     return new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             this.setState(
+    //                 { isLoading: false },
+    //                 resolve
+    //             );
+    //         }, 2000);
+    //     });
+    // };
+
+    // setComponentRef = (ref) => {
+    //     this.componentRef = ref;
+    // };
+
+    reactToPrintContent = () => {
+        return this.componentRef
+
+    };
+
+    // reactToPrintTrigger = () => {
+    //  <a onClick={() => { this.printInvoice() }}><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
+    // }
 
     // For print invoice
-    printInvoice() {
-        window.print();
+    printInvoice = () => {
+
     }
 
     //patient list
@@ -562,6 +596,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid className="billInfoData">
+
                                             <Table>
                                                 <Thead>
                                                     <Tr>
@@ -573,7 +608,7 @@ class Index extends Component {
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
-                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data) => (
+                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data, index) => (
                                                     <Tbody>
                                                         <Tr>
                                                             <Td>{data?.invoice_id}</Td>
@@ -586,7 +621,19 @@ class Index extends Component {
                                                                 <Grid className="actionList">
                                                                     <ul className="actionPdf">
                                                                         <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
-                                                                        <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
+                                                                        {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
+                                                                        <div className="printPreviewlink">
+                                                                            <ReactToPrint
+                                                                                content={this.reactToPrintContent}
+                                                                                documentTitle="Report.pdf"
+                                                                                onBeforeGetContent={this.handleOnBeforeGetContent}
+                                                                                removeAfterPrint
+                                                                                trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>}
+                                                                                _id={data._id}
+                                                                            />
+                                                                            {/* {cond} */}
+                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={data} index={index} />
+                                                                        </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
                                                                    
