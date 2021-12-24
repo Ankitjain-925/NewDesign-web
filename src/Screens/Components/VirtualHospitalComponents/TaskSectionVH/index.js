@@ -895,11 +895,7 @@ class Index extends Component {
   };
 
   render() {
-    let filterbedge = this.state.userFilter?.length +
-      this.state.assignedTo2?.length +
-      this.state.selectSpec2?.length 
-      // this.state.selectWard?.length
-      ;
+   
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
@@ -1373,19 +1369,19 @@ class Index extends Component {
                     <>
                      
                       {tabvalue2 === 0 &&
-                        <a className={AllTaskCss}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label> </a>
+                        <a className={AllTaskCss}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} />  </a>
                       }
                       {tabvalue2 === 1 &&
-                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
+                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                       {tabvalue2 === 2 &&
-                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
+                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                     </>
                   }
 
                   {tabvalue2 === 3 &&
-                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label></a>
+                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                   }
                 </Grid>
               </Grid>

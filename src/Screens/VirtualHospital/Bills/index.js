@@ -175,30 +175,31 @@ class Index extends Component {
             AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
             AllStatus: this.props.AllStatus, showPopup: false
         })
-        this.fetchbillsdata("all", 0)
+        var value = this.state.value;
+        var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
+        this.fetchbillsdata(ApiStatus, value);
     }
 
     // Apply Filter
     applyFilter = () => {
         // let fullData = this.state.AllBills
-        let { userFilter, userFilter3, userFilter2 } = this.state
-        let data = {}
+        let { userFilter, specFilter, statusFilter } = this.state
+        let data = { house_id: this.props.House.value }
         if (userFilter && userFilter.length > 0) {
             let Patient_id = userFilter && userFilter.length > 0 && userFilter.map((item) => {
                 return item.value
             })
-            data['Patient_id'] = Patient_id;
+            data['patient_id'] = Patient_id;
         }
-
-        if (userFilter3 && userFilter3.length > 0) {
-            let speciality = userFilter3 && userFilter3.length > 0 && userFilter3.map((item) => {
+        if (specFilter && specFilter.length > 0) {
+            let speciality = specFilter && specFilter.length > 0 && specFilter.map((item) => {
                 return item.value
             })
             data['speciality'] = speciality;
         }
 
-        if (userFilter2 && userFilter2.length > 0) {
-            let status = userFilter2 && userFilter2.length > 0 && userFilter2.map((item) => {
+        if (statusFilter && statusFilter.length > 0) {
+            let status = statusFilter && statusFilter.length > 0 && statusFilter.map((item) => {
                 return item.value
             })
             data['status'] = status;
@@ -206,19 +207,18 @@ class Index extends Component {
         this.setState({ loaderImage: true });
        axios.post(
             sitedata.data.path + "/vh/billfilter",
-            data
-            ,
+            data,
             commonHeader(this.props.stateLoginValueAim.token)
         )
-            .then((response) => {
-                if(response?.data?.hassuccessed){
-                    this.setState({ loaderImage: false, bills_data: response.data.data });
-                }
-                
-            })
-            .catch((error) => {
-                this.setState({ loaderImage: false });
-            });
+        .then((response) => {
+            this.setState({showPopup: false})
+            if(response?.data?.hassuccessed){
+                this.setState({ loaderImage: false, bills_data: response.data.data });
+            }
+        })
+        .catch((error) => {
+            this.setState({ loaderImage: false, showPopup: false });
+        });
     }
 
     // Update status acc. to their particular id

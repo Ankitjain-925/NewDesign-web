@@ -1203,10 +1203,7 @@ class Index extends Component {
   }
 
   render() {
-    let filterbedge = this.state.userFilter?.length 
-      // this.state.selectSpec2?.length +
-      // this.state.selectWard?.length
-      ;
+   
     let translate = getLanguage(this.props.stateLanguageType);
     let { Appointmentiscanceled,
       select_spec,
@@ -1351,7 +1348,6 @@ class Index extends Component {
                           <Button onClick={() => { this.moveTask() }}>+ Add Task</Button>
                           <a className="barViewnw" onClick={this.handleOpenFil}>
                             <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
-                            <label>{filterbedge}</label>
                           </a>
                         </Grid>
 

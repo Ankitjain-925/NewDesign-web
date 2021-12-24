@@ -2512,8 +2512,8 @@ a.lineSort {
         padding: 0px 0px 16px 17px !important;
     }
     .cmnLftSpc {
-        padding-left: 0px !important;
-        padding-right: 0px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
     .cardoLbl {
         margin: 15px 0px 12px !important;
@@ -9849,7 +9849,7 @@ a.newacademyul ul li img
 }
 @media (max-width: 959px){ 
     .addFlowRght a {
-        margin: 10px;
+        margin: 5px 10px !important;
     }
 }
 .addFlowRght a {

@@ -761,11 +761,6 @@ class Index extends Component {
   }
 
   render() {
-    let filterbedge = this.state.selectedPat?.length +
-      this.state.assignedTo2?.length 
-      // this.state.selectSpec2?.length
-      // this.state.selectWard?.length
-      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
@@ -850,7 +845,7 @@ class Index extends Component {
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
                             <a className="srchSort" onClick={this.handleOpenFil}>
-                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" /><label>{filterbedge}</label> 
+                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
                             <Grid  className={
