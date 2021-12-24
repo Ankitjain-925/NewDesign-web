@@ -1521,10 +1521,10 @@ a.conPainTime img {
 .typeSel .css-6q0nyr-Svg{
     color: #00ABAF !important;
 } */
-.vh-section .comonSel {
+/* .vh-section .comonSel {
     padding-right: 12px !important;
     font-size: 12px !important;
-}
+} */
 /* .clear_filterLft a {
     color: #00ABAF !important;
     font-family: Muli;
@@ -6349,7 +6349,7 @@ button.downloadPDF:hover {
     margin-left: 0px !important;
 }
 .taskSort a {
-    height: 32px;
+    height: 34px;
     width: 32px;
     border-radius: 8px;
     background-color: #F2F2F2;
@@ -6396,6 +6396,7 @@ button.downloadPDF:hover {
     height: 32px;
     width: 32px;
     border-radius: 24px;
+    background: #f3f3f3;
 }
 .allInerTabs {
     padding: 34px 34px;
@@ -6776,6 +6777,7 @@ button.downloadPDF:hover {
 .assignSec div {
     display: inline-block;
     min-width: 98px;
+    width: 90px;
     text-align: center;
 }
 .attchFile label {
@@ -9809,6 +9811,18 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .rrSysto2 div{
+    background-color: #404646 !important;
+}
+.vh-section .srchFilter .comonSel {
+    padding-right: 0px !important;
+}
+.darkTheme .activeOntask img {
+    background-color: #00abaf!important;
+}
+.activeOntask img {
+    background-color: #00abaf!important;
+}
 .addCustom{
     color: #00abaf;  
     font-weight: 700;
@@ -9952,7 +9966,7 @@ p.more-change-staff-img2 {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    padding: 4px;
+    height: 34px;
     box-sizing: border-box !important;
     color: #000808;
 }
@@ -12538,10 +12552,12 @@ input:-moz-autofill:active{
     height: 100px;
     width: 100px; 
 }
-
+.printPreview{
+    padding: 15px;
+}
 .printPreviewText {
     font-family: Muli;
-    font-size: 40px !important;
+    font-size: 25px !important;
     font-weight: 600;
     letter-spacing: 10;
 }

@@ -68,7 +68,7 @@ class PointPain extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let { clear_point } = translate;
     return (
-      <Grid className="rrSysto">
+      <Grid className="rrSysto rrSysto2">
         <Grid>
           <label>{this.state.label}</label>
         </Grid>

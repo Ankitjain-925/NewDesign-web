@@ -19,28 +19,16 @@ export class ComponentToPrint extends React.Component {
             bills_data: {},
             AllBills: {}
         }
-        console.log("this state", this.props)
-
     };
-    // canvasEl;
-
-    componentDidMount() {
-
-
-    }
-
 
 
     render() {
         var { data, index } = this.props;
         return (
             <div className="relativeCSS">
-                {/* {console.log('data, index', data, _id)} */}
                 <style type="text/css" media="print"></style>
                 <div className="flash" />
-                {/* {this.} */}
-                <Grid>
-
+                <Grid className="printPreview">
                     <a><img
                         className="logo"
                         src="/static/media/LogoPNG.03ac2d92.png"
@@ -90,7 +78,6 @@ export class ComponentToPrint extends React.Component {
                         </Grid>
                     </div>
                 </Grid>
-
             </div>
         )
     }
