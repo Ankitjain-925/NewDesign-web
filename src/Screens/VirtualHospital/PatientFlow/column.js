@@ -59,34 +59,38 @@ export default class Column extends Component {
             <div isDragging={snapshot.isDragging}>
               <Grid isDragging={snapshot.isDragging}
                 {...provided.dragHandleProps}>
-                {this.props.view ==='vertical' ? 
-                <div className="checkDots" >
-                  <Grid>
-                    {this.state.edit===index ? 
-                    <div ref={this.box}>
-                    <DebounceInput
-                      name="step_name"
-                      forceNotifyByEnter={true}
-                      forceNotifyOnBlur={true}
-                      minLength={0}
-                      debounceTimeout={2000}
-                      onChange={e => this.onChange(e)}
-                      value={title}
-                    />
-                    </div>
-                    : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title?.substr (0, 12)} {title.length>12 && <>...</>}</label>}
-                  </Grid>
-                  <Grid className="checkDotsRght">
-                    <a className="academy_ul stepTdotupper">
+                {this.props.view === 'vertical' ?
+                  <div className="checkDots" >
+                    <Grid>
+                      {this.state.edit === index ?
+                        <div ref={this.box}>
+                          <DebounceInput
+                            name="step_name"
+                            forceNotifyByEnter={true}
+                            forceNotifyOnBlur={true}
+                            minLength={0}
+                            debounceTimeout={2000}
+                            onChange={e => this.onChange(e)}
+                            value={title}
+                          />
+                        </div>
+                        : <label onDoubleClick={() => { this.setState({ edit: index }) }}>{title?.substr(0, 12)} {title.length > 12 && <>...</>}</label>}
+                    </Grid>
+                    <Grid className="checkDotsRght">
+                      <a className="academy_ul stepTdotupper">
                         <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
-                          <ul>
-                            {!this.state.inneerSec && <Grid>
-                            <li><a onClick={()=>{this.props.openAddPatient(title)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{move_step}</a></li>
-                            <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><p className="more-change-staff-img"><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span><p className="more-change-staff-img2">{"Move All patient in this Step"}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title=""/></p></p> </a></li>
-                            <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
-                            </Grid>}
-                            {this.state.inneerSec==='move_all' &&
+                        <ul>
+                          {!this.state.inneerSec && <Grid>
+                            <li><a onClick={() => { this.props.openAddPatient(title) }}><span><img src={require('assets/virtual_images/plusIcon.png')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
+                            <li><a onClick={() => { this.setState({ inneerSec: "step_move" }) }}><span>
+                              {/* <img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /> */}
+                            </span>{move_step}</a></li>
+                            <li><a onClick={() => { this.setState({ inneerSec: "move_all" }) }}><p className="more-change-staff-img"><span>
+                              {/* <img src={require("assets/images/admin/details1.svg")} alt="" title="" /> */}
+                            </span><p className="more-change-staff-img2">{"Move All patient in this Step"}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p> </a></li>
+                            <li><a onClick={() => { this.props.DeleteStep(index) }}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
+                          </Grid>}
+                          {this.state.inneerSec === 'move_all' &&
                             <div>
                               <Grid className="movHead">
                                 <Grid onClick={() => this.setState({ inneerSec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
@@ -95,7 +99,7 @@ export default class Column extends Component {
                               </Grid>
                               <Grid className="positionDrop">
                                 {this.props.ordered?.length > 0 && this.props.ordered.map((item) => (
-                                  <Grid><label onClick={() => { this.props.moveAllPatient(item, index, quotes) }}>{item}</label></Grid>
+                                  <Grid><label onClick={() => { this.props.moveAllPatient(item, index, quotes) }}>{item} {title === item ? <>(current)</> : ''}</label></Grid>
                                 ))}
                               </Grid>
                             </div>
@@ -123,20 +127,20 @@ export default class Column extends Component {
                   <Grid className="receLbl">
                     <Grid container direction="row" justify="center" alignItems="center">
                       <Grid item xs={12} sm={6} md={6}><label>
-                      <Grid>{this.props.edit===index ? 
-                      <div ref={this.box}>
-                    <DebounceInput
-                      name="step_name"
-                      forceNotifyByEnter={true}
-                      forceNotifyOnBlur={true}
-                      minLength={0}
-                      debounceTimeout={2000}
-                      onChange={e => this.onChange(e)}
-                      value={title}
-                    />
-                    </div>
-                    : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title?.substr (0, 12)} {title.length>12 && <>...</>}</label>}
-                  </Grid></label></Grid>
+                        <Grid>{this.props.edit === index ?
+                          <div ref={this.box}>
+                            <DebounceInput
+                              name="step_name"
+                              forceNotifyByEnter={true}
+                              forceNotifyOnBlur={true}
+                              minLength={0}
+                              debounceTimeout={2000}
+                              onChange={e => this.onChange(e)}
+                              value={title}
+                            />
+                          </div>
+                          : <label onDoubleClick={() => { this.setState({ edit: index }) }}>{title?.substr(0, 12)} {title.length > 12 && <>...</>}</label>}
+                        </Grid></label></Grid>
                       <Grid item xs={12} sm={6} md={6} className="addPatent">
                         <a className="addNwPatnt" onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</a>
                         <Grid className="checkDotsRght">
@@ -153,7 +157,7 @@ export default class Column extends Component {
                             <div>
                               <Grid className="movHead">
                                     <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                                    <Grid  className="movHeadMid"><label>Move All Patient</label></Grid>
+                                    <Grid  className="movHeadMid"><label>{move_all_patients}</label></Grid>
                                     <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                                 </Grid>
                                 <Grid className="positionDrop">
@@ -168,19 +172,19 @@ export default class Column extends Component {
                                 <Grid className="movHead">
                                     <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                     <Grid className="movHeadMid"><label>Move Step</label></Grid>
-                                    <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
-                                </Grid>
-                                <Grid className="positionDrop">
-                                {this.props.ordered?.length>0 &&  this.props.ordered.map((item, index1)=>(
-                                    <Grid><label onClick={()=>{this.props.moveStep(index1, index, item)}}>{index1}</label></Grid>
-                                ))}
-                                </Grid>
-                            </div> 
-                            }
-                          </ul>
-                          
-                    </a>
-                    </Grid>
+                                    <Grid className="movHeadRght"><a onClick={() => this.setState({ inneerSec: false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                                  </Grid>
+                                  <Grid className="positionDrop">
+                                    {this.props.ordered?.length > 0 && this.props.ordered.map((item, index1) => (
+                                      <Grid><label onClick={() => { this.props.moveStep(index1, index, item) }}>{index1}</label></Grid>
+                                    ))}
+                                  </Grid>
+                                </div>
+                              }
+                            </ul>
+
+                          </a>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>

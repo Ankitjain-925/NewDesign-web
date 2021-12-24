@@ -509,7 +509,7 @@ class Index extends Component {
                                 </Td>
                               )}
                               <Td className="archvDot">
-                                <a className="academy_ul">
+                                <a className="academy_ul newacademyul">
                                   <img
                                     src={require("assets/images/three_dots_t.png")}
                                     alt=""

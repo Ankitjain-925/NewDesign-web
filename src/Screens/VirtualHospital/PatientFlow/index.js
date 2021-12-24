@@ -306,7 +306,7 @@ class Index extends Component {
     const state = this.state.search;
     state[name] = e && e.length > 0 ? e.map((item) => { return item.value }) : []
     this.setState({ selectedPat: e })
-    this.setState({ search: state });
+   this.setState({ search: state });
   }
 
   handleStaff = (e) => {
@@ -593,12 +593,15 @@ class Index extends Component {
     var data = _.cloneDeep(actualData);
     let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data )
     console.log('result', result)
+    this.mapActualToFullData(result);
   }
 
   clearFilter = () => {
-    let {selectedPat, assignedTo2, selectSpec2, selectWard, wardList, roomList, selectRoom} = this.state
     this.setState({selectedPat : '', assignedTo2 : '', selectSpec2 : '', selectWard: '', wardList: [], roomList: [], selectRoom: ''})
+    this.mapActualToFullData(this.state.actualData);
+    this.handleCloseFil();
   }
+  
   // clearFilters = () => {
   //   this.setState({
   //     searchValue: '',
@@ -608,7 +611,7 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
-    const authorQuoteMap = result && result.length > 0 && result.reduce(
+    const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => ({
         ...previous,
         [author.step_name]: author.case_numbers,
@@ -721,6 +724,7 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+    console.log(" selectSpec2",this.state.selectSpec2)
 
     // if (e && e.length > 0) {
 
@@ -757,19 +761,11 @@ class Index extends Component {
   }
 
   render() {
-    const { stateLoginValueAim, House } = this.props;
-    if (
-      stateLoginValueAim.user === "undefined" ||
-      stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "adminstaff"
-    ) {
-      return <Redirect to={"/"} />;
-    }
-    if (House && House?.value === null) {
-      return <Redirect to={"/VirtualHospital/institutes"} />;
-    }
-   
+    let filterbedge = this.state.selectedPat?.length +
+      this.state.assignedTo2?.length 
+      // this.state.selectSpec2?.length
+      // this.state.selectWard?.length
+      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
@@ -827,20 +823,16 @@ class Index extends Component {
                   <Grid className="cmnLftSpc ptntFlowSpc">
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
-                        <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={4} md={4}>
                           <h1>{PatientFlow}</h1>
                         </Grid>
-                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
+                        <Grid item xs={12} sm={8} md={8} className="addFlowRght">
                           <a onClick={() => this.newPatient()}>
                           {CreateNewPatient}
                           </a>
-                        </Grid>
-                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a onClick={() => this.openAddPatient()}>
                             {AddPatient}
                           </a>
-                        </Grid>
-                        <Grid item xs={12} sm={2} md={2} className="addFlowRght">
                           <a
                             onClick={() => { this.AddStep() }}
                           >
@@ -858,7 +850,7 @@ class Index extends Component {
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
                             <a className="srchSort" onClick={this.handleOpenFil}>
-                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
+                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" /><label>{filterbedge}</label> 
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
                             <Grid  className={
@@ -984,17 +976,18 @@ class Index extends Component {
                                 this.setState({ view: "vertical" });
                               }}
                             >
-                              {this.state.view === 'vertical' ?
+                              {/* {this.state.view === 'vertical' ? */}
                                 <img
                                   src={require("assets/virtual_images/active-vertical.png")}
                                   alt=""
                                   title=""
-                                /> :
+                                />
+                                 {/* :
                                 <img
                                   src={require("assets/virtual_images/lines.png")}
                                   alt=""
                                   title=""
-                                />}
+                                />} */}
                             </a>
                             <a
                               className={this.state.view === 'horizontal' ? "horzSort" : "lineSort"}
@@ -1002,18 +995,19 @@ class Index extends Component {
                                 this.setState({ view: "horizontal" });
                               }}
                             >
-                              {this.state.view === 'horizontal' ?
+                              {/* {this.state.view === 'horizontal' ? */}
 
                                 <img
                                   src={require("assets/virtual_images/active-horizontal.png")}
                                   alt=""
                                   title=""
                                 />
-                                : <img
+                                {/* : <img
                                   src={require("assets/virtual_images/non-active-horizontal.png")}
                                   alt=""
                                   title=""
-                                />}
+                                /> */}
+                                {/* } */}
                             </a>
                           </Grid>
                         </Grid>
@@ -1124,7 +1118,7 @@ class Index extends Component {
                     onChange={this.onSelectingStep}
                     options={StepNameList}
                     placeholder="Select Step Name"
-                    className="allSpec"
+                    className="allSpec allSpeces"
                     isSearchable={false}
                   />
                 </Grid>

@@ -5572,7 +5572,7 @@ button.downloadPDF:hover {
     line-height: 14px;
     text-align: left;
     text-transform: initial;
-    padding: 16px 20px 0px;
+    padding: 10px 20px 10px;
 }
 .actionList li:last-child {
     margin-bottom: 0px !important;
@@ -5586,12 +5586,12 @@ button.downloadPDF:hover {
 .actionList li span {
     vertical-align: middle;
 }
-.setStatus li:first-child {
+.setStatus {
     border-top: 1px solid #F2F2F2;
     border-bottom: 1px solid #F2F2F2;
     margin-top: 14px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    /* padding-top: 5px; */
+    /* padding-bottom: 5px; */
     margin-bottom: 0px;
     position: relative;
 }
@@ -5600,15 +5600,15 @@ button.downloadPDF:hover {
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 12px;
+    top: 20px;
     right: 16px;
     background-size: contain;
     background: url("../images/Right.svg") no-repeat center center;
     cursor: pointer;
 }
 .setStatus li:last-child {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .newServc {
     text-align: right;
@@ -6227,6 +6227,11 @@ button.downloadPDF:hover {
     min-height: 110vh;
     padding: 26px 16px;
 }
+/* added by Tanya */
+.spcificInfo .MuiTypography-root.MuiTypography-body1{
+    padding: 24px 0px!important;
+}
+
 .tskOverView h1 {
     color: #000808;
     font-family: Muli;
@@ -7973,9 +7978,6 @@ img.spclDropImg {
 }
 .patentInfo input:-moz-placeholder { 
     color: #484848;
-}
-.patentInfo div {
-    width: 100%;
 }
 .patentInfo {
     padding: 20px 28px 28px;
@@ -9807,6 +9809,56 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.addCustom{
+    color: #00abaf;  
+    font-weight: 700;
+}
+.darkTheme .creatTaskModel {
+    background-color: #404646!important;
+}
+img.vdoCalNow {
+    margin-left: 9px;
+}
+.homeBg.darkTheme.homeBgDrk .profileInfoIner input{
+    background-color: transparent !important;
+}
+a.newacademyul ul li img
+{
+ height: 20px!important;
+}
+
+.darkTheme .profilMenuList2 li a img {
+    width: 13px !important;
+}
+.patentInfoTxt {
+    width: 100%;
+}
+.allSpeces{
+    width:100%!important;
+}
+.allSpeces .css-g1d714-ValueContainer{
+    padding:0px 8px!important;
+}
+.darkTheme .fillDias .css-yk16xz-control {
+    background-color: #202323 !important;
+    border: 1px solid #7d7d7d !important;
+}
+.darkTheme .fillDias div {
+    color: #c3c3c3 !important;
+    border-color: #404646 !important;
+}
+@media (max-width: 959px){ 
+    .addFlowRght a {
+        margin: 10px;
+    }
+}
+.addFlowRght a {
+    margin: 0px 10px;
+}
+.apponTaskhos button{
+    margin-left: 10px;
+    margin-right: 10px
+}
 .darkTheme .serchInput {
     color: #cfcfcf;
     background: #192020;
@@ -9820,7 +9872,25 @@ button.crdoLghtBlu2 {
     background-color: #192020 !important;
     color: #cfcfcf!important;
 }
-.darkTheme .RenameInstitute th, .RenameInstitute td {
+.renameHouseh2  {  
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+    padding: 10px;  
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 0px;
+    position: relative;
+}
+.RenameInstitute label {
+    padding:10px;
+}
+.RenameInstitute button {
+    margin:5px;
+    width: 100%;
+}
+.darkTheme .renameHouseh2, .darkTheme .RenameInstitute label {
     color: #cfcfcf;
 }
 .darkTheme p.more-change-staff-img2{
@@ -9961,7 +10031,8 @@ p.more-change-staff-img2 {
 }
 .addTimeTask1span {
     position: absolute !important;
-    color: red !important;
+    color: #00ABAF !important;
+    font-weight:500;
 }
 .adminMenuRghtUpr a.academy_ul ul{
     min-width: 200px !important;
@@ -10139,7 +10210,8 @@ p.more-change-staff-img2 {
     margin-left: 14px;
 }
 .setSpcSpecList{
-    margin: 10px
+    margin: 10px;
+  
 }
 /* Start of Create a Task */
 .createTask {
@@ -10443,6 +10515,19 @@ ul.patientHint li {
 }
 .spacemanageDel img {
     height: 17px;
+}
+.deleteimg {
+    width: 17px;
+    height: 15px;
+    background: url("../virtual_images/bin.svg") no-repeat;
+    display: inline-block;
+}
+.spacemanageDel:hover > .deleteimg {
+    background: url("../virtual_images/binred.svg") no-repeat !important;
+}
+.spacemanageDel:hover{
+    border: 1px solid #EE5253 !important;
+    color: #EE5253 !important;
 }
 .spacemanageDel {
     font-size: 12px;
@@ -12467,4 +12552,53 @@ input:-moz-autofill:active{
 
 .nextPart{
     text-align:center;
+}
+/* Naveen css */
+.more-change-staff-img2{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    width:100%;
+    color:#404646!important;
+}
+.more-change-staff-img{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.patentInfoTxt .MuiFormControl-root{
+    width: 100%;
+}
+.allSpeces{
+    width:100%!important;
+}
+.allSpeces .css-g1d714-ValueContainer{
+    padding:0px 8px!important;
+}
+
+.invoiceForm .MuiGrid-align-items-xs-center, .addCstmField .MuiGrid-align-items-xs-center{
+    align-items: flex-start!important;
+}
+.addStafSelect input[type="text"], .cstmSelect input[type="text"]{
+    min-height: 35px!important;
+}
+
+.enterPricePart1{
+    position: relative;
+}
+.enterPricePart2{
+    position: absolute;
+    top:47px;
+    right:30px;
+    color: #404646;
+    font-weight: 600;
+}
+
+.setStatusPaidPart{
+    border-top: 1px solid #F2F2F2;
+}
+.setStatusNxtPart{
+    padding-top:18px!important;
+    padding-bottom:18px!important;
 }

@@ -707,17 +707,17 @@ class Index extends Component {
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
                         this.props.settings.setting.mode === "dark"
-                        ? "homeBg homeBgDrk"
+                        ? "homeBg darkTheme homeBgDrk"
                         : "homeBg"
                 }
             >
                 <Grid className="homeBgIner">
                     {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={12} >
                             {/* Mobile menu */}
                             <LeftMenuMobile isNotShow={true} currentPage="more" />
-                            <Grid container direction="row">
+                            <Grid container direction="row" >
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="more" />

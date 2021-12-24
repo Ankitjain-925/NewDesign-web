@@ -123,6 +123,31 @@ class Index extends Component {
         );
         this.city.addListener("place_changed", this.handlePlaceChanged);
     }
+
+      //To add Insurance
+  insuranceForm = (e) => {
+    const state = this.state.insuranceDetails;
+    if (e.target.name == "insurance") {
+      const q = e.target.value.toLowerCase();
+      this.setState({ q }, () =>
+        filterList(this.state.insuranceDetails.insurance_country, this)
+      );
+    }
+    state[e.target.name] = e.target.value;
+    this.setState({ insuranceDetails: state });
+  };
+
+  selectCountry = (event) => {
+    const state = this.state.insuranceDetails;
+    state["insurance_country"] = event.value;
+    this.setState({ insuranceDetails: state });
+    this.setState({ selectedCountry: event });
+  };
+  
+      // For Add more insurance model
+  handleAddInsurance = () => {
+    this.setState({ addInsuranceOpen: true });
+  };
     //For open QR code
     handleQrOpen = () => {
         this.setState({ qrOpen: true });
@@ -189,7 +214,7 @@ class Index extends Component {
         const companyList = this.state.filteredCompany && this.state.filteredCompany.map(company => {
             return (
                 <li className="list-group-item" value={company}
-                    onClick={() => { this.setState({ q: company }); toggle(company); this.setState({ filteredCompany: [] }) }}
+                    onClick={() => { this.setState({ q: company }); toggle(company, this); this.setState({ filteredCompany: [] }) }}
                 >{company}</li>
             )
         });
@@ -316,7 +341,7 @@ class Index extends Component {
                                         <Grid>
                                             <Select
                                                 value={this.state.title}
-                                                onChange={(e) => EntryValueName(e, this)}
+                                                onChange={(e) => EntryValueName(e, 'title', this)}
                                                 options={this.state.title_degreeData}
                                                 placeholder="Mr."
                                                 name="title"
@@ -494,7 +519,7 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.bloods}
                                                 name="bloodgroup"
-                                                onChange={(e) => { EntryValueName(e, 'bloodgroup', this) }}
+                                                onChange={(e) => { EntryValueName(e, 'blood_group', this) }}
                                                 options={this.state.bloodgroup}
                                                 placeholder=""
                                                 isSearchable={false}
@@ -602,7 +627,7 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="editField">
                                     <label>{insurance} {company}</label>
-                                    <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance) && insuranceDetails.insurance} onChange={this.insuranceForm} /></Grid>
+                                    <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance) && insuranceDetails.insurance} onChange={(e) => this.insuranceForm(e)}  /></Grid>
                                     <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
                                         {companyList}
                                     </ul>
@@ -666,7 +691,7 @@ class Index extends Component {
                                     <label>{country} {of} {insurance}</label>
                                     <Grid>
                                         <Select
-                                            value={insurancefull && insurancefull[editIndex] && insurancefull[editIndex].insurance_country ? this.filterCountry1(insurancefull[editIndex] && insurancefull[editIndex].insurance_country) : ''}
+                                            value={insurancefull && insurancefull[editIndex] && insurancefull[editIndex].insurance_country ? filterCountry1(insurancefull[editIndex] && insurancefull[editIndex].insurance_country, this) : ''}
                                             onChange={(event) => updatesinsurancesCountry(editIndex, event, this)}
                                             options={this.state.selectCountry}
                                             placeholder=""

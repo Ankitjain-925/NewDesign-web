@@ -627,6 +627,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token),
       )
       .then((response) => {
+        // console.log('response',response)
         if (response.data.hassuccessed) {
           this.setState({ view: response.data.data });
         }
@@ -878,6 +879,7 @@ class Index extends Component {
                                     this.state.view.length > 0 && (
                                       <div>
                                         {this.state.view.map((item, index) => (
+                                          console.log("item",item),
                                           <ViewJourney
                                             indexTimeline={index}
                                             // lrp={AllL_Ps.AllL_Ps.english}

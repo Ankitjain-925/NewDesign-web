@@ -436,7 +436,7 @@ export const updatesinsurances = (keys, e, current) => {
     if (e.target.name === 'insurance') {
         datas[keys].insurance = e.target.value;
         const q = e.target.value.toLowerCase();
-        current.setState({ q }, () => filterList(datas[keys].insurance_country));
+        current.setState({ q }, () => filterList(datas[keys].insurance_country, current));
         current.setState({ updateIns: keys })
     }
     if (e.target.name === 'insurance_number') {

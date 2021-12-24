@@ -269,7 +269,7 @@ class Index extends Component {
                                                         <Td>{doc.filename && doc.filename.split(".").pop()}</Td>
                                                         <Td>{doc.createdate  ? getDate(doc.createdate , 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                                         <Td className="archvDot">
-                                                            <a className="academy_ul">
+                                                            <a className="academy_ul newacademyul">
                                                                 <img src={require('assets/images/threedots.png')} alt="" title="" className="academyDots" />
                                                                 <ul>
                                                                     <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>

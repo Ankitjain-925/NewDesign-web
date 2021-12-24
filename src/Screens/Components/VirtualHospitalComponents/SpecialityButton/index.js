@@ -46,10 +46,13 @@ class Index extends Component {
                     backgroundColor: this.state.backgroundColor,
                   }}
                   variant="contained"
+
                 >
-                  {this.state.label}
+
+                  {this.state.label}   {this.props.showActive && <span>(current)</span>}
+
                 </Button>
-                {this.props.showActive && <span>(current)</span>}
+                {/* {this.props.showActive && <span>(current)</span>} */}
               </Grid>
               <Grid
                 item
@@ -112,9 +115,9 @@ class Index extends Component {
                   }}
                   variant="contained"
                 >
-                  {this.state.label}{" "}
+                  {this.state.label}{" "} {this.props.showActive && <span>(current)</span>}
                 </Button>
-                {this.props.showActive && <span>(current)</span>}
+
               </Grid>
             </Grid>
           )}

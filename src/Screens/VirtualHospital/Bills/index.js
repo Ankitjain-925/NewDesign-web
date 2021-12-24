@@ -46,6 +46,7 @@ function TabContainer(props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
+
 class Index extends Component {
     // componentRef = null;
     constructor(props) {
@@ -64,8 +65,8 @@ class Index extends Component {
             finalStatus: {},
             showPopup: false,
             userFilter: '',
-            userFilter2: '',
-            userFilter3: '',
+            statusFilter: '',
+            specFilter: '',
             users1: [],
             newTask: {},
             PatientList: [],
@@ -87,8 +88,8 @@ class Index extends Component {
         this.fetchbillsdata('all', 0);
         this.getPatientData();
         this.getSpeciality();
-        let statusList = [{ label: "Paid", value: "Paid" }, { label: "Issued", value: "Issued" },
-        { label: "Draft", value: "Draft" }, { label: "Overdue", value: "Overdue" }]
+        let statusList = [{ label: "Paid", value: "paid" }, { label: "Issued", value: "issued" },
+        { label: "Draft", value: "draft" }, { label: "Overdue", value: "overdue" }]
         this.setState({ PatientStatus: statusList })
 
     }
@@ -131,10 +132,9 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'invoice')
         let patientList = response && response.patientArray && response.patientArray.length > 0 && response.patientArray.map((item) => {
-            return { label: item.first_name + " " + item.last_name, value: item.profile_id }
+            return { label: item.first_name + " " + item.last_name, value: item.patient_id }
         })
         this.setState({ PatientList: patientList })
-
     }
 
     // for Speciality
@@ -148,7 +148,7 @@ class Index extends Component {
     }
 
     updateEntryState4 = (e) => {
-        this.setState({ userFilter3: e })
+        this.setState({ specFilter: e })
     }
 
     // For page change 
@@ -199,28 +199,60 @@ class Index extends Component {
 
     //Status list
     onStatusChange = (e) => {
-        this.setState({ userFilter2: e })
+        this.setState({ statusFilter: e })
     }
 
     // Clear Filter
     clearFilter = () => {
         this.setState({
-            userFilter: '', userFilter3: '', userFilter2: '',
+            userFilter: '', specFilter: '', statusFilter: '',
             AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
             AllStatus: this.props.AllStatus, showPopup: false
         })
+        this.fetchbillsdata("all", 0)
     }
 
     // Apply Filter
     applyFilter = () => {
-        let fullData = this.state.AllBills
+        // let fullData = this.state.AllBills
         let { userFilter, userFilter3, userFilter2 } = this.state
-        let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
-        console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
-        this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
-        this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
-        this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
-        // this.handleClosePopUp();
+        let data = {}
+        if (userFilter && userFilter.length > 0) {
+            let Patient_id = userFilter && userFilter.length > 0 && userFilter.map((item) => {
+                return item.value
+            })
+            data['Patient_id'] = Patient_id;
+        }
+
+        if (userFilter3 && userFilter3.length > 0) {
+            let speciality = userFilter3 && userFilter3.length > 0 && userFilter3.map((item) => {
+                return item.value
+            })
+            data['speciality'] = speciality;
+        }
+
+        if (userFilter2 && userFilter2.length > 0) {
+            let status = userFilter2 && userFilter2.length > 0 && userFilter2.map((item) => {
+                return item.value
+            })
+            data['status'] = status;
+        }
+        this.setState({ loaderImage: true });
+       axios.post(
+            sitedata.data.path + "/vh/billfilter",
+            data
+            ,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+            .then((response) => {
+                if(response?.data?.hassuccessed){
+                    this.setState({ loaderImage: false, bills_data: response.data.data });
+                }
+                
+            })
+            .catch((error) => {
+                this.setState({ loaderImage: false });
+            });
     }
 
     // Update status acc. to their particular id
@@ -244,6 +276,7 @@ class Index extends Component {
                 this.fetchbillsdata("all", 0);
             });
     }
+  
 
     // For getting the Bills and implement Pagination
     fetchbillsdata(status, value) {
@@ -406,6 +439,8 @@ class Index extends Component {
     };
 
     render() {
+ 
+
         const { stateLoginValueAim, House } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -522,7 +557,7 @@ class Index extends Component {
                                                                                     <Select
                                                                                         name="professional"
                                                                                         onChange={this.updateEntryState4}
-                                                                                        value={this.state.userFilter3}
+                                                                                        value={this.state.specFilter}
                                                                                         options={SpecialityData}
                                                                                         placeholder="Filter by Speciality"
                                                                                         className="addStafSelect"
@@ -538,7 +573,7 @@ class Index extends Component {
                                                                                         onChange={this.onStatusChange}
                                                                                         options={PatientStatus}
                                                                                         name="specialty_name"
-                                                                                        value={this.state.userFilter2}
+                                                                                        value={this.state.statusFilter}
                                                                                         placeholder="Filter by Status"
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
@@ -579,7 +614,7 @@ class Index extends Component {
                                                             <Td>{data?.invoice_id}</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
                                                             <Td>{data.created_at}</Td>
-                                                            <Td className="greyDot"><span></span>{data?.status?.label}</Td>
+                                                            <Td className=""><span className={data?.status?.value === 'paid' ? "revwGren" : data?.status?.value === 'issued' ? "revwYelow" : data?.status?.value === 'draft' ? "revwGry" : "revwRed"}></span>{data?.status?.label}</Td>
                                                             <Td>{data?.total_amount} €</Td>
                                                             <Td className="billDots"><Button className="downloadDots">
                                                                 <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
@@ -601,16 +636,17 @@ class Index extends Component {
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
+                                                                   
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">
-                                                                            <a onClick={() => { this.setStatusButton() }}><li><span>Set status</span></li></a>
+                                                                            <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>Set status</span></li></a>
                                                                             {this.state.setStatus &&
                                                                                 <Grid >
-                                                                                    <ul>
-                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span>Paid</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span>Draft</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span>Issued</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span>Overdue</span></li></a>
+                                                                                    <ul className="setStatusPaidPart">
+                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span className="revwGren"></span><span>Paid</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span className="revwGry"></span><span>Draft</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span className="revwYelow"></span><span>Issued</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span className="revwRed"></span><span>Overdue</span></li></a>
                                                                                     </ul>
                                                                                 </Grid>
                                                                             }

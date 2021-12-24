@@ -95,7 +95,8 @@ class Index extends Component {
       editcomment: false,
       check: {},
       allWards: '',
-      newComment: ''
+      newComment: '',
+      length: ''
     };
   }
 
@@ -125,12 +126,10 @@ class Index extends Component {
     this.getPatientData();
     this.getProfessionalData();
     this.specailityList();
-
     if (
       this.props.location?.state?.speciality &&
       this.props.location?.state?.user
     ) {
-      if (this.props.location?.state?.speciality) {
         const state = this.state.newTask;
         this.setState({
           selectSpec: {
@@ -141,12 +140,6 @@ class Index extends Component {
         state["speciality"] = this.props.location?.state?.speciality;
         state["patient"] = this.props.location?.state?.user;
         this.setState({ newTask: state });
-      }
-      if (this.props.location?.state?.user) {
-        const state = this.state.newTask;
-        state["patient"] = this.props.location?.state?.user;
-        this.setState({ newTask: state });
-      }
       this.setState({ openTask: true });
     }
     if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
@@ -173,6 +166,10 @@ class Index extends Component {
       q: "",
       selectSpec: {},
     });
+    if (this.props.patient) {
+      let user = { value: this.props.patient?.patient_id }
+      this.updateEntryState2(user);
+    }
   };
   // close model Add Task
   handleCloseTask = () => {
@@ -486,10 +483,15 @@ class Index extends Component {
       this.setState({ newTask: state });
     }
   };
+  // let filterbadge =
+  //     this.state.selectedUserType.length +
+  //     this.state.selectFacility.length +
+  //     this.state.selectedType.length;
 
   updateUserFilter = (e) => {
-    this.setState({ userFilter: e })
+   this.setState({ userFilter: e })
   }
+
   //Select the professional name
   updateEntryState4 = (e) => {
     this.setState({ assignedTo2: e })
@@ -540,6 +542,7 @@ class Index extends Component {
           }
           this.updateEntryState2(this.props.location?.state?.user);
         }
+        
       });
     }
     else {
@@ -846,6 +849,7 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+   
   }
 
   // ward Change
@@ -891,6 +895,11 @@ class Index extends Component {
   };
 
   render() {
+    let filterbedge = this.state.userFilter?.length +
+      this.state.assignedTo2?.length +
+      this.state.selectSpec2?.length 
+      // this.state.selectWard?.length
+      ;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
@@ -933,10 +942,11 @@ class Index extends Component {
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
-          </Grid>
+         </Grid>
           <Grid item xs={12} md={6}>
             {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
               <Button onClick={this.handleOpenTask}>{add_task}</Button>
+            {/* <label>{filterbedge}</label> */}
             </Grid>}
           </Grid>
           {/* Model setup */}
@@ -1361,21 +1371,22 @@ class Index extends Component {
                   </a>
                   {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
                     <>
+                     
                       {tabvalue2 === 0 &&
-                        <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={AllTaskCss}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label> </a>
                       }
                       {tabvalue2 === 1 &&
-                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
                       }
                       {tabvalue2 === 2 &&
-                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /><label>{filterbedge}</label> </a>
                       }
                     </>
                   }
 
-                  {/* {tabvalue2 === 3 &&
-                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
-                  } */}
+                  {tabvalue2 === 3 &&
+                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> <label>{filterbedge}</label></a>
+                  }
                 </Grid>
               </Grid>
             </Grid>
@@ -1383,7 +1394,6 @@ class Index extends Component {
           {tabvalue2 === 0 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {console.log('AllTasks', this.state.AllTasks)}
                 {this.state.AllTasks.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
@@ -1447,7 +1457,15 @@ class Index extends Component {
           )}
         </Grid>
         <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
-          <Grid className="fltrClear">
+         
+        <Grid  className={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                  ? "nwEntrCntnt fltrClear darkTheme"
+                                  : "nwEntrCntnt fltrClear"
+                              }>
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
                 <Grid className="fltrLblClose">
@@ -1496,6 +1514,7 @@ class Index extends Component {
                   <Grid className="fltrInput">
                     <label>Patient</label>
                     <Grid className="addInput">
+                      {/* {console.log('userFilter', this.state.userFilter.length)} */}
                       <Select
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}
@@ -1533,6 +1552,7 @@ class Index extends Component {
                         value={this.state.selectSpec2}
                         placeholder="Filter by Speciality"
                         isMulti={false}
+                        className="addStafSelect"
                         isSearchable={true} />
                     </Grid>
                   </Grid>
@@ -1547,6 +1567,7 @@ class Index extends Component {
                           value={this.state.selectWard}
                           placeholder="Filter by Ward"
                           isMulti={false}
+                          className="addStafSelect"
                           isSearchable={true} />
                       </Grid>
                     </Grid>
@@ -1562,6 +1583,7 @@ class Index extends Component {
                           value={this.state.selectRoom}
                           placeholder="Filter by Room"
                           isMulti={false}
+                          className="addStafSelect"
                           isSearchable={true} />
                       </Grid>
                     </Grid>

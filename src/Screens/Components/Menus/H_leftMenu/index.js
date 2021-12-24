@@ -272,25 +272,47 @@ class Index extends Component {
                   title=""
                 />
                 <span>{my_profile}</span>
-                <div className="profilMenuList">
+                <div className="profilMenuList profilMenuList2">
                   <ul>
                     <li>
                       <a onClick={() => this.props.history.push("/h-profile")}>
-                        <img
-                          src={require("assets/images/menudocs.jpg")}
-                          alt=""
-                          title=""
-                        />
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                         {profile_setting}
                       </a>
                     </li>
                     <li>
                       <a onClick={this.openLanguageModel}>
-                        <img
-                          src={require("assets/images/menudocs.jpg")}
-                          alt=""
-                          title=""
-                        />
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                         {Language}
                       </a>
                     </li>
@@ -326,11 +348,22 @@ class Index extends Component {
                     </li>
                     <li>
                       <a onClick={this.logOutClick}>
-                        <img
-                          src={require("assets/images/menudocs.jpg")}
-                          alt=""
-                          title=""
-                        />
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                         {logout}
                       </a>
                     </li>

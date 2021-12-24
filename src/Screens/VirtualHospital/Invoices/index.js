@@ -22,15 +22,12 @@ import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
 import { authy } from 'Screens/Login/authy.js';
 import { Invoices } from 'Screens/Login/invoices.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
-import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
+// import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Redirect, Route } from "react-router-dom";
 import { PatientMoveFromHouse } from "../PatientFlow/data";
-import {
-    getLanguage
-} from "translations/index";
-
+import { getLanguage } from "translations/index";
 
 const customStyles = {
     control: base => ({
@@ -145,7 +142,8 @@ class Index extends Component {
                     serviceList1.push(this.state.allServData[i]);
                     serviceList.push({ price: this.state.allServData[i].price, description: this.state.allServData[i].description, value: this.state.allServData[i]._id, label: this.state.allServData[i]?.title })
                 }
-                serviceList = [{ value: 'custom', label: 'custom' }, ...serviceList]
+                var addCustom = <div className="addCustom">+ add custom service</div>;
+                serviceList = [{ value: 'custom', label: addCustom }, ...serviceList]
                 this.setState({ service_id_list: serviceList, serviceList1: serviceList1 })
             });
     }
@@ -412,16 +410,16 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, House } = this.props;
         if (
-          stateLoginValueAim.user === "undefined" ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === "undefined" ||
-          stateLoginValueAim.user.type !== "adminstaff"
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
         ) {
-          return <Redirect to={"/"} />;
+            return <Redirect to={"/"} />;
         }
         if (House && House?.value === null) {
             return <Redirect to={"/VirtualHospital/institutes"} />;
-          }
+        }
         let translate = getLanguage(this.props.stateLanguageType);
         let { InvoiceID, Patient, Status, Services, Addservice, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close } =
             translate;
@@ -458,21 +456,22 @@ class Index extends Component {
                                                 Back to Billing</a>
                                         </Grid>
                                         {/* End of Back common button */}
-                                        {this.state.addinvoice?._id &&
+                                        {/* {this.state.addinvoice?._id &&
                                             <InvoicesDownloadPdf
                                                 label={this.state.addinvoice?.invoice_id}
                                                 status={this.state.addinvoice?.status?.label}
                                                 InvoicesData={this.state.addinvoice}
                                             />
-                                        }
+                                        } */}
 
                                         <Grid className="srvcContent">
                                             <Grid className="invoiceForm">
                                                 <p className='err_message'>{this.state.finishError}</p>
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
 
-                                                    <label>{InvoiceID}</label>
+                                                    {/* <label>{InvoiceID}</label> */}
                                                     <Grid item xs={12} md={3} className="invoiceID">
+                                                        <label>{InvoiceID}</label>
                                                         {/* <TextField placeholder="Invoice ID" value="548756" /> */}
                                                         <VHfield
                                                             name="invoice_id"
@@ -573,16 +572,17 @@ class Index extends Component {
                                                                 value={this.state.service?.quantity || 0}
                                                             />
                                                         </Grid>
-                                                        <Grid item xs={12} md={2}>
+                                                        <Grid item xs={12} md={2} className="enterPricePart1">
                                                             <VHfield
                                                                 label="Price per quantity"
                                                                 name="per_quantity"
-                                                                placeholder="Enter price €"
+                                                                placeholder="Enter price"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "price_per_quantity")
                                                                 }
                                                                 value={this.state?.service?.price_per_quantity || 0}
                                                             />
+                                                            <p className="enterPricePart2">€</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={2} className="addSrvcBtn">
                                                             <Button onClick={this.handleAddSubmit}>Add</Button>
