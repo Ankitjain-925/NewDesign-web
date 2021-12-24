@@ -65,6 +65,7 @@ class PointPain extends Component {
                     </Grid>
                     <Grid item xs={12} sm={8} md={6}>
                         <Grid className="attchNoteMain">
+                            <Grid className="aaa">
                             <Grid className="attchNoteUpr">
                                 <Grid className="attchNote">
                                     <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />
@@ -77,6 +78,7 @@ class PointPain extends Component {
                             </Grid>
                             <Grid className={data.status === 'done' ? "attchDone" : "attchOpen"}>
                                 <Button><label></label>{data.status}</Button>
+                            </Grid>
                             </Grid>
                             <Assigned assigned_to={data.assinged_to} />
                             <Grid item xs={6} md={6} className="spcMgntRght7 presEditDot scndOptionIner">

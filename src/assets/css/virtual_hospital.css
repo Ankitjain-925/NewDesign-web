@@ -12577,6 +12577,22 @@ input:-moz-autofill:active{
     }
 }
 
+
+
+@media(max-width:468px){
+    .taskSort input[type=text]{
+        width:120px;
+    }
+    .aaa{
+        display:flex;
+    }
+}
+
+@media(max-width:599px){
+    .taskSort input[type=text]{
+        margin-bottom:20px;
+    }
+}
 /* .setStatus li:first-child {
     border-top: 1px solid #F2F2F2;
     border-bottom: 1px solid #F2F2F2;
