@@ -438,12 +438,12 @@ class Index extends Component {
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
-                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                            <LeftMenuMobile isNotShow={true} currentPage="more" />
                             <Grid container direction="row">
                                 {/* <VHfield service="ANkit" Onclick2={(service, value)=>{this.myclick(service , value)}}/> */}
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                                    <LeftMenu isNotShow={true} currentPage="chat" />
+                                    <LeftMenu isNotShow={true} currentPage="more" />
                                 </Grid>
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}
