@@ -95,7 +95,8 @@ class Index extends Component {
       editcomment: false,
       check: {},
       allWards: '',
-      newComment: ''
+      newComment: '',
+      length: ''
     };
   }
 
@@ -482,10 +483,15 @@ class Index extends Component {
       this.setState({ newTask: state });
     }
   };
+  // let filterbadge =
+  //     this.state.selectedUserType.length +
+  //     this.state.selectFacility.length +
+  //     this.state.selectedType.length;
 
   updateUserFilter = (e) => {
-    this.setState({ userFilter: e })
+   this.setState({ userFilter: e })
   }
+
   //Select the professional name
   updateEntryState4 = (e) => {
     this.setState({ assignedTo2: e })
@@ -843,6 +849,7 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+   
   }
 
   // ward Change
@@ -888,6 +895,7 @@ class Index extends Component {
   };
 
   render() {
+   
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
@@ -930,10 +938,11 @@ class Index extends Component {
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
-          </Grid>
+         </Grid>
           <Grid item xs={12} md={6}>
             {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
               <Button onClick={this.handleOpenTask}>{add_task}</Button>
+            {/* <label>{filterbedge}</label> */}
             </Grid>}
           </Grid>
           {/* Model setup */}
@@ -957,7 +966,7 @@ class Index extends Component {
                       <Grid className="creatLblClose">
                         <a onClick={this.handleCloseTask}>
                           <img
-                            src={require("assets/virtual_images/closefancy.png")}
+                            src={require("assets/images/close-search.svg")}
                             alt=""
                             title=""
                           />
@@ -1161,7 +1170,26 @@ class Index extends Component {
                                           />
                                           <label>{Duplicate}</label>
                                         </Grid>
+                                        {console.log('dsfsdfsdf', this.state.newTask.archived)}
+                                        {this.state.newTask.archived == true ? (
                                         <Grid
+                                          onClick={() => {
+                                            this.updateEntryState1(
+                                              false,
+                                              "archived"
+                                            );
+                                          }}
+                                          className="activeOntask"
+                                        >
+                                          <img
+                                            src={require("assets/images/archive-white.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          <label>{Archive}</label>
+                                        </Grid>)
+                                          :
+                                          <Grid
                                           onClick={() => {
                                             this.updateEntryState1(
                                               true,
@@ -1170,18 +1198,18 @@ class Index extends Component {
                                           }}
                                         >
                                           <img
-                                            src={require("assets/virtual_images/assign-to.svg")}
+                                            src={require("assets/images/archive.svg")}
                                             alt=""
                                             title=""
                                           />
                                           <label>{Archive}</label>
-                                        </Grid>
+                                        </Grid>}
                                         <Grid>
                                           <img
                                             onClick={(id) => {
                                               this.removeTask(id);
                                             }}
-                                            src={require("assets/virtual_images/assign-to.svg")}
+                                            src={require("assets/virtual_images/deleteNew.png")}
                                             alt=""
                                             title=""
                                           />
@@ -1202,8 +1230,8 @@ class Index extends Component {
                                       >
                                         {this.state.newTask.status ===
                                           "done" ? (
-                                            <Grid className="revwFiles">
-                                          <Grid>
+                                            <Grid className="revwFiles ">
+                                          <Grid className="activeOntask">
                                             <img
                                               src={require("assets/virtual_images/rightTick.png")}
                                               alt=""
@@ -1215,7 +1243,7 @@ class Index extends Component {
                                           <Grid className="revwFiles">
                                           <Grid>
                                             <img
-                                              src={require("assets/virtual_images/greyImg.jpg")}
+                                              src={require("assets/virtual_images/greyImg.png")}
                                               alt=""
                                               title=""
                                             />
@@ -1358,8 +1386,9 @@ class Index extends Component {
                   </a>
                   {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
                     <>
+                     
                       {tabvalue2 === 0 &&
-                        <a className={AllTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={AllTaskCss}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} />  </a>
                       }
                       {tabvalue2 === 1 &&
                         <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
@@ -1370,9 +1399,9 @@ class Index extends Component {
                     </>
                   }
 
-                  {/* {tabvalue2 === 3 &&
+                  {tabvalue2 === 3 &&
                     <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
-                  } */}
+                  }
                 </Grid>
               </Grid>
             </Grid>
@@ -1455,7 +1484,7 @@ class Index extends Component {
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
                 <Grid className="fltrLblClose">
-                  <a onClick={this.handleCloseRvw}><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" /></a>
+                  <a onClick={this.handleCloseRvw}><img src={require('../../../../assets/images/close-search.svg')} alt="" title="" /></a>
                 </Grid>
                 <label>Filters</label>
               </Grid>
@@ -1500,6 +1529,7 @@ class Index extends Component {
                   <Grid className="fltrInput">
                     <label>Patient</label>
                     <Grid className="addInput">
+                      {/* {console.log('userFilter', this.state.userFilter.length)} */}
                       <Select
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}

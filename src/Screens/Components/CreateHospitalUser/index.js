@@ -202,6 +202,7 @@ class Index extends Component {
                                             setTimeout(
                                                  () =>{
                                                     this.setState({ loaderImage: false });
+                                                    this.setState({ CreateUsers: {} });
                                                     this.props.handleCloseCreate();
                                                     if(UserType ==='patient'){this.props.history.push("/h-patients")}
                                                     else if(UserType ==='doctor'){this.props.history.push("/h-doctors")}
@@ -273,7 +274,7 @@ class Index extends Component {
       }
       >
 
-                <Grid className="nwEntrCntntIner">
+                <Grid className="nwEntrCntntIner ">
                     <Grid className="nwEntrCourse">
                         <Grid className="nwEntrCloseBtn nwEntrCloseBtnAdd">
                             <a onClick={this.handleCloseCreate}>
@@ -290,11 +291,11 @@ class Index extends Component {
                     <div className="success_message">
                         {this.state.registerMessage}
                     </div>
-                    <Grid className="docHlthMain">
+                    <Grid className="docHlthMain  ">
                     <Grid className="spclQues">
-                        <Grid className="spclQuesIner">
+                        <Grid className="spclQuesIner ">
                             <Grid><label>{user} {type}</label></Grid>
-                            <Grid>
+                            <Grid  className="spclQuesIner darkTh addStafSelect div darkTh2">
                                 <Select
                                     value={this.state.specialistOption}
                                     onChange={this.CreateUserState1}

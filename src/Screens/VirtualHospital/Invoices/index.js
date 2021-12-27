@@ -27,10 +27,7 @@ import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index"
 import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Redirect, Route } from "react-router-dom";
 import { PatientMoveFromHouse } from "../PatientFlow/data";
-import {
-    getLanguage
-} from "translations/index";
-
+import { getLanguage } from "translations/index";
 
 const customStyles = {
     control: base => ({
@@ -145,7 +142,8 @@ class Index extends Component {
                     serviceList1.push(this.state.allServData[i]);
                     serviceList.push({ price: this.state.allServData[i].price, description: this.state.allServData[i].description, value: this.state.allServData[i]._id, label: this.state.allServData[i]?.title })
                 }
-                serviceList = [{ value: 'custom', label: 'custom' }, ...serviceList]
+                var addCustom = <div className="addCustom">+ add custom service</div>;
+                serviceList = [{ value: 'custom', label: addCustom }, ...serviceList]
                 this.setState({ service_id_list: serviceList, serviceList1: serviceList1 })
             });
     }
@@ -644,7 +642,7 @@ class Index extends Component {
                                                     <Grid className="addSpeclClose">
                                                         <a onClick={this.handleCloseServ}>
                                                             <img
-                                                                src={require("assets/virtual_images/closefancy.png")}
+                                                                src={require("assets/images/close-search.svg")}
                                                                 alt=""
                                                                 title=""
                                                             />

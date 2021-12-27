@@ -260,7 +260,7 @@ class FilterSec extends Component {
                     className={
                       this.state.selectType && this.state.selectType.length > 0
                         ? "typeSel comonSel"
-                        : "allTimeSel comonSel"
+                        : " comonSel"
                     }
                     isMulti={true}
                     closeMenuOnSelect={false}
@@ -278,7 +278,7 @@ class FilterSec extends Component {
                     className={
                       this.state.selectUser && this.state.selectUser.length > 0
                         ? "typeSel comonSel"
-                        : "allTimeSel comonSel"
+                        : " comonSel"
                     }
                     isMulti={true}
                     closeMenuOnSelect={false}

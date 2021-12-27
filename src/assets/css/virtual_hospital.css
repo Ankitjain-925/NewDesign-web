@@ -1521,10 +1521,10 @@ a.conPainTime img {
 .typeSel .css-6q0nyr-Svg{
     color: #00ABAF !important;
 } */
-.vh-section .comonSel {
+/* .vh-section .comonSel {
     padding-right: 12px !important;
     font-size: 12px !important;
-}
+} */
 /* .clear_filterLft a {
     color: #00ABAF !important;
     font-family: Muli;
@@ -2512,8 +2512,8 @@ a.lineSort {
         padding: 0px 0px 16px 17px !important;
     }
     .cmnLftSpc {
-        padding-left: 0px !important;
-        padding-right: 0px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
     .cardoLbl {
         margin: 15px 0px 12px !important;
@@ -6229,6 +6229,11 @@ button.downloadPDF:hover {
     min-height: 110vh;
     padding: 26px 16px;
 }
+/* added by Tanya */
+.spcificInfo .MuiTypography-root.MuiTypography-body1{
+    padding: 24px 0px!important;
+}
+
 .tskOverView h1 {
     color: #000808;
     font-family: Muli;
@@ -6346,7 +6351,7 @@ button.downloadPDF:hover {
     margin-left: 0px !important;
 }
 .taskSort a {
-    height: 32px;
+    height: 34px;
     width: 32px;
     border-radius: 8px;
     background-color: #F2F2F2;
@@ -6393,6 +6398,7 @@ button.downloadPDF:hover {
     height: 32px;
     width: 32px;
     border-radius: 24px;
+    background: #f3f3f3;
 }
 .allInerTabs {
     padding: 34px 34px;
@@ -6773,6 +6779,7 @@ button.downloadPDF:hover {
 .assignSec div {
     display: inline-block;
     min-width: 98px;
+    width: 90px;
     text-align: center;
 }
 .attchFile label {
@@ -7934,9 +7941,29 @@ img.spclDropImg {
 .addFlowClose {
     text-align: right;
 }
-.addFlowLbl img {
-    width: 24px;
+.creatLblClose img {
+    height: 26px;
+    width: initial;
     cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #cacaca !important;
+    padding: 4px;
+}
+.addFlowClose img{
+    height: 26px;
+    width: initial;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #cacaca !important;
+    padding: 4px;
+}
+.addWrnClose img {
+    height: 26px;
+    width: initial;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #cacaca !important;
+    padding: 4px;
 }
 .addFlowLbl label {
     font-size: 20px;
@@ -9810,6 +9837,38 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
+    background-color: #404646 !important;
+    color: #fff !important;
+}
+.darkTheme .cntryDropTop, .homeBgDrk .cntryDropTop{
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+}
+a.addNewPlus img {
+    height: 50px;
+    width: 50px !important;
+    margin-left: 9px;
+}
+.darkTheme .rrSysto2 div{
+    background-color: #404646 !important;
+}
+.vh-section .srchFilter .comonSel {
+    padding-right: 0px !important;
+}
+.darkTheme .activeOntask img {
+    background-color: #00abaf!important;
+}
+.activeOntask img {
+    background-color: #00abaf!important;
+}
+.addCustom{
+    color: #00abaf;  
+    font-weight: 700;
+}
+.darkTheme .creatTaskModel {
+    background-color: #404646!important;
+}
 img.vdoCalNow {
     margin-left: 9px;
 }
@@ -9843,7 +9902,7 @@ a.newacademyul ul li img
 }
 @media (max-width: 959px){ 
     .addFlowRght a {
-        margin: 10px;
+        margin: 5px 10px !important;
     }
 }
 .addFlowRght a {
@@ -9946,7 +10005,7 @@ p.more-change-staff-img2 {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    padding: 4px;
+    height: 34px;
     box-sizing: border-box !important;
     color: #000808;
 }
@@ -10204,7 +10263,8 @@ p.more-change-staff-img2 {
     margin-left: 14px;
 }
 .setSpcSpecList{
-    margin: 10px
+    margin: 10px;
+  
 }
 /* Start of Create a Task */
 .createTask {
@@ -10241,6 +10301,8 @@ p.more-change-staff-img2 {
     width: initial;
     cursor: pointer;
     border-radius: 6px;
+    border: 1px solid #cacaca;
+    padding: 4px;
 }
 .creatLbl label {
     color: #000808;
@@ -10509,6 +10571,19 @@ ul.patientHint li {
 }
 .spacemanageDel img {
     height: 17px;
+}
+.deleteimg {
+    width: 17px;
+    height: 15px;
+    background: url("../virtual_images/bin.svg") no-repeat;
+    display: inline-block;
+}
+.spacemanageDel:hover > .deleteimg {
+    background: url("../virtual_images/binred.svg") no-repeat !important;
+}
+.spacemanageDel:hover{
+    border: 1px solid #EE5253 !important;
+    color: #EE5253 !important;
 }
 .spacemanageDel {
     font-size: 12px;
@@ -11410,8 +11485,7 @@ ul.patientHint li {
 }
 .darkTheme .mr_sel div:first-child, .darkTheme .cntryDrop div:first-child, 
 .darkTheme .languageSpk div:first-child {
-    background-color: #192020 !important;
-    background: #192020 !important;
+    background: #404646 !important;
     border: none;
     height: initial !important;
     min-height: initial !important;
@@ -12024,6 +12098,9 @@ ul.patientHint li {
     background-color: #202323 !important;
     border: 1px solid #7d7d7d !important;
 }
+.darkTheme .spclQuesIner .css-yk16xz-control {
+    background-color: transparent!important;
+}
 .darkTheme .emlCreatSub input {
     border: 1px solid #7d7d7d !important;
     background-color: #202323 !important;
@@ -12170,7 +12247,7 @@ ul.patientHint li {
 }
 .darkTheme a.addNewPlus {
     background-color: #404646;
-    border: 1px solid #abaeae;
+    /* border: 1px solid #abaeae; */
 }
 .adminmenuItems .menuActv a img {
     background-color: #00abaf !important;
@@ -12456,7 +12533,6 @@ input:-moz-autofill:active{
 .buttonStyle {
     padding-top: 15px;
 }
-
 .buttonStyle a{
     display: flex !important;
     justify-content: center;
@@ -12484,8 +12560,6 @@ input:-moz-autofill:active{
     line-height: 32px;
     font-family: Muli;
 }
-/* css by naveen end here */
-/* Adding by Ankit */
 .modAppTabs {
     background-color: #F2F2F2 !important;
     box-shadow: initial !important;
@@ -12509,14 +12583,30 @@ input:-moz-autofill:active{
     min-width: 66px;
     border-radius: 12px;
 }
-
-
-
-
-
-
-/* Naveen css */
-
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 70px;
+    height: 100px;
+    width: 100px; 
+}
+.printPreview{
+    padding: 15px;
+}
+.printPreviewText {
+    font-family: Muli;
+    font-size: 25px !important;
+    font-weight: 600;
+    letter-spacing: 10;
+}
+.printPreviewlink .relativeCSS {
+    display: none !important;
+}
+.nextPart{
+    text-align:center;
+}
 .more-change-staff-img2{
     display: flex;
     align-items:center;
@@ -12529,7 +12619,6 @@ input:-moz-autofill:active{
     align-items: center;
     justify-content: flex-start;
 }
-
 .patentInfoTxt .MuiFormControl-root{
     width: 100%;
 }
@@ -12540,15 +12629,12 @@ input:-moz-autofill:active{
     padding:0px 8px!important;
 }
 
-
 .invoiceForm .MuiGrid-align-items-xs-center, .addCstmField .MuiGrid-align-items-xs-center{
     align-items: flex-start!important;
 }
 .addStafSelect input[type="text"], .cstmSelect input[type="text"]{
     min-height: 35px!important;
 }
-
-
 .enterPricePart1{
     position: relative;
 }
@@ -12559,7 +12645,6 @@ input:-moz-autofill:active{
     color: #404646;
     font-weight: 600;
 }
-
 .setStatusPaidPart{
     border-top: 1px solid #F2F2F2;
 }
@@ -12567,7 +12652,6 @@ input:-moz-autofill:active{
     padding-top:18px!important;
     padding-bottom:18px!important;
 }
-
 .servSaveBtn {
     margin:0px 30px;
 }
@@ -12577,8 +12661,6 @@ input:-moz-autofill:active{
         margin-right:10px;
     }
 }
-
-
 
 @media(max-width:468px){
     .taskSort input[type=text]{
@@ -12592,33 +12674,30 @@ input:-moz-autofill:active{
     }
 }
 
+
+
 @media(max-width:599px){
-    .taskSort input[type=text]{
+   .taskSort input[type=text]{
         margin-bottom:20px;
     }
-}
-
-
-
-@media(max-width:599px){
     .addFlowRght, .spcMgntH1 h1{
-        text-align: center!important;
+        text-align: center;
     }
     .addFlowRght{
-        margin-top: 24px!important;
+        margin-top: 24px;
     }
 }
 
 @media (max-width: 468px){
     .topLeftSpc{
-        padding-left:10px!important;
-        padding-right: 10px!important;
-        margin-top:50px!important;
+        padding-left:10px;
+        padding-right: 10px;
+        margin-top:50px;
     }
 }
 @media (max-width: 452px){
     a.openScndhrf {
-        margin-top: 0px!important;
+        margin-top: 0px;
     }
 }
 .darkTheme .setStatus li:first-child {

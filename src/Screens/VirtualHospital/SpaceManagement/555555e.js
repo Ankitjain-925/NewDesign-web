@@ -174,7 +174,7 @@ class Index extends Component {
                                         <Grid className="addSpeclLbl">
                                             <Grid className="addSpeclClose">
                                                 <a onClick={this.handleCloseSpecl}>
-                                                    <img src={require('assets/virtual_images/closefancy.png')} alt="" title="" />
+                                                    <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                 </a>
                                             </Grid>
                                             <Grid><label>Add Speciality</label></Grid>
@@ -277,7 +277,7 @@ class Index extends Component {
                                             <Grid className="addSpeclLbl">
                                                 <Grid className="addSpeclClose">
                                                     <a onClick={this.handleCloseSpecl2}>
-                                                        <img src={require('assets/virtual_images/closefancy.png')} alt="" title="" />
+                                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
                                                 </Grid>
                                                 <Grid><label>Add Speciality</label></Grid>
@@ -418,7 +418,7 @@ class Index extends Component {
                                             <Grid className="addSpeclLbl">
                                                 <Grid className="addSpeclClose">
                                                     <a onClick={this.handleCloseSpecl4}>
-                                                        <img src={require('assets/virtual_images/closefancy.png')} alt="" title="" />
+                                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
                                                 </Grid>
                                                 <Grid><label>Add Speciality</label></Grid>

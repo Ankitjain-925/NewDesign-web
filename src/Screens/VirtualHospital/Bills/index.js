@@ -32,8 +32,10 @@ import { PatientMoveFromHouse } from '../PatientFlow/data'
 import Modal from "@material-ui/core/Modal";
 import Select from "react-select";
 import { getPatientData } from 'Screens/Components/CommonApi/index';
-import { MultiFilter2 } from '../../Components/MultiFilter'
-
+import { MultiFilter2 } from '../../Components/MultiFilter';
+import ReactToPrint, { PrintContext } from 'react-to-print';
+import { ComponentToPrint } from "./ComponentToPrint";
+import { data } from 'jquery';
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -44,9 +46,12 @@ function TabContainer(props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
+
 class Index extends Component {
+    // componentRef = null;
     constructor(props) {
         super(props);
+        this.componentRef = React.createRef();
         this.state = {
             value: 0,
             AllBills: {},
@@ -60,8 +65,8 @@ class Index extends Component {
             finalStatus: {},
             showPopup: false,
             userFilter: '',
-            userFilter2: '',
-            userFilter3: '',
+            statusFilter: '',
+            specFilter: '',
             users1: [],
             newTask: {},
             PatientList: [],
@@ -72,7 +77,16 @@ class Index extends Component {
             AllStatus: this.props.AllStatus,
             AllPatientCss: '',
             AllSpcialityCss: '',
-            AllStatusCss: ''
+            AllStatusCss: '',
+            isLoading: false,
+            allBills: this.props.allBills,
+            issued: this.props.issued,
+            overdue: this.props.overdue,
+            paid: this.props.paid,
+            allBillsCSS: '',
+            overdueCSS: '',
+            issuedCSS: '',
+            paidCSS: ''
 
         }
     };
@@ -82,14 +96,43 @@ class Index extends Component {
         this.fetchbillsdata('all', 0);
         this.getPatientData();
         this.getSpeciality();
-        let statusList = [{ label: "Paid", value: "Paid" }, { label: "Issued", value: "Issued" },
-        { label: "Draft", value: "Draft" }, { label: "Overdue", value: "Overdue" }]
+        let statusList = [{ label: "Paid", value: "paid" }, { label: "Issued", value: "issued" },
+        { label: "Draft", value: "draft" }, { label: "Overdue", value: "overdue" }]
         this.setState({ PatientStatus: statusList })
+
     }
+    //for print preview
+
+    // handleOnBeforeGetContent = () => {
+    //     console.log("onBeforeGetContent called");
+    //     this.setState({ isLoading: true });
+
+    //     return new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             this.setState(
+    //                 { isLoading: false },
+    //                 resolve
+    //             );
+    //         }, 2000);
+    //     });
+    // };
+
+    // setComponentRef = (ref) => {
+    //     this.componentRef = ref;
+    // };
+
+    reactToPrintContent = () => {
+        return this.componentRef
+
+    };
+
+    // reactToPrintTrigger = () => {
+    //  <a onClick={() => { this.printInvoice() }}><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
+    // }
 
     // For print invoice
-    printInvoice() {
-        window.print();
+    printInvoice = () => {
+
     }
 
     //patient list
@@ -100,7 +143,6 @@ class Index extends Component {
             return { label: item.first_name + " " + item.last_name, value: item.patient_id }
         })
         this.setState({ PatientList: patientList })
-
     }
 
     // for Speciality
@@ -114,7 +156,7 @@ class Index extends Component {
     }
 
     updateEntryState4 = (e) => {
-        this.setState({ userFilter3: e })
+        this.setState({ specFilter: e })
     }
 
     // For page change 
@@ -165,66 +207,77 @@ class Index extends Component {
 
     //Status list
     onStatusChange = (e) => {
-        this.setState({ userFilter2: e })
+        this.setState({ statusFilter: e })
     }
 
     // Clear Filter
     clearFilter = () => {
         this.setState({
-            userFilter: '', userFilter3: '', userFilter2: '',
+            userFilter: '', specFilter: '', statusFilter: '',
             AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
             AllStatus: this.props.AllStatus, showPopup: false
         })
+        var value = this.state.value;
+        var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
+        this.fetchbillsdata(ApiStatus, value);
+        this.handleClosePopUp();
     }
 
     // Apply Filter
     applyFilter = () => {
         // let fullData = this.state.AllBills
-        let { userFilter, userFilter3, userFilter2 } = this.state
-        let data = {}
+        let { userFilter, specFilter, statusFilter, value } = this.state
+        let data = { house_id: this.props.House.value }
+        {
+            if (value === 0) {
+                this.setState({ allBillsCSS: 'filterApply' })
+            }
+            else if (value === 1) {
+                this.setState({  issuedCSS: 'filterApply' })
+            }
+            else if (value === 2) {
+                this.setState({  overdueCSS: 'filterApply' })
+            }
+            else if (value === 3) {
+                this.setState({ paidCSS: 'filterApply' })
+            }
+        }
         if (userFilter && userFilter.length > 0) {
             let Patient_id = userFilter && userFilter.length > 0 && userFilter.map((item) => {
                 return item.value
             })
-            data['Patient_id'] = Patient_id;
+            data['patient_id'] = Patient_id;
         }
-
-        if (userFilter3 && userFilter3.length > 0) {
-            let speciality = userFilter3 && userFilter3.length > 0 && userFilter3.map((item) => {
+        if (specFilter && specFilter.length > 0) {
+            let speciality = specFilter && specFilter.length > 0 && specFilter.map((item) => {
                 return item.value
             })
             data['speciality'] = speciality;
         }
 
-        if (userFilter2 && userFilter2.length > 0) {
-            let status = userFilter2 && userFilter2.length > 0 && userFilter2.map((item) => {
+        if (statusFilter && statusFilter.length > 0) {
+            let status = statusFilter && statusFilter.length > 0 && statusFilter.map((item) => {
                 return item.value
             })
             data['status'] = status;
         }
-        let dd = axios.post(
+        this.setState({ loaderImage: true });
+        axios.post(
             sitedata.data.path + "/vh/billfilter",
-            data
-            ,
+            data,
             commonHeader(this.props.stateLoginValueAim.token)
         )
             .then((response) => {
-                console.log("response",response)
-                // this.setState({ loaderImage: false });
-                // if (responce.data.hassuccessed) {
-                //     return responce.data.data ? responce.data.data : [];
-                // }
+                this.setState({ showPopup: false })
+                if (response?.data?.hassuccessed) {
+                    this.setState({ loaderImage: false, bills_data: response.data.data });
+                }
             })
             .catch((error) => {
-                console.log("error occured",error)
-                this.setState({ loaderImage: false });
+                this.setState({ loaderImage: false, showPopup: false });
             });
-        // let data = MultiFilter2(userFilter, userFilter3, userFilter2, fullData)
-        // console.log("ALL DATAAAA", userFilter, userFilter3, userFilter2, fullData)
-        // this.setState({ AllPatients: data, AllPatientCss: 'filterApply' })
-        // this.setState({ AllSpecialities: data, AllSpcialityCss: 'filterApply' })
-        // this.setState({ AllStatus: data, AllStatusCss: 'filterApply' })
-        // this.handleClosePopUp();
+        this.handleClosePopUp();
+
     }
 
     // Update status acc. to their particular id
@@ -248,6 +301,7 @@ class Index extends Component {
                 this.fetchbillsdata("all", 0);
             });
     }
+
 
     // For getting the Bills and implement Pagination
     fetchbillsdata(status, value) {
@@ -410,21 +464,23 @@ class Index extends Component {
     };
 
     render() {
+
+
         const { stateLoginValueAim, House } = this.props;
         if (
-          stateLoginValueAim.user === "undefined" ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === "undefined" ||
-          stateLoginValueAim.user.type !== "adminstaff"
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
         ) {
-          return <Redirect to={"/"} />;
+            return <Redirect to={"/"} />;
         }
         if (House && House?.value === null) {
             return <Redirect to={"/VirtualHospital/institutes"} />;
-          }
+        }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
-        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData } = this.state;
+        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
@@ -475,9 +531,21 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
-                                                        <a onClick={this.handleOpenPopUp}>
+                                                        {value === 0 &&
+                                                            <a className={allBillsCSS}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
+                                                        }
+                                                        {value === 1 &&
+                                                            <a className={issuedCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                        }
+                                                        {value === 2 &&
+                                                            <a className={overdueCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                        }
+                                                        {value === 3 &&
+                                                            <a className={paidCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                        }
+                                                        {/* <a className='filterApply' onClick={this.handleOpenPopUp}>
                                                             <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
-                                                        </a>
+                                                        </a> */}
                                                         <Modal
                                                             open={this.state.showPopup}
                                                             onClose={this.handleClosePopUp}
@@ -526,7 +594,7 @@ class Index extends Component {
                                                                                     <Select
                                                                                         name="professional"
                                                                                         onChange={this.updateEntryState4}
-                                                                                        value={this.state.userFilter3}
+                                                                                        value={this.state.specFilter}
                                                                                         options={SpecialityData}
                                                                                         placeholder="Filter by Speciality"
                                                                                         className="addStafSelect"
@@ -535,20 +603,22 @@ class Index extends Component {
                                                                                     />
                                                                                 </Grid>
                                                                             </Grid>
-                                                                            <Grid className="fltrInput">
-                                                                                <label>{Status}</label>
-                                                                                <Grid className="addInput">
-                                                                                    <Select
-                                                                                        onChange={this.onStatusChange}
-                                                                                        options={PatientStatus}
-                                                                                        name="specialty_name"
-                                                                                        value={this.state.userFilter2}
-                                                                                        placeholder="Filter by Status"
-                                                                                        className="addStafSelect"
-                                                                                        isMulti={true}
-                                                                                        isSearchable={true} />
+                                                                            {value === 0 &&
+                                                                                < Grid className="fltrInput">
+                                                                                    <label>{Status}</label>
+                                                                                    <Grid className="addInput">
+                                                                                        <Select
+                                                                                            onChange={this.onStatusChange}
+                                                                                            options={PatientStatus}
+                                                                                            name="specialty_name"
+                                                                                            value={this.state.statusFilter}
+                                                                                            placeholder="Filter by Status"
+                                                                                            className="addStafSelect"
+                                                                                            isMulti={true}
+                                                                                            isSearchable={true} />
+                                                                                    </Grid>
                                                                                 </Grid>
-                                                                            </Grid>
+                                                                            }
                                                                         </Grid>
                                                                         <Grid className="aplyFltr">
                                                                             <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
@@ -565,6 +635,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid className="billInfoData">
+
                                             <Table>
                                                 <Thead>
                                                     <Tr>
@@ -576,22 +647,35 @@ class Index extends Component {
                                                         <Th></Th>
                                                     </Tr>
                                                 </Thead>
-                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data) => (
+                                                {this.state.bills_data.length > 0 && this.state.bills_data.map((data, index) => (
                                                     <Tbody>
                                                         <Tr>
                                                             <Td>{data?.invoice_id}</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
                                                             <Td>{data.created_at}</Td>
-                                                            <Td className="greyDot"><span></span>{data?.status?.label}</Td>
+                                                            <Td className=""><span className={data?.status?.value === 'paid' ? "revwGren" : data?.status?.value === 'issued' ? "revwYelow" : data?.status?.value === 'draft' ? "revwGry" : "revwRed"}></span>{data?.status?.label}</Td>
                                                             <Td>{data?.total_amount} €</Td>
                                                             <Td className="billDots"><Button className="downloadDots">
                                                                 <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
                                                                 <Grid className="actionList">
                                                                     <ul className="actionPdf">
                                                                         <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
-                                                                        <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
+                                                                        {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
+                                                                        <div className="printPreviewlink">
+                                                                            <ReactToPrint
+                                                                                content={this.reactToPrintContent}
+                                                                                documentTitle="Report.pdf"
+                                                                                onBeforeGetContent={this.handleOnBeforeGetContent}
+                                                                                removeAfterPrint
+                                                                                trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>}
+                                                                                _id={data._id}
+                                                                            />
+                                                                            {/* {cond} */}
+                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={this.state.bills_data[index]} index={index} />
+                                                                        </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
+
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">
                                                                             <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>Set status</span></li></a>
@@ -647,9 +731,9 @@ class Index extends Component {
                                 {/* End of Right Section */}
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
+                    </Grid >
+                </Grid >
+            </Grid >
         );
     }
 }

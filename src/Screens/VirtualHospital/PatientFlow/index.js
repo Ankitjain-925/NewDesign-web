@@ -8,7 +8,7 @@ import Loader from "Screens/Components/Loader/index";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getPatientData } from "Screens/Components/CommonApi/index";
-import {PatientFlowFilter} from "../../Components/MultiFilter/index"
+import { PatientFlowFilter } from "../../Components/MultiFilter/index"
 import {
   getSteps,
   getAuthor,
@@ -44,7 +44,7 @@ class Index extends Component {
       selectedOption: null,
       view: "vertical",
       openAddP: false,
-      fullData: {},  
+      fullData: {},
       actualData: [],
       edit: false,
       addp: {},
@@ -67,7 +67,8 @@ class Index extends Component {
       roomList: [],
       selectedPat: '',
       assignedTo2: '',
-      allWards : ''
+      allWards: '',
+      filteredData: '',
 
     };
   }
@@ -328,7 +329,7 @@ class Index extends Component {
               ? "dark-confirm deleteStep"
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 <label>{deleteStep}</label>
               </Grid>
               <Grid className="deleteStepInfo">
@@ -588,20 +589,22 @@ class Index extends Component {
   newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
-  filterResult =() => {
-    let {selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData} = this.state
+  filterResult = () => {
+    let { selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData } = this.state
     var data = _.cloneDeep(actualData);
-    let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data )
+    let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data)
     console.log('result', result)
     this.mapActualToFullData(result);
+    this.setState({ filteredData: 'filterApply' })
+    this.handleCloseFil();
   }
 
   clearFilter = () => {
-    this.setState({selectedPat : '', assignedTo2 : '', selectSpec2 : '', selectWard: '', wardList: [], roomList: [], selectRoom: ''})
+    this.setState({ selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
     this.mapActualToFullData(this.state.actualData);
     this.handleCloseFil();
   }
-  
+
   // clearFilters = () => {
   //   this.setState({
   //     searchValue: '',
@@ -715,7 +718,7 @@ class Index extends Component {
   };
 
   onFieldChange2 = (e) => {
-    this.setState({ selectWard: '', selectRoom: '',wardList: [],roomList : [] })
+    this.setState({ selectWard: '', selectRoom: '', wardList: [], roomList: [] })
     let specialityList = this.props && this.props.speciality && this.props.speciality.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
     })
@@ -724,6 +727,7 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
+    console.log(" selectSpec2", this.state.selectSpec2)
 
     // if (e && e.length > 0) {
 
@@ -760,26 +764,13 @@ class Index extends Component {
   }
 
   render() {
-    const { stateLoginValueAim, House } = this.props;
-    if (
-      stateLoginValueAim.user === "undefined" ||
-      stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "adminstaff"
-    ) {
-      return <Redirect to={"/"} />;
-    }
-    if (House && House?.value === null) {
-      return <Redirect to={"/VirtualHospital/institutes"} />;
-    }
-   
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
-       case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient } =
+      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient } =
       translate;
 
-    const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep } = this.state;
+    const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep, filteredData } = this.state;
     const userList =
       this.state.filteredUsers &&
       this.state.filteredUsers.map((user) => {
@@ -835,7 +826,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} sm={8} md={8} className="addFlowRght">
                           <a onClick={() => this.newPatient()}>
-                          {CreateNewPatient}
+                            {CreateNewPatient}
                           </a>
                           <a onClick={() => this.openAddPatient()}>
                             {AddPatient}
@@ -856,24 +847,24 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
-                            <a className="srchSort" onClick={this.handleOpenFil}>
+                            <a className={filteredData} onClick={this.handleOpenFil}>
                               <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
-                            <Grid  className={
+                              <Grid className={
                                 this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
                                   ? "nwEntrCntnt fltrClear darkTheme"
                                   : "nwEntrCntnt fltrClear"
                               }
                               >
-                              
+
                                 <Grid className="fltrClearIner">
                                   <Grid className="fltrLbl">
                                     <Grid className="fltrLblClose">
-                                      <a onClick={this.handleCloseFil}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
+                                      <a onClick={this.handleCloseFil}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a>
                                     </Grid>
                                     <label>{filters}</label>
                                   </Grid>
@@ -902,7 +893,7 @@ class Index extends Component {
                                         <Select
                                           name="professional"
                                           value={this.state.assignedTo2}
-                                          options={this.state.professional_id_list} 
+                                          options={this.state.professional_id_list}
                                           placeholder="Filter by Staff"
                                           isMulti={true}
                                           isSearchable={true}
@@ -928,7 +919,7 @@ class Index extends Component {
 
                                       <Grid className="fltrInput">
                                         <label>{Ward}</label>
-                                        <Grid className="addInput"> 
+                                        <Grid className="addInput">
                                           <Select
                                             onChange={(e) => this.onWardChange(e)}
                                             options={this.state.wardList}
@@ -959,8 +950,8 @@ class Index extends Component {
                                   </Grid>
                                   <Grid className="aplyFltr">
                                     <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>{clear_all_filters}</label></Grid>
-                                    <Grid className="aplyRght"><Button 
-                                    onClick={this.filterResult}
+                                    <Grid className="aplyRght"><Button
+                                      onClick={this.filterResult}
                                     >{applyFilters}</Button></Grid>
                                   </Grid>
 
@@ -984,12 +975,12 @@ class Index extends Component {
                               }}
                             >
                               {/* {this.state.view === 'vertical' ? */}
-                                <img
-                                  src={require("assets/virtual_images/active-vertical.png")}
-                                  alt=""
-                                  title=""
-                                />
-                                 {/* :
+                              <img
+                                src={require("assets/virtual_images/active-vertical.png")}
+                                alt=""
+                                title=""
+                              />
+                              {/* :
                                 <img
                                   src={require("assets/virtual_images/lines.png")}
                                   alt=""
@@ -1004,17 +995,17 @@ class Index extends Component {
                             >
                               {/* {this.state.view === 'horizontal' ? */}
 
-                                <img
-                                  src={require("assets/virtual_images/active-horizontal.png")}
-                                  alt=""
-                                  title=""
-                                />
-                                {/* : <img
+                              <img
+                                src={require("assets/virtual_images/active-horizontal.png")}
+                                alt=""
+                                title=""
+                              />
+                              {/* : <img
                                   src={require("assets/virtual_images/non-active-horizontal.png")}
                                   alt=""
                                   title=""
                                 /> */}
-                                {/* } */}
+                              {/* } */}
                             </a>
                           </Grid>
                         </Grid>
@@ -1067,7 +1058,7 @@ class Index extends Component {
               <Grid className="addFlowLbl">
                 <Grid className="addFlowClose">
                   <a onClick={this.closeAddP}>
-                    <img src={require("assets/virtual_images/closefancy.png")} alt="" title="" />
+                    <img src={require("assets/images/close-search.svg")} alt="" title="" />
                   </a>
                 </Grid>
                 <label>{AddPatienttoFlow}</label>
@@ -1157,7 +1148,7 @@ class Index extends Component {
                   <Grid className="addWrnClose">
                     <a onClick={this.handleClosePopup}>
                       <img
-                        src={require("assets/virtual_images/closefancy.png")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />

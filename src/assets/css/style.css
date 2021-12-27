@@ -6436,10 +6436,11 @@ a.archvDel {
 a.archvDel:hover ul {
     display: block !important;
 }
-
+.darkTheme .entryBoxCntnt {
+    background-color: #404646!important;
+}
 .entryBoxCntnt {
     width: 460px;
-    background: #fff;
     margin: 0 auto;
     border: none;
     outline: none;
@@ -12906,15 +12907,15 @@ a.timSlotClose {
   }
 }
 a.addNewPlus {
-    border: 1px solid #F2F2F2;
+    /* border: 1px solid #F2F2F2; */
     border-radius: 8px;
     background-color: #FFFFFF;
     padding: 10px 17px;
     display: inline-block;
 }
-a.addNewPlus img {
+/* a.addNewPlus img {
     border: none !important;
-}
+} */
 .adminMenuRghtUpr {
     padding-left: 40px;
     padding-top: 40px;
@@ -14939,7 +14940,7 @@ input:focus {
   .officVisit.display-cls{
       display: flex;
   }
-  .darkTheme > div:nth-child(3), .homeBgDrk .tooltip-container {
+.homeBgDrk .tooltip-container {
       background-color: #404646!important;
   }
   .darkTheme label, .darkTheme p, .darkTheme h3, .darkTheme h1 {
@@ -17257,7 +17258,7 @@ ul.duringCovid li:last-child {
     width: 162px;
     border: 1px solid #BFC1C1;
     border-radius: 4px;
-    background-color: transparent;
+    background-color: #192020;
     color: #7F8383;
     font-size: 14px;
     margin-left: 10px;

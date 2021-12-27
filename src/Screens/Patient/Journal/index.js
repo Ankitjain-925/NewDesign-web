@@ -1104,12 +1104,12 @@ class Index extends Component {
                                 <h1>{journal}</h1>
                               </Grid>
                               <Grid item xs={6} md={6}>
-                                <Grid className="AddEntrynw">
+                                <Grid className="AddEntrynw ">
                                   <a onClick={this.handleOpenEntry}>
                                     + {add_new_entry}
                                   </a>
                                 </Grid>
-                                <Grid className="downloadButton">
+                                <Grid className="downloadButton ">
                                   <DownloadFullTrack
                                     TrackRecord={this.state.allTrack1}
                                   />
@@ -1145,7 +1145,7 @@ class Index extends Component {
                       />
 
                       {/* For Empty Entry */}
-                      <div>
+                      <div >
                         {this.state.allTrack &&
                           this.state.allTrack.length > 0 ? (
                           <div>
@@ -1228,9 +1228,9 @@ class Index extends Component {
                           : ""
                       }
                     >
-                      <Grid className="nwDiaCntnt">
-                        <Grid className="nwDiaCntntIner">
-                          <Grid className="nwDiaCourse">
+                      <Grid className="nwDiaCntnt  ">
+                        <Grid className="nwDiaCntntIner darkTheme addSpeclContnt">
+                          <Grid className="nwDiaCourse ">
                             <Grid className="nwDiaCloseBtn">
                               <a onClick={this.handleCloseInqryNw}>
                                 <img
@@ -1245,7 +1245,7 @@ class Index extends Component {
                               this.state.updateTrack.track_id ? (
                               <div>
                                 <p>{new_entry}</p>
-                                <Grid className="nwDiaSel">
+                                <Grid className="nwDiaSel ">
                                   <select
                                     onChange={(e) =>
                                       this.SelectOption(e.target.value)
