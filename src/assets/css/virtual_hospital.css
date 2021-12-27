@@ -5796,7 +5796,8 @@ button.downloadPDF:hover {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
-    padding: 10px 42px;
+    /* padding: 10px 42px; */
+    padding:10px 35px;
     font-family: Muli;
 }
 .patentPic img {
@@ -12583,8 +12584,11 @@ input:-moz-autofill:active{
     .taskSort input[type=text]{
         width:120px;
     }
-    .aaa{
+    .attchNotePart{
         display:flex;
+    }
+    .attchOpen button{
+        margin-left: 40px;
     }
 }
 
@@ -12593,23 +12597,30 @@ input:-moz-autofill:active{
         margin-bottom:20px;
     }
 }
-/* .setStatus li:first-child {
-    border-top: 1px solid #F2F2F2;
-    border-bottom: 1px solid #F2F2F2;
-    margin-top: 14px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin-bottom: 0px;
-    position: relative;
+
+
+
+@media(max-width:599px){
+    .addFlowRght, .spcMgntH1 h1{
+        text-align: center!important;
+    }
+    .addFlowRght{
+        margin-top: 24px!important;
+    }
 }
-.setStatus li:first-child::after{
-    content: "";
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background-size: contain;
-    background: url("../images/Right.svg") no-repeat center center;
-    cursor: pointer;
-} */
+
+@media (max-width: 468px){
+    .topLeftSpc{
+        padding-left:10px!important;
+        padding-right: 10px!important;
+        margin-top:50px!important;
+    }
+}
+@media (max-width: 452px){
+    a.openScndhrf {
+        margin-top: 0px!important;
+    }
+}
+.darkTheme .setStatus li:first-child {
+    border: none;
+}

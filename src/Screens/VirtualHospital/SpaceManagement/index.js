@@ -156,10 +156,10 @@ class Index extends Component {
                         {BacktoChangeHospital}</a>
                     </Grid>
                     <Grid container direction="row" alignItems="center">
-                      <Grid item xs={6} sm={6} md={6}>
+                      <Grid item xs={12} sm={6} md={6}>
                         <Grid className="spcMgntH1"><h1>{SpaceManagement}</h1></Grid>
                       </Grid>
-                      <Grid item xs={6} sm={6} md={6} className="addFlowRght">
+                      <Grid item xs={12} sm={6} md={6} className="addFlowRght">
                         <a onClick={this.handleOpenSpecl}>
                           {addNewSpeciality}
                         </a>
