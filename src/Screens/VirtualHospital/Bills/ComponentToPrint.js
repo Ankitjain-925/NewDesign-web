@@ -16,11 +16,10 @@ export class ComponentToPrint extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bills_data: {},
-            AllBills: {}
         }
-    };
+        console.log("props", this.props);
 
+    };
 
     render() {
         var { data, index } = this.props;
@@ -49,7 +48,7 @@ export class ComponentToPrint extends React.Component {
                             <Tbody>
                                 <Tr>
                                     { }
-                                    <Td>Services : {data?.services[0]?.service}</Td>
+                                    <Td>Services : {data?.services?.service}</Td>
                                 </Tr>
                                 <Tr>
                                     <Td>Invoice ID : {data?.invoice_id} </Td>

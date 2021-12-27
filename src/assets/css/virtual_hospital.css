@@ -6223,10 +6223,12 @@ button.downloadPDF:hover {
     padding: 12px 20px 5px 20px;
 }
 .tskOverView {
+    margin-top: 15px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-    min-height: 110vh;
+    /* min-height: 110vh; */
     padding: 26px 16px;
+    border-radius: 15px;
 }
 /* added by Tanya */
 .spcificInfo .MuiTypography-root.MuiTypography-body1{
@@ -6276,7 +6278,8 @@ button.downloadPDF:hover {
     line-height: 24px;
 }
 .taskNum {
-    min-width: 176px;
+    margin-left: 20px;
+    min-width: 120px;
     border-radius: 12px;
     background-color: #FAFAFA;
     display: inline-block;
@@ -9460,7 +9463,7 @@ button.crdoLghtBlu2 {
     margin-bottom: 0px;
   }
   .tskOverWeb {
-    display: none;
+    display: block;
   }
   .taskTabsMob, .taskTabsMob {
     display: block !important;
@@ -9489,7 +9492,8 @@ button.crdoLghtBlu2 {
     border-bottom: 1px solid #dadada;
   }
   .addTaskBtn {
-    text-align: center;
+    text-align: right;
+    margin-right: 10px;
     margin-top: 50px;
     margin-bottom: 25px;
   }

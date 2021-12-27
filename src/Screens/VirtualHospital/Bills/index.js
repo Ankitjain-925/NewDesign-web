@@ -126,10 +126,6 @@ class Index extends Component {
 
     };
 
-    // reactToPrintTrigger = () => {
-    //  <a onClick={() => { this.printInvoice() }}><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
-    // }
-
     // For print invoice
     printInvoice = () => {
 
@@ -233,10 +229,10 @@ class Index extends Component {
                 this.setState({ allBillsCSS: 'filterApply' })
             }
             else if (value === 1) {
-                this.setState({  issuedCSS: 'filterApply' })
+                this.setState({ issuedCSS: 'filterApply' })
             }
             else if (value === 2) {
-                this.setState({  overdueCSS: 'filterApply' })
+                this.setState({ overdueCSS: 'filterApply' })
             }
             else if (value === 3) {
                 this.setState({ paidCSS: 'filterApply' })
@@ -671,7 +667,7 @@ class Index extends Component {
                                                                                 _id={data._id}
                                                                             />
                                                                             {/* {cond} */}
-                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={this.state.bills_data[index]} index={index} />
+                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={data} index={index} />
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>
