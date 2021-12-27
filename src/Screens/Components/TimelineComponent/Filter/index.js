@@ -224,6 +224,7 @@ class FilterSec extends Component {
            {this.state.loaderImage && <Loader />}
         <Grid item xs={12} md={11}>
           <Grid className="srchFilter 22">
+        
             {!this.state.isTest && (
               <Grid container direction="row">
                 <Grid item xs={12} md={6} lg={4}>
@@ -250,6 +251,7 @@ class FilterSec extends Component {
                           closeMenuOnSelect={false}
                       /> */}
                 </Grid>
+                
                 <Grid item xs={12} md={6} lg={3}>
                   <Select
                     value={this.state.selectType}
@@ -267,6 +269,7 @@ class FilterSec extends Component {
                     //isSearchable = {false}
                   />
                 </Grid>
+              
                 <Grid item xs={12} md={6} lg={3}>
                   <Select
                     value={this.state.selectUser}
@@ -390,7 +393,8 @@ class FilterSec extends Component {
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+        </Grid>
+   
     );
   }
 }
