@@ -627,6 +627,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token),
       )
       .then((response) => {
+        // console.log('response',response)
         if (response.data.hassuccessed) {
           this.setState({ view: response.data.data });
         }
@@ -878,6 +879,7 @@ class Index extends Component {
                                     this.state.view.length > 0 && (
                                       <div>
                                         {this.state.view.map((item, index) => (
+                                          console.log("item",item),
                                           <ViewJourney
                                             indexTimeline={index}
                                             // lrp={AllL_Ps.AllL_Ps.english}
@@ -1002,7 +1004,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}>
                                           <Grid className="QuesMrkt">
                                             {/* <Grid><a><img src={require('../../assets/images/germanMedical.png')} alt="" title="" /></a></Grid> */}
-                                            {/* <Grid><a><img src={require('../../assets/images/closefancy.png')} alt="" title="" /></a></Grid> */}
+                                            {/* <Grid><a><img src={require('../../assets/images/close-search.svg')} alt="" title="" /></a></Grid> */}
                                           </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={12}>

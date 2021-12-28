@@ -259,7 +259,7 @@ class Index extends Component {
                   title=""
                 />
                 <span>
-                  {add_new} <br /> {user}
+                  {add_new} {user}
                 </span>
               </a>
             </li>

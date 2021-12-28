@@ -979,7 +979,7 @@ class Index extends Component {
                       >
                         <Grid item xs={12} md={8}>
                           <label>{country}</label>
-                          <Grid>
+                          <Grid className="cntryDropTop">
                             <Select
                               value={this.state.UpDataDetails.country}
                               onChange={(e) =>
@@ -1221,7 +1221,7 @@ class Index extends Component {
                         <label>
                           {country} {of} {insurance}
                         </label>
-                        <Grid>
+                        <Grid className="cntryDropTop">
                           <Select
                             onChange={this.selectCountry}
                             options={this.state.selectCountry}
@@ -1395,7 +1395,7 @@ class Index extends Component {
                         <label>
                           {country} {of} {insurance}
                         </label>
-                        <Grid>
+                        <Grid className="cntryDropTop">
                           <Select
                             value={
                               datas &&

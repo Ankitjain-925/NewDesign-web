@@ -894,6 +894,7 @@ class Index extends Component {
                         title=""
                       />
                     </a>
+                    
                     <a>
                       <img
                         src={require("assets/images/qr-code.svg")}
@@ -933,8 +934,17 @@ class Index extends Component {
                   : "qrBoxModel"
               }
             >
-              <Grid className="qrBoxCntnt">
-                <Grid className="qrCourse">
+              <Grid 
+               className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
+                  ? "darkTheme addSpeclContnt"
+                  : "qrBoxCntnt"
+              }
+              // className="qrBoxCntnt darkTheme addSpeclContnt"
+              >
+                <Grid className="qrCourse ">
                   <Grid className="qrCloseBtn">
                     <a onClick={this.handleQrClose}>
                       <img
@@ -971,7 +981,7 @@ class Index extends Component {
             </Modal>
             {/* End of QR Model setup */}
             <Grid item xs={12} md={4}>
-              <Grid className="profileIdRght">
+              <Grid className="profileIdRght ">
                 <a onClick={this.handlePinOpen}>
                   {Change} {ID} / {pin}
                 </a>
@@ -989,7 +999,16 @@ class Index extends Component {
                   : "editBoxModel"
               }
             >
-              <Grid className="editBoxCntnt">
+              <Grid 
+               className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
+                  ? "darkTheme addSpeclContnt"
+                  : "editBoxCntnt"
+              }
+              // className="editBoxCntnt darkTheme addSpeclContnt"
+              >
                 <Grid className="editCourse">
                   <Grid className="editCloseBtn">
                     <a onClick={() => this.handlePinClose("chngPinOpen")}>
@@ -1237,7 +1256,7 @@ class Index extends Component {
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={8}>
                     <label>{country}</label>
-                    <Grid>
+                    <Grid className="cntryDropTop">
                       <Select
                         value={this.state.UpDataDetails.country}
                         onChange={(e) => this.EntryValueName(e, "country")}

@@ -109,8 +109,8 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Specialities, Iunderstandthat, AddSpeciality,
-      BacktoChangeHospital, addNewSpeciality, SpaceManagement, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
-      yesDeleteSpeciality, cancelKeepSpeciality, Room, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close } = translate;
+      BacktoChangeHospital, addNewSpeciality,SpaceManagement, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
+      yesDeleteSpeciality, cancelKeepSpeciality, Room, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close} = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -227,7 +227,7 @@ class Index extends Component {
                             <Grid className="addWrnClose">
                               <a onClick={() => handleCloseWarn(this)}>
                                 <img
-                                  src={require("assets/virtual_images/closefancy.png")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -385,14 +385,14 @@ class Index extends Component {
                 <Grid className="addSpeclClose">
                   <a onClick={this.handleCloseSpecl}>
                     <img
-                      src={require("assets/virtual_images/closefancy.png")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
                     />
                   </a>
                 </Grid>
                 <Grid>
-                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> {DeleteSpeciality}</span></label> :
+                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => handleOpenWarn(this.state.speciality._id, this) }><span className="deleteimg"></span> {DeleteSpeciality}</span></label> :
                     <label>{AddSpeciality}</label>}
                 </Grid>
               </Grid>
@@ -532,7 +532,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <Grid className="spclSaveBtn saveNclose">
-                      <Button onClick={this.SaveSpeciality}>
+                      <Button onClick={()=>SaveSpeciality(this)}>
                         {save_and_close}
                       </Button>
                     </Grid>

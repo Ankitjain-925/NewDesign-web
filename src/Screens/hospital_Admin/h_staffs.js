@@ -508,10 +508,10 @@ class Index extends Component {
                                   {Normal}
                                 </Td>
                               )}
-                              <Td className="archvDot">
-                                <a className="academy_ul newacademyul">
+                              <Td className="billDots">
+                                <a className="academy_ul">
                                   <img
-                                    src={require("assets/images/three_dots_t.png")}
+                                    src={require("assets/virtual_images/threeDots.png")}
                                     alt=""
                                     title=""
                                     className="academyDots"
@@ -637,7 +637,7 @@ class Index extends Component {
                         <Grid className="addSpeclClose">
                           <a onClick={this.closeHouse}>
                             <img
-                              src={require("assets/virtual_images/closefancy.png")}
+                              src={require("assets/images/close-search.svg")}
                               alt=""
                               title=""
                             />

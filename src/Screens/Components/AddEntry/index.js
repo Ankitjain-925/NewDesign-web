@@ -82,7 +82,14 @@ class PointPain extends Component {
             : "addScrollBar"
         }
       >
-        <Grid className="entryBoxCntnt">
+        <Grid 
+         className={
+          this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
+            ? "entryBoxCntnt darkTheme addSpeclContnt"
+            : "entryBoxCntnt addSpeclContnt"
+        }>
           <Grid className="entryCourse">
             <Grid className="entryCloseBtn">
               <a onClick={this.handleCloseEntry}>
@@ -401,7 +408,15 @@ class PointPain extends Component {
                       <p>{weight_bmi}</p>
                     </a>
                   </Grid>
-                  
+                  <Grid className="clear"></Grid>
+                  <Grid>
+                    <a onClick={() => this.handleChangeEntry("journal_promotion")}>
+                      {this.state.openBy !== "adminstaff" && (
+                        <span>24</span>
+                      )}
+                      <p>{"Journal Promotion"}</p>
+                    </a>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

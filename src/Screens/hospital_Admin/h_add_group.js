@@ -108,7 +108,7 @@ class Index extends Component {
               ? "dark-confirm deleteStep"
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 <label>Delete Group</label>
               </Grid>
               <Grid className="deleteStepInfo">
@@ -194,7 +194,7 @@ class Index extends Component {
               ? "dark-confirm deleteStep"
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 <label>Delete Hospital</label>
               </Grid>
               <Grid className="deleteStepInfo">
@@ -586,7 +586,7 @@ class Index extends Component {
                             item
                             xs={12}
                             md={4}
-                            onClick={() => this.EditInstitute(item._id)}
+                          // onClick={() => this.EditInstitute(item._id)}
                           >
                             <Grid className="medcalFZCntnt">
                               <Grid className="presEditDot scndOptionIner">
@@ -636,10 +636,10 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <label>{item.group_name}</label>
-                              </Grid>
+                               </Grid>
                               <p>{item.group_description}</p>
+                               {this.state.showHouses &&
 
-                              {this.state.showHouses &&
                                 <Grid>
                                   <Table>
                                     <Thead>
@@ -653,6 +653,7 @@ class Index extends Component {
                                           <Tr>
                                             <Td>
                                               {data.house_name}
+                                             
                                             </Td>
                                           </Tr>
                                         ))}
@@ -697,7 +698,7 @@ class Index extends Component {
                           <Grid className="addSpeclClose">
                             <a onClick={this.closeInstitute}>
                               <img
-                                src={require("assets/virtual_images/closefancy.png")}
+                                src={require("assets/images/close-search.svg")}
                                 alt=""
                                 title=""
                               />
@@ -850,13 +851,13 @@ class Index extends Component {
                           : "addSpeclModel"
                       }
                     >
-                      <Grid className="nwEntrCntnt">
+                      <Grid className="nwEntrCntnt darkTheme addSpeclContnt">
                         <Grid className="nwEntrCntntIner">
                           <Grid className="addSpeclLbl">
                             <Grid className="addSpeclClose">
                               <a onClick={this.closeHospitalModal}>
                                 <img
-                                  src={require("assets/virtual_images/closefancy.png")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />

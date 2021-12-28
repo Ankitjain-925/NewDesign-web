@@ -89,6 +89,7 @@ class Index extends Component {
       openApoint: false,
       cancelappoint: {},
       UpDataDetails: [],
+      TasksCss: ''
     };
   }
 
@@ -676,17 +677,17 @@ class Index extends Component {
       .then((responce) => {
         if (responce.data.hassuccessed) {
           this.showDataCalendar(responce)
-          this.setState({ loaderImage: false, openFil: false });
+          this.setState({ TasksCss : 'filterApply', loaderImage: false, openFil: false });
         }
       })
       .catch((error) => {
-        this.setState({ loaderImage: false });
+        this.setState({ loaderImage: false, TasksCss : '' });
       });
   }
 
   clearFilter = () => {
     this.setState({ loaderImage: true });
-    this.setState({ userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false, allWards: '', wardList: [], roomList: [] });
+    this.setState({TasksCss : '', userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false, allWards: '', wardList: [], roomList: [] });
     this.getTaskData();
     this.setState({ loaderImage: false });
   }
@@ -1203,19 +1204,7 @@ class Index extends Component {
   }
 
   render() {
-    const { stateLoginValueAim, House } = this.props;
-    if (
-      stateLoginValueAim.user === "undefined" ||
-      stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "adminstaff"
-    ) {
-      return <Redirect to={"/"} />;
-    }
-    if (House && House?.value === null) {
-      return <Redirect to={"/VirtualHospital/institutes"} />;
-    }
-    
+   
     let translate = getLanguage(this.props.stateLanguageType);
     let { Appointmentiscanceled,
       select_spec,
@@ -1358,13 +1347,15 @@ class Index extends Component {
                         <Grid className="appontTask apponTaskhos">
                           <Button onClick={this.handleAllowAccess}>+ Add Appointment</Button>
                           <Button onClick={() => { this.moveTask() }}>+ Add Task</Button>
-                          <a className="barViewnw" onClick={this.handleOpenFil}>
-                            <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
-                          </a>
                         </Grid>
 
                       </Grid>
                     </Grid>
+                    <div className="todaySrch filterAtright">
+                     <a className={this.state.TasksCss +" barViewnw"} onClick={this.handleOpenFil}>
+                        <img src={this.state.TasksCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
+                      </a>
+                    </div>
                     {tabvalue === 0 && (
                       <TabContainer>
                         <Grid className="timeSchdul">
@@ -1519,7 +1510,7 @@ class Index extends Component {
                     <Grid className="fltrClearIner">
                       <Grid className="fltrLbl">
                         <Grid className="fltrLblClose">
-                          <a onClick={this.handleCloseFil}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
+                          <a onClick={this.handleCloseFil}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a>
                         </Grid>
                         <label>Filters</label>
                       </Grid>

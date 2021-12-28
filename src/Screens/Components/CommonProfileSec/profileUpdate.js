@@ -699,7 +699,7 @@ class Index extends Component {
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={8}>
                     <label>{country}</label>
-                    <Grid>
+                    <Grid className="cntryDropTop">
                       <Select
                         value={this.state.UpDataDetails.country}
                         onChange={(e) => this.EntryValueName(e, "country")}
@@ -801,7 +801,7 @@ class Index extends Component {
                     <label>
                       {Languages} {spoken}
                     </label>
-                    <Grid>
+                    <Grid >
                       <Select
                         value={this.state.name_multi}
                         name="languages"
