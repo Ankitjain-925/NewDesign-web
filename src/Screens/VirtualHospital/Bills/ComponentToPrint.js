@@ -25,6 +25,7 @@ export class ComponentToPrint extends React.Component {
         var { data, index } = this.props;
         return (
             <div className="relativeCSS">
+                {console.log('data', this.props.data)}
                 <style type="text/css" media="print"></style>
                 <div className="flash" />
                 <Grid className="printPreview">
@@ -48,7 +49,16 @@ export class ComponentToPrint extends React.Component {
                             <Tbody>
                                 <Tr>
                                     { }
-                                    <Td>Services : {data?.services?.service}</Td>
+                                    <Td>Services : <ul>{data?.services && data?.services?.length>0 && 
+                                    data?.services.map((item)=>(
+                                        <li>
+                                         Service Name:    {item.service}<br/>
+                                         Service Price / quantity:   {item.price}<br/>
+                                         quantity:   {item.quantity}<br/>
+                                        </li>   
+                                    ))
+                                    }</ul>
+                                    </Td>
                                 </Tr>
                                 <Tr>
                                     <Td>Invoice ID : {data?.invoice_id} </Td>

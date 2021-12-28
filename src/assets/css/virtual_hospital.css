@@ -2903,7 +2903,16 @@ a.lineSort {
 .entryInfoActv label {
     color: #00ABAF !important;
 }
-@media (max-width: 1200px){
+
+@media screen and (min-width: 640px) and (max-width: 1200px){
+    .archvOpinionIner td.pivoted {
+        padding: 10px !important;
+    }
+    .billInfoData td {
+        padding: 10px !important;
+    }
+}
+@media (max-width: 1200px) {
     .asignStaf {
         margin-left: 10px;
         margin-right: 10px;
@@ -5796,7 +5805,8 @@ button.downloadPDF:hover {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
-    padding: 10px 42px;
+    /* padding: 10px 42px; */
+    padding:10px 35px;
     font-family: Muli;
 }
 .patentPic img {
@@ -9840,6 +9850,25 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.filterAtright{
+    text-align:right;
+    margin-top:10px !important;
+    margin-bottom: -20px !important;
+}
+.darkTheme .cntryDrop div:first-child:hover{
+    background-color: 404646 !important;
+}
+img.academyDots {
+    padding: 3px !important;
+    border: 1px solid #7e8282 !important;
+    width: 25px !important;
+    border-radius: 8px !important;
+    height: auto !important;
+}
+img.manage-size {
+    width: 44px;
+    padding: 12px;
+}
 .darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
     background-color: #404646 !important;
     color: #fff !important;
@@ -9881,6 +9910,7 @@ img.vdoCalNow {
 a.newacademyul ul li img
 {
  height: 20px!important;
+ padding:5px;
 }
 
 .darkTheme .profilMenuList2 li a img {
@@ -12669,13 +12699,40 @@ input:-moz-autofill:active{
     .taskSort input[type=text]{
         width:120px;
     }
-    .aaa{
+    .attchNotePart{
         display:flex;
+    }
+    .attchOpen button{
+        margin-left: 40px;
     }
 }
 
+
+
 @media(max-width:599px){
-    .taskSort input[type=text]{
+   .taskSort input[type=text]{
         margin-bottom:20px;
     }
+    .addFlowRght, .spcMgntH1 h1{
+        text-align: center;
+    }
+    .addFlowRght{
+        margin-top: 24px;
+    }
+}
+
+@media (max-width: 468px){
+    .topLeftSpc{
+        padding-left:10px;
+        padding-right: 10px;
+        margin-top:50px;
+    }
+}
+@media (max-width: 452px){
+    a.openScndhrf {
+        margin-top: 0px;
+    }
+}
+.darkTheme .setStatus li:first-child {
+    border: none;
 }

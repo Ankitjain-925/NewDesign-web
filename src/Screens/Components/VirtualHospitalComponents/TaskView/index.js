@@ -65,7 +65,7 @@ class PointPain extends Component {
                     </Grid>
                     <Grid item xs={12} sm={8} md={6}>
                         <Grid className="attchNoteMain">
-                            <Grid className="aaa">
+                            <Grid className="attchNotePart">
                             <Grid className="attchNoteUpr">
                                 <Grid className="attchNote">
                                     <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />

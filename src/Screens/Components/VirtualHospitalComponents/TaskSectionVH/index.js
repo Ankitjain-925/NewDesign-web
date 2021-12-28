@@ -1170,7 +1170,7 @@ class Index extends Component {
                                           />
                                           <label>{Duplicate}</label>
                                         </Grid>
-                                        {console.log('dsfsdfsdf', this.state.newTask.archived)}
+                                       
                                         {this.state.newTask.archived == true ? (
                                         <Grid
                                           onClick={() => {
@@ -1212,6 +1212,7 @@ class Index extends Component {
                                             src={require("assets/virtual_images/deleteNew.png")}
                                             alt=""
                                             title=""
+                                            className="manage-size"
                                           />
                                           <label
                                             onclick={(id) => {
@@ -1233,7 +1234,7 @@ class Index extends Component {
                                             <Grid className="revwFiles ">
                                           <Grid className="activeOntask">
                                             <img
-                                              src={require("assets/virtual_images/rightTick.png")}
+                                              src={require("assets/virtual_images/greyImg.png")}
                                               alt=""
                                               title=""
                                             />
@@ -1388,19 +1389,19 @@ class Index extends Component {
                     <>
                      
                       {tabvalue2 === 0 &&
-                        <a className={AllTaskCss}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} />  </a>
+                        <a className={AllTaskCss}><img src={AllTaskCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} />  </a>
                       }
                       {tabvalue2 === 1 &&
-                        <a className={DoneTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={DoneTaskCss}> <img src={AllTaskCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                       {tabvalue2 === 2 &&
-                        <a className={OpenTaskCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={OpenTaskCss}> <img src={AllTaskCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                     </>
                   }
 
                   {tabvalue2 === 3 &&
-                    <a className={ArchivedTasksCss}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                    <a className={ArchivedTasksCss}> <img src={ArchivedTasksCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                   }
                 </Grid>
               </Grid>

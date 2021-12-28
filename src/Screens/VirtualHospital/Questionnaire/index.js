@@ -409,11 +409,11 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
 
               {/* Mobile menu */}
-              <LeftMenuMobile isNotShow={true} currentPage="chat" />
+              <LeftMenuMobile isNotShow={true}  currentPage="more" />
               <Grid container direction="row">
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                  <LeftMenu isNotShow={true} currentPage="chat" />
+                  <LeftMenu isNotShow={true}  currentPage="more" />
                 </Grid>
                 {/* End of Menu */}
 
