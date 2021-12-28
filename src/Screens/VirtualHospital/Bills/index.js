@@ -33,6 +33,7 @@ import Modal from "@material-ui/core/Modal";
 import Select from "react-select";
 import { getPatientData } from 'Screens/Components/CommonApi/index';
 import { MultiFilter2 } from '../../Components/MultiFilter';
+import { getDate } from 'Screens/Components/BasicMethod/index';
 import ReactToPrint, { PrintContext } from 'react-to-print';
 import { ComponentToPrint } from "./ComponentToPrint";
 import { data } from 'jquery';
@@ -482,7 +483,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Billing, filters, Patient, speciality, Status, ID, date, total } = translate;
+        let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
@@ -655,7 +656,8 @@ class Index extends Component {
                                                         <Tr>
                                                             <Td>{data?.invoice_id}</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
-                                                            <Td>{data.created_at}</Td>
+                                                            <Td>{data.created_at ? getDate(data.created_at, this.props.settings.setting.date_format) : not_mentioned}</Td>
+                                                            {/* <Td>{data.}</Td> */}
                                                             <Td className=""><span className={data?.status?.value === 'paid' ? "revwGren" : data?.status?.value === 'issued' ? "revwYelow" : data?.status?.value === 'draft' ? "revwGry" : "revwRed"}></span>{data?.status?.label}</Td>
                                                             <Td>{data?.total_amount} €</Td>
                                                             <Td className="billDots"><Button className="downloadDots">

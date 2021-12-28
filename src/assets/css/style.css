@@ -17258,7 +17258,7 @@ ul.duringCovid li:last-child {
     width: 162px;
     border: 1px solid #BFC1C1;
     border-radius: 4px;
-    background-color: #192020;
+    /* background-color: #192020; */
     color: #7F8383;
     font-size: 14px;
     margin-left: 10px;

@@ -2911,6 +2911,9 @@ a.lineSort {
     .billInfoData td {
         padding: 10px !important;
     }
+    .billInfoData th {
+        padding: 10px !important;
+    }
 }
 @media (max-width: 1200px) {
     .asignStaf {
@@ -6235,8 +6238,9 @@ button.downloadPDF:hover {
 .tskOverView {
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-    min-height: 110vh;
+    /* min-height: 110vh; */
     padding: 26px 16px;
+    border-radius: 15px;
 }
 /* added by Tanya */
 .spcificInfo .MuiTypography-root.MuiTypography-body1{
@@ -6286,7 +6290,8 @@ button.downloadPDF:hover {
     line-height: 24px;
 }
 .taskNum {
-    min-width: 176px;
+    margin-left: 20px;
+    min-width: 120px;
     border-radius: 12px;
     background-color: #FAFAFA;
     display: inline-block;
@@ -9470,7 +9475,7 @@ button.crdoLghtBlu2 {
     margin-bottom: 0px;
   }
   .tskOverWeb {
-    display: none;
+    display: block;
   }
   .taskTabsMob, .taskTabsMob {
     display: block !important;
@@ -12710,25 +12715,25 @@ input:-moz-autofill:active{
         margin-bottom:20px;
     }
     .addFlowRght, .spcMgntH1 h1{
-        text-align: center;
+        text-align: center!important;
     }
     .addFlowRght{
-        margin-top: 24px;
+        margin-top: 24px !important;
     }
 }
 
 @media (max-width: 468px){
     .topLeftSpc{
-        padding-left:10px;
-        padding-right: 10px;
-        margin-top:50px;
+        padding-left:10px!important;
+        padding-right: 10px!important;
+        margin-top:50px!important;
     }
 }
 @media (max-width: 452px){
     a.openScndhrf {
-        margin-top: 0px;
+        margin-top: 0px !important;
     }
 }
 .darkTheme .setStatus li:first-child {
-    border: none;
+    border: none !important;
 }
