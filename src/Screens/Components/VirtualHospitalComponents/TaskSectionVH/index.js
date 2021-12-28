@@ -1377,14 +1377,22 @@ class Index extends Component {
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
                 <Grid className="taskSort">
-                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />
-                  <a>
+                {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />}
+                  <a>    
+                  {!this.state.showinput ? <img
+                    src={require("assets/virtual_images/search-entries.svg")}
+                    alt=""
+                    title=""
+                    onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                  /> :
                     <img
-                      src={require("assets/virtual_images/search-entries.svg")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
-                    />
+                      onClick={() => { this.setState({ showinput: !this.state.showinput, text: ''}); this.clearFilter() }}
+                    />}
                   </a>
+
                   {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
                     <>
                      

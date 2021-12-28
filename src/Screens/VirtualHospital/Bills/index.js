@@ -439,12 +439,15 @@ class Index extends Component {
 
     downloadInvoicePdf = (datas) => {
         var invoice = datas;
+        this.setState({loaderImage: true})
         axios
             .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
                 { responseType: "blob" }
             )
             .then((res) => {
-                this.setState({ loaderImage: false });
+                setTimeout(()=>{
+                    this.setState({ loaderImage: false });
+                }, 3000)
                 var data = new Blob([res.data]);
                 if (typeof window.navigator.msSaveBlob === "function") {
                     // If it is IE that support download blob directly.
