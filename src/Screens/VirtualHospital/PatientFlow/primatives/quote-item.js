@@ -173,7 +173,7 @@ export default class QuoteItem extends React.Component {
                     />
                     {this.props.quote?.status === 1 && <span className="err_message">Patient In invoice</span>}
                   </Grid>
-                  <Grid item xs={12} md={5} lg={4}>
+                  <Grid item xs={12} md={4} lg={3}>
                     <Grid className="cardioArea" >
                       <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
                       <Grid onClick={() => this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id)}>
@@ -185,7 +185,7 @@ export default class QuoteItem extends React.Component {
                     </Grid>
                   </Grid>
 
-                  <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
+                  <Grid item xs={12} md={4} lg={3} className="cardoLblWeb">
                     <SpecialityButton
                       label={quote?.speciality?.specialty_name}
                       backgroundColor={quote?.speciality?.background_color}
