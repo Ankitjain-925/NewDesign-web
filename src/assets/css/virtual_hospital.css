@@ -2911,6 +2911,9 @@ a.lineSort {
     .billInfoData td {
         padding: 10px !important;
     }
+    .billInfoData th {
+        padding: 10px !important;
+    }
 }
 @media (max-width: 1200px) {
     .asignStaf {
@@ -9850,6 +9853,21 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.homeBgDrk .ant-picker-header-super-prev-btn,.homeBgDrk .ant-picker-super-prev-icon,
+.homeBgDrk .ant-picker-next-icon, .homeBgDrk .ant-picker-header-super-next-btn,
+.homeBgDrk table.ant-picker-content thead tr th, .homeBgDrk table.ant-picker-content thead tr td{
+    color:#f2f2f2!important;
+}
+.homeBgDrk .ant-picker-range-arrow:after{
+    border-color: #404646 #404646 transparent transparent !important;
+}
+.homeBgDrk .dashBoxCntnt, .homeBgDrk .ant-picker-panel-container{
+    background-color: #404646 !important;
+}
+.ant-picker-suffix > * {
+    vertical-align: top;
+    margin-left: -20px !important;
+}
 .filterAtright{
     text-align:right;
     margin-top:10px !important;
@@ -11372,7 +11390,7 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #0c1010;
+    background: #202323;
     color: #dfdfdf;
     border-color: #676565;
 }
@@ -12714,25 +12732,48 @@ input:-moz-autofill:active{
         margin-bottom:20px;
     }
     .addFlowRght, .spcMgntH1 h1{
-        text-align: center;
+        text-align: center!important;
     }
     .addFlowRght{
-        margin-top: 24px;
+        margin-top: 24px !important;
     }
 }
 
 @media (max-width: 468px){
     .topLeftSpc{
-        padding-left:10px;
-        padding-right: 10px;
-        margin-top:50px;
+        padding-left:10px!important;
+        padding-right: 10px!important;
+        margin-top:50px!important;
     }
 }
 @media (max-width: 452px){
     a.openScndhrf {
-        margin-top: 0px;
+        margin-top: 0px !important;
     }
 }
 .darkTheme .setStatus li:first-child {
+<<<<<<< HEAD
     border: none;
+}
+
+
+
+@media(max-width:410px){
+    .react-confirm-alert-body{
+        width:300px;
+    }
+}
+
+@media(max-width: 959px){
+    .mainMenuAllSec{
+        display:flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .prfilHghtLft, .prfilHghtRght{
+        padding-left: 18%!important;
+    }
+=======
+    border: none !important;
+>>>>>>> cdba37f7021a63d63651cf8c95dbe11071a89764
 }
