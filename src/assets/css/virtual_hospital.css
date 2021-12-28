@@ -12624,3 +12624,22 @@ input:-moz-autofill:active{
 .darkTheme .setStatus li:first-child {
     border: none;
 }
+
+
+
+@media(max-width:410px){
+    .react-confirm-alert-body{
+        width:300px;
+    }
+}
+
+@media(max-width: 959px){
+    .mainMenuAllSec{
+        display:flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .prfilHghtLft, .prfilHghtRght{
+        padding-left: 18%!important;
+    }
+}
