@@ -12735,7 +12735,6 @@ input:-moz-autofill:active{
     }
 }
 .darkTheme .setStatus li:first-child {
-<<<<<<< HEAD
     border: none;
 }
 
@@ -12756,7 +12755,12 @@ input:-moz-autofill:active{
     .prfilHghtLft, .prfilHghtRght{
         padding-left: 18%!important;
     }
-=======
-    border: none !important;
->>>>>>> cdba37f7021a63d63651cf8c95dbe11071a89764
+    .specialitybutton{
+        margin:10px 0px;
+    }
+}
+@media(min-width:960px){
+    .specialitybutton{
+        margin:0px 20px;
+    }
 }
