@@ -96,7 +96,7 @@ export const handleSubmit = (current) => {
 
         });
     }
-  }
+  } 
 };
 
 export const getSpecialtyData = (id, current) => {
