@@ -176,7 +176,9 @@ class FilterSec extends Component {
       { value: "Patient", label: capab_Patients1 },
       { value: "Nurse", label: Nurse1 },
     ];
+   
     const Typeoptions = [
+     
       { value: "anamnesis", label: anamnesis },
       { value: "blood_pressure", label: blood_pressure },
       { value: "blood_sugar", label: blood_sugar },
@@ -200,9 +202,12 @@ class FilterSec extends Component {
       { value: "smoking_status", label: smoking_status },
       { value: "vaccination", label: vaccination },
       { value: "weight_bmi", label: weight_bmi },
+      
     ];
+    
     this.setState({ Useroptions: Useroptions, Typeoptions: Typeoptions });
   }
+
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
@@ -223,7 +228,7 @@ class FilterSec extends Component {
       <Grid container direction="row">
            {this.state.loaderImage && <Loader />}
         <Grid item xs={12} md={11}>
-          <Grid className="srchFilter 22">
+          <Grid className="srchFilter 22 ">
         
             {!this.state.isTest && (
               <Grid container direction="row">
@@ -232,7 +237,7 @@ class FilterSec extends Component {
                     placeholder={[StartDate, EndDate]}
                     className={
                       this.state.time_range && this.state.time_range.length > 0
-                        ? "typeSel1 comonSel"
+                        ? "typeSel1 comonSel "
                         : "allTimeSel1 comonSel"
                     }
                     onChange={(value) =>
@@ -253,6 +258,7 @@ class FilterSec extends Component {
                 </Grid>
                 
                 <Grid item xs={12} md={6} lg={3}>
+                 
                   <Select
                     value={this.state.selectType}
                     onChange={(value) => this.FilterAccordigly("selectType", value) }
@@ -268,9 +274,10 @@ class FilterSec extends Component {
                     closeMenuOnSelect={false}
                     //isSearchable = {false}
                   />
+               
                 </Grid>
               
-                <Grid item xs={12} md={6} lg={3}>
+                <Grid item xs={12} md={6} lg={3} >
                   <Select
                     value={this.state.selectUser}
                     onChange={(value) =>
@@ -309,12 +316,12 @@ class FilterSec extends Component {
                   lg={2}
                   // className="clear_filter"
                 >
-                  <Grid className="clear_filterUpr">
-                    <Grid className="clear_filterLft">
+                  <Grid className="clear_filterUpr ">
+                    <Grid className="clear_filterLft ">
                       <a onClick={this.ClearData}>{clear_filter}</a>
                     </Grid>
                     <Grid
-                      className="clear_filterRght"
+                      className="clear_filterRght "
                       onClick={() => {
                         this.setState({ isTest: true });
                       }}

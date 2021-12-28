@@ -934,7 +934,16 @@ class Index extends Component {
                   : "qrBoxModel"
               }
             >
-              <Grid className="qrBoxCntnt darkTheme addSpeclContnt">
+              <Grid 
+               className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
+                  ? "darkTheme addSpeclContnt"
+                  : "qrBoxCntnt"
+              }
+              // className="qrBoxCntnt darkTheme addSpeclContnt"
+              >
                 <Grid className="qrCourse ">
                   <Grid className="qrCloseBtn">
                     <a onClick={this.handleQrClose}>
@@ -990,7 +999,16 @@ class Index extends Component {
                   : "editBoxModel"
               }
             >
-              <Grid className="editBoxCntnt darkTheme addSpeclContnt ">
+              <Grid 
+               className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
+                  ? "darkTheme addSpeclContnt"
+                  : "editBoxCntnt"
+              }
+              // className="editBoxCntnt darkTheme addSpeclContnt"
+              >
                 <Grid className="editCourse">
                   <Grid className="editCloseBtn">
                     <a onClick={() => this.handlePinClose("chngPinOpen")}>
