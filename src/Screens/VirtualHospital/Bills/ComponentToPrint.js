@@ -16,11 +16,10 @@ export class ComponentToPrint extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bills_data: {},
-            AllBills: {}
         }
-    };
+        console.log("props", this.props);
 
+    };
 
     render() {
         var { data, index } = this.props;
