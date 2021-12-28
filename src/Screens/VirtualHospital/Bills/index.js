@@ -124,7 +124,6 @@ class Index extends Component {
     // };
 
     reactToPrintContent = (data) => {
-        console.log('data4444',data)
         this.setState({currentData: data})
         return this.componentRef
 

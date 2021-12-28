@@ -593,7 +593,6 @@ class Index extends Component {
     let { selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData } = this.state
     var data = _.cloneDeep(actualData);
     let result = PatientFlowFilter(selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, data)
-    console.log('result', result)
     this.mapActualToFullData(result);
     this.setState({ filteredData: 'filterApply' })
     this.handleCloseFil();
@@ -614,7 +613,6 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
-    console.log('I am here1', result)
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => {
       if (previous && !previous.hasOwnProperty(author.step_name)) previous =  {...previous,  [author.step_name]: author.case_numbers};
@@ -727,7 +725,6 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
-    console.log(" selectSpec2", this.state.selectSpec2)
 
     // if (e && e.length > 0) {
 
@@ -1011,7 +1008,6 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {console.log('fullData', this.state.fullData)}
                     <Drags
                       moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
