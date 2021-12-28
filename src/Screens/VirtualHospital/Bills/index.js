@@ -86,7 +86,8 @@ class Index extends Component {
             allBillsCSS: '',
             overdueCSS: '',
             issuedCSS: '',
-            paidCSS: ''
+            paidCSS: '',
+            currentData:{},
 
         }
     };
@@ -121,7 +122,9 @@ class Index extends Component {
     //     this.componentRef = ref;
     // };
 
-    reactToPrintContent = () => {
+    reactToPrintContent = (data) => {
+        console.log('data4444',data)
+        this.setState({currentData: data})
         return this.componentRef
 
     };
@@ -215,7 +218,7 @@ class Index extends Component {
         this.setState({
             userFilter: '', specFilter: '', statusFilter: '',
             AllPatients: this.props.AllPatients, AllSpecialities: this.props.AllSpecialities,
-            AllStatus: this.props.AllStatus, showPopup: false
+            AllStatus: this.props.AllStatus, showPopup: false, allBillsCSS: ''
         })
         var value = this.state.value;
         var ApiStatus = value == 1 ? 'issued' : value == 2 ? 'overdue' : value == 3 ? 'paid' : 'all';
@@ -495,11 +498,11 @@ class Index extends Component {
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                             {/* Mobile menu */}
-                            <LeftMenuMobile currentPage="chat" />
+                            <LeftMenuMobile  currentPage="more" />
                             {/* End of mobile menu */}
                             <Grid container direction="row">
                                 {/* Start of Menu */}
-                                <Grid item xs={12} md={1} className="MenuLeftUpr"><LeftMenu currentPage="chat" /></Grid>
+                                <Grid item xs={12} md={1} className="MenuLeftUpr"><LeftMenu currentPage="more" /></Grid>
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={10}>
@@ -532,16 +535,16 @@ class Index extends Component {
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
                                                         {value === 0 &&
-                                                            <a className={allBillsCSS}><img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
+                                                            <a className={allBillsCSS}><img src={allBillsCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
                                                         }
                                                         {value === 1 &&
-                                                            <a className={issuedCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                            <a className={issuedCSS}> <img src={issuedCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
                                                         }
                                                         {value === 2 &&
-                                                            <a className={overdueCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                            <a className={overdueCSS}> <img src={overdueCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
                                                         }
                                                         {value === 3 &&
-                                                            <a className={paidCSS}> <img src={require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                            <a className={paidCSS}> <img src={paidCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
                                                         }
                                                         {/* <a className='filterApply' onClick={this.handleOpenPopUp}>
                                                             <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
@@ -663,7 +666,7 @@ class Index extends Component {
                                                                         {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
                                                                         <div className="printPreviewlink">
                                                                             <ReactToPrint
-                                                                                content={this.reactToPrintContent}
+                                                                                content={()=>this.reactToPrintContent(data)}
                                                                                 documentTitle="Report.pdf"
                                                                                 onBeforeGetContent={this.handleOnBeforeGetContent}
                                                                                 removeAfterPrint
@@ -671,7 +674,7 @@ class Index extends Component {
                                                                                 _id={data._id}
                                                                             />
                                                                             {/* {cond} */}
-                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={this.state.bills_data[index]} index={index} />
+                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
                                                                     </ul>

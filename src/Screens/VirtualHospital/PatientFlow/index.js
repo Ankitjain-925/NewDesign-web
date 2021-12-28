@@ -600,7 +600,7 @@ class Index extends Component {
   }
 
   clearFilter = () => {
-    this.setState({ selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
+    this.setState({ filteredData : '', selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
     this.mapActualToFullData(this.state.actualData);
     this.handleCloseFil();
   }
@@ -848,7 +848,7 @@ class Index extends Component {
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
                             <a className={filteredData} onClick={this.handleOpenFil}>
-                              <img src={require("assets/virtual_images/sort.png")} alt="" title="" />
+                              <img src={filteredData==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
                               <Grid className={

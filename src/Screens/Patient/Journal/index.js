@@ -1229,7 +1229,14 @@ class Index extends Component {
                       }
                     >
                       <Grid className="nwDiaCntnt  ">
-                        <Grid className="nwDiaCntntIner darkTheme addSpeclContnt">
+                        <Grid className=""
+                         className={
+                          this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode === "dark"
+                            ? "nwDiaCntntIner darkTheme addSpeclContnt"
+                            : "nwDiaCntntIner addSpeclContnt"
+                        }>
                           <Grid className="nwDiaCourse ">
                             <Grid className="nwDiaCloseBtn">
                               <a onClick={this.handleCloseInqryNw}>
