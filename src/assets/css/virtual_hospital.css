@@ -12741,3 +12741,28 @@ input:-moz-autofill:active{
 .darkTheme .setStatus li:first-child {
     border: none !important;
 }
+
+@media(max-width:410px){
+    .react-confirm-alert-body{
+        width:300px;
+    }
+}
+
+@media(max-width: 959px){
+    .mainMenuAllSec{
+        display:flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .prfilHghtLft, .prfilHghtRght{
+        padding-left: 18%!important;
+    }
+    .specialitybutton{
+        margin:10px 0px;
+    }
+}
+@media(min-width:960px){
+    .specialitybutton{
+        margin:0px 20px;
+    }
+}
