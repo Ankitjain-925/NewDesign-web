@@ -15,9 +15,7 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import sitedata from 'sitedata';
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index';
-import {
-    getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import Pagination from "Screens/Components/Pagination/index";
 import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
