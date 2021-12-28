@@ -9851,17 +9851,6 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
-.homeBgDrk .ant-picker-header-super-prev-btn,.homeBgDrk .ant-picker-super-prev-icon,
-.homeBgDrk .ant-picker-next-icon, .homeBgDrk .ant-picker-header-super-next-btn,
-.homeBgDrk table.ant-picker-content thead tr th, .homeBgDrk table.ant-picker-content thead tr td{
-    color:#f2f2f2!important;
-}
-.homeBgDrk .ant-picker-range-arrow:after{
-    border-color: #404646 #404646 transparent transparent !important;
-}
-.homeBgDrk .dashBoxCntnt, .homeBgDrk .ant-picker-panel-container{
-    background-color: #404646 !important;
-}
 .ant-picker-suffix > * {
     vertical-align: top;
     margin-left: -20px !important;
@@ -12750,28 +12739,5 @@ input:-moz-autofill:active{
     }
 }
 .darkTheme .setStatus li:first-child {
-<<<<<<< HEAD
-    border: none;
-}
-
-
-
-@media(max-width:410px){
-    .react-confirm-alert-body{
-        width:300px;
-    }
-}
-
-@media(max-width: 959px){
-    .mainMenuAllSec{
-        display:flex;
-        align-items: center;
-        justify-content:center;
-    }
-    .prfilHghtLft, .prfilHghtRght{
-        padding-left: 18%!important;
-    }
-=======
     border: none !important;
->>>>>>> cdba37f7021a63d63651cf8c95dbe11071a89764
 }

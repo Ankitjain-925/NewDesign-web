@@ -614,13 +614,13 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
+    console.log('I am here1', result)
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
-      (previous, author) => ({
-        ...previous,
-        [author.step_name]: author.case_numbers,
-      }),
-      {}
-    );
+      (previous, author) => {
+      if (previous && !previous.hasOwnProperty(author.step_name)) previous =  {...previous,  [author.step_name]: author.case_numbers};
+      return previous;
+    }, {});
+
     this.setState({ fullData: authorQuoteMap });
   }
 
@@ -1011,6 +1011,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    {console.log('fullData', this.state.fullData)}
                     <Drags
                       moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
