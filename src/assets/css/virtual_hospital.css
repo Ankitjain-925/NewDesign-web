@@ -11388,7 +11388,7 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #0c1010;
+    background: #202323;
     color: #dfdfdf;
     border-color: #676565;
 }
@@ -12750,5 +12750,28 @@ input:-moz-autofill:active{
     }
 }
 .darkTheme .setStatus li:first-child {
+<<<<<<< HEAD
+    border: none;
+}
+
+
+
+@media(max-width:410px){
+    .react-confirm-alert-body{
+        width:300px;
+    }
+}
+
+@media(max-width: 959px){
+    .mainMenuAllSec{
+        display:flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .prfilHghtLft, .prfilHghtRght{
+        padding-left: 18%!important;
+    }
+=======
     border: none !important;
+>>>>>>> cdba37f7021a63d63651cf8c95dbe11071a89764
 }
