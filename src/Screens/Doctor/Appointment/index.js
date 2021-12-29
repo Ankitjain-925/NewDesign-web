@@ -401,18 +401,53 @@ class Index extends Component {
     //     click_on_YES_document = translationEN.text.click_on_YES_document;
     // }
     confirmAlert({
-      //title: Delete_Document,
-      message: r_u_sure_want_book_appointment,
-      buttons: [
-        {
-          label: yes,
-          onClick: () => this.updateAppointmentDetails(status, id, data),
-        },
-        {
-          label: no,
-        },
-      ],
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1 className="deletewarninghead">{r_u_sure_want_book_appointment}</h1>
+            {/* <p className="deletewarning">{r_u_sure_want_book_appointment}</p> */}
+            <div className="react-confirm-alert-button-group">
+              <button
+                onClick={() => {
+                  this.updateAppointmentDetails(status, id, data);
+                  onClose();
+                }}
+              >
+                {yes}
+              </button>
+              <button
+                onClick={() => {
+                  onClose();
+                }}
+              >
+                {no}
+              </button>
+            </div>
+          </div>
+        );
+      },
     });
+    // confirmAlert({
+    //   //title: Delete_Document,
+    //   message: ,
+    //   buttons: [
+    //     {
+    //       label: yes,
+    //       onClick: () => this.updateAppointmentDetails(status, id, data),
+    //     },
+    //     {
+    //       label: no,
+    //     },
+    //   ],
+    // });
   }
 
   updateAppointmentDetails(status, id, data) {

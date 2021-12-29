@@ -2911,6 +2911,12 @@ a.lineSort {
     .billInfoData td {
         padding: 10px !important;
     }
+    .billInfoData th {
+        padding: 10px !important;
+    }
+    .taskNum {
+        min-width: 100px !important;
+    }
 }
 @media (max-width: 1200px) {
     .asignStaf {
@@ -6233,10 +6239,12 @@ button.downloadPDF:hover {
     padding: 12px 20px 5px 20px;
 }
 .tskOverView {
+    margin-top: 15px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
-    min-height: 110vh;
+    /* min-height: 110vh; */
     padding: 26px 16px;
+    border-radius: 15px;
 }
 /* added by Tanya */
 .spcificInfo .MuiTypography-root.MuiTypography-body1{
@@ -6286,7 +6294,8 @@ button.downloadPDF:hover {
     line-height: 24px;
 }
 .taskNum {
-    min-width: 176px;
+    margin-left: 20px;
+    min-width: 120px;
     border-radius: 12px;
     background-color: #FAFAFA;
     display: inline-block;
@@ -9470,7 +9479,7 @@ button.crdoLghtBlu2 {
     margin-bottom: 0px;
   }
   .tskOverWeb {
-    display: none;
+    display: block;
   }
   .taskTabsMob, .taskTabsMob {
     display: block !important;
@@ -9499,7 +9508,8 @@ button.crdoLghtBlu2 {
     border-bottom: 1px solid #dadada;
   }
   .addTaskBtn {
-    text-align: center;
+    text-align: right;
+    margin-right: 10px;
     margin-top: 50px;
     margin-bottom: 25px;
   }
@@ -9846,6 +9856,20 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.homeBgDrk .emergency-head h1{
+    color: #fcfcfc !important;
+}
+.darkTheme .dashBoxCntnt,.darkTheme .alowLocAces, .darkTheme .slotBoxMain,.darkTheme .srvcBoxCntnt,
+.darkTheme .crtListCntnt,.darkTheme .wishListCntnt, .darkTheme .editBoxCntnt, .darkTheme .trstBoxCntnt,
+.darkTheme .qrBoxCntnt, .darkTheme .dataBoxCntnt, .darkTheme .infoBoxCntnt,.darkTheme .rejectBoxCntnt,
+.darkTheme .paraBoxCntnt, .darkTheme .slotBoxCntnt, .darkTheme .nwDiaCntnt, .darkTheme .entryBoxCntnt
+ {
+    background-color: #404646 !important;
+}
+.ant-picker-suffix > * {
+    vertical-align: top;
+    margin-left: -20px !important;
+}
 .filterAtright{
     text-align:right;
     margin-top:10px !important;
@@ -9865,7 +9889,7 @@ img.manage-size {
     width: 44px;
     padding: 12px;
 }
-.darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
+.darkTheme .insuranceHint, .darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
     background-color: #404646 !important;
     color: #fff !important;
 }
@@ -9894,7 +9918,7 @@ a.addNewPlus img {
     color: #00abaf;  
     font-weight: 700;
 }
-.darkTheme .creatTaskModel {
+.darkTheme .creatTaskModel, .darkTheme .addServContnt {
     background-color: #404646!important;
 }
 img.vdoCalNow {
@@ -10141,7 +10165,8 @@ p.more-change-staff-img2 {
     height: 20px;
 }
 .manage-dark-back {
-    padding: 18px 8px !important;
+    padding: 9px 8px !important;
+    width: 42px !important;
 }
 .more-open-detail{
     background-image: url('../images/openDetails.png');
@@ -12710,25 +12735,50 @@ input:-moz-autofill:active{
         margin-bottom:20px;
     }
     .addFlowRght, .spcMgntH1 h1{
-        text-align: center;
+        text-align: center!important;
     }
     .addFlowRght{
-        margin-top: 24px;
+        margin-top: 24px !important;
     }
 }
 
 @media (max-width: 468px){
     .topLeftSpc{
-        padding-left:10px;
-        padding-right: 10px;
-        margin-top:50px;
+        padding-left:10px!important;
+        padding-right: 10px!important;
+        margin-top:50px!important;
     }
 }
 @media (max-width: 452px){
     a.openScndhrf {
-        margin-top: 0px;
+        margin-top: 0px !important;
     }
 }
 .darkTheme .setStatus li:first-child {
-    border: none;
+    border: none !important;
+}
+
+@media(max-width:410px){
+    .react-confirm-alert-body{
+        width:300px;
+    }
+}
+
+@media(max-width: 959px){
+    .mainMenuAllSec{
+        display:flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .prfilHghtLft, .prfilHghtRght{
+        padding-left: 18%!important;
+    }
+    .specialitybutton{
+        margin:10px 0px;
+    }
+}
+@media(min-width:960px){
+    .specialitybutton{
+        margin:0px 20px;
+    }
 }

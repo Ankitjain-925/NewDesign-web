@@ -18,8 +18,10 @@ import { Settings } from "Screens/Login/setting";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
-import { getSpecialty, getAllServices, handleSubmit, getSpecialtyData,selectedID, deleteClickService, onChangePage, 
-  handleOpenServ, handleCloseServ, updateEntryState1, EditService, onFieldChange } from "./api";
+import {
+  getSpecialty, getAllServices, handleSubmit, getSpecialtyData, selectedID, deleteClickService, onChangePage,
+  handleOpenServ, handleCloseServ, updateEntryState1, EditService, onFieldChange
+} from "./api";
 import { getLanguage } from "translations/index"
 
 class Index extends Component {
@@ -37,17 +39,17 @@ class Index extends Component {
       updateTrack: {},
       AllSpeciality: [],
       errorMsg: ''
-      
+
     };
   }
 
   componentDidMount() {
     getSpecialty(this);
     getAllServices(this);
-    
+
   }
 
-  
+
   //Delete the perticular service confirmation box
   removeServices = (id) => {
     this.setState({ message: null, openTask: false });
@@ -130,7 +132,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Addnewservice, Services, speciality, newService,
-      save_and_close, all, General, srvc, Price,editService, deleteService } = translate;
+      save_and_close, all, General, srvc, Price, editService, deleteService } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -184,12 +186,12 @@ class Index extends Component {
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="newServc">
-                          <Button onClick={()=>handleOpenServ(this)}>
+                          <Button onClick={() => handleOpenServ(this)}>
                             {newService}
                           </Button>
                           <Modal
                             open={this.state.openServ}
-                            onClose={()=>handleCloseServ(this)}
+                            onClose={() => handleCloseServ(this)}
                             className={
                               this.props.settings &&
                                 this.props.settings.setting &&
@@ -211,7 +213,7 @@ class Index extends Component {
                             >
                               <Grid className="addSpeclLbl">
                                 <Grid className="addSpeclClose">
-                                  <a onClick={()=>handleCloseServ(this)}>
+                                  <a onClick={() => handleCloseServ(this)}>
                                     <img
                                       src={require("assets/images/close-search.svg")}
                                       alt=""
@@ -233,7 +235,7 @@ class Index extends Component {
                                       name="title"
                                       placeholder="Enter Service name"
                                       onChange={(e) =>
-                                       updateEntryState1(e, this)
+                                        updateEntryState1(e, this)
                                       }
                                       value={this.state.updateTrack.title}
                                     />
@@ -245,7 +247,7 @@ class Index extends Component {
                                       name="description"
                                       placeholder="Enter service short description"
                                       onChange={(e) =>
-                                       updateEntryState1(e, this)
+                                        updateEntryState1(e, this)
                                       }
                                       value={
                                         this.state.updateTrack.description
@@ -273,7 +275,7 @@ class Index extends Component {
                                       name="price"
                                       placeholder="Enter service price"
                                       onChange={(e) =>
-                                       updateEntryState1(e, this)
+                                        updateEntryState1(e, this)
                                       }
                                       value={this.state.updateTrack.price}
                                     />
@@ -371,18 +373,18 @@ class Index extends Component {
                                         />
                                         <ul>
                                           <li
-                                            
-                                              onClick={() => {
-                                                EditService(data, this);
-                                              }}
-                                              >
-                                              <a>
+
+                                            onClick={() => {
+                                              EditService(data, this);
+                                            }}
+                                          >
+                                            <a>
                                               <img
                                                 src={require("assets/images/details.svg")}
                                                 alt=""
                                                 title=""
                                               />
-                                             {editService}
+                                              {editService}
                                             </a>
                                           </li>
 

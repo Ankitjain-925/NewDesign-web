@@ -146,7 +146,7 @@ class Index extends Component {
                                                                 <Grid><label>Add Questionnaire</label></Grid>
                                                             </Grid>
 
-                                                            {console.log('this.state.myQ', this.state.myQuestions)}
+                                                        
 
 
                                                             {this.state.myQuestions && this.state.myQuestions.length == 0 && (
@@ -258,7 +258,6 @@ class Index extends Component {
                                                     {this.state.myQuestions?.length > 0 && this.state.myQuestions.map((data) => (
 
                                                         <>
-                                                            {console.log("data", data)}
                                                             <Tr>
                                                                 <Td>
                                                                     <label>{data.type}</label>

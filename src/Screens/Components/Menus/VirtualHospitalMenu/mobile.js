@@ -166,12 +166,12 @@ Questionaires = () => {
                         this.props.settings.setting.mode &&
                         this.props.settings.setting.mode === "dark" ? (
                   <img
-                    src={require("assets/virtual_images/barMenu2.png")}
+                    src={require("assets/virtual_images/Patientbar2.png")}
                     alt=""
                     title=""
                   />) : (
                   <img
-                    src={require("assets/virtual_images/barMenu.png")}
+                    src={this.props.currentPage === "flow" ? require("assets/virtual_images/Patientbar2.png") : require("assets/virtual_images/barMenu.png")}
                     alt=""
                     title=""
                   />
@@ -186,13 +186,13 @@ Questionaires = () => {
                         this.props.settings.setting.mode &&
                         this.props.settings.setting.mode === "dark" ? (
                   <img
-                    src={require("assets/virtual_images/calender2.png")}
+                    src={require("assets/virtual_images/calenderIcon2.png")}
                     alt=""
                     title=""
                   />)
                :
                (<img
-               src={require("assets/virtual_images/calender.png")}
+               src={this.props.currentPage === "calendar" ? require("assets/virtual_images/calenderIcon2.png") : require("assets/virtual_images/calender.png")}
                alt=""
                title=""
              /> )}
@@ -210,12 +210,12 @@ Questionaires = () => {
                         this.props.settings.setting.mode &&
                         this.props.settings.setting.mode === "dark" ? 
                   (<img
-                    src={require("assets/virtual_images/rightpng2.png")}
+                    src={require("assets/virtual_images/rightIcon2.png")}
                     alt=""
                     title=""
                   />) : (
                     <img
-                    src={require("assets/virtual_images/rightpng.png")}
+                    src={this.props.currentPage === "task" ?require("assets/virtual_images/rightIcon2.png"): require("assets/virtual_images/rightpng.png")}
                     alt=""
                     title=""
                   />
@@ -234,12 +234,12 @@ Questionaires = () => {
                         this.props.settings.setting.mode &&
                         this.props.settings.setting.mode === "dark" ? 
                   (<img
-                    src={require("assets/virtual_images/bed2.png")}
+                    src={require("assets/virtual_images/PatientBed.png")}
                     alt=""
                     title=""
                   />) : (
                     <img
-                    src={require("assets/virtual_images/bed.png")}
+                    src={ this.props.currentPage === "space" ? require("assets/virtual_images/PatientBed.png") : require("assets/virtual_images/bed.png")}
                     alt=""
                     title=""
                   />
@@ -249,6 +249,9 @@ Questionaires = () => {
             </li>
             </>}
             <li
+            className={
+              this.props.currentPage === "institute" ? "menuActv" : ""
+            }
             >
               <a onClick={this.MoveInstitute}>
               {this.props.settings &&
@@ -261,7 +264,7 @@ Questionaires = () => {
                     title=""
                   />) : (
                     <img
-                    src={require("assets/virtual_images/hospitalIcon.png")}
+                    src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") :require("assets/virtual_images/hospitalIcon.png")}
                     alt=""
                     title=""
                   />
@@ -278,12 +281,12 @@ Questionaires = () => {
                         this.props.settings.setting.mode &&
                         this.props.settings.setting.mode === "dark" ? 
                   (<img
-                    src={require("assets/virtual_images/nav-more2.png")}
+                    src={require("assets/images/nav-more-white.svg")}
                     alt=""
                     title=""
                    className="manage-dark-back"/>) : (
                     <img
-                    src={require("assets/images/nav-more.svg")}
+                    src={this.props.currentPage === "more" ? require("assets/images/nav-more-white.svg")  : require("assets/images/nav-more.svg")}
                     alt=""
                     title=""
                   />
