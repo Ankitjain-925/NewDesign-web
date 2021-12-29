@@ -445,7 +445,7 @@ class Index extends Component {
     var npmCountry = npmCountryList().getData();
     this.setState({ selectCountry: npmCountry });
     this.getMetadata();
-    if ( this.props.match.params.id) {
+    if (this.props.match.params.id) {
       this.GetInfoForPatient();
     }
   }
@@ -468,7 +468,7 @@ class Index extends Component {
       this.setState({ SARS: Fileadd, fileupods: true });
     } else {
       this.setState({ Positive_SARS: Fileadd, fileupods: true });
-    }           
+    }
   };
 
   //For getting full data of hide Show
@@ -612,7 +612,6 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     let response = await get_track(user_token, user_id)
-
     if (response?.data?.hassuccessed === true) {
       //This is for Aimedis Blockchain Section
       this.props.rightInfo();
@@ -811,12 +810,12 @@ class Index extends Component {
 
 
 
-  //Get the Current User Profile
+  // Get the Current User Profile
   cur_one2 = async () => {
     var user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.match.params.id;
     let response = await get_cur_one(user_token, user_id)
-    this.setState({ cur_one2: response.data.data });
+    this.setState({ cur_one2: response?.data?.data });
   };
 
   //Get the Current User Profile
@@ -973,972 +972,972 @@ class Index extends Component {
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
             <Grid item xs={12} md={12}>
-              
-                <Grid container direction="row">
-                  {/* Website Menu */}
-                  {/* End of Website Menu */}
 
-                  {/* Website Mid Content */}
-                  <Grid item xs={12} md={12}>
-                    {/* Start of Depression Section */}
-                    <Grid className="descpCntntMain">
-                      <Grid className="journalAdd">
-                        <Grid container direction="row">
-                          <Grid item xs={11} md={11}>
-                            <Grid container direction="row">
-                              <Grid item xs={6} md={6}>
-                                <h1>{patient_access_data}</h1>
+              <Grid container direction="row">
+                {/* Website Menu */}
+                {/* End of Website Menu */}
+
+                {/* Website Mid Content */}
+                <Grid item xs={12} md={12}>
+                  {/* Start of Depression Section */}
+                  <Grid className="descpCntntMain">
+                    <Grid className="journalAdd">
+                      <Grid container direction="row">
+                        <Grid item xs={11} md={11}>
+                          <Grid container direction="row">
+                            <Grid item xs={6} md={6}>
+                              <h1>{patient_access_data}</h1>
+                            </Grid>
+                            <Grid item xs={6} md={6}>
+                              <Grid className="AddEntrynw">
+
+                                {
+                                  this.props.match.params.id !== null && (
+                                    <a onClick={this.handleOpenEntry}>
+                                      + {add_new_entry}
+                                    </a>
+                                  )}
                               </Grid>
-                              <Grid item xs={6} md={6}>
-                                <Grid className="AddEntrynw">
-                                 
-                                  {
-                                    this.props.match.params.id !== null && (
-                                      <a onClick={this.handleOpenEntry}>
-                                        + {add_new_entry}
-                                      </a>
-                                    )}
-                                </Grid>
-                                <Grid className="downloadButton">
-                                  <DownloadFullTrack
-                                    TrackRecord={this.state.allTrack1}
-                                  />
-                                </Grid>
-                                <Grid className="downloadButton">
-                                  <VideoDemo />
-                                </Grid>
+                              <Grid className="downloadButton">
+                                <DownloadFullTrack
+                                  TrackRecord={this.state.allTrack1}
+                                />
+                              </Grid>
+                              <Grid className="downloadButton">
+                                <VideoDemo />
                               </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
-
-                      {/* For the filter section */}
-                      {this.props.match.params.id !== null && (
-                        <FilterSec
-                          FilterText={this.FilterText}
-                          settings={this.props.settings}
-                          FilterData={this.FilterData}
-                          SortData={this.SortData}
-                          ClearData={this.ClearData}
-                          sortBy={this.state.Sort}
-                        />
-                      )}
-
-                      {/* For Empty Entry */}
-                      {this.props.match.params.id !== null && (
-                        <div>
-                          {this.state.allTrack &&
-                            this.state.allTrack.length > 0 ? (
-                            <div>
-                              {this.state.allTrack.map((item, index) => (
-                                <ViewTimeline
-                                  lrp={AllL_Ps.AllL_Ps.english}
-                                  Allrelation={this.state.Allrelation}
-                                  Allreminder={this.state.Allreminder}
-                                  Allpain_type={this.state.Allpain_type}
-                                  Allsmoking_status={this.state.Allsmoking_status}
-                                  Allgender={this.state.Allgender}
-                                  AllSpecialty={this.state.AllSpecialty}
-                                  Allpain_quality={this.state.Allpain_quality}
-                                  Allsituation={this.state.Allsituation}
-                                  Pressuresituation={this.state.Pressuresituation}
-                                  Anamnesis={this.state.Anamnesis}
-                                  downloadTrack={(data) =>
-                                    this.downloadTrack(data)
-                                  }
-                                  OpenGraph={this.props.OpenGraph}
-                                  comesfrom="adminstaff"
-                                  images={this.state.images}
-                                  DeleteTrack={(deleteKey) =>
-                                    this.DeleteTrack(deleteKey)
-                                  }
-                                  ArchiveTrack={(data) => this.ArchiveTrack(data)}
-                                  EidtOption={(value, updateTrack, visibility) =>
-                                    this.EidtOption(
-                                      value,
-                                      updateTrack,
-                                      visibility
-                                    )
-                                  }
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  Track={item}
-                                  from="patient"
-                                  loggedinUser={this.state.cur_one}
-                                  patient_gender={this.state.patient_gender}
-                                />
-                              ))}
-                              {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={() => this.LoadMore(this.state.allTrack2)}>
-                                {Seemore10entries}
-                              </div>}
-                              {this.state.loading && <div className="more10entries">
-                                {loadingref}
-                              </div>}
-                            </div>
-                          ) : (
-                            <EmptyData />
-                          )}
-                        </div>
-                      )}
-                      {/* <ViewTimeline date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format}  time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
                     </Grid>
+
+                    {/* For the filter section */}
+                    {this.props.match.params.id !== null && (
+                      <FilterSec
+                        FilterText={this.FilterText}
+                        settings={this.props.settings}
+                        FilterData={this.FilterData}
+                        SortData={this.SortData}
+                        ClearData={this.ClearData}
+                        sortBy={this.state.Sort}
+                      />
+                    )}
+
+                    {/* For Empty Entry */}
+                    {this.props.match.params.id !== null && (
+                      <div>
+                        {this.state.allTrack &&
+                          this.state.allTrack.length > 0 ? (
+                          <div>
+                            {this.state.allTrack.map((item, index) => (
+                              <ViewTimeline
+                                lrp={AllL_Ps.AllL_Ps.english}
+                                Allrelation={this.state.Allrelation}
+                                Allreminder={this.state.Allreminder}
+                                Allpain_type={this.state.Allpain_type}
+                                Allsmoking_status={this.state.Allsmoking_status}
+                                Allgender={this.state.Allgender}
+                                AllSpecialty={this.state.AllSpecialty}
+                                Allpain_quality={this.state.Allpain_quality}
+                                Allsituation={this.state.Allsituation}
+                                Pressuresituation={this.state.Pressuresituation}
+                                Anamnesis={this.state.Anamnesis}
+                                downloadTrack={(data) =>
+                                  this.downloadTrack(data)
+                                }
+                                OpenGraph={this.props.OpenGraph}
+                                comesfrom="adminstaff"
+                                images={this.state.images}
+                                DeleteTrack={(deleteKey) =>
+                                  this.DeleteTrack(deleteKey)
+                                }
+                                ArchiveTrack={(data) => this.ArchiveTrack(data)}
+                                EidtOption={(value, updateTrack, visibility) =>
+                                  this.EidtOption(
+                                    value,
+                                    updateTrack,
+                                    visibility
+                                  )
+                                }
+                                date_format={
+                                  this.props.settings &&
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.date_format
+                                }
+                                time_format={
+                                  this.props.settings &&
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.time_format
+                                }
+                                Track={item}
+                                from="patient"
+                                loggedinUser={this.state.cur_one}
+                                patient_gender={this.state.patient_gender}
+                              />
+                            ))}
+                            {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={() => this.LoadMore(this.state.allTrack2)}>
+                              {Seemore10entries}
+                            </div>}
+                            {this.state.loading && <div className="more10entries">
+                              {loadingref}
+                            </div>}
+                          </div>
+                        ) : (
+                          <EmptyData />
+                        )}
+                      </div>
+                    )}
+                    {/* <ViewTimeline date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format}  time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
                   </Grid>
-                  {/* End of Website Mid Content */}
+                </Grid>
+                {/* End of Website Mid Content */}
 
-                  {/* Website Right Content */}
-                 
-                      <Modal
-                        open={this.state.addInqryNw}
-                        onClose={this.handleCloseInqryNw}
-                        className={
-                          this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === "dark"
-                            ? "darkTheme nwDiaModel"
-                            : "nwDiaModel"
-                        }
-                      >
-                        <Grid className="nwDiaCntnt">
-                          <Grid className="nwDiaCntntIner">
-                            <Grid className="nwDiaCourse">
-                              <Grid className="nwDiaCloseBtn">
-                                <a onClick={this.handleCloseInqryNw}>
-                                  <img
-                                    src={require("assets/images/close-search.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </a>
-                              </Grid>
+                {/* Website Right Content */}
 
-                              {this.state.updateOne !==
-                                this.state.updateTrack.track_id ? (
-                                <div>
-                                  <p>
-                                    {New} {entry}
-                                  </p>
-                                  <Grid className="nwDiaSel">
-                                    <select
-                                      onChange={(e) =>
-                                        this.SelectOption(e.target.value)
-                                      }
-                                      value={this.state.current_select}
-                                    >
-                                      <option value="anamnesis">
-                                        {anamnesis}
-                                      </option>
-                                      <option value="blood_pressure">
-                                        {blood_pressure}
-                                      </option>
-                                      <option value="blood_sugar">
-                                        {blood_sugar}
-                                      </option>
-                                      <option value="condition_pain">
-                                        {condition_pain}
-                                      </option>
-                                      <option value="covid_19">
-                                        {covid_diary}
-                                      </option>
-                                      <option value="vaccination_trial">
-                                        {VaccinationTrial}
-                                      </option>
-                                      <option value="diagnosis">
-                                        {diagnosis}
-                                      </option>
-                                      <option value="diary">{diary}</option>
-                                      <option value="doctor_visit">
-                                        {doc_visit}
-                                      </option>
-                                      <option value="family_anamnesis">
-                                        {family_anmnies}
-                                      </option>
-                                      <option value="file_upload">
-                                        {file_uplod}
-                                      </option>
-                                      <option value="hospitalization">
-                                        {hosp_visit}
-                                      </option>
-                                      <option value="laboratory_result">
-                                        {lab_result}
-                                      </option>
-                                      <option value="long_covid">
-                                       {long_covid}
-                                      </option>
-                                      <option value="marcumar_pass">
-                                        {marcumar_pass}
-                                      </option>
-                                      <option value="medication">
-                                        {medication}
-                                      </option>
-                                      <option value="prescription">
-                                        {prescription}
-                                      </option>
-                                      <option value="second_opinion">
-                                        {secnd_openion}
-                                      </option>
-                                      <option value="sick_certificate">
-                                        {sick_cert}
-                                      </option>
-                                      <option value="smoking_status">
-                                        {smoking_status}
-                                      </option>
-                                      <option value="vaccination">
-                                        {vaccination}
-                                      </option>
-                                      <option value="weight_bmi">
-                                        {weight_bmi}
-                                      </option>
-                                      <option value="respiration">
-                                        {respiration}
-                                      </option>
-                                    </select>
-                                  </Grid>
-                                </div>
-                              ) : (
-                                <div>
-                                  <p>
-                                    {edit} {entry}
-                                  </p>
-                                  <Grid className="nwDiaSel">
-                                    {this.state.current_select ===
-                                      "anamnesis" && (
-                                        <Grid className="nwDiaSel1">
-                                          {anamnesis}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "blood_pressure" && (
-                                        <Grid className="nwDiaSel1">
-                                          {blood_pressure}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "blood_sugar" && (
-                                        <Grid className="nwDiaSel1">
-                                          {blood_sugar}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "condition_pain" && (
-                                        <Grid className="nwDiaSel1">
-                                          {condition_pain}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "covid_19" && (
-                                        <Grid className="nwDiaSel1">
-                                          {covid_diary}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "diagnosis" && (
-                                        <Grid className="nwDiaSel1">
-                                          {diagnosis}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select === "diary" && (
-                                      <Grid className="nwDiaSel1">{diary}</Grid>
-                                    )}
-                                    {this.state.current_select ===
-                                      "doctor_visit" && (
-                                        <Grid className="nwDiaSel1">
-                                          {doc_visit}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "family_anamnesis" && (
-                                        <Grid className="nwDiaSel1">
-                                          {family_anmnies}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "file_upload" && (
-                                        <Grid className="nwDiaSel1">
-                                          {file_uplod}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "hospitalization" && (
-                                        <Grid className="nwDiaSel1">
-                                          {hosp_visit}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "laboratory_result" && (
-                                        <Grid className="nwDiaSel1">
-                                          {lab_result}
-                                        </Grid>
-                                      )}
-                                         {this.state.current_select ===
-                                      "long_covid" && (
-                                        <Grid className="nwDiaSel1">
-                                        {long_covid}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "marcumar_pass" && (
-                                        <Grid className="nwDiaSel1">
-                                          {marcumar_pass}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "medication" && (
-                                        <Grid className="nwDiaSel1">
-                                          {medication}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "prescription" && (
-                                        <Grid className="nwDiaSel1">
-                                          {prescription}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "second_opinion" && (
-                                        <Grid className="nwDiaSel1">
-                                          {secnd_openion}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "sick_certificate" && (
-                                        <Grid className="nwDiaSel1">
-                                          {sick_cert}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "smoking_status" && (
-                                        <Grid className="nwDiaSel1">
-                                          {smoking_status}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "vaccination" && (
-                                        <Grid className="nwDiaSel1">
-                                          {vaccination}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "vaccination_trial" && (
-                                        <Grid className="nwDiaSel1">
-                                          {VaccinationTrial}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "weight_bmi" && (
-                                        <Grid className="nwDiaSel1">
-                                          {weight_bmi}
-                                        </Grid>
-                                      )}
-                                    {this.state.current_select ===
-                                      "respiration" && (
-                                        <Grid className="nwDiaSel1">
-                                          {respiration}
-                                        </Grid>
-                                      )}
-                                  </Grid>
-                                </div>
-                              )}
+                <Modal
+                  open={this.state.addInqryNw}
+                  onClose={this.handleCloseInqryNw}
+                  className={
+                    this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "darkTheme nwDiaModel"
+                      : "nwDiaModel"
+                  }
+                >
+                  <Grid className="nwDiaCntnt">
+                    <Grid className="nwDiaCntntIner">
+                      <Grid className="nwDiaCourse">
+                        <Grid className="nwDiaCloseBtn">
+                          <a onClick={this.handleCloseInqryNw}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+
+                        {this.state.updateOne !==
+                          this.state.updateTrack.track_id ? (
+                          <div>
+                            <p>
+                              {New} {entry}
+                            </p>
+                            <Grid className="nwDiaSel">
+                              <select
+                                onChange={(e) =>
+                                  this.SelectOption(e.target.value)
+                                }
+                                value={this.state.current_select}
+                              >
+                                <option value="anamnesis">
+                                  {anamnesis}
+                                </option>
+                                <option value="blood_pressure">
+                                  {blood_pressure}
+                                </option>
+                                <option value="blood_sugar">
+                                  {blood_sugar}
+                                </option>
+                                <option value="condition_pain">
+                                  {condition_pain}
+                                </option>
+                                <option value="covid_19">
+                                  {covid_diary}
+                                </option>
+                                <option value="vaccination_trial">
+                                  {VaccinationTrial}
+                                </option>
+                                <option value="diagnosis">
+                                  {diagnosis}
+                                </option>
+                                <option value="diary">{diary}</option>
+                                <option value="doctor_visit">
+                                  {doc_visit}
+                                </option>
+                                <option value="family_anamnesis">
+                                  {family_anmnies}
+                                </option>
+                                <option value="file_upload">
+                                  {file_uplod}
+                                </option>
+                                <option value="hospitalization">
+                                  {hosp_visit}
+                                </option>
+                                <option value="laboratory_result">
+                                  {lab_result}
+                                </option>
+                                <option value="long_covid">
+                                  {long_covid}
+                                </option>
+                                <option value="marcumar_pass">
+                                  {marcumar_pass}
+                                </option>
+                                <option value="medication">
+                                  {medication}
+                                </option>
+                                <option value="prescription">
+                                  {prescription}
+                                </option>
+                                <option value="second_opinion">
+                                  {secnd_openion}
+                                </option>
+                                <option value="sick_certificate">
+                                  {sick_cert}
+                                </option>
+                                <option value="smoking_status">
+                                  {smoking_status}
+                                </option>
+                                <option value="vaccination">
+                                  {vaccination}
+                                </option>
+                                <option value="weight_bmi">
+                                  {weight_bmi}
+                                </option>
+                                <option value="respiration">
+                                  {respiration}
+                                </option>
+                              </select>
                             </Grid>
-                            <Grid>
-                              {this.state.current_select === "anamnesis" && (
-                                <AnamnesisFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  gender={this.state.patient_gender}
-                                  GetHideShow={this.GetHideShow}
-                                  options={this.state.Anamnesis}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                          </div>
+                        ) : (
+                          <div>
+                            <p>
+                              {edit} {entry}
+                            </p>
+                            <Grid className="nwDiaSel">
+                              {this.state.current_select ===
+                                "anamnesis" && (
+                                  <Grid className="nwDiaSel1">
+                                    {anamnesis}
+                                  </Grid>
+                                )}
                               {this.state.current_select ===
                                 "blood_pressure" && (
-                                  <BPFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Pressuresituation}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {blood_pressure}
+                                  </Grid>
                                 )}
-                              {this.state.current_select === "blood_sugar" && (
-                                <BSFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  options={this.state.Allsituation}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                              {this.state.current_select ===
+                                "blood_sugar" && (
+                                  <Grid className="nwDiaSel1">
+                                    {blood_sugar}
+                                  </Grid>
+                                )}
                               {this.state.current_select ===
                                 "condition_pain" && (
-                                  <CPFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    gender={this.state.patient_gender}
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Allpain_quality}
-                                    options2={this.state.Allpain_type}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {condition_pain}
+                                  </Grid>
                                 )}
-                              {this.state.current_select === "covid_19" && (
-                                <CovidFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  gender={this.state.patient_gender}
-                                  GetHideShow={this.GetHideShow}
-                                  options={this.state.selectCountry}
-                                  options2={this.state.Alltemprature}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
-                              {this.state.current_select === "diagnosis" && (
-                                <DiagnosisFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  gender={this.state.patient_gender}
-                                  GetHideShow={this.GetHideShow}
-                                  options={this.state.selectCountry}
-                                  options2={this.state.Alltemprature}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                              {this.state.current_select ===
+                                "covid_19" && (
+                                  <Grid className="nwDiaSel1">
+                                    {covid_diary}
+                                  </Grid>
+                                )}
+                              {this.state.current_select ===
+                                "diagnosis" && (
+                                  <Grid className="nwDiaSel1">
+                                    {diagnosis}
+                                  </Grid>
+                                )}
                               {this.state.current_select === "diary" && (
-                                <DiaryFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
+                                <Grid className="nwDiaSel1">{diary}</Grid>
                               )}
-                              {this.state.current_select === "doctor_visit" && (
-                                <DVFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  options={this.state.AllSpecialty}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                              {this.state.current_select ===
+                                "doctor_visit" && (
+                                  <Grid className="nwDiaSel1">
+                                    {doc_visit}
+                                  </Grid>
+                                )}
                               {this.state.current_select ===
                                 "family_anamnesis" && (
-                                  <FAFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    options={this.state.Allgender}
-                                    relativeList={this.state.Allrelation}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {family_anmnies}
+                                  </Grid>
                                 )}
-                              {this.state.current_select === "file_upload" && (
-                                <FUFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  options={this.state.AllSpecialty}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                              {this.state.current_select ===
+                                "file_upload" && (
+                                  <Grid className="nwDiaSel1">
+                                    {file_uplod}
+                                  </Grid>
+                                )}
                               {this.state.current_select ===
                                 "hospitalization" && (
-                                  <HVFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    options={this.state.AllSpecialty}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {hosp_visit}
+                                  </Grid>
                                 )}
-                                {this.state.current_select ===
-                              "long_covid" && (
-                                <CovidSymptomsField
-                                  cur_one={this.state.cur_one}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="patient"
-                                  gender={this.state.patient_gender}
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  options={this.state.AllSpecialty}
-                                  date_format={
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
                               {this.state.current_select ===
                                 "laboratory_result" && (
-                                  <LRFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    lrpUnit={AllL_Ps.AllL_Ps.units}
-                                    lrpEnglish={AllL_Ps.AllL_Ps.english}
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    options={this.state.AllSpecialty}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {lab_result}
+                                  </Grid>
+                                )}
+                              {this.state.current_select ===
+                                "long_covid" && (
+                                  <Grid className="nwDiaSel1">
+                                    {long_covid}
+                                  </Grid>
                                 )}
                               {this.state.current_select ===
                                 "marcumar_pass" && (
-                                  <MPFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    GetHideShow={this.GetHideShow}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {marcumar_pass}
+                                  </Grid>
                                 )}
-                              {this.state.current_select === "medication" && (
-                                <MedicationFields
-                                  cur_one={this.state.cur_one2}
-                                  lrpUnit={this.state.medication_unit}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  options={this.state.AllATC_code}
-                                  reminders={this.state.Allreminder}
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
-                              {this.state.current_select === "prescription" && (
-                                <PFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  options={this.state.Pressuresituation}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                              {this.state.current_select ===
+                                "medication" && (
+                                  <Grid className="nwDiaSel1">
+                                    {medication}
+                                  </Grid>
+                                )}
+                              {this.state.current_select ===
+                                "prescription" && (
+                                  <Grid className="nwDiaSel1">
+                                    {prescription}
+                                  </Grid>
+                                )}
                               {this.state.current_select ===
                                 "second_opinion" && (
-                                  <SOFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Pressuresituation}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {secnd_openion}
+                                  </Grid>
                                 )}
                               {this.state.current_select ===
                                 "sick_certificate" && (
-                                  <SCFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Pressuresituation}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {sick_cert}
+                                  </Grid>
                                 )}
                               {this.state.current_select ===
                                 "smoking_status" && (
-                                  <SSFields
-                                    cur_one={this.state.cur_one2}
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="adminstaff"
-                                    GetHideShow={this.GetHideShow}
-                                    options={this.state.Allsmoking_status}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {smoking_status}
+                                  </Grid>
                                 )}
-                              {this.state.current_select === "vaccination" && (
-                                <VaccinationFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                              {this.state.current_select ===
+                                "vaccination" && (
+                                  <Grid className="nwDiaSel1">
+                                    {vaccination}
+                                  </Grid>
+                                )}
                               {this.state.current_select ===
                                 "vaccination_trial" && (
-                                  <VaccinationTrialFields
-                                    cur_one={this.state.cur_one2}
-                                    option4={this.state.vaccinations}
-                                    FileAttachMultiVaccination={
-                                      this.FileAttachMultiVaccination
-                                    }
-                                    FileAttachMulti={this.FileAttachMulti}
-                                    visibility={this.state.visibility}
-                                    comesfrom="patient"
-                                    gender={this.state.patient_gender}
-                                    GetHideShow={this.GetHideShow}
-                                    options3={this.state.Alltemprature}
-                                    options={this.state.Allpain_quality}
-                                    options2={this.state.Allpain_type}
-                                    AddTrack={this.AddTrack}
-                                    date_format={
-                                      this.props.settings.setting.date_format
-                                    }
-                                    time_format={
-                                      this.props.settings.setting.time_format
-                                    }
-                                    updateEntryState={this.updateEntryState}
-                                    updateEntryState1={this.updateEntryState1}
-                                    updateTrack={this.state.updateTrack}
-                                  />
+                                  <Grid className="nwDiaSel1">
+                                    {VaccinationTrial}
+                                  </Grid>
                                 )}
-                              {this.state.current_select === "weight_bmi" && (
-                                <BMIFields
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="adminstaff"
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
-                              {this.state.current_select === "respiration" && (
-                                <RespirationField
-                                  cur_one={this.state.cur_one2}
-                                  FileAttachMulti={this.FileAttachMulti}
-                                  visibility={this.state.visibility}
-                                  comesfrom="patient"
-                                  GetHideShow={this.GetHideShow}
-                                  AddTrack={this.AddTrack}
-                                  date_format={
-                                    this.props.settings.setting.date_format
-                                  }
-                                  time_format={
-                                    this.props.settings.setting.time_format
-                                  }
-                                  updateEntryState={this.updateEntryState}
-                                  updateEntryState1={this.updateEntryState1}
-                                  updateTrack={this.state.updateTrack}
-                                />
-                              )}
+                              {this.state.current_select ===
+                                "weight_bmi" && (
+                                  <Grid className="nwDiaSel1">
+                                    {weight_bmi}
+                                  </Grid>
+                                )}
+                              {this.state.current_select ===
+                                "respiration" && (
+                                  <Grid className="nwDiaSel1">
+                                    {respiration}
+                                  </Grid>
+                                )}
                             </Grid>
-                          </Grid>
-                        </Grid>
-                      </Modal>
-                      {/* End of Model setup */}
+                          </div>
+                        )}
+                      </Grid>
+                      <Grid>
+                        {this.state.current_select === "anamnesis" && (
+                          <AnamnesisFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            gender={this.state.patient_gender}
+                            GetHideShow={this.GetHideShow}
+                            options={this.state.Anamnesis}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select ===
+                          "blood_pressure" && (
+                            <BPFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              GetHideShow={this.GetHideShow}
+                              options={this.state.Pressuresituation}
+                              AddTrack={this.AddTrack}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select === "blood_sugar" && (
+                          <BSFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            options={this.state.Allsituation}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select ===
+                          "condition_pain" && (
+                            <CPFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              gender={this.state.patient_gender}
+                              GetHideShow={this.GetHideShow}
+                              options={this.state.Allpain_quality}
+                              options2={this.state.Allpain_type}
+                              AddTrack={this.AddTrack}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select === "covid_19" && (
+                          <CovidFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            gender={this.state.patient_gender}
+                            GetHideShow={this.GetHideShow}
+                            options={this.state.selectCountry}
+                            options2={this.state.Alltemprature}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select === "diagnosis" && (
+                          <DiagnosisFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            gender={this.state.patient_gender}
+                            GetHideShow={this.GetHideShow}
+                            options={this.state.selectCountry}
+                            options2={this.state.Alltemprature}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select === "diary" && (
+                          <DiaryFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select === "doctor_visit" && (
+                          <DVFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            AddTrack={this.AddTrack}
+                            options={this.state.AllSpecialty}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select ===
+                          "family_anamnesis" && (
+                            <FAFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              GetHideShow={this.GetHideShow}
+                              AddTrack={this.AddTrack}
+                              options={this.state.Allgender}
+                              relativeList={this.state.Allrelation}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select === "file_upload" && (
+                          <FUFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            AddTrack={this.AddTrack}
+                            options={this.state.AllSpecialty}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select ===
+                          "hospitalization" && (
+                            <HVFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              GetHideShow={this.GetHideShow}
+                              AddTrack={this.AddTrack}
+                              options={this.state.AllSpecialty}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select ===
+                          "long_covid" && (
+                            <CovidSymptomsField
+                              cur_one={this.state.cur_one}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="patient"
+                              gender={this.state.patient_gender}
+                              GetHideShow={this.GetHideShow}
+                              AddTrack={this.AddTrack}
+                              options={this.state.AllSpecialty}
+                              date_format={
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select ===
+                          "laboratory_result" && (
+                            <LRFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              lrpUnit={AllL_Ps.AllL_Ps.units}
+                              lrpEnglish={AllL_Ps.AllL_Ps.english}
+                              GetHideShow={this.GetHideShow}
+                              AddTrack={this.AddTrack}
+                              options={this.state.AllSpecialty}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select ===
+                          "marcumar_pass" && (
+                            <MPFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              GetHideShow={this.GetHideShow}
+                              AddTrack={this.AddTrack}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select === "medication" && (
+                          <MedicationFields
+                            cur_one={this.state.cur_one2}
+                            lrpUnit={this.state.medication_unit}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            options={this.state.AllATC_code}
+                            reminders={this.state.Allreminder}
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select === "prescription" && (
+                          <PFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            options={this.state.Pressuresituation}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select ===
+                          "second_opinion" && (
+                            <SOFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              GetHideShow={this.GetHideShow}
+                              options={this.state.Pressuresituation}
+                              AddTrack={this.AddTrack}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select ===
+                          "sick_certificate" && (
+                            <SCFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              GetHideShow={this.GetHideShow}
+                              options={this.state.Pressuresituation}
+                              AddTrack={this.AddTrack}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select ===
+                          "smoking_status" && (
+                            <SSFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              GetHideShow={this.GetHideShow}
+                              options={this.state.Allsmoking_status}
+                              AddTrack={this.AddTrack}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select === "vaccination" && (
+                          <VaccinationFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select ===
+                          "vaccination_trial" && (
+                            <VaccinationTrialFields
+                              cur_one={this.state.cur_one2}
+                              option4={this.state.vaccinations}
+                              FileAttachMultiVaccination={
+                                this.FileAttachMultiVaccination
+                              }
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="patient"
+                              gender={this.state.patient_gender}
+                              GetHideShow={this.GetHideShow}
+                              options3={this.state.Alltemprature}
+                              options={this.state.Allpain_quality}
+                              options2={this.state.Allpain_type}
+                              AddTrack={this.AddTrack}
+                              date_format={
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
+                        {this.state.current_select === "weight_bmi" && (
+                          <BMIFields
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="adminstaff"
+                            GetHideShow={this.GetHideShow}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                        {this.state.current_select === "respiration" && (
+                          <RespirationField
+                            cur_one={this.state.cur_one2}
+                            FileAttachMulti={this.FileAttachMulti}
+                            visibility={this.state.visibility}
+                            comesfrom="patient"
+                            GetHideShow={this.GetHideShow}
+                            AddTrack={this.AddTrack}
+                            date_format={
+                              this.props.settings.setting.date_format
+                            }
+                            time_format={
+                              this.props.settings.setting.time_format
+                            }
+                            updateEntryState={this.updateEntryState}
+                            updateEntryState1={this.updateEntryState1}
+                            updateTrack={this.state.updateTrack}
+                          />
+                        )}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Modal>
+                {/* End of Model setup */}
 
-                      {/* Model setup */}
-                      <AddEntry
-                        settings={this.props.settings}
-                        new_entry={this.props.new_entry}
-                        openBy="adminstaff"
-                        openEntry={this.state.openEntry}
-                        value="diagnosis"
-                        onChange={this.SelectOption}
-                        handleCloseEntry={this.handleCloseEntry}
-                      />
-                      {/* End of Model setup */}
+                {/* Model setup */}
+                <AddEntry
+                  settings={this.props.settings}
+                  new_entry={this.props.new_entry}
+                  openBy="adminstaff"
+                  openEntry={this.state.openEntry}
+                  value="diagnosis"
+                  onChange={this.SelectOption}
+                  handleCloseEntry={this.handleCloseEntry}
+                />
+                {/* End of Model setup */}
 
-                  
-                  {/* End of Website Right Content */}
-                </Grid>
-            
-              
+
+                {/* End of Website Right Content */}
+              </Grid>
+
+
             </Grid>
           </Grid>
         </Grid>

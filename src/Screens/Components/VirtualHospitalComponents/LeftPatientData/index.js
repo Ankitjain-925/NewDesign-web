@@ -26,6 +26,7 @@ import {
   getImage,
   SortByGraphView,
 } from "Screens/Components/BasicMethod";
+import PatientTasks from 'Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-tasks';
 
 class Index extends Component {
   constructor(props) {
@@ -59,7 +60,8 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => { };
+  componentDidMount = () => {
+  };
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -2103,6 +2105,11 @@ class Index extends Component {
       }
     } else return "";
   };
+ 
+  onTrigger = (event) => {
+    this.props.parentCallback(event);
+    // event.preventDefault();
+}
 
   render() {
     const { personalinfo, patientData } = this.state;
@@ -2157,10 +2164,10 @@ class Index extends Component {
               </Grid>
               <Grid className="entryInfo">
                 <ul>
-                  <li className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>{+NewEntry}</label></li>
-                  <li><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>{+NewTask}</label></li>
-                  <li><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>{Editinfo}</label></li>
-                  <li><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>{More}</label></li>
+                  <li onClick={() => { this.onTrigger(0) }} className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>{NewEntry}</label></li>
+                  <li onClick={() => { this.onTrigger(1) }}><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>{NewTask}</label></li>
+                  <li onClick={() => { this.onTrigger(2) }}><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>Personalinfo</label></li>
+                  <li onClick={() => { this.onTrigger(3) }}><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>{DocumentsFiles}</label></li>
                 </ul>
               </Grid>
             </Grid>
@@ -2177,7 +2184,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={6} md={4}>
                           <Grid className="mdclStaffRght">
-                            <a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a>
+                            {/* <a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a> */}
                           </Grid>
                         </Grid>
                       </Grid>
@@ -2211,7 +2218,7 @@ class Index extends Component {
                         <Grid><label>{Assignedto}</label></Grid>
                       </Grid>
                       <Grid item xs={6} md={4}>
-                        <Grid className="assignRght"><a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></Grid>
+                        {/* <Grid className="assignRght"><a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></Grid> */}
                       </Grid>
                     </Grid>
                     <Grid>
@@ -2331,7 +2338,8 @@ class Index extends Component {
             </Grid>
           </Grid>
 
-          {this.state.added_data &&
+          {
+            this.state.added_data &&
             this.state.added_data.length > 0 &&
             this.state.added_data.map((item, index) => (
               <div key={index}>
@@ -4548,7 +4556,8 @@ class Index extends Component {
                   </Grid>
                 )}
               </div>
-            ))}
+            ))
+          }
 
           {/* <Grid className="persBlodMesur">
             <Grid container direction="row" alignItems="center">
@@ -4660,8 +4669,8 @@ class Index extends Component {
               </a>
             </Grid>
           </Grid> */}
-        </Grid>
-      </Grid>
+        </Grid >
+      </Grid >
     );
   }
 }
