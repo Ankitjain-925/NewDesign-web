@@ -199,7 +199,16 @@ class Index extends Component {
                                 : "addSpeclModel"
                             }
                           >
-                            <Grid className="addServContnt">
+                            <Grid  className={
+                              this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "darkTheme addSpeclContnt"
+                                : "addServContnt"
+                            }
+                            // className="addServContnt"
+                            >
                               <Grid className="addSpeclLbl">
                                 <Grid className="addSpeclClose">
                                   <a onClick={()=>handleCloseServ(this)}>

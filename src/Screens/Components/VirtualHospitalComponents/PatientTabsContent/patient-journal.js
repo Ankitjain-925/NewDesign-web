@@ -816,7 +816,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.match.params.id;
     let response = await get_cur_one(user_token, user_id)
-    this.setState({ cur_one2: response.data.data });
+    this.setState({ cur_one2: response?.data?.data });
   };
 
   //Get the Current User Profile
