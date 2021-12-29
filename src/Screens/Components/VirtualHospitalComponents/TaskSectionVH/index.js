@@ -289,6 +289,7 @@ class Index extends Component {
         data.priority = 0;
         data.archived = false;
         data.status = "open";
+        data.created_at = new Date();
 
         axios
           .post(

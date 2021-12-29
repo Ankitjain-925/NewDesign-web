@@ -7565,6 +7565,16 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .crntMonth {
     color: #D9DADA !important;
 }
+.homeBgDrk .allTimeSelnw, .homeBgDrk .allTimeSelnw div, 
+.homeBgDrk .allTimeSelnw div:first-child {
+    background-color: #192020 !important;
+    background: #192020 !important;
+    color: #D9DADA !important;
+}
+.homeBgDrk .allTimeSelnw {
+    border: 1px solid #ababab;
+    border-radius: 4px;
+}
 .homeBgDrk .schdulTimRght {
     background-color: #404646 !important;
 }
@@ -13902,7 +13912,7 @@ g.highcharts-axis.highcharts-yaxis text {
     border-radius: 0px !important;
 }
 .showDetail img, .openScnd{
-    width: 25px;
+    width: 35px;
     height: 33px;
     border-radius: 6px;
     cursor: pointer;
@@ -15068,10 +15078,10 @@ label.attached_file a {
 .homeBgDrk .presurGraph .latestGrph rect.highcharts-background {
     fill: #dadada !important;
 }
-.srchFilter .css-yk16xz-control {
+/* .srchFilter .css-yk16xz-control {
     background-color: transparent !important;
     background: transparent !important;
-}
+} */
 .homeBgDrk {
     min-height: 100vh;
 }
@@ -15437,8 +15447,12 @@ a.SelectedGender{
     background-color: #404646 !important;
     border: 1px solid #d9d9d9 !important;
 }
-.homeBgDrk .css-yk16xz-control {
+/* .homeBgDrk .css-yk16xz-control {
     background-color: #404646 !important;
+    color: #BFC1C1 !important;
+} */
+.comonSel div {
+    background-color: #4C5252 !important;
     color: #BFC1C1 !important;
 }
 .homeBgDrk .neuroSection p {

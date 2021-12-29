@@ -84,6 +84,7 @@ class Index extends Component {
 
     handleCallback = (childData) => {
         this.handleChangeTab('', childData)
+        this.handleChangeTabMob('', childData)
     }
 
     handleChangeTab = (event, value) => {

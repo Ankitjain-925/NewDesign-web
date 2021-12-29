@@ -9508,8 +9508,7 @@ button.crdoLghtBlu2 {
     border-bottom: 1px solid #dadada;
   }
   .addTaskBtn {
-    text-align: right;
-    margin-right: 10px;
+    text-align: center;
     margin-top: 50px;
     margin-bottom: 25px;
   }
@@ -9918,7 +9917,7 @@ a.addNewPlus img {
     color: #00abaf;  
     font-weight: 700;
 }
-.darkTheme .creatTaskModel, .darkTheme .addServContnt {
+.darkTheme .creatTaskModel {
     background-color: #404646!important;
 }
 img.vdoCalNow {
@@ -9961,9 +9960,10 @@ a.newacademyul ul li img
 .addFlowRght a {
     margin: 0px 10px;
 }
-.apponTaskhos button{
+.apponTaskhos button {
     margin-left: 10px;
-    margin-right: 10px
+    margin-right: 10px;
+    margin-bottom: 8px;
 }
 .darkTheme .serchInput {
     color: #cfcfcf;
@@ -10100,7 +10100,7 @@ p.more-change-staff-img2 {
     font-weight: 700;
     margin: auto 10px;
 }
-.addFlowIner, .addSpeclContnt {
+.addFlowIner {
     height: 75vh;
     overflow: auto;
 }
@@ -10166,8 +10166,7 @@ p.more-change-staff-img2 {
 }
 .manage-dark-back {
     padding: 9px 8px !important;
-    width: 42px !important;
-}
+    width: 42px !important;}
 .more-open-detail{
     background-image: url('../images/openDetails.png');
     height: 15px;
@@ -11393,7 +11392,7 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #202323;
+    background: #0c1010;
     color: #dfdfdf;
     border-color: #676565;
 }
@@ -11539,7 +11538,7 @@ ul.patientHint li {
 }
 .darkTheme .mr_sel div:first-child, .darkTheme .cntryDrop div:first-child, 
 .darkTheme .languageSpk div:first-child {
-    background: #404646 ;
+    background: #404646 !important;
     border: none;
     height: initial !important;
     min-height: initial !important;
@@ -12055,6 +12054,9 @@ ul.patientHint li {
 }
 .darkTheme .colorDots li {
     color: #bfc1c1;
+}
+.darkTheme .cntryDropTop div {
+    background: #404646 !important;
 }
 
 @media (max-width: 468px) {
@@ -12709,13 +12711,20 @@ input:-moz-autofill:active{
 .servSaveBtn {
     margin:0px 30px;
 }
+@media (max-width: 959px){
+ .ptntFlowSpc ul.manageDragDrop {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll;
+ }
+}
 @media (max-width:580px){
     .addServContnt{
         margin-left:10px;
         margin-right:10px;
     }
 }
-
 @media(max-width:468px){
     .taskSort input[type=text]{
         width:120px;
@@ -12727,9 +12736,6 @@ input:-moz-autofill:active{
         margin-left: 40px;
     }
 }
-
-
-
 @media(max-width:599px){
    .taskSort input[type=text]{
         margin-bottom:20px;
@@ -12741,7 +12747,6 @@ input:-moz-autofill:active{
         margin-top: 24px !important;
     }
 }
-
 @media (max-width: 468px){
     .topLeftSpc{
         padding-left:10px!important;
@@ -12757,7 +12762,6 @@ input:-moz-autofill:active{
 .darkTheme .setStatus li:first-child {
     border: none !important;
 }
-
 @media(max-width:410px){
     .react-confirm-alert-body{
         width:300px;
@@ -12777,8 +12781,10 @@ input:-moz-autofill:active{
         margin:10px 0px;
     }
 }
-@media(min-width:960px){
-    .specialitybutton{
-        margin:0px 20px;
-    }
+.addSpeclContnt{
+    height: 75vh;
+}
+.addSpeclContntIner{
+    overflow:auto;
+    height: 100%;
 }

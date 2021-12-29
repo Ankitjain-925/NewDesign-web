@@ -4,10 +4,10 @@
     "reportVersion": 1,
     "event": "Allocation failed - JavaScript heap out of memory",
     "trigger": "FatalError",
-    "filename": "report.20211228.174800.16948.0.001.json",
-    "dumpEventTime": "2021-12-28T17:48:00Z",
-    "dumpEventTimeStamp": "1640693880660",
-    "processId": 16948,
+    "filename": "report.20211229.180043.15708.0.001.json",
+    "dumpEventTime": "2021-12-29T18:00:43Z",
+    "dumpEventTimeStamp": "1640781043991",
+    "processId": 15708,
     "cwd": "D:\\ankita\\2021\\GitSection\\Aimedis\\virtualhos-master",
     "commandLine": [
       "node",
@@ -50,74 +50,74 @@
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 7039312,
+        "user": 10660546,
         "nice": 0,
-        "sys": 6888984,
-        "idle": 51089531,
-        "irq": 1355781
+        "sys": 10279968,
+        "idle": 75599421,
+        "irq": 1994390
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 6862265,
+        "user": 10332984,
         "nice": 0,
-        "sys": 5335421,
-        "idle": 52819812,
-        "irq": 501812
+        "sys": 7902015,
+        "idle": 78304609,
+        "irq": 703187
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 8248968,
+        "user": 12318031,
         "nice": 0,
-        "sys": 5266625,
-        "idle": 51501906,
-        "irq": 533968
+        "sys": 7722921,
+        "idle": 76498656,
+        "irq": 786000
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 6744125,
+        "user": 10080093,
         "nice": 0,
-        "sys": 4120234,
-        "idle": 54153140,
-        "irq": 315046
+        "sys": 6109796,
+        "idle": 80349718,
+        "irq": 480734
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 6583000,
+        "user": 9800218,
         "nice": 0,
-        "sys": 4350250,
-        "idle": 54084250,
-        "irq": 287109
+        "sys": 6385203,
+        "idle": 80354187,
+        "irq": 409750
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 5658781,
+        "user": 8457781,
         "nice": 0,
-        "sys": 3850890,
-        "idle": 55507828,
-        "irq": 193250
+        "sys": 5699640,
+        "idle": 82382187,
+        "irq": 270171
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 6490234,
+        "user": 9640296,
         "nice": 0,
-        "sys": 4014828,
-        "idle": 54512437,
-        "irq": 232390
+        "sys": 5953218,
+        "idle": 80946093,
+        "irq": 332859
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 5811578,
+        "user": 8625421,
         "nice": 0,
-        "sys": 3333359,
-        "idle": 55872562,
-        "irq": 112187
+        "sys": 5005171,
+        "idle": 82909015,
+        "irq": 197171
       }
     ],
     "networkInterfaces": [
@@ -125,7 +125,7 @@
         "name": "Wi-Fi",
         "internal": false,
         "mac": "c8:09:a8:e9:88:c9",
-        "address": "2401:4900:30db:d307:6c2f:2b13:eb2c:a4ab",
+        "address": "2401:4900:30dc:903:6c2f:2b13:eb2c:a4ab",
         "netmask": "ffff:ffff:ffff:ffff::",
         "family": "IPv6",
         "scopeid": 0
@@ -134,7 +134,7 @@
         "name": "Wi-Fi",
         "internal": false,
         "mac": "c8:09:a8:e9:88:c9",
-        "address": "2401:4900:30db:d307:b00e:7e39:52:ec0a",
+        "address": "2401:4900:30dc:903:5dbb:9f3f:9280:b9c5",
         "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
         "family": "IPv6",
         "scopeid": 0
@@ -184,71 +184,71 @@
   },
   "nativeStack": [
     {
-      "pc": "0x00007ff7745419f9",
+      "pc": "0x00007ff6443319f9",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
     },
     {
-      "pc": "0x00007ff774545e1c",
+      "pc": "0x00007ff644335e1c",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28316"
     },
     {
-      "pc": "0x00007ff774544dd8",
+      "pc": "0x00007ff644334dd8",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+24152"
     },
     {
-      "pc": "0x00007ff7746434cb",
+      "pc": "0x00007ff6444334cb",
       "symbol": "v8::base::CPU::has_sse+38363"
     },
     {
-      "pc": "0x00007ff774e59f4e",
+      "pc": "0x00007ff644c49f4e",
       "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
     },
     {
-      "pc": "0x00007ff774e42021",
+      "pc": "0x00007ff644c32021",
       "symbol": "v8::SharedArrayBuffer::Externalize+833"
     },
     {
-      "pc": "0x00007ff774d0e57c",
+      "pc": "0x00007ff644afe57c",
       "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
     },
     {
-      "pc": "0x00007ff774d197d0",
+      "pc": "0x00007ff644b097d0",
       "symbol": "v8::internal::Heap::ProtectUnprotectedMemoryChunks+1312"
     },
     {
-      "pc": "0x00007ff774d162f4",
+      "pc": "0x00007ff644b062f4",
       "symbol": "v8::internal::Heap::PageFlagsAreConsistent+3204"
     },
     {
-      "pc": "0x00007ff774d0bb13",
+      "pc": "0x00007ff644afbb13",
       "symbol": "v8::internal::Heap::CollectGarbage+1283"
     },
     {
-      "pc": "0x00007ff774d0a184",
+      "pc": "0x00007ff644afa184",
       "symbol": "v8::internal::Heap::AddRetainedMap+2452"
     },
     {
-      "pc": "0x00007ff774d2b36d",
+      "pc": "0x00007ff644b1b36d",
       "symbol": "v8::internal::Factory::NewFillerObject+61"
     },
     {
-      "pc": "0x00007ff774a90c51",
+      "pc": "0x00007ff644880c51",
       "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+1665"
     },
     {
-      "pc": "0x00007ff7752a4ddd",
+      "pc": "0x00007ff645094ddd",
       "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+546637"
     },
     {
-      "pc": "0x00000071542f4912",
+      "pc": "0x000000eb556f714e",
       "symbol": ""
     }
   ],
   "javascriptHeap": {
-    "totalMemory": 2153910272,
-    "totalCommittedMemory": 2153910272,
-    "usedMemory": 2135672384,
-    "availableMemory": 50796240,
+    "totalMemory": 2169847808,
+    "totalCommittedMemory": 2169847808,
+    "usedMemory": 2141059552,
+    "availableMemory": 47128256,
     "memoryLimit": 2197815296,
     "heapSpaces": {
       "read_only_space": {
@@ -259,38 +259,38 @@
         "available": 0
       },
       "new_space": {
-        "memorySize": 4718592,
-        "committedMemory": 4718592,
-        "capacity": 2356776,
-        "used": 846152,
-        "available": 1510624
+        "memorySize": 17825792,
+        "committedMemory": 17825792,
+        "capacity": 8903376,
+        "used": 2578248,
+        "available": 6325128
       },
       "old_space": {
-        "memorySize": 1592410112,
-        "committedMemory": 1592410112,
-        "capacity": 1585563112,
-        "used": 1582539296,
-        "available": 3023816
+        "memorySize": 1596342272,
+        "committedMemory": 1596342272,
+        "capacity": 1589921088,
+        "used": 1585988824,
+        "available": 3932264
       },
       "code_space": {
         "memorySize": 3051520,
         "committedMemory": 3051520,
-        "capacity": 2777248,
-        "used": 2777248,
+        "capacity": 2761120,
+        "used": 2761120,
         "available": 0
       },
       "map_space": {
-        "memorySize": 10752000,
-        "committedMemory": 10752000,
-        "capacity": 7259760,
-        "used": 7259760,
+        "memorySize": 9441280,
+        "committedMemory": 9441280,
+        "capacity": 7268560,
+        "used": 7268560,
         "available": 0
       },
       "large_object_space": {
-        "memorySize": 542093312,
-        "committedMemory": 542093312,
-        "capacity": 541672832,
-        "used": 541672832,
+        "memorySize": 542302208,
+        "committedMemory": 542302208,
+        "capacity": 541885704,
+        "used": 541885704,
         "available": 0
       },
       "code_large_object_space": {
@@ -303,24 +303,24 @@
       "new_large_object_space": {
         "memorySize": 0,
         "committedMemory": 0,
-        "capacity": 2356776,
+        "capacity": 8903376,
         "used": 0,
-        "available": 2356776
+        "available": 8903376
       }
     }
   },
   "resourceUsage": {
-    "userCpuSeconds": 379.296,
-    "kernelCpuSeconds": 55.796,
-    "cpuConsumptionPercent": 144.07,
-    "maxRss": 2224943104,
+    "userCpuSeconds": 428.046,
+    "kernelCpuSeconds": 73.984,
+    "cpuConsumptionPercent": 142.622,
+    "maxRss": 2206633984,
     "pageFaults": {
-      "IORequired": 2285747,
+      "IORequired": 2647467,
       "IONotRequired": 0
     },
     "fsActivity": {
-      "reads": 28397,
-      "writes": 132
+      "reads": 28449,
+      "writes": 137
     }
   },
   "libuv": [
@@ -561,7 +561,7 @@
     "npm_package_description": "",
     "npm_package_devDependencies__babel_plugin_proposal_optional_chaining": "^7.13.8",
     "npm_package_eslintConfig_extends": "react-app",
-    "npm_package_gitHead": "819a675563d329d2e63cd6c06ed3cbf8d93ce5a8",
+    "npm_package_gitHead": "5d81dc79a2542e98b1d69f2f4f88714a0ff9fc42",
     "npm_package_homepage": "https://virtualhospital.aimedis.io",
     "npm_package_name": "reactjs",
     "npm_package_private": "true",
