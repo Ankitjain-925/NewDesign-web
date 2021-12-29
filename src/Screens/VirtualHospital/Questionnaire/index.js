@@ -86,7 +86,6 @@ class Index extends Component {
       state[index][name] = e.target.value;
     }
     this.setState({ myQuestions: state });
-    console.log("myQuestions", this.state.myQuestions)
   }
 
   // for delete choice fields

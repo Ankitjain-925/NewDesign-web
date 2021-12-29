@@ -291,7 +291,7 @@ class Index extends Component {
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
-                                <Grid container direction="row">
+                                <Grid container direction="row" className="mainMenuAllSec">
                                     {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
 

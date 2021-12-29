@@ -124,15 +124,10 @@ class Index extends Component {
     // };
 
     reactToPrintContent = (data) => {
-        console.log('data4444',data)
         this.setState({currentData: data})
         return this.componentRef
 
     };
-
-    // reactToPrintTrigger = () => {
-    //  <a onClick={() => { this.printInvoice() }}><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
-    // }
 
     // For print invoice
     printInvoice = () => {
@@ -237,10 +232,10 @@ class Index extends Component {
                 this.setState({ allBillsCSS: 'filterApply' })
             }
             else if (value === 1) {
-                this.setState({  issuedCSS: 'filterApply' })
+                this.setState({ issuedCSS: 'filterApply' })
             }
             else if (value === 2) {
-                this.setState({  overdueCSS: 'filterApply' })
+                this.setState({ overdueCSS: 'filterApply' })
             }
             else if (value === 3) {
                 this.setState({ paidCSS: 'filterApply' })
@@ -439,12 +434,15 @@ class Index extends Component {
 
     downloadInvoicePdf = (datas) => {
         var invoice = datas;
+        this.setState({loaderImage: true})
         axios
             .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
                 { responseType: "blob" }
             )
             .then((res) => {
-                this.setState({ loaderImage: false });
+                setTimeout(()=>{
+                    this.setState({ loaderImage: false });
+                }, 3000)
                 var data = new Blob([res.data]);
                 if (typeof window.navigator.msSaveBlob === "function") {
                     // If it is IE that support download blob directly.
