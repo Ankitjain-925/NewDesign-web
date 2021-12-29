@@ -2914,6 +2914,9 @@ a.lineSort {
     .billInfoData th {
         padding: 10px !important;
     }
+    .taskNum {
+        min-width: 100px !important;
+    }
 }
 @media (max-width: 1200px) {
     .asignStaf {
@@ -9853,6 +9856,16 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.homeBgDrk .emergency-head h1{
+    color: #fcfcfc !important;
+}
+.darkTheme .dashBoxCntnt,.darkTheme .alowLocAces, .darkTheme .slotBoxMain,.darkTheme .srvcBoxCntnt,
+.darkTheme .crtListCntnt,.darkTheme .wishListCntnt, .darkTheme .editBoxCntnt, .darkTheme .trstBoxCntnt,
+.darkTheme .qrBoxCntnt, .darkTheme .dataBoxCntnt, .darkTheme .infoBoxCntnt,.darkTheme .rejectBoxCntnt,
+.darkTheme .paraBoxCntnt, .darkTheme .slotBoxCntnt, .darkTheme .nwDiaCntnt, .darkTheme .entryBoxCntnt
+ {
+    background-color: #404646 !important;
+}
 .ant-picker-suffix > * {
     vertical-align: top;
     margin-left: -20px !important;
@@ -9876,7 +9889,7 @@ img.manage-size {
     width: 44px;
     padding: 12px;
 }
-.darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
+.darkTheme .insuranceHint, .darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
     background-color: #404646 !important;
     color: #fff !important;
 }
@@ -9905,7 +9918,7 @@ a.addNewPlus img {
     color: #00abaf;  
     font-weight: 700;
 }
-.darkTheme .creatTaskModel {
+.darkTheme .creatTaskModel, .darkTheme .addServContnt {
     background-color: #404646!important;
 }
 img.vdoCalNow {
@@ -10152,7 +10165,8 @@ p.more-change-staff-img2 {
     height: 20px;
 }
 .manage-dark-back {
-    padding: 18px 8px !important;
+    padding: 9px 8px !important;
+    width: 42px !important;
 }
 .more-open-detail{
     background-image: url('../images/openDetails.png');

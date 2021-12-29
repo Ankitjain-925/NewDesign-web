@@ -3038,7 +3038,7 @@ a.profilMenu {
     margin: 2px 0px;
 }
 .showDetail img {
-    width: 35px;
+    width: 25px;
     height: 33px;
     border-radius: 6px;
     cursor: pointer;
@@ -13902,7 +13902,7 @@ g.highcharts-axis.highcharts-yaxis text {
     border-radius: 0px !important;
 }
 .showDetail img, .openScnd{
-    width: 35px;
+    width: 25px;
     height: 33px;
     border-radius: 6px;
     cursor: pointer;

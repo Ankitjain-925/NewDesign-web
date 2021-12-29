@@ -1418,7 +1418,7 @@ class Index extends Component {
           {tabvalue2 === 0 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.AllTasks.length > 0 &&
+                {this.state.AllTasks?.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
@@ -1434,7 +1434,7 @@ class Index extends Component {
           {tabvalue2 === 1 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.DoneTask.length > 0 &&
+                {this.state.DoneTask?.length > 0 &&
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
@@ -1450,7 +1450,7 @@ class Index extends Component {
           {tabvalue2 === 2 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.OpenTask.length > 0 &&
+                {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
@@ -1466,7 +1466,7 @@ class Index extends Component {
           {tabvalue2 === 3 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.ArchivedTasks.length > 0 &&
+                {this.state.ArchivedTasks?.length > 0 &&
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
