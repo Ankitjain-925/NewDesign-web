@@ -11539,7 +11539,7 @@ ul.patientHint li {
 }
 .darkTheme .mr_sel div:first-child, .darkTheme .cntryDrop div:first-child, 
 .darkTheme .languageSpk div:first-child {
-    background: #404646 !important;
+    background: #404646 ;
     border: none;
     height: initial !important;
     min-height: initial !important;
