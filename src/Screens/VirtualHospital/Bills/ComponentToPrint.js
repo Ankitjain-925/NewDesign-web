@@ -16,17 +16,15 @@ export class ComponentToPrint extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bills_data: {},
-            AllBills: {}
         }
-    };
+        console.log("props", this.props);
 
+    };
 
     render() {
         var { data, index } = this.props;
         return (
             <div className="relativeCSS">
-                {console.log('data', this.props.data)}
                 <style type="text/css" media="print"></style>
                 <div className="flash" />
                 <Grid className="printPreview">

@@ -82,8 +82,13 @@ class Index extends Component {
         this.getTrack();
     }
 
+    handleCallback = (childData) => {
+        this.handleChangeTab('', childData)
+        this.handleChangeTabMob('', childData)
+    }
+
     handleChangeTab = (event, value) => {
-        this.setState({ value });   
+        this.setState({ value });
     };
     handleChangeTabMob = (event, valueMob) => {
         this.setState({ valueMob });
@@ -92,7 +97,7 @@ class Index extends Component {
     getUpcomingAppointment() {
         var user_token = this.props.stateLoginValueAim.token;
         axios
-            .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat/"+this.props.match.params.id, commonHeader(user_token))
+            .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat/" + this.props.match.params.id, commonHeader(user_token))
             .then((response) => {
                 var upcomingData =
                     response.data.data &&
@@ -147,7 +152,7 @@ class Index extends Component {
     getPesonalized = () => {
         this.setState({ loaderImage: true });
         axios
-            .get(sitedata.data.path + "/UserProfile/updateSetting/"+this.props.match.params.id, commonHeader(this.props.stateLoginValueAim.token))
+            .get(sitedata.data.path + "/UserProfile/updateSetting/" + this.props.match.params.id, commonHeader(this.props.stateLoginValueAim.token))
             .then((responce) => {
                 if (
                     responce.data.hassuccessed &&
@@ -176,10 +181,10 @@ class Index extends Component {
     };
 
     //Get the RIGHT INFO
-    rightInfo =() =>{
+    rightInfo = () => {
         var user_token = this.props.stateLoginValueAim.token;
         axios
-            .get(sitedata.data.path + "/rightinfo/patient/"+this.props.match.params.id,
+            .get(sitedata.data.path + "/rightinfo/patient/" + this.props.match.params.id,
                 commonHeader(user_token))
             .then((response) => {
                 this.setState({ personalinfo: response.data.data });
@@ -247,16 +252,16 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, House } = this.props;
         if (
-          stateLoginValueAim.user === "undefined" ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === "undefined" ||
-          stateLoginValueAim.user.type !== "adminstaff"
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
         ) {
-          return <Redirect to={"/"} />;
+            return <Redirect to={"/"} />;
         }
         if (House && House?.value === null) {
             return <Redirect to={"/VirtualHospital/institutes"} />;
-          }
+        }
         const { value } = this.state;
         const { valueMob } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
@@ -287,7 +292,7 @@ class Index extends Component {
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
-                                <Grid container direction="row">
+                                <Grid container direction="row" className="mainMenuAllSec">
                                     {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
 
@@ -299,6 +304,7 @@ class Index extends Component {
                                     {/* Start of Mid Section */}
                                     <Grid item xs={11} md={4} className="LeftPatientDataWeb">
                                         <LeftPatientData
+                                            parentCallback={this.handleCallback}
                                             upcoming_appointment={this.state.upcoming_appointment}
                                             OpenGraph={this.OpenGraph}
                                             date_format={
@@ -338,7 +344,7 @@ class Index extends Component {
                                         </Grid>
                                         <div className="TabContainerWeb">
                                             {value === 0 && <TabContainer>
-                                                <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph}/>
+                                                <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph} />
                                             </TabContainer>}
                                             {value === 1 && <TabContainer>
                                                 <PatientTasks />
@@ -358,7 +364,7 @@ class Index extends Component {
                                                 <LeftPatientData />
                                             }</TabContainer>}
                                             {valueMob === 1 && <TabContainer>
-                                                <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph}/>
+                                                <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph} />
                                             </TabContainer>}
                                             {valueMob === 2 && <TabContainer>
                                                 <PatientTasks />

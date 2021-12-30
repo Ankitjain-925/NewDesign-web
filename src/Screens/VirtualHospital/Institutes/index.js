@@ -196,13 +196,13 @@ class Index extends Component {
           <Grid className="homeBgIner vh-section">
             <Grid container direction="row" justify="center">
               <Grid item xs={12} md={12}>
-                <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                <LeftMenuMobile isNotShow={true} currentPage="institute" />
                 <Grid container direction="row">
                   {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
                   {/* Start of Menu */}
                   <Grid item xs={12} md={1} className="MenuLeftUpr">
-                    <LeftMenu isNotShow={true} currentPage="chat" />
+                    <LeftMenu isNotShow={true} currentPage="institute" />
                   </Grid>
 
                   <Grid item xs={12} md={11}>
