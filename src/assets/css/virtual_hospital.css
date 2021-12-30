@@ -9855,6 +9855,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.infoSub2 label{
+    color: #fff!important;
+}
 .homeBgDrk .emergency-head h1{
     color: #fcfcfc !important;
 }

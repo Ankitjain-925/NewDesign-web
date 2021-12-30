@@ -211,6 +211,7 @@ class Index extends Component {
                             }
                             // className="addServContnt"
                             >
+                                 <Grid className="addSpeclContntIner">
                               <Grid className="addSpeclLbl">
                                 <Grid className="addSpeclClose">
                                   <a onClick={() => handleCloseServ(this)}>
@@ -287,6 +288,7 @@ class Index extends Component {
                                   <Button onClick={() => handleSubmit(this)}>{save_and_close}</Button>
                                 </a>
                               </Grid>
+                            </Grid>
                             </Grid>
                           </Modal>
                         </Grid>

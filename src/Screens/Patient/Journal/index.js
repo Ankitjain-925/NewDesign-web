@@ -1237,6 +1237,7 @@ class Index extends Component {
                             ? "nwDiaCntntIner darkTheme addSpeclContnt"
                             : "nwDiaCntntIner addSpeclContnt"
                         }>
+                          <Grid className="addSpeclContntIner"></Grid>
                           <Grid className="nwDiaCourse ">
                             <Grid className="nwDiaCloseBtn">
                               <a onClick={this.handleCloseInqryNw}>

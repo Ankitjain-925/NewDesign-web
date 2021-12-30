@@ -444,6 +444,7 @@ class Index extends Component {
                             }
                           >
                             <Grid className="addSpeclContnt">
+                            <Grid className="addSpeclContntIner">
                               <Grid className="addSpeclLbl">
                                 <Grid className="nwDiaCloseBtn">
                                   <a onClick={this.handleCloseQues}>
@@ -599,6 +600,7 @@ class Index extends Component {
                                 </a>
                               </Grid>
                             </Grid>
+                            </Grid>
                           </Modal>
 
                           <Modal
@@ -614,6 +616,7 @@ class Index extends Component {
                             }
                           >
                             <Grid className="addSpeclContnt">
+                            <Grid className="addSpeclContntIner">
                               <Grid className="addSpeclLbl">
                                 <Grid className="nwDiaCloseBtn">
                                   <a onClick={this.handleEditCloseQues}>
@@ -754,6 +757,7 @@ class Index extends Component {
                                   </Button>
                                 </a>
                               </Grid>
+                            </Grid>
                             </Grid>
                           </Modal>
                         </Grid>
