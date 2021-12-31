@@ -1409,7 +1409,6 @@
 		"Room3": "Room 3",
 		"Room4": "Room 4",
 		"Room5": "Room 5",
-		"Bed2": "Bed 2",
 		"ChildrensWardContent": "Childrens Ward Content",
 		"Statistics": "Statistics",
 		"TotalPatients": "Total Patients",
@@ -1572,6 +1571,7 @@
 		"sure_remove_service_from_invoice": "Are you sure to remove this Service from Invoice?",
 		"BacktoBilling": "Back to Billing",
 		"FinishInvoice": "Finish Invoice",
-		"SaveDraft": "Save Draft"
+		"SaveDraft": "Save Draft",
+		"Entries":"Entries"
 	}
 }
