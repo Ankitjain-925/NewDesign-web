@@ -1543,6 +1543,7 @@
 		"save_task_and_close": "Save Task & Close",
 		"EditTask": "Edit Task",
 		"DeleteTask": "Delete Task",
-		"Tasks": "Tasks"
+		"Tasks": "Tasks",
+		"Promotion": "Promotion"
 	}
 }
