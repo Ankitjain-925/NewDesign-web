@@ -25,7 +25,9 @@ class Index extends Component {
         this.state = {
             selectedOption: null,
             attachedFile: [],
-            AllServices: [],
+            document_data:{},
+            AllDocument:{},
+
             
         };
     }
@@ -54,16 +56,16 @@ class Index extends Component {
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
-    onChangePage = (pageNumber) => {
-        this.setState({
-          services_data:this.state.AllServices(
+   // For page change 
+   onChangePage = (pageNumber) => {
+    this.setState({
+        document_data: this.state.AllDocument.slice(
             (pageNumber - 1) * 10,
             pageNumber * 10
-          ),
-          currentPage: pageNumber,
-        });
-        console.log('gvhhn',pageNumber)
-      };
+        ),
+        currentPage: pageNumber,
+    });
+};
       
 
     render() {
@@ -134,31 +136,31 @@ class Index extends Component {
                         <Grid className="presOpinionIner">
                             <DocView attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
                             <Grid className="tablePagNum">
-                        <Grid container direction="row">
-                          <Grid item xs={12} md={6}>
-                            <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                               </a>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12} md={6}>
-                            {this.state.totalPage > 1 && (
-                              <Grid className="prevNxtpag">
-                                <Pagination
-                                  totalPage={this.state.totalPage}
-                                  currentPage={this.state.currentPage}
-                                  pages={this.state.pages}
-                                  onChangePage={(page) => {
-                                    this.onChangePage(page, this);
-                                  }}
-                                />
-                              </Grid>
-                            )}
-                          </Grid>
-                        </Grid>
-                      </Grid>
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6}>
+                                                        <Grid className="totalOutOff">
+                                                            <a>
+                                                                {this.state.currentPage} of{" "}
+                                                                {this.state.totalPage}
+                                                            </a>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        {this.state.totalPage > 1 && (
+                                                            <Grid className="prevNxtpag">
+                                                                <Pagination
+                                                                    totalPage={this.state.totalPage}
+                                                                    currentPage={this.state.currentPage}
+                                                                    pages={this.state.pages}
+                                                                    onChangePage={(page) => {
+                                                                        this.onChangePage(page);
+                                                                    }}
+                                                                />
+                                                            </Grid>
+                                                        )}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
                             </Grid>
                         </Grid>
                 </Grid>
