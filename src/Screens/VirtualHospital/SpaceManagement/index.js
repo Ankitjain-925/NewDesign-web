@@ -280,7 +280,7 @@ class Index extends Component {
                                 <Button className="selWarnBtn" onClick={() => { this.removeSpeciality() }}>
                                   {yesDeleteSpeciality}
                                 </Button>
-                                <Button onClick={this.handleCloseWarn}>{cancelKeepSpeciality}</Button>
+                                <Button onClick={() => handleCloseWarn(this)}>{cancelKeepSpeciality}</Button>
                               </Grid>
                             </Grid>
                           </Grid>

@@ -2914,6 +2914,9 @@ a.lineSort {
     .billInfoData th {
         padding: 10px !important;
     }
+    .taskNum {
+        min-width: 100px !important;
+    }
 }
 @media (max-width: 1200px) {
     .asignStaf {
@@ -6236,6 +6239,7 @@ button.downloadPDF:hover {
     padding: 12px 20px 5px 20px;
 }
 .tskOverView {
+    margin-top: 15px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
     /* min-height: 110vh; */
@@ -9851,6 +9855,23 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.infoSub2 label{
+    color: #fff!important;
+}
+.homeBgDrk .emergency-head h1{
+    color: #fcfcfc !important;
+}
+.darkTheme .dashBoxCntnt,.darkTheme .alowLocAces, .darkTheme .slotBoxMain,.darkTheme .srvcBoxCntnt,
+.darkTheme .crtListCntnt,.darkTheme .wishListCntnt, .darkTheme .editBoxCntnt, .darkTheme .trstBoxCntnt,
+.darkTheme .qrBoxCntnt, .darkTheme .dataBoxCntnt, .darkTheme .infoBoxCntnt,.darkTheme .rejectBoxCntnt,
+.darkTheme .paraBoxCntnt, .darkTheme .slotBoxCntnt, .darkTheme .nwDiaCntnt, .darkTheme .entryBoxCntnt
+ {
+    background-color: #404646 !important;
+}
+.ant-picker-suffix > * {
+    vertical-align: top;
+    margin-left: -20px !important;
+}
 .filterAtright{
     text-align:right;
     margin-top:10px !important;
@@ -9870,7 +9891,7 @@ img.manage-size {
     width: 44px;
     padding: 12px;
 }
-.darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
+.darkTheme .insuranceHint, .darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
     background-color: #404646 !important;
     color: #fff !important;
 }
@@ -9942,9 +9963,10 @@ a.newacademyul ul li img
 .addFlowRght a {
     margin: 0px 10px;
 }
-.apponTaskhos button{
+.apponTaskhos button {
     margin-left: 10px;
-    margin-right: 10px
+    margin-right: 10px;
+    margin-bottom: 8px;
 }
 .darkTheme .serchInput {
     color: #cfcfcf;
@@ -10081,7 +10103,7 @@ p.more-change-staff-img2 {
     font-weight: 700;
     margin: auto 10px;
 }
-.addFlowIner, .addSpeclContnt {
+.addFlowIner {
     height: 75vh;
     overflow: auto;
 }
@@ -10146,8 +10168,8 @@ p.more-change-staff-img2 {
     height: 20px;
 }
 .manage-dark-back {
-    padding: 18px 8px !important;
-}
+    padding: 9px 8px !important;
+    width: 42px !important;}
 .more-open-detail{
     background-image: url('../images/openDetails.png');
     height: 15px;
@@ -11373,7 +11395,7 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #202323;
+    background: #0c1010;
     color: #dfdfdf;
     border-color: #676565;
 }
@@ -12036,6 +12058,9 @@ ul.patientHint li {
 .darkTheme .colorDots li {
     color: #bfc1c1;
 }
+.darkTheme .cntryDropTop div {
+    background: #404646 !important;
+}
 
 @media (max-width: 468px) {
   .darkTheme .allTabCntnt {
@@ -12689,13 +12714,20 @@ input:-moz-autofill:active{
 .servSaveBtn {
     margin:0px 30px;
 }
+@media (max-width: 959px){
+ .ptntFlowSpc ul.manageDragDrop {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll;
+ }
+}
 @media (max-width:580px){
     .addServContnt{
         margin-left:10px;
         margin-right:10px;
     }
 }
-
 @media(max-width:468px){
     .taskSort input[type=text]{
         width:120px;
@@ -12707,9 +12739,6 @@ input:-moz-autofill:active{
         margin-left: 40px;
     }
 }
-
-
-
 @media(max-width:599px){
    .taskSort input[type=text]{
         margin-bottom:20px;
@@ -12721,7 +12750,6 @@ input:-moz-autofill:active{
         margin-top: 24px !important;
     }
 }
-
 @media (max-width: 468px){
     .topLeftSpc{
         padding-left:10px!important;
@@ -12736,4 +12764,30 @@ input:-moz-autofill:active{
 }
 .darkTheme .setStatus li:first-child {
     border: none !important;
+}
+@media(max-width:410px){
+    .react-confirm-alert-body{
+        width:300px;
+    }
+}
+
+@media(max-width: 959px){
+    .mainMenuAllSec{
+        display:flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .prfilHghtLft, .prfilHghtRght{
+        padding-left: 18%!important;
+    }
+    .specialitybutton{
+        margin:10px 0px;
+    }
+}
+.addSpeclContnt{
+    height: 75vh;
+}
+.addSpeclContntIner{
+    overflow:auto;
+    height: 100%;
 }

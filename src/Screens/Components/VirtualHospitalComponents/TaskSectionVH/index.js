@@ -70,6 +70,7 @@ class Index extends Component {
       AllTasks: this.props.AllTasks,
       shown: false,
       professionalArray: [],
+      patientForFilter: this.props.patientForFilter,
       ArchivedTasks: this.props.ArchivedTasks,
       loaderImage: false,
       hope: false,
@@ -105,8 +106,8 @@ class Index extends Component {
       prevProps.tabvalue2 !== this.props.tabvalue2 ||
       prevProps.AllTasks !== this.props.AllTasks ||
       prevProps.ArchivedTasks !== this.props.ArchivedTasks ||
-      prevProps.DoneTask !== this.props.DoneTask ||
-      prevProps.OpenTask !== this.props.OpenTask
+      prevProps.DoneTask !== this.props.DoneTask ||  
+      prevProps.OpenTask !== this.props.OpenTask || prevProps.patientForFilter !== this.props.patientForFilter
     ) {
       this.setState({
         tabvalue2: this.props.tabvalue2 || 0,
@@ -114,6 +115,7 @@ class Index extends Component {
         ArchivedTasks: this.props.ArchivedTasks,
         DoneTask: this.props.DoneTask,
         OpenTask: this.props.OpenTask,
+        patientForFilter: this.props.patientForFilter
       });
     }
     if (prevProps.patient !== this.props.patient) {
@@ -289,6 +291,7 @@ class Index extends Component {
         data.priority = 0;
         data.archived = false;
         data.status = "open";
+        data.created_at = new Date();
 
         axios
           .post(
@@ -895,7 +898,6 @@ class Index extends Component {
   };
 
   render() {
-   
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
@@ -1377,14 +1379,22 @@ class Index extends Component {
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
                 <Grid className="taskSort">
-                  <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />
-                  <a>
+                {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />}
+                  <a>    
+                  {!this.state.showinput ? <img
+                    src={require("assets/virtual_images/search-entries.svg")}
+                    alt=""
+                    title=""
+                    onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                  /> :
                     <img
-                      src={require("assets/virtual_images/search-entries.svg")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
-                    />
+                      onClick={() => { this.setState({ showinput: !this.state.showinput, text: ''}); this.clearFilter() }}
+                    />}
                   </a>
+
                   {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
                     <>
                      
@@ -1410,7 +1420,7 @@ class Index extends Component {
           {tabvalue2 === 0 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.AllTasks.length > 0 &&
+                {this.state.AllTasks?.length > 0 &&
                   this.state.AllTasks.map((data) => (
                     <Grid>
                       <TaskView
@@ -1426,7 +1436,7 @@ class Index extends Component {
           {tabvalue2 === 1 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.DoneTask.length > 0 &&
+                {this.state.DoneTask?.length > 0 &&
                   this.state.DoneTask.map((data) => (
                     <Grid>
                       <TaskView
@@ -1442,7 +1452,7 @@ class Index extends Component {
           {tabvalue2 === 2 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.OpenTask.length > 0 &&
+                {this.state.OpenTask?.length > 0 &&
                   this.state.OpenTask.map((data) => (
                     <Grid>
                       <TaskView
@@ -1458,7 +1468,7 @@ class Index extends Component {
           {tabvalue2 === 3 && (
             <TabContainer>
               <Grid className="allInerTabs">
-                {this.state.ArchivedTasks.length > 0 &&
+                {this.state.ArchivedTasks?.length > 0 &&
                   this.state.ArchivedTasks.map((data) => (
                     <Grid>
                       <TaskView
@@ -1535,7 +1545,7 @@ class Index extends Component {
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}
                         value={this.state.userFilter}
-                        options={this.state.users1}
+                        options={this.state.patientForFilter}
                         placeholder="Filter by patient"
                         className="addStafSelect"
                         isMulti={true}

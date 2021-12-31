@@ -44,6 +44,13 @@ class Index extends Component {
         <Modal
           open={this.state.openPopup}
           onClose={this.CloseFile}
+          className={
+            this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
+              ? "darkTheme"
+              : ""
+          }
         >
           <Grid
             className="entryBoxCntnt SetWidthPopup3"  

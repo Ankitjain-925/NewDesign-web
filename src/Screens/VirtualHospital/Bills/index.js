@@ -27,16 +27,14 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import { getLanguage } from "translations/index"
 import { Redirect, Route } from 'react-router-dom';
-import filterate from 'reducers/Filterthis';
 import { PatientMoveFromHouse } from '../PatientFlow/data'
 import Modal from "@material-ui/core/Modal";
 import Select from "react-select";
 import { getPatientData } from 'Screens/Components/CommonApi/index';
-import { MultiFilter2 } from '../../Components/MultiFilter';
 import { getDate } from 'Screens/Components/BasicMethod/index';
 import ReactToPrint, { PrintContext } from 'react-to-print';
 import { ComponentToPrint } from "./ComponentToPrint";
-import { data } from 'jquery';
+import { filterPatient } from "Screens/Components/BasicMethod/index";
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -89,7 +87,7 @@ class Index extends Component {
             issuedCSS: '',
             paidCSS: '',
             currentData:{},
-
+            patientForFilter: [],
         }
     };
 
@@ -124,15 +122,10 @@ class Index extends Component {
     // };
 
     reactToPrintContent = (data) => {
-        console.log('data4444',data)
         this.setState({currentData: data})
         return this.componentRef
 
     };
-
-    // reactToPrintTrigger = () => {
-    //  <a onClick={() => { this.printInvoice() }}><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>
-    // }
 
     // For print invoice
     printInvoice = () => {
@@ -237,10 +230,10 @@ class Index extends Component {
                 this.setState({ allBillsCSS: 'filterApply' })
             }
             else if (value === 1) {
-                this.setState({  issuedCSS: 'filterApply' })
+                this.setState({ issuedCSS: 'filterApply' })
             }
             else if (value === 2) {
-                this.setState({  overdueCSS: 'filterApply' })
+                this.setState({ overdueCSS: 'filterApply' })
             }
             else if (value === 3) {
                 this.setState({ paidCSS: 'filterApply' })
@@ -325,6 +318,10 @@ class Index extends Component {
                         },
                         () => {
                             this.setState({ loaderImage: false });
+                            if(this.state.AllBills){
+                                var patientForFilterArr = filterPatient(this.state.AllBills);
+                                this.setState({patientForFilter: patientForFilterArr});
+                            }
                             if (totalPage > 1) {
                                 var pages = [];
                                 for (var i = 1; i <= this.state.totalPage; i++) {
@@ -439,12 +436,15 @@ class Index extends Component {
 
     downloadInvoicePdf = (datas) => {
         var invoice = datas;
+        this.setState({loaderImage: true})
         axios
             .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
                 { responseType: "blob" }
             )
             .then((res) => {
-                this.setState({ loaderImage: false });
+                setTimeout(()=>{
+                    this.setState({ loaderImage: false });
+                }, 3000)
                 var data = new Blob([res.data]);
                 if (typeof window.navigator.msSaveBlob === "function") {
                     // If it is IE that support download blob directly.
@@ -584,7 +584,7 @@ class Index extends Component {
                                                                                         name="professional"
                                                                                         onChange={this.updateUserFilter}
                                                                                         value={this.state.userFilter}
-                                                                                        options={PatientList}
+                                                                                        options={this.state.patientForFilter}
                                                                                         placeholder="Filter by Patient"
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}

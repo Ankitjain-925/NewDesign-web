@@ -80,10 +80,25 @@ class Index extends Component {
         this.getUpcomingAppointment();
         this.rightInfo();
         this.getTrack();
+        this.getLeftVHinfo();
+    }
+
+    getLeftVHinfo() {
+        axios
+        .post(sitedata.data.path + "/vh/LeftInfoPatient/",
+        {
+            house_id: this.props?.House?.value,
+            patient_id: this.props.match.params.id,
+        },
+        commonHeader(this.props.stateLoginValueAim.token) )
+        .then((response) => {
+            console.log('responce is comingggg')
+        });
     }
 
     handleCallback = (childData) => {
         this.handleChangeTab('', childData)
+        this.handleChangeTabMob('', childData)
     }
 
     handleChangeTab = (event, value) => {
@@ -291,7 +306,7 @@ class Index extends Component {
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
-                                <Grid container direction="row">
+                                <Grid container direction="row" className="mainMenuAllSec">
                                     {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
 

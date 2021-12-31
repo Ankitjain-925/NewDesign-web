@@ -90,6 +90,7 @@ class PointPain extends Component {
             ? "entryBoxCntnt darkTheme addSpeclContnt"
             : "entryBoxCntnt addSpeclContnt"
         }>
+          <Grid className="addSpeclContntIner">
           <Grid className="entryCourse">
             <Grid className="entryCloseBtn">
               <a onClick={this.handleCloseEntry}>
@@ -409,17 +410,16 @@ class PointPain extends Component {
                     </a>
                   </Grid>
                   <Grid className="clear"></Grid>
-                  <Grid>
+                  {this.state.openBy !== "adminstaff" && <Grid>
                     <a onClick={() => this.handleChangeEntry("journal_promotion")}>
-                      {this.state.openBy !== "adminstaff" && (
                         <span>24</span>
-                      )}
                       <p>{"Journal Promotion"}</p>
                     </a>
-                  </Grid>
+                  </Grid>}
                 </Grid>
               </Grid>
             </Grid>
+          </Grid>
           </Grid>
         </Grid>
       </Modal>

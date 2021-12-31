@@ -101,7 +101,7 @@ getUserData() {
           this.props.settings.setting &&
           this.props.settings.setting.mode &&
           this.props.settings.setting.mode === "dark"
-            ? "homeBg homeBgDrk"
+            ? "homeBg homeBgDrk darkTheme"
             : "homeBg"
         }
       >
