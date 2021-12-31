@@ -11,6 +11,7 @@ import Select from 'react-select';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { getLanguage } from 'translations/index';
+import Pagination from "Screens/Components/Pagination/index";
 import { get_gender, get_cur_one, get_personalized, get_track, update_entry_state, delete_click_track, download_track } from "Screens/Components/CommonApi/index";
 import { DocView } from 'Screens/Components/DocView/index';
 const options = [
@@ -23,7 +24,9 @@ class Index extends Component {
         super(props);
         this.state = {
             selectedOption: null,
-            attachedFile: []
+            attachedFile: [],
+            AllServices: [],
+            
         };
     }
 
@@ -31,7 +34,7 @@ class Index extends Component {
         let user_id = this.props.match.params.id;
         let user_token = this.props.stateLoginValueAim.token
         let response = await get_track(user_token, user_id)
-        let docData = response.data.data
+        let docData = response?.data?.data
         let attachedFile = []
         await docData && docData.length > 0 && docData.map((result, i) => {
             if (result.attachfile && result.attachfile.length > 0) {
@@ -51,6 +54,18 @@ class Index extends Component {
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
+    onChangePage = (pageNumber) => {
+        this.setState({
+          services_data:this.state.AllServices(
+            (pageNumber - 1) * 10,
+            pageNumber * 10
+          ),
+          currentPage: pageNumber,
+        });
+        console.log('gvhhn',pageNumber)
+      };
+      
+
     render() {
         const { selectedOption, attachedFile } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
@@ -118,12 +133,38 @@ class Index extends Component {
                     <Grid item xs={12} md={11}>
                         <Grid className="presOpinionIner">
                             <DocView attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
+                            <Grid className="tablePagNum">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6}>
+                            <Grid className="totalOutOff">
+                              <a>
+                                {this.state.currentPage} of{" "}
+                                {this.state.totalPage}
+                               </a>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6}>
+                            {this.state.totalPage > 1 && (
+                              <Grid className="prevNxtpag">
+                                <Pagination
+                                  totalPage={this.state.totalPage}
+                                  currentPage={this.state.currentPage}
+                                  pages={this.state.pages}
+                                  onChangePage={(page) => {
+                                    this.onChangePage(page, this);
+                                  }}
+                                />
+                              </Grid>
+                            )}
+                          </Grid>
                         </Grid>
-                    </Grid>
+                      </Grid>
+                            </Grid>
+                        </Grid>
                 </Grid>
                 {/* End of Document Table */}
-
-            </Grid>
+               </Grid>
+            
         );
     }
 }
