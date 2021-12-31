@@ -238,7 +238,7 @@ class Index extends React.Component {
                             <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, specialitysec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                               <Grid  className="movHeadMid"><label>AddSpecialty</label></Grid>
+                               <Grid  className="movHeadMid"><label>{AddSpecialty}</label></Grid>
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, specialitysec : false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
@@ -262,7 +262,7 @@ class Index extends React.Component {
                          <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, changeStaffsec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                               <Grid  className="movHeadMid"><label>ChangeStaff</label></Grid>
+                               <Grid  className="movHeadMid"><label>{ChangeStaff}</label></Grid>
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, changeStaffsec : false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
@@ -283,7 +283,7 @@ class Index extends React.Component {
                           <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, assignroom : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                               <Grid  className="movHeadMid"><label>AssignWardRoom</label></Grid>
+                               <Grid  className="movHeadMid"><label>{AssignWardRoom}</label></Grid>
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, assignroom : false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">

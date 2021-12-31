@@ -1572,6 +1572,8 @@
 		"BacktoBilling": "Back to Billing",
 		"FinishInvoice": "Finish Invoice",
 		"SaveDraft": "Save Draft",
-		"Entries":"Entries"
+		"Entries":"Entries",
+		"PatientInInvoice": "Patient In invoice",
+		"Question": "Question"
 	}
 }

@@ -18,7 +18,7 @@ export default class QuoteItem extends React.Component {
     const { quote, isDragging, isGroupedOver, provided, onDragEnd } =
       this.props;
       let translate = getLanguage(this.props.stateLanguageType);
-      let { Ward, Room, Bed, Tasks, AddTask, Comments } = translate;
+      let { Ward, Room, Bed, Tasks, AddTask, Comments,PatientInInvoice } = translate;
     return (
       <div
         href={quote.author.url}
@@ -40,7 +40,7 @@ export default class QuoteItem extends React.Component {
                 onClick={() => this.setSpeciality()}
                 showActive={false}
               />
-              {this.props.quote?.status === 1 && <span className="err_message">Patient In invoice</span>}
+              {this.props.quote?.status === 1 && <span className="err_message">{PatientInInvoice}</span>}
               <Grid className="flowProfil">
                 <Grid>
                   <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
@@ -171,7 +171,7 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
-                    {this.props.quote?.status === 1 && <span className="err_message">Patient In invoice</span>}
+                    {this.props.quote?.status === 1 && <span className="err_message">{PatientInInvoice}</span>}
                   </Grid>
                   <Grid item xs={12} md={4} lg={3}>
                     <Grid className="cardioArea" >
@@ -194,7 +194,7 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
-                    {this.props.quote?.status === 1 && <span className="err_message">Patient In invoice</span>}
+                    {this.props.quote?.status === 1 && <span className="err_message">{PatientInInvoice}</span>}
                   </Grid>
                   <Grid item xs={12} md={4} lg={6}>
                     <Grid className="wardInfo">
