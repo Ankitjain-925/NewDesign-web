@@ -86,7 +86,7 @@ class Index extends Component {
             overdueCSS: '',
             issuedCSS: '',
             paidCSS: '',
-            currentData:{},
+            currentData: {},
             patientForFilter: [],
         }
     };
@@ -122,7 +122,7 @@ class Index extends Component {
     // };
 
     reactToPrintContent = (data) => {
-        this.setState({currentData: data})
+        this.setState({ currentData: data })
         return this.componentRef
 
     };
@@ -318,9 +318,9 @@ class Index extends Component {
                         },
                         () => {
                             this.setState({ loaderImage: false });
-                            if(this.state.AllBills){
+                            if (this.state.AllBills) {
                                 var patientForFilterArr = filterPatient(this.state.AllBills);
-                                this.setState({patientForFilter: patientForFilterArr});
+                                this.setState({ patientForFilter: patientForFilterArr });
                             }
                             if (totalPage > 1) {
                                 var pages = [];
@@ -436,13 +436,13 @@ class Index extends Component {
 
     downloadInvoicePdf = (datas) => {
         var invoice = datas;
-        this.setState({loaderImage: true})
+        this.setState({ loaderImage: true })
         axios
             .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
                 { responseType: "blob" }
             )
             .then((res) => {
-                setTimeout(()=>{
+                setTimeout(() => {
                     this.setState({ loaderImage: false });
                 }, 3000)
                 var data = new Blob([res.data]);
@@ -483,7 +483,8 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total } = translate;
+        let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total, NewInvoice, applyFilters, Paid, Draft, Overdue, Issued,DeleteInvoice,
+            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
@@ -499,7 +500,7 @@ class Index extends Component {
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                             {/* Mobile menu */}
-                            <LeftMenuMobile  currentPage="more" />
+                            <LeftMenuMobile currentPage="more" />
                             {/* End of mobile menu */}
                             <Grid container direction="row">
                                 {/* Start of Menu */}
@@ -516,7 +517,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={6} md={6}>
                                                 <Grid className="newServc">
-                                                    <Button onClick={() => { this.Invoice('new') }}>+ New Invoice</Button>
+                                                    <Button onClick={() => { this.Invoice('new') }}>{NewInvoice}</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -536,16 +537,16 @@ class Index extends Component {
                                                 <Grid item xs={12} sm={3} md={3}>
                                                     <Grid className="billSeting">
                                                         {value === 0 &&
-                                                            <a className={allBillsCSS}><img src={allBillsCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
+                                                            <a className={allBillsCSS}><img src={allBillsCSS === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
                                                         }
                                                         {value === 1 &&
-                                                            <a className={issuedCSS}> <img src={issuedCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                            <a className={issuedCSS}> <img src={issuedCSS === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
                                                         }
                                                         {value === 2 &&
-                                                            <a className={overdueCSS}> <img src={overdueCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                            <a className={overdueCSS}> <img src={overdueCSS === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
                                                         }
                                                         {value === 3 &&
-                                                            <a className={paidCSS}> <img src={paidCSS==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
+                                                            <a className={paidCSS}> <img src={paidCSS === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} /> </a>
                                                         }
                                                         {/* <a className='filterApply' onClick={this.handleOpenPopUp}>
                                                             <img src={require('assets/virtual_images/sort.png')} alt="" title="" />
@@ -625,8 +626,8 @@ class Index extends Component {
                                                                             }
                                                                         </Grid>
                                                                         <Grid className="aplyFltr">
-                                                                            <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
-                                                                            <Grid className="aplyRght"><Button onClick={this.applyFilter}>Apply filters</Button></Grid>
+                                                                            <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>{clear_all_filters}</label></Grid>
+                                                                            <Grid className="aplyRght"><Button onClick={this.applyFilter}>{applyFilters}</Button></Grid>
                                                                         </Grid>
                                                                     </TabContainer>
                                                                 </Grid>
@@ -664,39 +665,39 @@ class Index extends Component {
                                                                 <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" />
                                                                 <Grid className="actionList">
                                                                     <ul className="actionPdf">
-                                                                        <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>Duplicate Invoice</span></li></a>
+                                                                        <a onClick={() => { this.Invoice(data) }}><li><img src={require('assets/virtual_images/DuplicateInvoice.png')} alt="" title="" /><span>{DuplicateInvoice}</span></li></a>
                                                                         {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
                                                                         <div className="printPreviewlink">
                                                                             <ReactToPrint
-                                                                                content={()=>this.reactToPrintContent(data)}
+                                                                                content={() => this.reactToPrintContent(data)}
                                                                                 documentTitle="Report.pdf"
                                                                                 onBeforeGetContent={this.handleOnBeforeGetContent}
                                                                                 removeAfterPrint
-                                                                                trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a>}
+                                                                                trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>{PrintInvoice}</span></li></a>}
                                                                                 _id={data._id}
                                                                             />
                                                                             {/* {cond} */}
                                                                             <ComponentToPrint ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />
                                                                         </div>
-                                                                        <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>Download PDF</span></li></a>
+                                                                        <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>{DownloadPDF}</span></li></a>
                                                                     </ul>
 
                                                                     {data?.status?.value != 'paid' &&
                                                                         <ul className="setStatus">
-                                                                            <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>Set status</span></li></a>
+                                                                            <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>{Setstatus}</span></li></a>
                                                                             {this.state.setStatus &&
                                                                                 <Grid >
                                                                                     <ul className="setStatusPaidPart">
-                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span className="revwGren"></span><span>Paid</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span className="revwGry"></span><span>Draft</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span className="revwYelow"></span><span>Issued</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span className="revwRed"></span><span>Overdue</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span className="revwGren"></span><span>{Paid}</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span className="revwGry"></span><span>{Draft}</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span className="revwYelow"></span><span>{Issued}</span></li></a>
+                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span className="revwRed"></span><span>{Overdue}</span></li></a>
                                                                                     </ul>
                                                                                 </Grid>
                                                                             }
                                                                         </ul>
                                                                     }
-                                                                    <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>Delete Invoice</span></li></a>
+                                                                    <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>{DeleteInvoice}</span></li></a>
                                                                 </Grid>
                                                             </Button></Td>
                                                         </Tr>

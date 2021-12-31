@@ -165,10 +165,10 @@ class Index extends Component {
     let indexout = 0;
     let appioinmentTimes = [];
     var taskdata = [], appioinmentdata = [];
-    if(response?.data?.data){
+    if (response?.data?.data) {
       var patientForFilterArr = filterPatient(response.data.data);
-      this.setState({patientForFilter: patientForFilterArr});
-  }
+      this.setState({ patientForFilter: patientForFilterArr });
+    }
     let length = response.data.data.length
     if (length < 1) {
       this.setState({ myEventsList: [], appioinmentEventList: [], appioinmentTimes: [], taskEventList: [] })
@@ -681,17 +681,17 @@ class Index extends Component {
       .then((responce) => {
         if (responce.data.hassuccessed) {
           this.showDataCalendar(responce)
-          this.setState({ TasksCss : 'filterApply', loaderImage: false, openFil: false });
+          this.setState({ TasksCss: 'filterApply', loaderImage: false, openFil: false });
         }
       })
       .catch((error) => {
-        this.setState({ loaderImage: false, TasksCss : '' });
+        this.setState({ loaderImage: false, TasksCss: '' });
       });
   }
 
   clearFilter = () => {
     this.setState({ loaderImage: true });
-    this.setState({TasksCss : '', userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false, allWards: '', wardList: [], roomList: [] });
+    this.setState({ TasksCss: '', userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '', openFil: false, allWards: '', wardList: [], roomList: [] });
     this.getTaskData();
     this.setState({ loaderImage: false });
   }
@@ -742,8 +742,8 @@ class Index extends Component {
                   });
               }
             }
-            var datas = item?.data?.houses?.length>0 && item.data.houses.filter((item) => item.value === this.props.House?.value)
-            if(datas && datas.length>0){
+            var datas = item?.data?.houses?.length > 0 && item.data.houses.filter((item) => item.value === this.props.House?.value)
+            if (datas && datas.length > 0) {
               NewArray.push(item);
             }
           });
@@ -1045,8 +1045,8 @@ class Index extends Component {
     this.setState({ UpDataDetails: state });
   };
 
-   //For patient Info..
-   patientinfo(user_id) {
+  //For patient Info..
+  patientinfo(user_id) {
     var user_token = this.props.stateLoginValueAim.token;
     axios
       .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
@@ -1085,13 +1085,13 @@ class Index extends Component {
         annotations: this.state.UpDataDetails.annotations,
         status: "free",
         patient_info: {
-          patient_id:  this.state.personalinfo?.profile_id,
-          first_name:  this.state.personalinfo?.first_name,
-          last_name:  this.state.personalinfo?.last_name,
-          email:  this.state.personalinfo?.email,
-          birthday:  this.state.personalinfo?.birthday,
+          patient_id: this.state.personalinfo?.profile_id,
+          first_name: this.state.personalinfo?.first_name,
+          last_name: this.state.personalinfo?.last_name,
+          email: this.state.personalinfo?.email,
+          birthday: this.state.personalinfo?.birthday,
           profile_image: this.state.personalinfo?.image,
-          bucket:  this.state.personalinfo?.bucket,
+          bucket: this.state.personalinfo?.bucket,
         },
         lan: this.props.stateLanguageType,
         docProfile: {
@@ -1203,17 +1203,17 @@ class Index extends Component {
     this.setState({ PatientData: UserList })
   }
 
-  selectPatient = (e)=>{
+  selectPatient = (e) => {
     this.patientinfo(e?.value);
   }
 
   render() {
-   
+
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Appointmentiscanceled,
-      select_spec,
-      Patient,
-      slct_time_slot,
+    let { Appointmentiscanceled, add_task, AddAppointment,
+      select_spec, Taskstatus, clear_all_filters, applyFilters,
+      Patient, speciality, Ward, Room,
+      slct_time_slot, Iamhere,
       holiday,
       NotAvailable,
       select_specility,
@@ -1228,7 +1228,6 @@ class Index extends Component {
       plz_write_short_explnation,
       short_msg,
       appointment,
-      speciality,
       search_within,
       Video,
       Office,
@@ -1290,7 +1289,7 @@ class Index extends Component {
             : "homeBg"
         }
       >
-         {this.state.loaderImage && <Loader />}
+        {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
@@ -1325,15 +1324,15 @@ class Index extends Component {
 
                       <Grid item xs={12} sm={5} md={6}>
                         <Grid className="appontTask apponTaskhos">
-                          <Button onClick={this.handleAllowAccess}>+ Add Appointment</Button>
-                          <Button onClick={() => { this.moveTask() }}>+ Add Task</Button>
+                          <Button onClick={this.handleAllowAccess}>{AddAppointment}</Button>
+                          <Button onClick={() => { this.moveTask() }}>{add_task}</Button>
                         </Grid>
 
                       </Grid>
                     </Grid>
                     <div className="todaySrch filterAtright">
-                     <a className={this.state.TasksCss +" barViewnw"} onClick={this.handleOpenFil}>
-                        <img src={this.state.TasksCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
+                      <a className={this.state.TasksCss + " barViewnw"} onClick={this.handleOpenFil}>
+                        <img src={this.state.TasksCss === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
                       </a>
                     </div>
                     {tabvalue === 0 && (
@@ -1526,7 +1525,7 @@ class Index extends Component {
                         </Grid>
                         {!this.state.showField && (<>
                           <Grid className="fltrInput">
-                            <label>Speciality</label>
+                            <label>{speciality}</label>
                             <Grid className="addInput">
                               <Select
                                 onChange={(e) => this.onFieldChange2(e)}
@@ -1543,7 +1542,7 @@ class Index extends Component {
 
                           {this.state.wardList && this.state.wardList.length > 0 &&
                             <Grid className="fltrInput">
-                              <label>Ward</label>
+                              <label>{Ward}</label>
                               <Grid className="addInput">
                                 <Select
                                   onChange={(e) => this.onWardChange(e)}
@@ -1560,7 +1559,7 @@ class Index extends Component {
 
                           {this.state.roomList && this.state.roomList.length > 0 &&
                             <Grid className="fltrInput">
-                              <label>Room</label>
+                              <label>{Room}</label>
                               <Grid className="addInput">
                                 <Select
                                   onChange={(e) => this.onRoomChange(e)}
@@ -1576,7 +1575,7 @@ class Index extends Component {
                           }
 
                           <Grid className="fltrInput">
-                            <Grid><label>Task status:</label></Grid>
+                            <Grid><label>{Taskstatus}</label></Grid>
                             <Grid className="addInput">
                               <FormControlLabel
                                 control={
@@ -1616,8 +1615,8 @@ class Index extends Component {
                       </Grid>
 
                       <Grid className="aplyFltr">
-                        <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>Clear all filters</label></Grid>
-                        <Grid className="aplyRght"><Button onClick={this.applyFilter}>Apply filters</Button></Grid>
+                        <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>{clear_all_filters}</label></Grid>
+                        <Grid className="aplyRght"><Button onClick={this.applyFilter}>{applyFilters}</Button></Grid>
                       </Grid>
 
                     </Grid>
@@ -1752,7 +1751,7 @@ class Index extends Component {
                           alt=""
                           title=""
                         />
-                        I am here : “{this.state.MycurrentLocationName}"
+                        {Iamhere} “{this.state.MycurrentLocationName}"
                       </p>
                     </div>
                     <div className="allowAccessList">
