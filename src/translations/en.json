@@ -1405,7 +1405,6 @@
 		"Room3": "Room 3",
 		"Room4": "Room 4",
 		"Room5": "Room 5",
-		"Bed2": "Bed 2",
 		"ChildrensWardContent": "Childrens Ward Content",
 		"Statistics": "Statistics",
 		"TotalPatients": "Total Patients",
@@ -1543,6 +1542,7 @@
 		"save_task_and_close": "Save Task & Close",
 		"EditTask": "Edit Task",
 		"DeleteTask": "Delete Task",
-		"Tasks": "Tasks"
+		"Tasks": "Tasks",
+		"Entries":"Entries"
 	}
 }

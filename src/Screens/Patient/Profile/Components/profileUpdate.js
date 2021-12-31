@@ -385,7 +385,7 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
                                         <label>{marital_status}</label>
-                                        <Grid>
+                                        <Grid className="cntryDropTop">
                                             <Select
                                                 placeholder={select_marital_status}
                                                 options={this.state.AllMaritalOption}
@@ -395,7 +395,8 @@ class Index extends Component {
                                                     this.props.stateLanguageType
                                                 )}
                                                 // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
-                                                onChange={this.handleMaritalStatus} />
+                                                onChange={this.handleMaritalStatus} 
+                                                className="cntryDrop"/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

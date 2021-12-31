@@ -12,8 +12,7 @@ import PatientJournal from 'Screens/Components/VirtualHospitalComponents/Patient
 import PatientTasks from 'Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-tasks';
 import PatientDocuments from 'Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-documents';
 import PatientPersonalInfo from 'Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-personalinfo';
-import PatientRoom from 'Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-room';
-import { get_cur_one, get_gender, get_track, delete_click_track, download_track } from "Screens/Components/CommonApi/index.js";
+import { get_cur_one, get_track, download_track } from "Screens/Components/CommonApi/index.js";
 import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
 import { confirmAlert } from "react-confirm-alert";
@@ -26,9 +25,7 @@ import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
-import {
-    commonHeader,
-} from "component/CommonHeader/index";
+import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 
@@ -66,6 +63,7 @@ class Index extends Component {
             vaccinations: [],
             defaultValue: 20,
             loading: false,
+            LeftInfoPatient: {}
         };
     }
 
@@ -92,7 +90,9 @@ class Index extends Component {
         },
         commonHeader(this.props.stateLoginValueAim.token) )
         .then((response) => {
-            console.log('responce is comingggg')
+            if(response.data.hassuccessed){
+                this.setState({LeftInfoPatient: response.data.data});
+            }
         });
     }
 
@@ -318,6 +318,7 @@ class Index extends Component {
                                     {/* Start of Mid Section */}
                                     <Grid item xs={11} md={4} className="LeftPatientDataWeb">
                                         <LeftPatientData
+                                            LeftInfoPatient={this.state.LeftInfoPatient}
                                             parentCallback={this.handleCallback}
                                             upcoming_appointment={this.state.upcoming_appointment}
                                             OpenGraph={this.OpenGraph}
