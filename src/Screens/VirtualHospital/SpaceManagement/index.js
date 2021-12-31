@@ -396,7 +396,7 @@ class Index extends Component {
                     <label>{AddSpeciality}</label>}
                 </Grid>
               </Grid>
-              <Grid className="enterSpclUpr">
+              {/* <Grid className="enterSpclUpr"> */}
                 <Grid className="enterSpclMain">
                   <p className='err_message'>{this.state.errorMsg}</p>
                   <Grid className="enterSpcl">
@@ -539,7 +539,7 @@ class Index extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
+            {/* </Grid> */}
           </Grid>
         </Modal>
         {/* End of Model setup */}
