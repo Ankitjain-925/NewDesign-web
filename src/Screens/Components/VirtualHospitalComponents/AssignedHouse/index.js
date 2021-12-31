@@ -90,6 +90,7 @@ class PointPain extends Component {
         }
       >
         <Grid className="addSpeclContnt">
+        <Grid className="addSpeclContntIner">
           <Grid className="addSpeclLbl">
             <Grid className="addSpeclClose">
               <a onClick={this.props.closeHouse}>
@@ -163,6 +164,7 @@ class PointPain extends Component {
               </Grid>
             </Grid>
           </Grid>
+        </Grid>
         </Grid>
       </Modal>
     );

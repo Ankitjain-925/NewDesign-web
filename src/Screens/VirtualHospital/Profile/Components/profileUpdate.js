@@ -944,6 +944,7 @@ class Index extends Component {
               }
               // className="qrBoxCntnt darkTheme addSpeclContnt"
               >
+                <Grid className="addSpeclContntIner">
                 <Grid className="qrCourse ">
                   <Grid className="qrCloseBtn">
                     <a onClick={this.handleQrClose}>
@@ -977,6 +978,8 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid>
+                </Grid>
+                
               </Grid>
             </Modal>
             {/* End of QR Model setup */}

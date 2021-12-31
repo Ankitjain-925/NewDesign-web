@@ -90,6 +90,7 @@ class PointPain extends Component {
             ? "entryBoxCntnt darkTheme addSpeclContnt"
             : "entryBoxCntnt addSpeclContnt"
         }>
+          <Grid className="addSpeclContntIner">
           <Grid className="entryCourse">
             <Grid className="entryCloseBtn">
               <a onClick={this.handleCloseEntry}>
@@ -418,6 +419,7 @@ class PointPain extends Component {
                 </Grid>
               </Grid>
             </Grid>
+          </Grid>
           </Grid>
         </Grid>
       </Modal>

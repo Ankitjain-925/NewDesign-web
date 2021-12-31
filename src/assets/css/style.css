@@ -15451,7 +15451,7 @@ a.SelectedGender{
     background-color: #404646 !important;
     color: #BFC1C1 !important;
 } */
-.comonSel div {
+.homeBgDrk .comonSel div, .darkTheme .comonSel div {
     background-color: #4C5252 !important;
     color: #BFC1C1 !important;
 }

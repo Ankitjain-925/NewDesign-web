@@ -70,6 +70,7 @@ class Index extends Component {
       AllTasks: this.props.AllTasks,
       shown: false,
       professionalArray: [],
+      patientForFilter: this.props.patientForFilter,
       ArchivedTasks: this.props.ArchivedTasks,
       loaderImage: false,
       hope: false,
@@ -105,8 +106,8 @@ class Index extends Component {
       prevProps.tabvalue2 !== this.props.tabvalue2 ||
       prevProps.AllTasks !== this.props.AllTasks ||
       prevProps.ArchivedTasks !== this.props.ArchivedTasks ||
-      prevProps.DoneTask !== this.props.DoneTask ||
-      prevProps.OpenTask !== this.props.OpenTask
+      prevProps.DoneTask !== this.props.DoneTask ||  
+      prevProps.OpenTask !== this.props.OpenTask || prevProps.patientForFilter !== this.props.patientForFilter
     ) {
       this.setState({
         tabvalue2: this.props.tabvalue2 || 0,
@@ -114,6 +115,7 @@ class Index extends Component {
         ArchivedTasks: this.props.ArchivedTasks,
         DoneTask: this.props.DoneTask,
         OpenTask: this.props.OpenTask,
+        patientForFilter: this.props.patientForFilter
       });
     }
     if (prevProps.patient !== this.props.patient) {
@@ -896,7 +898,6 @@ class Index extends Component {
   };
 
   render() {
-   
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
@@ -1544,7 +1545,7 @@ class Index extends Component {
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}
                         value={this.state.userFilter}
-                        options={this.state.users1}
+                        options={this.state.patientForFilter}
                         placeholder="Filter by patient"
                         className="addStafSelect"
                         isMulti={true}

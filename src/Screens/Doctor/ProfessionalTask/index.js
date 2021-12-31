@@ -20,6 +20,7 @@ import { Redirect, Route } from "react-router-dom";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { getLanguage } from "translations/index"
+import { filterPatient } from "Screens/Components/BasicMethod/index";
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -95,6 +96,10 @@ class Index extends Component {
       .then((response) => {
         this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
+          if(response?.data?.data){
+            var patientForFilterArr = filterPatient(response.data.data);
+            this.setState({patientForFilter: patientForFilterArr});
+        }
           var Done =
             response.data.data?.length > 0 &&
             response.data.data.filter((item) => item.status === "done");

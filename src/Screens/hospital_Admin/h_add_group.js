@@ -694,6 +694,7 @@ class Index extends Component {
                       }
                     >
                       <Grid className="addSpeclContnt nwEntrCntntIner h-500">
+                      <Grid className="addSpeclContntIner">
                         <Grid className="addSpeclLbl">
                           <Grid className="addSpeclClose">
                             <a onClick={this.closeInstitute}>
@@ -836,6 +837,7 @@ class Index extends Component {
                             </Grid>
                           </Grid>
                         </Grid>
+                      </Grid>
                       </Grid>
                     </Modal>
 

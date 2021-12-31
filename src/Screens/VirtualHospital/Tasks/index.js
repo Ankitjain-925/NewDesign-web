@@ -18,9 +18,8 @@ import Loader from "Screens/Components/Loader/index";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
 import { Redirect, Route } from "react-router-dom";
-import {
-    getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index";
+import { filterPatient } from "Screens/Components/BasicMethod/index";
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -82,6 +81,10 @@ class Index extends Component {
             .then((response) => {
                 this.setState({ AllTasks: response.data.data })
                 if (response.data.hassuccessed) {
+                    if(response?.data?.data){
+                        var patientForFilterArr = filterPatient(response.data.data);
+                        this.setState({patientForFilter: patientForFilterArr});
+                    }
                     var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
                     var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
                     var GetDate = response.data.data?.length > 0 && response.data.data.filter((item) => {
@@ -151,7 +154,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={10}>
-                                            <TaskSectiuonVH getArchived={() => this.getArchived()} getAddTaskData={() => { this.getAddTaskData() }} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={this.state.ArchivedTasks} tabvalue2={this.state.tabvalue2} />
+                                            <TaskSectiuonVH patientForFilter={this.state.patientForFilter} getArchived={() => this.getArchived()} getAddTaskData={() => { this.getAddTaskData() }} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={this.state.ArchivedTasks} tabvalue2={this.state.tabvalue2} />
                                         </Grid>
                                     </Grid>
                                 </Grid>

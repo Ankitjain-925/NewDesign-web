@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { LanguageFetchReducer } from "Screens/actions";
+import { authy } from "Screens/Login/authy.js";
+import { OptionList } from "Screens/Login/metadataaction";
 import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { getLanguage } from 'translations/index';
+import { get_gender, get_cur_one, get_personalized, get_track, update_entry_state, delete_click_track, download_track } from "Screens/Components/CommonApi/index";
+import { DocView } from 'Screens/Components/DocView/index';
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
@@ -13,14 +22,37 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: null
+            selectedOption: null,
+            attachedFile: []
         };
+    }
+
+    componentDidMount = async () => {
+        let user_id = this.props.match.params.id;
+        let user_token = this.props.stateLoginValueAim.token
+        let response = await get_track(user_token, user_id)
+        let docData = response.data.data
+        let attachedFile = []
+        await docData && docData.length > 0 && docData.map((result, i) => {
+            if (result.attachfile && result.attachfile.length > 0) {
+                result.attachfile.map(data => {
+                    let data1 = {
+                        "filename": data.filename,
+                        "filetype": data.filetype,
+                        "created_by": result.created_by_temp,
+                        "created_on": result.created_on
+                    }
+                    attachedFile.push(data1)
+                })
+            }
+        })
+        this.setState({ attachedFile: attachedFile })
     }
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
     render() {
-        const { selectedOption } = this.state;
+        const { selectedOption, attachedFile } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
         let { MarkAndersonMD, journal, addNewEntry, clear_filters, dateAdded, documentName, sortBy, added_by, FirstdiagnosisDocx, sixteen022021, twelve022021, very_long_name_of_pdf } = translate;
         return (
@@ -85,60 +117,7 @@ class Index extends Component {
                 <Grid container direction="row">
                     <Grid item xs={12} md={11}>
                         <Grid className="presOpinionIner">
-                            <Table>
-                                <Thead><Tr><Th>{documentName}</Th><Th className="dateAdd">{dateAdded}</Th>
-                                    <Th>{added_by}</Th><Th></Th></Tr></Thead>
-                                <Tbody>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/Word_40x40.svg')} alt="" title="" />{FirstdiagnosisDocx}</Td>
-                                        <Td>{sixteen022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/pdf.svg')} alt="" title="" />{very_long_name_of_pdf}</Td>
-                                        <Td>{twelve022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/jpg.svg')} alt="" title="" />{very_long_name_of_pdf}</Td>
-                                        <Td>{twelve022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/Excel_40x40.svg')} alt="" title="" />{very_long_name_of_pdf}</Td>
-                                        <Td>{twelve022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/Word_40x40.svg')} alt="" title="" />{FirstdiagnosisDocx}</Td>
-                                        <Td>{sixteen022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/pdf.svg')} alt="" title="" />{very_long_name_of_pdf}</Td>
-                                        <Td>{twelve022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/jpg.svg')} alt="" title="" />{very_long_name_of_pdf}</Td>
-                                        <Td>{twelve022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                    <Tr>
-                                        <Td className="docsTitle"><img src={require('assets/virtual_images/Excel_40x40.svg')} alt="" title="" />{very_long_name_of_pdf}</Td>
-                                        <Td>{twelve022021}</Td>
-                                        <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{MarkAndersonMD}</Td>
-                                        <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td>
-                                    </Tr>
-                                </Tbody>
-                            </Table>
+                            <DocView attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -148,4 +127,30 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const {
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+    } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    const { metadata } = state.OptionList;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        verifyCode,
+        metadata,
+    };
+};
+export default withRouter(
+    connect(mapStateToProps, {
+        LoginReducerAim,
+        OptionList,
+        LanguageFetchReducer,
+        Settings,
+        authy,
+    })(Index)
+);

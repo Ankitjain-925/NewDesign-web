@@ -27,16 +27,14 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import { getLanguage } from "translations/index"
 import { Redirect, Route } from 'react-router-dom';
-import filterate from 'reducers/Filterthis';
 import { PatientMoveFromHouse } from '../PatientFlow/data'
 import Modal from "@material-ui/core/Modal";
 import Select from "react-select";
 import { getPatientData } from 'Screens/Components/CommonApi/index';
-import { MultiFilter2 } from '../../Components/MultiFilter';
 import { getDate } from 'Screens/Components/BasicMethod/index';
 import ReactToPrint, { PrintContext } from 'react-to-print';
 import { ComponentToPrint } from "./ComponentToPrint";
-import { data } from 'jquery';
+import { filterPatient } from "Screens/Components/BasicMethod/index";
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -89,7 +87,7 @@ class Index extends Component {
             issuedCSS: '',
             paidCSS: '',
             currentData:{},
-
+            patientForFilter: [],
         }
     };
 
@@ -320,6 +318,10 @@ class Index extends Component {
                         },
                         () => {
                             this.setState({ loaderImage: false });
+                            if(this.state.AllBills){
+                                var patientForFilterArr = filterPatient(this.state.AllBills);
+                                this.setState({patientForFilter: patientForFilterArr});
+                            }
                             if (totalPage > 1) {
                                 var pages = [];
                                 for (var i = 1; i <= this.state.totalPage; i++) {
@@ -582,7 +584,7 @@ class Index extends Component {
                                                                                         name="professional"
                                                                                         onChange={this.updateUserFilter}
                                                                                         value={this.state.userFilter}
-                                                                                        options={PatientList}
+                                                                                        options={this.state.patientForFilter}
                                                                                         placeholder="Filter by Patient"
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}

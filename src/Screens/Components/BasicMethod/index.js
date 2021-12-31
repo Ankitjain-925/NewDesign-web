@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { speciality } from "speciality";
 import Resizer from 'react-image-file-resizer';
 import { commonHeader } from "component/CommonHeader/index"
+import _ from 'lodash';
 //Custom Console So comment only One console works on whole website
 export function ConsoleCustom(msg, value) {
   // console.log(msg , value)
@@ -357,3 +358,17 @@ export const isToday = (someDate) => {
     someDate.getMonth() == today.getMonth() &&
     someDate.getFullYear() == today.getFullYear()
 }
+export const filterPatient = (taskForSelectedHouse) => {
+  const patientForFilterArr = _.uniqBy(
+    _.map(taskForSelectedHouse, item => item.patient),
+    item => item?.profile_id,
+  );
+  let patientForFilterArr1 = patientForFilterArr.map((item) => {
+    let name = (item?.first_name && item?.last_name) ? item?.first_name + ' ' + item?.last_name : item?.first_name;
+    return {
+      value: item.patient_id? item.patient_id : item.user_id,
+      label: name
+    }
+  })
+  return patientForFilterArr1;
+};

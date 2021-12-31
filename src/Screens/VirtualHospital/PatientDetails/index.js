@@ -80,6 +80,20 @@ class Index extends Component {
         this.getUpcomingAppointment();
         this.rightInfo();
         this.getTrack();
+        this.getLeftVHinfo();
+    }
+
+    getLeftVHinfo() {
+        axios
+        .post(sitedata.data.path + "/vh/LeftInfoPatient/",
+        {
+            house_id: this.props?.House?.value,
+            patient_id: this.props.match.params.id,
+        },
+        commonHeader(this.props.stateLoginValueAim.token) )
+        .then((response) => {
+            console.log('responce is comingggg')
+        });
     }
 
     handleCallback = (childData) => {

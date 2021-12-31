@@ -54,6 +54,7 @@ class Index extends React.Component {
                 onClose={this.props.handleCloseAssign}>
 
                 <Grid className="addSpeclContnt">
+                <Grid className="addSpeclContntIner">
                     <Grid className="addSpeclLbl">
                         <Grid className="addSpeclClose">
                             <a onClick={this.props.handleCloseAssign}>
@@ -80,6 +81,7 @@ class Index extends React.Component {
                             </Grid>
                         </Grid>
                     </Grid>
+                </Grid>
                 </Grid>
             </Modal>
 

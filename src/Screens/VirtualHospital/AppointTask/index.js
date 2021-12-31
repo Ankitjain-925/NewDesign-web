@@ -39,7 +39,7 @@ import Calendar2 from "react-calendar";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
-import { getSpec, timeDiffCalc } from "Screens/Components/BasicMethod/index";
+import { getSpec, timeDiffCalc, filterPatient } from "Screens/Components/BasicMethod/index";
 import Loader from "Screens/Components/Loader/index";
 
 const CURRENT_DATE = moment().toDate();
@@ -165,6 +165,10 @@ class Index extends Component {
     let indexout = 0;
     let appioinmentTimes = [];
     var taskdata = [], appioinmentdata = [];
+    if(response?.data?.data){
+      var patientForFilterArr = filterPatient(response.data.data);
+      this.setState({patientForFilter: patientForFilterArr});
+  }
     let length = response.data.data.length
     if (length < 1) {
       this.setState({ myEventsList: [], appioinmentEventList: [], appioinmentTimes: [], taskEventList: [] })
@@ -1217,22 +1221,13 @@ class Index extends Component {
       Questions,
       cancel,
       book,
-      appointment_booked,
-      upcming_apointment,
       office_visit,
       cancel_apointmnt,
-      hide_past_appointment,
-      show_past_apointment,
       km_range,
       we_r_showing_speciality,
       plz_write_short_explnation,
       short_msg,
-      appointments,
-      UnableCancel,
       appointment,
-      arrng_apointmnt,
-      today,
-      sync_ur_calander,
       speciality,
       search_within,
       Video,
@@ -1247,22 +1242,7 @@ class Index extends Component {
       find_apointment,
       consultancy_cstm_calnder,
       vdo_call,
-      allow_location_access,
-      profile_info,
-      profile,
-      information,
-      ID,
-      pin,
-      QR_code,
-      done,
-      Change,
-      edit_id_pin,
-      edit,
-      and,
-      is,
-      changed,
-      profile_id_taken,
-      profile_id_greater_then_5, } =
+      allow_location_access, } =
       translate;
 
     const { tabvalue,
@@ -1532,19 +1512,17 @@ class Index extends Component {
                         <Grid className="fltrInput">
                           <label>{Patient}</label>
                           <Grid className="addInput">
-
                             <Select
                               name="professional"
                               onChange={(e) => this.updateUserFilter(e)}
                               value={this.state.userFilter}
-                              options={this.state.users1}
+                              options={this.state.patientForFilter}
                               placeholder="Filter by patient"
                               className="addStafSelect"
                               isMulti={true}
                               isSearchable={true}
                             />
                           </Grid>
-
                         </Grid>
                         {!this.state.showField && (<>
                           <Grid className="fltrInput">
