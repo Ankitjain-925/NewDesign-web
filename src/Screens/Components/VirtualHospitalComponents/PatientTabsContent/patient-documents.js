@@ -39,6 +39,11 @@ class Index extends Component {
             visibility: false,
             updateOne: 0,
             updateTrack: {},
+            attachedFile: [],
+            document_data:{},
+            AllDocument:{},
+
+            
         };
     }
 
@@ -273,6 +278,17 @@ class Index extends Component {
         this.setState({ updateTrack: {} });
     };
 
+   // For page change 
+   onChangePage = (pageNumber) => {
+    this.setState({
+        document_data: this.state.AllDocument.slice(
+            (pageNumber - 1) * 10,
+            pageNumber * 10
+        ),
+        currentPage: pageNumber,
+    });
+};
+      
 
     render() {
         const { selectedOption, attachedFile } = this.state;
@@ -341,8 +357,34 @@ class Index extends Component {
                     <Grid item xs={12} md={11}>
                         <Grid className="presOpinionIner">
                             <DocView attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
+                            <Grid className="tablePagNum">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6}>
+                                                        <Grid className="totalOutOff">
+                                                            <a>
+                                                                {this.state.currentPage} of{" "}
+                                                                {this.state.totalPage}
+                                                            </a>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        {this.state.totalPage > 1 && (
+                                                            <Grid className="prevNxtpag">
+                                                                <Pagination
+                                                                    totalPage={this.state.totalPage}
+                                                                    currentPage={this.state.currentPage}
+                                                                    pages={this.state.pages}
+                                                                    onChangePage={(page) => {
+                                                                        this.onChangePage(page);
+                                                                    }}
+                                                                />
+                                                            </Grid>
+                                                        )}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                            </Grid>
                         </Grid>
-                    </Grid>
                 </Grid>
                 {/* End of Document Table */}
 
