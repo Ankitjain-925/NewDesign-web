@@ -374,7 +374,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { AddQuestionnaire, EditQuestionnaire, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of } = translate;
+    let {type,Question,Options, AddQuestionnaire, EditQuestionnaire, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of } = translate;
     const { questions_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -767,9 +767,9 @@ class Index extends Component {
                       <Table>
                         <Thead>
                           <Tr>
-                            <Th>Type</Th>
-                            <Th>Question</Th>
-                            <Th>Options</Th>
+                            <Th>{type}</Th>
+                            <Th>{Question}</Th>
+                            <Th>{Options}</Th>
                             <Th></Th>
                           </Tr>
                         </Thead>

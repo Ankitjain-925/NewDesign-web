@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import AppBar from '@material-ui/core/AppBar';
-import NotesEditor from "Screens/Components/CommonApi/index";
+import NotesEditor from "../../Editor/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
 
 const options = [
