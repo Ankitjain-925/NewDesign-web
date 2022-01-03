@@ -318,6 +318,7 @@ class Index extends Component {
                                     {/* Start of Mid Section */}
                                     <Grid item xs={11} md={4} className="LeftPatientDataWeb">
                                         <LeftPatientData
+                                            currenttab={this.state.value}
                                             LeftInfoPatient={this.state.LeftInfoPatient}
                                             parentCallback={this.handleCallback}
                                             upcoming_appointment={this.state.upcoming_appointment}

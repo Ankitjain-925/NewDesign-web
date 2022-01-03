@@ -2880,7 +2880,7 @@ a.lineSort {
 }
 .entryInfo li {
     list-style-type: none;
-    display: inline-block;
+    display: table-cell;
     width: 25%;
     cursor: pointer;
 }
@@ -2899,9 +2899,13 @@ a.lineSort {
     height: 35px;
     display: inline-block;
     border-radius: 8px;
+    padding: 7px;
+    border: 1px #cfcfcf solid;
 }
 .entryInfoActv img {
     box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+    background-color: #00ABAF !important;
+    border: 1px #00ABAF solid !important;
 }
 .entryInfoActv label {
     color: #00ABAF !important;

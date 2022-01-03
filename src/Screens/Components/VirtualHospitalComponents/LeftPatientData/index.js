@@ -59,7 +59,8 @@ class Index extends Component {
       ggtLast: -1,
       astLast: -1,
       altLast: -1,
-      LRLast: -1
+      LRLast: -1,
+      currenttab: this.props.currenttab,
     };
   }
 
@@ -116,7 +117,9 @@ class Index extends Component {
       nextState.LRLast !== this.state.LRLast ||
       nextState.images !== this.state.images ||
       nextState.LeftInfoPatient !== this.state.LeftInfoPatient || 
-      nextProps.LeftInfoPatient !== this.props.LeftInfoPatient 
+      nextProps.LeftInfoPatient !== this.props.LeftInfoPatient ||
+      nextProps.currenttab !== this.props.currenttab ||
+      nextState.currenttab !== this.state.currenttab
     );
   }
 
@@ -302,6 +305,9 @@ class Index extends Component {
     }
     if (prevProps.LeftInfoPatient !== this.props.LeftInfoPatient) {
       this.setState({ LeftInfoPatient: this.props.LeftInfoPatient });
+    }
+    if (prevProps.currenttab !== this.props.currenttab) {
+      this.setState({ currenttab: this.props.currenttab });
     }
     
   };
@@ -2173,10 +2179,10 @@ class Index extends Component {
               </Grid>
               <Grid className="entryInfo">
                 <ul>
-                  <li onClick={() => { this.onTrigger(0) }} className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>{NewEntry}</label></li>
-                  <li onClick={() => { this.onTrigger(1) }}><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>{NewTask}</label></li>
-                  <li onClick={() => { this.onTrigger(3) }}><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>{personal_info}</label></li>
-                  <li onClick={() => { this.onTrigger(2) }}><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>{DocumentsFiles}</label></li>
+                  <li onClick={() => { this.onTrigger(0) }} className={this.state.currenttab == 0 && "entryInfoActv"}><img src={this.state.currenttab == 0 ? require("assets/images/nav-journal-white.svg") : require("assets/images/nav-journal.svg")} alt="" title="" /><label>{NewEntry}</label></li>
+                  <li onClick={() => { this.onTrigger(1) }} className={this.state.currenttab == 1 && "entryInfoActv"}><img src={this.state.currenttab == 1 ? require('assets/virtual_images/rightIcon2.png') :  require('assets/virtual_images/rightpng.png')} alt="" title="" /><label>{NewTask}</label></li>
+                  <li onClick={() => { this.onTrigger(3) }} className={this.state.currenttab == 3 && "entryInfoActv"}><img src={this.state.currenttab == 3 ? require('assets/virtual_images/active-pencil.svg') : require('assets/virtual_images/pencil-1.svg')} alt="" title="" /><label>{personal_info}</label></li>
+                  <li onClick={() => { this.onTrigger(2) }} className={this.state.currenttab == 2 && "entryInfoActv"}><img src={this.state.currenttab == 2 ? require("assets/images/nav-my-documents-inquiries-active.svg") : require("assets/images/nav-my-documents-inquiries.svg")} alt="" title="" /><label>{DocumentsFiles}</label></li>
                 </ul>
               </Grid>
             </Grid>

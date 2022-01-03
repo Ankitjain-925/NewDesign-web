@@ -17,6 +17,7 @@ import moment from "moment";
 import FUFields from "Screens/Components/TimelineComponent/FUFields/index";
 import { get_cur_one, get_track, update_entry_state } from "Screens/Components/CommonApi/index";
 import { DocView } from "Screens/Components/DocView/index.js";
+import Pagination from "Screens/Components/Pagination/index";
 // const options = [
 //     { value: 'data1', label: 'Data1' },
 //     { value: 'data2', label: 'Data2' },
@@ -40,10 +41,7 @@ class Index extends Component {
             updateOne: 0,
             updateTrack: {},
             attachedFile: [],
-            document_data:{},
-            AllDocument:{},
-
-            
+            attachedFile1: []
         };
     }
 
@@ -66,12 +64,32 @@ class Index extends Component {
                 })
             }
         })
-        this.setState({ attachedFile: attachedFile })
+        var totalPage = Math.ceil(attachedFile?.length / 10);
+        this.setState({
+            attachedFile1: attachedFile,
+            loaderImage: false,
+            totalPage: totalPage,
+            currentPage: 1
+        }, () => {
+            if (totalPage > 1) {
+                var pages = [];
+                for (var i = 1; i <= this.state.totalPage; i++) {
+                    pages.push(i);
+                }
+                this.setState({
+                    attachedFile: this.state.attachedFile1.slice(0, 10),
+                    pages: pages,
+                });
+            } else {
+                this.setState({ attachedFile: this.state.attachedFile1 });
+            }
+        });
         // this.getMetadata();
         if (this.props.match.params.id) {
             this.GetInfoForPatient();
         }
     }
+
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
@@ -103,7 +121,7 @@ class Index extends Component {
     //     this.setState({ loaderImage: true });
     //     let response = await get_track(user_token, user_id)
     //     if (response?.data?.hassuccessed === true) {
-          
+
     //         var images = [];
     //         response.data.data = response.data.data.filter((e) => e != null);
     //         // this.props.rightInfo();
@@ -117,7 +135,7 @@ class Index extends Component {
     //     }
 
     // };
-  
+
     // Get the Current User Profile
     cur_one2 = async () => {
         var user_token = this.props.stateLoginValueAim.token;
@@ -278,17 +296,17 @@ class Index extends Component {
         this.setState({ updateTrack: {} });
     };
 
-   // For page change 
-   onChangePage = (pageNumber) => {
-    this.setState({
-        document_data: this.state.AllDocument.slice(
-            (pageNumber - 1) * 10,
-            pageNumber * 10
-        ),
-        currentPage: pageNumber,
-    });
-};
-      
+    // For page change 
+    onChangePage = (pageNumber) => {
+        this.setState({
+            attachedFile: this.state.attachedFile1.slice(
+                (pageNumber - 1) * 10,
+                pageNumber * 10
+            ),
+            currentPage: pageNumber,
+        });
+    };
+
 
     render() {
         const { selectedOption, attachedFile } = this.state;
@@ -358,38 +376,36 @@ class Index extends Component {
                         <Grid className="presOpinionIner">
                             <DocView attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
                             <Grid className="tablePagNum">
-                                                <Grid container direction="row">
-                                                    <Grid item xs={12} md={6}>
-                                                        <Grid className="totalOutOff">
-                                                            <a>
-                                                                {this.state.currentPage} of{" "}
-                                                                {this.state.totalPage}
-                                                            </a>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        {this.state.totalPage > 1 && (
-                                                            <Grid className="prevNxtpag">
-                                                                <Pagination
-                                                                    totalPage={this.state.totalPage}
-                                                                    currentPage={this.state.currentPage}
-                                                                    pages={this.state.pages}
-                                                                    onChangePage={(page) => {
-                                                                        this.onChangePage(page);
-                                                                    }}
-                                                                />
-                                                            </Grid>
-                                                        )}
-                                                    </Grid>
-                                                </Grid>
+                                <Grid container direction="row">
+                                    <Grid item xs={12} md={6}>
+                                        <Grid className="totalOutOff">
+                                            <a>
+                                                {this.state.currentPage} of{" "}
+                                                {this.state.totalPage}
+                                            </a>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        {this.state.totalPage > 1 && (
+                                            <Grid className="prevNxtpag">
+                                                <Pagination
+                                                    totalPage={this.state.totalPage}
+                                                    currentPage={this.state.currentPage}
+                                                    pages={this.state.pages}
+                                                    onChangePage={(page) => {
+                                                        this.onChangePage(page);
+                                                    }}
+                                                />
                                             </Grid>
+                                        )}
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
+                    </Grid>
                 </Grid>
                 {/* End of Document Table */}
-
-
-
+                
                 <Modal
                     open={this.state.newEntry}
                     onClose={this.handleCloseNewEn}
