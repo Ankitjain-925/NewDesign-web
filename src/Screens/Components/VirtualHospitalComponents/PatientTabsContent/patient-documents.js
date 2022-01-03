@@ -297,13 +297,6 @@ class Index extends Component {
         this.setState({ updateTrack: {} });
     };
 
-<<<<<<< HEAD
-    //For render 10 entries at one time 
-    Showdefaults = (allTrack, defaultValue) => {
-        allTrack = allTrack?.length > 0 && allTrack?.slice(0, defaultValue);
-        this.setState({ allTrack: allTrack })
-    }
-=======
     // For page change 
     onChangePage = (pageNumber) => {
         this.setState({
@@ -315,7 +308,6 @@ class Index extends Component {
         });
     };
 
->>>>>>> 4f70ca2f63ebbfe135bbf9f580a8fda85a321765
 
     render() {
         const { selectedOption, attachedFile } = this.state;
