@@ -62,7 +62,8 @@ class Index extends Component {
                         "filename": data.filename,
                         "filetype": data.filetype,
                         "created_by": result.created_by_temp,
-                        "created_on": result.created_on
+                        "created_on": result.created_on,
+                        "created_image": result.created_by_image
                     }
                     attachedFile.push(data1)
                 })
@@ -107,7 +108,7 @@ class Index extends Component {
         let response = await get_track(user_token, user_id)
         if (response?.data?.hassuccessed === true) {
             //This is for Aimedis Blockchain Section
-            this.props.rightInfo();
+            // this.props.rightInfo();
             var images = [];
             response.data.data = response.data.data.filter((e) => e != null);
             // response.data.data &&
@@ -149,7 +150,7 @@ class Index extends Component {
             //   });
             // });
 
-            this.props.rightInfo();
+            // this.props.rightInfo();
             this.setState({
                 allTrack1: response.data.data,
                 allTrack2: response.data.data,
@@ -162,132 +163,6 @@ class Index extends Component {
         }
 
     };
-
-    // //Get All information Related to Metadata
-    // getMetadata() {
-    //     this.setState({ allMetadata: this.props.metadata }, () => {
-    //         this.GetLanguageMetadata();
-    //     });
-    // }
-
-    // GetLanguageMetadata = () => {
-    //     if (this.state.allMetadata) {
-    //         var AllATC_code =
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.ATC_code &&
-    //             this.state.allMetadata.ATC_code;
-
-    //         var Alltemprature =
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.Temprature &&
-    //             this.state.allMetadata.Temprature;
-    //         var Allgender = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.gender &&
-    //             this.state.allMetadata.gender,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Allpain_type = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.pain_type &&
-    //             this.state.allMetadata.pain_type,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Pressuresituation = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.situation_pressure &&
-    //             this.state.allMetadata.situation_pressure,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Allpain_quality = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.pain_quality &&
-    //             this.state.allMetadata.pain_quality &&
-    //             this.state.allMetadata.pain_quality,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Allsituation = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.situation &&
-    //             this.state.allMetadata.situation,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Allsmoking_status = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.smoking_status &&
-    //             this.state.allMetadata.smoking_status,
-    //             this.props.stateLanguageType
-    //         );
-
-    //         var Allreminder = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.reminder &&
-    //             this.state.allMetadata.reminder,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Allrelation = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.relation &&
-    //             this.state.allMetadata.relation,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Allsubstance = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.substance &&
-    //             this.state.allMetadata.substance,
-    //             this.props.stateLanguageType
-    //         );
-    //         var Anamnesis = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.anamnesis &&
-    //             this.state.allMetadata.anamnesis,
-    //             this.props.stateLanguageType
-    //         );
-    //         var vaccinations = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.vaccination &&
-    //             this.state.allMetadata.vaccination,
-    //             this.props.stateLanguageType
-    //         );
-    //         var personalised_card = GetLanguageDropdown(
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.personalised_card &&
-    //             this.state.allMetadata.personalised_card,
-    //             this.props.stateLanguageType,
-    //             "personalised_card"
-    //         );
-    //         var Alltime_taken =
-    //             this.state.allMetadata &&
-    //             this.state.allMetadata.time_taken &&
-    //             this.state.allMetadata.time_taken;
-    //         if (Alltime_taken && Alltime_taken.length > 0) {
-    //             Alltime_taken.sort(mySorter);
-    //         }
-
-    //         this.setState({
-    //             Alltemprature: Alltemprature,
-    //             Anamnesis: Anamnesis,
-    //             vaccinations: vaccinations,
-    //             AllATC_code: AllATC_code,
-    //             Allpain_type: Allpain_type,
-    //             Allpain_quality: Allpain_quality,
-    //             Pressuresituation: Pressuresituation,
-    //             Allsituation: Allsituation,
-    //             Allsmoking_status: Allsmoking_status,
-    //             Allreminder: Allreminder,
-    //             AllSpecialty: GetLanguageDropdown(
-    //                 SPECIALITY.speciality.english,
-    //                 this.props.stateLanguageType
-    //             ),
-    //             Allsubstance1: Allsubstance,
-    //             Allrelation: Allrelation,
-    //             Allgender: Allgender,
-    //             Alltime_taken: Alltime_taken,
-    //             personalised_card: personalised_card,
-    //             medication_unit: this.state.allMetadata?.medication_unit,
-    //         });
-    //     }
-    // };
 
     // Get the Current User Profile
     cur_one2 = async () => {
@@ -476,6 +351,11 @@ class Index extends Component {
         this.setState({ updateTrack: {} });
     };
 
+    //For render 10 entries at one time 
+    Showdefaults = (allTrack, defaultValue) => {
+        allTrack = allTrack?.length > 0 && allTrack?.slice(0, defaultValue);
+        this.setState({ allTrack: allTrack })
+    }
 
     render() {
         const { selectedOption, attachedFile } = this.state;
@@ -489,7 +369,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <Grid item xs={12} md={6} sm={6}><h1>{DocumentsFiles}</h1></Grid>
                                 <Grid item xs={12} md={6} sm={6}>
-                                    <Grid className="AddEntrynw"><a onClick={this.handleOpenNewEn}>{addNewEntry}</a></Grid>
+                                    <Grid className="AddEntrynw"><a onClick={this.handleOpenNewEn}>+ Add Document</a></Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
