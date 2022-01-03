@@ -58,7 +58,8 @@ class Index extends Component {
                         "filename": data.filename,
                         "filetype": data.filetype,
                         "created_by": result.created_by_temp,
-                        "created_on": result.created_on
+                        "created_on": result.created_on,
+                        "created_image": result.created_by_image
                     }
                     attachedFile.push(data1)
                 })
@@ -320,7 +321,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <Grid item xs={12} md={6} sm={6}><h1>{DocumentsFiles}</h1></Grid>
                                 <Grid item xs={12} md={6} sm={6}>
-                                    <Grid className="AddEntrynw"><a onClick={this.handleOpenNewEn}>{addNewEntry}</a></Grid>
+                                    <Grid className="AddEntrynw"><a onClick={this.handleOpenNewEn}>+ Add Document</a></Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
