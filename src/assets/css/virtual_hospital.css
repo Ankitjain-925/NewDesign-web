@@ -2880,7 +2880,7 @@ a.lineSort {
 }
 .entryInfo li {
     list-style-type: none;
-    display: table-cell;
+    display: inline-block;
     width: 25%;
     cursor: pointer;
 }
@@ -2899,13 +2899,9 @@ a.lineSort {
     height: 35px;
     display: inline-block;
     border-radius: 8px;
-    padding: 7px;
-    border: 1px #cfcfcf solid;
 }
 .entryInfoActv img {
     box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
-    background-color: #00ABAF !important;
-    border: 1px #00ABAF solid !important;
 }
 .entryInfoActv label {
     color: #00ABAF !important;
@@ -9898,13 +9894,18 @@ img.manage-size {
     width: 44px;
     padding: 12px;
 }
-.darkTheme .insuranceHint, .darkTheme .profile-language.css-2b097c-container div, .homeBgDrk .profile-language.css-2b097c-container div{
+.darkTheme .insuranceHint, .darkTheme .profile-language.css-2b097c-container div, 
+.homeBgDrk .profile-language.css-2b097c-container div{
     background-color: #404646 !important;
     color: #fff !important;
 }
-.darkTheme .cntryDropTop, .homeBgDrk .cntryDropTop{
-    border: 1px solid #d9d9d9;
+.darkTheme .cntryDropTop, 
+.homeBgDrk .cntryDropTop {
+    border: 1px solid #5d5d5d;
     border-radius: 5px;
+}
+.cntryDropTop div {
+    box-shadow: initial !important;
 }
 a.addNewPlus img {
     height: 50px;
@@ -11403,9 +11404,12 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #0c1010;
+    background: #192020;
     color: #dfdfdf;
     border-color: #676565;
+    font-family: Muli;
+    box-shadow: initial !important;
+    outline: none !important;
 }
 .darkTheme .fltrClear {
     background: #404646;
@@ -11566,7 +11570,6 @@ ul.patientHint li {
     min-height: initial !important;
     color: #fafafa;
 }
-
 .darkTheme .profileInfoDate .react-date-picker__wrapper {
     background-color: #192020;
     color: #fafafa;
@@ -11665,9 +11668,18 @@ ul.patientHint li {
 .darkTheme .invoiceForm label {
     color: #fafafa;
 }
-.darkTheme .cstmSelect div:first-child {
+.darkTheme .cstmSelect div {
     background-color: #192020 !important;
     color: #bfc1c1;
+    box-shadow: initial !important;
+    outline: none !important;
+}
+.darkTheme .cstmSelect {
+    background-color: #192020 !important;
+    border: 1px solid #8e8e8e8a;
+}
+.darkTheme .cstmSelect div {
+    border: none !important;
 }
 .darkTheme .srvcTable h3 {
     color: #fafafa;
