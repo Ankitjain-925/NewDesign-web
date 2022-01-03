@@ -7,28 +7,22 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { authy } from "Screens/Login/authy.js";
 import { OptionList } from "Screens/Login/metadataaction";
 import Grid from '@material-ui/core/Grid';
-import Select from 'react-select';
-
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { getLanguage } from 'translations/index';
 import Modal from "@material-ui/core/Modal";
 import { commonHeader } from "component/CommonHeader/index"
 import sitedata from "sitedata";
 import axios from "axios";
-import SPECIALITY from "speciality";
-import {
-    mySorter
-} from "Screens/Components/BasicMethod/index";
-import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import moment from "moment";
 import FUFields from "Screens/Components/TimelineComponent/FUFields/index";
-import { get_gender, get_cur_one, get_track, update_entry_state, download_track } from "Screens/Components/CommonApi/index";
+import { get_cur_one, get_track, update_entry_state } from "Screens/Components/CommonApi/index";
 import { DocView } from "Screens/Components/DocView/index.js";
-const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
-];
+import Pagination from "Screens/Components/Pagination/index";
+// const options = [
+//     { value: 'data1', label: 'Data1' },
+//     { value: 'data2', label: 'Data2' },
+//     { value: 'data3', label: 'Data3' },
+// ];
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -46,6 +40,8 @@ class Index extends Component {
             visibility: false,
             updateOne: 0,
             updateTrack: {},
+            attachedFile: [],
+            attachedFile1: []
         };
     }
 
@@ -69,12 +65,32 @@ class Index extends Component {
                 })
             }
         })
-        this.setState({ attachedFile: attachedFile })
+        var totalPage = Math.ceil(attachedFile?.length / 10);
+        this.setState({
+            attachedFile1: attachedFile,
+            loaderImage: false,
+            totalPage: totalPage,
+            currentPage: 1
+        }, () => {
+            if (totalPage > 1) {
+                var pages = [];
+                for (var i = 1; i <= this.state.totalPage; i++) {
+                    pages.push(i);
+                }
+                this.setState({
+                    attachedFile: this.state.attachedFile1.slice(0, 10),
+                    pages: pages,
+                });
+            } else {
+                this.setState({ attachedFile: this.state.attachedFile1 });
+            }
+        });
         // this.getMetadata();
         if (this.props.match.params.id) {
             this.GetInfoForPatient();
         }
     }
+
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
@@ -97,72 +113,29 @@ class Index extends Component {
     GetInfoForPatient = () => {
         this.cur_one();
         this.cur_one2();
-        this.getTrack();
     };
 
-    //For get the Track
-    getTrack = async () => {
-        var user_id = this.props.match.params.id;
-        var user_token = this.props.stateLoginValueAim.token;
-        this.setState({ loaderImage: true });
-        let response = await get_track(user_token, user_id)
-        if (response?.data?.hassuccessed === true) {
-            //This is for Aimedis Blockchain Section
-            // this.props.rightInfo();
-            var images = [];
-            response.data.data = response.data.data.filter((e) => e != null);
-            // response.data.data &&
-            //   response.data.data.length > 0 &&
-            //   response.data.data.map((data1, index) => {
-            //     var find2 = data1 && data1.created_by_image;
-            //     if (find2) {
-            //       var find3 = find2.split(".com/")[1];
-            //       axios
-            //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find3)
-            //         .then((response2) => {
-            //           if (response2.data.hassuccessed) {
-            //             images.push({
-            //               image: find2,
-            //               new_image: response2.data.data,
-            //             });
-            //             this.setState({ images: images });
-            //           }
-            //         });
-            //     }
-            // data1.attachfile &&
-            //   data1.attachfile.length > 0 &&
-            //   data1.attachfile.map((data, index) => {
-            //     var find = data && data.filename && data.filename;
-            //     if (find) {
-            //       var find1 = find.split(".com/")[1];
-            //       axios
-            //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-            //         .then((response2) => {
-            //           if (response2.data.hassuccessed) {
-            //             images.push({
-            //               image: find,
-            //               new_image: response2.data.data,
-            //             });
-            //             this.setState({ images: images });
-            //           }
-            //         });
-            //     }
-            //   });
-            // });
+    // //For get the Track
+    // getTrack = async () => {
+    //     var user_id = this.props.match.params.id;
+    //     var user_token = this.props.stateLoginValueAim.token;
+    //     this.setState({ loaderImage: true });
+    //     let response = await get_track(user_token, user_id)
+    //     if (response?.data?.hassuccessed === true) {
 
-            // this.props.rightInfo();
-            this.setState({
-                allTrack1: response.data.data,
-                allTrack2: response.data.data,
-                loaderImage: false,
-                // defaultValue : 10,
-            },
-                () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
-        } else {
-            this.setState({ allTrack1: [], allTrack: [], allTrack2: [], loaderImage: false });
-        }
+    //         var images = [];
+    //         response.data.data = response.data.data.filter((e) => e != null);
+    //         // this.props.rightInfo();
+    //         this.setState({
+    //             allTrack1: response.data.data,
+    //             allTrack2: response.data.data,
+    //             loaderImage: false,
+    //         })
+    //     } else {
+    //         this.setState({ allTrack1: [], allTrack: [], allTrack2: [], loaderImage: false });
+    //     }
 
-    };
+    // };
 
     // Get the Current User Profile
     cur_one2 = async () => {
@@ -232,32 +205,6 @@ class Index extends Component {
         this.setState({ updateTrack: state });
     };
 
-    //Update Archive Track State
-    updateArchiveTrack = (data) => {
-        data.archive = true;
-        var user_id = this.props.match.params.id;
-        var user_token = this.props.stateLoginValueAim.token;
-        var track_id = data.track_id;
-        this.setState({ loaderImage: true });
-        axios
-            .put(
-                sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
-                { data },
-                commonHeader(user_token)
-            )
-            .then((response) => {
-                this.setState({
-                    ismore_five: false,
-                    updateTrack: {},
-                    updateOne: 0,
-                    isfileupload: false,
-                    isfileuploadmulti: false,
-                    loaderImage: false,
-                });
-                this.getTrack();
-            });
-    };
-
     //for get the track data on the bases of pateint
     GetTrackData = (e) => {
         const state = this.state.gettrackdatas;
@@ -290,11 +237,8 @@ class Index extends Component {
         } else if (this.state.isfileuploadmulti) {
             data.attachfile = this.state.fileattach;
         }
-        if (data.event_date && data.event_date !== "") {
-            data.datetime_on = new Date(data.event_date);
-        } else {
-            data.event_date = new Date();
-        }
+        data.created_on = new Date();
+        data.datetime_on = new Date();
         var track_id = this.state.updateTrack.track_id;
         if (
             this.state.updateTrack &&
@@ -320,8 +264,9 @@ class Index extends Component {
                         isfileuploadmulti: false,
                         loaderImage: false,
                     });
-                    this.getTrack();
+                    this.componentDidMount();
                     this.handleCloseNewEn();
+                    this.props.getLeftVHinfo();
                 });
         } else {
             data.created_by = this.props.stateLoginValueAim.user._id;
@@ -344,18 +289,33 @@ class Index extends Component {
                         ismore_five: false,
                         isless_one: false,
                     });
-                    this.getTrack();
+                    this.componentDidMount();
                     this.handleCloseNewEn();
+                    this.props.getLeftVHinfo();
                 });
         }
         this.setState({ updateTrack: {} });
     };
 
+<<<<<<< HEAD
     //For render 10 entries at one time 
     Showdefaults = (allTrack, defaultValue) => {
         allTrack = allTrack?.length > 0 && allTrack?.slice(0, defaultValue);
         this.setState({ allTrack: allTrack })
     }
+=======
+    // For page change 
+    onChangePage = (pageNumber) => {
+        this.setState({
+            attachedFile: this.state.attachedFile1.slice(
+                (pageNumber - 1) * 10,
+                pageNumber * 10
+            ),
+            currentPage: pageNumber,
+        });
+    };
+
+>>>>>>> 4f70ca2f63ebbfe135bbf9f580a8fda85a321765
 
     render() {
         const { selectedOption, attachedFile } = this.state;
@@ -376,7 +336,7 @@ class Index extends Component {
                     </Grid>
                 </Grid>
                 {/* Search for Website */}
-                <Grid container direction="row">
+                {/* <Grid container direction="row">
                     <Grid item xs={12} md={11}>
                         <Grid className="srchFilter">
                             <Grid container direction="row">
@@ -416,7 +376,7 @@ class Index extends Component {
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Grid> */}
                 {/* End of Search for Website */}
 
                 {/* Document Table */}
@@ -424,13 +384,37 @@ class Index extends Component {
                     <Grid item xs={12} md={11}>
                         <Grid className="presOpinionIner">
                             <DocView attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
+                            <Grid className="tablePagNum">
+                                <Grid container direction="row">
+                                    <Grid item xs={12} md={6}>
+                                        <Grid className="totalOutOff">
+                                            <a>
+                                                {this.state.currentPage} of{" "}
+                                                {this.state.totalPage}
+                                            </a>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        {this.state.totalPage > 1 && (
+                                            <Grid className="prevNxtpag">
+                                                <Pagination
+                                                    totalPage={this.state.totalPage}
+                                                    currentPage={this.state.currentPage}
+                                                    pages={this.state.pages}
+                                                    onChangePage={(page) => {
+                                                        this.onChangePage(page);
+                                                    }}
+                                                />
+                                            </Grid>
+                                        )}
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
                 {/* End of Document Table */}
-
-
-
+                
                 <Modal
                     open={this.state.newEntry}
                     onClose={this.handleCloseNewEn}

@@ -135,7 +135,7 @@ class PointPain extends Component {
                       {this.state.openBy !== "patient" ? (
                         <span>3</span>
                       ) : (
-                        <span>2</span>
+                        <span>2</span> 
                       )}
                       <p>{blood_sugar}</p>
                     </a>

@@ -125,29 +125,29 @@ class Index extends Component {
     }
 
       //To add Insurance
-  insuranceForm = (e) => {
-    const state = this.state.insuranceDetails;
-    if (e.target.name == "insurance") {
-      const q = e.target.value.toLowerCase();
-      this.setState({ q }, () =>
-        filterList(this.state.insuranceDetails.insurance_country, this)
-      );
-    }
-    state[e.target.name] = e.target.value;
-    this.setState({ insuranceDetails: state });
-  };
+    insuranceForm = (e) => {
+        const state = this.state.insuranceDetails;
+        if (e.target.name == "insurance") {
+        const q = e.target.value.toLowerCase();
+        this.setState({ q }, () =>
+            filterList(this.state.insuranceDetails.insurance_country, this)
+        );
+        }
+        state[e.target.name] = e.target.value;
+        this.setState({ insuranceDetails: state });
+    };
 
-  selectCountry = (event) => {
-    const state = this.state.insuranceDetails;
-    state["insurance_country"] = event.value;
-    this.setState({ insuranceDetails: state });
-    this.setState({ selectedCountry: event });
-  };
+    selectCountry = (event) => {
+        const state = this.state.insuranceDetails;
+        state["insurance_country"] = event.value;
+        this.setState({ insuranceDetails: state });
+        this.setState({ selectedCountry: event });
+    };
   
       // For Add more insurance model
-  handleAddInsurance = () => {
-    this.setState({ addInsuranceOpen: true });
-  };
+    handleAddInsurance = () => {
+        this.setState({ addInsuranceOpen: true });
+    };
     //For open QR code
     handleQrOpen = () => {
         this.setState({ qrOpen: true });
@@ -385,7 +385,7 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
                                         <label>{marital_status}</label>
-                                        <Grid>
+                                        <Grid className="cntryDropTop">
                                             <Select
                                                 placeholder={select_marital_status}
                                                 options={this.state.AllMaritalOption}
@@ -395,7 +395,8 @@ class Index extends Component {
                                                     this.props.stateLanguageType
                                                 )}
                                                 // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
-                                                onChange={this.handleMaritalStatus} />
+                                                onChange={this.handleMaritalStatus} 
+                                                className="cntryDrop"/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

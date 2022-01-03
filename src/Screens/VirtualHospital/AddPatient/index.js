@@ -687,19 +687,19 @@ class Index extends Component {
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, BacktoPatientFlow, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
-            mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
+            mobile_number, number, mobile, Languages, spoken, AliesID, Pin, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
-            if (
-              stateLoginValueAim.user === "undefined" ||
-              stateLoginValueAim.token === 450 ||
-              stateLoginValueAim.token === "undefined" ||
-              stateLoginValueAim.user.type !== "adminstaff"
-            ) {
-              return <Redirect to={"/"} />;
-            }
-            if (House && House?.value === null) {
-              return <Redirect to={"/VirtualHospital/institutes"} />;
-            }
+        if (
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
+        ) {
+            return <Redirect to={"/"} />;
+        }
+        if (House && House?.value === null) {
+            return <Redirect to={"/VirtualHospital/institutes"} />;
+        }
         return (
             <Grid
                 className={
@@ -754,8 +754,8 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid className="editPinform">
                                                             <Grid className="editField">
-                                                                <h5>Alies ID - {this.state.idpin?.profile_id}</h5>
-                                                                <h5>Pin -{this.state.idpin?.pin}</h5>
+                                                                <h5>{AliesID} {this.state.idpin?.profile_id}</h5>
+                                                                <h5>{Pin}{this.state.idpin?.pin}</h5>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -1021,7 +1021,7 @@ class Index extends Component {
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                                                     <Grid item xs={12} md={8}>
                                                                         <label>{marital_status}</label>
-                                                                        <Grid>
+                                                                        <Grid className="cntryDropTop">
                                                                             <Select
                                                                                 placeholder={select_marital_status}
                                                                                 options={this.state.AllMaritalOption}
@@ -1030,6 +1030,7 @@ class Index extends Component {
                                                                                     this.state.UpDataDetails.marital_status.value,
                                                                                     this.props.stateLanguageType
                                                                                 )}
+                                                                                className="cntryDrop"
                                                                                 // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
                                                                                 onChange={this.handleMaritalStatus} />
                                                                         </Grid>

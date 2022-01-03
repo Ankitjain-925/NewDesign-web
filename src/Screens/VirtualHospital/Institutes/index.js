@@ -165,7 +165,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Institution, Hospitals } = translate;
+    let { Institution, Hospitals, Save, Rename } = translate;
     const { stateLoginValueAim, House } = this.props;
     const { currentList2 } = this.state;
     if (
@@ -184,9 +184,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -271,8 +271,8 @@ class Index extends Component {
                                 onClose={this.handleClosePopUp}
                                 className={
                                   this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode === "dark"
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode === "dark"
                                     ? "darkTheme paraBoxModel"
                                     : "paraBoxModel"
                                 }
@@ -312,18 +312,18 @@ class Index extends Component {
                                                   xs={8}
                                                   md={8}
                                                 >
-                                                  {this.state.showRename === item.value ? 
-                                                  <div className="creatInfoIner" ><input type="text" name="label" onChange={(e) => this.handletxtName(e)} value={this.state.txtName?.label || ''} /> </div>
-                                                  : <label> {item.group_name && item.label} </label> }
+                                                  {this.state.showRename === item.value ?
+                                                    <div className="creatInfoIner" ><input type="text" name="label" onChange={(e) => this.handletxtName(e)} value={this.state.txtName?.label || ''} /> </div>
+                                                    : <label> {item.group_name && item.label} </label>}
                                                 </Grid>
                                                 <Grid
                                                   item
                                                   xs={3}
                                                   md={3}
                                                 >
-                                                  {this.state.showRename === item.value ? 
-                                                   <Button onClick={() => this.renamePopup2(item)} className="renameButton" >Save</Button>
-                                                  :  <Button onClick={() => this.renamePopup(item)} className="renameButton" >Rename</Button> }
+                                                  {this.state.showRename === item.value ?
+                                                    <Button onClick={() => this.renamePopup2(item)} className="renameButton" >{Save}</Button>
+                                                    : <Button onClick={() => this.renamePopup(item)} className="renameButton" >{Rename}</Button>}
                                                 </Grid>
                                                 <Grid
                                                   item
