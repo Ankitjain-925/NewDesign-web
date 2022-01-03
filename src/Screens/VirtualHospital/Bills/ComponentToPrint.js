@@ -10,6 +10,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { LoginReducerAim } from "Screens/Login/actions";
 import { connect } from "react-redux";
 import Index from "Screens/Components/FrameUse/index";
+import { getLanguage } from "translations/index";
 
 
 export class ComponentToPrint extends React.Component {
@@ -22,6 +23,9 @@ export class ComponentToPrint extends React.Component {
     };
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { AimedisInvoiceReport,ServiceList,InvoiceData,Services,CaseID, Created_at,YourAimedisTeam, aimedisIo,
+             ServiceName,TotalAmount,InvoiceID, srvc ,Price, quantity, contactAimedisForQuery, SysAimedis} = translate;
         var { data, index } = this.props;
         return (
             <div className="relativeCSS">
@@ -34,55 +38,55 @@ export class ComponentToPrint extends React.Component {
                         alt=""
                         title="" />
                     </a>
-                    <div className="printPreviewText nextPart"><b>Aimedis Invoice Report</b></div>
+                    <div className="printPreviewText nextPart"><b>{AimedisInvoiceReport}</b></div>
                     <br />
                     <div className="printPreviewText">
-                        <label><b>Service List</b></label>
+                        <label><b>{ServiceList}</b></label>
                         <Table className="printPreviewText">
                             <Thead>
                                 <Tr>
-                                    <Th><b>Invoice Data</b></Th>
+                                    <Th><b>{InvoiceData}</b></Th>
                                 </Tr>
                             </Thead>
                             {/* {this.state.data && this.state.data.length > 0 && this.state.data.profile_id.map((data) => ( */}
                             <Tbody>
                                 <Tr>
                                     { }
-                                    <Td>Services : <ul>{data?.services && data?.services?.length>0 && 
+                                    <Td>{Services} : <ul>{data?.services && data?.services?.length>0 && 
                                     data?.services.map((item)=>(
                                         <li>
-                                         Service Name:    {item.service}<br/>
-                                         Service Price / quantity:   {item.price}<br/>
-                                         quantity:   {item.quantity}<br/>
+                                         {ServiceName}:    {item.service}<br/>
+                                         {srvc} {Price} / {quantity}:   {item.price}<br/>
+                                         {quantity}:   {item.quantity}<br/>
                                         </li>   
                                     ))
                                     }</ul>
                                     </Td>
                                 </Tr>
                                 <Tr>
-                                    <Td>Invoice ID : {data?.invoice_id} </Td>
+                                    <Td>{InvoiceID} : {data?.invoice_id} </Td>
                                 </Tr>
                                 <Tr>
-                                    <Td>Case ID : {data?.case_id}</Td>
+                                    <Td>{CaseID} : {data?.case_id}</Td>
                                 </Tr>
                                 <Tr>
-                                    <Td>Total Amount : {data?.total_amount}</Td>
+                                    <Td>{TotalAmount} : {data?.total_amount}</Td>
                                 </Tr>
                                 <Tr>
-                                    <Td>Created at : {data.created_at}</Td>
+                                    <Td>{Created_at} : {data.created_at}</Td>
                                 </Tr>
                             </Tbody>
                             {/* ))} */}
                         </Table>
                         <br />
                         <Grid>
-                            <b>Your Aimedis Team</b>
+                            <b>{YourAimedisTeam}</b>
                             <br />
-                            <b>https://aimedis.io</b>
+                            <b>{aimedisIo}</b>
                             <br />
-                            <b>https://sys.aimedis.com</b>
+                            <b>{SysAimedis}</b>
                             <br />
-                            <p>If you have any questions do not hesitate to contact us via the support chat or via contact@aimedis.com</p>
+                            <p>{contactAimedisForQuery}</p>
                         </Grid>
                     </div>
                 </Grid>
