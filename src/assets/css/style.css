@@ -13606,6 +13606,7 @@ iframe.stripe_checkout_app {
     cursor: pointer;
 }
 .updatedfileuploader img{
+    height: auto!important;
     width: 100%;
     padding: 3px;
     border-radius: 15px;
@@ -17289,3 +17290,20 @@ ul.duringCovid li:last-child {
 }
 
 /* Done by naveen end here */
+
+.ant-picker-panel-container {
+    background: #192020;
+}
+.ant-picker-panel-container .ant-picker-dropdown div {
+    color: #b7b7b7;
+}
+.ant-picker-panel-container .ant-picker-content th {
+    height: 30px;
+    color: rgb(0 171 175);
+}
+.ant-picker-panel-container .ant-picker-prev-icon, 
+.ant-picker-panel-container .ant-picker-super-prev-icon,
+.ant-picker-panel-container .ant-picker-next-icon, 
+.ant-picker-panel-container .ant-picker-super-next-icon {
+    color: #00abaf;
+}

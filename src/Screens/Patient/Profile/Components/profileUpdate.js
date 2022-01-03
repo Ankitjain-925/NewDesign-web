@@ -125,29 +125,29 @@ class Index extends Component {
     }
 
       //To add Insurance
-  insuranceForm = (e) => {
-    const state = this.state.insuranceDetails;
-    if (e.target.name == "insurance") {
-      const q = e.target.value.toLowerCase();
-      this.setState({ q }, () =>
-        filterList(this.state.insuranceDetails.insurance_country, this)
-      );
-    }
-    state[e.target.name] = e.target.value;
-    this.setState({ insuranceDetails: state });
-  };
+    insuranceForm = (e) => {
+        const state = this.state.insuranceDetails;
+        if (e.target.name == "insurance") {
+        const q = e.target.value.toLowerCase();
+        this.setState({ q }, () =>
+            filterList(this.state.insuranceDetails.insurance_country, this)
+        );
+        }
+        state[e.target.name] = e.target.value;
+        this.setState({ insuranceDetails: state });
+    };
 
-  selectCountry = (event) => {
-    const state = this.state.insuranceDetails;
-    state["insurance_country"] = event.value;
-    this.setState({ insuranceDetails: state });
-    this.setState({ selectedCountry: event });
-  };
+    selectCountry = (event) => {
+        const state = this.state.insuranceDetails;
+        state["insurance_country"] = event.value;
+        this.setState({ insuranceDetails: state });
+        this.setState({ selectedCountry: event });
+    };
   
       // For Add more insurance model
-  handleAddInsurance = () => {
-    this.setState({ addInsuranceOpen: true });
-  };
+    handleAddInsurance = () => {
+        this.setState({ addInsuranceOpen: true });
+    };
     //For open QR code
     handleQrOpen = () => {
         this.setState({ qrOpen: true });

@@ -365,7 +365,7 @@ class Index extends Component {
                                                 <PatientTasks />
                                             </TabContainer>}
                                             {value === 2 && <TabContainer>
-                                                <PatientDocuments />
+                                                <PatientDocuments  getLeftVHinfo={()=>{this.getLeftVHinfo()}}/>
                                             </TabContainer>}
                                             {/* {value === 3 && <TabContainer>
                                             <PatientRoom />

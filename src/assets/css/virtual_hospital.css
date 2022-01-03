@@ -2406,7 +2406,10 @@ a.cardioCount {
 .receLblUpr {
     margin-bottom: 42px;
 }
-.addPatent a img, .cardioDots img {
+/* .addPatent a img, .cardioDots img {
+    height: 28px;
+} */
+.cardioDots img {
     height: 28px;
 }
 .wardInfo a {
@@ -10715,6 +10718,7 @@ ul.patientHint li {
     font-family: 'Mulish', sans-serif;
     text-transform: capitalize;
     padding: 8px 4px;
+    word-break: break-all;
 }
 .specialitybutton-parent {
     text-align: center;
@@ -11539,7 +11543,18 @@ ul.patientHint li {
     color: #fafafa;
     min-height: 36px !important;
 }
-.darkTheme .mr_sel div:first-child, .darkTheme .cntryDrop div:first-child, 
+.darkTheme .mr_sel div:first-child {
+    background: transparent !important;
+    border: none;
+    height: initial !important;
+    min-height: initial !important;
+    color: #fafafa;
+}
+.darkTheme .mr_sel div {
+    box-shadow: initial !important;
+    outline: none !important;
+}
+.darkTheme .cntryDrop div:first-child, 
 .darkTheme .languageSpk div:first-child {
     background: #404646 !important;
     border: none;
@@ -12528,7 +12543,7 @@ a.taskHover:hover span {
 .darkTheme .fillDia div {
     background: transparent !important;
 }
-.darkTheme .addPatent a  {
+.darkTheme a.addNwPatnt {
     background-color: #2f3535;
     border: 1px solid #9b9b9b;
     color: #c3c3c3 !important;
