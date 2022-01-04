@@ -1228,7 +1228,7 @@ class Index extends Component {
                           : ""
                       }
                     >
-                      <Grid className="nwDiaCntnt  ">
+                      <Grid className="nwDiaCntnt">
                         <Grid className=""
                          className={
                           this.props.settings &&
@@ -1237,7 +1237,7 @@ class Index extends Component {
                             ? "nwDiaCntntIner darkTheme addSpeclContnt"
                             : "nwDiaCntntIner addSpeclContnt"
                         }>
-                          <Grid className="addSpeclContntIner"></Grid>
+                          {/* <Grid className="addSpeclContntIner"></Grid> */}
                           <Grid className="nwDiaCourse ">
                             <Grid className="nwDiaCloseBtn">
                               <a onClick={this.handleCloseInqryNw}>

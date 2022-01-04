@@ -87,3 +87,4 @@ export const DocView = ({ attachedFile, documentName, dateAdded, added_by }) => 
 
     )
 }
+
