@@ -13259,7 +13259,7 @@ a.academy_ul ul li img {
     font-weight: 600;
 }
 .movetoPage input {
-    width: 12%;
+    width: 8%;
     padding: 4px;
     margin: 6px 6px 6px 10px;
     font-family: inherit;  
@@ -13545,6 +13545,10 @@ a.academy_ul ul li img {
 .darkTheme > div:nth-child(3) .sel_specialty .css-yk16xz-control input{
     color: #BFC1C1 !important;
 }
+.darkTheme > div:nth-child(3) .sel_specialty div {
+    background: #303737;
+    color: #dfdfdf;
+}
 .homeBgDrk .trackView a {
     color: #bfc1c1;
 }
@@ -13605,8 +13609,8 @@ iframe.stripe_checkout_app {
     width: 22px !important;
     cursor: pointer;
 }
-.updatedfileuploader img{
-    height: auto!important;
+.updatedfileuploader img {
+    height: auto !important;
     width: 100%;
     padding: 3px;
     border-radius: 15px;
@@ -15626,6 +15630,10 @@ a.SelectedGender{
     background: #303737 !important;
     color: #BFC1C1 !important; 
 }
+.darkTheme > div:nth-child(3) .addStafSelect {
+    border: 1px solid #bfc1c1;
+    border-radius: 4px;
+}
 .darkTheme > div:nth-child(3) .srvcTags a{
     background-color: #303737;
     color: #D9DADA !important;
@@ -15880,6 +15888,9 @@ a.clsSltCal {
 .homeBgDrk .mkFmlyDoc div {
     background: #404646 !important;
     border-radius: 2px !important;
+    color: #dfdfdf !important;
+    box-shadow: initial !important;
+    outline: none !important;
 }
 .homeBgDrk .blockChainDtail1{
     background-color: #404646 !important;
@@ -17268,7 +17279,6 @@ ul.duringCovid li:last-child {
     justify-content: space-between !important;
     align-items: center !important;
 }
-
 .addTimeTask button {
     width: 162px;
     border: 1px solid #BFC1C1;
@@ -17283,27 +17293,30 @@ ul.duringCovid li:last-child {
     text-transform: initial;
     padding: 14px 0px;
 }
-
 .borderStyle {
     border-style: solid;
     border-width: thin;
 }
-
 /* Done by naveen end here */
-
-.ant-picker-panel-container {
+.darkTheme .ant-picker-panel-container, .homeBgDrk .ant-picker-panel-container {
     background: #192020;
 }
-.ant-picker-panel-container .ant-picker-dropdown div {
+.darkTheme .ant-picker-panel-container .ant-picker-dropdown div, .homeBgDrk .ant-picker-panel-container .ant-picker-dropdown div {
     color: #b7b7b7;
 }
-.ant-picker-panel-container .ant-picker-content th {
+.darkTheme .ant-picker-panel-container .ant-picker-content th, .homeBgDrk .ant-picker-panel-container .ant-picker-content th {
     height: 30px;
     color: rgb(0 171 175);
 }
-.ant-picker-panel-container .ant-picker-prev-icon, 
-.ant-picker-panel-container .ant-picker-super-prev-icon,
-.ant-picker-panel-container .ant-picker-next-icon, 
-.ant-picker-panel-container .ant-picker-super-next-icon {
+.darkTheme .ant-picker-panel-container .ant-picker-prev-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-prev-icon,
+.darkTheme .ant-picker-panel-container .ant-picker-super-prev-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-super-prev-icon,
+.darkTheme .ant-picker-panel-container .ant-picker-next-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-next-icon
+.darkTheme .ant-picker-panel-container .ant-picker-super-next-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-super-next-icon {
+    color: #00abaf;
+}
+.darkTheme .ant-picker-cell .ant-picker-cell-inner, .homeBgDrk .ant-picker-cell .ant-picker-cell-inner {
+    color: #b7b7b7 !important;
+}
+.darkTheme .ant-picker-header-view button,.darkTheme a.ant-picker-today-btn, .homeBgDrk .ant-picker-header-view button,.homeBgDrk a.ant-picker-today-btn {
     color: #00abaf;
 }
