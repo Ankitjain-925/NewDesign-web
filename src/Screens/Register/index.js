@@ -15,7 +15,7 @@ import Loader from "Screens/Components/Loader/index";
 import { Settings } from "Screens/Login/setting";
 import Toggle from "react-toggle";
 import "assets/css/style_log.css";
-import { NavLink, UncontrolledDropdown,  DropdownToggle,  DropdownMenu, DropdownItem, } from "reactstrap";
+import { NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, } from "reactstrap";
 import ReCAPTCHA from "react-google-recaptcha";
 import { getLanguage } from "translations/index";
 import contry from "Screens/Components/countryBucket/countries.json";
@@ -76,27 +76,27 @@ class Index extends Component {
   //For save data of user
   saveUserData() {
     this.setState({ regisError: "", regisError1: "", regisError2: "", regisError3: "", regisError0: "", error_msg: "", });
-    if (this.state.recaptcha) {
-      if (
-        this.state.userDetails.first_name &&
-        this.state.userDetails.last_name &&
-        this.state.userDetails.first_name !== "" &&
-        this.state.userDetails.last_name !== ""
-      ) {
-        if (this.validateEmail(this.state.userDetails.email)) {
+    if (
+      this.state.userDetails.first_name &&
+      this.state.userDetails.last_name &&
+      this.state.userDetails.first_name !== "" &&
+      this.state.userDetails.last_name !== ""
+    ) {
+      if (this.validateEmail(this.state.userDetails.email)) {
+        if (
+          this.state.userDetails &&
+          this.state.userDetails.password &&
+          this.state.userDetails.password.match(letter) &&
+          this.state.userDetails.password.match(number) &&
+          this.state.userDetails.password.match(specialchar)
+        ) {
           if (
-            this.state.userDetails &&
-            this.state.userDetails.password &&
-            this.state.userDetails.password.match(letter) &&
-            this.state.userDetails.password.match(number) &&
-            this.state.userDetails.password.match(specialchar)
+            this.state.userDetails.mobile &&
+            this.state.userDetails.mobile !== ""
           ) {
-            if (
-              this.state.userDetails.mobile &&
-              this.state.userDetails.mobile !== ""
-            ) {
-              if (this.state.selectedOption !== "") {
-                if (this.state.userDetails.terms_and_conditions) {
+            if (this.state.selectedOption !== "") {
+              if (this.state.userDetails.terms_and_conditions) {
+                if (this.state.recaptcha) {
                   if (this.state.selectedOption == "patient") {
                     this.setState({ loaderImage: true });
                     if (this.state.userDetails.country_code) {
@@ -161,7 +161,7 @@ class Index extends Component {
                           this.setState({ error_msg: responce.data.message });
                         }
                       })
-                      .catch((err) => {});
+                      .catch((err) => { });
                   }
                   if (
                     this.state.selectedOption == "pharmacy" ||
@@ -242,27 +242,25 @@ class Index extends Component {
                     }
                   }
                 } else {
-                  this.setState({
-                    regisError0: "Please agree to our terms and conditions",
-                  });
+                  this.setState({ regisError0: "Please fill the reCAPTCHA" });
                 }
               } else {
-                this.setState({ regisError0: "Please select user type" });
+                this.setState({ regisError0: "Please agree to our terms and conditions" });
               }
             } else {
-              this.setState({ regisError0: "Please fill mobile number" });
+              this.setState({ regisError0: "Please select user type" });
             }
           } else {
-            this.setState({ regisError0: "Password is not valid" });
+            this.setState({ regisError0: "Please fill mobile number" });
           }
         } else {
-          this.setState({ regisError0: "E-mail is not valid" });
+          this.setState({ regisError0: "Password is not valid" });
         }
       } else {
-        this.setState({ regisError0: "Please fill the full name of user" });
+        this.setState({ regisError0: "E-mail is not valid" });
       }
     } else {
-      this.setState({ regisError0: "Please fill the RECAPTCHA" });
+      this.setState({ regisError0: "Please fill the name of user" });
     }
   }
 
@@ -272,7 +270,7 @@ class Index extends Component {
     if (
       (e.target.name === "terms_and_conditions" ||
         e.target.name === "license_of_practice",
-      e.target.name === "is2fa")
+        e.target.name === "is2fa")
     ) {
       state[e.target.name] = e.target.checked;
     } else {
@@ -371,9 +369,9 @@ class Index extends Component {
               .then((result) => {
                 this.setState({ success: true, loaderImage: false });
               })
-              .catch((error) => {});
+              .catch((error) => { });
           })
-          .catch((error) => {});
+          .catch((error) => { });
       }
     } else {
       this.getUpdate(country_code, getBucket);
@@ -442,11 +440,11 @@ class Index extends Component {
   };
 
   //For show or hide the Password
-  toggleShow =()=> {
+  toggleShow = () => {
     this.setState({ hidden: !this.state.hidden });
   }
   //On changing the languages
-  changeValue = (languageType, language) =>{
+  changeValue = (languageType, language) => {
     this.setState({ dropDownValue: language });
     this.props.LanguageFetchReducer(languageType);
   }
@@ -464,7 +462,7 @@ class Index extends Component {
       Register_for_Aimedis, Register_email, login_Password, recEmp_FirstName, recEmp_LastName,
       Register_Mobilenumber, Register_activate_auth, Register_Accounttype, click_here_uplod_license,
       capab_Patients, Register_want_register, Register_Clicking_box, Register_clickingbox, Professional,
-      capab_Doctors,  Nurse, Pharmacist, Register_CREATE, Register_havAC, Register_lohinher, Register_Passwordshould,
+      capab_Doctors, Nurse, Pharmacist, Register_CREATE, Register_havAC, Register_lohinher, Register_Passwordshould,
       DarkMode, file_uploaded, Register_characters, Register_letter, Register_number, Register_special, country_code,
     } = translate;
     if (this.state.successfull) {
@@ -474,9 +472,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "loginSiteUpr homeBgDrk"
             : "loginSiteUpr"
         }
@@ -665,7 +663,7 @@ class Index extends Component {
                       )}
                     </Grid>
                     {this.state.userDetails &&
-                    this.state.userDetails.password ? (
+                      this.state.userDetails.password ? (
                       <div className="passInst">
                         <div className="passInstIner">
                           <p>{Register_Passwordshould}</p>
@@ -887,36 +885,36 @@ class Index extends Component {
                   {(this.state.selectedOption == "doctor" ||
                     this.state.selectedOption == "nurse" ||
                     this.state.selectedOption == "pharmacy") && (
-                    <Grid item xs={12} sm={12} className="common_name_v2_reg">
-                      <label htmlFor="UploadDocument">
-                        {" "}
-                        {click_here_uplod_license}{" "}
-                        <img
-                          src={require("assets/images/links.png")}
-                          alt=""
-                          title=""
-                          className="link_docs"
+                      <Grid item xs={12} sm={12} className="common_name_v2_reg">
+                        <label htmlFor="UploadDocument">
+                          {" "}
+                          {click_here_uplod_license}{" "}
+                          <img
+                            src={require("assets/images/links.png")}
+                            alt=""
+                            title=""
+                            className="link_docs"
+                          />
+                        </label>
+                        <input
+                          type="file"
+                          style={{ display: "none" }}
+                          id="UploadDocument"
+                          name="UploadDocument"
+                          onChange={(e) => this.UploadFile(e)}
+                          multiple
                         />
-                      </label>
-                      <input
-                        type="file"
-                        style={{ display: "none" }}
-                        id="UploadDocument"
-                        name="UploadDocument"
-                        onChange={(e) => this.UploadFile(e)}
-                        multiple
-                      />
-                      <div>
-                        {this.state.fileattach &&
-                          this.state.fileattach.length > 0 &&
-                          this.state.fileattach.map((data) => (
-                            <span className="ViewImage">
-                              <img src={data} />
-                            </span>
-                          ))}
-                      </div>
-                    </Grid>
-                  )}
+                        <div>
+                          {this.state.fileattach &&
+                            this.state.fileattach.length > 0 &&
+                            this.state.fileattach.map((data) => (
+                              <span className="ViewImage">
+                                <img src={data} />
+                              </span>
+                            ))}
+                        </div>
+                      </Grid>
+                    )}
                   <Grid className="registerRow accountTyp">
                     <Grid>
                       <label>{Register_Accounttype}</label>
@@ -957,12 +955,12 @@ class Index extends Component {
                               <DropdownToggle nav caret>
                                 <a>
                                   {this.state.selectedOption === "" ||
-                                  this.state.selectedOption === "patient"
+                                    this.state.selectedOption === "patient"
                                     ? Professional
                                     : this.state.selectedOption
-                                        .charAt(0)
-                                        .toUpperCase() +
-                                      this.state.selectedOption.slice(1)}
+                                      .charAt(0)
+                                      .toUpperCase() +
+                                    this.state.selectedOption.slice(1)}
                                 </a>
                               </DropdownToggle>
                               <DropdownMenu>
