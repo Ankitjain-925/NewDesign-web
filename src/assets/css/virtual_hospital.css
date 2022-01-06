@@ -12884,3 +12884,24 @@ input:-moz-autofill:active{
     overflow:auto;
     height: 100%;
 }
+/* Add by tanya */
+.buttonCDstyle{
+    margin-top: 5px;
+   
+}
+.colorBtnUpr a{
+    border-radius: 8px;
+    background-color: lightgrey;
+    color: black !important;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+    padding: 16px 10px;
+    min-width: 156px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.buttonstyle{
+    background-color: blue;  
+}
