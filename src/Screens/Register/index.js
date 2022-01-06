@@ -43,7 +43,7 @@ class Index extends Component {
       regisError2: "",
       regisError3: "",
       regisError: "",
-      regisError0: "",
+      regisError0: this.translate,
       registerMessage: "",
       error_msg: "",
       uploadLicence: {},
@@ -75,7 +75,10 @@ class Index extends Component {
   };
   //For save data of user
   saveUserData() {
-    this.setState({ regisError: "", regisError1: "", regisError2: "", regisError3: "", regisError0: "", error_msg: "", });
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { plz_accept_term_condition, fillreptcha, select_user_type,
+      plz_fill_mob_number, email_not_valid, pswd_not_valid, plz_fill_fullname_user } = translate;
+    this.setState({ regisError: "", regisError1: "", regisError2: "", regisError3: "", regisError0: translate , error_msg: "", });
     if (
       this.state.userDetails.first_name &&
       this.state.userDetails.last_name &&
@@ -242,25 +245,25 @@ class Index extends Component {
                     }
                   }
                 } else {
-                  this.setState({ regisError0: "Please fill the reCAPTCHA" });
+                  this.setState({ regisError0: fillreptcha });
                 }
               } else {
-                this.setState({ regisError0: "Please agree to our terms and conditions" });
+                this.setState({ regisError0: plz_accept_term_condition });
               }
             } else {
-              this.setState({ regisError0: "Please select user type" });
+              this.setState({ regisError0: select_user_type });
             }
           } else {
-            this.setState({ regisError0: "Please fill mobile number" });
+            this.setState({ regisError0: plz_fill_mob_number });
           }
         } else {
-          this.setState({ regisError0: "Password is not valid" });
+          this.setState({ regisError0: pswd_not_valid });
         }
       } else {
-        this.setState({ regisError0: "E-mail is not valid" });
+        this.setState({ regisError0: email_not_valid });
       }
     } else {
-      this.setState({ regisError0: "Please fill the name of user" });
+      this.setState({ regisError0: plz_fill_fullname_user });
     }
   }
 
