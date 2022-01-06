@@ -130,7 +130,6 @@ class Index extends Component {
     //get services list
     getAllServices = () => {
         var serviceList = [], serviceList1 = [];
-        this.setState({ loaderImage: true });
         axios
             .get(
                 sitedata.data.path + "/vh/GetService/" + this.props?.House?.value,
@@ -205,7 +204,7 @@ class Index extends Component {
     handleAddSubmit = () => {
         this.setState({ error: "" })
         var newService = this.state.service
-        if (newService?.service?.label == "custom") {
+        if (newService?.service?.value == "custom") {
             if (newService?.price_per_quantity < 1 || !newService?.price_per_quantity) {
                 this.setState({ error: "Please enter valid price" })
             }
@@ -215,7 +214,7 @@ class Index extends Component {
                 }
                 else {
                     newService.price = newService?.price_per_quantity * newService?.quantity;
-                    newService.service = this.state.service?.service?.label
+                    newService.service = newService?.custom_title
                     let items = [...this.state.items];
                     items.push(newService);
                     let data = {}
@@ -223,13 +222,13 @@ class Index extends Component {
                     data["description"] = newService?.custom_description;
                     data["price"] = newService?.price_per_quantity;
                     data["title"] = newService?.custom_title;
-                    axios
-                        .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
-                        .then((responce) => {
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                    // axios.post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
+                    // .then((responce) => {
+                    //     this.getAllServices();
+                    // })
+                    // .catch(function (error) {
+                    //     console.log(error);
+                    // });
 
                     this.setState({ items, service: {} },
                         () => { this.updateTotalPrize() })
@@ -663,7 +662,7 @@ class Index extends Component {
                                                                 name="label"
                                                                 placeholder="Enter Title name"
                                                                 disabled={true}
-                                                                value={this.state.service?.service?.label}
+                                                                value={this.state.service?.service}
                                                             />
                                                         </Grid>
 

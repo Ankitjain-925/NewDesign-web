@@ -623,9 +623,19 @@ class Index extends Component {
     } = translate;
 
     return (
-      <Grid>
+      <Grid
+      className={
+          this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "homeBg darkTheme homeBgDrk"
+              : "homeBg"
+            }
+        >
         {this.state.loaderImage && <Loader />}
         <Grid className="journalAdd">
+       
           <Grid container direction="row">
             <Grid item xs={12} md={11}>
               <Grid container direction="row">
@@ -896,7 +906,7 @@ class Index extends Component {
                       >
                         <Grid item xs={12} md={8}>
                           <label>{marital_status}</label>
-                          <Grid>
+                          <Grid className="cntryDropTop">
                             <Select
                               placeholder={select_marital_status}
                               options={this.state.AllMaritalOption}
@@ -1114,7 +1124,7 @@ class Index extends Component {
                           <label>
                             {Languages} {spoken}
                           </label>
-                          <Grid>
+                          <Grid className="cntryDropTop">
                             <Select
                               value={this.state.name_multi}
                               name="languages"
@@ -1125,6 +1135,7 @@ class Index extends Component {
                               isDisabled={true}
                               className="profile-language"
                               isMulti={true}
+                              className="cntryDrop"
                             />
                           </Grid>
                         </Grid>
@@ -1141,7 +1152,7 @@ class Index extends Component {
                       >
                         <Grid item xs={12} md={4}>
                           <label>{Blood}</label>
-                          <Grid>
+                          <Grid className="cntryDropTop">
                           <Select
                               value={this.state.bloods}
                               name="bloodgroup"
@@ -1151,13 +1162,14 @@ class Index extends Component {
                               isSearchable={false}
                               isDisabled={true}
                               className="profile-language"
+                              className="cntryDrop"
                           />
                           </Grid>
                         </Grid>
 
                         <Grid item xs={12} md={4}>
                           <label>{Rhesus}</label>
-                          <Grid>
+                          <Grid className="cntryDropTop">
                               <Select
                                   value={this.state.rhesus}
                                   name="rhesus"
@@ -1167,6 +1179,7 @@ class Index extends Component {
                                   isSearchable={false}
                                   isDisabled={true}
                                   className="profile-language"
+                                  className="cntryDrop"
                               />
                           </Grid>
                         </Grid>

@@ -9871,6 +9871,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .vh-section input:disabled{
+    color: #404646 !important
+}
 .rrSysto3 label {
     color: #404646;
     font-family: Muli;
