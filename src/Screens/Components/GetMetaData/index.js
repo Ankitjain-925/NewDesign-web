@@ -40,6 +40,7 @@ export function GetShowLabel1(
   comesFrom = ""
 ) {
   if (list && data && data !== "undefined" && language) {
+    console.log('list', list, 'data', data, 'language', language)
     var filterData =
       list &&
       list.length > 0 &&
@@ -57,6 +58,11 @@ export function GetShowLabel1(
             return (
               d.value.toLowerCase() === data.toLowerCase().replace(/\s/g, "_")
             );
+          }
+          if (comesFrom === "rhesus") {
+            return (
+              d.value.toLowerCase() === data.value.toLowerCase().replace(/\s/g, "_")
+            );
           } else {
             return (
               d.value &&
@@ -66,6 +72,7 @@ export function GetShowLabel1(
           }
         }
       });
+      console.log('filterData', filterData)
     if (filterData && filterData.length > 0) {
       var e = filterData[0];
       e["label"] = e["label_" + language] ? e["label_" + language] : e["label"];

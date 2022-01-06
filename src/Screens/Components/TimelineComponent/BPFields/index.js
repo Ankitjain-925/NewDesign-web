@@ -41,26 +41,14 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
-      blood_pressure,
-      visible,
-      show,
-      hide,
       save_entry,
-      archive,
       rr_systolic,
       attachments,
       time_measure,
       date_measure,
-      visibility,
-      edit,
-      Delete,
       RR_diastolic,
       heart_rate,
-      view_fullscren,
-      always,
       feeling,
-      date,
-      time,
     } = translate;
 
     return (

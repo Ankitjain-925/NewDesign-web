@@ -2,13 +2,25 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import SelectField from "Screens/Components/Select/index";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import AppBar from '@material-ui/core/AppBar';
 import NotesEditor from "../../Editor/index";
+import SelectByTwo from "Screens/Components/SelectbyTwo/index";
 import { getPatientData } from "Screens/Components/CommonApi/index";
-
+import { LanguageFetchReducer } from "Screens//actions";
+import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import Checkbox from "@material-ui/core/Checkbox";
+import Select from "react-select";
+import { LoginReducerAim } from "Screens/Login/actions";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import { pure } from "recompose";
+import PropTypes from "prop-types";
+import { getLanguage } from "translations/index"
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
@@ -37,71 +49,71 @@ class Index extends Component {
         };
     }
 
-    componentDidMount = () => {
-        this.getPatientData();
-    };
+    // componentDidMount = () => {
+    //     this.getPatientData();
+    // };
 
-    handleOpenRvw = () => {
-        this.setState({ noWards: true });
-    }
+    // handleOpenRvw = () => {
+    //     this.setState({ noWards: true });
+    // }
 
-    handleCloseRvw = () => {
-        this.setState({ noWards: false });
-    }
+    // handleCloseRvw = () => {
+    //     this.setState({ noWards: false });
+    // }
 
-    handleChangeTab = (event, value) => {
-        this.setState({ value });
-    };
+    // handleChangeTab = (event, value) => {
+    //     this.setState({ value });
+    // };
 
-    onFieldChange1 = (e, name) => {
-        //   console.log('e',e,name)
-        var state = this.state.newdata;
-        state[name] = e
-        this.setState({ newdata: state });
-        // console.log('nghch',this.state.newdata)
-    }
+    // onFieldChange1 = (e, name) => {
+    //     //   console.log('e',e,name)
+    //     var state = this.state.newdata;
+    //     state[name] = e
+    //     this.setState({ newdata: state });
+    //     // console.log('nghch',this.state.newdata)
+    // }
 
-    //Get patient list
-    getPatientData = async () => {
-        this.setState({ loaderImage: true });
-        let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
-        if (response.isdata) {
-            this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
-            // console.log('users1',this.state.users1)
-        }
-        else {
-            this.setState({ loaderImage: false });
-        }
-    }
+    // //Get patient list
+    // getPatientData = async () => {
+    //     this.setState({ loaderImage: true });
+    //     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
+    //     if (response.isdata) {
+    //         this.setState({ users1: response.PatientList1, users: response.patientArray, loaderImage: false })
+    //         // console.log('users1',this.state.users1)
+    //     }
+    //     else {
+    //         this.setState({ loaderImage: false });
+    //     }
+    // }
 
-    handleChange1 = (e, name) => {
-        var state = this.state.newdata;
-        state[name] = e.target.value
-        this.setState({ newdata: state });
-    };
+    // handleChange1 = (e, name) => {
+    //     var state = this.state.newdata;
+    //     state[name] = e.target.value
+    //     this.setState({ newdata: state });
+    // };
 
-    handleChange2 = (e, name) => {
-        // console.log('e',e,name)
-        var state = this.state.newdata
-        state[name] = e.value
-        this.setState({ newdata: state });
-        // console.log('e',e)
-    };
+    // handleChange2 = (e, name) => {
+    //     // console.log('e',e,name)
+    //     var state = this.state.newdata
+    //     state[name] = e.value
+    //     this.setState({ newdata: state });
+    //     // console.log('e',e)
+    // };
 
-    updateEntryState1 = (value, name) => {
-        var state = this.state.newdata;
-        state[name] = value;
-        this.setState({ newdata: state });
-    };
+    // updateEntryState1 = (value, name) => {
+    //     var state = this.state.newdata;
+    //     state[name] = value;
+    //     this.setState({ newdata: state });
+    // };
 
-    updateEntryState2 = (e) => {
-        if (e === true) {
-            this.setState({ buttonField: true })
-        } else {
-            this.setState({ buttonField: false })
-        }
-        // console.log("e", e, name)
-    }
+    // updateEntryState2 = (e) => {
+    //     if (e === true) {
+    //         this.setState({ buttonField: true })
+    //     } else {
+    //         this.setState({ buttonField: false })
+    //     }
+    //     // console.log("e", e, name)
+    // }
 
     // handleSubmit = () => {
     //     console.log("data", this.state.newdata)
@@ -109,193 +121,97 @@ class Index extends Component {
     // };
 
     render() {
+        const { value } = this.state;
+        let translate = getLanguage(this.props.stateLanguageType)
+        let {
+          save_entry,
+          rr_systolic,
+          attachments,
+          time_measure,
+          date_measure,
+          RR_diastolic,
+          heart_rate,
+          feeling,
+        } = translate;
+    
         return (
-            <Grid>
-                <div>
-                    <Grid className="cnfrmDiaMain">
-                        <Modal>
-                            <Grid className="sendSpecific" >
-                                <Grid className="sendSpecificIner" >
-                                    <Grid className="sendSpecificBtm" >
-                                        <Grid className="sendSpecifiClose" >
-                                            <a onClick={this.handleCloseRvw}> <img src={require("assets/images/close-search.svg")} alt="" title="" /> </a>
-                                        </Grid>
-                                        < Grid ><label>New entry</label></Grid >
-                                        <Grid>
-                                            <select>
-                                                <option>Journal Promotion 1 </option>
-                                                <option > Journal Promotion 2 </option>
-                                                <option > Journal Promotion 3 </option>
-                                            </select>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid className="fillDia">
-                                        <Grid className="rrSysto">
-                                            <label>Who would you like to send this to ?</label>
-                                        </Grid>
-                                        <AppBar position="static" className="spcificTabs" >
-                                            <Tabs value={value} onChange={this.handleChangeTab} >
-                                                <Tab label="Specific Patients" />
-                                                <Tab label="All Patients" />
-                                            </Tabs>
-                                        </AppBar>
-                                        {value === 0 && <TabContainer>
-                                            <Grid className="fillDia">
-                                                <Grid><label>Send to </label></Grid>
-                                                <Select
-                                                    name="patient"
-                                                    options={this.state.users1}
-                                                    placeholder="Search & Select"
-                                                    onChange={(e) => this.onFieldChange1(e, "patient")}
-                                                    value={this.state.newdata.patient}
-                                                    className="addStafSelect"
-                                                    isMulti={true}
-                                                    isSearchable={true}
-                                                />
-                                            </Grid>
-                                            <Grid className="fillDia">
-                                                <Grid><label>Promotion Type</label></Grid>
-                                                <Select
-                                                    onChange={(e) => { this.handleChange2(e, "Promotion type") }}
-                                                    options={options}
-                                                    placeholder="Hints"
-                                                    isSearchable={true}
-                                                    className="promotionSelect"
-                                                />
-                                            </Grid>
-                                            <Grid className="fillDia" >
-                                                <Grid><label>Title </label></Grid >
-                                                <Grid>
-                                                    <TextField
-                                                        placeholder="Enter title name"
-                                                        onChange={(e) => { this.handleChange1(e, "title") }} />
-                                                </Grid >
-                                            </Grid>
-                                            <Grid className="fillDia">
-                                                <Grid className="rrSysto">
-                                                    <Grid><label>Text </label></Grid >
-                                                    <NotesEditor
-                                                        label={Text}
-                                                        onChange={(e) => this.updateEntryState1(e, "Text")}
-                                                        value={this.state.newdata.Text}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                            <Grid className="fillDia" >
-                                                <FormControlLabel
-                                                    control={<Checkbox
-                                                        // name="Add button at the end of post"
-                                                        name="end_post"
-                                                        checked={this.state.newdata?.post}
-                                                        onChange={(e) =>
-                                                            this.updateEntryState2(
-                                                                e.target.checked,
-                                                                "post"
-                                                            )}
-                                                    />
-                                                    }
-                                                    label="Add button at the end of post"
-                                                />
-                                            </Grid>
-                                            {this.state.buttonField === true && (
-                                                <Grid className="fillDia">
-                                                    <Grid className="rrSysto">
-                                                        <label>Set Button Text</label>
-                                                    </Grid>
-                                                    <Grid className="rrSysto">
-                                                        <TextField
-                                                            placeholder="Set button text"
-                                                            onChange={(e) => { this.handleChange1(e, "Set button text") }}
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                            )}
-                                            {/* <Grid className="fillDia" >
-                                                <Button onClick={() => this.handleSubmit()}>Save</Button>
-                                            </Grid > */}
-                                        </TabContainer>}
-                                        {value === 1 && <TabContainer>
-                                            {/* <Grid className="fillDia">
-                                                <Grid><label>Send to </label></Grid>
-                                                <Select
-                                                    name="patient"
-                                                    options={this.state.users1}
-                                                    placeholder="Search & Select"
-                                                    onChange={(e) => this.onFieldChange1(e, "patient")}
-                                                    value={this.state.newdata.patient}
-                                                    className="addStafSelect"
-                                                    isMulti={true}
-                                                    isSearchable={true}
-                                                />
-                                            </Grid> */}
-                                            <Grid className="fillDia">
-                                                <Grid><label>Promotion Type</label></Grid>
-                                                <Select
-                                                    onChange={(e) => { this.handleChange2(e, "Promotion type") }}
-                                                    options={options}
-                                                    placeholder="Hints"
-                                                    isSearchable={true}
-                                                    className="promotionSelect"
-                                                />
-                                            </Grid>
-                                            <Grid className="fillDia" >
-                                                <Grid><label>Title </label></Grid >
-                                                <Grid>
-                                                    <TextField
-                                                        placeholder="Enter title name"
-                                                        onChange={(e) => { this.handleChange1(e, "title") }} />
-                                                </Grid >
-                                            </Grid>
-                                            <Grid className="fillDia">
-                                                <Grid className="rrSysto">
-                                                    <Grid><label>Text </label></Grid >
-                                                    <NotesEditor
-                                                        label={Text}
-                                                        onChange={(e) => this.updateEntryState1(e, "Text")}
-                                                        value={this.state.newdata.Text}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                            <Grid className="fillDia" >
-                                                <FormControlLabel
-                                                    control={<Checkbox
-                                                        // name="Add button at the end of post"
-                                                        name="end_post"
-                                                        checked={this.state.newdata?.post}
-                                                        onChange={(e) =>
-                                                            this.updateEntryState2(
-                                                                e.target.checked,
-                                                                "post"
-                                                            )}
-                                                    />
-                                                    }
-                                                    label="Add button at the end of post"
-                                                />
-                                            </Grid>
-                                            {this.state.buttonField === true && (
-                                                <Grid className="fillDia">
-                                                    <Grid className="rrSysto">
-                                                        <label>Set Button Text</label>
-                                                    </Grid>
-                                                    <Grid className="rrSysto">
-                                                        <TextField
-                                                            placeholder="Set button text"
-                                                            onChange={(e) => { this.handleChange1(e, "Set button text") }}
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                            )}
-                                            {/* <Grid className="fillDia" >
-                                                <Button onClick={() => this.handleSubmit()}>Save</Button>
-                                            </Grid > */}
-                                        </TabContainer>}
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Modal>
-                    </Grid>
-                </div >
-            </Grid >
+            <div>
+              <Grid className="cnfrmDiaMain">
+              {/* <Grid className="fillDia">
+              <SelectByTwo
+                name="option"
+                label={"Who would you like to send this to ?"}
+                options={this.state.options}
+                onChange={(e) => this.updateEntryState1(e, "option")}
+                value={GetShowLabel1(
+                  this.state.options,
+                  this.state.updateTrack &&
+                    this.state.updateTrack.situation &&
+                    this.state.updateTrack.situation.value,
+                  this.props.stateLanguageType
+                )}
+              />
+              {this.state.updateTrack.option === 'specific' && (
+               <Grid className="fillDia">
+                <SelectField
+                    name="patient"
+                    isSearchable={true}
+                    label={'select patient'}
+                    option={this.state.options}
+                    onChange={(e) => this.updateEntryState1(e, "patient")}
+                    value={GetShowLabel1(
+                    this.props.options,
+                    this.state.updateTrack &&
+                        this.state.updateTrack.patient &&
+                        this.state.updateTrack.patient.value,
+                    this.props.stateLanguageType,
+                    false,
+                    "specialty"
+                    )}
+                />
+                </Grid>
+               )}
+                <SelectField
+                    name="promotion_type"
+                    isSearchable={true}
+                    label={"Promotion Type"}
+                    option={this.state.options}
+                    onChange={(e) => this.updateEntryState1(e, "promotion_type")}
+                    value={GetShowLabel1(
+                    this.props.options,
+                    this.state.updateTrack &&
+                        this.state.updateTrack.promotion_type &&
+                        this.state.updateTrack.promotion_type.value,
+                    this.props.stateLanguageType,
+                    false,
+                    "specialty"
+                    )}
+                />
+            </Grid>
+            <Grid className="infoShwSave3">
+                    <input
+                    type="submit"
+                    value={save_entry}
+                    // onClick={this.props.AddTrack}
+                    />
+                </Grid> */}
+                </Grid>
+            </div>
+                    
         )
     }
 }
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    const {
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+      } = state.LoginReducerAim;
+    return {
+        stateLanguageType,
+        stateLoginValueAim
+    };
+};
+export default pure(
+    withRouter(connect(mapStateToProps, { LanguageFetchReducer, LoginReducerAim, })(Index))
+);

@@ -51,6 +51,7 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[0]}
+           
           />
         )}
         {this.state.is24 === "DD/MM/YYYY" && (
@@ -64,6 +65,7 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[0]}
+           
           />
         )}
         {this.state.is24 === "YYYY/DD/MM" && (
@@ -77,6 +79,7 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[2]}
+           
           />
         )}
         {this.state.is24 === "MM/DD/YYYY" && (
@@ -90,6 +93,7 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[1]}
+           
           />
         )}
       </div>

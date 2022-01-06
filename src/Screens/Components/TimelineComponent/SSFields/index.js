@@ -68,39 +68,41 @@ class Index extends Component {
                 this.state.updateTrack.smoking_status.value !==
                   "Never_smoked")) && (
               <div>
-                <Grid className="rrSysto">
-                  <Grid>
-                    <label>
-                      {from} {when}
-                    </label>
+                <Grid className="fillDia">
+                  <Grid className="rrSysto">
+                    <Grid>
+                      <label>
+                        {from} {when}
+                      </label>
+                    </Grid>
+                    <DateFormat
+                      name="from_when"
+                      value={
+                        this.state.updateTrack.from_when
+                          ? new Date(this.state.updateTrack.from_when)
+                          : new Date()
+                      }
+                      date_format={this.state.date_format}
+                      onChange={(e) => this.updateEntryState1(e, "from_when")}
+                    />
                   </Grid>
-                  <DateFormat
-                    name="from_when"
-                    value={
-                      this.state.updateTrack.from_when
-                        ? new Date(this.state.updateTrack.from_when)
-                        : new Date()
-                    }
-                    date_format={this.state.date_format}
-                    onChange={(e) => this.updateEntryState1(e, "from_when")}
-                  />
-                </Grid>
-                <Grid className="rrSysto">
-                  <Grid>
-                    <label>
-                      {until} {when}
-                    </label>
+                  <Grid className="rrSysto">
+                    <Grid>
+                      <label>
+                        {until} {when}
+                      </label>
+                    </Grid>
+                    <DateFormat
+                      name="until_when"
+                      value={
+                        this.state.updateTrack.until_when
+                          ? new Date(this.state.updateTrack.until_when)
+                          : new Date()
+                      }
+                      date_format={this.state.date_format}
+                      onChange={(e) => this.updateEntryState1(e, "until_when")}
+                    />
                   </Grid>
-                  <DateFormat
-                    name="until_when"
-                    value={
-                      this.state.updateTrack.until_when
-                        ? new Date(this.state.updateTrack.until_when)
-                        : new Date()
-                    }
-                    date_format={this.state.date_format}
-                    onChange={(e) => this.updateEntryState1(e, "until_when")}
-                  />
                 </Grid>
               </div>
             )}

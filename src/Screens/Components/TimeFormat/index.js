@@ -47,6 +47,7 @@ class Time extends Component {
               this.onTimeChange(e);
             }}
             format="HH:mm"
+           
           />
         ) : (
           <TimePicker
@@ -60,6 +61,7 @@ class Time extends Component {
               this.onTimeChange(e);
             }}
             format="h:mm a"
+           
           />
         )}
       </div>

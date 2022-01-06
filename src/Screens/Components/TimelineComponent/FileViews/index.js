@@ -9,7 +9,9 @@ import InnerImageZoom from "react-inner-image-zoom";
 import sitedata from "sitedata";
 import Loader from "Screens/Components/Loader/index";
 import { pure } from "recompose";
-
+import { Settings } from "Screens/Login/setting";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -209,7 +211,7 @@ class Index extends Component {
         <Modal
           open={this.state.openPopup}
           onClose={this.CloseFile}
-          // className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
+          className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
         >
           <Grid
             className={
@@ -250,5 +252,13 @@ class Index extends Component {
     );
   }
 }
-
-export default pure(Index);
+const mapStateToProps = (state) => {
+  const { settings } = state.Settings;
+  return {
+      settings,
+  };
+};
+export default pure(withRouter(
+  connect(mapStateToProps, {
+      Settings,
+  })(Index)));

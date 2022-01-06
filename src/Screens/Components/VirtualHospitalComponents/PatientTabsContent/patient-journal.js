@@ -32,6 +32,7 @@ import DVFields from "Screens/Components/TimelineComponent/DVFields/index";
 import CPFields from "Screens/Components/TimelineComponent/CPFields/index";
 import DiaryFields from "Screens/Components/TimelineComponent/DiaryFields/index";
 import RespirationField from "Screens/Components/TimelineComponent/RespirationField/index";
+import PromotionFields from "Screens/Components/TimelineComponent/PromotionFields/index";
 import AllL_Ps from "Screens/Components/Parameters/parameter.js";
 import LRFields from "Screens/Components/TimelineComponent/LRFields/index";
 import CovidSymptomsField from "Screens/Components/TimelineComponent/CovidSymptomsField/index";
@@ -1200,6 +1201,9 @@ class Index extends Component {
                                 <option value="respiration">
                                   {respiration}
                                 </option>
+                                <option value="promotion">
+                                  {"Journal Promotion"}
+                                </option>
                               </select>
                             </Grid>
                           </div>
@@ -1915,6 +1919,33 @@ class Index extends Component {
                             updateTrack={this.state.updateTrack}
                           />
                         )}
+                        {this.state.current_select ===
+                          "promotion" && (
+                            <PromotionFields
+                              cur_one={this.state.cur_one2}
+                              FileAttachMulti={this.FileAttachMulti}
+                              visibility={this.state.visibility}
+                              comesfrom="adminstaff"
+                              lrpUnit={AllL_Ps.AllL_Ps.units}
+                              lrpEnglish={AllL_Ps.AllL_Ps.english}
+                              GetHideShow={this.GetHideShow}
+                              AddTrack={this.AddTrack}
+                              options={this.state.AllSpecialty}
+                              date_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.date_format
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              updateEntryState={this.updateEntryState}
+                              updateEntryState1={this.updateEntryState1}
+                              updateTrack={this.state.updateTrack}
+                            />
+                          )}
                       </Grid>
                     </Grid>
                   </Grid>
