@@ -899,6 +899,7 @@ class Index extends Component {
                                   this.props.stateLanguageType
                                 )
                               }
+                              className="cntryDrop"
                               isDisabled={true}
                             // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
                             />

@@ -68,7 +68,7 @@ class Index extends Component {
                                                         <ul>
                                                             <li><a><span>{Institution}</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
                                                             <li><a><span>{speciality}</span><label>{Neurology}</label></a></li>
-                                                            <li><a><span>Ward</span><label>{AdultsWard}</label></a></li>
+                                                            <li><a><span>{Ward}</span><label>{AdultsWard}</label></a></li>
                                                         </ul>
                                                     </Grid>
                                                 </Grid>

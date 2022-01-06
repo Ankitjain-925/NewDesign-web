@@ -781,7 +781,7 @@ class Index extends Component {
                         onChange={(e) => this.setState({ SelectedTopic: e })}
                         options={this.state.courseTopics}
                         placeholder={topic_all}
-                        className="topicAll"
+                        className="topicAll cstmSelect1"
                         isSearchable={true}
                       />
                     </Grid>
@@ -791,7 +791,7 @@ class Index extends Component {
                         onChange={(e) => this.setState({ SelectedLanguage: e })}
                         options={this.state.Languages}
                         placeholder={language_all}
-                        className="topicAll"
+                        className="topicAll cstmSelect1"
                         isSearchable={true}
                       />
                     </Grid>

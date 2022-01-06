@@ -101,7 +101,7 @@ export const handleSubmit = (current) => {
 
 export const getSpecialtyData = (id, current) => {
   if (id) {
-    current.setState({ specialty_id: id })
+    current.setState({ speciality_id: id })
     if (id === 'general') {
       var filterData = current.state.AllServices?.length > 0 && current.state.AllServices.filter((data) => !data.specialty_id)
     }

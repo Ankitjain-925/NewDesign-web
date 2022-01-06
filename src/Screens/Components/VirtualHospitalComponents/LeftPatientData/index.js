@@ -10,9 +10,11 @@ import axios from "axios";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
+import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
 import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
@@ -34,6 +36,7 @@ class Index extends Component {
     this.state = {
       personalinfo: this.props.personalinfo,
       upcoming_appointment: this.props.upcoming_appointment,
+      LeftInfoPatient: this.props.LeftInfoPatient,
       added_data: this.props.added_data,
       time_format: this.props.time_format,
       date_format: this.props.date_format,
@@ -56,7 +59,8 @@ class Index extends Component {
       ggtLast: -1,
       astLast: -1,
       altLast: -1,
-      LRLast: -1
+      LRLast: -1,
+      currenttab: this.props.currenttab,
     };
   }
 
@@ -111,7 +115,11 @@ class Index extends Component {
       nextState.astLast !== this.state.astLast ||
       nextState.altLast !== this.state.altLast ||
       nextState.LRLast !== this.state.LRLast ||
-      nextState.images !== this.state.images
+      nextState.images !== this.state.images ||
+      nextState.LeftInfoPatient !== this.state.LeftInfoPatient || 
+      nextProps.LeftInfoPatient !== this.props.LeftInfoPatient ||
+      nextProps.currenttab !== this.props.currenttab ||
+      nextState.currenttab !== this.state.currenttab
     );
   }
 
@@ -295,6 +303,13 @@ class Index extends Component {
     if (prevProps.loggedinUser !== this.props.loggedinUser) {
       this.setState({ loggedinUser: this.props.loggedinUser });
     }
+    if (prevProps.LeftInfoPatient !== this.props.LeftInfoPatient) {
+      this.setState({ LeftInfoPatient: this.props.LeftInfoPatient });
+    }
+    if (prevProps.currenttab !== this.props.currenttab) {
+      this.setState({ currenttab: this.props.currenttab });
+    }
+    
   };
 
   getOptions = (current_Graph) => {
@@ -2132,9 +2147,9 @@ class Index extends Component {
       upcming_apointment,
       last_document,
       prescriptions,
-      sick_cert,
+      sick_cert, personal_info,
       Download, sixteen032020, twentyFourThousandEuro,
-      respiration, one, slash2, Neurology, AdultsWard, Room1, Bed2, Examinations, twenty6, two021000248
+      respiration, one, slash2, Neurology, AdultsWard, Room1, Bed, Examinations, twenty6, two021000248
     } = translate;
     var item = this.state.item;
     let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight, kg, Height, cm, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, LastDocuments, Prescription } = translate;
@@ -2164,10 +2179,10 @@ class Index extends Component {
               </Grid>
               <Grid className="entryInfo">
                 <ul>
-                  <li onClick={() => { this.onTrigger(0) }} className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>{NewEntry}</label></li>
-                  <li onClick={() => { this.onTrigger(1) }}><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>{NewTask}</label></li>
-                  <li onClick={() => { this.onTrigger(2) }}><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>Personalinfo</label></li>
-                  <li onClick={() => { this.onTrigger(3) }}><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>{DocumentsFiles}</label></li>
+                  <li onClick={() => { this.onTrigger(0) }} className={this.state.currenttab == 0 && "entryInfoActv"}><img src={this.state.currenttab == 0 ? require("assets/images/nav-journal-white.svg") : require("assets/images/nav-journal.svg")} alt="" title="" /><label>{NewEntry}</label></li>
+                  <li onClick={() => { this.onTrigger(1) }} className={this.state.currenttab == 1 && "entryInfoActv"}><img src={this.state.currenttab == 1 ? require('assets/virtual_images/rightIcon2.png') :  require('assets/virtual_images/rightpng.png')} alt="" title="" /><label>{NewTask}</label></li>
+                  <li onClick={() => { this.onTrigger(3) }} className={this.state.currenttab == 3 && "entryInfoActv"}><img src={this.state.currenttab == 3 ? require('assets/virtual_images/active-pencil.svg') : require('assets/virtual_images/pencil-1.svg')} alt="" title="" /><label>{personal_info}</label></li>
+                  <li onClick={() => { this.onTrigger(2) }} className={this.state.currenttab == 2 && "entryInfoActv"}><img src={this.state.currenttab == 2 ? require("assets/images/nav-my-documents-inquiries-active.svg") : require("assets/images/nav-my-documents-inquiries.svg")} alt="" title="" /><label>{DocumentsFiles}</label></li>
                 </ul>
               </Grid>
             </Grid>
@@ -2188,24 +2203,25 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Grid className="mdclMembrs">
+                      <Assigned assigned_to={this.state.LeftInfoPatient?.data?.assinged_to} />
+                      {/* <Grid className="mdclMembrs">
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
                         <a>+3</a>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask">
                       <Grid><label>{CompletedTasks}</label></Grid>
-                      <p><span>{one}</span>{slash2}</p>
+                      <p><span>{this.state.LeftInfoPatient?.done_task}</span>/ {this.state.LeftInfoPatient?.total_task}</p>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask docsFile">
                       <Grid><label>{DocumentsFiles}</label></Grid>
-                      <p>16</p>
+                      <p>{this.state.LeftInfoPatient?.document_file}</p>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -2223,23 +2239,33 @@ class Index extends Component {
                     </Grid>
                     <Grid>
                       <Grid className="NeuroBtn">
-                        <Grid><Button variant="contained" color="primary">{Neurology}</Button></Grid>
+                        <Grid>
+                        {this.state.LeftInfoPatient?.data?.speciality &&
+                        <SpecialityButton
+                          label={this.state.LeftInfoPatient?.data?.speciality?.specialty_name}
+                          backgroundColor={this.state.LeftInfoPatient?.data?.speciality?.background_color}
+                          viewImage={false}
+                          color={this.state.LeftInfoPatient?.data?.speciality?.color}
+                          onClick={() => this.setSpeciality(this.state.LeftInfoPatient?.data?.speciality)}
+                          showActive={false}
+                        />}
+                        </Grid>
                         <Grid className="roomsNum">
                           <ul>
-                            <li><img src={require('assets/virtual_images/ward.png')} alt="" title="" />{AdultsWard}</li>
-                            <li><img src={require('assets/virtual_images/room22.svg')} alt="" title="" />{Room1}</li>
-                            <li><img src={require('assets/virtual_images/bedColor.png')} alt="" title="" />{Bed2}</li>
+                            <li><img src={require('assets/virtual_images/ward.png')} alt="" title="" />{this.state.LeftInfoPatient?.data?.wards?.ward_name}</li>
+                            <li><img src={require('assets/virtual_images/room22.svg')} alt="" title="" />{this.state.LeftInfoPatient?.data?.rooms?.room_name}</li>                            
+                            <li><img src={require('assets/virtual_images/bedColor.png')} alt="" title="" />{Bed} {this.state.LeftInfoPatient?.data?.bed}</li>
                           </ul>
                         </Grid>
                       </Grid>
                       <Grid className="exmBtn">
-                        <a><img src={require('assets/virtual_images/content-view-column.svg')} alt="" title="" />{Examinations}</a>
+                        <a><img src={require('assets/virtual_images/content-view-column.svg')} alt="" title="" />{this.state.LeftInfoPatient?.step?.step_name}</a>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask docsFile entrsSec">
-                      <Grid><label>{Entries}</label></Grid><p>{twenty6}</p>
+                      <Grid><label>{Entries}</label></Grid><p>{this.state.LeftInfoPatient?.entries}</p>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -2252,27 +2278,31 @@ class Index extends Component {
                 <label>{Billing}</label>
               </Grid>
               <Grid item xs={6} md={6}>
-                <Grid className="billImg">
+                {/* <Grid className="billImg">
                   <img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
             <a href className="yearSecBg">
-              <Grid container direction="row" alignItems="center">
-                <Grid item xs={12} md={8}>
+              {this.state.LeftInfoPatient?.invoice && this.state.LeftInfoPatient?.invoice.map((item)=>(
+                <Grid container direction="row" alignItems="center">
+                <Grid item xs={12} md={12}>
                   <Grid className="yearSec">
-                    <label>{two021000248}</label>
-                    <label>{sixteen032020}</label>
+                    <label>{item?.invoice_id}</label>
+                    <label>{getDate(item.created_at,  this.props.settings.setting &&
+                          this.props.settings.setting.date_format)}</label>
                   </Grid>
                   <Grid className="issuePrice">
-                    <label className="isuLbl">{Issued}</label>
-                    <label>{twentyFourThousandEuro}</label>
+                    <label className="isuLbl">{item?.status?.label}</label>
+                    <label>{item?.total_amount} €</label>
                   </Grid>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <Grid className="yearOpen"><a>{open}</a></Grid>
+                  {/* <Grid className="yearOpen"><a>{open}</a></Grid> */}
                 </Grid>
               </Grid>
+              ))}
+            
             </a>
           </Grid>
           <Grid className="profileDescp">
@@ -2331,7 +2361,9 @@ class Index extends Component {
                   {this.state.loggedinUser &&
                     this.state.loggedinUser?.blood_group &&
                     this.state.loggedinUser?.rhesus
-                    ? this.state.loggedinUser.blood_group + this.state.loggedinUser.rhesus
+                    ? typeof this.state.loggedinUser?.blood_group === 'object' ? 
+                    this.state.loggedinUser?.blood_group.value +' '+ this.state.loggedinUser?.rhesus.value
+                    : this.state.loggedinUser?.blood_group +' '+ this.state.loggedinUser?.rhesus.value
                     : "--"}
                 </p>
               </Grid>

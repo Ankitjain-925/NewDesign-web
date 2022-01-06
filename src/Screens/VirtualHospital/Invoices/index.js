@@ -360,6 +360,8 @@ class Index extends Component {
     //Delete the perticular service confirmation box
     removeServices = (id) => {
         this.setState({ message: null });
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { RemoveService, sure_remove_service_from_invoice, No, Yes } = translate;
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -373,18 +375,18 @@ class Index extends Component {
                                 : "react-confirm-alert-body"
                         }
                     >
-                        <h1>Remove the Service ?</h1>
+                        <h1>{RemoveService}</h1>
 
-                        <p>Are you sure to remove this Service from Invoice?</p>
+                        <p>{sure_remove_service_from_invoice}</p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
+                            <button onClick={onClose}>{No}</button>
                             <button
                                 onClick={() => {
                                     this.deleteClickService(id);
                                     onClose();
                                 }}
                             >
-                                Yes
+                                {Yes}
                             </button>
                         </div>
                     </div>
@@ -421,7 +423,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { InvoiceID, Patient, Status, Services, Addservice, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close } =
+        let { InvoiceID, Patient, Status, Services, srvc, qty, Price, Add, FinishInvoice, SaveDraft, Addservice, BacktoBilling, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close } =
             translate;
         const { selectedOption } = this.state;
         const { addinvoice } = this.state;
@@ -453,7 +455,7 @@ class Index extends Component {
                                         <Grid className="extSetting">
                                             <a onClick={this.Billing}>
                                                 <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
-                                                Back to Billing</a>
+                                                {BacktoBilling}</a>
                                         </Grid>
                                         {/* End of Back common button */}
                                         {/* {this.state.addinvoice?._id &&
@@ -519,7 +521,7 @@ class Index extends Component {
                                                 <Table>
                                                     <Thead>
                                                         <Tr>
-                                                            <Th>Service</Th><Th>Qty</Th><Th>Price</Th><Th></Th>
+                                                            <Th>{srvc}</Th><Th>{qty}</Th><Th>{Price}</Th><Th></Th>
                                                         </Tr>
                                                     </Thead>
 
@@ -585,7 +587,7 @@ class Index extends Component {
                                                             <p className="enterPricePart2">€</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={2} className="addSrvcBtn">
-                                                            <Button onClick={this.handleAddSubmit}>Add</Button>
+                                                            <Button onClick={this.handleAddSubmit}>{Add}</Button>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -618,8 +620,8 @@ class Index extends Component {
                                                 <p>{InvoiceAmount}</p>
                                                 <label>{this.state.addinvoice.total_amount} €</label>
                                                 <Grid>
-                                                    <Button onClick={() => { this.finishInvoice() }}>Finish Invoice</Button>
-                                                    <Button onClick={() => { this.finishInvoice('draft') }}>Save Draft</Button>
+                                                    <Button onClick={() => { this.finishInvoice() }}>{FinishInvoice}</Button>
+                                                    <Button onClick={() => { this.finishInvoice('draft') }}>{SaveDraft}</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>

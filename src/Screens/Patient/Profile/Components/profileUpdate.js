@@ -19,8 +19,8 @@ import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
 import DateFormat from 'Screens/Components/DateFormat/index'
 import { getLanguage } from "translations/index";
 import { updateFLAG, updateMOBILE } from './odapi';
-import { getUserData, getMetadata, handleChange_multi, saveUserData1, saveUserData, firstLoginUpdate, onChange, updateEntryState1, updateEntryState11, copyText, updateflags,
-    updateEntryState, EntryValueName , GetLanguageMetadata, filterCountry, filterCountry1, toggle, filterList, updatesinsurances, changeAlies, changePin, ChangeIDPIN, updatesinsurancesCountry ,removeInsurance,  } from './puapi';
+import { getUserData, contact_partnerState, getMetadata, handleChange_multi, saveUserData1, saveUserData, firstLoginUpdate, onChange, updateEntryState1, updateEntryState11, copyText, updateflags,
+    updateEntryState, Upsaterhesus, EntryValueName , GetLanguageMetadata, filterCountry, filterCountry1, toggle, filterList, updatesinsurances, changeAlies, changePin, ChangeIDPIN, updatesinsurancesCountry ,removeInsurance,  } from './puapi';
 
 class Index extends Component {
     constructor(props) {
@@ -103,6 +103,7 @@ class Index extends Component {
             bloodgroup: [],
             rhesusgroup: [],
             bloods: {},
+            title:{},
             rhesus: {},
             insu1: false,
             contact_partner: {},
@@ -125,29 +126,29 @@ class Index extends Component {
     }
 
       //To add Insurance
-  insuranceForm = (e) => {
-    const state = this.state.insuranceDetails;
-    if (e.target.name == "insurance") {
-      const q = e.target.value.toLowerCase();
-      this.setState({ q }, () =>
-        filterList(this.state.insuranceDetails.insurance_country, this)
-      );
-    }
-    state[e.target.name] = e.target.value;
-    this.setState({ insuranceDetails: state });
-  };
+    insuranceForm = (e) => {
+        const state = this.state.insuranceDetails;
+        if (e.target.name == "insurance") {
+        const q = e.target.value.toLowerCase();
+        this.setState({ q }, () =>
+            filterList(this.state.insuranceDetails.insurance_country, this)
+        );
+        }
+        state[e.target.name] = e.target.value;
+        this.setState({ insuranceDetails: state });
+    };
 
-  selectCountry = (event) => {
-    const state = this.state.insuranceDetails;
-    state["insurance_country"] = event.value;
-    this.setState({ insuranceDetails: state });
-    this.setState({ selectedCountry: event });
-  };
+    selectCountry = (event) => {
+        const state = this.state.insuranceDetails;
+        state["insurance_country"] = event.value;
+        this.setState({ insuranceDetails: state });
+        this.setState({ selectedCountry: event });
+    };
   
       // For Add more insurance model
-  handleAddInsurance = () => {
-    this.setState({ addInsuranceOpen: true });
-  };
+    handleAddInsurance = () => {
+        this.setState({ addInsuranceOpen: true });
+    };
     //For open QR code
     handleQrOpen = () => {
         this.setState({ qrOpen: true });
@@ -180,7 +181,7 @@ class Index extends Component {
         if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
             GetLanguageMetadata(this);
             if (this.state.rhesus && this.state.rhesus.value) {
-                this.Upsaterhesus(this.state.rhesus.value);
+                Upsaterhesus(this, this.state.rhesus);
             }
         }
     }
@@ -188,11 +189,6 @@ class Index extends Component {
     //For open the Insurance Edit popup
     editKYCopen(event, i) {
         this.setState({ editInsuranceOpen: true, insuranceDetails: event, editIndex: i })
-    }
-
-    Upsaterhesus = (rhesusfromD) => {
-        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType)
-        this.setState({ rhesus: rhesus })
     }
 
     //Calling when city is updated
@@ -210,7 +206,7 @@ class Index extends Component {
     }
 
     render() {
-        const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
+        const { value, editInsuData, insurancefull, editIndex, insuranceDetails, } = this.state;
         const companyList = this.state.filteredCompany && this.state.filteredCompany.map(company => {
             return (
                 <li className="list-group-item" value={company}
@@ -385,7 +381,7 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
                                         <label>{marital_status}</label>
-                                        <Grid>
+                                        <Grid className="cntryDropTop">
                                             <Select
                                                 placeholder={select_marital_status}
                                                 options={this.state.AllMaritalOption}
@@ -395,7 +391,8 @@ class Index extends Component {
                                                     this.props.stateLanguageType
                                                 )}
                                                 // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
-                                                onChange={this.handleMaritalStatus} />
+                                                onChange={this.handleMaritalStatus} 
+                                                className="cntryDrop"/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -516,6 +513,7 @@ class Index extends Component {
                                     <Grid item xs={12} md={4}>
                                         <label>{Blood}</label>
                                         <Grid>
+                                            {console.log('this.state.bloods', this.state.bloods, this.state.rhesus)}
                                             <Select
                                                 value={this.state.bloods}
                                                 name="bloodgroup"
@@ -557,11 +555,11 @@ class Index extends Component {
                     <Grid className="insrnceTbl"><h3>{emergency} {Contact}</h3></Grid>
                     <Grid className="emrgncyFrmInpt">
                         <Grid><label>{Register_Name}</label></Grid>
-                        <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
+                        <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={(e)=> contact_partnerState(e, this)} /></Grid>
                     </Grid>
                     <Grid className="emrgncyFrmInpt">
                         <Grid><label>{relation}</label></Grid>
-                        <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
+                        <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={(e)=> contact_partnerState(e, this)} /></Grid>
                     </Grid>
                     <Grid className="emrgncyFrmInpt">
                         <Grid><label>{telephone_nmbr}</label></Grid>
@@ -583,7 +581,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="emrgncyFrmInpt">
                         <Grid><label>{email}</label></Grid>
-                        <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
+                        <Grid><input name="email" value={this.state.contact_partner.email} onChange={(e)=> contact_partnerState(e, this)} /></Grid>
                     </Grid>
                 </Grid>
 

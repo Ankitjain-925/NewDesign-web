@@ -318,6 +318,7 @@ class Index extends Component {
                                                         onClose={this.handleCloseQues}
                                                         className="addSpeclModel">
                                                         <Grid className="addSpeclContnt">
+                                                            
                                                             <Grid className="addSpeclLbl">
                                                                 <Grid className="nwDiaCloseBtn">
                                                                     <a onClick={this.handleCloseQues}>

@@ -410,8 +410,8 @@ class PointPain extends Component {
                     </a>
                   </Grid>
                   <Grid className="clear"></Grid>
-                  {this.state.openBy !== "adminstaff" && <Grid>
-                    <a onClick={() => this.handleChangeEntry("journal_promotion")}>
+                  {this.state.openBy === "adminstaff" && <Grid>
+                    <a onClick={() => this.handleChangeEntry("promotion")}>
                         <span>24</span>
                       <p>{"Journal Promotion"}</p>
                     </a>

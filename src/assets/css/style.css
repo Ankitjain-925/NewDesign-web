@@ -13545,6 +13545,10 @@ a.academy_ul ul li img {
 .darkTheme > div:nth-child(3) .sel_specialty .css-yk16xz-control input{
     color: #BFC1C1 !important;
 }
+.darkTheme > div:nth-child(3) .sel_specialty div {
+    background: #303737;
+    color: #dfdfdf;
+}
 .homeBgDrk .trackView a {
     color: #bfc1c1;
 }
@@ -13605,7 +13609,8 @@ iframe.stripe_checkout_app {
     width: 22px !important;
     cursor: pointer;
 }
-.updatedfileuploader img{
+.updatedfileuploader img {
+    height: auto !important;
     width: 100%;
     padding: 3px;
     border-radius: 15px;
@@ -14913,7 +14918,7 @@ input:focus {
     overflow-y: auto;
   }
   .custom-text{
-    margin-left: 40px;
+    margin-left: 60px;
     min-width: 43px;
     color: #000808;
     font-family: Muli;
@@ -15096,7 +15101,7 @@ label.attached_file a {
     background-color: #404646 !important;
     color: #BFC1C1 !important;
 }
-.darkTheme .ql-toolbar.ql-snow {
+.darkTheme .fillDia .rrSysto .ql-toolbar.ql-snow {
     background-color: #949494 !important;
 }
 .darkTheme .quill {
@@ -15111,7 +15116,7 @@ label.attached_file a {
     color: #BFC1C1 !important;
 }
 .darkTheme .shwAfter {
-    background-color: #202323;
+    background-color: #404646;
 }
 .darkTheme .visibleAll {
     background-color: #404646 !important;
@@ -15625,6 +15630,10 @@ a.SelectedGender{
     background: #303737 !important;
     color: #BFC1C1 !important; 
 }
+.darkTheme > div:nth-child(3) .addStafSelect {
+    border: 1px solid #bfc1c1;
+    border-radius: 4px;
+}
 .darkTheme > div:nth-child(3) .srvcTags a{
     background-color: #303737;
     color: #D9DADA !important;
@@ -15879,6 +15888,9 @@ a.clsSltCal {
 .homeBgDrk .mkFmlyDoc div {
     background: #404646 !important;
     border-radius: 2px !important;
+    color: #dfdfdf !important;
+    box-shadow: initial !important;
+    outline: none !important;
 }
 .homeBgDrk .blockChainDtail1{
     background-color: #404646 !important;
@@ -17267,7 +17279,6 @@ ul.duringCovid li:last-child {
     justify-content: space-between !important;
     align-items: center !important;
 }
-
 .addTimeTask button {
     width: 162px;
     border: 1px solid #BFC1C1;
@@ -17282,10 +17293,31 @@ ul.duringCovid li:last-child {
     text-transform: initial;
     padding: 14px 0px;
 }
-
 .borderStyle {
     border-style: solid;
     border-width: thin;
 }
-
 /* Done by naveen end here */
+ 
+.darkTheme > div:nth-child(4) .ant-picker-panel-container {
+    background: #192020;
+}
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-dropdown div {
+    color: #b7b7b7;
+}
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-content th {
+    height: 30px;
+    color: rgb(0 171 175);
+}
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-prev-icon,
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-super-prev-icon, 
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-next-icon,
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-super-next-icon {
+    color: #00abaf;
+}
+.darkTheme > div:nth-child(4) .ant-picker-cell .ant-picker-cell-inner  {
+    color: #b7b7b7 !important;
+}
+.darkTheme > div:nth-child(4) .ant-picker-header-view button,.darkTheme > div:nth-child(4) a.ant-picker-today-btn {
+    color: #00abaf;
+}

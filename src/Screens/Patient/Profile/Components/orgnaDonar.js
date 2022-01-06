@@ -73,7 +73,7 @@ class Index extends Component {
                                     options={this.state.tissue}
                                     placeholder=""
                                     isSearchable={true}
-                                    className=""
+                                    className="cstmSelect1"
                                     isMulti={true}
                                     closeMenuOnSelect={false}
                                 />
@@ -90,7 +90,7 @@ class Index extends Component {
                                     options={this.state.tissue}
                                     placeholder=""
                                     isSearchable={true}
-                                    className=""
+                                    className="cstmSelect1"
                                     isMulti={true}
                                     closeMenuOnSelect={false}
                                 />
