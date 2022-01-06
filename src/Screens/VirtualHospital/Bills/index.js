@@ -168,7 +168,6 @@ class Index extends Component {
     };
 
     setStatusButton = (e) => {
-        console.log('asdasdasdasd')
         e.stopPropagation();
         this.setState({ setStatus: !this.state.setStatus })
     }
@@ -281,7 +280,6 @@ class Index extends Component {
 
     // Update status acc. to their particular id
     updateStatus = (e, data, status) => {
-        console.log('asdasdasdasd')
         e.stopPropagation();
         var finalStatus = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === status)?.[0]
         axios.put(

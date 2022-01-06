@@ -22,19 +22,13 @@ import * as PhillipinesC from "Screens/Components/insuranceCompanies/phillippine
 import * as SwitzerlandC from "Screens/Components/insuranceCompanies/switzerland.json";
 import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
 import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
-import Autocomplete from "Screens/Components/Autocomplete/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
+import SPECIALITY from 'speciality';
 import Loader from "Screens/Components/Loader/index";
-import SPECIALITY from "speciality";
-import {
-  GetLanguageDropdown,
-  GetShowLabel1,
-  GetShowLabel,
-} from "Screens/Components/GetMetaData/index.js";
+import { GetLanguageDropdown,  GetShowLabel1, } from "Screens/Components/GetMetaData/index.js";
 import DateFormat from "Screens/Components/DateFormat/index";
 import { getLanguage } from "translations/index";
-import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 var datas = [];
 var insurances = [];
@@ -99,11 +93,33 @@ class Index extends Component {
   };
 
   componentDidMount() {
+    this.getMetadata();
     this.getUserData();
     var npmCountry = npmCountryList().getData()
     this.setState({ selectCountry: npmCountry })
   }
 
+      //get list of list
+      getMetadata = () => {
+        this.setState({ allMetadata: this.props.metadata },
+          () => {  this.GetLanguageMetadata(); })
+    }
+
+  GetLanguageMetadata = () => {
+      var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
+      var rhesusgroup = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.rhesus && this.state.allMetadata.rhesus.length > 0 && this.state.allMetadata.rhesus, this.props.stateLanguageType)
+      let AllMaritalOption = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.maritalStatus && this.state.allMetadata.maritalStatus.length > 0 && this.state.allMetadata.maritalStatus, this.props.stateLanguageType)
+      this.setState({
+          AllMaritalOption: AllMaritalOption,
+          genderdata: Allgender,
+          languageData: this.state.allMetadata && this.state.allMetadata.languages && this.state.allMetadata.languages.length > 0 && this.state.allMetadata.languages,
+          specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
+          title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData,
+          bloodgroup: this.state.allMetadata && this.state.allMetadata.bloodgroup && this.state.allMetadata.bloodgroup.length > 0 && this.state.allMetadata.bloodgroup,
+          rhesusgroup: rhesusgroup,
+          handleMaritalStatus: AllMaritalOption
+      });
+  }
   // Copy the Profile id and PIN
   copyText = (copyT) => {
     this.setState({ copied: false });
@@ -151,8 +167,8 @@ class Index extends Component {
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
-      if (this.state.rhesus && this.state.rhesus.value) {
-        this.Upsaterhesus(this.state.rhesus.value);
+      if (this.state.rhesus && this.state.rhesus) {
+        this.Upsaterhesus(this.state.rhesus);
       }
     }
   };
@@ -293,12 +309,8 @@ class Index extends Component {
   };
 
   Upsaterhesus = (rhesusfromD) => {
-    var rhesus = GetShowLabel1(
-      this.state.rhesusgroup,
-      rhesusfromD,
-      this.props.stateLanguageType
-    );
-    this.setState({ rhesus: rhesus });
+    var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType, false, "rhesus");
+    this.setState({ rhesus: rhesus })
   };
 
   //For getting User Data
@@ -347,7 +359,11 @@ class Index extends Component {
         }
 
         if (bloodfromD && bloodfromD !== "") {
-          bloods = { label: bloodfromD, value: bloodfromD };
+          if(typeof bloodfromD === 'object') {
+              bloods =  bloodfromD;
+              }else{
+                  bloods = { label: bloodfromD, value: bloodfromD }
+              }
         }
         if (rhesusfromD && rhesusfromD !== "") {
           this.Upsaterhesus(rhesusfromD);
@@ -402,9 +418,18 @@ class Index extends Component {
 
   //For updating gender and country
   EntryValueName = (value, name) => {
-    const state = this.state.UpDataDetails;
-    state[name] = value;
-    this.setState({ UpDataDetails: state });
+    if(name === 'title'){
+      this.setState({ title: value });
+  }
+  if(name === 'blood_group'){
+      this.setState({ bloods: value });
+  }
+  if(name === 'rhesus'){
+      this.setState({ rhesus: value });
+  }
+  const state = this.state.UpDataDetails;
+  state[name] = value;
+  this.setState({ UpDataDetails: state });
   };
 
   //Calling when city is updated
@@ -542,11 +567,8 @@ class Index extends Component {
   };
 
   render() {
-    var required = true;
-    var disabled = true;
-    const { stateLoginValueAim, Doctorsetget } = this.props;
     const { value, editInsuData, insurancefull, editIndex, insuranceDetails } =
-      this.state;
+    this.state;
     const companyList =
       this.state.filteredCompany &&
       this.state.filteredCompany.map((company) => {
@@ -567,24 +589,14 @@ class Index extends Component {
 
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      Contact,
-      Register_Name,
-      relation,
       phone, select_marital_status,
-      organ_donar_status,
-      not_an_organ, emergency, telephone_nmbr, marital_status, Rhesus, InsurancecompanyError,
+      marital_status, Rhesus, InsurancecompanyError,
       Addcompany,
-      Blood, profile_info,
+      Blood, 
       profile,
-      information,
       ID, pin, QR_code,
       done,
-      Change,
-      edit_id_pin,
       edit,
-      and, is,
-      changed, profile_id_taken,
-      profile_id_greater_then_5,
       save_change,
       email,
       title,
@@ -603,18 +615,16 @@ class Index extends Component {
       number,
       mobile,
       Languages, spoken,
-      pin_greater_then_4,
       insurance,
       add_more,
       company,
-      of, info_copied, profile_updated,
-      profile_not_updated,
-      mobile_number_not_valid, PersonalInformation,
+      of, PersonalInformation,
       insurance_added,
     } = translate;
 
     return (
       <Grid>
+        {this.state.loaderImage && <Loader />}
         <Grid className="journalAdd">
           <Grid container direction="row">
             <Grid item xs={12} md={11}>
@@ -1132,30 +1142,32 @@ class Index extends Component {
                         <Grid item xs={12} md={4}>
                           <label>{Blood}</label>
                           <Grid>
-                            <Select
+                          <Select
                               value={this.state.bloods}
                               name="bloodgroup"
+                              onChange={(e) => { this.EntryValueName(e, 'blood_group') }}
                               options={this.state.bloodgroup}
                               placeholder=""
                               isSearchable={false}
-                              className="profile-language"
                               isDisabled={true}
-                            />
+                              className="profile-language"
+                          />
                           </Grid>
                         </Grid>
 
                         <Grid item xs={12} md={4}>
                           <label>{Rhesus}</label>
                           <Grid>
-                            <Select
-                              value={this.state.rhesus}
-                              name="rhesus"
-                              options={this.state.rhesusgroup}
-                              placeholder=""
-                              isSearchable={false}
-                              isDisabled={true}
-                              className="profile-language"
-                            />
+                              <Select
+                                  value={this.state.rhesus}
+                                  name="rhesus"
+                                  onChange={(e) => {this.EntryValueName(e, 'rhesus') }}
+                                  options={this.state.rhesusgroup}
+                                  placeholder=""
+                                  isSearchable={false}
+                                  isDisabled={true}
+                                  className="profile-language"
+                              />
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={4}></Grid>
@@ -1501,17 +1513,19 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
-
+  const { metadata } = state.OptionList;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     House,
     settings,
+    metadata
   };
 };
 export default withRouter(
   connect(mapStateToProps, {
+    OptionList,
     LoginReducerAim,
     LanguageFetchReducer,
     Settings,

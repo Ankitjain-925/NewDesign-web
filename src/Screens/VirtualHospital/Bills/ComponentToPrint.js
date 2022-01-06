@@ -18,7 +18,6 @@ export class ComponentToPrint extends React.Component {
         super(props);
         this.state = {
         }
-        console.log("props", this.props);
 
     };
 
