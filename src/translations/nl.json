@@ -1254,7 +1254,7 @@
 		"Currentpaincondition":"Huidige pijntoestand",
 		"verifyAccount":"Uw account is niet geverifieerd, controleer uw e-mailaccount.",
 		"needUnblock": " Uw account is nog niet ontgrendeld. Geef uw professionele ID op of geef ons, als u het onlangs heeft ingediend, maximaal 24 uur de tijd om het te ontgrendelen.",
-		"fillreptcha":"Vul a.u.b. de RECAPTCHA in",
+		"fillreptcha":"Vul a.u.b. de reCAPTCHA in",
 		"Tachykardia":"Tachycardie"
 	}
 }

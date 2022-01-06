@@ -355,7 +355,14 @@ class Index extends Component {
                     </p>
                   )}
                   {this.state.edit_contact && (
-                    <Grid className="emrgncyFrm">
+                    <Grid className={
+                      this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "darkTheme emrgncyFrm"
+                        : "emrgncyFrm"
+                    }>
                       <Grid className="emrgncyFrmInpt">
                         <Grid>
                           <label>{Register_Name}</label>

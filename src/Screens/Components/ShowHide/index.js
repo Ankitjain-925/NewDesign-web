@@ -137,7 +137,7 @@ class ShowHide extends Component {
             <Grid className="showThis">
               {this.state.eventdate && (
                 <Grid className="fillDia">
-                  <Grid className="rrSysto">
+                  <Grid className="rrSysto3">
                     <Grid>
                       <label>{Date_of_event}</label>
                     </Grid>

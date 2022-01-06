@@ -27,10 +27,16 @@ export const updateFLAG = (str) => {
  //For getting the dropdowns from the database
  export const getMetadata=(current)=>{ 
     current.setState({ allMetadata: current.props.metadata },
-        () => {
-            GetLanguageMetadata(current);
-        })
+        () => {  GetLanguageMetadata(current); })
 }
+
+export const Upsaterhesus = (current, rhesusfromD) => {
+    console.log('current', current, rhesusfromD)
+    var rhesus = GetShowLabel1(current.state.rhesusgroup, rhesusfromD, current.props.stateLanguageType, false, "rhesus");
+    console.log('rhesus', rhesus)
+    current.setState({ rhesus: rhesus })
+}
+
 //Get all the information of the current User
   export const getUserData = (current) => {
       current.setState({ loaderImage: true });
@@ -38,6 +44,7 @@ export const updateFLAG = (str) => {
       let user_id = current.props.stateLoginValueAim.user._id
       axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
           commonHeader(user_token)).then((response) => {
+              console.log('response', response)
               var state1 = current.state.contact_partner;
               state1['relation'] = response.data.data && response.data.data.emergency_relation
               state1['email'] = response.data.data && response.data.data.emergency_email
@@ -64,10 +71,14 @@ export const updateFLAG = (str) => {
               }
 
               if (bloodfromD && bloodfromD !== "") {
-                  bloods = { label: bloodfromD, value: bloodfromD }
+                if(typeof bloodfromD === 'object') {
+                    bloods =  bloodfromD;
+                    }else{
+                        bloods = { label: bloodfromD, value: bloodfromD }
+                    }
               }
               if (rhesusfromD && rhesusfromD !== "") {
-                  current.Upsaterhesus(rhesusfromD)
+                  Upsaterhesus(current, rhesusfromD)
               }
               if (titlefromD && titlefromD !== "") {
                   title = { label: titlefromD, value: titlefromD }
@@ -214,6 +225,7 @@ export const updateEntryState1 = (e, current) => {
 
 //For updating gender and country
 export const EntryValueName = (value, name, current) => {
+    console.log('value', value)
     if(name === 'title'){
         current.setState({ title: value });
     }

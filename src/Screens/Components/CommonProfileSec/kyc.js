@@ -239,7 +239,7 @@ class Index extends Component {
                   <label>{country}</label>
                 </Grid>
                 {this.state.CreateKYC && this.state.CreateKYC.country && (
-                  <Grid>
+                  <Grid className="cntryDropTop">
                     <Select
                       value={this.state.CurrentCountry}
                       onChange={(e) => this.EntryValueName(e, "country")}
@@ -247,7 +247,7 @@ class Index extends Component {
                       placeholder=""
                       isSearchable={true}
                       name="country"
-                      className="cntryDrop"
+                      className="cntryDrop cstmSelect1"
                     />
 
                   </Grid>

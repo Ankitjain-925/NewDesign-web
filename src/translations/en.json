@@ -1264,7 +1264,7 @@
 		"Currentpaincondition":"Current pain condition",
 		"verifyAccount":"Your Account is not verified, please check your email account.",
 		"needUnblock": "Your account is not unlocked yet, please provide your professional ID or if you have submitted it recently, please give us up to 24 hours to unlock it.",
-		"fillreptcha": "Please fill the RECAPTCHA",
+		"fillreptcha": "Please fill the reCAPTCHA",
 		"Tachykardia": "Tachycardia",
 		"Billing": "Billing",
 		"Institution": "Institution",
@@ -1575,6 +1575,7 @@
 		"SaveDraft": "Save Draft",
 		"Entries":"Entries",
 		"PatientInInvoice": "Patient In invoice",
-		"Question": "Question"
+		"Question": "Question",
+		"created_user_id_and_pin":"Created user id and pin"
 	}
 }

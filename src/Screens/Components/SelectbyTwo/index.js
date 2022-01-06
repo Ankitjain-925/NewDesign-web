@@ -26,7 +26,7 @@ class Date extends Component {
   render() {
     return (
       <Grid xs={12} md={12}>
-        <Grid className="rrSysto">
+        <Grid className="rrSysto3">
           <Grid>
             <label>{this.state.label}</label>
           </Grid>

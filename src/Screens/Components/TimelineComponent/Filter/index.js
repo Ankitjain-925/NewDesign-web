@@ -244,6 +244,7 @@ class FilterSec extends Component {
                       this.FilterAccordigly("time_range", value)
                     }
                     value={this.state.time_range}
+                   
                   />
                   {/* <Select
                           value={this.state.selectedOption}

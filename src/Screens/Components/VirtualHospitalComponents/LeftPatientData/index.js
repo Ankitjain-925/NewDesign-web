@@ -2361,7 +2361,9 @@ class Index extends Component {
                   {this.state.loggedinUser &&
                     this.state.loggedinUser?.blood_group &&
                     this.state.loggedinUser?.rhesus
-                    ? this.state.loggedinUser.blood_group +' '+ this.state.loggedinUser.rhesus.value
+                    ? typeof this.state.loggedinUser?.blood_group === 'object' ? 
+                    this.state.loggedinUser?.blood_group.value +' '+ this.state.loggedinUser?.rhesus.value
+                    : this.state.loggedinUser?.blood_group +' '+ this.state.loggedinUser?.rhesus.value
                     : "--"}
                 </p>
               </Grid>
