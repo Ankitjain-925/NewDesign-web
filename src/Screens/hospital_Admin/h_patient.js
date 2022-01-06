@@ -62,9 +62,9 @@ class Index extends Component {
     CloseDetail = () => {
         this.setState({ openDetial: false })
     }
-    search_user = (event)=> {
+    search_user = (event) => {
         if (event.target.value == '') {
-               this.setState({ MypatientsData: this.state.forSearch })
+            this.setState({ MypatientsData: this.state.forSearch })
             this.onChangePage(1)
         } else {
             let serach_value = SearchUser(event.target.value, this.state.forSearch)
@@ -80,7 +80,7 @@ class Index extends Component {
         this.setState({ addCreate: false })
     }
     submitDelete = (deletekey, profile_id, bucket) => {
-        let translate={};
+        let translate = {};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -88,10 +88,10 @@ class Index extends Component {
             case "de":
                 translate = translationDE.text
                 break;
-            default :
+            default:
                 translate = translationEN.text
         }
-        let {DeleteUser, Yes, No, click_on_YES_user} = translate;
+        let { DeleteUser, Yes, No, click_on_YES_user } = translate;
         confirmAlert({
             title: DeleteUser,
             message: click_on_YES_user,
@@ -110,21 +110,21 @@ class Index extends Component {
     deleteClick = (deletekey, profile_id, bucket) => {
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/admin/deleteUser/' + deletekey + '?bucket=' + bucket,commonHeader(user_token))
+        axios.delete(sitedata.data.path + '/admin/deleteUser/' + deletekey + '?bucket=' + bucket, commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false });
-                var data = JSON.stringify({"permanent":true});
+                var data = JSON.stringify({ "permanent": true });
 
                 var config = {
-                  method: 'delete',
-                  url: 'https://api-eu.cometchat.io/v2.0/users/'+profile_id.toLowerCase(),
-                  headers: commonCometDelHeader(),
-                  data : data
+                    method: 'delete',
+                    url: 'https://api-eu.cometchat.io/v2.0/users/' + profile_id.toLowerCase(),
+                    headers: commonCometDelHeader(),
+                    data: data
                 };
-                
+
                 axios(config)
-                .then(function (response) { })
-                .catch(function (error) { });
+                    .then(function (response) { })
+                    .catch(function (error) { });
                 this.getPatient();
                 //   this.MessageUser();
             }).catch((error) => { });
@@ -142,36 +142,37 @@ class Index extends Component {
             commonHeader(user_token)
         ).then((response) => {
             this.setState({ getAllkyc: response.data.data });
-        }).catch((error) => {});
+        }).catch((error) => { });
     }
 
     getPatient() {
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id,
-           commonHeader(user_token)
+        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
+            + '/patient/1' 
+            , commonHeader(user_token)
         )
             .then((response) => {
+                console.log("Response Patient", response);
                 if (response.data.data) {
                     var images = [];
                     this.setState({ AllUsers: response.data.data });
-                    const AllPatient = this.state.AllUsers.filter((value, key) =>
-                        value.type === 'patient');
+                    const AllPatient = this.state.AllUsers;
                     this.setState({ AllPatient: AllPatient })
-                    var totalPage = Math.ceil(AllPatient.length / 10);
+                    var totalPage = Math.ceil(AllPatient.length / 20);
                     this.setState({ totalPage: totalPage, currentPage: 1 },
-                    () => {
-                        if (totalPage > 1) {
-                            var pages = [];
-                            for (var i = 1; i <= this.state.totalPage; i++) {
-                                pages.push(i)
+                        () => {
+                            if (totalPage > 1) {
+                                var pages = [];
+                                for (var i = 1; i <= this.state.totalPage; i++) {
+                                    pages.push(i)
+                                }
+                                this.setState({ MypatientsData: AllPatient.slice(0, 20), pages: pages })
                             }
-                            this.setState({ MypatientsData: AllPatient.slice(0, 10), pages: pages })
-                        }
-                        else {
-                            this.setState({ MypatientsData: AllPatient })
-                        }
-                    })  
-                this.setState({ forSearch: AllPatient })
+                            else {
+                                this.setState({ MypatientsData: AllPatient })
+                            }
+                        })
+                    this.setState({ forSearch: AllPatient })
                     AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
                         var find = item && item.image && item.image
                         if (find) {
@@ -190,15 +191,22 @@ class Index extends Component {
                 else {
                     this.setState({ AllPatient: [] });
                 }
-            }).catch((error) => {});
+            }).catch((error) => { });
     }
-    onChangePage = (pageNumber) => {
-        this.setState({ MypatientsData: this.state.AllPatient.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
+    onChangePage = (pagenumber) => {
+        this.getPatient(pagenumber)
+        this.setState({
+            MypatientsData: this.state.AllPatient.slice(
+                (pagenumber - 1) * 20,
+                pagenumber * 20
+            ),
+            currentPage: pagenumber
+        })
     }
 
     render() {
-      
-        let translate={};
+
+        let translate = {};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -206,7 +214,7 @@ class Index extends Component {
             case "de":
                 translate = translationDE.text
                 break;
-            default :
+            default:
                 translate = translationEN.text
         }
         let { capab_Patients, add_new, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
@@ -215,12 +223,12 @@ class Index extends Component {
         return (
             <Grid className={
                 this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -261,9 +269,9 @@ class Index extends Component {
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
-                                            {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((patient, i) => (
+                                                {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((patient, i) => (
                                                     <Tr>
-                                                        <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
+                                                        <Td>{((this.state.currentPage - 1) * 20) + i + 1}</Td>
                                                         <Td><img className="doctor_pic" src={patient && patient.image ? getImage(patient.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {patient.first_name && patient.first_name}</Td>
                                                         <Td>{patient.last_name && patient.last_name}</Td>
@@ -297,7 +305,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                                        <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                                                     </Grid>}
                                                 </Grid>
                                             </Grid>
