@@ -372,10 +372,11 @@ class Index extends Component {
                 {/* End of Search for Website */}
 
                 {/* Document Table */}
+            
                 <Grid container direction="row">
                     <Grid item xs={12} md={11}>
                         <Grid className="presOpinionIner">
-                            <DocView attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
+                            <DocView settings={this.props.settings} attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
                             <Grid className="tablePagNum">
                                 <Grid container direction="row">
                                     <Grid item xs={12} md={6}>
@@ -406,7 +407,7 @@ class Index extends Component {
                     </Grid>
                 </Grid>
                 {/* End of Document Table */}
-                
+
                 <Modal
                     open={this.state.newEntry}
                     onClose={this.handleCloseNewEn}

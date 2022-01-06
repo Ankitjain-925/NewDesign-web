@@ -14918,7 +14918,7 @@ input:focus {
     overflow-y: auto;
   }
   .custom-text{
-    margin-left: 40px;
+    margin-left: 60px;
     min-width: 43px;
     color: #000808;
     font-family: Muli;
@@ -15101,7 +15101,7 @@ label.attached_file a {
     background-color: #404646 !important;
     color: #BFC1C1 !important;
 }
-.darkTheme .ql-toolbar.ql-snow {
+.darkTheme .fillDia .rrSysto .ql-toolbar.ql-snow {
     background-color: #949494 !important;
 }
 .darkTheme .quill {
@@ -15116,7 +15116,7 @@ label.attached_file a {
     color: #BFC1C1 !important;
 }
 .darkTheme .shwAfter {
-    background-color: #202323;
+    background-color: #404646;
 }
 .darkTheme .visibleAll {
     background-color: #404646 !important;
@@ -17298,25 +17298,26 @@ ul.duringCovid li:last-child {
     border-width: thin;
 }
 /* Done by naveen end here */
-.darkTheme .ant-picker-panel-container, .homeBgDrk .ant-picker-panel-container {
+ 
+.darkTheme > div:nth-child(4) .ant-picker-panel-container {
     background: #192020;
 }
-.darkTheme .ant-picker-panel-container .ant-picker-dropdown div, .homeBgDrk .ant-picker-panel-container .ant-picker-dropdown div {
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-dropdown div {
     color: #b7b7b7;
 }
-.darkTheme .ant-picker-panel-container .ant-picker-content th, .homeBgDrk .ant-picker-panel-container .ant-picker-content th {
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-content th {
     height: 30px;
     color: rgb(0 171 175);
 }
-.darkTheme .ant-picker-panel-container .ant-picker-prev-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-prev-icon,
-.darkTheme .ant-picker-panel-container .ant-picker-super-prev-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-super-prev-icon,
-.darkTheme .ant-picker-panel-container .ant-picker-next-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-next-icon
-.darkTheme .ant-picker-panel-container .ant-picker-super-next-icon, .homeBgDrk .ant-picker-panel-container .ant-picker-super-next-icon {
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-prev-icon,
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-super-prev-icon, 
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-next-icon,
+.darkTheme > div:nth-child(4) .ant-picker-panel-container .ant-picker-super-next-icon {
     color: #00abaf;
 }
-.darkTheme .ant-picker-cell .ant-picker-cell-inner, .homeBgDrk .ant-picker-cell .ant-picker-cell-inner {
+.darkTheme > div:nth-child(4) .ant-picker-cell .ant-picker-cell-inner  {
     color: #b7b7b7 !important;
 }
-.darkTheme .ant-picker-header-view button,.darkTheme a.ant-picker-today-btn, .homeBgDrk .ant-picker-header-view button,.homeBgDrk a.ant-picker-today-btn {
+.darkTheme > div:nth-child(4) .ant-picker-header-view button,.darkTheme > div:nth-child(4) a.ant-picker-today-btn {
     color: #00abaf;
 }

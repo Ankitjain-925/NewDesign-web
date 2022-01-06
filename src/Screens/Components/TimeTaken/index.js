@@ -68,6 +68,7 @@ class TimeTaken extends Component {
                       this.onTimeChange(e, 0);
                     }}
                     format="HH:mm"
+                   
                   />
                 ) : (
                   <TimePicker
@@ -78,6 +79,7 @@ class TimeTaken extends Component {
                       this.onTimeChange(e, 0);
                     }}
                     format="h:mm a"
+                   
                   />
                 )}
               </Grid>
@@ -101,6 +103,7 @@ class TimeTaken extends Component {
                         itm.value ? moment(new Date(itm.value), "HH:mm") : ""
                       }
                       format="HH:mm"
+                     
                     />
                   ) : (
                     <TimePicker
@@ -114,6 +117,7 @@ class TimeTaken extends Component {
                       value={
                         itm.value ? moment(new Date(itm.value), "h:mm a") : ""
                       }
+                     
                     />
                   )}
                   <p onClick={this.onAddFiled}>+ {addentry}</p>
@@ -131,6 +135,7 @@ class TimeTaken extends Component {
                         itm.value ? moment(new Date(itm.value), "HH:mm") : ""
                       }
                       format="HH:mm"
+                     
                     />
                   ) : (
                     <TimePicker
@@ -144,6 +149,7 @@ class TimeTaken extends Component {
                       value={
                         itm.value ? moment(new Date(itm.value), "h:mm a") : ""
                       }
+                     
                     />
                   )}
                   <p

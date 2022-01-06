@@ -2880,7 +2880,7 @@ a.lineSort {
 }
 .entryInfo li {
     list-style-type: none;
-    display: inline-block;
+    display: table-cell;
     width: 25%;
     cursor: pointer;
 }
@@ -2899,9 +2899,13 @@ a.lineSort {
     height: 35px;
     display: inline-block;
     border-radius: 8px;
+    padding: 7px;
+    border: 1px #cfcfcf solid;
 }
 .entryInfoActv img {
     box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
+    background-color: #00ABAF !important;
+    border: 1px #00ABAF solid !important;
 }
 .entryInfoActv label {
     color: #00ABAF !important;
@@ -3082,7 +3086,7 @@ span.nuroCrcle {
     margin-right: 5px;
 }
 .nuroDr {
-    display: flex;
+    display: flow-root;
     justify-content: space-around;
     align-items: center;
 }
@@ -5606,24 +5610,33 @@ button.downloadPDF:hover {
     vertical-align: middle;
 }
 .setStatus {
-    border-top: 1px solid #F2F2F2;
-    border-bottom: 1px solid #F2F2F2;
-    margin-top: 14px;
+    /* border-top: 1px solid #F2F2F2;
+    border-bottom: 1px solid #F2F2F2; */
+    /* margin-top: 14px; */
     /* padding-top: 5px; */
     /* padding-bottom: 5px; */
     margin-bottom: 0px;
     position: relative;
 }
-.setStatus li:first-child::after{
+.setStatusNxtPart::after{
     content: "";
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 16px;
     background-size: contain;
     background: url("../images/Right.svg") no-repeat center center;
     cursor: pointer;
+}
+.setStatusNxtPart{
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    text-align: left;
+    text-transform: initial;
+    padding: 10px 20px 10px;
 }
 .setStatus li:last-child {
     padding-top: 10px;
@@ -9858,6 +9871,57 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.rrSysto3 label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.rrSysto3 label{
+    color: #bfc1c1 !important;
+}
+.darkTheme .cstmSelect1 div, .homeBgDrk .cstmSelect1 div {
+    color: #bfc1c1;
+    box-shadow: initial !important;
+    outline: none !important;
+    background-color: #404646 !important
+}
+.darkTheme .addCustom{
+    color: #00abaf !important;  
+}
+.darkTheme .editField h5{
+    color: #cfcfcf !important;
+}
+.darkTheme .rrSysto2 .painAreasimg .marker{
+    background: red !important;
+}
+option{
+    color: #000000;
+}
+.darkTheme option, .homeBgDrk option{
+    color: #cfcfcf;
+}
+.darkTheme .fillDia .rrSysto div {
+    background-color: #404646 !important
+}
+
+.cnfrmDiaMain .fillDia .rrSysto div {
+    color: #cfcfcf !important;
+    font-family: Muli;
+}
+.homeBgDrk .entryBoxCntnt , .darkTheme .entryBoxCntnt{
+    background-color: #202323 !important;
+}
+.setStatus a{
+    padding-top: 3px;
+    padding-bottom: 5px;
+    width: 100%;
+    display: block;
+    border-top: 1px solid #cfcfcf;
+    border-bottom: 1px solid #cfcfcf;
+}
 .infoSub2 label{
     color: #fff!important;
 }
@@ -12280,9 +12344,9 @@ ul.patientHint li {
 .darkTheme .rrSysto div {
     background-color: #192020;
 }
-.darkTheme .rrSysto div:last-child div {
+/* .darkTheme .rrSysto div:last-child div {
     border-color: transparent;
-}
+} */
 .darkTheme .rrSysto {
     color: #f7f7f7;
 }
@@ -12735,9 +12799,6 @@ input:-moz-autofill:active{
     right:30px;
     color: #404646;
     font-weight: 600;
-}
-.setStatusPaidPart{
-    border-top: 1px solid #F2F2F2;
 }
 .setStatusNxtPart{
     padding-top:18px!important;

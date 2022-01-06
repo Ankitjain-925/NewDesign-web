@@ -1249,6 +1249,7 @@ class Index extends Component {
                             ? this.props.settings.setting.dateFormat
                             : dateFormat
                         }
+                       
                       />
                       {/* <span>27/06/2020 - 15/07/2020
                                                                            <img src={require('assets/images/calIcon.png')} alt="" title="" />

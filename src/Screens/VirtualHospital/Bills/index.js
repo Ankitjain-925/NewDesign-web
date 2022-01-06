@@ -167,8 +167,10 @@ class Index extends Component {
         });
     };
 
-    setStatusButton = () => {
-        this.setState({ setStatus: true })
+    setStatusButton = (e) => {
+        console.log('asdasdasdasd')
+        e.stopPropagation();
+        this.setState({ setStatus: !this.state.setStatus })
     }
 
     //for PopUp Opening and Closing
@@ -278,7 +280,9 @@ class Index extends Component {
     }
 
     // Update status acc. to their particular id
-    updateStatus = (data, status) => {
+    updateStatus = (e, data, status) => {
+        console.log('asdasdasdasd')
+        e.stopPropagation();
         var finalStatus = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === status)?.[0]
         axios.put(
             sitedata.data.path + "/vh/AddInvoice/" + data._id,
@@ -683,19 +687,19 @@ class Index extends Component {
                                                                     </ul>
 
                                                                     {data?.status?.value != 'paid' &&
-                                                                        <ul className="setStatus">
-                                                                            <a onClick={() => { this.setStatusButton() }}><li className="setStatusNxtPart"><span>{Setstatus}</span></li></a>
+                                                                        <div className="setStatus">
+                                                                            <a onClick={(e) => { this.setStatusButton(e) }}><span className="setStatusNxtPart"><span>{Setstatus}</span></span></a>
                                                                             {this.state.setStatus &&
                                                                                 <Grid >
                                                                                     <ul className="setStatusPaidPart">
-                                                                                        <a onClick={() => { this.updateStatus(data, "paid") }}><li className="blueDot"><span className="revwGren"></span><span>{Paid}</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "draft") }}><li className="blueDot"><span className="revwGry"></span><span>{Draft}</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "issued") }}><li className="blueDot"><span className="revwYelow"></span><span>{Issued}</span></li></a>
-                                                                                        <a onClick={() => { this.updateStatus(data, "overdue") }}><li className="blueDot"><span className="revwRed"></span><span>{Overdue}</span></li></a>
+                                                                                        <li className="blueDot" onClick={(e) => { this.updateStatus(e, data, "paid") }}><span className="revwGren"></span><span>{Paid}</span></li>
+                                                                                        <li className="blueDot" onClick={(e) => { this.updateStatus(e, data, "draft") }}><span className="revwGry"></span><span>{Draft}</span></li>
+                                                                                        <li className="blueDot"  onClick={(e) => { this.updateStatus(e, data, "issued") }}><span className="revwYelow"></span><span>{Issued}</span></li>
+                                                                                        <li className="blueDot" onClick={(e) => { this.updateStatus(e, data, "overdue") }}><span className="revwRed"></span><span>{Overdue}</span></li>
                                                                                     </ul>
                                                                                 </Grid>
                                                                             }
-                                                                        </ul>
+                                                                        </div>
                                                                     }
                                                                     <a onClick={() => { this.removeBills(data._id) }} ><li><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /><span>{DeleteInvoice}</span></li></a>
                                                                 </Grid>

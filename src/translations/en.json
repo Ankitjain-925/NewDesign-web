@@ -1574,6 +1574,7 @@
 		"SaveDraft": "Save Draft",
 		"Entries":"Entries",
 		"PatientInInvoice": "Patient In invoice",
-		"Question": "Question"
+		"Question": "Question",
+		"created_user_id_and_pin":"Created user id and pin"
 	}
 }

@@ -332,7 +332,9 @@ class PointPain extends Component {
                   {this.state.user &&
                   this.state.user?.blood_group &&
                   this.state.user?.rhesus
-                    ? this.state.user.blood_group +' '+ this.state.user.rhesus.value
+                    ? typeof this.state.user.blood_group === 'object' ? 
+                    this.state.user.blood_group.value +' '+ this.state.user.rhesus.value
+                    : this.state.user.blood_group +' '+ this.state.user.rhesus.value
                     : "--"}
                 </p>
               </Grid>
