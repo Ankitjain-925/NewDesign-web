@@ -63,7 +63,8 @@ class Index extends Component {
       currentHouses: [],
       openHouse: false,
       house: {},
-      UpDataDetails: {}
+      UpDataDetails: {},
+      pagenumber: []
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
@@ -124,15 +125,16 @@ class Index extends Component {
     this.setState({ addCreate: false });
   };
 
-  onChangePage = (pageNumber) => {
-    this.setState({
-      MypatientsData: this.state.AllNurse.slice(
-        (pageNumber - 1) * 10,
-        pageNumber * 10
-      ),
-      currentPage: pageNumber,
-    });
-  };
+  // onChangePage = (pagenumber) => {
+  //   this.setState({
+  //     MypatientsData: this.state.AllNurse.slice(
+  //       (pagenumber - 1) * 20,
+  //       pagenumber * 20
+  //     ),
+  //     currentPage: pagenumber,
+  //   });
+  //   this.getAdminstaff();
+  // };
 
   getAllkyc() {
     var user_token = this.props.stateLoginValueAim.token;
@@ -144,70 +146,121 @@ class Index extends Component {
       .catch((error) => { });
   }
 
-  getAdminstaff = (user_id) => {
+  onChangePage = (pageNumber) => {
+    console.log("page", pageNumber)
+    this.setState({ currentPage: pageNumber },
+      () => {
+        this.getAdminstaff();
+      })
+  }
+
+  // getAdminstaff = (user_id, pagenumber) => {
+  //   var user_token = this.props.stateLoginValueAim.token;
+  //   // var pagenumber = 1
+  //   axios
+  //     .get(
+  //       sitedata.data.path +
+  //       "/admin/allHospitalusers/" +
+  //       this.props.stateLoginValueAim.user.institute_id + '/adminstaff/' + pagenumber
+  //       ,
+  //       commonHeader(user_token)
+  //     )
+  //     .then((response) => {
+  //       // this.setState({openHouse: false})
+  //       console.log("Response AdminStaff", response);
+
+  //       if (response.data.data) {
+  //         var images = [];
+  //         this.setState({ AllUsers: response.data.data });
+  //         const AllNurse = this.state.AllUsers;
+  //         // console.log("I m  here", AllNurse);
+  //         this.setState({ AllNurse: AllNurse });
+  //         var totalPage = Math.ceil(AllNurse.length / 20);
+  //         // console.log("total pages", totalPage)
+  //         this.setState({ totalPage: totalPage },
+  //           () => {
+  //             if (totalPage > 1) {
+  //               var pages = [];
+  //               for (var i = 1; i <= this.state.totalPage; i++) {
+  //                 pages.push(i);
+  //               }
+  //               this.setState({
+  //                 MypatientsData: AllNurse.slice(0, 20),
+  //                 pages: pages,
+  //               });
+  //               console.log("MypatientsData", this.state.MypatientsData, "pages", pages)
+  //             } else {
+  //               this.setState({ MypatientsData: AllNurse });
+  //             }
+  //           });
+  //         this.setState({ forSearch: AllNurse });
+  //         AllNurse &&
+  //           AllNurse.length > 0 &&
+  //           AllNurse.map((item) => {
+  //             var find = item && item.image && item.image;
+  //             if (find) {
+  //               var find1 = find.split(".com/")[1];
+  //               axios
+  //                 .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+  //                 .then((response2) => {
+  //                   if (response2.data.hassuccessed) {
+  //                     item.new_image = response2.data.data;
+  //                     images.push({
+  //                       image: find,
+  //                       new_image: response2.data.data,
+  //                     });
+  //                     this.setState({ images: images });
+  //                   }
+  //                 });
+  //             }
+  //           });
+  //       } else {
+  //         this.setState({ AllNurse: [] });
+  //       }
+  //     })
+  //     .catch((error) => { });
+  // }
+
+  getAdminstaff() {
+
     var user_token = this.props.stateLoginValueAim.token;
+
     axios
       .get(
         sitedata.data.path +
         "/admin/allHospitalusers/" +
-        this.props.stateLoginValueAim.user.institute_id,
+        this.props.stateLoginValueAim.user.institute_id + '/adminstaff/1'
+        ,
         commonHeader(user_token)
       )
-      .then((response) => {
-        // this.setState({openHouse: false})
-        if (response.data.data) {
-          var images = [];
-          this.setState({ AllUsers: response.data.data });
-          const AllNurse = this.state.AllUsers.filter(
-            (value, key) => value.type === "adminstaff"
-          );
+      .then((res) => {
+        var images = [];
 
-          var current_user = this.state.AllUsers.filter((value, key) =>
-            value._id === user_id);
-          this.setState({ current_user: current_user?.length > 0 ? current_user[0] : {} });
+        const AllNurse = res.data && res.data.data && res.data.data;
+        AllNurse && AllNurse.length > 0 && AllNurse.map((item) => {
+          var find = item && item.image && item.image
+          if (find) {
+            var find1 = find.split('.com/')[1]
+            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+              .then((response2) => {
+                if (response2.data.hassuccessed) {
+                  item.new_image = response2.data.data
+                  images.push({ image: find, new_image: response2.data.data })
+                  this.setState({ images: images })
+                }
+              })
+          }
+        })
+        console.log('res.data.data', AllNurse.length)
+        var totalPage = Math.round(AllNurse.length / 20);
+        console.log("res.data.Total_count", res.data.Total_count)
+        this.setState({
+          totalPage: Math.ceil(res.data.Total_count / 20),
+          MypatientsData: AllNurse, TotalCount: res.data.Total_count
+        })
 
-          this.setState({ AllNurse: AllNurse });
-          var totalPage = Math.ceil(AllNurse.length / 10);
-          this.setState({ totalPage: totalPage, currentPage: 1 }, () => {
-            if (totalPage > 1) {
-              var pages = [];
-              for (var i = 1; i <= this.state.totalPage; i++) {
-                pages.push(i);
-              }
-              this.setState({
-                MypatientsData: AllNurse.slice(0, 10),
-                pages: pages,
-              });
-            } else {
-              this.setState({ MypatientsData: AllNurse });
-            }
-          });
-          this.setState({ forSearch: AllNurse });
-          AllNurse &&
-            AllNurse.length > 0 &&
-            AllNurse.map((item) => {
-              var find = item && item.image && item.image;
-              if (find) {
-                var find1 = find.split(".com/")[1];
-                axios
-                  .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                  .then((response2) => {
-                    if (response2.data.hassuccessed) {
-                      item.new_image = response2.data.data;
-                      images.push({
-                        image: find,
-                        new_image: response2.data.data,
-                      });
-                      this.setState({ images: images });
-                    }
-                  });
-              }
-            });
-        } else {
-          this.setState({ AllNurse: [] });
-        }
+        // this.setState({ AllNurse: AllNurse, forSearch: AllNurse })
       })
-      .catch((error) => { });
   }
 
   submitDelete = (deletekey, profile_id, bucket) => {
@@ -477,9 +530,12 @@ class Index extends Component {
                         {this.state.MypatientsData &&
                           this.state.MypatientsData.length > 0 &&
                           this.state.MypatientsData.map((nurse, i) => (
+                            // console.log("current Page",this.state.currentPage)
+                            // console.log("nurse", nurse, "i",i)
+                            console.log("i", i),
                             <Tr>
                               <Td>
-                                {(this.state.currentPage - 1) * 10 + i + 1}
+                                {((this.state.currentPage - 1) * 5) + i + 1}
                               </Td>
                               <Td>
                                 <img

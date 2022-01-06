@@ -108,9 +108,15 @@ class Index extends Component {
         this.getNurses()
         this.setState({ addCreate: false })
     }
+    
     onChangePage = (pageNumber) => {
-        this.setState({ MypatientsData: this.state.AllNurse.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
-    }
+        this.setState({
+            MypatientsData: this.state.AllNurse.slice(
+                (pageNumber - 1) * 20,
+                pageNumber * 20),
+            currentPage: pageNumber
+        });
+    };
 
     getAllkyc() {
         var user_token = this.props.stateLoginValueAim.token;
@@ -125,22 +131,19 @@ class Index extends Component {
 
     getNurses = (user_id) => {
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id,
-            commonHeader(user_token)
+        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
+            + '/nurse/1'
+            , commonHeader(user_token)
         )
             .then((response) => {
+                console.log("Response Nurse", response);
                 if (response.data.data) {
                     var images = [];
                     this.setState({ AllUsers: response.data.data });
-                    const AllNurse = this.state.AllUsers.filter((value, key) =>
-                        value.type === 'nurse');
-
-                    var current_user = this.state.AllUsers.filter((value, key) =>
-                        value._id === user_id);
-                    this.setState({ current_user: current_user?.length > 0 ? current_user[0] : {} });
+                    const AllNurse = this.state.AllUsers;
 
                     this.setState({ AllNurse: AllNurse })
-                    var totalPage = Math.ceil(AllNurse.length / 10);
+                    var totalPage = Math.ceil(AllNurse.length / 20);
                     this.setState({ totalPage: totalPage, currentPage: 1 },
                         () => {
                             if (totalPage > 1) {
@@ -148,7 +151,7 @@ class Index extends Component {
                                 for (var i = 1; i <= this.state.totalPage; i++) {
                                     pages.push(i)
                                 }
-                                this.setState({ MypatientsData: AllNurse.slice(0, 10), pages: pages })
+                                this.setState({ MypatientsData: AllNurse.slice(0, 20), pages: pages })
                             }
                             else {
                                 this.setState({ MypatientsData: AllNurse })
@@ -391,7 +394,7 @@ class Index extends Component {
                                             <Tbody>
                                                 {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((nurse, i) => (
                                                     <Tr>
-                                                        <Td>{((this.state.currentPage - 1) * 10) + i + 1}</Td>
+                                                        <Td>{((this.state.currentPage - 1) * 20) + i + 1}</Td>
                                                         <Td><img className="doctor_pic" src={nurse && nurse.image ? getImage(nurse.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {nurse.first_name && nurse.first_name}</Td>
                                                         <Td>{nurse.last_name && nurse.last_name}</Td>

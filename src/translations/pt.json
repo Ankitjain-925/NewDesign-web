@@ -1255,6 +1255,7 @@
 		"verifyAccount":"Sua conta não foi verificada, por favor, verifique sua conta de e-mail.",
 		"needUnblock": "Sua conta ainda não está desbloqueada, forneça sua identificação profissional ou, se você a enviou recentemente, dê-nos até 24 horas para desbloqueá-la.",
 		"fillreptcha": "Por favor, preencha o reCAPTCHA",
-		"Tachykardia":"Taquicardia"
+		"Tachykardia":"Taquicardia",
+		"select_user_type":"Selecione o tipo de usuário"
 	}
 }
