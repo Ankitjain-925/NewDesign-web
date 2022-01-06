@@ -130,7 +130,6 @@ export const updateFLAG = (str) => {
 
 //Get current User Information
 export const patientinfo = (current) => {
-    console.log('cueent',current)
     if (current.props.byUser === "patient") {
         var user_id = current.props.stateLoginValueAim.user._id;
     } else {

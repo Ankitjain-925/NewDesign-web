@@ -1254,6 +1254,7 @@
 		"needUnblock": "Akaunti yako bado haijafunguliwa, tafadhali toa kitambulisho chako cha kitaalam au ikiwa umeiwasilisha hivi karibuni, tafadhali tupe hadi masaa 24 kuifungua.",
 		"fillreptcha":"Tafadhali jaza reCAPTCHA",
 		"Tachykardia":"Tachycardia",
-		"Currentpaincondition":"Hali ya maumivu ya sasa"
+		"Currentpaincondition":"Hali ya maumivu ya sasa",
+		"select_user_type":"Tafadhali chagua aina ya mtumiaji"
 	}
 }

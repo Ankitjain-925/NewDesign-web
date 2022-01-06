@@ -29,7 +29,6 @@ export const DocView = ({ attachedFile, documentName, dateAdded, added_by, setti
     }
 
     const ViewFiles = (image, type) => {
-        console.log('attach', image, type)
         if (image) {
             var find1 = image.split(".com/")[1];
             setloaderImage(true);

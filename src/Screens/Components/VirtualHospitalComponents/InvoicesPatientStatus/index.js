@@ -25,7 +25,6 @@ class Index extends React.Component {
     };
 
     updateEntryState1 = (e, name) => {
-        console.log("updateTrack", this.state.updateTrack)
         const state = this.state.updateTrack;
         state[name] = e.target.value;
         this.setState({ updateTrack: state });

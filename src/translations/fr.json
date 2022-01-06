@@ -1255,6 +1255,8 @@
 		"verifyAccount": "Votre compte n'est pas vérifié, veuillez vérifier votre compte de messagerie.",
 		"needUnblock": "Votre compte n'est pas encore déverrouillé, veuillez fournir votre identifiant professionnel ou si vous l'avez soumis récemment, veuillez nous donner jusqu'à 24 heures pour le déverrouiller.",
 		"fillreptcha":"Veuillez remplir le reCAPTCHA",
-		"Tachykardia":"Tachycardie"
+		"Tachykardia":"Tachycardie",
+		"plz_fill_mob_number": "Veuillez remplir le numéro de portable",
+		"select_user_type": "Veuillez sélectionner le type d'utilisateur"
 	}
 }

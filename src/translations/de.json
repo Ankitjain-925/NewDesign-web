@@ -1256,6 +1256,7 @@
 		"verifyAccount": "Ihr Konto ist nicht verifiziert, überprüfen Sie bitte Ihr E-Mail-Konto.",
 		"needUnblock": "Ihr Konto ist noch nicht entsperrt, bitte geben Sie Ihren Berufsausweis an oder geben Sie uns bitte bis zu 24 Stunden Zeit, um es zu entsperren, falls Sie es kürzlich eingereicht haben.",
 		"fillreptcha": "Bitte füllen Sie das reCAPTCHA aus",
-		"Tachykardia":"Tachykardie"
+		"Tachykardia":"Tachykardie",
+		"select_user_type": "Bitte wählen Sie den Benutzertyp"
 	}
 }

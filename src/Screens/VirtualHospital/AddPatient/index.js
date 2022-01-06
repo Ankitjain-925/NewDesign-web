@@ -511,7 +511,7 @@ class Index extends Component {
     }
 
     Upsaterhesus = (rhesusfromD) => {
-        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType)
+        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType,  false, "rhesus")
         this.setState({ rhesus: rhesus })
     }
 
