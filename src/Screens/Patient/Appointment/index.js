@@ -36,7 +36,9 @@ import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import sitedata from "sitedata";
 import Autocomplete from "./Autocomplete";
-import { getLanguage } from "translations/index"
+import {
+  getLanguage
+} from "translations/index"
 import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
 import Loader from "Screens/Components/Loader/index";
@@ -1644,7 +1646,7 @@ class Index extends Component {
                 {/* End of Allow Location Access */}
                 <Grid item xs={12} md={3}>
                   {pastappointment && pastappointment == true ? (
-                    <Grid className="apointUpcom">
+                    <Grid className="apointUpcom 111">
                       <h4>{past_apointment}</h4>
                       {this.state.pastAppointment &&
                         this.state.pastAppointment.length > 0 &&

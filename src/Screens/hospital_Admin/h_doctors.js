@@ -342,7 +342,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let { capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
+        let { AssignHospitals, capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
             recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next } = translate
         return (
             <Grid className={
@@ -429,7 +429,7 @@ class Index extends Component {
                                                                                     title=""
                                                                                 />
                                                                             </span>
-                                                                            Assign Hospitals
+                                                                            {AssignHospitals}
                                                                         </a>
                                                                     </li>
                                                                     <li onClick={() => this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>

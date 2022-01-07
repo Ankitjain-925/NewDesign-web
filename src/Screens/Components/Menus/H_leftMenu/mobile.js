@@ -355,7 +355,7 @@ class Index extends Component {
             </Menu>
           </Grid>
           <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-            <a href="/">
+            <a>
               <img
                 src={require("assets/images/logo_new.png")}
                 alt=""

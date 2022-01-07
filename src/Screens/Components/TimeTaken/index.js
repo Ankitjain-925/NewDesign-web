@@ -5,8 +5,10 @@ import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import Grid from "@material-ui/core/Grid";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
 import { getLanguage } from "translations/index"
+import { pure } from "recompose";
 class TimeTaken extends Component {
   constructor(props) {
     super(props);
@@ -68,7 +70,12 @@ class TimeTaken extends Component {
                       this.onTimeChange(e, 0);
                     }}
                     format="HH:mm"
-                   
+                    popupClassName = {this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "timePickerOpt"
+                      : ""}
                   />
                 ) : (
                   <TimePicker
@@ -79,7 +86,12 @@ class TimeTaken extends Component {
                       this.onTimeChange(e, 0);
                     }}
                     format="h:mm a"
-                   
+                    popupClassName = {this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark"
+                      ? "timePickerOpt"
+                      : ""}
                   />
                 )}
               </Grid>
@@ -103,7 +115,12 @@ class TimeTaken extends Component {
                         itm.value ? moment(new Date(itm.value), "HH:mm") : ""
                       }
                       format="HH:mm"
-                     
+                      popupClassName = {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "timePickerOpt"
+                        : ""}
                     />
                   ) : (
                     <TimePicker
@@ -117,7 +134,12 @@ class TimeTaken extends Component {
                       value={
                         itm.value ? moment(new Date(itm.value), "h:mm a") : ""
                       }
-                     
+                      popupClassName = {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "timePickerOpt"
+                        : ""}
                     />
                   )}
                   <p onClick={this.onAddFiled}>+ {addentry}</p>
@@ -135,7 +157,12 @@ class TimeTaken extends Component {
                         itm.value ? moment(new Date(itm.value), "HH:mm") : ""
                       }
                       format="HH:mm"
-                     
+                      popupClassName = {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "timePickerOpt"
+                        : ""}
                     />
                   ) : (
                     <TimePicker
@@ -149,7 +176,12 @@ class TimeTaken extends Component {
                       value={
                         itm.value ? moment(new Date(itm.value), "h:mm a") : ""
                       }
-                     
+                      popupClassName = {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "timePickerOpt"
+                        : ""}
                     />
                   )}
                   <p
@@ -171,10 +203,12 @@ class TimeTaken extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
+    settings
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(TimeTaken)
+  connect(mapStateToProps, { LanguageFetchReducer, Settings })(TimeTaken)
 );

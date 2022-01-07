@@ -114,6 +114,10 @@ Invoice = () => {
   this.props.history.push("/virtualHospital/invoices")
 };
 
+InvoicePattern = () => {
+  this.props.history.push("/virtualHospital/invoice_pattern")
+};
+
 PatientDetail = () => {
   this.props.history.push("/virtualHospital/patient-detail")
 };
@@ -381,6 +385,28 @@ Questionaires = () => {
                         )}
                     
                         {"Invoices"}
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={this.InvoicePattern}>
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/virtual_images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
+                    
+                        {"Invoice Pattern"}
                       </a>
                     </li>
                     <li>

@@ -13,6 +13,7 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { LanguageFetchReducer } from "Screens/actions";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
+import { getLanguage } from 'translations/index';
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -26,7 +27,7 @@ class Index extends Component {
             addCreate: false,
         };
     }
-    componentDidMount(){
+    componentDidMount() {
     }
     handleaddCreate = () => {
         this.setState({ addCreate: true });
@@ -35,8 +36,8 @@ class Index extends Component {
         this.setState({ addCreate: false });
     };
     logOutClick = async () => {
-        var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
-        if(data){
+        var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), { lastActiveAt: Date.now() })
+        if (data) {
             let email = "";
             let password = "";
             this.props.LoginReducerAim(email, password);
@@ -49,7 +50,10 @@ class Index extends Component {
 
 
     render() {
-        if(this.props.stateLoginValueAim.user.type != "hospitaladmin"){
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { OpenCreateUserModelHospitalAdmin, new_entry, Confirm_your_password, Create, cancel, create_new_user, mobile_number,
+            First_name, speciality, email, Last_name, two_fac_auth, Currentpassword, Hospital, we_use_authy, ShoworHide, edit } = translate;
+        if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
         }
         const { specialistOption } = this.state;
@@ -60,7 +64,7 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Mobile menu */}
-                                <H_LeftMenuMobile isNotShow={true} currentPage="createnewuser"/>
+                                <H_LeftMenuMobile isNotShow={true} currentPage="createnewuser" />
                                 {/* End of mobile menu */}
 
                                 {/* Website Menu */}
@@ -68,7 +72,7 @@ class Index extends Component {
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={10} className="adminCreatUser">
-                                    <Grid><a onClick={this.handleaddCreate}>Open Create User Model (Hospital Admin)</a></Grid>
+                                    <Grid><a onClick={this.handleaddCreate}>{OpenCreateUserModelHospitalAdmin}</a></Grid>
 
                                     {/* Model setup */}
                                     <Modal
@@ -84,15 +88,15 @@ class Index extends Component {
                                                             <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    <p>New entry</p>
-                                                    <Grid><label>Create new user</label></Grid>
+                                                    <p>{new_entry}</p>
+                                                    <Grid><label>{create_new_user}</label></Grid>
                                                 </Grid>
 
                                                 <Grid className="docHlthMain">
 
                                                     <Grid className="spclQues">
                                                         <Grid className="spclQuesIner">
-                                                            <Grid><label>Specialty</label></Grid>
+                                                            <Grid><label>{speciality}</label></Grid>
                                                             <Grid>
                                                                 <Select
                                                                     value={specialistOption}
@@ -107,33 +111,33 @@ class Index extends Component {
                                                     </Grid>
 
                                                     <Grid className="emlCreatSub">
-                                                        <Grid><label>Email address</label></Grid>
+                                                        <Grid><label>{email}</label></Grid>
                                                         <Grid><input type="email" /></Grid>
                                                     </Grid>
 
                                                     <Grid className="emlCreatSub">
-                                                        <Grid><label>Current password</label></Grid>
+                                                        <Grid><label>{Currentpassword}</label></Grid>
                                                         <Grid><input type="password" /></Grid>
                                                     </Grid>
 
                                                     <Grid className="emlCreatSub">
-                                                        <Grid><label>Confirm your password</label></Grid>
+                                                        <Grid><label>{Confirm_your_password}</label></Grid>
                                                         <Grid><input type="password" /></Grid>
                                                     </Grid>
 
                                                     <Grid className="emlCreatSub">
-                                                        <Grid><label>First name</label></Grid>
+                                                        <Grid><label>{First_name}</label></Grid>
                                                         <Grid><input type="text" /></Grid>
                                                     </Grid>
 
                                                     <Grid className="emlCreatSub">
-                                                        <Grid><label>Last name</label></Grid>
+                                                        <Grid><label>{Last_name}</label></Grid>
                                                         <Grid><input type="text" /></Grid>
                                                     </Grid>
 
                                                     <Grid className="twoWayAuth">
-                                                        <h2>2-factor authentication</h2>
-                                                        <p>We use Authy for you to be able to secure your account even more.</p>
+                                                        <h2>{two_fac_auth}</h2>
+                                                        <p>{we_use_authy}</p>
                                                         <Grid className="twoWayAuthChk">
                                                             <FormControlLabel
                                                                 control={
@@ -148,7 +152,7 @@ class Index extends Component {
                                                     </Grid>
 
                                                     <Grid className="emlCreatSub">
-                                                        <label>Mobile phone number</label>
+                                                        <label>{mobile_number}</label>
                                                         <Grid>
                                                             <PhoneInput
                                                                 country={'us'}
@@ -159,10 +163,10 @@ class Index extends Component {
                                                     </Grid>
 
                                                     <Grid className="emlCreatSub">
-                                                        <Grid><label>Hospital</label></Grid>
+                                                        <Grid><label>{Hospital}</label></Grid>
                                                         <Grid className="emlCreatSubSrch">
-                                                           <input type="text" placeholder="Search by Hospital name or ID" />
-                                                           <img src={require('assets/images/InputField.svg')} alt="" title="" />
+                                                            <input type="text" placeholder="Search by Hospital name or ID" />
+                                                            <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                                         </Grid>
                                                     </Grid>
 
@@ -174,21 +178,21 @@ class Index extends Component {
                                                         <Grid container direction="row" justify="center" alignItems="center">
                                                             <Grid item xs={6} md={6}>
                                                                 <Grid className="infoShwHid21">
-                                                                    <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
+                                                                    <a>{ShoworHide} <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid item xs={6} md={6} className="editShwHid21">
-                                                                <a>Edit</a>
+                                                                <a>{edit}</a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="creatInfo">
                                                         <Grid container direction="row" justify="center" alignItems="center">
                                                             <Grid item xs={6} md={6} className="creatInfoLft">
-                                                                <a>Create</a>
+                                                                <a>{Create}</a>
                                                             </Grid>
                                                             <Grid item xs={6} md={6} className="creatInfoRght">
-                                                                <a>Cancel</a>
+                                                                <a>{cancel}</a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -209,7 +213,7 @@ class Index extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim?state.LoginReducerAim:{};
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     return {

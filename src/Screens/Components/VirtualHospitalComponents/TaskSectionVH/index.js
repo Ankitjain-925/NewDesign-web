@@ -106,7 +106,7 @@ class Index extends Component {
       prevProps.tabvalue2 !== this.props.tabvalue2 ||
       prevProps.AllTasks !== this.props.AllTasks ||
       prevProps.ArchivedTasks !== this.props.ArchivedTasks ||
-      prevProps.DoneTask !== this.props.DoneTask ||  
+      prevProps.DoneTask !== this.props.DoneTask ||
       prevProps.OpenTask !== this.props.OpenTask || prevProps.patientForFilter !== this.props.patientForFilter
     ) {
       this.setState({
@@ -132,16 +132,16 @@ class Index extends Component {
       this.props.location?.state?.speciality &&
       this.props.location?.state?.user
     ) {
-        const state = this.state.newTask;
-        this.setState({
-          selectSpec: {
-            label: this.props.location?.state?.speciality?.specialty_name,
-            value: this.props.location?.state?.speciality?._id,
-          },
-        });
-        state["speciality"] = this.props.location?.state?.speciality;
-        state["patient"] = this.props.location?.state?.user;
-        this.setState({ newTask: state });
+      const state = this.state.newTask;
+      this.setState({
+        selectSpec: {
+          label: this.props.location?.state?.speciality?.specialty_name,
+          value: this.props.location?.state?.speciality?._id,
+        },
+      });
+      state["speciality"] = this.props.location?.state?.speciality;
+      state["patient"] = this.props.location?.state?.user;
+      this.setState({ newTask: state });
       this.setState({ openTask: true });
     }
     if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
@@ -492,7 +492,7 @@ class Index extends Component {
   //     this.state.selectedType.length;
 
   updateUserFilter = (e) => {
-   this.setState({ userFilter: e })
+    this.setState({ userFilter: e })
   }
 
   //Select the professional name
@@ -545,7 +545,7 @@ class Index extends Component {
           }
           this.updateEntryState2(this.props.location?.state?.user);
         }
-        
+
       });
     }
     else {
@@ -852,7 +852,7 @@ class Index extends Component {
       return { label: item.ward_name, value: item._id }
     })
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
-   
+
   }
 
   // ward Change
@@ -903,9 +903,9 @@ class Index extends Component {
       CreateaTask,
       ForPatient,
       Taskdescription,
-      Assignedto,
-      Speciallity,
-      Dueon,
+      Assignedto,Ward,Room,
+      Speciallity,Patient,Staff,
+      Dueon,Comments,filters,Taskstatus,speciality,
       Duplicate, applyFilters, clear_all_filters, Submit,
       Archive, Delete, edit, AddComment, save_task_and_close,
       Markasdone, remove_time,
@@ -940,11 +940,11 @@ class Index extends Component {
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
-         </Grid>
+          </Grid>
           <Grid item xs={12} md={6}>
             {this.props.comesFrom !== 'Professional' && <Grid className="addTaskBtn">
               <Button onClick={this.handleOpenTask}>{add_task}</Button>
-            {/* <label>{filterbedge}</label> */}
+              {/* <label>{filterbedge}</label> */}
             </Grid>}
           </Grid>
           {/* Model setup */}
@@ -1172,40 +1172,40 @@ class Index extends Component {
                                           />
                                           <label>{Duplicate}</label>
                                         </Grid>
-                                       
+
                                         {this.state.newTask.archived == true ? (
-                                        <Grid
-                                          onClick={() => {
-                                            this.updateEntryState1(
-                                              false,
-                                              "archived"
-                                            );
-                                          }}
-                                          className="activeOntask"
-                                        >
-                                          <img
-                                            src={require("assets/images/archive-white.svg")}
-                                            alt=""
-                                            title=""
-                                          />
-                                          <label>{Archive}</label>
-                                        </Grid>)
+                                          <Grid
+                                            onClick={() => {
+                                              this.updateEntryState1(
+                                                false,
+                                                "archived"
+                                              );
+                                            }}
+                                            className="activeOntask"
+                                          >
+                                            <img
+                                              src={require("assets/images/archive-white.svg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                            <label>{Archive}</label>
+                                          </Grid>)
                                           :
                                           <Grid
-                                          onClick={() => {
-                                            this.updateEntryState1(
-                                              true,
-                                              "archived"
-                                            );
-                                          }}
-                                        >
-                                          <img
-                                            src={require("assets/images/archive.svg")}
-                                            alt=""
-                                            title=""
-                                          />
-                                          <label>{Archive}</label>
-                                        </Grid>}
+                                            onClick={() => {
+                                              this.updateEntryState1(
+                                                true,
+                                                "archived"
+                                              );
+                                            }}
+                                          >
+                                            <img
+                                              src={require("assets/images/archive.svg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                            <label>{Archive}</label>
+                                          </Grid>}
                                         <Grid>
                                           <img
                                             onClick={(id) => {
@@ -1233,24 +1233,24 @@ class Index extends Component {
                                       >
                                         {this.state.newTask.status ===
                                           "done" ? (
-                                            <Grid className="revwFiles ">
-                                          <Grid className="activeOntask">
-                                            <img
-                                              src={require("assets/virtual_images/greyImg.png")}
-                                              alt=""
-                                              title=""
-                                            />
+                                          <Grid className="revwFiles ">
+                                            <Grid className="activeOntask">
+                                              <img
+                                                src={require("assets/virtual_images/greyImg.png")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </Grid>
                                           </Grid>
-                                         </Grid>
                                         ) : (
                                           <Grid className="revwFiles">
-                                          <Grid>
-                                            <img
-                                              src={require("assets/virtual_images/greyImg.png")}
-                                              alt=""
-                                              title=""
-                                            />
-                                          </Grid>
+                                            <Grid>
+                                              <img
+                                                src={require("assets/virtual_images/greyImg.png")}
+                                                alt=""
+                                                title=""
+                                              />
+                                            </Grid>
                                           </Grid>
                                         )}
                                         <label>{Markasdone}</label>
@@ -1280,7 +1280,7 @@ class Index extends Component {
                             />
                           </Grid>}
                           {this.props.comesFrom === 'Professional' && <Grid item xs={12} md={12}>
-                            <Grid><label>Comments</label></Grid>
+                            <Grid><label>{Comments}</label></Grid>
                             {this.state.newTask?.comments?.length > 0 && this.state.newTask?.comments.map((data, index) => (
 
                               <Grid className="cmntIner cmntInerBrdr">
@@ -1379,39 +1379,39 @@ class Index extends Component {
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
                 <Grid className="taskSort">
-                {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />}
-                  <a>    
-                  {!this.state.showinput ? <img
-                    src={require("assets/virtual_images/search-entries.svg")}
-                    alt=""
-                    title=""
-                    onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
-                  /> :
-                    <img
-                      src={require("assets/images/close-search.svg")}
+                  {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />}
+                  <a>
+                    {!this.state.showinput ? <img
+                      src={require("assets/virtual_images/search-entries.svg")}
                       alt=""
                       title=""
-                      onClick={() => { this.setState({ showinput: !this.state.showinput, text: ''}); this.clearFilter() }}
-                    />}
+                      onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                    /> :
+                      <img
+                        src={require("assets/images/close-search.svg")}
+                        alt=""
+                        title=""
+                        onClick={() => { this.setState({ showinput: !this.state.showinput, text: '' }); this.clearFilter() }}
+                      />}
                   </a>
 
                   {this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask' &&
                     <>
-                     
+
                       {tabvalue2 === 0 &&
-                        <a className={AllTaskCss}><img src={AllTaskCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} />  </a>
+                        <a className={AllTaskCss}><img src={AllTaskCss === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} />  </a>
                       }
                       {tabvalue2 === 1 &&
-                        <a className={DoneTaskCss}> <img src={AllTaskCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={DoneTaskCss}> <img src={AllTaskCss === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                       {tabvalue2 === 2 &&
-                        <a className={OpenTaskCss}> <img src={AllTaskCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                        <a className={OpenTaskCss}> <img src={AllTaskCss === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                       }
                     </>
                   }
 
                   {tabvalue2 === 3 &&
-                    <a className={ArchivedTasksCss}> <img src={ArchivedTasksCss==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
+                    <a className={ArchivedTasksCss}> <img src={ArchivedTasksCss === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenRvw} /> </a>
                   }
                 </Grid>
               </Grid>
@@ -1483,28 +1483,28 @@ class Index extends Component {
           )}
         </Grid>
         <Modal open={this.state.noWards} onClose={this.handleCloseRvw}>
-         
-        <Grid  className={
-                                this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
-                                  ? "nwEntrCntnt fltrClear darkTheme"
-                                  : "nwEntrCntnt fltrClear"
-                              }>
+
+          <Grid className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+              ? "nwEntrCntnt fltrClear darkTheme"
+              : "nwEntrCntnt fltrClear"
+          }>
             <Grid className="fltrClearIner">
               <Grid className="fltrLbl">
                 <Grid className="fltrLblClose">
                   <a onClick={this.handleCloseRvw}><img src={require('../../../../assets/images/close-search.svg')} alt="" title="" /></a>
                 </Grid>
-                <label>Filters</label>
+                <label>{filters}</label>
               </Grid>
 
               <TabContainer>
                 <Grid className="fltrForm">
                   {tabvalue2 === 0 &&
                     <Grid className="fltrInput">
-                      <label>Task status</label>
+                      <label>{Taskstatus}</label>
                       <Grid className="addInput">
                         <FormControlLabel
                           control={
@@ -1538,7 +1538,7 @@ class Index extends Component {
                     </Grid>
                   }
                   <Grid className="fltrInput">
-                    <label>Patient</label>
+                    <label>{Patient}</label>
                     <Grid className="addInput">
                       {/* {console.log('userFilter', this.state.userFilter.length)} */}
                       <Select
@@ -1554,7 +1554,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid className="fltrInput">
-                    <label>Staff</label>
+                    <label>{Staff}</label>
                     <Grid className="addInput">
                       <Select
                         name="professional"
@@ -1569,7 +1569,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid className="fltrInput">
-                    <label>Speciality</label>
+                    <label>{speciality}</label>
                     <Grid className="addInput">
                       <Select
                         onChange={(e) => this.onFieldChange2(e)}
@@ -1584,7 +1584,7 @@ class Index extends Component {
                   </Grid>
                   {this.state.wardList && this.state.wardList.length > 0 &&
                     <Grid className="fltrInput">
-                      <label>Ward</label>
+                      <label>{Ward}</label>
                       <Grid className="addInput">
                         <Select
                           onChange={(e) => this.onWardChange(e)}
@@ -1600,7 +1600,7 @@ class Index extends Component {
                   }
                   {this.state.roomList && this.state.roomList.length > 0 &&
                     <Grid className="fltrInput">
-                      <label>Room</label>
+                      <label>{Room}</label>
                       <Grid className="addInput">
                         <Select
                           onChange={(e) => this.onRoomChange(e)}

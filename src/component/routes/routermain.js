@@ -156,7 +156,7 @@ class Routermain extends Component {
             />
              <Route
               exact
-              path="/patient/Patient-journey"
+              path="/patient/patient-journey"
               render={(props) => <Patientjourney {...props} />}
             />
             <Route

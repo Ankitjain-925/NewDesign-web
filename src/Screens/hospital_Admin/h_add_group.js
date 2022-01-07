@@ -96,6 +96,9 @@ class Index extends Component {
 
   //Delete the Groups
   deleteGroup = (e, id) => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { DeleteGroup, hospitals_in_this_step_will_be_removed_action_cannot_reversed, are_you_sure,
+      yes_deleteStep, cancel_keepStep } = translate;
     e.stopPropagation();
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     if (institute_id) {
@@ -109,14 +112,14 @@ class Index extends Component {
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
                 <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
-                <label>Delete Group</label>
+                <label>{DeleteGroup}</label>
               </Grid>
               <Grid className="deleteStepInfo">
-                <p>All hospitals in this Step will be removed from the group. This action can not be reversed.</p>
-                <Grid><label>Are you sure you want to do this?</label></Grid>
+                <p>{hospitals_in_this_step_will_be_removed_action_cannot_reversed}</p>
+                <Grid><label>{are_you_sure}</label></Grid>
                 <Grid>
-                  <Button onClick={() => { this.removeGroup(id) }}>Yes, Delete Step</Button>
-                  <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
+                  <Button onClick={() => { this.removeGroup(id) }}>{yes_deleteStep}</Button>
+                  <Button onClick={() => { onClose(); }}>{cancel_keepStep}</Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -131,6 +134,8 @@ class Index extends Component {
   };
 
   removeGroup = (id) => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { RemoveGroup, r_u_really_want_to_remove_group, No, Yes } = translate;
     // var state = this.state.actualData;
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -145,17 +150,17 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 class="alert-btn">Remove Group?</h1>
-            <p>Are you really want to remove this Group?</p>
+            <h1 class="alert-btn">{RemoveGroup}</h1>
+            <p>{r_u_really_want_to_remove_group}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.DeleteGroupOk(id);
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -182,6 +187,9 @@ class Index extends Component {
   }
 
   deleteHospital = (index) => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { DeleteHospital, hospitals_will_be_removed_action_cannot_reversed, cancel,
+      are_you_sure, YesDelete } = translate;
     this.setState({ openGroup: false });
     var data = this.state.institute_groups;
     if (data?.houses?.length > 0) {
@@ -195,14 +203,14 @@ class Index extends Component {
               : "deleteStep"}>
               <Grid className="deleteStepLbl">
                 <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
-                <label>Delete Hospital</label>
+                <label>{DeleteHospital}</label>
               </Grid>
               <Grid className="deleteStepInfo">
-                <p>This hospital will be removed. This action can not be reversed.</p>
-                <Grid><label>Are you sure you want to do this?</label></Grid>
+                <p>{hospitals_will_be_removed_action_cannot_reversed}</p>
+                <Grid><label>{are_you_sure}</label></Grid>
                 <Grid>
-                  <Button onClick={() => { this.removeInstitute(index, data) }}>Yes, Delete</Button>
-                  <Button onClick={() => { onClose(); }}>Cancel</Button>
+                  <Button onClick={() => { this.removeInstitute(index, data) }}>{YesDelete}</Button>
+                  <Button onClick={() => { onClose(); }}>{cancel}</Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -213,6 +221,8 @@ class Index extends Component {
   };
 
   removeInstitute = (index, data) => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { RemoveHospital, r_u_really_want_to_remove, No, Yes } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -226,17 +236,17 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1 class="alert-btn">Remove hospital?</h1>
-            <p>Are you really want to remove this?</p>
+            <h1 class="alert-btn">{RemoveHospital}</h1>
+            <p>{r_u_really_want_to_remove}</p>
             <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
+              <button onClick={onClose}>{No}</button>
               <button
                 onClick={() => {
                   this.DeleteInstitute(index, data);
                   onClose();
                 }}
               >
-                Yes
+                {Yes}
               </button>
             </div>
           </div>
@@ -541,7 +551,8 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let { } = translate;
+    let { InstituteGroups, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
+      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo } = translate;
     return (
       <Grid
         className={
@@ -573,7 +584,7 @@ class Index extends Component {
                     className="archvOpinLbl"
                   >
                     <Grid item xs={12} md={6}>
-                      <label>Institute Groups</label>
+                      <label>{InstituteGroups}</label>
                     </Grid>
                   </Grid>
 
@@ -609,7 +620,7 @@ class Index extends Component {
                                           alt=""
                                           title=""
                                         />
-                                        Edit Group
+                                        {EditGroup}
                                       </a>
                                     </li>
                                     <li>
@@ -623,7 +634,7 @@ class Index extends Component {
                                           alt=""
                                           title=""
                                         />
-                                        Delete
+                                        {Delete}
                                       </a>
                                     </li>
                                   </ul>
@@ -636,15 +647,15 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <label>{item.group_name}</label>
-                               </Grid>
+                              </Grid>
                               <p>{item.group_description}</p>
-                               {this.state.showHouses &&
+                              {this.state.showHouses &&
 
                                 <Grid>
                                   <Table>
                                     <Thead>
                                       <Tr>
-                                        <Th>Hospitals</Th>
+                                        <Th>{Hospitals}</Th>
                                       </Tr>
                                     </Thead>
                                     <Tbody>
@@ -653,7 +664,7 @@ class Index extends Component {
                                           <Tr>
                                             <Td>
                                               {data.house_name}
-                                             
+
                                             </Td>
                                           </Tr>
                                         ))}
@@ -672,7 +683,7 @@ class Index extends Component {
                           this.openInstitute();
                         }}>
                           <a>
-                            + Add Institute Group
+                            {AddInstituteGroup}
                           </a>
                         </Grid>
                       </Grid>
@@ -694,150 +705,150 @@ class Index extends Component {
                       }
                     >
                       <Grid className="addSpeclContnt nwEntrCntntIner h-500">
-                      <Grid className="addSpeclContntIner">
-                        <Grid className="addSpeclLbl">
-                          <Grid className="addSpeclClose">
-                            <a onClick={this.closeInstitute}>
-                              <img
-                                src={require("assets/images/close-search.svg")}
-                                alt=""
-                                title=""
-                              />
-                            </a>
+                        <Grid className="addSpeclContntIner">
+                          <Grid className="addSpeclLbl">
+                            <Grid className="addSpeclClose">
+                              <a onClick={this.closeInstitute}>
+                                <img
+                                  src={require("assets/images/close-search.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </Grid>
+                            <Grid>
+                              <label>{AddInstitution}</label>
+                            </Grid>
                           </Grid>
-                          <Grid>
-                            <label>Add Institution</label>
-                          </Grid>
-                        </Grid>
-                        <Grid className="enterSpclUpr">
-                          <div className="err_message">{this.state.errorMsg}</div>
-                          <Grid className="enterSpclMain">
-                            <Grid className="enterSpcl">
-                              <Grid container direction="row">
-                                <Grid item xs={10} md={12} className="form-box">
+                          <Grid className="enterSpclUpr">
+                            <div className="err_message">{this.state.errorMsg}</div>
+                            <Grid className="enterSpclMain">
+                              <Grid className="enterSpcl">
+                                <Grid container direction="row">
+                                  <Grid item xs={10} md={12} className="form-box">
 
-                                  <VHfield
-                                    label="Institution Name"
-                                    name="group_name"
-                                    value={this.state?.institute_groups?.group_name || ''}
-                                    placeholder="Enter institute group name"
-                                    onChange={(e) => this.updateEntryState(e)}
-                                  />
-                                </Grid>
-                                <Grid item xs={10} md={12} className="form-box">
-                                  <VHfield
-                                    label="Institution Description Note"
-                                    name="group_description"
-                                    value={this.state?.institute_groups?.group_description || ''}
-                                    placeholder="Enter institution description note"
-                                    onChange={(e) => this.updateEntryState(e)}
-                                  />
-                                </Grid>
-                                <Grid item xs={10} md={12} className="form-box">
-                                  <Grid>
-                                    <label>Upload Institution Logo</label>
+                                    <VHfield
+                                      label="Institution Name"
+                                      name="group_name"
+                                      value={this.state?.institute_groups?.group_name || ''}
+                                      placeholder="Enter institute group name"
+                                      onChange={(e) => this.updateEntryState(e)}
+                                    />
                                   </Grid>
-                                  <FileUploader
-                                    name="group_logo"
-                                    fileUpload={(file) => { this.fileUpload(file, 'group_logo') }}
-                                    comesFrom="journal"
-                                    isMulti={false}
-                                  />
-                                </Grid>
-                                <Grid item xs={10} md={12} className="form-box">
-                                  <Grid>
-                                    <a>
-                                      <label>Current Logo</label>
-                                      <div className= "institute_logo">
-                                        <S3Image comesFrom="hospital" imgUrl={this.state?.institute_groups?.group_logo} />
-                                      </div>
-
-                                    </a>
+                                  <Grid item xs={10} md={12} className="form-box">
+                                    <VHfield
+                                      label="Institution Description Note"
+                                      name="group_description"
+                                      value={this.state?.institute_groups?.group_description || ''}
+                                      placeholder="Enter institution description note"
+                                      onChange={(e) => this.updateEntryState(e)}
+                                    />
                                   </Grid>
-                                </Grid>
-                                <Grid container direction="row" alignItems="center" spacing={2} className="add-group-padding">
-                                  <Grid item xs={12} md={12}>
-                                    <Grid><label>Hospitals</label></Grid>
+                                  <Grid item xs={10} md={12} className="form-box">
                                     <Grid>
-                                      <Table>
-                                        <Thead>
-                                          <Tr>
-                                            <Th>Hospital Name</Th>
-                                            <Th>Description Note</Th>
-                                            <Th></Th>
-                                          </Tr>
-                                        </Thead>
-                                        <Tbody>
-                                          {this.state.institute_groups &&
-                                            this.state.institute_groups.houses &&
-                                            this.state.institute_groups.houses.length > 0 &&
-                                            this.state.institute_groups.houses.map((data, index) => (
-                                              <Tr>
-                                                <Td>
-                                                  {data?.house_name}
-                                                </Td>
-                                                <Td>
-                                                  {data?.house_description}
-                                                </Td>
-                                                <Td className="presEditDot scndOptionIner">
-                                                  <a className="openScndhrf">
-                                                    <img
-                                                      src={require("assets/images/three_dots_t.png")}
-                                                      alt=""
-                                                      title=""
-                                                      className="openScnd"
-                                                    />
-                                                    <ul>
-                                                      <li>
-                                                        <a
-                                                          onClick={() => {
-                                                            this.editHospital(data);
-                                                          }}
-                                                        >
-                                                          <img
-                                                            src={require("assets/images/details.svg")}
-                                                            alt=""
-                                                            title=""
-                                                          />
-                                                          Edit Hospital
-                                                        </a>
-                                                      </li>
-                                                      <li>
-                                                        <a
-                                                          onClick={() => {
-                                                            this.deleteHospital(data._id);
-                                                          }}
-                                                        >
-                                                          <img
-                                                            src={require("assets/images/edit.svg")}
-                                                            alt=""
-                                                            title=""
-                                                          />
-                                                          Delete
-                                                        </a>
-                                                      </li>
-                                                    </ul>
-                                                  </a>
-                                                </Td>
-                                              </Tr>
-                                            ))}
-                                        </Tbody>
-                                      </Table>
+                                      <label>{UploadInstitutionLogo}</label>
+                                    </Grid>
+                                    <FileUploader
+                                      name="group_logo"
+                                      fileUpload={(file) => { this.fileUpload(file, 'group_logo') }}
+                                      comesFrom="journal"
+                                      isMulti={false}
+                                    />
+                                  </Grid>
+                                  <Grid item xs={10} md={12} className="form-box">
+                                    <Grid>
+                                      <a>
+                                        <label>{CurrentLogo}</label>
+                                        <div className="institute_logo">
+                                          <S3Image comesFrom="hospital" imgUrl={this.state?.institute_groups?.group_logo} />
+                                        </div>
+
+                                      </a>
                                     </Grid>
                                   </Grid>
+                                  <Grid container direction="row" alignItems="center" spacing={2} className="add-group-padding">
+                                    <Grid item xs={12} md={12}>
+                                      <Grid><label>{Hospitals}</label></Grid>
+                                      <Grid>
+                                        <Table>
+                                          <Thead>
+                                            <Tr>
+                                              <Th>{hosp_name}</Th>
+                                              <Th>{DescriptionNote}</Th>
+                                              <Th></Th>
+                                            </Tr>
+                                          </Thead>
+                                          <Tbody>
+                                            {this.state.institute_groups &&
+                                              this.state.institute_groups.houses &&
+                                              this.state.institute_groups.houses.length > 0 &&
+                                              this.state.institute_groups.houses.map((data, index) => (
+                                                <Tr>
+                                                  <Td>
+                                                    {data?.house_name}
+                                                  </Td>
+                                                  <Td>
+                                                    {data?.house_description}
+                                                  </Td>
+                                                  <Td className="presEditDot scndOptionIner">
+                                                    <a className="openScndhrf">
+                                                      <img
+                                                        src={require("assets/images/three_dots_t.png")}
+                                                        alt=""
+                                                        title=""
+                                                        className="openScnd"
+                                                      />
+                                                      <ul>
+                                                        <li>
+                                                          <a
+                                                            onClick={() => {
+                                                              this.editHospital(data);
+                                                            }}
+                                                          >
+                                                            <img
+                                                              src={require("assets/images/details.svg")}
+                                                              alt=""
+                                                              title=""
+                                                            />
+                                                            {EditHospital}
+                                                          </a>
+                                                        </li>
+                                                        <li>
+                                                          <a
+                                                            onClick={() => {
+                                                              this.deleteHospital(data._id);
+                                                            }}
+                                                          >
+                                                            <img
+                                                              src={require("assets/images/edit.svg")}
+                                                              alt=""
+                                                              title=""
+                                                            />
+                                                            {Delete}
+                                                          </a>
+                                                        </li>
+                                                      </ul>
+                                                    </a>
+                                                  </Td>
+                                                </Tr>
+                                              ))}
+                                          </Tbody>
+                                        </Table>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+                                  <Grid className="spclSaveBtn saveNclose">
+                                    <Button onClick={this.openHospitalModal}>{EnterHospitals}</Button>
+                                  </Grid>
+
                                 </Grid>
                                 <Grid className="spclSaveBtn saveNclose">
-                                  <Button onClick={this.openHospitalModal}>+ Enter Hospitals</Button>
+                                  <Button onClick={this.SaveGroup}>{Save}</Button>
                                 </Grid>
-
-                              </Grid>
-                              <Grid className="spclSaveBtn saveNclose">
-                                <Button onClick={this.SaveGroup}>Save</Button>
                               </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
                       </Grid>
                     </Modal>
 
@@ -866,7 +877,7 @@ class Index extends Component {
                               </a>
                             </Grid>
                             <Grid>
-                              <label>Add Hospital</label>
+                              <label>{AddHospital}</label>
                             </Grid>
                           </Grid>
                           <Grid className="enterSpclUpr">
@@ -894,7 +905,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid item xs={10} md={12} className="form-box">
                                     <Grid>
-                                      <label>Upload Hospital Logo</label>
+                                      <label>{UploadHospitalLogo}</label>
                                     </Grid>
                                     <FileUploader
                                       name="house_logo"
@@ -906,16 +917,16 @@ class Index extends Component {
                                   <Grid item xs={10} md={12} className="form-box">
                                     <Grid>
                                       <a>
-                                        <label>Current Logo</label>
-                                        <div className= "institute_logo">
-                                        <S3Image comesFrom="hospital" imgUrl={this.state?.hospitalData?.house_logo} />
+                                        <label>{CurrentLogo}</label>
+                                        <div className="institute_logo">
+                                          <S3Image comesFrom="hospital" imgUrl={this.state?.hospitalData?.house_logo} />
                                         </div>
                                       </a>
                                     </Grid>
                                   </Grid>
                                 </Grid>
                                 <Grid className="spclSaveBtn saveNclose">
-                                  <Button onClick={(e) => this.saveHospital(e)}>Save & Close</Button>
+                                  <Button onClick={(e) => this.saveHospital(e)}>{save_and_close}</Button>
                                 </Grid>
                               </Grid>
                             </Grid>

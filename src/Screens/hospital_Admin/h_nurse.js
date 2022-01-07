@@ -108,7 +108,7 @@ class Index extends Component {
         this.getNurses()
         this.setState({ addCreate: false })
     }
-    
+
     onChangePage = (pageNumber) => {
         this.setState({
             MypatientsData: this.state.AllNurse.slice(
@@ -330,7 +330,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let { srvc_Nurses, add_new, Nurse, find_nurse, ID, Status, no_, previous, next,
+        let { srvc_Nurses, add_new, AssignHospitals, Nurse, find_nurse, ID, Status, no_, previous, next,
             recEmp_FirstName, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 
         return (
@@ -419,7 +419,7 @@ class Index extends Component {
                                                                                     title=""
                                                                                 />
                                                                             </span>
-                                                                            Assign Hospitals
+                                                                            {AssignHospitals}
                                                                         </a>
                                                                     </li>
                                                                     <li onClick={() => this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
