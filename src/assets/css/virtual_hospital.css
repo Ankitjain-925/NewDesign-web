@@ -9880,6 +9880,60 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .err_message, .homeBgDrk .err_message{
+    color: red!important;
+}
+.darkTheme .success_message,  .homeBgDrk .success_message{
+    color: #00abaf!important;
+}
+.darkTheme .addServContnt{
+    background-color: #404646!important;
+}
+@media (max-width: 1300px){
+    .tskOverView2{
+        display: grid !important;
+    }  
+}
+.pattern-sec a button:hover{
+    background-color: #00abaf;
+}
+.pattern-sec a .appliedbutton{
+    background-color: #00abaf !important;
+}
+span.ApplyPattern {
+    margin-left: 30px;
+}
+span.ApplyPattern:hover {
+    color: #00abaf;
+}
+span.AppliedPattern {
+    margin-left: 30px;
+    color: #00abaf;
+}
+.pattern-sec {
+    text-align: center;
+}
+.pattern-sec a {
+    text-align: center;
+    font-family: 'Muli';
+    font-weight: 600;
+}
+.pattern-sec a button{
+    width:95%
+}
+.darkTheme .pattern-sec a button{
+    background-color: #404646;
+    color: #fff;
+}
+.darkTheme .pattern-sec a{
+    color: #cfcfcf !important;
+}
+.darkTheme .demOverView {
+    background-color: #404646;
+}
+.darkTheme .demOverView h1{
+    color: #cfcfcf!important;
+}
 .darkTheme .vh-section input:disabled{
     color: #404646 !important
 }
@@ -9918,9 +9972,11 @@ option{
 .darkTheme .fillDia .rrSysto div {
     background-color: #404646 !important
 }
-
-.cnfrmDiaMain .fillDia .rrSysto div {
+.darkTheme .cnfrmDiaMain .fillDia .rrSysto div {
     color: #cfcfcf !important;
+}
+.cnfrmDiaMain .fillDia .rrSysto div {
+    color: #000808;
     font-family: Muli;
 }
 .homeBgDrk .entryBoxCntnt , .darkTheme .entryBoxCntnt{
@@ -12902,11 +12958,8 @@ input:-moz-autofill:active{
     height: 100%;
 }
 /* Add by tanya */
-.buttonCDstyle{
-    margin-top: 5px;
-   
-}
-.colorBtnUpr a{
+
+.colorBtnUpr button{
     border-radius: 8px;
     background-color: lightgrey;
     color: black !important;
@@ -12919,6 +12972,38 @@ input:-moz-autofill:active{
     margin-left: 5px;
 }
 
-.buttonstyle{
-    background-color: blue;  
+/* Added by ankit */
+.colorbtn button{
+    border-radius: 8px;
+    background-color: lightgrey;
+    color: black !important;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+    padding: 16px 10px;
+    min-width: 220px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.tskOverView2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.demOverView h1 {
+   text-align: center;
+}
+
+.demOverView {
+    margin-top: 15px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+    min-height: 30vh;
+    padding: 26px 16px;
+    border-radius: 15px;
+    font-weight: bold;
+    margin: 20px;
 }

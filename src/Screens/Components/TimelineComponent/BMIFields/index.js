@@ -99,6 +99,7 @@ class Index extends Component {
                   }
                   time_format={this.state.time_format}
                   onChange={(e) => this.updateEntryState1(e, "time_measured")}
+                  
                 />
               </Grid>
             </Grid>

@@ -3,7 +3,7 @@ import { TimePicker } from "antd";
 import { DatePicker } from "antd";
 import moment from "moment";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-
+import { Settings } from "Screens/Login/setting";
 import Grid from "@material-ui/core/Grid";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -94,6 +94,12 @@ class Index extends Component {
                     name={this.props.name}
                     onChange={(e) => this.onDateChange(e, 0)}
                     format={dateFormatList[0]}
+                     dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                   />
                 )}
                 {this.state.is241 === "DD/MM/YYYY" && (
@@ -102,6 +108,12 @@ class Index extends Component {
                     name={this.props.name}
                     onChange={(e) => this.onDateChange(e, 0)}
                     format={dateFormatList[0]}
+                     dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                   />
                 )}
                 {this.state.is241 === "YYYY/DD/MM" && (
@@ -110,6 +122,12 @@ class Index extends Component {
                     name={this.props.name}
                     onChange={(e) => this.onDateChange(e, 0)}
                     format={dateFormatList[2]}
+                     dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                   />
                 )}
                 {this.state.is241 === "MM/DD/YYYY" && (
@@ -118,6 +136,12 @@ class Index extends Component {
                     name={this.props.name}
                     onChange={(e) => this.onDateChange(e, 0)}
                     format={dateFormatList[1]}
+                     dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                   />
                 )}
                 <Grid>
@@ -129,6 +153,12 @@ class Index extends Component {
                         this.onTimeChange(e, 0);
                       }}
                       format="HH:mm"
+                      popupClassName = {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "timePickerOpt"
+                        : ""}
                     />
                   ) : (
                     <TimePicker
@@ -139,6 +169,12 @@ class Index extends Component {
                         this.onTimeChange(e, 0);
                       }}
                       format="h:mm a"
+                      popupClassName = {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "timePickerOpt"
+                        : ""}
                     />
                   )}
                 </Grid>
@@ -172,6 +208,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[0]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is241 === "DD/MM/YYYY" && (
@@ -190,6 +232,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[0]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is241 === "YYYY/DD/MM" && (
@@ -208,6 +256,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[2]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is241 === "MM/DD/YYYY" && (
@@ -226,6 +280,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[1]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is24 === "24" ? (
@@ -239,6 +299,12 @@ class Index extends Component {
                           itm.value ? moment(new Date(itm.value), "HH:mm") : ""
                         }
                         format="HH:mm"
+                        popupClassName = {this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "timePickerOpt"
+                          : ""}
                       />
                     ) : (
                       <TimePicker
@@ -252,6 +318,12 @@ class Index extends Component {
                         value={
                           itm.value ? moment(new Date(itm.value), "h:mm a") : ""
                         }
+                        popupClassName = {this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "timePickerOpt"
+                          : ""}
                       />
                     )}
                   </div>
@@ -273,6 +345,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[0]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is241 === "DD/MM/YYYY" && (
@@ -291,6 +369,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[0]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is241 === "YYYY/DD/MM" && (
@@ -309,6 +393,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[2]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is241 === "MM/DD/YYYY" && (
@@ -327,6 +417,12 @@ class Index extends Component {
                             : ""
                         }
                         format={dateFormatList[1]}
+                         dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                       />
                     )}
                     {this.state.is24 === "24" ? (
@@ -340,6 +436,12 @@ class Index extends Component {
                           itm.value ? moment(new Date(itm.value), "HH:mm") : ""
                         }
                         format="HH:mm"
+                        popupClassName = {this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "timePickerOpt"
+                          : ""}
                       />
                     ) : (
                       <TimePicker
@@ -353,6 +455,12 @@ class Index extends Component {
                         value={
                           itm.value ? moment(new Date(itm.value), "h:mm a") : ""
                         }
+                        popupClassName = {this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "timePickerOpt"
+                          : ""}
                       />
                     )}
                   </div>
@@ -393,10 +501,12 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
+    settings
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
+  connect(mapStateToProps, { LanguageFetchReducer, Settings })(Index)
 );
