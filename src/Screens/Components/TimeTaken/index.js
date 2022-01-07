@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
 import { getLanguage } from "translations/index"
+import { pure } from "recompose";
 class TimeTaken extends Component {
   constructor(props) {
     super(props);

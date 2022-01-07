@@ -3390,7 +3390,7 @@ a.profilMenu {
     content: "KM";
     position: absolute;
     right: 16px;
-    bottom: 30px;
+    bottom: 18px;
     color: #BFC1C1;
     font-family: Muli;
     font-size: 14px;
@@ -3414,7 +3414,7 @@ a.profilMenu {
 }
 .locat_srvc img {
     position: absolute;
-    bottom: 29px;
+    bottom: 18px;
     right: 16px;
 }
 .locat_srvc {
@@ -14037,7 +14037,7 @@ g.highcharts-axis.highcharts-yaxis text {
 }
 .homeBgDrk .OrganMobile button#select_flag_button,.homeBgDrk{
     background: #b1b1b180;
-    height: 37px;
+    min-height: 37px;
     min-height: 33px;
     border-radius: 5px 0px 0px 5px;
 }
@@ -17319,5 +17319,53 @@ ul.duringCovid li:last-child {
     color: #b7b7b7 !important;
 }
 .darkTheme > div:nth-child(4) .ant-picker-header-view button,.darkTheme > div:nth-child(4) a.ant-picker-today-btn {
+    color: #00abaf;
+}
+
+.dropdown-class-name-3 .ant-picker-panel-container .ant-picker-panel {
+    background: #404646;
+}
+.dropdown-class-name-3 .ant-picker-header-view, 
+.dropdown-class-name-3 .ant-picker-content th,
+.dropdown-class-name-3 span.ant-picker-super-prev-icon, 
+.dropdown-class-name-3 .ant-picker-prev-icon, 
+.dropdown-class-name-3 .ant-picker-super-prev-icon, 
+.dropdown-class-name-3 button.ant-picker-header-next-btn,
+.dropdown-class-name-3 button.ant-picker-header-super-next-btn {
+    color: #00b0db;
+}
+.dropdown-class-name-3 .ant-picker-cell .ant-picker-cell-inner {
+    color: #c5c5c5;
+}
+.dropdown-class-name-3 .ant-picker-cell .ant-picker-cell-inner:hover {
+    color: #00b0db !important;
+}
+.dropdown-class-name-3 .ant-picker-panel {
+    border: 1px solid #00b0db;
+}
+.dropdown-class-name-3 .ant-picker-header {
+    border-bottom: 1px solid #00b0db;
+}
+.dropdown-class-name-3 .ant-picker-range-arrow::after {
+    border: 5px solid #00b0db;
+    border-color: #00b0db #00b0db transparent transparent;
+}
+.dropdown-class-name-3 .ant-picker-panel .ant-picker-footer {
+    color: #00b0db;
+}
+.timePickerOpt .ant-picker-panel-container {
+    background: #404646 !important;
+}
+.timePickerOpt .ant-picker-time-panel-cell-inner:hover {
+    background: #00abaf !important;
+}
+.timePickerOpt li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+    background: #00abaf !important;
+    color: #ffffff !important;
+}
+.timePickerOpt .ant-picker-time-panel-cell-inner {
+    color: #d1d1d1 !important;
+}
+.timePickerOpt .ant-picker-ranges {
     color: #00abaf;
 }

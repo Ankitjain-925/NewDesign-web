@@ -130,7 +130,7 @@ class Index extends Component {
       >
         {this.state.loaderImage && <Loader />}
         <Grid className="webLogo adminwebLogo">
-          <a href="/">
+          <a>
             <img src={require("assets/images/logo_new.png")} alt="" title="" />
           </a>
           <Grid>
