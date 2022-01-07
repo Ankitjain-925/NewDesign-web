@@ -6468,6 +6468,11 @@ button.downloadPDF:hover {
     display: inline-flex;
     align-items: center;
     margin-right: 48px;
+   
+}
+.revwFiles1{
+    min-width: 162px;
+    max-width: 164px;
 }
 .allInfo {
     display: inline-flex;
@@ -7212,6 +7217,10 @@ a.horzSort2 {
     .srchRght2 {
         text-align: left;
         padding: 0px 0px 16px;
+    }
+    .revwFiles1{
+        max-width: unset;
+        min-width: unset;
     }
 }
 .movPtnt {
@@ -12415,6 +12424,7 @@ ul.patientHint li {
 }
 .darkTheme .homeBgIner {
     background: #192020 !important;
+    min-height: 100vh;
 }
 .darkTheme .MenuMob {
     background: #404646;
@@ -12575,6 +12585,10 @@ ul.patientHint li {
     .revwFiles img {
         height: 18px !important;
         width: 18px !important;
+    }
+    .revwFiles1{
+        max-width: unset;
+        min-width: unset;
     }
 }
 a.taskHover span {
