@@ -9871,6 +9871,60 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .err_message, .homeBgDrk .err_message{
+    color: red!important;
+}
+.darkTheme .success_message,  .homeBgDrk .success_message{
+    color: #00abaf!important;
+}
+.darkTheme .addServContnt{
+    background-color: #404646!important;
+}
+@media (max-width: 1300px){
+    .tskOverView2{
+        display: grid !important;
+    }  
+}
+.pattern-sec a button:hover{
+    background-color: #00abaf;
+}
+.pattern-sec a .appliedbutton{
+    background-color: #00abaf !important;
+}
+span.ApplyPattern {
+    margin-left: 30px;
+}
+span.ApplyPattern:hover {
+    color: #00abaf;
+}
+span.AppliedPattern {
+    margin-left: 30px;
+    color: #00abaf;
+}
+.pattern-sec {
+    text-align: center;
+}
+.pattern-sec a {
+    text-align: center;
+    font-family: 'Muli';
+    font-weight: 600;
+}
+.pattern-sec a button{
+    width:95%
+}
+.darkTheme .pattern-sec a button{
+    background-color: #404646;
+    color: #fff;
+}
+.darkTheme .pattern-sec a{
+    color: #cfcfcf !important;
+}
+.darkTheme .demOverView {
+    background-color: #404646;
+}
+.darkTheme .demOverView h1{
+    color: #cfcfcf!important;
+}
 .darkTheme .vh-section input:disabled{
     color: #404646 !important
 }
@@ -12922,6 +12976,7 @@ input:-moz-autofill:active{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 20px;
 }
 
 .demOverView h1 {
@@ -12936,4 +12991,5 @@ input:-moz-autofill:active{
     padding: 26px 16px;
     border-radius: 15px;
     font-weight: bold;
+    margin: 20px;
 }

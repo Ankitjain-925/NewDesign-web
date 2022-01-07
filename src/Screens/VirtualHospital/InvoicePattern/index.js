@@ -48,8 +48,8 @@ class Index extends Component {
             timeF: {},
             timezone: {},
             activeshow: false,
-            showDemo: 0,
-            showAplMsg: "A"
+            showDemo: 5,
+            invoice_pattern: 5
         };
     }
 
@@ -71,7 +71,7 @@ class Index extends Component {
         }
         axios.put(sitedata.data.path + '/UserProfile/updateSetting', data, commonHeader(this.props.stateLoginValueAim.token)
         ).then((response) => {
-            this.setState({ PassDone: true, loaderImage: false, showAplMsg: value })
+            this.setState({ PassDone: true, loaderImage: false, invoice_pattern: value, showDemo: value })
             this.getSetting();
             setTimeout(() => { this.setState({ PassDone: false, loaderImage: false }) },
                 5000)
@@ -83,23 +83,11 @@ class Index extends Component {
         axios.get(sitedata.data.path + '/UserProfile/updateSetting',
             commonHeader(this.props.stateLoginValueAim.token))
             .then((responce) => {
-                if (responce.data.hassuccessed && responce.data.data) {
-                    if (responce.data?.data?.msg_language) {
-                        let msg_language = responce.data.data.msg_language;
-                        let filterData = languages && languages.length > 0 && languages.filter((data) => data.value === msg_language)
-                        if (filterData && filterData.length > 0) {
-                            this.setState({ msg_language: filterData[0] })
-                        }
+                if (responce.data.hassuccessed && responce.data.data) {                    
+                    if (responce.data?.data?.invoice_pattern) {
+                        this.setState({ invoice_pattern: responce.data?.data?.invoice_pattern , showDemo: responce.data?.data?.invoice_pattern })
                     }
-                    if (responce.data?.data?.currency) {
-                        let currency = responce.data.data.currency;
-                        let filterData = Currency && Currency.length > 0 && Currency.filter((data) => data.value === currency.country)
-                        if (filterData && filterData.length > 0) {
-                            this.setState({ currency: filterData[0] })
-                        }
-                    }
-                    this.setState({ timezone: responce.data.data.timezone, timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
-                    this.setState(responce.data.data);
+                    this.props.Settings(responce.data.data);
                 }
                 else {
                     this.setState({ user_id: this.props.stateLoginValueAim.user._id });
@@ -135,34 +123,34 @@ class Index extends Component {
                                 </Grid>
                                 <Grid item xs={12} md={11} className="colorbtn">
                                     <Grid className="tskOverView tskOverView2">
-                                        <Grid>
-                                            <a onClick={() => this.demo_pattern(1)}><Button>A</Button></a>
-                                            <p onClick={() => this.demo_pattern(1)}>View Demo A</p>
-                                            <a onClick={() => this.invoice_pattern(1)}>{this.state.showAplMsg === 1 ? "Appiled" : "Apply"}</a>
+                                        <Grid className="pattern-sec">
+                                            <a onClick={() => this.demo_pattern(1)}><Button className={this.state.invoice_pattern === 1 && "appliedbutton"}>A</Button></a>
+                                            <a onClick={() => this.demo_pattern(1)}>View Demo A</a>
+                                            <a onClick={() => this.invoice_pattern(1)}>{this.state.invoice_pattern === 1 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
                                         </Grid>
-                                        <Grid>
-                                            <a onClick={() => this.demo_pattern(2)}><Button>B</Button></a>
-                                            <p onClick={() => this.demo_pattern(2)}>View Demo B</p>
-                                            <a onClick={() => this.invoice_pattern(2)}>{this.state.showAplMsg === 2 ? "Appiled" : "Apply"}</a>
+                                        <Grid className="pattern-sec">
+                                            <a onClick={() => this.demo_pattern(2)}><Button className={this.state.invoice_pattern === 2 && "appliedbutton"}>B</Button></a>
+                                            <a onClick={() => this.demo_pattern(2)}>View Demo B</a>
+                                            <a onClick={() => this.invoice_pattern(2)}>{this.state.invoice_pattern === 2 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
                                         </Grid>
-                                        <Grid>
-                                            <a onClick={() => this.demo_pattern(3)}><Button>C</Button></a>
-                                            <p onClick={() => this.demo_pattern(3)}>View Demo C</p>
-                                            <a onClick={() => this.invoice_pattern(3)}>{this.state.showAplMsg === 3 ? "Appiled" : "Apply"}</a>
+                                        <Grid className="pattern-sec">
+                                            <a onClick={() => this.demo_pattern(3)}><Button className={this.state.invoice_pattern === 3 && "appliedbutton"}>C</Button></a>
+                                            <a onClick={() => this.demo_pattern(3)}>View Demo C</a>
+                                            <a onClick={() => this.invoice_pattern(3)}>{this.state.invoice_pattern === 3 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
                                         </Grid>
-                                        <Grid>
-                                            <a onClick={() => this.demo_pattern(4)}><Button>D</Button></a>
-                                            <p onClick={() => this.demo_pattern(4)}>View Demo D</p>
-                                            <a onClick={() => this.invoice_pattern(4)}>{this.state.showAplMsg === 4 ? "Appiled" : "Apply"}</a>
+                                        <Grid className="pattern-sec">
+                                            <a onClick={() => this.demo_pattern(4)}><Button className={this.state.invoice_pattern === 4 && "appliedbutton"}>D</Button></a>
+                                            <a onClick={() => this.demo_pattern(4)}>View Demo D</a>
+                                            <a onClick={() => this.invoice_pattern(4)}>{this.state.invoice_pattern === 4 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
                                         </Grid>
-                                        <Grid>
-                                            <a onClick={() => this.demo_pattern(5)}><Button>E</Button></a>
-                                            <p onClick={() => this.demo_pattern(5)}>View Demo E</p>
-                                            <a onClick={() => this.invoice_pattern(5)}>{this.state.showAplMsg === 5 ? "Appiled" : "Apply"}</a>
+                                        <Grid className="pattern-sec">
+                                            <a onClick={() => this.demo_pattern(5)}><Button className={this.state.invoice_pattern === 5 && "appliedbutton"}>E</Button></a>
+                                            <a onClick={() => this.demo_pattern(5)}>View Demo E</a>
+                                            <a onClick={() => this.invoice_pattern(5)}>{this.state.invoice_pattern === 5 ? <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
                                         </Grid>
                                     </Grid>
 
-                                    <Grid item xs={12} md={12} className="colorbtn">
+                                    <Grid item xs={12} md={12}>
                                         <Grid className="demOverView">
                                             {this.state.showDemo == 1 && <h1>View Demo A</h1>}
                                             {this.state.showDemo == 2 && <h1>View Demo B</h1>}
