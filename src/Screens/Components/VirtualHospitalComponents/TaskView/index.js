@@ -40,7 +40,7 @@ class PointPain extends Component {
             <Grid className="allTabCntnt">
                 <Grid container direction="row" alignItems="center">
                     <Grid item xs={12} sm={8} md={6}>
-                        <Grid className="revwFiles">
+                        <Grid className="revwFiles revwFiles1">
                             {data.status === 'done' ? <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid> :
                                 <Grid><img src={require('assets/virtual_images/greyImg.png')} alt="" title="" /></Grid>}
                             <Grid className="revwFilesRght">

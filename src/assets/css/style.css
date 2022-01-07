@@ -14037,7 +14037,7 @@ g.highcharts-axis.highcharts-yaxis text {
 }
 .homeBgDrk .OrganMobile button#select_flag_button,.homeBgDrk{
     background: #b1b1b180;
-    height: 37px;
+    min-height: 37px;
     min-height: 33px;
     border-radius: 5px 0px 0px 5px;
 }
