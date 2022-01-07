@@ -212,8 +212,8 @@ class Index extends Component {
             default :
                 translate = translationEN.text
         }
-        let { documents, document, add_new, date_last_opened, find_document, ID, Status, no_, file_name, Normal, Blocked,
-            type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents, upload_a_doc, doc_successfully_uploaded, no_doc_selected } = translate
+        let { documents, document, add_new, date_last_opened, find_document, ID,of, Status, no_, file_name, Normal, Blocked,
+            type, imprint_Email, restore, Delete, see_detail,DocumentMovedToArchive, previous, next, upload_documents, upload_a_doc, doc_successfully_uploaded, no_doc_selected } = translate
 
         return (
             <Grid className={
@@ -246,7 +246,7 @@ class Index extends Component {
                                             <a onClick={this.openDocUpload.bind(this)}>+ {add_new} {document}</a>
                                         </Grid>
                                     </Grid>
-                                    {this.state.document_is_archive && <div className="success_message">Document is moved to Archive</div>}
+                                    {this.state.document_is_archive && <div className="success_message">{DocumentMovedToArchive}</div>}
                                     <Grid container direction="row" justifyContent="center" className="archvSrchInput">
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user.bind(this)} type="text" placeholder={find_document} /></Grid>
                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />
@@ -286,7 +286,7 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={6}>
                                                     <Grid className="totalOutOff">
-                                                        <a>{this.state.currentPage} of {this.state.totalPage}</a>
+                                                        <a>{this.state.currentPage} {of} {this.state.totalPage}</a>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
