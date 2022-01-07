@@ -5,6 +5,7 @@ import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { pure } from "recompose";
 class Time extends Component {
   constructor(props) {
     super(props);
