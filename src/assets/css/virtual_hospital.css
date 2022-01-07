@@ -12935,3 +12935,115 @@ input:-moz-autofill:active{
     border-radius: 15px;
     font-weight: bold;
 }
+
+.MedicalSer{
+    color:white;
+     margin-top: 20px;
+      padding:10px 20px;
+      width:100%;
+    background-color:black;
+}
+.maintabPart{
+    width: 100%;
+}
+
+
+.tabL2{
+    border-bottom:1px solid red; 
+    padding-bottom:20px; 
+    margin-top:30px
+}
+
+.tabL2Col{
+    font-size:14px;
+     padding-bottom: 10px;
+     width:70%;
+}
+
+.tabL2Col1
+{
+    font-size:14px;
+    padding-bottom: 10px;
+     width:30%;
+    }
+
+    .tabL2Col2{padding-top:30px}
+
+    .tabL2Col3{
+         font-size:14px; 
+        padding-bottom: 10px; 
+        width:5%;
+    }
+
+        .tabL2Col4{font-size:14px; padding-bottom: 10px}
+
+        .tabL3a{color:white; margin-top: 20px; padding:10px 20px;}
+
+        .tabL3Col1{ padding:10px 20px; border-bottom: 2px solid red;}
+
+        .tabL3 {text-align:right; border-bottom: 2px solid red; padding:10px 20px 20px 20px}
+
+        .tabL3Col1{font-size:14px; padding-bottom: 10px; width:10%; width:100%}
+
+        .tabL3Col2{font-size:14px; padding-bottom: 10px; width:20%}
+
+        .tabL4{font-size:14px; margin-top: 10px;}
+
+        .tabL5{font-size:14px; margin-top: 10px;}
+
+        .tabL6Col1{font-size:14px; padding-bottom: 10px; width:30%;}
+         
+        .tabL7{color:white; margin-top: 20px; padding:10px 20px;}
+
+        .tabL8{padding:10px 20px; border-bottom: 2px solid red;}
+      
+        .tabL9{font-size:14px; margin-top: 10px}
+
+        .tabL10{border-bottom:1px solid red; padding-bottom:20px; margin-top:30px}
+
+        .tabL10Col1{font-size:14px; padding-bottom: 10px; width:70%;}
+
+        .tabL10Col2{font-size:14px; padding-bottom: 10px; width:30%;}
+
+        .tabL11{color:white; margin-top: 20px; padding:10px 20px;}
+
+        .tab12{padding:10px 20px; border-bottom: 2px solid red;}
+
+        .tab13{font-size:14px; margin-top: 10px;}
+
+        .maintabPart a{
+            color: #ffffff;
+            text-decoration: none
+        }
+        .maintabPart p{
+            padding: 0 !important;
+            margin: 0 !important
+        }
+
+        .maintabPart .img {
+            -ms-interpolation-mode: bicubic;}
+            .termCond{
+                font-size: 1.6rem;
+                font-weight: 800;
+            }
+
+@media(min-width:768px) and (max-width:1150px) {
+    .maintabPart {
+        padding: 20px 100px;
+    }
+}
+
+@media (max-width:599px) {
+    .firsttabhead,
+    .secsttabhead {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
+@media only screen and (max-device-width: 768px),
+only screen and (max-width: 768px) {
+    .maintabPart {
+        padding: 20px 20px;
+    }
+}
