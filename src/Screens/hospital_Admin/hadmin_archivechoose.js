@@ -78,21 +78,21 @@ class Index extends Component {
                     })
                     var totalPage = Math.ceil(notarchive.length / 10);
                     this.setState({ totalPage: totalPage, currentPage: 1 },
-                    () => {
-                        if (totalPage > 1) {
-                            var pages = [];
-                            for (var i = 1; i <= this.state.totalPage; i++) {
-                                pages.push(i)
+                        () => {
+                            if (totalPage > 1) {
+                                var pages = [];
+                                for (var i = 1; i <= this.state.totalPage; i++) {
+                                    pages.push(i)
+                                }
+                                this.setState({ MypatientsData: notarchive.slice(0, 10), pages: pages })
                             }
-                            this.setState({ MypatientsData: notarchive.slice(0, 10), pages: pages })
-                        }
-                        else {
-                            this.setState({ MypatientsData: notarchive })
-                        }
-                    })  
-                    this.setState({images : images, AllDocuments: notarchive, forSearch: notarchive });
+                            else {
+                                this.setState({ MypatientsData: notarchive })
+                            }
+                        })
+                    this.setState({ images: images, AllDocuments: notarchive, forSearch: notarchive });
                 }
-            }).catch((error) => {});
+            }).catch((error) => { });
     }
     onChangePage = (pageNumber) => {
         this.setState({ MypatientsData: this.state.AllDocuments.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
@@ -100,7 +100,7 @@ class Index extends Component {
 
     search_user(event) {
         if (event.target.value == '') {
-               this.setState({ MypatientsData: this.state.forSearch })
+            this.setState({ MypatientsData: this.state.forSearch })
             this.onChangePage(1)
         } else {
             let searchKey = event.target.value
@@ -154,7 +154,7 @@ class Index extends Component {
                     var returnData = response.data.data.returnData;
                     var signedRequest = returnData.signedRequest;
                     var url = returnData.url;
-                    if(fileType ==='pdf'){
+                    if (fileType === 'pdf') {
                         fileType = 'application/pdf'
                     }
                     // Put the fileType in the headers for the upload
@@ -167,18 +167,18 @@ class Index extends Component {
                         .then(result => {
 
                         })
-                        .catch(error => {})
+                        .catch(error => { })
                 })
-                .catch(error => {})
+                .catch(error => { })
         }
     }
 
-    DocumentarchiveClick=(deletekey)=>{
+    DocumentarchiveClick = (deletekey) => {
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ loaderImage: true });
         axios.put(sitedata.data.path + '/admin/ChangeStatus/' + deletekey,
-            { status: true},
-           commonHeader(user_token))
+            { status: true },
+            commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false, document_is_archive: response.data.status });
                 this.getAlldocument();
@@ -188,14 +188,14 @@ class Index extends Component {
 
     // fancybox open
     handleOpenPres = (data) => {
-        this.setState({ openPres: true, openDetail : data });
+        this.setState({ openPres: true, openDetail: data });
     };
     handleClosePres = () => {
-        this.setState({ openPres: false, openDetail : false });
+        this.setState({ openPres: false, openDetail: false });
     };
 
-    submitDeleteDocument=(deletekey)=> {
-        let translate={};
+    submitDeleteDocument = (deletekey) => {
+        let translate = {};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -203,10 +203,10 @@ class Index extends Component {
             case "de":
                 translate = translationDE.text
                 break;
-            default :
+            default:
                 translate = translationEN.text
         }
-        let {DeleteDocument, Yes, No, click_on_YES_document} = translate;
+        let { DeleteDocument, Yes, No, click_on_YES_document } = translate;
         confirmAlert({
             title: DeleteDocument,
             message: click_on_YES_document,
@@ -222,22 +222,22 @@ class Index extends Component {
         })
     };
 
-    deleteClickDocument=(deletekey)=> {
+    deleteClickDocument = (deletekey) => {
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/admin/Document/' + deletekey,commonHeader(user_token))
+        axios.delete(sitedata.data.path + '/admin/Document/' + deletekey, commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false });
                 this.getAlldocument();
-            }).catch((error) => {});
+            }).catch((error) => { });
     }
 
 
     render() {
-        if(this.props.stateLoginValueAim.user.type != "hospitaladmin"){
+        if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
         }
-        let translate={};
+        let translate = {};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -245,20 +245,20 @@ class Index extends Component {
             case "de":
                 translate = translationDE.text
                 break;
-            default :
+            default:
                 translate = translationEN.text
         }
-        let { documents, document, add_new, date_last_opened, find_document, ID, Status, no_, file_name, Normal, Blocked,
+        let { documents, document, DocumentMovedToDocuments, add_new, date_last_opened, find_document, ID, Status, no_, file_name, Normal, Blocked,
             type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents } = translate
         return (
-            <Grid  className={
+            <Grid className={
                 this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         {this.state.loaderImage && <Loader />}
@@ -280,7 +280,7 @@ class Index extends Component {
                                             {/* <a onClick={this.openDocUpload.bind(this)}>+ {add_new} {document}</a> */}
                                         </Grid>
                                     </Grid>
-                                    {this.state.document_is_archive && <div className="success_message">Document is moved to Documents</div>}
+                                    {this.state.document_is_archive && <div className="success_message">{DocumentMovedToDocuments}</div>}
                                     <Grid container direction="row" justifyContent="center" className="archvSrchInput">
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user.bind(this)} type="text" placeholder={find_document} /></Grid>
                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />
@@ -296,9 +296,9 @@ class Index extends Component {
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
-                                            {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((doc, i) => (
+                                                {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((doc, i) => (
                                                     <Tr>
-                                                          <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
+                                                        <Td>{((this.state.currentPage - 1) * 10) + i + 1}</Td>
                                                         <Td>{doc.filename && doc.filename}</Td>
                                                         <Td>{doc.filename && doc.filename.split(".").pop()}</Td>
                                                         <Td>{doc.createdate ? getDate(doc.createdate, 'DD/MM/YYYY') : 'Not mentioned'}</Td>
@@ -306,9 +306,9 @@ class Index extends Component {
                                                             <a className="academy_ul">
                                                                 <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" className="academyDots" />
                                                                 <ul>
-                                                                    <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={()=>{this.DocumentarchiveClick(doc.DocumentId)}}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{restore}</a></li>
-                                                                    <li onClick={()=>{this.submitDeleteDocument(doc.DocumentId)}}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                    <li onClick={() => this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={() => { this.DocumentarchiveClick(doc.DocumentId) }}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{restore}</a></li>
+                                                                    <li onClick={() => { this.submitDeleteDocument(doc.DocumentId) }}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>
@@ -326,7 +326,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                        <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                                        <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                                                         {/* {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                                         {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                                             <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
@@ -342,19 +342,19 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-                  {/* Model setup */}
-                  <Modal
+                {/* Model setup */}
+                <Modal
                     open={this.state.openPres}
                     onClose={this.handleClosePres}
                     className={
                         this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
-                          ? "presBoxModel darkTheme"
-                          : "presBoxModel"
-                      }
-                    >
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
+                            ? "presBoxModel darkTheme"
+                            : "presBoxModel"
+                    }
+                >
                     <Grid className="presBoxCntnt">
                         <Grid className="presCourse">
                             <Grid className="presCloseBtn nwEntrCloseBtnAdd">
@@ -368,16 +368,16 @@ class Index extends Component {
                         <Grid className="medicInqUpr">
                             <Grid className="prescripList">
                                 <Grid>
-                                    
-                                {this.state.openDetail && 
-                                    <div>
-                                        {this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='pdf' && <iframe className="FramesetHeightWidth" width={700} height="500" src={getImage(this.state.openDetail.url, this.state.images)} frameborder="0" allowtransparency="true" allowfullscreen></iframe>}
-                                        {(this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='png' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpeg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='svg') && 
-                                            <img src={getImage(this.state.openDetail.url, this.state.images)} alt="" title="" />
-                                        }
-                                    </div>
-                                }
-                                   
+
+                                    {this.state.openDetail &&
+                                        <div>
+                                            {this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'pdf' && <iframe className="FramesetHeightWidth" width={700} height="500" src={getImage(this.state.openDetail.url, this.state.images)} frameborder="0" allowtransparency="true" allowfullscreen></iframe>}
+                                            {(this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'png' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'jpeg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'jpg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'svg') &&
+                                                <img src={getImage(this.state.openDetail.url, this.state.images)} alt="" title="" />
+                                            }
+                                        </div>
+                                    }
+
                                 </Grid>
                             </Grid>
                         </Grid>

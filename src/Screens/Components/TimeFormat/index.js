@@ -5,6 +5,8 @@ import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { pure } from "recompose";
+
 class Time extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,7 @@ class Time extends Component {
               this.onTimeChange(e);
             }}
             format="HH:mm"
-            popupClassName = {this.props.settings &&
+            popupClassName={this.props.settings &&
               this.props.settings.setting &&
               this.props.settings.setting.mode &&
               this.props.settings.setting.mode === "dark"
@@ -68,7 +70,7 @@ class Time extends Component {
               this.onTimeChange(e);
             }}
             format="h:mm a"
-            popupClassName = {this.props.settings &&
+            popupClassName={this.props.settings &&
               this.props.settings.setting &&
               this.props.settings.setting.mode &&
               this.props.settings.setting.mode === "dark"
@@ -84,12 +86,12 @@ class Time extends Component {
 const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   return {
-      settings
+    settings
   };
 };
 export default pure(withRouter(
   connect(mapStateToProps, {
-      Settings
+    Settings
 
   })(Time))
 );

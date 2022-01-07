@@ -53,7 +53,7 @@ class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { visible, hide, not_mentioned, show, until, always, archive, edit, details, img_files,
-            Change, visibility, Download, Delete, de_archive, Promotion } = translate;
+            Change, visibility, Download, Delete, de_archive,PromotionType, Promotion, PromotionTitle } = translate;
         var item = this.state.item;
 
         return (
@@ -72,16 +72,16 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                
+
                             </Grid>
                             <Grid className="clear"></Grid>
                         </Grid>
                         <Grid className="bp_hg addSpc">
-                        <label>
-                            {item.file_content && item.file_content}
-                            <span></span>
-                        </label>
-                        {/* <p>Normal</p> */}
+                            <label>
+                                {item.file_content && item.file_content}
+                                <span></span>
+                            </label>
+                            {/* <p>Normal</p> */}
                         </Grid>
                         <Collapsible
                             trigger={<ExpandMoreIcon />}
@@ -103,7 +103,7 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5}>
-                                                                <label>Promotion Title</label>
+                                                                <label>{PromotionTitle}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
                                                                 <span>{item.title && item.title}</span>
@@ -114,7 +114,7 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5}>
-                                                                <label>Promotion Type</label>
+                                                                <label>{PromotionType}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
                                                                 <span>{item.promotion_type?.label && item.promotion_type?.label}</span>
@@ -136,24 +136,24 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Collapsible>
-                                        
+
                                     </Grid>
                                     <Grid className="addSpc detailMark">
                                         <Collapsible trigger={"Text"} open="true">
-                                        <Grid className="detailCntnt">
-                                            <p
-                                            dangerouslySetInnerHTML={{ __html: item.text }}
-                                            />
-                                        </Grid>
+                                            <Grid className="detailCntnt">
+                                                <p
+                                                    dangerouslySetInnerHTML={{ __html: item.text }}
+                                                />
+                                            </Grid>
                                         </Collapsible>
                                     </Grid>
                                     <Grid className="addSpc detailMark">
-                                        {item?.isbutton && 
-                                        <Grid className="newAddStepBtn">
-                                            <Button >
-                                                {item.button_text}
-                                            </Button>
-                                        </Grid>
+                                        {item?.isbutton &&
+                                            <Grid className="newAddStepBtn">
+                                                <Button >
+                                                    {item.button_text}
+                                                </Button>
+                                            </Grid>
                                         }
                                     </Grid>
                                 </Grid>
