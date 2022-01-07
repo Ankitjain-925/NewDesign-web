@@ -13,6 +13,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { getLanguage } from "translations/index";
 import { pure } from "recompose";
+import Button from "@material-ui/core/Button";
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -57,210 +58,30 @@ class Index extends Component {
 
         return (
             <Grid container direction="row" className="descpCntnt">
-                <Grid item xs={12} md={1} className="descpCntntLft"></Grid>
+                <Grid item xs={12} md={1} className="descpCntntLft">
+                    {newdate(item.datetime_on)}
+                </Grid>
                 <Grid item xs={12} md={10} className="descpCntntRght">
                     <Grid className="descpInerRght descpInerBlue">
                         <Grid container direction="row" className="addSpc">
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
                                     <a className="blodPrsurNote">
-                                        {/* <img
-                                            src={require("")}
-                                            alt=""
-                                            title=""
-                                        /> */}
                                         <span>{Promotion}</span>
                                     </a>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Grid className="bp_vsblSec scndOptionIner1">
-                                    <a
-                                        onClick={() => this.props.EidtOption(item.type, item, true)}
-                                        className="bp_vsblEye"
-                                    >
-                                        <img
-                                            src={require("assets/images/eye2.png")}
-                                            alt=""
-                                            title=""
-                                        />{" "}
-                                        {item.visible === "show" ? (
-                                            <span>{visible}</span>
-                                        ) : item.visible === "hide" ? (
-                                            <span>{hide}</span>
-                                        ) : (
-                                            <span>{not_mentioned}</span>
-                                        )}{" "}
-                                    </a>
-                                    <a
-                                        className="vsblTime"
-                                        data-tip
-                                        data-for={item.track_id + "visibility"}
-                                    >
-                                        <img
-                                            src={require("assets/images/clock.svg")}
-                                            alt=""
-                                            title=""
-                                        />
-                                    </a>
-                                    <ReactTooltip
-                                        className="timeIconClas"
-                                        id={item.track_id + "visibility"}
-                                        place="top"
-                                        effect="solid"
-                                        backgroundColor="#ffffff"
-                                    >
-                                        {item.visible === "show" ? (
-                                            <label>
-                                                {show} {until}
-                                            </label>
-                                        ) : (
-                                            <label>
-                                                {hide} {until}
-                                            </label>
-                                        )}
-                                        {item.public === "always" ? (
-                                            <p> {always} </p>
-                                        ) : (
-                                            <p>{getDate(item.public, this.state.date_format)}</p>
-                                        )}
-                                    </ReactTooltip>
-                                    <a className="openScndhrf1">
-                                        <a className="vsblDots">
-                                            <img
-                                                src={require("assets/images/nav-more.svg")}
-                                                alt=""
-                                                title=""
-                                            />
-                                        </a>
-                                        {!this.props.Archive ? (
-                                            <ul>
-                                                <li>
-                                                    <a onClick={(data) => this.props.ArchiveTrack(item)}>
-                                                        <img
-                                                            src={require("assets/images/archive-1.svg")}
-                                                            alt=""
-                                                            title=""
-                                                        />
-                                                        {archive}
-                                                    </a>
-                                                </li>
-                                                {this.props.comesfrom === "patient" && (
-                                                    <li>
-                                                        {item.created_by === this.state.loggedinUser._id &&
-                                                            (!item.updated_by || item.updated_by === "") ? (
-                                                            <a
-                                                                onClick={() =>
-                                                                    this.props.EidtOption(item.type, item)
-                                                                }
-                                                            >
-                                                                <img
-                                                                    src={require("assets/images/edit-1.svg")}
-                                                                    alt=""
-                                                                    title=""
-                                                                />
-                                                                {edit}
-                                                            </a>
-                                                        ) : (
-                                                            <a
-                                                                onClick={() =>
-                                                                    this.props.EidtOption(item.type, item, true)
-                                                                }
-                                                            >
-                                                                <img
-                                                                    src={require("assets/images/edit.svg")}
-                                                                    alt=""
-                                                                    title=""
-                                                                />
-                                                                {Change} {visibility}
-                                                            </a>
-                                                        )}
-                                                    </li>
-                                                )}
-                                                {this.props.comesfrom !== "patient" && (
-                                                    <li>
-                                                        <a
-                                                            onClick={() =>
-                                                                this.props.EidtOption(item.type, item)
-                                                            }
-                                                        >
-                                                            <img
-                                                                src={require("assets/images/edit-1.svg")}
-                                                                alt=""
-                                                                title=""
-                                                            />
-                                                            {edit}
-                                                        </a>
-                                                    </li>
-                                                )}
-
-                                                <li>
-                                                    <a onClick={() => this.props.downloadTrack(item)}>
-                                                        <img
-                                                            src={require("assets/images/download.svg")}
-                                                            alt=""
-                                                            title=""
-                                                        />
-                                                        {Download}
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <DownloadFullTrack
-                                                        TrackRecord={this.state.TrackRecord}
-                                                    />
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        onClick={(deleteKey) =>
-                                                            this.props.DeleteTrack(item.track_id)
-                                                        }
-                                                    >
-                                                        <img
-                                                            src={require("assets/images/cancel-request.svg")}
-                                                            alt=""
-                                                            title=""
-                                                        />
-                                                        {Delete}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        ) : (
-                                            <ul>
-                                                <li>
-                                                    <a onClick={(data) => this.props.ArchiveTrack(item)}>
-                                                        <img
-                                                            src={require("assets/images/archive-1.svg")}
-                                                            alt=""
-                                                            title=""
-                                                        />
-                                                        {de_archive}
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        onClick={(deleteKey) =>
-                                                            this.props.DeleteTrack(item.track_id)
-                                                        }
-                                                    >
-                                                        <img
-                                                            src={require("assets/images/cancel-request.svg")}
-                                                            alt=""
-                                                            title=""
-                                                        />
-                                                        {Delete}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        )}
-                                    </a>
-                                </Grid>
+                                
                             </Grid>
                             <Grid className="clear"></Grid>
                         </Grid>
                         <Grid className="bp_hg addSpc">
-                            {item && item.promotion &&
-                                <lable><span>{item.promotion}</span></lable>
-                            }
+                        <label>
+                            {item.file_content && item.file_content}
+                            <span></span>
+                        </label>
+                        {/* <p>Normal</p> */}
                         </Grid>
                         <Collapsible
                             trigger={<ExpandMoreIcon />}
@@ -285,7 +106,7 @@ class Index extends Component {
                                                                 <label>Promotion Title</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
-                                                                <span>{item.promotion_title && item.promotion_title}</span>
+                                                                <span>{item.title && item.title}</span>
                                                             </Grid>
                                                             <Grid className="clear"></Grid>
                                                         </Grid>
@@ -296,20 +117,7 @@ class Index extends Component {
                                                                 <label>Promotion Type</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
-                                                                <span>{item.type && item.type}</span>
-                                                            </Grid>
-                                                            <Grid className="clear"></Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6} className="bloodPreBy">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={5} md={5}>
-                                                                <label>Text</label>
-                                                            </Grid>
-                                                            <Grid item xs={7} md={7}>
-                                                                <span>
-                                                                    {item.text && item.text}
-                                                                </span>
+                                                                <span>{item.promotion_type?.label && item.promotion_type?.label}</span>
                                                             </Grid>
                                                             <Grid className="clear"></Grid>
                                                         </Grid>
@@ -325,30 +133,28 @@ class Index extends Component {
                                                             <Grid className="clear"></Grid>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid item xs={12} md={6} className="bloodPreBy">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={5} md={5}>
-                                                                <label>Button Text</label>
-                                                            </Grid>
-                                                            <Grid item xs={7} md={7}>
-                                                                <span>
-                                                                    {item.button_text && item.button_text}
-                                                                </span>
-                                                            </Grid>
-                                                            <Grid className="clear"></Grid>
-                                                        </Grid>
-                                                    </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Collapsible>
+                                        
                                     </Grid>
                                     <Grid className="addSpc detailMark">
-                                        <Collapsible trigger={img_files} open="true">
-                                            <FileViews
-                                                images={this.state.images}
-                                                attachfile={item.attachfile}
+                                        <Collapsible trigger={"Text"} open="true">
+                                        <Grid className="detailCntnt">
+                                            <p
+                                            dangerouslySetInnerHTML={{ __html: item.text }}
                                             />
+                                        </Grid>
                                         </Collapsible>
+                                    </Grid>
+                                    <Grid className="addSpc detailMark">
+                                        {item?.isbutton && 
+                                        <Grid className="newAddStepBtn">
+                                            <Button >
+                                                {item.button_text}
+                                            </Button>
+                                        </Grid>
+                                        }
                                     </Grid>
                                 </Grid>
                             }

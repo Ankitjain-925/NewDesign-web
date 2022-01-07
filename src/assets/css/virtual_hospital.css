@@ -9909,9 +9909,11 @@ option{
 .darkTheme .fillDia .rrSysto div {
     background-color: #404646 !important
 }
-
-.cnfrmDiaMain .fillDia .rrSysto div {
+.darkTheme .cnfrmDiaMain .fillDia .rrSysto div {
     color: #cfcfcf !important;
+}
+.cnfrmDiaMain .fillDia .rrSysto div {
+    color: #000808;
     font-family: Muli;
 }
 .homeBgDrk .entryBoxCntnt , .darkTheme .entryBoxCntnt{
