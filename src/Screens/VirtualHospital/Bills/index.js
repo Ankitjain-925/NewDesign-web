@@ -33,7 +33,11 @@ import Select from "react-select";
 import { getPatientData } from 'Screens/Components/CommonApi/index';
 import { getDate } from 'Screens/Components/BasicMethod/index';
 import ReactToPrint, { PrintContext } from 'react-to-print';
-import { ComponentToPrint } from "./ComponentToPrint";
+import { ComponentToPrint1 } from "./ComponentToPrint1";
+import { ComponentToPrint2 } from "./ComponentToPrint2";
+import { ComponentToPrint3 } from "./ComponentToPrint3";
+import { ComponentToPrint4 } from "./ComponentToPrint4";
+import { ComponentToPrint5 } from "./ComponentToPrint5";
 import { filterPatient } from "Screens/Components/BasicMethod/index";
 function TabContainer(props) {
     return (
@@ -124,7 +128,6 @@ class Index extends Component {
     reactToPrintContent = (data) => {
         this.setState({ currentData: data })
         return this.componentRef
-
     };
 
     // For print invoice
@@ -438,6 +441,9 @@ class Index extends Component {
 
     downloadInvoicePdf = (datas) => {
         var invoice = datas;
+        invoice.choice = this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.invoice_pattern ? this.props.settings.setting.invoice_pattern : 5;
         this.setState({ loaderImage: true })
         axios
             .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
@@ -485,7 +491,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total, NewInvoice, applyFilters, Paid, Draft, Overdue, Issued,DeleteInvoice,
+        let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total, NewInvoice, applyFilters, Paid, Draft, Overdue, Issued, DeleteInvoice,
             clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
@@ -678,8 +684,31 @@ class Index extends Component {
                                                                                 trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>{PrintInvoice}</span></li></a>}
                                                                                 _id={data._id}
                                                                             />
-                                                                            {/* {cond} */}
-                                                                            <ComponentToPrint ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />
+                                                                            {this.props.settings &&
+                                                                                this.props.settings.setting &&
+                                                                                this.props.settings.setting.invoice_pattern &&
+                                                                                this.props.settings.setting.invoice_pattern == 1 &&
+                                                                                < ComponentToPrint1 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                            {this.props.settings &&
+                                                                                this.props.settings.setting &&
+                                                                                this.props.settings.setting.invoice_pattern &&
+                                                                                this.props.settings.setting.invoice_pattern == 2 &&
+                                                                                < ComponentToPrint2 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                            {this.props.settings &&
+                                                                                this.props.settings.setting &&
+                                                                                this.props.settings.setting.invoice_pattern &&
+                                                                                this.props.settings.setting.invoice_pattern == 3 &&
+                                                                                < ComponentToPrint3 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                            {this.props.settings &&
+                                                                                this.props.settings.setting &&
+                                                                                this.props.settings.setting.invoice_pattern &&
+                                                                                this.props.settings.setting.invoice_pattern == 4 &&
+                                                                                < ComponentToPrint4 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                            {this.props.settings &&
+                                                                                this.props.settings.setting &&
+                                                                                this.props.settings.setting.invoice_pattern &&
+                                                                                this.props.settings.setting.invoice_pattern == 5 &&
+                                                                                < ComponentToPrint5 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>{DownloadPDF}</span></li></a>
                                                                     </ul>
@@ -692,7 +721,7 @@ class Index extends Component {
                                                                                     <ul className="setStatusPaidPart">
                                                                                         <li className="blueDot" onClick={(e) => { this.updateStatus(e, data, "paid") }}><span className="revwGren"></span><span>{Paid}</span></li>
                                                                                         <li className="blueDot" onClick={(e) => { this.updateStatus(e, data, "draft") }}><span className="revwGry"></span><span>{Draft}</span></li>
-                                                                                        <li className="blueDot"  onClick={(e) => { this.updateStatus(e, data, "issued") }}><span className="revwYelow"></span><span>{Issued}</span></li>
+                                                                                        <li className="blueDot" onClick={(e) => { this.updateStatus(e, data, "issued") }}><span className="revwYelow"></span><span>{Issued}</span></li>
                                                                                         <li className="blueDot" onClick={(e) => { this.updateStatus(e, data, "overdue") }}><span className="revwRed"></span><span>{Overdue}</span></li>
                                                                                     </ul>
                                                                                 </Grid>
