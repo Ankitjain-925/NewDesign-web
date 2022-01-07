@@ -15,6 +15,8 @@ import { commonHeader } from "component/CommonHeader/index";
 import { Currency } from "currency1";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
+import Button from "@material-ui/core/Button";
+import Loader from "Screens/Components/Loader/index";
 
 
 
@@ -29,11 +31,6 @@ var languages = [{ value: 'ar', label: 'Arabian' },
 { value: 'sp', label: 'Spanish' },
 { value: 'sw', label: 'Swahili' },
 { value: 'tr', label: 'Turkish' }]
-
-
-
-const types = ['A', 'B', 'C', 'D'];
-
 
 class Index extends Component {
     constructor(props) {
@@ -50,39 +47,37 @@ class Index extends Component {
             dateF: {},
             timeF: {},
             timezone: {},
-            activeshow:false
-
-
-
+            activeshow: false,
+            showDemo: 0,
+            showAplMsg: "A"
         };
     }
 
     componentDidMount() {
         this.getSetting();
-
     }
 
-    invoice_pattern = (index) => {
-        if(index==2){
-            this.setState({activeshow:true})
-        }
+    demo_pattern = (index) => {
+        this.setState({ showDemo: index })
+    }
+
+    invoice_pattern = (value) => {
         this.setState({ loaderImage: true })
         let { currency } = this.state
         let data = {
             user_id: this.props.stateLoginValueAim?.user?._id,
             user_profile_id: this.props.stateLoginValueAim?.user?.profile_id,
-            invoice_pattern: index,
-
-
+            invoice_pattern: value,
         }
         axios.put(sitedata.data.path + '/UserProfile/updateSetting', data, commonHeader(this.props.stateLoginValueAim.token)
-        ).then((responce) => {
-            this.setState({ PassDone: true, loaderImage: false })
+        ).then((response) => {
+            this.setState({ PassDone: true, loaderImage: false, showAplMsg: value })
             this.getSetting();
-            setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
+            setTimeout(() => { this.setState({ PassDone: false, loaderImage: false }) },
+                5000)
         })
-
     }
+
     getSetting = () => {
         this.setState({ loaderImage: true })
         axios.get(sitedata.data.path + '/UserProfile/updateSetting',
@@ -117,7 +112,7 @@ class Index extends Component {
 
         const { selectedOption, attachedFile } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
-        let {  } = translate;
+        let { } = translate;
 
         return (
             <Grid className={
@@ -130,6 +125,7 @@ class Index extends Component {
             }>
 
                 <Grid className="homeBgIner">
+                    {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                             <LeftMenuMobile isNotShow={true} currentPage="more" />
@@ -137,46 +133,51 @@ class Index extends Component {
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="more" />
                                 </Grid>
-
-                                <Grid item xs={12} md={3} className="colorBtnUpr">
-                                    <Grid className="tskOverView ">
-                                        <a onClick={() => this.invoice_pattern("0")}>
-                                         A
-                                           
-                                            </a>
-                                        <a onClick={() => this.invoice_pattern("1")}>
-                                            B
-                                        </a>
-                                       
-                                        <Grid className="buttonCDstyle" >
-                                            
-                                            <a
-                                             onClick={() => this.invoice_pattern("2")}>
-                                                C
-                                                </a>
-                                             <a onClick={() => this.invoice_pattern("3")}>
-                                                D
-                                            </a>
-                                           
-                                         
-                                            </Grid>
-
-
+                                <Grid item xs={12} md={11} className="colorbtn">
+                                    <Grid className="tskOverView tskOverView2">
+                                        <Grid>
+                                            <a onClick={() => this.demo_pattern(1)}><Button>A</Button></a>
+                                            <p onClick={() => this.demo_pattern(1)}>View Demo A</p>
+                                            <a onClick={() => this.invoice_pattern(1)}>{this.state.showAplMsg === 1 ? "Appiled" : "Apply"}</a>
+                                        </Grid>
+                                        <Grid>
+                                            <a onClick={() => this.demo_pattern(2)}><Button>B</Button></a>
+                                            <p onClick={() => this.demo_pattern(2)}>View Demo B</p>
+                                            <a onClick={() => this.invoice_pattern(2)}>{this.state.showAplMsg === 2 ? "Appiled" : "Apply"}</a>
+                                        </Grid>
+                                        <Grid>
+                                            <a onClick={() => this.demo_pattern(3)}><Button>C</Button></a>
+                                            <p onClick={() => this.demo_pattern(3)}>View Demo C</p>
+                                            <a onClick={() => this.invoice_pattern(3)}>{this.state.showAplMsg === 3 ? "Appiled" : "Apply"}</a>
+                                        </Grid>
+                                        <Grid>
+                                            <a onClick={() => this.demo_pattern(4)}><Button>D</Button></a>
+                                            <p onClick={() => this.demo_pattern(4)}>View Demo D</p>
+                                            <a onClick={() => this.invoice_pattern(4)}>{this.state.showAplMsg === 4 ? "Appiled" : "Apply"}</a>
+                                        </Grid>
+                                        <Grid>
+                                            <a onClick={() => this.demo_pattern(5)}><Button>E</Button></a>
+                                            <p onClick={() => this.demo_pattern(5)}>View Demo E</p>
+                                            <a onClick={() => this.invoice_pattern(5)}>{this.state.showAplMsg === 5 ? "Appiled" : "Apply"}</a>
+                                        </Grid>
                                     </Grid>
 
-
+                                    <Grid item xs={12} md={12} className="colorbtn">
+                                        <Grid className="demOverView">
+                                            {this.state.showDemo == 1 && <h1>View Demo A</h1>}
+                                            {this.state.showDemo == 2 && <h1>View Demo B</h1>}
+                                            {this.state.showDemo == 3 && <h1>View Demo C</h1>}
+                                            {this.state.showDemo == 4 && <h1>View Demo D</h1>}
+                                            {this.state.showDemo == 5 && <h1>View Demo E</h1>}
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
-
                             </Grid>
-
                         </Grid>
                     </Grid>
                 </Grid>
-
             </Grid>
         );
-
-
     }
 }
 
