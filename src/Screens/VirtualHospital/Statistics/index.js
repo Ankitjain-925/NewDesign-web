@@ -125,8 +125,8 @@ class Index extends Component {
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
-                            {/* Mobile menu */}
-                            <LeftMenuMobile isNotShow={true} currentPage="more" />
+                             {/* Mobile menu */}
+                             <LeftMenuMobile isNotShow={true} currentPage="more" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
@@ -141,202 +141,37 @@ class Index extends Component {
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
                                         <Grid item xs={12} md={12}>
-                                            <Grid className="staticHeading"><h1>{Statistics}</h1></Grid>
-
-                                            <Grid container direction="row" spacing={3}>
-                                                <Grid item xs={12} md={9}>
-                                                    <Grid container direction="row" className="staticsAmtUpr" spacing={3}>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="staticsAmt">
-                                                                <Grid><a><img src={require('assets/virtual_images/hotel-bed-2.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid><label>{this.state.Statistics[0]}</label><p>{TotalPatients}</p></Grid>
-                                                            </Grid>
-                                                        </Grid>
-
-                                                        {/* <TotalPatientView /> */}
-
-                                                        <Grid item xs={12} md={4}>
-                                                            <Grid>
-                                                                {/* {this.state.Statistics?.length > 0 && this.state.Statistics.map((data) => ( */}
-                                                                {/* console.log("data",data), */}
-                                                                <Grid className="staticsAmt">
-                                                                    <Grid><a><img src={require('assets/virtual_images/user-group-conversation.svg')} alt="" title="" /></a></Grid>
-                                                                    <Grid className="staticsAmtMid"><label>{this.state.Statistics[1]}</label><p>{Doctors}</p></Grid>
-                                                                    <Grid><label>{this.state.Statistics[2]}</label><p>{Nurses}</p></Grid>
-                                                                </Grid>
-                                                                {/* ))} */}
-                                                            </Grid>
-                                                        </Grid>
-                                                        {/* <Grid item xs={12} md={5}>
-                                                            <Grid className="staticsAmt">
-                                                                <Grid><a><img src={require('assets/virtual_images/timecheck.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid><label>{Oneh23min}</label><p>{AvgTimeToStayInHospital}</p></Grid>
-                                                            </Grid>
-                                                        </Grid> */}
-                                                    </Grid>
-                                                    {/* <Grid className="modeChngUpr">
-                                                        <Grid className="staffAction">
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={12} md={5}><h3>Staff actions</h3></Grid>
-                                                                <Grid item xs={12} md={7}>
-                                                                    <Grid className="staffLastMnth">
-                                                                        <label>Last month</label>
-                                                                        <a>3m</a>
-                                                                        <a>6m</a>
-                                                                        <a>1y</a>
-                                                                        <a>All</a>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid container direction="row">
-                                                            <Grid className="modeChng">
-                                                                <Grid><a><img src={require('assets/virtual_images/user-clipboard.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid>
-                                                                    <label>34</label>
-                                                                    <p>Diagnoses made</p>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid className="modeChng">
-                                                                <Grid><a><img src={require('assets/virtual_images/user-clipboard.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid>
-                                                                    <label>72</label>
-                                                                    <p>Medication administered</p>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid className="modeChng">
-                                                                <Grid><a><img src={require('assets/virtual_images/user-clipboard.svg')} alt="" title="" /></a></Grid>
-                                                                <Grid>
-                                                                    <label>42</label>
-                                                                    <p>Prescriptions issued</p>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid> */}
-
-                                                    {/* <StatisticsStaffAction /> */}
-                                                    {/* 
-                                                    <Grid className="staffGraphUpr">
-                                                        <Grid className="staffGraph">
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={12} md={6}>
-                                                                    <AppBar position="static" className="invoicHsptal">
-                                                                        <Tabs value={tabvalue} onChange={this.handleChangeTab}>
-                                                                            <Tab label="Invoice amount" className="invoicHsptalIner" />
-                                                                            <Tab label="Patients in Hospital" className="invoicHsptalIner" />
-                                                                        </Tabs>
-                                                                    </AppBar>
-                                                                </Grid>
-                                                                <Grid item xs={12} md={6}>
-                                                                    <Grid className="invoicLastMnth">
-                                                                        <label>{Lastmonth}</label><a>{threeM}</a><a>{sixM}</a><a>{oneY}</a><a>{All}</a>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid className="staffGraphCntnt">
-                                                            {tabvalue === 0 && <TabContainer>
-                                                                <Grid className="invoicHsptalData">
-                                                                    <img src={require('assets/virtual_images/statisticsImg.jpg')} alt="" title="" />
-                                                                </Grid>
-                                                            </TabContainer>}
-                                                        </Grid>
-                                                    </Grid> */}
+                                        <Grid className="staticHeading"><h1>{Statistics}</h1></Grid>
+                                        <Grid container direction="row" spacing={3}>
+                                        <Grid item xs={12} md={6}> 
+                                        <Grid container direction="row" className="staticsAmtUpr" spacing={3}>
+                                            <Grid item xs={12} md={6}>
+                                                <Grid className="staticsAmt">
+                                                    <Grid><a><img src={require('assets/virtual_images/hotel-bed-2.svg')} alt="" title="" /></a></Grid>
+                                                    <Grid><label>{this.state.Statistics[0]}</label><p>{TotalPatients}</p></Grid>
                                                 </Grid>
-
-                                                <Grid item xs={12} md={3}>
-                                                    {/* <Grid className="patntFlow">
-                                                        <p>Patients in Flow</p>
-                                                        <Grid className="patntFlowIner">
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Reception</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>2</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Waiting Rooms</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>16</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Waiting Rooms</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>16</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center" className="patntFlowLast">
-                                                                <Grid item xs={8} md={8}><label>Billing</label></Grid>
-                                                              <Grid item xs={4} md={4}><span>0</span></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid> */}
-
-                                                    {/* {this.state.patientflow_data?.length > 0 && this.state.patientflow_data?.map((data) => ( */}
-
-
-                                                    <>
-                                                        {/* <p>{data.step_name}</p> */}
-                                                        <StatisticsPatientFlow
-
-                                                            step_name={"Patient Flow"}
-                                                            counts={this.state.patientflow_data}
-
-
-
-                                                        />,
-                                                        {/* { console.log('this.state.patientflow_data6765546546456',this.state.patientflow_data)}    */}
-                                                        {/* { console.log('data.heading',data.heading)}  */}
-
-                                                    </>
-
-                                                    {/* ))} */}
-
-                                                    {/* <Grid className="patntFlow">
-                                                        <p>{ActivityCounter}</p>
-                                                        <Grid className="actvtyFilter">
-                                                            <a>{Lastmonth}</a><a>{threeM}</a><a>{sixM}</a><a>{oneY}</a><a>{All}</a>
-                                                        </Grid>
-                                                        <Grid className="patntFlowIner">
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>{Examinations}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>16</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>{Procedures}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>28</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center" className="patntFlowLast">
-                                                                <Grid item xs={8} md={8}><label>{Appointments}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>71</span></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid> */}
-                                                    {/* <Grid className="patntFlow">
-                                                        <p>{AvgTimeOfStay}</p>
-                                                        <Grid className="patntFlowIner">
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>{WaitingRoom}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>{zeroh43min}</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>{EmergencyRoom}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>{zeroh18min}</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>{Examinations}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>{zeroh24min}</span></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row" alignItems="center" className="patntFlowLast">
-                                                                <Grid item xs={8} md={8}><label>{Observation}</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>{twelvedays}</span></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid> */}
-                                                </Grid>
-
                                             </Grid>
+                                            <Grid item xs={12} md={6}>
+                                                <Grid className="staticsAmt">
+                                                    <Grid><a><img src={require('assets/virtual_images/user-group-conversation.svg')} alt="" title="" /></a></Grid>
+                                                    <Grid className="staticsAmtMid"><label>{this.state.Statistics[1]}</label><p>{Doctors}</p></Grid>
+                                                    <Grid><label>{this.state.Statistics[2]}</label><p>{Nurses}</p></Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        </Grid>
+                                        <Grid  item xs={12} md={6}>
+                                            <StatisticsPatientFlow
+                                                step_name={"Patient Flow"}
+                                                counts={this.state.patientflow_data}
+                                            />
+                                        </Grid>
+                                        </Grid>
+                                        
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                {/* End of Right Section */}
                             </Grid>
-
                         </Grid>
                     </Grid>
                 </Grid>

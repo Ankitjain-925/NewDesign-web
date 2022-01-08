@@ -629,7 +629,18 @@
 		"Status" :"Status",
 		"more" :"more",
 		"DarkMode": "Dark Mode",
-		"AssignHouse": "Assign Hospital"
+		"AssignHouse": "Assign Hospital",
+		"InstituteGroups": "Institute Groups",
+		"EditGroup": "Edit Group",
+		"AddInstituteGroup": "+ Add Institute Group",
+		"AddInstitution": "Add Institution",
+		"UploadInstitutionLogo": "Upload Institution Logo",
+		"CurrentLogo": "Current Logo",
+		"UploadHospitalLogo": "Upload Hospital Logo",
+		"DescriptionNote": "Description Note",
+		"EditHospital": "Edit Hospital",
+		"EnterHospitals": "+ Enter Hospitals",
+		"AddHospital": "Add Hospital"
 	}
 }
 
