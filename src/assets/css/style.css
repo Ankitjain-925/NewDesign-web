@@ -3005,6 +3005,7 @@ a.profilMenu {
     position: relative;
     display: block;
     margin-bottom: 0.5rem;
+    text-align: right;
 }
 .officeVstRght img {
     vertical-align: middle;
@@ -3342,7 +3343,7 @@ a.profilMenu {
 .sel_specialty {
     width: 100%;
     border: 1px solid #BFC1C1;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #FFFFFF;
     font-family: Muli;
     font-size: 14px;
@@ -3390,13 +3391,16 @@ a.profilMenu {
     content: "KM";
     position: absolute;
     right: 16px;
-    bottom: 18px;
+    bottom: 19px;
     color: #BFC1C1;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+}
+.alowLocAces.\32 2 .srchKm:after {
+    bottom: 29px;
 }
 .apointType span {
     color: #404646;
@@ -13917,7 +13921,7 @@ g.highcharts-axis.highcharts-yaxis text {
     border-radius: 0px !important;
 }
 .showDetail img, .openScnd{
-    width: 35px;
+    /* width: 35px; */
     height: 33px;
     border-radius: 6px;
     cursor: pointer;
@@ -14967,7 +14971,28 @@ input:focus {
   .dark-confirm h1, .dark-confirm span, .dark-confirm p, .dark-confirm h3, .dark-confirm h1 {
     color: #D9DADA !important;
 }
-.darkTheme > div:nth-child(3) .slotBoxCourse .react-calendar button,
+/* .darkTheme > div:nth-child(3) .slotBoxCourse .react-calendar button {
+    color: #dfdfdf;
+    background: transparent;
+} */
+.darkTheme > div:nth-child(3) .slotBoxCourse button.react-calendar__navigation__arrow,
+.darkTheme > div:nth-child(3) .slotBoxCourse .react-calendar__navigation__label__labelText--from
+ {
+    color: #00abaf !important;
+}
+.darkTheme > div:nth-child(3) .slotBoxCourse button.react-calendar__tile.react-calendar__month-view__days__day:hover {
+    color: #00b0db !important;
+}
+.darkTheme > div:nth-child(3) .slotBoxCourse button.react-calendar__tile.react-calendar__month-view__days__day.react-calendar__month-view__days__day--neighboringMonth {
+    color: #8d8d8d !important;
+}
+.darkTheme > div:nth-child(3) .slotBoxCourse button.react-calendar__tile.react-calendar__month-view__days__day {
+    color: #dfdfdf;
+}
+.darkTheme > div:nth-child(3) .slotBoxCourse .react-calendar__tile--active {
+    background: #181b1b !important;
+    color: white !important;
+}
 .darkTheme > div:nth-child(3) .slotBoxCourse .react-calendar__month-view__weekdays__weekday {
     color: #dfdfdf;
     background: transparent;
@@ -15379,9 +15404,9 @@ input#graduationYear {
   .officeVst .MuiGrid-container {
     align-items: center;
   }
-  .officeVstRght {
+  /* .officeVstRght {
     margin-left: 18px !important;
-  }
+  } */
 }
 @media  screen and (min-width:768px) and (max-width:960px){
     .cc1-chat-win-inpt-ext-wrap {
@@ -16443,11 +16468,11 @@ select:-webkit-autofill:focus {
       left: 0px !important;
     }
 } */
-@media (max-width: 1280px){
+/* @media (max-width: 1280px){
     .officeVstRght {
         text-align: left !important;
     }
-}
+} */
 .homeBgDrk .mr_sel div {
     background: #404646 !important;
     border: none;
