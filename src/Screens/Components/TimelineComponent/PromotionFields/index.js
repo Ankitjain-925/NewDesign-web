@@ -14,13 +14,12 @@ import PropTypes from "prop-types";
 import { getLanguage } from "translations/index"
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { GetLanguageDropdown, GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 const options = [
     { value: 'specific', label: 'Specific Patient' },
     { value: 'all', label: 'All Patients' }
 ];
-const options1 = [
-    { value: 'hints', label: 'Hints' },
-]
+
 function TabContainer(props) {
     return (
         <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -43,6 +42,7 @@ class Index extends Component {
             buttonField: false,
             updateTrack: {},
             selectedUser: {},
+            options: this.props.options,
         };
     }
 
@@ -117,9 +117,18 @@ class Index extends Component {
                                 name="promotion_type"
                                 isSearchable={true}
                                 label={"Promotion Type"}
-                                option={options1}
+                                option={this.state.options}
                                 onChange={(e) => this.updateEntryState1(e, "promotion_type")}
-                                value={this.state.updateTrack?.promotion_type}
+                                value={GetShowLabel1(
+                                    this.props.options,
+                                    this.state.updateTrack &&
+                                      this.state.updateTrack.promotion_type &&
+                                      this.state.updateTrack.promotion_type.value,
+                                    this.props.stateLanguageType,
+                                    false,
+                                    "anamnesis"
+                                  )}
+                                // value={this.state.updateTrack?.promotion_type}
                             />
                         </Grid>
                         <Grid className="fillDia">

@@ -7080,7 +7080,7 @@ a.bp_vsblDots, a.hideDots {
 a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     border: 1px solid #F2F2F2;
     border-radius: 8px;
-    background-color: #FFFFFF;
+    background-color: transparent;
     padding: 6px 3px 9px;
 }
 /* .persBlodImg img, .allViewDots img, .lstViewDots img {

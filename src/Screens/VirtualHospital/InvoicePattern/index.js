@@ -152,11 +152,51 @@ class Index extends Component {
 
                                     <Grid item xs={12} md={12}>
                                         <Grid className="demOverView">
-                                            {this.state.showDemo == 1 && <h1>View Demo A</h1>}
-                                            {this.state.showDemo == 2 && <h1>View Demo B</h1>}
-                                            {this.state.showDemo == 3 && <h1>View Demo C</h1>}
-                                            {this.state.showDemo == 4 && <h1>View Demo D</h1>}
-                                            {this.state.showDemo == 5 && <h1>View Demo E</h1>}
+                                            {this.state.showDemo == 1 && 
+                                            <>
+                                            <h1>View Demo A</h1>
+                                             <img
+                                                src={require("assets/virtual_images/IP5.png")}
+                                                alt=""
+                                                title=""
+                                            />
+                                            </>}
+                                            {this.state.showDemo == 2 && 
+                                            <>
+                                            <h1>View Demo B</h1>
+                                             <img
+                                                src={require("assets/virtual_images/IP2.png")}
+                                                alt=""
+                                                title=""
+                                            />
+                                            </>}
+                                            {this.state.showDemo == 3 && 
+                                            <>
+                                            <h1>View Demo C</h1>
+                                             <img
+                                                src={require("assets/virtual_images/IP3.png")}
+                                                alt=""
+                                                title=""
+                                            />
+                                            </>}
+                                            {this.state.showDemo == 4 && 
+                                            <>
+                                            <h1>View Demo D</h1>
+                                             <img
+                                                src={require("assets/virtual_images/IP1.png")}
+                                                alt=""
+                                                title=""
+                                            />
+                                            </>}
+                                            {this.state.showDemo == 5 && 
+                                            <>
+                                            <h1>View Demo E</h1>
+                                             <img
+                                                src={require("assets/virtual_images/IP4.png")}
+                                                alt=""
+                                                title=""
+                                            />
+                                            </>}
                                         </Grid>
                                     </Grid>
                                 </Grid>

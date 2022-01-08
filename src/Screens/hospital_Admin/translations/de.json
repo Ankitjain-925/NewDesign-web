@@ -628,6 +628,7 @@
 		"Status" :"Status",
 		"Liscence" :"Lizenz",
 		"more" :"Mehr",
-		"DarkMode": "Dunkler Modus"
+		"DarkMode": "Dunkler Modus",
+		"AssignHouse": "Assign Hospital"
 	}
 }
