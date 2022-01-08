@@ -98,6 +98,8 @@ import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
 import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js"
 
+
+
 class Routermain extends Component {
   render() {
     return (
@@ -437,6 +439,8 @@ class Routermain extends Component {
             />
 
             {/*   Virtualhospital page */}
+
+
             <Route
               path="/virtualhospital/statistics"
               exact={true}
@@ -536,8 +540,9 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <NotFound {...props} />}
             />
-           
-            {/* End By Ankita */}
+
+             {/* End By Ankita */}
+             
           </Switch>
         </Grid>
       </Router>

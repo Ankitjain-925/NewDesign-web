@@ -213,7 +213,7 @@ class Index extends Component {
                 if (newService && !newService?.custom_title) {
                     this.setState({ error: "Custom service title can't be empty" })
                 }
-                else {
+               else {
                     newService.price = newService?.price_per_quantity * newService?.quantity;
                     newService.service = this.state.service?.service?.label
                     let items = [...this.state.items];
@@ -226,27 +226,32 @@ class Index extends Component {
                     axios
                         .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
                         .then((responce) => {
+
                         })
-                        .catch(function (error) {
+                         .catch(function (error) {
                             console.log(error);
                         });
-
+                        
                     this.setState({ items, service: {} },
                         () => { this.updateTotalPrize() })
+                    
                 }
             }
         }
-        else {
+        else  {
             newService.price = newService?.price_per_quantity * newService?.quantity;
             newService.service = this.state.service?.service?.label
             let items = [...this.state.items];
+            
             items.push(newService);
 
             this.setState({ items, service: {} },
                 () => { this.updateTotalPrize() })
         }
+        
 
     };
+   
 
     //Update the services  
     handleAddUpdate = () => {
@@ -349,6 +354,7 @@ class Index extends Component {
                     else {
                         this.setState({ finishError: 'Invoice Id is already exists' })
                     }
+                   
                 })
                 .catch((error) => {
                     this.setState({ loaderImage: false });

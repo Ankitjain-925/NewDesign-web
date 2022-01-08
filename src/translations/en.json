@@ -1575,6 +1575,15 @@
 		"Entries":"Entries",
 		"PatientInInvoice": "Patient In invoice",
 		"Question": "Question",
-		"created_user_id_and_pin":"Created user id and pin"
+		"created_user_id_and_pin":"Created user id and pin",
+
+
+		"Service" :"Service",
+		"pat_info":"pat_info",
+		"Description":"Description",
+		"Qty":"Qty",
+		"Amount":"Amount"
+		
+		
 	}
 }
