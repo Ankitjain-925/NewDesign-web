@@ -127,8 +127,9 @@ class Index extends Component {
             time_format={this.props.time_format}
           />
         )}
-        {item.type === "promotion" && (
+        {(item.type === "promotion" && this.props.comesfrom==='patient') && (
           <PromotionView
+            PromotionType={this.props.PromotionType}
             onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}

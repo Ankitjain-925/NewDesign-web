@@ -89,7 +89,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Grid className="bp_vsblSec scndOptionIner1">
+                                {/* <Grid className="bp_vsblSec scndOptionIner1">
                                     <ReactTooltip
                                         className="timeIconClas"
                                         id={item.track_id + "visibility"}
@@ -240,7 +240,7 @@ class Index extends Component {
                                             </ul>
                                         )}
                                     </a>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                             <Grid className="clear"></Grid>
                         </Grid>

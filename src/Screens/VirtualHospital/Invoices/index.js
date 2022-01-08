@@ -28,6 +28,7 @@ import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Redirect, Route } from "react-router-dom";
 import { PatientMoveFromHouse } from "../PatientFlow/data";
 import { getLanguage } from "translations/index";
+import { logout } from 'Screens/Components/CometChat/store/action';
 
 const customStyles = {
     control: base => ({
@@ -204,48 +205,55 @@ class Index extends Component {
     handleAddSubmit = () => {
         this.setState({ error: "" })
         var newService = this.state.service
-        if (newService?.service?.value == "custom") {
-            if (newService?.price_per_quantity < 1 || !newService?.price_per_quantity) {
-                this.setState({ error: "Please enter valid price" })
-            }
-            else {
-                if (newService && !newService?.custom_title) {
-                    this.setState({ error: "Custom service title can't be empty" })
+        var a = this.state.items && this.state.items?.length > 0 && this.state.items.map((element) => { return element?.service })
+        var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
+        if (b == true) {
+            this.setState({ error: "Service is already exists" })
+        } else {
+             if (newService?.service?.value == "custom") {
+                if (newService?.price_per_quantity < 1 || !newService?.price_per_quantity) {
+                    this.setState({ error: "Please enter valid price" })
                 }
                 else {
-                    newService.price = newService?.price_per_quantity * newService?.quantity;
-                    newService.service = newService?.custom_title
-                    let items = [...this.state.items];
-                    items.push(newService);
-                    let data = {}
-                    data["house_id"] = this.props?.House?.value;
-                    data["description"] = newService?.custom_description;
-                    data["price"] = newService?.price_per_quantity;
-                    data["title"] = newService?.custom_title;
-                    // axios.post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
-                    // .then((responce) => {
-                    //     this.getAllServices();
-                    // })
-                    // .catch(function (error) {
-                    //     console.log(error);
-                    // });
+                    if (newService && !newService?.custom_title) {
+                        this.setState({ error: "Custom service title can't be empty" })
+                    }
+                    else {
+                        newService.price = newService?.price_per_quantity * newService?.quantity;
+                        newService.service = newService?.custom_title
+                        let items = [...this.state.items];
+                        items.push(newService);
+                        let data = {}
+                        data["house_id"] = this.props?.House?.value;
+                        data["description"] = newService?.custom_description;
+                        data["price"] = newService?.price_per_quantity;
+                        data["title"] = newService?.custom_title;
+                        // axios.post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
+                        // .then((responce) => {
+                        //     this.getAllServices();
+                        // })
+                        // .catch(function (error) {
+                        //     console.log(error);
+                        // });
 
-                    this.setState({ items, service: {} },
-                        () => { this.updateTotalPrize() })
+                        this.setState({ items, service: {} },
+                            () => { this.updateTotalPrize() })
+
+                    }
                 }
             }
-        }
-        else {
-            newService.price = newService?.price_per_quantity * newService?.quantity;
-            newService.service = this.state.service?.service?.label
-            let items = [...this.state.items];
-            items.push(newService);
+            else {
+                newService.price = newService?.price_per_quantity * newService?.quantity;
+                newService.service = this.state.service?.service?.label
+                let items = [...this.state.items];
+                items.push(newService);
+                 this.setState({ items, service: {} },
+                    () => { this.updateTotalPrize() })
 
-            this.setState({ items, service: {} },
-                () => { this.updateTotalPrize() })
-        }
-
+            }}
+      
     };
+
 
     //Update the services  
     handleAddUpdate = () => {
@@ -348,6 +356,7 @@ class Index extends Component {
                     else {
                         this.setState({ finishError: 'Invoice Id is already exists' })
                     }
+
                 })
                 .catch((error) => {
                     this.setState({ loaderImage: false });

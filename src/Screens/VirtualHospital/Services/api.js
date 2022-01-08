@@ -64,7 +64,7 @@ export const handleSubmit = (current) => {
   if (!data.title || (data && data?.title && data?.title.length < 1)) {
     current.setState({ errorMsg: "Please enter Service Name" })
   }
-  else if (!data.price || (data && data?.price && data?.price < 1)) {
+   else if (!data.price || (data && data?.price && data?.price < 1)) {
     current.setState({ errorMsg: "Please enter a valid price" })
   }
   else {

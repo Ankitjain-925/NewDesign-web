@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
-import ReactTooltip from "react-tooltip";
-import FileViews from "./../FileViews/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import { withRouter } from "react-router-dom";
+import { GetLanguageDropdown, GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 import { connect } from "react-redux";
-import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens//actions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
@@ -67,7 +65,12 @@ class Index extends Component {
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
                                     <a className="blodPrsurNote">
-                                        <span>{Promotion}</span>
+                                    <img
+                                        src={require("assets/images/blood-pressure-sugar.svg")}
+                                        alt=""
+                                        title=""
+                                    />
+                                     <span>{Promotion}</span>
                                     </a>
                                 </Grid>
                             </Grid>
@@ -117,7 +120,16 @@ class Index extends Component {
                                                                 <label>{PromotionType}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
-                                                                <span>{item.promotion_type?.label && item.promotion_type?.label}</span>
+                                                            <span>{item.promotion_type &&
+                                                                GetShowLabel1(
+                                                                    this.props.PromotionType,
+                                                                    item.promotion_type.value,
+                                                                    this.props.stateLanguageType,
+                                                                    true,
+                                                                    "anamnesis"
+                                                                )}{" "}</span>
+                                                                <span></span>
+                                                                {/* <span>{item.promotion_type?.label && item.promotion_type?.label}</span> */}
                                                             </Grid>
                                                             <Grid className="clear"></Grid>
                                                         </Grid>

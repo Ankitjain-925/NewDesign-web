@@ -823,6 +823,12 @@ class Index extends Component {
         this.state.allMetadata.substance,
         this.props.stateLanguageType
       );
+      var PromotionType = GetLanguageDropdown(
+        this.state.allMetadata &&
+        this.state.allMetadata.journal_promotion &&
+        this.state.allMetadata.journal_promotion,
+        this.props.stateLanguageType
+      );
       var Anamnesis = GetLanguageDropdown(
         this.state.allMetadata &&
         this.state.allMetadata.anamnesis &&
@@ -853,6 +859,7 @@ class Index extends Component {
       this.setState({
         Alltemprature: Alltemprature,
         Anamnesis: Anamnesis,
+        PromotionType: PromotionType,
         vaccinations: vaccinations,
         AllATC_code: AllATC_code,
         Allpain_type: Allpain_type,
@@ -1988,6 +1995,7 @@ class Index extends Component {
                         {this.state.current_select ===
                           "promotion" && (
                             <PromotionFields
+                              options={this.state.PromotionType}
                               PatientList={this.state.PatientList}
                               cur_one={this.state.cur_one2}
                               FileAttachMulti={this.FileAttachMulti}

@@ -215,7 +215,6 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={12} md={8}>
                                                     <Grid className="profileInfo">
-
                                                         <Grid className="profileInfoIner">
                                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                                 <Grid item xs={12} md={12}>

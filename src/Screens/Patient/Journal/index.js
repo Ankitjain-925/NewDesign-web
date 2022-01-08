@@ -820,7 +820,12 @@ class Index extends Component {
         this.state.allMetadata &&
         this.state.allMetadata.ATC_code &&
         this.state.allMetadata.ATC_code;
-
+        var PromotionType = GetLanguageDropdown(
+          this.state.allMetadata &&
+          this.state.allMetadata.journal_promotion &&
+          this.state.allMetadata.journal_promotion,
+          this.props.stateLanguageType
+        );
       var Alltemprature =
         this.state.allMetadata &&
         this.state.allMetadata.Temprature &&
@@ -910,6 +915,7 @@ class Index extends Component {
       }
 
       this.setState({
+        PromotionType: PromotionType,
         Alltemprature: Alltemprature,
         Anamnesis: Anamnesis,
         vaccinations: vaccinations,
@@ -1153,6 +1159,7 @@ class Index extends Component {
                               <ViewTimeline
                                 indexTimeline={index}
                                 lrp={AllL_Ps.AllL_Ps.english}
+                                PromotionType={this.state.PromotionType}
                                 Allrelation={this.state.Allrelation}
                                 Allreminder={this.state.Allreminder}
                                 Allpain_type={this.state.Allpain_type}

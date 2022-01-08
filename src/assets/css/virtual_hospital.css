@@ -9880,6 +9880,30 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.activesecRating{
+    background-color: #00ABAF !important;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%) !important;
+    color:#fff!important;
+}
+.SApratQuestion h1{
+    margin-bottom: 15px;
+}
+.darkTheme .asnswerSbmt button span{
+    color: #00ABAF !important;
+}
+.SApratQuestion {
+    margin: 20px 0px !important;
+    background: #e5e5e5;
+    padding: 30px;
+    border-radius: 18px;
+}
+.darkTheme .SApratQuestion {
+    background: #4046467a !important;
+}
+.darkTheme .SApratQuestion .QuesMrktUpr{
+    background:  #404646 !important;
+    color: #cfcfcf!important
+}
 .darkTheme .err_message, .homeBgDrk .err_message{
     color: red!important;
 }
@@ -10016,7 +10040,7 @@ option{
     background-color: 404646 !important;
 }
 img.academyDots {
-    padding: 3px !important;
+    padding: 10px 2px !important;
     border: 1px solid #7e8282 !important;
     width: 25px !important;
     border-radius: 8px !important;
@@ -10212,8 +10236,8 @@ p.more-change-staff-img2 {
 .darkTheme .rrSysto div .css-12jo7m5 {
     color: #c6dada;
 }
-.stepTdotupper img, a.academy_ul img{
-    padding: 3px;
+.stepTdotupper img{
+    padding: 3px !important;
 }
 .darkTheme a.srchSort {
     border: #F2F2F2 1px solid;
@@ -12995,9 +13019,11 @@ input:-moz-autofill:active{
 
 .demOverView h1 {
    text-align: center;
+   margin-bottom: 15px;
 }
 
 .demOverView {
+    text-align:center;
     margin-top: 15px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
