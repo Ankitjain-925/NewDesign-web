@@ -23,8 +23,8 @@ export class ComponentToPrint4 extends React.Component {
         return (
             <div className="relativeCSS">
                 <div className="flash" />
-                <Grid className="printPreview">
-                    <table width="100%" >
+                <Grid className="printPreview printprv1">
+                    <table width="100%" className="TblPG2" >
                         <tr>{data?.services?.service}</tr>
                         <tr>
                             <th width="25%" align="left">Street Address</th>
@@ -32,7 +32,7 @@ export class ComponentToPrint4 extends React.Component {
                             <th width="15%">City</th>
                         </tr>
                     </table>
-                    <table>
+                    <table width="100%">
                         <table width="100%">
                             <tr>
                                 <th width="25%" align="left">Phone:</th>
@@ -49,54 +49,56 @@ export class ComponentToPrint4 extends React.Component {
                         </table>
                         <table width="100%" className="tabL10">
                             <tr>
-                                <td className="tabL10Col1">
+                                <td className="tabL10Col1 TblPG2">
 
                                     <p>Service Charges</p>
                                     <strong>
                                         <p>Invoice: &nbsp;{data?.invoice_id}</p>
-                                        <p>Date: &nbsp;</p>
-                                        <p>CustomerID:{data?.patient?.patient_id}</p>
-                                        <p>Bed Number</p>
-                                        <p>AdmissionDate</p>
+                                        <p>Date: &nbsp;{data?.created_at}</p>
+                                        <p>CustomerID: {data?.patient?.patient_id}</p>
+                                        {/* <p>Bed Number</p>
+                                        <p>AdmissionDate</p> */}
                                     </strong>
                                 </td>
-                                <td className="txtalign tabL10Col2">
+                                <td className="txtalign tabL10Col2 TblPG2">
                                     <strong>
-                                        <p>Bill to:{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</p>
+                                        <p>Bill to: {data?.patient?.first_name} &nbsp;{data?.patient?.last_name}</p>
                                         <p>Company Name:</p>
-                                        <p>Street Addresses:</p>
+                                        {/* <p>Street Addresses:</p>
                                         <p>Address:</p>
-                                        <p>Ciy,ST,Zip code:</p>
+                                        <p>Ciy,ST,Zip code:</p> */}
                                     </strong>
                                 </td>
                             </tr>
                         </table>
 
-                        <table>
-                            <table width="100%" bgcolor="black" className="tabL11">
+                        <table width="100%">
+                            <table width="100%" bgcolor="black" className="tabL11 MedicalSer1">
                                 <tr>
-                                    <th width="20%" align="left">Medicine</th>
-                                    <th width="20%">Equipment</th>
+                                    <th width="20%" align="left">Service</th>
+                                    <th width="20%">Price Per Qantity</th>
                                     <th width="20%" align="right">Amount</th>
-                                    <th width="20%" align="right">Payment</th>
-                                    <th width="20%" align="right">Balance</th>
+                                    {/* <th width="20%" align="right">Payment</th>
+                                    <th width="20%" align="right">Balance</th> */}
                                 </tr>
                             </table>
                             <table width="100%" className="secsttabhead tab12">
                                 {/* {{ #each Invoice }} */}
-                                <tr>
-                                    <th width="20%" align="left">{data?.services?.price_per_quantity}</th>
-                                    <th width="20%">{data?.services?.service}</th>
-                                    <th width="20%" align="right">{data?.services?.price}</th>
-                                </tr>
+                                {data?.services && data?.services?.length > 0 &&
+                                    data?.services.map((item) => (
+                                        <tr>
+                                            <th width="20%">{item.service}</th>
+                                            <th width="20%" align="left">{item.price_per_quantity}</th>
+                                            <th width="20%" align="right">{item?.price}</th>
+                                        </tr>))}
                                 {/* {{/ each}} */}
                             </table>
 
                             <table className="tab13">
                                 <tr>
                                     <td>
-                                        <h1>Terms and Condition</h1>
-                                        <p>Thank you for business send paymentwithin_____ days of receiving this invoice. There will be
+                                        <h1 className="termCond">Terms and Condition</h1>
+                                        <p className="ThnkYU">Thank you for business send paymentwithin_____ days of receiving this invoice. There will be
                                             a ____% per______on late invoices.</p>
                                     </td>
                                 </tr>
