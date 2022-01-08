@@ -45,9 +45,9 @@ export class ComponentToPrint2 extends React.Component {
                                 <table width="100%" className="TblPG2">
                                     <tr>
                                         <td >
-                                          {/* {  console.log("this.props",this.props.houseSelect)} */}
+                                            {/* {  console.log("this.props",this.props.houseSelect)} */}
                                             <p>From</p>
-                                            <strong>1639551819440</strong>
+                                            <strong>Max Hospital</strong>
                                             {/* <p>{data?.email}</p>
                                             <p>{data?.address}</p>
                                             <p>{data?.phone}</p> */}
@@ -72,22 +72,20 @@ export class ComponentToPrint2 extends React.Component {
                                     <table width="100%" className="MedicalSer MedicalSer1">
                                         <tr>
                                             <th width="25%" align="left">Service</th>
-                                            <th width="25%">Price Per Quantity</th>
                                             <th width="20%">Quantity</th>
-                                            <th width="15%" align="right">Rate($)</th>
+                                            <th width="25%">Price Per Quantity</th>
                                             <th width="15%" align="right">Total($)</th>
 
                                         </tr>
                                     </table>
-                                    <table width="100%" >
+                                    <table width="100%" className="tabLLa">
                                         {/* {{ #each Invoice }} */}
                                         {data?.services && data?.services?.length > 0 &&
                                             data?.services.map((item) => (
                                                 <tr>
                                                     <th width="25%" align="left">{item?.service}</th>
-                                                    <th width="25%">{item?.price_per_quantity}</th>
                                                     <th width="20%">{item?.quantity}</th>
-                                                    <th width="15%" align="right">{item?.price}</th>
+                                                    <th width="25%">{item?.price_per_quantity}</th>
                                                     <th width="15%" align="right">{item?.price}</th>
                                                 </tr>))}
                                         {/* {{/ each}} */}

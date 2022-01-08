@@ -76,19 +76,21 @@ export class ComponentToPrint4 extends React.Component {
                             <table width="100%" bgcolor="black" className="tabL11 MedicalSer1">
                                 <tr>
                                     <th width="20%" align="left">Service</th>
+                                    <th width="20%">Qantity</th>
                                     <th width="20%">Price Per Qantity</th>
                                     <th width="20%" align="right">Amount</th>
                                     {/* <th width="20%" align="right">Payment</th>
                                     <th width="20%" align="right">Balance</th> */}
                                 </tr>
                             </table>
-                            <table width="100%" className="secsttabhead tab12">
+                            <table width="100%" className="secsttabhead tab12 tabLLa">
                                 {/* {{ #each Invoice }} */}
                                 {data?.services && data?.services?.length > 0 &&
                                     data?.services.map((item) => (
                                         <tr>
-                                            <th width="20%">{item.service}</th>
-                                            <th width="20%" align="left">{item.price_per_quantity}</th>
+                                            <th width="20%">{item?.service}</th>
+                                            <th width="20%" align="left">{item?.quantity}</th>
+                                            <th width="20%" align="left">{item?.price_per_quantity}</th>
                                             <th width="20%" align="right">{item?.price}</th>
                                         </tr>))}
                                 {/* {{/ each}} */}

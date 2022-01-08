@@ -95,7 +95,7 @@ export class ComponentToPrint1 extends React.Component {
                                                 <th width="14%" align="right">Amount</th>
                                             </tr>
                                         </table>
-                                        <table width="100%" class="secsttabhead tabL3Col1">
+                                        <table width="100%" class="secsttabhead tabL3Col1 tabLLa">
 
                                             {/* { #each Invoice } */}
 
