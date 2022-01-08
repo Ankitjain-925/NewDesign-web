@@ -13036,7 +13036,7 @@ input:-moz-autofill:active{
 .MedicalSer{
     color:white;
      margin-top: 20px;
-      padding:10px 20px;
+      padding:10px 20px !important;
       width:100%;
     background-color:black;
 }
@@ -13075,24 +13075,39 @@ input:-moz-autofill:active{
         .tabL2Col4{font-size:14px; padding-bottom: 10px}
 
         .tabL3a{color:white; margin-top: 20px; padding:10px 20px;}
+        .tabL3a >  tr th{
+           padding: 10px !important;
+        }
 
         .tabL3Col1{ padding:10px 20px; border-bottom: 2px solid red;}
 
-        .tabL3 {text-align:right; border-bottom: 2px solid red; padding:10px 20px 20px 20px}
+        .tabL3 {text-align:right; border-bottom: 2px solid red; padding:10px 20px 20px 20px !important;margin:10px 0 20px 0 !important;}
 
-        .tabL3Col1{font-size:14px; padding-bottom: 10px; width:10%; width:100%}
+        .tabL3 p, strong{   font-size: 20px !important;
+            font-weight: 600;
+            margin-bottom: 8px!important;
+        }
+
+        .tabL3Col1 p{
+            margin-bottom: 10px !important;
+        }
+
+        /* .tabL3Col1{font-size:14px; padding-bottom: 10px; width:10%; width:100%} */
 
         .tabL3Col2{font-size:14px; padding-bottom: 10px; width:20%}
 
-        .tabL4{font-size:14px; margin-top: 10px;}
+        .tabL4{font-size:18px !important; margin-top: 10px;}
 
         .tabL5{font-size:14px; margin-top: 10px;}
+        .ThnkYU{
+            font-size: 21px !important;
+        }
 
         .tabL6Col1{font-size:14px; padding-bottom: 10px; width:30%;}
          
         .tabL7{color:white; margin-top: 20px; padding:10px 20px;}
 
-        .tabL8{padding:10px 20px; border-bottom: 2px solid red;}
+        .tabL8{padding:10px 20px; border-bottom: 2px solid red; margin-top: 5px!important;}
       
         .tabL9{font-size:14px; margin-top: 10px}
 
@@ -13124,6 +13139,11 @@ input:-moz-autofill:active{
                 font-weight: 800;
             }
 
+            .tabL5 h1{
+                margin-bottom: 20px!important;
+            }
+  
+
 @media(min-width:768px) and (max-width:1150px) {
     .maintabPart {
         padding: 20px 100px;
@@ -13143,4 +13163,33 @@ only screen and (max-width: 768px) {
     .maintabPart {
         padding: 20px 20px;
     }
+}
+
+
+.WlcmAimds{
+    font-size: 40px !important; 
+    font-weight: 700;
+}
+
+.tabL2 p, strong, .tabL2Col2 p, .TblPG2 p, .TblPG2 strong{
+    font-size: 20px !important;
+    font-weight: 600;
+    margin-bottom: 10px !important;
+}
+
+.tabL2Col3{
+    padding-top: 27px!important;
+}
+
+.tabL3Col2{
+    padding-top: 7.5px;
+}
+
+.MedicalSer1 > tr th{
+    padding :10px !important;
+    font-size: 20px!important;
+}
+
+.printprv1{
+    padding-top: 80px!important;
 }
