@@ -31,9 +31,7 @@ export const updateFLAG = (str) => {
 }
 
 export const Upsaterhesus = (current, rhesusfromD) => {
-    console.log('current', current, rhesusfromD)
     var rhesus = GetShowLabel1(current.state.rhesusgroup, rhesusfromD, current.props.stateLanguageType, false, "rhesus");
-    console.log('rhesus', rhesus)
     current.setState({ rhesus: rhesus })
 }
 
@@ -44,7 +42,6 @@ export const Upsaterhesus = (current, rhesusfromD) => {
       let user_id = current.props.stateLoginValueAim.user._id
       axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
           commonHeader(user_token)).then((response) => {
-              console.log('response', response)
               var state1 = current.state.contact_partner;
               state1['relation'] = response.data.data && response.data.data.emergency_relation
               state1['email'] = response.data.data && response.data.data.emergency_email
@@ -225,7 +222,6 @@ export const updateEntryState1 = (e, current) => {
 
 //For updating gender and country
 export const EntryValueName = (value, name, current) => {
-    console.log('value', value)
     if(name === 'title'){
         current.setState({ title: value });
     }

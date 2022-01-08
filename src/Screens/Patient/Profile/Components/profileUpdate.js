@@ -513,7 +513,6 @@ class Index extends Component {
                                     <Grid item xs={12} md={4}>
                                         <label>{Blood}</label>
                                         <Grid>
-                                            {console.log('this.state.bloods', this.state.bloods, this.state.rhesus)}
                                             <Select
                                                 value={this.state.bloods}
                                                 name="bloodgroup"

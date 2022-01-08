@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
 import { pure } from "recompose";
+import { Settings } from "Screens/Login/setting";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 const dateFormatList = ["DD/MM/YYYY", "MM/DD/YYYY", "YYYY/DD/MM"];
 
@@ -51,7 +54,12 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[0]}
-           
+             dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
           />
         )}
         {this.state.is24 === "DD/MM/YYYY" && (
@@ -65,7 +73,12 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[0]}
-           
+             dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
           />
         )}
         {this.state.is24 === "YYYY/DD/MM" && (
@@ -79,7 +92,12 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[2]}
-           
+             dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
           />
         )}
         {this.state.is24 === "MM/DD/YYYY" && (
@@ -93,12 +111,27 @@ class Date extends Component {
             }
             disabled={this.props.disabled}
             format={dateFormatList[1]}
-           
+             dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
           />
         )}
       </div>
     );
   }
 }
+const mapStateToProps = (state) => {
+  const { settings } = state.Settings;
+  return {
+      settings
+  };
+};
+export default pure(withRouter(
+  connect(mapStateToProps, {
+      Settings
 
-export default pure(Date);
+  })(Date))
+);

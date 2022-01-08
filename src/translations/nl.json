@@ -378,6 +378,7 @@
 		"Staff_SENDREC": "STUUR WERVINGSFORMULIER",
 		"profile": "Profiel",
 		"information": "Informatie",
+		"created_user_id_and_pin":"Gebruikers-ID en pin gemaakt",
 		"profile_info": "Dit is jouw profielinformatie, dat toegankelijk is voor jouw vertrouwde Dokters en zij met wie je jouw Profiel ID en PIN hebt gedeeld.",
 		"ID": "ID",
 		"speciality": "Specialiteit",
@@ -1253,7 +1254,7 @@
 		"Currentpaincondition":"Huidige pijntoestand",
 		"verifyAccount":"Uw account is niet geverifieerd, controleer uw e-mailaccount.",
 		"needUnblock": " Uw account is nog niet ontgrendeld. Geef uw professionele ID op of geef ons, als u het onlangs heeft ingediend, maximaal 24 uur de tijd om het te ontgrendelen.",
-		"fillreptcha":"Vul a.u.b. de RECAPTCHA in",
+		"fillreptcha":"Vul a.u.b. de reCAPTCHA in",
 		"Tachykardia":"Tachycardie"
 	}
 }

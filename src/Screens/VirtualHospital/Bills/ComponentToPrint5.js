@@ -13,12 +13,11 @@ import Index from "Screens/Components/FrameUse/index";
 import { getLanguage } from "translations/index";
 
 
-export class ComponentToPrint extends React.Component {
+export class ComponentToPrint5 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
-        console.log("props", this.props);
 
     };
 
@@ -27,6 +26,7 @@ export class ComponentToPrint extends React.Component {
         let { AimedisInvoiceReport,ServiceList,InvoiceData,Services,CaseID, Created_at,YourAimedisTeam, aimedisIo,
              ServiceName,TotalAmount,InvoiceID, srvc ,Price, quantity, contactAimedisForQuery, SysAimedis} = translate;
         var { data, index } = this.props;
+        console.log("data",)
         return (
             <div className="relativeCSS">
                 <style type="text/css" media="print"></style>
@@ -109,7 +109,7 @@ export default withRouter(
 )
 
 export const FunctionalComponentToPrint = React.forwardRef((ref) => {
-    return <ComponentToPrint ref={ref} />;
+    return <ComponentToPrint5 ref={ref} />;
 });
 
-// export default ComponentToPrint;
+// export default ComponentToPrint5;

@@ -511,7 +511,7 @@ class Index extends Component {
     }
 
     Upsaterhesus = (rhesusfromD) => {
-        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType)
+        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType,  false, "rhesus")
         this.setState({ rhesus: rhesus })
     }
 
@@ -742,7 +742,9 @@ class Index extends Component {
                                                 <Modal
                                                     open={this.state.getIDPIN}
                                                     onClose={() => this.handlePinClose("getIDPIN")}
-                                                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
+                                                    className={this.props.settings &&
+                                                        this.props.settings.setting &&
+                                                        this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
                                                     <Grid className="editBoxCntnt">
                                                         <Grid className="editCourse">
                                                             <Grid className="editCloseBtn">

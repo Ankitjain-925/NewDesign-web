@@ -5,6 +5,7 @@ import { DatePicker } from "antd";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
+import { Settings } from "Screens/Login/setting";
 import sitedata from "sitedata";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { overView } from "Screens/Login/journalviewaction";
@@ -244,7 +245,12 @@ class FilterSec extends Component {
                       this.FilterAccordigly("time_range", value)
                     }
                     value={this.state.time_range}
-                   
+                     dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                   />
                   {/* <Select
                           value={this.state.selectedOption}
@@ -273,7 +279,12 @@ class FilterSec extends Component {
                     }
                     isMulti={true}
                     closeMenuOnSelect={false}
-                    //isSearchable = {false}
+                     dropdownClassName = {this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "dropdown-class-name-3"
+                    : ""}
                   />
                
                 </Grid>
@@ -414,7 +425,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
   const { Overview } = state.overView;
-
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -422,10 +433,11 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     Overview,
+    settings
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, overView })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, overView, Settings })(
     FilterSec
   )
 );

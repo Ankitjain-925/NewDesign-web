@@ -6468,6 +6468,11 @@ button.downloadPDF:hover {
     display: inline-flex;
     align-items: center;
     margin-right: 48px;
+   
+}
+.revwFiles1{
+    min-width: 162px;
+    max-width: 164px;
 }
 .allInfo {
     display: inline-flex;
@@ -7212,6 +7217,10 @@ a.horzSort2 {
     .srchRght2 {
         text-align: left;
         padding: 0px 0px 16px;
+    }
+    .revwFiles1{
+        max-width: unset;
+        min-width: unset;
     }
 }
 .movPtnt {
@@ -9871,6 +9880,63 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .err_message, .homeBgDrk .err_message{
+    color: red!important;
+}
+.darkTheme .success_message,  .homeBgDrk .success_message{
+    color: #00abaf!important;
+}
+.darkTheme .addServContnt{
+    background-color: #404646!important;
+}
+@media (max-width: 1300px){
+    .tskOverView2{
+        display: grid !important;
+    }  
+}
+.pattern-sec a button:hover{
+    background-color: #00abaf;
+}
+.pattern-sec a .appliedbutton{
+    background-color: #00abaf !important;
+}
+span.ApplyPattern {
+    margin-left: 30px;
+}
+span.ApplyPattern:hover {
+    color: #00abaf;
+}
+span.AppliedPattern {
+    margin-left: 30px;
+    color: #00abaf;
+}
+.pattern-sec {
+    text-align: center;
+}
+.pattern-sec a {
+    text-align: center;
+    font-family: 'Muli';
+    font-weight: 600;
+}
+.pattern-sec a button{
+    width:95%
+}
+.darkTheme .pattern-sec a button{
+    background-color: #404646;
+    color: #fff;
+}
+.darkTheme .pattern-sec a{
+    color: #cfcfcf !important;
+}
+.darkTheme .demOverView {
+    background-color: #404646;
+}
+.darkTheme .demOverView h1{
+    color: #cfcfcf!important;
+}
+.darkTheme .vh-section input:disabled{
+    color: #404646 !important
+}
 .rrSysto3 label {
     color: #404646;
     font-family: Muli;
@@ -9906,9 +9972,11 @@ option{
 .darkTheme .fillDia .rrSysto div {
     background-color: #404646 !important
 }
-
-.cnfrmDiaMain .fillDia .rrSysto div {
+.darkTheme .cnfrmDiaMain .fillDia .rrSysto div {
     color: #cfcfcf !important;
+}
+.cnfrmDiaMain .fillDia .rrSysto div {
+    color: #000808;
     font-family: Muli;
 }
 .homeBgDrk .entryBoxCntnt , .darkTheme .entryBoxCntnt{
@@ -12412,6 +12480,7 @@ ul.patientHint li {
 }
 .darkTheme .homeBgIner {
     background: #192020 !important;
+    min-height: 100vh;
 }
 .darkTheme .MenuMob {
     background: #404646;
@@ -12572,6 +12641,10 @@ ul.patientHint li {
     .revwFiles img {
         height: 18px !important;
         width: 18px !important;
+    }
+    .revwFiles1{
+        max-width: unset;
+        min-width: unset;
     }
 }
 a.taskHover span {
@@ -12885,11 +12958,8 @@ input:-moz-autofill:active{
     height: 100%;
 }
 /* Add by tanya */
-.buttonCDstyle{
-    margin-top: 5px;
-   
-}
-.colorBtnUpr a{
+
+.colorBtnUpr button{
     border-radius: 8px;
     background-color: lightgrey;
     color: black !important;
@@ -12902,6 +12972,149 @@ input:-moz-autofill:active{
     margin-left: 5px;
 }
 
-.buttonstyle{
-    background-color: blue;  
+/* Added by ankit */
+.colorbtn button{
+    border-radius: 8px;
+    background-color: lightgrey;
+    color: black !important;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+    padding: 16px 10px;
+    min-width: 220px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.tskOverView2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.demOverView h1 {
+   text-align: center;
+}
+
+.demOverView {
+    margin-top: 15px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
+    min-height: 30vh;
+    padding: 26px 16px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.MedicalSer{
+    color:white;
+     margin-top: 20px;
+      padding:10px 20px;
+      width:100%;
+    background-color:black;
+}
+.maintabPart{
+    width: 100%;
+}
+
+
+.tabL2{
+    border-bottom:1px solid red; 
+    padding-bottom:20px; 
+    margin-top:30px
+}
+
+.tabL2Col{
+    font-size:14px;
+     padding-bottom: 10px;
+     width:70%;
+}
+
+.tabL2Col1
+{
+    font-size:14px;
+    padding-bottom: 10px;
+     width:30%;
+    }
+
+    .tabL2Col2{padding-top:30px}
+
+    .tabL2Col3{
+         font-size:14px; 
+        padding-bottom: 10px; 
+        width:5%;
+    }
+
+        .tabL2Col4{font-size:14px; padding-bottom: 10px}
+
+        .tabL3a{color:white; margin-top: 20px; padding:10px 20px;}
+
+        .tabL3Col1{ padding:10px 20px; border-bottom: 2px solid red;}
+
+        .tabL3 {text-align:right; border-bottom: 2px solid red; padding:10px 20px 20px 20px}
+
+        .tabL3Col1{font-size:14px; padding-bottom: 10px; width:10%; width:100%}
+
+        .tabL3Col2{font-size:14px; padding-bottom: 10px; width:20%}
+
+        .tabL4{font-size:14px; margin-top: 10px;}
+
+        .tabL5{font-size:14px; margin-top: 10px;}
+
+        .tabL6Col1{font-size:14px; padding-bottom: 10px; width:30%;}
+         
+        .tabL7{color:white; margin-top: 20px; padding:10px 20px;}
+
+        .tabL8{padding:10px 20px; border-bottom: 2px solid red;}
+      
+        .tabL9{font-size:14px; margin-top: 10px}
+
+        .tabL10{border-bottom:1px solid red; padding-bottom:20px; margin-top:30px}
+
+        .tabL10Col1{font-size:14px; padding-bottom: 10px; width:70%;}
+
+        .tabL10Col2{font-size:14px; padding-bottom: 10px; width:30%;}
+
+        .tabL11{color:white; margin-top: 20px; padding:10px 20px;}
+
+        .tab12{padding:10px 20px; border-bottom: 2px solid red;}
+
+        .tab13{font-size:14px; margin-top: 10px;}
+
+        .maintabPart a{
+            color: #ffffff;
+            text-decoration: none
+        }
+        .maintabPart p{
+            padding: 0 !important;
+            margin: 0 !important
+        }
+
+        .maintabPart .img {
+            -ms-interpolation-mode: bicubic;}
+            .termCond{
+                font-size: 1.6rem;
+                font-weight: 800;
+            }
+
+@media(min-width:768px) and (max-width:1150px) {
+    .maintabPart {
+        padding: 20px 100px;
+    }
+}
+
+@media (max-width:599px) {
+    .firsttabhead,
+    .secsttabhead {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
+@media only screen and (max-device-width: 768px),
+only screen and (max-width: 768px) {
+    .maintabPart {
+        padding: 20px 20px;
+    }
 }

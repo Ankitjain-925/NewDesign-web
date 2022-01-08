@@ -48,7 +48,6 @@ class Index extends Component {
                     <Grid className="newStaffUpr">
                         <Grid className="newStaffInfo">
                             <Grid className="newStaff">
-                               { console.log("personalinfo?.info?.profile_id",personalinfo?.info?.profile_id)}
                                 <p>{personalinfo?.info?.profile_id}</p>
                                 {/* <Grid><a><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></a></Grid> */}
                                 <Grid><a><S3Image imgUrl={personalinfo?.info?.image} /></a></Grid>

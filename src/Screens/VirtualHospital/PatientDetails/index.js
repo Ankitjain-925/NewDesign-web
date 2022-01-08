@@ -83,17 +83,17 @@ class Index extends Component {
 
     getLeftVHinfo() {
         axios
-        .post(sitedata.data.path + "/vh/LeftInfoPatient/",
-        {
-            house_id: this.props?.House?.value,
-            patient_id: this.props.match.params.id,
-        },
-        commonHeader(this.props.stateLoginValueAim.token) )
-        .then((response) => {
-            if(response.data.hassuccessed){
-                this.setState({LeftInfoPatient: response.data.data});
-            }
-        });
+            .post(sitedata.data.path + "/vh/LeftInfoPatient/",
+                {
+                    house_id: this.props?.House?.value,
+                    patient_id: this.props.match.params.id,
+                },
+                commonHeader(this.props.stateLoginValueAim.token))
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    this.setState({ LeftInfoPatient: response.data.data });
+                }
+            });
     }
 
     handleCallback = (childData) => {
@@ -366,7 +366,7 @@ class Index extends Component {
                                                 <PatientTasks />
                                             </TabContainer>}
                                             {value === 2 && <TabContainer>
-                                                <PatientDocuments  getLeftVHinfo={()=>{this.getLeftVHinfo()}}/>
+                                                <PatientDocuments getLeftVHinfo={() => { this.getLeftVHinfo() }} />
                                             </TabContainer>}
                                             {/* {value === 3 && <TabContainer>
                                             <PatientRoom />

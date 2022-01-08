@@ -11,6 +11,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
 import AddEntry from "Screens/Components/AddEntry/index";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import {
   SortByEntry,
@@ -106,6 +107,7 @@ class Index extends Component {
       vaccinations: [],
       defaultValue: 20,
       loading: false,
+      PatientList: [],
     };
   }
 
@@ -446,9 +448,40 @@ class Index extends Component {
     var npmCountry = npmCountryList().getData();
     this.setState({ selectCountry: npmCountry });
     this.getMetadata();
+    this.getPatientList();
     if (this.props.match.params.id) {
       this.GetInfoForPatient();
     }
+  }
+  getPatientList = ()=>{
+    console.log('I am here34')
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+     axios.get(`${sitedata.data.path}/User/PatientListPromotion/${this.props.House?.value}/${institute_id}`,
+        {
+            headers: {
+                'token': this.props.stateLoginValueAim.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            if (response.data.hassuccessed) {
+             var patientList = response.data.data && response.data.data.length > 0 && response.data.data.map((item, index) => {
+              if(item.patient_id){
+                var name = item?.patient?.first_name &&  item?.patient?.last_name ?  item?.patient?.first_name+ ' ' + item?.patient?.last_name :  item?.patient?.first_name;
+                return {
+                  value: item.patient_id,
+                  label: name
+                }
+              }
+             else{
+              let name = item.first_name &&  item.last_name ?  item.first_name+ ' ' + item.last_name :  item.first_name;
+              return {label: name, value: item._id}
+             }
+             
+              })
+            this.setState({ PatientList: patientList})
+            }
+        })
   }
   componentDidUpdate = (prevProps) => {
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
@@ -581,7 +614,39 @@ class Index extends Component {
         });
     } else {
       data.created_by = this.props.stateLoginValueAim.user._id;
-      axios
+      if(this.state.current_select === "promotion"){
+        if( data?.option?.value === "all"){
+          var UserId = this.state.PatientList && this.state.PatientList.length > 0 && this.state.PatientList.map((item)=>{
+            return item.value;
+          })
+          data.UserId = UserId;
+          
+        }
+        axios
+        .put(
+          sitedata.data.path + "/User/AddTrackAdmin",
+          { data },
+          commonHeader(user_token)
+        )
+        .then((response) => {
+          this.setState({
+            updateTrack: {},
+            isfileupload: false,
+            isfileuploadmulti: false,
+            fileattach: {},
+            current_select: "diagnosis",
+            Addmore: true,
+            newElement: false,
+            loaderImage: false,
+            ismore_five: false,
+            isless_one: false,
+          });
+          this.getTrack();
+          this.handleCloseInqryNw();
+        });
+      }
+      else{
+        axios
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id,
           { data },
@@ -603,6 +668,7 @@ class Index extends Component {
           this.getTrack();
           this.handleCloseInqryNw();
         });
+      }
     }
     this.setState({ updateTrack: {} });
   };
@@ -1922,15 +1988,12 @@ class Index extends Component {
                         {this.state.current_select ===
                           "promotion" && (
                             <PromotionFields
+                              PatientList={this.state.PatientList}
                               cur_one={this.state.cur_one2}
                               FileAttachMulti={this.FileAttachMulti}
                               visibility={this.state.visibility}
                               comesfrom="adminstaff"
-                              lrpUnit={AllL_Ps.AllL_Ps.units}
-                              lrpEnglish={AllL_Ps.AllL_Ps.english}
-                              GetHideShow={this.GetHideShow}
                               AddTrack={this.AddTrack}
-                              options={this.state.AllSpecialty}
                               date_format={
                                 this.props.settings &&
                                 this.props.settings.setting &&
@@ -1986,7 +2049,7 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { metadata } = state.OptionList;
-  // const { catfil } = state.filterate;
+  const { House } = state.houseSelect;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -1994,7 +2057,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     metadata,
-    //   catfil
+    House,
   };
 };
 export default withRouter(
@@ -2004,5 +2067,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    houseSelect,
   })(Index)
 );

@@ -136,18 +136,32 @@ class Index extends Component {
 
     getDoctors = (user_id) => {
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id,
-            commonHeader(user_token)).then((response) => {
+        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
+            + '/doctor/1'
+            , commonHeader(user_token))
+            .then((response) => {
+                console.log("Response Doctor", response)
                 if (response.data.data) {
-                    this.setState({ AllUsers: response.data.data });
                     var images = [];
-                    const AllDoctor = this.state.AllUsers.filter((value, key) =>
-                        value.type === 'doctor');
+                    this.setState({ AllUsers: response.data.data });
+                    const AllDoctor = this.state.AllUsers;
 
-                    var current_user = this.state.AllUsers.filter((value, key) =>
-                        value._id === user_id);
-                    this.setState({ current_user: current_user?.length > 0 ? current_user[0] : {} });
-
+                    this.setState({ AllDoctor: AllDoctor })
+                    var totalPage = Math.ceil(AllDoctor.length / 20);
+                    this.setState({ totalPage: totalPage, currentPage: 1 },
+                        () => {
+                            if (totalPage > 1) {
+                                var pages = [];
+                                for (var i = 1; i <= this.state.totalPage; i++) {
+                                    pages.push(i)
+                                }
+                                this.setState({ MypatientsData: AllDoctor.slice(0, 20), pages: pages })
+                            }
+                            else {
+                                this.setState({ MypatientsData: AllDoctor })
+                            }
+                        })
+                    this.setState({ forSearch: AllDoctor })
 
                     AllDoctor && AllDoctor.length > 0 && AllDoctor.map((item) => {
                         var find = item && item.image && item.image
@@ -163,21 +177,6 @@ class Index extends Component {
                                 })
                         }
                     })
-                    var totalPage = Math.ceil(AllDoctor.length / 10);
-                    this.setState({ totalPage: totalPage, currentPage: 1 },
-                        () => {
-                            if (totalPage > 1) {
-                                var pages = [];
-                                for (var i = 1; i <= this.state.totalPage; i++) {
-                                    pages.push(i)
-                                }
-                                this.setState({ MypatientsData: AllDoctor.slice(0, 10), pages: pages })
-                            }
-                            else {
-                                this.setState({ MypatientsData: AllDoctor })
-                            }
-                        })
-                    this.setState({ AllDoctor: AllDoctor, forSearch: AllDoctor })
                 }
                 else {
                     this.setState({ AllDoctor: [] });
@@ -242,9 +241,15 @@ class Index extends Component {
         var data = blockClick(patient_id, isblock, this.props.stateLoginValueAim.token)
         this.getDoctors();
     }
+
     onChangePage = (pageNumber) => {
-        this.setState({ MypatientsData: this.state.AllDoctor.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
-    }
+        this.setState({
+            MypatientsData: this.state.AllDoctor.slice(
+                (pageNumber - 1) * 20,
+                pageNumber * 20),
+            currentPage: pageNumber
+        });
+    };
 
     assignHouse = (patient) => {
         this.setState({ openHouse: true, current_user: patient })
@@ -337,7 +342,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let { capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
+        let { AssignHospitals, capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
             recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next } = translate
         return (
             <Grid className={
@@ -399,7 +404,7 @@ class Index extends Component {
                                             <Tbody>
                                                 {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((doctor, i) => (
                                                     <Tr>
-                                                        <Td>{((this.state.currentPage - 1) * 10) + i + 1}</Td>
+                                                        <Td>{((this.state.currentPage - 1) * 20) + i + 1}</Td>
                                                         <Td><img className="doctor_pic" src={doctor && doctor.image ? getImage(doctor.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {doctor.first_name && doctor.first_name}</Td>
                                                         <Td>{doctor.last_name && doctor.last_name}</Td>
@@ -424,7 +429,7 @@ class Index extends Component {
                                                                                     title=""
                                                                                 />
                                                                             </span>
-                                                                            Assign Hospitals
+                                                                            {AssignHospitals}
                                                                         </a>
                                                                     </li>
                                                                     <li onClick={() => this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
