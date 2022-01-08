@@ -62,13 +62,14 @@ class Index extends Component {
     componentDidMount() {
         this.getStatistics();
         this.getrightinfo();
+        console.log("this.props?.House?.value", this.props?.House?.value)
     }
 
     getStatistics = () => {
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/vh/statisticstopinfo/600c15c2c983431790f904c3-1627046889451",
+                sitedata.data.path + "/vh/statisticstopinfo/" + this.props?.House?.value,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -83,7 +84,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/vh/stasticsrightinfo/600c15c2c983431790f904c3-1627046889451",
+                sitedata.data.path + "/vh/stasticsrightinfo/" + this.props?.House?.value,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -98,15 +99,15 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, House } = this.props;
         if (
-          stateLoginValueAim.user === "undefined" ||
-          stateLoginValueAim.token === 450 ||
-          stateLoginValueAim.token === "undefined" ||
-          stateLoginValueAim.user.type !== "adminstaff"
+            stateLoginValueAim.user === "undefined" ||
+            stateLoginValueAim.token === 450 ||
+            stateLoginValueAim.token === "undefined" ||
+            stateLoginValueAim.user.type !== "adminstaff"
         ) {
-          return <Redirect to={"/"} />;
+            return <Redirect to={"/"} />;
         }
         if (House && House?.value === null) {
-          return <Redirect to={"/VirtualHospital/space"} />;
+            return <Redirect to={"/VirtualHospital/space"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation, Statistics, TotalPatients,
@@ -125,14 +126,14 @@ class Index extends Component {
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                             {/* Mobile menu */}
-                            <LeftMenuMobile isNotShow={true}  currentPage="more" />
+                            <LeftMenuMobile isNotShow={true} currentPage="more" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
 
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                                    <LeftMenu isNotShow={true}  currentPage="more" />
+                                    <LeftMenu isNotShow={true} currentPage="more" />
                                 </Grid>
                                 {/* End of Menu */}
 
@@ -166,12 +167,12 @@ class Index extends Component {
                                                                 {/* ))} */}
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item xs={12} md={5}>
+                                                        {/* <Grid item xs={12} md={5}>
                                                             <Grid className="staticsAmt">
                                                                 <Grid><a><img src={require('assets/virtual_images/timecheck.svg')} alt="" title="" /></a></Grid>
                                                                 <Grid><label>{Oneh23min}</label><p>{AvgTimeToStayInHospital}</p></Grid>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> */}
                                                     </Grid>
                                                     {/* <Grid className="modeChngUpr">
                                                         <Grid className="staffAction">
@@ -213,8 +214,8 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid> */}
 
-                                                    <StatisticsStaffAction />
-
+                                                    {/* <StatisticsStaffAction /> */}
+                                                    {/* 
                                                     <Grid className="staffGraphUpr">
                                                         <Grid className="staffGraph">
                                                             <Grid container direction="row" alignItems="center">
@@ -240,7 +241,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </TabContainer>}
                                                         </Grid>
-                                                    </Grid>
+                                                    </Grid> */}
                                                 </Grid>
 
                                                 <Grid item xs={12} md={3}>
@@ -286,7 +287,7 @@ class Index extends Component {
 
                                                     {/* ))} */}
 
-                                                    <Grid className="patntFlow">
+                                                    {/* <Grid className="patntFlow">
                                                         <p>{ActivityCounter}</p>
                                                         <Grid className="actvtyFilter">
                                                             <a>{Lastmonth}</a><a>{threeM}</a><a>{sixM}</a><a>{oneY}</a><a>{All}</a>
@@ -305,8 +306,8 @@ class Index extends Component {
                                                                 <Grid item xs={4} md={4}><span>71</span></Grid>
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
-                                                    <Grid className="patntFlow">
+                                                    </Grid> */}
+                                                    {/* <Grid className="patntFlow">
                                                         <p>{AvgTimeOfStay}</p>
                                                         <Grid className="patntFlowIner">
                                                             <Grid container direction="row" alignItems="center">
@@ -326,7 +327,7 @@ class Index extends Component {
                                                                 <Grid item xs={4} md={4}><span>{twelvedays}</span></Grid>
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
+                                                    </Grid> */}
                                                 </Grid>
 
                                             </Grid>

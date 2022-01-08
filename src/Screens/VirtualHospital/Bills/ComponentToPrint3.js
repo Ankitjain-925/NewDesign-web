@@ -45,7 +45,7 @@ export class ComponentToPrint3 extends React.Component {
                                     <tr>
                                         <td>
                                             <p>From</p>
-                                            <strong>56546546546</strong>
+                                            <strong>Max hospital</strong>
                                             <p>{data?.email}</p>
                                             <p>{data?.address}</p>
                                             <p>{data?.phone}</p>
@@ -63,11 +63,11 @@ export class ComponentToPrint3 extends React.Component {
                                 <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
                                     <tr>
                                         <th width="25%" align="left">Patient</th>
-                                        <th width="20%">D.B.O</th>
+                                        {/* <th width="20%">D.B.O</th>
                                         <th width="15%">Gender</th>
                                         <th width="15%" align="right">Weight</th>
                                         <th width="10%" align="right">Height</th>
-                                        <th width="15%" align="right">Date</th>
+                                        <th width="15%" align="right">Date</th> */}
                                     </tr>
                                 </table>
                                 <table width="100%">
@@ -87,19 +87,19 @@ export class ComponentToPrint3 extends React.Component {
                                         <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
                                             <tr>
                                                 <th width="20%" align="left">Service</th>
-                                                <th width="40%">Price Per Quantity</th>
-                                                <th width="20%" align="right">Rate($)</th>
+                                                <th width="40%">Quantity</th>
+                                                <th width="20%" align="right">Price Per Quantity</th>
                                                 <th width="20%" align="right">Total($)</th>
                                             </tr>
                                         </table>
-                                        <table width="100%" className="secsttabhead tabL8">
+                                        <table width="100%" className="secsttabhead tabL8 tabLLa">
                                             {/* {{ #each Invoice }} */}
                                             {data?.services && data?.services?.length > 0 &&
                                             data?.services.map((item) => (
                                             <tr>
-                                                 <th width="40%">{item?.service}</th>
-                                                <th width="20%" align="left">{item?.price_per_quantity}</th>        
-                                                <th width="20%" align="right">{item?.price}</th>
+                                                 <th width="20%">{item?.service}</th>
+                                                 <th width="40%" align="right">{item?.quantity}</th>
+                                                <th width="20%" align="left">{item?.price_per_quantity}</th>                
                                                 <th width="20%" align="right">{item?.price}</th>
                                                 </tr>))}
                                             {/* {{/ each}} */}
