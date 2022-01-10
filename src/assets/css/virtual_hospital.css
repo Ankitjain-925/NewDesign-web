@@ -7328,6 +7328,7 @@ a.horzSort2 {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    z-index: 999999 !important;
 }
 .spclSelect {
     font-size: 12px !important;
@@ -9282,14 +9283,15 @@ button.crdoLghtBlu2 {
     margin-top: 0px !important;
    
 }
-    .flowInfo1 {
-        margin-top: 8px;
-        margin-bottom: 12px;
-        /* min-height: 127px; */
-        border-radius: 8px;
-        background-color: #FFFFFF;
-        /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
+.flowInfo1 {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    /* min-height: 127px; */
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
 }
+
 .ptntFlowSpc {
     padding-left: 4%;
     padding-right: 4%;
@@ -9880,6 +9882,30 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.activesecRating{
+    background-color: #00ABAF !important;
+    box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%) !important;
+    color:#fff!important;
+}
+.SApratQuestion h1{
+    margin-bottom: 15px;
+}
+.darkTheme .asnswerSbmt button span{
+    color: #00ABAF !important;
+}
+.SApratQuestion {
+    margin: 20px 0px !important;
+    background: #e5e5e5;
+    padding: 30px;
+    border-radius: 18px;
+}
+.darkTheme .SApratQuestion {
+    background: #4046467a !important;
+}
+.darkTheme .SApratQuestion .QuesMrktUpr{
+    background:  #404646 !important;
+    color: #cfcfcf!important
+}
 .darkTheme .err_message, .homeBgDrk .err_message{
     color: red!important;
 }
@@ -10016,7 +10042,7 @@ option{
     background-color: 404646 !important;
 }
 img.academyDots {
-    padding: 3px !important;
+    padding: 10px 2px !important;
     border: 1px solid #7e8282 !important;
     width: 25px !important;
     border-radius: 8px !important;
@@ -10213,7 +10239,7 @@ p.more-change-staff-img2 {
     color: #c6dada;
 }
 .stepTdotupper img, a.academy_ul img{
-    padding: 3px;
+    padding: 3px !important;
 }
 .darkTheme a.srchSort {
     border: #F2F2F2 1px solid;
@@ -11536,7 +11562,7 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #192020;
+    background: #303737;
     color: #dfdfdf;
     border-color: #676565;
     font-family: Muli;
@@ -12293,12 +12319,23 @@ ul.patientHint li {
     color: #0076DB;
 }
 .darkTheme .dragdrop-horizontal ul , .darkTheme .setDate button {
-    background: #404646 !important;
+    background: #2f3535 !important;
 }
 /* .darkTheme .tskTabs button span{
     background-color: #404646 !important;;
     border: 1px solid #00686bad;
 } */
+.darkTheme .dragdrop-horizontal ul {
+    padding-top: 1px;
+    padding-bottom: 32px;
+    margin-top: 38px;
+}
+@media (max-width: 959px){
+  .detailInfo .MuiGrid-grid-sm-6 {
+    max-width: 100%;
+    flex-basis: 100%;
+  } 
+}
 .darkTheme .tskTabs button span{
     color: #fafafa ;
 }
@@ -12860,9 +12897,9 @@ input:-moz-autofill:active{
 .invoiceForm .MuiGrid-align-items-xs-center, .addCstmField .MuiGrid-align-items-xs-center{
     align-items: flex-start!important;
 }
-.addStafSelect input[type="text"], .cstmSelect input[type="text"]{
+/* .addStafSelect input[type="text"], .cstmSelect input[type="text"]{
     min-height: 35px!important;
-}
+} */
 .enterPricePart1{
     position: relative;
 }
@@ -12993,11 +13030,14 @@ input:-moz-autofill:active{
     margin: 20px;
 }
 
+
 .demOverView h1 {
    text-align: center;
+   margin-bottom: 15px;
 }
 
 .demOverView {
+    text-align:center;
     margin-top: 15px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
@@ -13010,7 +13050,7 @@ input:-moz-autofill:active{
 .MedicalSer{
     color:white;
      margin-top: 20px;
-      padding:10px 20px;
+      padding:10px 20px !important;
       width:100%;
     background-color:black;
 }
@@ -13038,7 +13078,7 @@ input:-moz-autofill:active{
      width:30%;
     }
 
-    .tabL2Col2{padding-top:30px}
+    .tabL2Col2{margin-top:30px !important}
 
     .tabL2Col3{
          font-size:14px; 
@@ -13049,24 +13089,37 @@ input:-moz-autofill:active{
         .tabL2Col4{font-size:14px; padding-bottom: 10px}
 
         .tabL3a{color:white; margin-top: 20px; padding:10px 20px;}
-
+        .tabL3a >  tr th{
+            padding: 10px !important;
+            font-size: 20px!important;
+         }
         .tabL3Col1{ padding:10px 20px; border-bottom: 2px solid red;}
 
-        .tabL3 {text-align:right; border-bottom: 2px solid red; padding:10px 20px 20px 20px}
+        .tabL3 {text-align:right; border-bottom: 2px solid red; padding:10px 20px 20px 20px !important;margin:10px 0 20px 0 !important;}
+        .tabL3 p, strong{   font-size: 20px !important;
+            font-weight: 600;
+            margin-bottom: 8px!important;
+        }
 
-        .tabL3Col1{font-size:14px; padding-bottom: 10px; width:10%; width:100%}
+        .tabL3Col1 p{
+            margin-bottom: 10px !important;
+        }
+
+        /* .tabL3Col1{font-size:14px; padding-bottom: 10px; width:10%; width:100%} */
 
         .tabL3Col2{font-size:14px; padding-bottom: 10px; width:20%}
-
-        .tabL4{font-size:14px; margin-top: 10px;}
+        .tabL4{font-size:18px !important; margin-top: 10px;}
 
         .tabL5{font-size:14px; margin-top: 10px;}
+        .ThnkYU{
+            font-size: 21px !important;
+        }
 
         .tabL6Col1{font-size:14px; padding-bottom: 10px; width:30%;}
          
         .tabL7{color:white; margin-top: 20px; padding:10px 20px;}
 
-        .tabL8{padding:10px 20px; border-bottom: 2px solid red;}
+        .tabL8{padding:10px 20px; border-bottom: 2px solid red; margin-top: 5px!important;}
       
         .tabL9{font-size:14px; margin-top: 10px}
 
@@ -13097,7 +13150,9 @@ input:-moz-autofill:active{
                 font-size: 1.6rem;
                 font-weight: 800;
             }
-
+            .tabL5 h1{
+                margin-bottom: 20px!important;
+            }
 @media(min-width:768px) and (max-width:1150px) {
     .maintabPart {
         padding: 20px 100px;
@@ -13117,4 +13172,33 @@ only screen and (max-width: 768px) {
     .maintabPart {
         padding: 20px 20px;
     }
+}
+
+
+.WlcmAimds{
+    font-size: 40px !important; 
+    font-weight: 700;
+}
+
+.tabL2 p, strong, .tabL2Col2 p, .TblPG2 p, .TblPG2 strong, .tabLLa th{
+    font-size: 20px !important;
+    font-weight: 600;
+    margin-bottom: 10px !important;
+}
+
+.tabL2Col3{
+    padding-top: 0px!important;
+}
+
+.tabL3Col2{
+    padding-top: 7.5px;
+}
+
+.MedicalSer1 > tr th{
+    padding :10px !important;
+    font-size: 20px!important;
+}
+
+.printprv1{
+    padding-top: 80px!important;
 }

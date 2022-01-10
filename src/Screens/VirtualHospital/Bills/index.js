@@ -96,6 +96,7 @@ class Index extends Component {
     };
 
     componentDidMount() {
+        
         this.getMetadata();
         this.fetchbillsdata('all', 0);
         this.getPatientData();

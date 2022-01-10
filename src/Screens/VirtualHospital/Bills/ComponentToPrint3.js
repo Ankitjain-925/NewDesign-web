@@ -29,7 +29,7 @@ export class ComponentToPrint3 extends React.Component {
                                 <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td align="left">
-                                            <strong>Welcome to Aimedis</strong>
+                                            <strong className="WlcmAimds">Welcome to Aimedis</strong>
                                         </td>
                                         <td align="right">
                                             <img
@@ -41,11 +41,11 @@ export class ComponentToPrint3 extends React.Component {
                                     </tr>
                                 </table>
 
-                                <table width="100%">
+                                <table width="100%" className="TblPG2">
                                     <tr>
                                         <td>
                                             <p>From</p>
-                                            <strong>{data?.services?.service}</strong>
+                                            <strong>Max hospital</strong>
                                             <p>{data?.email}</p>
                                             <p>{data?.address}</p>
                                             <p>{data?.phone}</p>
@@ -60,45 +60,48 @@ export class ComponentToPrint3 extends React.Component {
                                     </tr>
                                 </table>
 
-                                <table width="100%" bgcolor="black" className="tabL7">
+                                <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
                                     <tr>
                                         <th width="25%" align="left">Patient</th>
-                                        <th width="20%">D.B.O</th>
+                                        {/* <th width="20%">D.B.O</th>
                                         <th width="15%">Gender</th>
                                         <th width="15%" align="right">Weight</th>
                                         <th width="10%" align="right">Height</th>
-                                        <th width="15%" align="right">Date</th>
+                                        <th width="15%" align="right">Date</th> */}
                                     </tr>
                                 </table>
-                                <table>
+                                <table width="100%">
 
                                     <table width="100%" >
                                         <tr>
                                             <th width="25%" align="left">{data?.patient?.first_name}</th>
-                                            <th width="20%">{data?.patient?.first_name}</th>
+                                            {/* <th width="20%">{data?.patient?.first_name}</th>
                                             <th width="15%">{data?.patient?.first_name}</th>
                                             <th width="15%" align="right">{data?.patient?.first_name}</th>
                                             <th width="10%" align="right">{data?.patient?.first_name}</th>
-                                            <th width="15%" align="right">{data?.patient?.first_name}</th>
+                                            <th width="15%" align="right">{data?.patient?.first_name}</th> */}
                                         </tr>
                                     </table>
 
-                                    <table>
-                                        <table width="100%" bgcolor="black" className="tabL7">
+                                    <table width="100%">
+                                        <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
                                             <tr>
-                                                <th width="20%" align="left">Medication</th>
-                                                <th width="40%">Medical Services Performed</th>
-                                                <th width="20%" align="right">Rate($)</th>
+                                                <th width="20%" align="left">Service</th>
+                                                <th width="40%">Quantity</th>
+                                                <th width="20%" align="right">Price Per Quantity</th>
                                                 <th width="20%" align="right">Total($)</th>
                                             </tr>
                                         </table>
-                                        <table width="100%" className="secsttabhead tabL8">
+                                        <table width="100%" className="secsttabhead tabL8 tabLLa">
                                             {/* {{ #each Invoice }} */}
+                                            {data?.services && data?.services?.length > 0 &&
+                                            data?.services.map((item) => (
                                             <tr>
-                                                <th width="20%" align="left">{data?.services?.price_per_quantity}</th>
-                                                <th width="40%">{data?.services?.service}</th>
-                                                <th width="20%" align="right">{data?.services?.price}</th>
-                                            </tr>
+                                                 <th width="20%">{item?.service}</th>
+                                                 <th width="40%" align="right">{item?.quantity}</th>
+                                                <th width="20%" align="left">{item?.price_per_quantity}</th>                
+                                                <th width="20%" align="right">{item?.price}</th>
+                                                </tr>))}
                                             {/* {{/ each}} */}
                                         </table>
 
@@ -106,7 +109,7 @@ export class ComponentToPrint3 extends React.Component {
                                             <tr>
                                                 <td>
                                                     <h1 className="termCond">Terms and Condition</h1>
-                                                    <p>Thank you for business send paymentwithin_____ days of receiving this
+                                                    <p className="ThnkYU">Thank you for business send paymentwithin_____ days of receiving this
                                                         invoice. There will be a ____% per______on late invoices.</p>
                                                 </td>
                                             </tr>

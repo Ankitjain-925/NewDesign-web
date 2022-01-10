@@ -445,7 +445,7 @@ class Index extends Component {
       recEmp_LastName,
       imprint_Email,
       restore,
-      Delete, AssignHospitals,
+      Delete, AssignHouse,
       see_detail,
     } = translate;
 
@@ -594,7 +594,7 @@ class Index extends Component {
                                             title=""
                                           />
                                         </span>
-                                        {AssignHospitals}
+                                        {AssignHouse}
                                       </a>
                                     </li>
                                     <li

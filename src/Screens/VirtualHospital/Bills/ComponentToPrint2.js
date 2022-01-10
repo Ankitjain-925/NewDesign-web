@@ -30,7 +30,7 @@ export class ComponentToPrint2 extends React.Component {
                                 <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td align="left">
-                                            <strong>Welcome to Aimedis</strong>
+                                            <strong className="WlcmAimds">Welcome to Aimedis</strong>
                                         </td>
                                         <td align="right">
                                             <img
@@ -42,14 +42,15 @@ export class ComponentToPrint2 extends React.Component {
                                     </tr>
                                 </table>
 
-                                <table width="100%">
+                                <table width="100%" className="TblPG2">
                                     <tr>
                                         <td >
+                                            {/* {  console.log("this.props",this.props.houseSelect)} */}
                                             <p>From</p>
-                                            <strong>{data?.services?.service}</strong>
-                                            <p>{data?.email}</p>
+                                            <strong>Max Hospital</strong>
+                                            {/* <p>{data?.email}</p>
                                             <p>{data?.address}</p>
-                                            <p>{data?.phone}</p>
+                                            <p>{data?.phone}</p> */}
 
                                         </td>
                                         <td >
@@ -57,7 +58,7 @@ export class ComponentToPrint2 extends React.Component {
                                             <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
                                             <p>{data?.patient?.profile_id}</p>
                                             <p>{data?.patient?.patient_id}</p>
-                                            <p>{data?.phone}</p>
+                                            {/* <p>{data?.phone}</p> */}
                                         </td>
 
                                         <td>
@@ -67,34 +68,35 @@ export class ComponentToPrint2 extends React.Component {
                                     </tr>
                                 </table>
 
-                                <table>
-                                    <table  className="MedicalSer">
+                                <table width="100%">
+                                    <table width="100%" className="MedicalSer MedicalSer1">
                                         <tr>
-                                            <th width="25%" align="left">Medical Services Performed</th>
-                                            <th width="25%">Medication</th>
-                                            <th width="20%">Patient</th>
-                                            <th width="15%" align="right">Rate($)</th>
+                                            <th width="25%" align="left">Service</th>
+                                            <th width="20%">Quantity</th>
+                                            <th width="25%">Price Per Quantity</th>
                                             <th width="15%" align="right">Total($)</th>
 
                                         </tr>
                                     </table>
-                                    <table width="100%">
+                                    <table width="100%" className="tabLLa">
                                         {/* {{ #each Invoice }} */}
-                                        <tr>
-                                            <th width="25%" align="left">{data?.services?.service}</th>
-                                            <th width="25%">{data?.services?.price_per_quantity}</th>
-                                            <th width="20%">{data?.services?.quantity}</th>
-                                            <th width="15%" align="right">{data?.services?.price}</th>
-                                        </tr>
+                                        {data?.services && data?.services?.length > 0 &&
+                                            data?.services.map((item) => (
+                                                <tr>
+                                                    <th width="25%" align="left">{item?.service}</th>
+                                                    <th width="20%">{item?.quantity}</th>
+                                                    <th width="25%">{item?.price_per_quantity}</th>
+                                                    <th width="15%" align="right">{item?.price}</th>
+                                                </tr>))}
                                         {/* {{/ each}} */}
                                     </table>
 
                                     <table className="tabL5">
-                                
+
                                         <tr>
                                             <td>
                                                 <h1 className="termCond">Terms and Condition</h1>
-                                                <p>Thank you for business send paymentwithin_____ days of receiving this invoice. There will be a ____% per______on late invoices.</p>
+                                                <p className="ThnkYU">Thank you for business send paymentwithin_____ days of receiving this invoice. There will be a ____% per______on late invoices.</p>
                                             </td>
                                         </tr>
                                     </table>
