@@ -408,7 +408,7 @@ class Index extends Component {
                             savedata.emergency_relation = this.state.contact_partner.relation;
                             savedata.emergency_email = this.state.contact_partner.email;
                             savedata.emergency_number = this.state.contact_partner.number;
-                            savedata.bucket = getBucket[0].bucket;
+                            savedata.bucket = getBucket[0]?.bucket;
                             savedata.token = this.state.recaptcha;
                             axios
                                 .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)

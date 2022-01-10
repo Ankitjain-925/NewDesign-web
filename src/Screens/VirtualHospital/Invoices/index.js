@@ -504,6 +504,7 @@ class Index extends Component {
                                                                 className="addStafSelect"
                                                                 isMulti={false}
                                                                 isSearchable={true} />
+                                                               { console.log('users',this.state.users1)}
                                                         </Grid>
                                                     </Grid>
 
