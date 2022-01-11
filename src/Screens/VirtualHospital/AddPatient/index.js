@@ -154,6 +154,7 @@ class Index extends Component {
     }
     handlePinClose = (key) => {
         this.setState({ [key]: false });
+      
     };
 
     openIdPin = () => {
@@ -360,7 +361,7 @@ class Index extends Component {
     };
     //Save the User profile
     saveUserData = () => {
-        let translate = getLanguage(this.props.stateLanguageType)
+       let translate = getLanguage(this.props.stateLanguageType)
         let {
             plz_fill_mob_number,
             pswd_not_valid,
@@ -368,8 +369,11 @@ class Index extends Component {
             plz_fill_fullname_user,
         } = translate;
 
-        const { UpDataDetails } = this.state;
-        this.setState({ regisError: null });
+        const UpDataDetails  = this.state;
+       
+        this.setState({ regisError: null,
+            UpDataDetails:''
+         });
         if (
             UpDataDetails.first_name &&
             UpDataDetails.last_name &&
@@ -421,8 +425,9 @@ class Index extends Component {
                                     if (responce.data.hassuccessed === true) {
                                         this.setState({
                                             idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
-                                            UpDataDetails: {}, speciality_multi: [], area: '', city: '', recaptcha: false
+                                            UpDataDetails: {}, speciality_multi: [], area: '', city: '',  recaptcha: false
                                         })
+                                       
                                         datas = [];
                                         this.openIdPin();
                                         axios
