@@ -71,7 +71,7 @@ class Index extends Component {
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={12} md={1} className="descpCntntLft">
-                    {newdate(item.due_on.date)}
+                    {newdate(item?.created_at, this.state.date_format)}
                 </Grid>
                 <Grid item xs={12} md={10} className="descpCntntRght">
                     <Grid className="descpInerRght descpInerBlue taskBorder">
@@ -247,7 +247,7 @@ class Index extends Component {
 
                         <Grid className="bp_hg addSpc">
                             {item && item.task_name &&
-                                <label><span>{item.task_name}</span></label>
+                                <label><span>{item?.task_name}</span></label>
                             }
                         </Grid>
                         <Grid className="bp_hg addSpc">

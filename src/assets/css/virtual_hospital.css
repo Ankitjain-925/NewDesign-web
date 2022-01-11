@@ -5441,6 +5441,14 @@ button.downloadPDF:hover {
     letter-spacing: 0;
     line-height: 18px;
 }
+.addCstmField .cstmSelect div {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    min-height: initial !important;
+    border-radius: 4px;
+}
 .addCstmField input[type="text"] {
     min-height: 48px;
     border: 1px solid #BFC1C1;
@@ -7329,6 +7337,17 @@ a.horzSort2 {
     letter-spacing: 0;
     line-height: 18px;
     z-index: 999999 !important;
+}
+.srvcContent .addStafSelect div {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    min-height: initial !important;
+    border-radius: 4px;
+}
+.darkTheme .srvcContent .addStafSelect div {
+    background-color: #192020 !important;
 }
 .spclSelect {
     font-size: 12px !important;
@@ -13030,14 +13049,13 @@ input:-moz-autofill:active{
     margin: 20px;
 }
 
-
 .demOverView h1 {
-   text-align: center;
-   margin-bottom: 15px;
-}
-
-.demOverView {
-    text-align:center;
+    text-align: center;
+    margin-bottom: 15px;
+ }
+ 
+ .demOverView {
+     text-align:center;
     margin-top: 15px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
@@ -13050,7 +13068,7 @@ input:-moz-autofill:active{
 .MedicalSer{
     color:white;
      margin-top: 20px;
-      padding:10px 20px !important;
+     padding:10px 20px !important;
       width:100%;
     background-color:black;
 }
@@ -13108,6 +13126,7 @@ input:-moz-autofill:active{
         /* .tabL3Col1{font-size:14px; padding-bottom: 10px; width:10%; width:100%} */
 
         .tabL3Col2{font-size:14px; padding-bottom: 10px; width:20%}
+
         .tabL4{font-size:18px !important; margin-top: 10px;}
 
         .tabL5{font-size:14px; margin-top: 10px;}
@@ -13173,7 +13192,6 @@ only screen and (max-width: 768px) {
         padding: 20px 20px;
     }
 }
-
 
 .WlcmAimds{
     font-size: 40px !important; 

@@ -13,15 +13,23 @@ export class ComponentToPrint1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            data : this.props.data
         }
-
     };
+
+      //on adding new data
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.data !== this.props.data) {
+      this.setState({ data: this.props.data });
+    }
+  };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
-        var { data, id } = this.props;
+        var { data, id } = this.state;
+        console.log("data", this.state.data)
         return (
             <div className="relativeCSS">
 

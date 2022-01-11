@@ -108,33 +108,36 @@ class Index extends Component {
     }
     //for print preview
 
-    // handleOnBeforeGetContent = () => {
-    //     console.log("onBeforeGetContent called");
-    //     this.setState({ isLoading: true });
+    handleOnBeforeGetContent = (data) => {
+        this.setState({ loaderImage: true, currentData: data });
 
-    //     return new Promise((resolve) => {
-    //         setTimeout(() => {
-    //             this.setState(
-    //                 { isLoading: false },
-    //                 resolve
-    //             );
-    //         }, 2000);
-    //     });
-    // };
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.setState(
+                    { loaderImage: false },
+                    resolve
+                );
+            }, 2000);
+        });
+    };
 
     // setComponentRef = (ref) => {
+    //     console.log('setComponentRef', )
     //     this.componentRef = ref;
+    //     return this.componentRef
     // };
 
     reactToPrintContent = (data) => {
-        this.setState({ currentData: data })
-        return this.componentRef
+        return this.componentRef 
     };
 
+    // handleBeforeGetContent = (data) => {
+    //     return new Promise((resolve, reject) => {
+    //       this.setState({ currentData: data }, () => resolve());
+    //     });
+    //   }
     // For print invoice
-    printInvoice = () => {
 
-    }
 
     //patient list
     getPatientData = async () => {
@@ -678,9 +681,9 @@ class Index extends Component {
                                                                         {/* <a onClick={this.printInvoice}> <li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>Print Invoice</span></li></a> */}
                                                                         <div className="printPreviewlink">
                                                                             <ReactToPrint
-                                                                                content={() => this.reactToPrintContent(data)}
+                                                                                content={() => this.reactToPrintContent()}
                                                                                 documentTitle="Report.pdf"
-                                                                                onBeforeGetContent={this.handleOnBeforeGetContent}
+                                                                                onBeforeGetContent={()=>this.handleOnBeforeGetContent(data)}
                                                                                 removeAfterPrint
                                                                                 trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>{PrintInvoice}</span></li></a>}
                                                                                 _id={data._id}
