@@ -17,6 +17,7 @@ export class ComponentToPrint1 extends React.Component {
 
     };
 
+
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
@@ -61,7 +62,6 @@ export class ComponentToPrint1 extends React.Component {
                                                 <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
                                                 <p>{data?.patient?.profile_id}</p>
                                                 <p>{data?.patient?.patient_id}</p>
-                                                {/* <p>{data?.phone}</p> */}
                                             </td>
                                         </tr>
                                     </table>
@@ -69,18 +69,14 @@ export class ComponentToPrint1 extends React.Component {
 
                                         <tr>
                                             <td className="tabL2Col3">
-
-                                                <p>Number</p>
-                                                <p>Date</p>
-                                                <p>Terms</p>
-                                                {/* <p>Due</p> */}
+                                                <p>Number:</p>
+                                                <p>Date:</p>
+                                                <p>Terms:</p>
                                             </td>
                                             <td className="tabL2Col4">
-
                                                 <p>{data?.invoice_id}</p>
                                                 <p>{data?.created_at}</p>
                                                 <p>{data?.status?.label_en}</p>
-                                                {/* <p>{data?.due_date}</p> */}
                                             </td>
                                         </tr>
                                     </table>
@@ -114,17 +110,11 @@ export class ComponentToPrint1 extends React.Component {
                                         <table width="100%" className="tabL3">
                                             <tr>
                                                 <td className="tabL3Col1">
-                                                    <p>Subtotal</p>
-                                                    {/* <p>Tax(7%)</p> */}
                                                     <p>Total</p>
-                                                    {/* <strong>Balance Due</strong> */}
                                                 </td>
 
                                                 <td className="tabL3Col2">
-                                                    <p>Subtotal</p>
-                                                    {/* <p>Tax(7%)</p> */}
                                                     <p>{data?.total_amount}</p>
-                                                    {/* <strong>Balance Due</strong> */}
                                                 </td>
                                             </tr>
                                         </table>
@@ -133,11 +123,14 @@ export class ComponentToPrint1 extends React.Component {
 
                                             <tr>
                                                 <td>
-                                                    <p>Notes any relevant info, terms, paymant instruction, e.t.c.</p>
+                                                    <h1 className="termCond">Your Aimedis team</h1>
+                                                    <p className="termCond1">https://aimedis.io</p>
+                                                    <p>https://sys.aimedis.com</p>
+                                                    <p className="termCond1">If you have any questions do not hesitate to
+                                                        contact us via the support chat or via contact@aimedis.com</p>
                                                 </td>
                                             </tr>
                                         </table>
-
                                     </table>
                                 </td>
                             </tr>

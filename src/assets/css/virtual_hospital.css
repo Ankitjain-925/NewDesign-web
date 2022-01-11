@@ -13099,7 +13099,11 @@ input:-moz-autofill:active{
 
         .tabL4{font-size:18px !important; margin-top: 10px;}
 
+        .tabL4 p{ font-size: 21px !important;}
+
+
         .tabL5{font-size:14px; margin-top: 10px;}
+       
         .ThnkYU{
             font-size: 21px !important;
         }
@@ -13193,4 +13197,16 @@ only screen and (max-width: 768px) {
 
 .printprv1{
     padding-top: 80px!important;
+}
+
+.termCond1{
+    margin-top: 15px!important;
+}
+
+.tabL3Col1{
+    display:flex; justify-content:flex-end;
+}
+
+.tabL3Col1 p{
+    width:33%; text-align:right;
 }

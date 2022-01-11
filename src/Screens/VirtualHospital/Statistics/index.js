@@ -62,7 +62,7 @@ class Index extends Component {
     componentDidMount() {
         this.getStatistics();
         this.getrightinfo();
-        console.log("this.props?.House?.value", this.props?.House?.value)
+        console.log("this.props?.House?.value", this.props?.House)
     }
 
     getStatistics = () => {
