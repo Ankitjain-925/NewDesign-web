@@ -103,22 +103,24 @@ export class ComponentToPrint3 extends React.Component {
                                         <table width="100%" className="secsttabhead tabL8 tabLLa">
                                             {/* {{ #each Invoice }} */}
                                             {data?.services && data?.services?.length > 0 &&
-                                            data?.services.map((item) => (
-                                            <tr>
-                                                 <th width="20%">{item?.service}</th>
-                                                 <th width="40%" align="right">{item?.quantity}</th>
-                                                <th width="20%" align="left">{item?.price_per_quantity}</th>                
-                                                <th width="20%" align="right">{item?.price}</th>
-                                                </tr>))}
+                                                data?.services.map((item) => (
+                                                    <tr>
+                                                        <th width="20%">{item?.service}</th>
+                                                        <th width="40%" align="right">{item?.quantity}</th>
+                                                        <th width="20%" align="left">{item?.price_per_quantity}</th>
+                                                        <th width="20%" align="right">{item?.price}</th>
+                                                    </tr>))}
                                             {/* {{/ each}} */}
                                         </table>
 
-                                        <table className="tabL9">
+                                        <table className="tabL9 tabL4">
                                             <tr>
                                                 <td>
-                                                    <h1 className="termCond">Terms and Condition</h1>
-                                                    <p className="ThnkYU">Thank you for business send paymentwithin_____ days of receiving this
-                                                        invoice. There will be a ____% per______on late invoices.</p>
+                                                    <h1 className="termCond">Your Aimedis team</h1>
+                                                    <p className="termCond1">https://aimedis.io</p>
+                                                    <p>https://sys.aimedis.com</p>
+                                                    <p className="termCond1">If you have any questions do not hesitate to
+                                                        contact us via the support chat or via contact@aimedis.com</p>
                                                 </td>
                                             </tr>
                                         </table>

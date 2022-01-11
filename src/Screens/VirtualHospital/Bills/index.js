@@ -96,7 +96,7 @@ class Index extends Component {
     };
 
     componentDidMount() {
-        
+
         this.getMetadata();
         this.fetchbillsdata('all', 0);
         this.getPatientData();
@@ -137,7 +137,6 @@ class Index extends Component {
     //     });
     //   }
     // For print invoice
-
 
     //patient list
     getPatientData = async () => {

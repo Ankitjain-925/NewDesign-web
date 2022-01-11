@@ -100,12 +100,15 @@ export class ComponentToPrint2 extends React.Component {
                                         {/* {{/ each}} */}
                                     </table>
 
-                                    <table className="tabL5">
+                                    <table className="tabL5 tabL4">
 
                                         <tr>
                                             <td>
-                                                <h1 className="termCond">Terms and Condition</h1>
-                                                <p className="ThnkYU">Thank you for business send paymentwithin_____ days of receiving this invoice. There will be a ____% per______on late invoices.</p>
+                                                <h1 className="termCond">Your Aimedis team</h1>
+                                                <p className="termCond1">https://aimedis.io</p>
+                                                <p>https://sys.aimedis.com</p>
+                                                <p className="termCond1">If you have any questions do not hesitate to
+                                                    contact us via the support chat or via contact@aimedis.com</p>
                                             </td>
                                         </tr>
                                     </table>

@@ -32,49 +32,35 @@ export class ComponentToPrint4 extends React.Component {
             <div className="relativeCSS">
                 <div className="flash" />
                 <Grid className="printPreview printprv1">
-                    <table width="100%" className="TblPG2" >
-                        <tr>{data?.services?.service}</tr>
+                    <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
                         <tr>
-                            <th width="25%" align="left">Street Address</th>
-                            <th width="20%">Address</th>
-                            <th width="15%">City</th>
+                            <td align="center">
+                                <img
+                                    className="logo"
+                                    src="/static/media/LogoPNG.03ac2d92.png"
+                                    alt=""
+                                    title="" />
+                            </td>
                         </tr>
                     </table>
+                    <table width="100%" className="TblPG2" >
+                        <tr>{data?.services?.service}</tr>
+                    </table>
                     <table width="100%">
-                        <table width="100%">
-                            <tr>
-                                <th width="25%" align="left">Phone:</th>
-                                <th width="20%">Fax</th>
-                                <th width="15%">E-mail</th>
-                            </tr>
-                        </table>
-                        <table width="100%" >
-                            <tr>
-                                <th width="25%" align="left"></th>
-                                <th width="20%"></th>
-                                <th width="15%"></th>
-                            </tr>
-                        </table>
                         <table width="100%" className="tabL10">
                             <tr>
                                 <td className="tabL10Col1 TblPG2">
-
                                     <p>Service Charges</p>
                                     <strong>
                                         <p>Invoice: &nbsp;{data?.invoice_id}</p>
                                         <p>Date: &nbsp;{data?.created_at}</p>
                                         <p>CustomerID: {data?.patient?.patient_id}</p>
-                                        {/* <p>Bed Number</p>
-                                        <p>AdmissionDate</p> */}
                                     </strong>
                                 </td>
                                 <td className="txtalign tabL10Col2 TblPG2">
                                     <strong>
                                         <p>Bill to: {data?.patient?.first_name} &nbsp;{data?.patient?.last_name}</p>
-                                        <p>Company Name:</p>
-                                        {/* <p>Street Addresses:</p>
-                                        <p>Address:</p>
-                                        <p>Ciy,ST,Zip code:</p> */}
+                                        {/* <p>Company Name:</p> */}
                                     </strong>
                                 </td>
                             </tr>
@@ -83,12 +69,9 @@ export class ComponentToPrint4 extends React.Component {
                         <table width="100%">
                             <table width="100%" bgcolor="black" className="tabL11 MedicalSer1">
                                 <tr>
-                                    <th width="20%" align="left">Service</th>
-                                    <th width="20%">Qantity</th>
-                                    <th width="20%">Price Per Qantity</th>
-                                    <th width="20%" align="right">Amount</th>
-                                    {/* <th width="20%" align="right">Payment</th>
-                                    <th width="20%" align="right">Balance</th> */}
+                                    <th width="60%" align="left">Medicine</th>
+                                    <th width="30%">Amount</th>
+                                    <th width="10%" align="right">Payment</th>
                                 </tr>
                             </table>
                             <table width="100%" className="secsttabhead tab12 tabLLa">
@@ -96,20 +79,31 @@ export class ComponentToPrint4 extends React.Component {
                                 {data?.services && data?.services?.length > 0 &&
                                     data?.services.map((item) => (
                                         <tr>
-                                            <th width="20%">{item?.service}</th>
-                                            <th width="20%" align="left">{item?.quantity}</th>
-                                            <th width="20%" align="left">{item?.price_per_quantity}</th>
-                                            <th width="20%" align="right">{item?.price}</th>
+                                            <th width="60%">{item?.service}</th>
+                                            <th width="30%" align="left">{item?.price_per_quantity}</th>
+                                            <th width="10%" align="right">{item?.price}</th>
                                         </tr>))}
                                 {/* {{/ each}} */}
                             </table>
 
-                            <table className="tab13">
+                            <table width="100%" className="tabL3">
+                                <tr>
+                                    <td className="tabL3Col1" >
+                                        <p>Total</p>
+                                        <p>{data?.total_amount}</p>
+                                        <p></p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table className="tab13 tabL4">
                                 <tr>
                                     <td>
-                                        <h1 className="termCond">Terms and Condition</h1>
-                                        <p className="ThnkYU">Thank you for business send paymentwithin_____ days of receiving this invoice. There will be
-                                            a ____% per______on late invoices.</p>
+                                        <h1 className="termCond">Your Aimedis team</h1>
+                                        <p className="termCond1">https://aimedis.io</p>
+                                        <p>https://sys.aimedis.com</p>
+                                        <p className="termCond1">If you have any questions do not hesitate to
+                                            contact us via the support chat or via contact@aimedis.com</p>
                                     </td>
                                 </tr>
                             </table>
