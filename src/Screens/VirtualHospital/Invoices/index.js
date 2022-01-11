@@ -208,7 +208,7 @@ class Index extends Component {
         var a = this.state.items && this.state.items?.length > 0 && this.state.items.map((element) => { return element?.service })
         var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
         if (b == true) {
-            this.setState({ error: "Service is already exists" })
+            this.setState({ error: "Service is already exists, please manage with update that one" })
         } else {
              if (newService?.service?.value == "custom") {
                 if (newService?.price_per_quantity < 1 || !newService?.price_per_quantity) {
