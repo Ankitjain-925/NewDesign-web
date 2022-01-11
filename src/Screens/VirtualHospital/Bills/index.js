@@ -96,7 +96,7 @@ class Index extends Component {
     };
 
     componentDidMount() {
-        
+
         this.getMetadata();
         this.fetchbillsdata('all', 0);
         this.getPatientData();
@@ -127,13 +127,15 @@ class Index extends Component {
     // };
 
     reactToPrintContent = (data) => {
+        this.setState({ loaderImage: true })
         this.setState({ currentData: data })
+        setTimeout(() => { this.setState({ loaderImage: false }) }
+            , 3000)
         return this.componentRef
     };
 
     // For print invoice
     printInvoice = () => {
-
     }
 
     //patient list
