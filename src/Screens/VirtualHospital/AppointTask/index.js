@@ -604,8 +604,7 @@ class Index extends Component {
   //On Changing the specialty id
   onFieldChange2 = (e) => {
     this.setState({ selectRoom: '', selectWard: '' })
-    let data = JSON.parse(localStorage.getItem("redux_localstorage_simple"));
-    let specialityList = data && data.Speciality && data.Speciality.speciality && data.Speciality.speciality.SPECIALITY.filter((item) => {
+    let specialityList = this.props.speciality?.SPECIALITY && this.props.speciality?.SPECIALITY.length > 0 && this.props.speciality?.SPECIALITY.filter((item) => {
       return item && item._id == e.value;
     })
     let wardsFullData = specialityList && specialityList.length > 0 && specialityList[0].wards
