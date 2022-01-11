@@ -39,6 +39,7 @@ import { ComponentToPrint3 } from "./ComponentToPrint3";
 import { ComponentToPrint4 } from "./ComponentToPrint4";
 import { ComponentToPrint5 } from "./ComponentToPrint5";
 import { filterPatient } from "Screens/Components/BasicMethod/index";
+import { Speciality } from "Screens/Login/speciality.js";
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -96,7 +97,6 @@ class Index extends Component {
     };
 
     componentDidMount() {
-
         this.getMetadata();
         this.fetchbillsdata('all', 0);
         this.getPatientData();
@@ -150,9 +150,7 @@ class Index extends Component {
 
     // for Speciality
     getSpeciality = () => {
-        let spec = JSON.parse(localStorage.getItem("redux_localstorage_simple"))
-        let data = spec && spec.Speciality && spec.Speciality.speciality && spec.Speciality.speciality.SPECIALITY
-        let speciality_list = data && data.length > 0 && data.map((item) => {
+        let speciality_list = this.props.speciality?.SPECIALITY && this.props?.speciality?.SPECIALITY.length > 0 && this.props?.speciality?.SPECIALITY.map((item) => {
             return { label: item.specialty_name, value: item._id }
         })
         this.setState({ SpecialityData: speciality_list })
@@ -786,6 +784,7 @@ const mapStateToProps = (state) => {
     const { verifyCode } = state.authy;
     const { invoices } = state.Invoices;
     const { metadata } = state.OptionList;
+    const { speciality } = state.Speciality;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -795,10 +794,11 @@ const mapStateToProps = (state) => {
         verifyCode,
         invoices,
         metadata,
+        speciality
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices, OptionList })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices, OptionList, Speciality })(
         Index
     )
 );
