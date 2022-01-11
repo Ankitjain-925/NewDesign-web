@@ -311,8 +311,8 @@ class Index extends Component {
               {!this.state.isGraph && (
                 <Grid container direction="row">
                   {/* Website Menu */}
-                  <LeftMenu isNotShow={true} currentPage="journal" />
-                  <LeftMenuMobile isNotShow={true} currentPage="journal" />
+                  <LeftMenu isNotShow={true} currentPage="patient-journey" />
+                  <LeftMenuMobile isNotShow={true} currentPage="patient-journey" />
                   {/* End of Website Menu */}
 
                   {/* Website Mid Content */}

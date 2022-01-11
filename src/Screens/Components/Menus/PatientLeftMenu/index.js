@@ -125,6 +125,11 @@ class Index extends Component {
     this.props.history.push("/patient/blockchain");
   };
 
+   //Forpatient jorney
+   pJournry = () => {
+    this.props.history.push("/patient/patient-journey");
+  };
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
@@ -201,6 +206,30 @@ class Index extends Component {
                 <span>{journal}</span>
               </a>
             </li>
+            <li
+              className={this.props.currentPage === "patient-journey" ? "menuActv" : ""}
+            >
+              <a onClick={this.pJournry}>
+                {this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark" ? (
+                  <img
+                    src={require("assets/images/nav-journal-white.svg")}
+                    alt=""
+                    title=""
+                  />
+                ) : (
+                  <img
+                    src={require("assets/images/nav-journal.svg")}
+                    alt=""
+                    title=""
+                  />
+                )}
+                <span>{"Patient Journey"}</span>
+              </a>
+            </li>
+            
             <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
               <a onClick={this.Chats}>
                 {this.props.settings &&
