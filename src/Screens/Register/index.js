@@ -43,7 +43,7 @@ class Index extends Component {
       regisError2: "",
       regisError3: "",
       regisError: "",
-      regisError0: this.translate,
+      regisError0: "",
       registerMessage: "",
       error_msg: "",
       uploadLicence: {},
@@ -78,7 +78,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { plz_accept_term_condition, fillreptcha, select_user_type,
       plz_fill_mob_number, email_not_valid, pswd_not_valid, plz_fill_fullname_user } = translate;
-    this.setState({ regisError: "", regisError1: "", regisError2: "", regisError3: "", regisError0: translate , error_msg: "", });
+    this.setState({ regisError: "", regisError1: "", regisError2: "", regisError3: "", regisError0: "" , error_msg: "", });
     if (
       this.state.userDetails.first_name &&
       this.state.userDetails.last_name &&
@@ -595,7 +595,6 @@ class Index extends Component {
                     {this.state.regisError3}
                     {this.state.regisError0}
                     {this.state.error_msg}
-                    {this.state.namevald}
                   </div>
                   {this.state.fileupods && (
                     <div className="success_message">{file_uploaded}</div>
