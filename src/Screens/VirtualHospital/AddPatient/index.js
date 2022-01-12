@@ -80,7 +80,7 @@ class Index extends Component {
             speciality_multidiscard: [],
             name_multidiscard: [],
             passwordDetails: [],
-            loaderImage: false,
+            loaderImage:false,
             regisError: '',
             city: '',
             area: '',
@@ -361,131 +361,129 @@ class Index extends Component {
     };
     //Save the User profile
     saveUserData = () => {
-       let translate = getLanguage(this.props.stateLanguageType)
-        let {
-            plz_fill_mob_number,
-            pswd_not_valid,
-            email_not_valid,
-            plz_fill_fullname_user,
-        } = translate;
-
-        const UpDataDetails  = this.state;
-       
-        this.setState({ regisError: null,
-            UpDataDetails:''
-         });
-        if (
-            UpDataDetails.first_name &&
-            UpDataDetails.last_name &&
-            UpDataDetails.first_name !== "" &&
-            UpDataDetails.last_name !== ""
-        ) {
-            if (this.validateEmail(UpDataDetails.email)) {
-                if (
-                    UpDataDetails &&
-                    UpDataDetails.password &&
-                    UpDataDetails.password.match(letter) &&
-                    UpDataDetails.password.match(number23) &&
-                    UpDataDetails.password.match(specialchar)
-                ) {
-                    if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
-                        if (UpDataDetails?.mobile?.split('-')?.[0]) {
-                            var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
-                        } else {
-                            var country_code = "de";
-                        }
-                        if (this.state.recaptcha) {
-                           
-                            var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
-                            var savedata = this.state.UpDataDetails;
-                            var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
-                            savedata.type = 'patient';
-                            savedata.country_code = country_code;
-                            savedata.mobile = UpDataDetails?.mobile?.split('-')?.[1];
-                            savedata.lan = this.props.stateLanguageType;
-                            savedata.parent_id = parent_id;
-                            savedata.insurance = datas;
-                            if (this.state.city) {
-                                savedata.area = this.state.area;
-                                savedata.city = this.state.city;
-                            }
-                            savedata.institute_id = this.props.stateLoginValueAim?.user?.institute_id.length>0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : '';
-                            savedata.institute_name = this.props.stateLoginValueAim?.user?.institute_name;
-                            savedata.parent_id = this.props.stateLoginValueAim?.user?._id;
-                            savedata.emergency_contact_name = this.state.contact_partner.name;
-                            savedata.emergency_relation = this.state.contact_partner.relation;
-                            savedata.emergency_email = this.state.contact_partner.email;
-                            savedata.emergency_number = this.state.contact_partner.number;
-                            savedata.bucket = getBucket[0]?.bucket;
-                            savedata.token = this.state.recaptcha;
-                            axios
-                                .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)
-                                .then((responce) => {
-                                    this.setState({ loaderImage: false });
-                                    if (responce.data.hassuccessed === true) {
-                                        this.setState({
-                                            idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
-                                            UpDataDetails: {}, speciality_multi: [], area: '', city: '',  recaptcha: false
-                                        })
-                                       
-                                        datas = [];
-                                        this.openIdPin();
-                                        axios
-                                            .post(
-                                                "https://api-eu.cometchat.io/v2.0/users",
-                                                {
-                                                    uid: responce.data.data.profile_id,
-                                                    name:
-                                                        UpDataDetails.first_name + " " + UpDataDetails.last_name,
-                                                },
-                                                commonCometHeader()
-                                            )
-                                            .then((res) => { });
-
-                                    } else if (responce.data.message === "Phone is not verified") {
-                                        this.ScrolltoTop();
-                                        this.setState({
-                                            successfull: false,
-                                            Mnotvalid: true,
-                                            alreadyerror: false,
-                                        });
-                                    } else {
-                                        this.ScrolltoTop();
-                                        this.setState({
-                                            successfull: false,
-                                            alreadyerror: true,
-                                            Mnotvalid: false,
-                                        });
-                                    }
-                                })
-                                .catch((err) => { });
-
-                        }
-                        else {
-                            this.setState({ regisError: "Please fill the RECAPTCHA" });
-                            this.ScrolltoTop();
-                        }
-                        // }else {
-                        //     this.setState({ regisError: "Please fill the city "});
-                        // }
-                    } else {
-                        this.setState({ regisError: plz_fill_mob_number });
-                        this.ScrolltoTop();
-                    }
-                } else {
-                    this.setState({ regisError: pswd_not_valid });
-                    this.ScrolltoTop();
-                }
-            } else {
-                this.setState({ regisError: email_not_valid });
-                this.ScrolltoTop();
-            }
-        } else {
-            this.setState({ regisError: plz_fill_fullname_user });
-            this.ScrolltoTop();
-        }
-
-    }
+        let translate = getLanguage(this.props.stateLanguageType)
+         let {
+             plz_fill_mob_number,
+             pswd_not_valid,
+             email_not_valid,
+             plz_fill_fullname_user,
+         } = translate;
+    
+         const {UpDataDetails}  = this.state;
+        
+         this.setState({ regisError: null });
+         if (
+             UpDataDetails.first_name &&
+             UpDataDetails.last_name &&
+             UpDataDetails.first_name !== "" &&
+             UpDataDetails.last_name !== ""
+         ) {
+             if (this.validateEmail(UpDataDetails.email)) {
+                 if (
+                     UpDataDetails &&
+                     UpDataDetails.password &&
+                     UpDataDetails.password.match(letter) &&
+                     UpDataDetails.password.match(number23) &&
+                     UpDataDetails.password.match(specialchar)
+                 ) {
+                     if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                         if (UpDataDetails?.mobile?.split('-')?.[0]) {
+                             var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
+                         } else {
+                             var country_code = "de";
+                         }
+                         if (this.state.recaptcha) {
+                            
+                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
+                             var savedata = this.state.UpDataDetails;
+                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
+                             savedata.type = 'patient';
+                             savedata.country_code = country_code;
+                             savedata.mobile = UpDataDetails?.mobile?.split('-')?.[1];
+                             savedata.lan = this.props.stateLanguageType;
+                             savedata.parent_id = parent_id;
+                             savedata.insurance = datas;
+                             if (this.state.city) {
+                                 savedata.area = this.state.area;
+                                 savedata.city = this.state.city;
+                             }
+                             savedata.institute_id = this.props.stateLoginValueAim?.user?.institute_id.length>0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : '';
+                             savedata.institute_name = this.props.stateLoginValueAim?.user?.institute_name;
+                             savedata.parent_id = this.props.stateLoginValueAim?.user?._id;
+                             savedata.emergency_contact_name = this.state.contact_partner.name;
+                             savedata.emergency_relation = this.state.contact_partner.relation;
+                             savedata.emergency_email = this.state.contact_partner.email;
+                             savedata.emergency_number = this.state.contact_partner.number;
+                             savedata.bucket = getBucket[0]?.bucket;
+                             savedata.token = this.state.recaptcha;
+                             axios
+                                 .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)
+                                 .then((responce) => {
+                                     this.setState({ loaderImage: false });
+                                     if (responce.data.hassuccessed === true) {
+                                         this.setState({
+                                             idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
+                                             UpDataDetails: {}, speciality_multi: [], area: '', city: '',  recaptcha: false
+                                         })
+                                        
+                                         datas = [];
+                                         this.openIdPin();
+                                         axios
+                                             .post(
+                                                 "https://api-eu.cometchat.io/v2.0/users",
+                                                 {
+                                                     uid: responce.data.data.profile_id,
+                                                     name:
+                                                         UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                                                 },
+                                                 commonCometHeader()
+                                             )
+                                             .then((res) => { });
+    
+                                     } else if (responce.data.message === "Phone is not verified") {
+                                         this.ScrolltoTop();
+                                         this.setState({
+                                             successfull: false,
+                                             Mnotvalid: true,
+                                             alreadyerror: false,
+                                         });
+                                     } else {
+                                         this.ScrolltoTop();
+                                         this.setState({
+                                             successfull: false,
+                                             alreadyerror: true,
+                                             Mnotvalid: false,
+                                         });
+                                     }
+                                 })
+                                 .catch((err) => { });
+    
+                         }
+                         else {
+                             this.setState({ regisError: "Please fill the RECAPTCHA" });
+                             this.ScrolltoTop();
+                         }
+                         // }else {
+                         //     this.setState({ regisError: "Please fill the city "});
+                         // }
+                     } else {
+                         this.setState({ regisError: plz_fill_mob_number });
+                         this.ScrolltoTop();
+                     }
+                 } else {
+                     this.setState({ regisError: pswd_not_valid });
+                     this.ScrolltoTop();
+                 }
+             } else {
+                 this.setState({ regisError: email_not_valid });
+                 this.ScrolltoTop();
+             }
+         } else {
+             this.setState({ regisError: plz_fill_fullname_user });
+             this.ScrolltoTop();
+         }
+    
+     }
 
     //For open the Insurance Edit popup
     editKYCopen(event, i) {

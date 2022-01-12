@@ -327,6 +327,9 @@ class Index extends Component {
         else if (!data.patient || (data.patient && data.patient.length < 1)) {
             this.setState({ finishError: "Please select patient" })
         }
+        else if (!data.status || (data.status && data.status.length < 1)) {
+            this.setState({ finishError: "Please select status" })
+        }
         else if (!data.services || (data.services.length < 1)) {
 
             this.setState({ finishError: "Please add atleast one service" })
