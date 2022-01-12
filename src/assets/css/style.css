@@ -3318,6 +3318,7 @@ a.profilMenu {
 .accessCourse {
     padding: 12px 24px 18px 24px;
     border-bottom: 1px solid #F2F2F2;
+    margin-bottom: 20px;
 }
 .handleAccessBtn {
     text-align: right;
@@ -3343,7 +3344,7 @@ a.profilMenu {
 .sel_specialty {
     width: 100%;
     border: 1px solid #BFC1C1;
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: #FFFFFF;
     font-family: Muli;
     font-size: 14px;
@@ -3391,7 +3392,7 @@ a.profilMenu {
     content: "KM";
     position: absolute;
     right: 16px;
-    bottom: 19px;
+    top: 44px;
     color: #BFC1C1;
     font-family: Muli;
     font-size: 14px;
@@ -3418,7 +3419,7 @@ a.profilMenu {
 }
 .locat_srvc img {
     position: absolute;
-    bottom: 18px;
+    top: 44px;
     right: 16px;
 }
 .locat_srvc {
@@ -7084,7 +7085,7 @@ a.bp_vsblDots, a.hideDots {
 a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     border: 1px solid #F2F2F2;
     border-radius: 8px;
-    background-color: transparent;
+    background-color: #FFFFFF;
     padding: 6px 3px 9px;
 }
 /* .persBlodImg img, .allViewDots img, .lstViewDots img {
@@ -12430,8 +12431,8 @@ img.MenuImg {
 }
 a.timSlotClose {
     position: absolute;
-    right: -10px;
-    top: -14px;
+    right: 3px;
+    top: 4px;
 }
 .selCalender span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
     color: #7F8383;
@@ -13589,7 +13590,7 @@ iframe.stripe_checkout_app {
     background-color: #fff !important;
 } */
 .HospitalAdd .passInst {
-    position: relative!important;
+    position: relative !important;
     top: unset !important;
     right: 0px !important;
 }
@@ -13883,7 +13884,7 @@ g.highcharts-axis.highcharts-yaxis text {
 }	
 @media screen and (min-height:700px) {	
     .phrmLinkUpr, .detailPrescp {	
-        height: 600px !important;	
+        height: 545px !important;	
     }	
 }	
 @media screen and (min-height:800px) {	
@@ -17263,6 +17264,12 @@ ul.duringCovid li:last-child {
 }
 .darkTheme .enrgyLbl a,.darkTheme .fatiqueQues a, .darkTheme .symptomsType a {
     background-color: #363636;
+}
+.darkTheme .enrgySection1 .ant-picker {
+    background-color: #363636;
+}
+.darkTheme .enrgySection1 .ant-picker-input > input {
+    color: #D9DADA !important;
 }
 .form-box{
     margin-bottom:15px !important;

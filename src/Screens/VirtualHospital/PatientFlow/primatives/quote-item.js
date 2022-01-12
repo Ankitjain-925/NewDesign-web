@@ -137,7 +137,7 @@ export default class QuoteItem extends React.Component {
                         alt=""
                         title=""
                       />
-                      3
+                      {quote.total_comments ? quote.total_comments : 0}
                     </a>
                   </Grid>
                 </Grid>
@@ -235,7 +235,7 @@ export default class QuoteItem extends React.Component {
                         alt=""
                         title=""
                       />
-                      1
+                      {quote.total_comments ? quote.total_comments : 0}
                     </a>
                   </Grid>
                   <Grid className="cardioList">

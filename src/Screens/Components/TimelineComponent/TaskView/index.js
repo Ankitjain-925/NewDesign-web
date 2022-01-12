@@ -250,7 +250,7 @@ class Index extends Component {
 
                         <Grid className="bp_hg addSpc">
                             {item && item.task_name &&
-                                <label><span>{item.task_name}</span></label>
+                                <label><span>{item?.task_name}</span></label>
                             }
                         </Grid>
                         <Grid className="bp_hg addSpc">
