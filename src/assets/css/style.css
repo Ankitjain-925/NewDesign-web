@@ -14917,6 +14917,9 @@ input:focus {
   .rbc-day-slot .rbc-event{
     width: 50% !important;
   }
+  .rbc-time-view .rbc-event{
+    border: none !important;
+  }
   .scroll-hidden {
     overflow: hidden;
     height: 86%;
@@ -15949,6 +15952,12 @@ a.clsSltCal {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+}
+.rbc-time-view .rbc-event-content span.trigger{
+    display: inline-block;
+    max-width: 40px !important;
+    border: 1px solid #101010d9;
 }
 .getCalBnr .rbc-event-content p.calendar-cont{
     margin-right: 2px;
