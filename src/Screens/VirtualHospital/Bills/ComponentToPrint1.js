@@ -8,7 +8,6 @@ import Index from "Screens/Components/FrameUse/index";
 import { getLanguage } from "translations/index";
 import { houseSelect } from "../Institutes/selecthouseaction";
 
-
 export class ComponentToPrint1 extends React.Component {
     constructor(props) {
         super(props);
@@ -29,7 +28,6 @@ export class ComponentToPrint1 extends React.Component {
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, id } = this.state;
-
         return (
             <div className="relativeCSS">
 
@@ -58,7 +56,8 @@ export class ComponentToPrint1 extends React.Component {
                                         <tr>
                                             <td className="tabL2Col">
                                                 <p>From</p>
-                                                <strong>{data.service}</strong>
+                                                {this.props.House && this.props.House?.label &&
+                                                    <strong>{this.props.House?.label}</strong>}
 
                                             </td>
                                             <td className="tabL2Col1">
@@ -158,7 +157,7 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim }, houseSelect,)(
+    connect(mapStateToProps, { LoginReducerAim, houseSelect })(
         Index
     )
 )

@@ -27,7 +27,6 @@ export class ComponentToPrint4 extends React.Component {
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state;
-        console.log("data", this.state.data)
         return (
             <div className="relativeCSS">
                 <div className="flash" />
@@ -45,7 +44,13 @@ export class ComponentToPrint4 extends React.Component {
                         </tr>
                     </table>
                     <table width="100%" className="TblPG2" >
-                        <tr>{data?.services?.service}</tr>
+                        <tr>   
+                            <td>
+                            <p>From</p>
+                            {this.props.House && this.props.House?.label &&
+                                <strong>{this.props.House?.label}</strong>}
+                        </td>
+                        </tr>
                     </table>
                     <table width="100%">
                         <table width="100%" className="tabL10">
@@ -81,10 +86,10 @@ export class ComponentToPrint4 extends React.Component {
                                 {data?.services && data?.services?.length > 0 &&
                                     data?.services.map((item) => (
                                         <tr>
-                                            <th width="31%">{item?.service}</th>
-                                            <th width="30%" align="center" >{item?.quantity}</th>
-                                            <th width="30%" align="center" >{item?.price_per_quantity}</th>
-                                            <th width="9%" align="righ">{item?.price}</th>
+                                            <th width="31%" align="right">{item?.service}</th>
+                                            <th width="30%" align="right" >{item?.quantity}</th>
+                                            <th width="30%" align="right" >{item?.price_per_quantity}</th>
+                                            <th width="9%" align="right">{item?.price}</th>
                                         </tr>))}
                                 {/* {{/ each}} */}
                             </table>

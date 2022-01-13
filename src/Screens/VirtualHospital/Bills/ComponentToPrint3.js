@@ -26,7 +26,6 @@ export class ComponentToPrint3 extends React.Component {
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state
-        console.log("data", this.state.data)
         return (
             <div className="relativeCSS">
                 <div className="flash" />
@@ -53,10 +52,8 @@ export class ComponentToPrint3 extends React.Component {
                                     <tr>
                                         <td>
                                             <p>From</p>
-                                            <strong>Max hospital</strong>
-                                            <p>{data?.email}</p>
-                                            <p>{data?.address}</p>
-                                            <p>{data?.phone}</p>
+                                            {this.props.House && this.props.House?.label &&
+                                                <strong>{this.props.House?.label}</strong>}
                                         </td>
                                         <td class="txtalign tabL6Col1">
                                             <p>For</p>

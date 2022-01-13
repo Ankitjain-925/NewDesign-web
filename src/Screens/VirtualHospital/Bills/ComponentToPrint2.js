@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Index from "Screens/Components/FrameUse/index";
 import { getLanguage } from "translations/index";
 import Grid from '@material-ui/core/Grid';
+import { houseSelect } from "../Institutes/selecthouseaction";
 
 export class ComponentToPrint2 extends React.Component {
     constructor(props) {
@@ -16,19 +17,18 @@ export class ComponentToPrint2 extends React.Component {
 
     };
 
-          //on adding new data
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.data !== this.props.data) {
-      this.setState({ data: this.props.data });
-    }
-  };
+    //on adding new data
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data) {
+            this.setState({ data: this.props.data });
+        }
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state;
-        console.log("data", this.state.data)
         return (
             <div className="relativeCSS">
                 <div className="flash" />
@@ -54,20 +54,15 @@ export class ComponentToPrint2 extends React.Component {
                                 <table width="100%" className="TblPG2">
                                     <tr>
                                         <td >
-                                            {/* {  console.log("this.props",this.props.houseSelect)} */}
                                             <p>From</p>
-                                            <strong>Max Hospital</strong>
-                                            {/* <p>{data?.email}</p>
-                                            <p>{data?.address}</p>
-                                            <p>{data?.phone}</p> */}
-
+                                            {this.props.House && this.props.House?.label &&
+                                                <strong>{this.props.House?.label}</strong>}
                                         </td>
                                         <td >
                                             <p>For</p>
                                             <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
                                             <p>{data?.patient?.profile_id}</p>
                                             <p>{data?.patient?.patient_id}</p>
-                                            {/* <p>{data?.phone}</p> */}
                                         </td>
 
                                         <td>
@@ -101,7 +96,6 @@ export class ComponentToPrint2 extends React.Component {
                                     </table>
 
                                     <table className="tabL5 tabL4">
-
                                         <tr>
                                             <td>
                                                 <h1 className="termCond">Your Aimedis team</h1>
@@ -124,13 +118,16 @@ export class ComponentToPrint2 extends React.Component {
 
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { House } = state.houseSelect
     return {
-        stateLoginValueAim, loadingaIndicatoranswerdetail
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House,
     };
 };
 
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim })(
+    connect(mapStateToProps, { LoginReducerAim, houseSelect })(
         Index
     )
 )
