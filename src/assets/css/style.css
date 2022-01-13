@@ -17410,3 +17410,12 @@ ul.duringCovid li:last-child {
 .timePickerOpt .ant-picker-ranges {
     color: #00abaf;
 }
+.react-confirm-alert-overlay {
+    background: rgb(10 10 10 / 70%) !important;
+}
+ul.manageDragDrop {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    overflow-x: scroll;
+}

@@ -64,7 +64,6 @@ import DoctorEmergency from "Screens/Doctor/Emergency/index.js";
 import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
 import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
-
 import DicomView from "Screens/Components/DicomView/ImageViewer";
 
 //for hospital admin user
@@ -93,7 +92,7 @@ import Questionnaire from "Screens/VirtualHospital/Questionnaire"
 import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
-import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
+// import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
 import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js"
@@ -530,11 +529,11 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
             />
-            <Route
+            {/* <Route
               path="/virtualhospital/assign"
               exact={true}
               render={(props) => <AssignModelTask {...props} />}
-            />
+            /> */}
            <Route
               path="*"
               exact={true}

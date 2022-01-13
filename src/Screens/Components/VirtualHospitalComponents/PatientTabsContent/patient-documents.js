@@ -312,7 +312,7 @@ class Index extends Component {
     render() {
         const { selectedOption, attachedFile } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
-        let { MarkAndersonMD, journal, New, entry, edit, DocumentsFiles, addNewEntry, clear_filters, dateAdded, documentName, sortBy, added_by, FirstdiagnosisDocx, sixteen022021, twelve022021, very_long_name_of_pdf } = translate;
+        let {  journal, New, entry, edit, DocumentsFiles, addNewEntry, clear_filters, dateAdded, documentName, sortBy, added_by,} = translate;
         return (
             <Grid>
                 <Grid className="journalAdd">
