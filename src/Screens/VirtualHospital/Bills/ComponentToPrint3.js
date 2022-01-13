@@ -15,12 +15,12 @@ export class ComponentToPrint3 extends React.Component {
         }
     };
 
-          //on adding new data
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.data !== this.props.data) {
-      this.setState({ data: this.props.data });
-    }
-  };
+    //on adding new data
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data) {
+            this.setState({ data: this.props.data });
+        }
+    };
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
@@ -71,11 +71,6 @@ export class ComponentToPrint3 extends React.Component {
                                 <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
                                     <tr>
                                         <th width="25%" align="left">Patient</th>
-                                        {/* <th width="20%">D.B.O</th>
-                                        <th width="15%">Gender</th>
-                                        <th width="15%" align="right">Weight</th>
-                                        <th width="10%" align="right">Height</th>
-                                        <th width="15%" align="right">Date</th> */}
                                     </tr>
                                 </table>
                                 <table width="100%">
@@ -83,11 +78,6 @@ export class ComponentToPrint3 extends React.Component {
                                     <table width="100%" >
                                         <tr>
                                             <th width="25%" align="left">{data?.patient?.first_name}</th>
-                                            {/* <th width="20%">{data?.patient?.first_name}</th>
-                                            <th width="15%">{data?.patient?.first_name}</th>
-                                            <th width="15%" align="right">{data?.patient?.first_name}</th>
-                                            <th width="10%" align="right">{data?.patient?.first_name}</th>
-                                            <th width="15%" align="right">{data?.patient?.first_name}</th> */}
                                         </tr>
                                     </table>
 
