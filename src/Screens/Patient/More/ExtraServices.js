@@ -18,10 +18,13 @@ import { authy } from "Screens/Login/authy.js";
 import HomePage from 'Screens/Components/CardInput/PayforSubscription';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import { getLanguage } from "translations/index"
+import { getLanguage } from "translations/index";
+import { getPublishableKey } from "Screens/Components/CardInput/getPriceId"
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
-const stripePromise = loadStripe('pk_test_qoJaLAHMXbv3fzci2AEcmkYX');
+
+const STRIPE_PUBLISHABLE = getPublishableKey()
+const stripePromise = loadStripe(STRIPE_PUBLISHABLE);
 class Index extends Component {
   constructor(props) {
     super(props);

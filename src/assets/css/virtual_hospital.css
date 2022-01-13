@@ -9908,6 +9908,19 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.homeBg.darkTheme.homeBgDrk .profileInfoIner input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #dfdfdf!important;
+  }
+  .homeBg.darkTheme.homeBgDrk .profileInfoIner input::-moz-placeholder { /* Firefox 19+ */
+    color: #dfdfdf!important;
+  }
+  .homeBg.darkTheme.homeBgDrk .profileInfoIner input:-ms-input-placeholder { /* IE 10+ */
+    color: #dfdfdf!important;
+  }
+  .homeBg.darkTheme.homeBgDrk .profileInfoIner input:-moz-placeholder { /* Firefox 18- */
+    color: #dfdfdf!important;
+  }
+
 .activesecRating{
     background-color: #00ABAF !important;
     box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%) !important;
@@ -12879,14 +12892,14 @@ input:-moz-autofill:active{
     min-width: 66px;
     border-radius: 12px;
 }
-.logo {
+.pattern-main-logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
     margin-bottom: 70px;
     height: 100px;
-    width: 100px; 
+    width: auto; 
 }
 .printPreview{
     padding: 15px;

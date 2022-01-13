@@ -843,7 +843,7 @@ class Index extends Component {
 
                                 </Grid>
                                 <Grid className="spclSaveBtn saveNclose">
-                                  <Button onClick={this.SaveGroup}>{Save}</Button>
+                                  <Button onClick={this.SaveGroup}>{save_and_close}</Button>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -864,8 +864,8 @@ class Index extends Component {
                           : "addSpeclModel"
                       }
                     >
-                      <Grid className="nwEntrCntnt darkTheme addSpeclContnt">
-                        <Grid className="nwEntrCntntIner">
+                      <Grid className="addSpeclContnt nwEntrCntntIner h-500">
+                        <Grid className="addSpeclContntIner">
                           <Grid className="addSpeclLbl">
                             <Grid className="addSpeclClose">
                               <a onClick={this.closeHospitalModal}>

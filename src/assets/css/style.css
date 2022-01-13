@@ -17287,6 +17287,7 @@ ul.duringCovid li:last-child {
 
 .h-500{
     height: 500px !important;
+    overflow-y: auto !important;
 }
 
 .spcMgntH1 h1 {

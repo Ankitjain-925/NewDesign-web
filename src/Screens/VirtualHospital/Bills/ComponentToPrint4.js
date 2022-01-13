@@ -27,7 +27,7 @@ export class ComponentToPrint4 extends React.Component {
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state;
-        console.log("data", this.state.data)
+     
         return (
             <div className="relativeCSS">
                 <div className="flash" />
@@ -36,8 +36,8 @@ export class ComponentToPrint4 extends React.Component {
                         <tr>
                             <td align="center">
                                 <img
-                                    className="logo"
-                                    src="/static/media/LogoPNG.03ac2d92.png"
+                                    className="pattern-main-logo"
+                                    src={require("assets/virtual_images/fullLogo.png")}
                                     alt=""
                                     title="" />
 
@@ -55,7 +55,7 @@ export class ComponentToPrint4 extends React.Component {
                                     <strong>
                                         <p>Invoice: &nbsp;{data?.invoice_id}</p>
                                         <p>Date: &nbsp;{data?.created_at}</p>
-                                        <p>CustomerID: {data?.patient?.patient_id}</p>
+                                        {/* <p>CustomerID: {data?.patient?.patient_id}</p> */}
                                     </strong>
                                 </td>
                                 <td className="txtalign tabL10Col2 TblPG2">

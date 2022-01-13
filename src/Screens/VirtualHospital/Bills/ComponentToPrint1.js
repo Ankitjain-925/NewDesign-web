@@ -46,8 +46,8 @@ export class ComponentToPrint1 extends React.Component {
                                             </td>
                                             <td align="center">
                                                 <img
-                                                    className="logo"
-                                                    src="/static/media/fullLogo.png"
+                                                    className="pattern-main-logo"
+                                                    src={require("assets/virtual_images/fullLogo.png")}
                                                     alt=""
                                                     title="" />
                                             </td>
@@ -58,7 +58,7 @@ export class ComponentToPrint1 extends React.Component {
                                         <tr>
                                             <td className="tabL2Col">
                                                 <p>From</p>
-                                                <strong>{data.service}</strong>
+                                                <strong>{this.props?.House?.label && this.props?.House.label}</strong>
 
                                             </td>
                                             <td className="tabL2Col1">
@@ -66,7 +66,7 @@ export class ComponentToPrint1 extends React.Component {
                                                 <p>For</p>
                                                 <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
                                                 <p>{data?.patient?.profile_id}</p>
-                                                <p>{data?.patient?.patient_id}</p>
+                                                {/* <p>{data?.patient?.patient_id}</p> */}
                                             </td>
                                         </tr>
                                     </table>
@@ -158,7 +158,7 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim }, houseSelect,)(
+    connect(mapStateToProps, { LoginReducerAim , houseSelect})(
         Index
     )
 )
