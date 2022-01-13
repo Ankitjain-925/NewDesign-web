@@ -414,7 +414,7 @@ class Index extends Component {
           ? this.props.stateLoginValueAim?.user?.institute_id[0]
           : "";
       data.house_id = this.props?.House.value;
-      this.setState({ loaderImage: true });
+      // this.setState({ loaderImage: true });
       axios
         .post(
           sitedata.data.path + "/vh/checkPatient",
@@ -436,38 +436,45 @@ class Index extends Component {
                 alies_id: responce.data.data.alies_id,
               },
             };
-            axios
-              .post(
-                sitedata.data.path + "/cases/AddCase",
-                case_data,
-                commonHeader(this.props.stateLoginValueAim.token)
-              )
-              .then((responce1) => {
-                if (responce1.data.hassuccessed) {
-                  this.setState({
-                    idpinerror: false,
-                    openAddP: false,
-                    case: {},
-                    addp: {},
-                  });
-                  var state = this.state.actualData;
-                  let indexData = ''
-                  state && state.length > 0 && state.filter((item, index) => {
-                    if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
-                      indexData = index;
-                    }
-                  })
-                  state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                  this.setState({ SelectedStep: '' });
-                  this.setDta(state);
-                  this.CallApi();
-                } else {
-                  this.setState({ caseAlready: true, loaderImage: false });
-                  setTimeout(() => {
-                    this.setState({ caseAlready: false });
-                  }, 3000);
-                }
-              });
+            if(responce.data.data?.type ==='patient'){
+              this.setState({ idpinerror: true});
+            }
+            else{
+              this.setState({ idpinerror: false});
+            }
+           
+            // axios
+            //   .post(
+            //     sitedata.data.path + "/cases/AddCase",
+            //     case_data,
+            //     commonHeader(this.props.stateLoginValueAim.token)
+            //   )
+            //   .then((responce1) => {
+            //     if (responce1.data.hassuccessed) {
+            //       this.setState({
+            //         idpinerror: false,
+            //         openAddP: false,
+            //         case: {},
+            //         addp: {},
+            //       });
+            //       var state = this.state.actualData;
+            //       let indexData = ''
+            //       state && state.length > 0 && state.filter((item, index) => {
+            //         if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+            //           indexData = index;
+            //         }
+            //       })
+            //       state[indexData].case_numbers.push({ case_id: responce1.data.data });
+            //       this.setState({ SelectedStep: '' });
+            //       this.setDta(state);
+            //       this.CallApi();
+            //     } else {
+            //       this.setState({ caseAlready: true, loaderImage: false });
+            //       setTimeout(() => {
+            //         this.setState({ caseAlready: false });
+            //       }, 3000);
+            //     }
+            //   });
             this.setState({ loaderImage: false });
           } else {
             if (responce.data.data) {

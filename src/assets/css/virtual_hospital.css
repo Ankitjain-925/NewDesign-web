@@ -9504,6 +9504,9 @@ button.crdoLghtBlu2 {
 .tskTabsMob, .TabContainerMob {
     display: none;
 }
+.LeftPatientDataWeb {
+    display: block;
+}
 @media (max-width: 468px) {
   .staticHeading h1 {
     text-align: center;
@@ -9669,6 +9672,9 @@ button.crdoLghtBlu2 {
   .tskTabsMob, .TabContainerMob {
     display: block;
   }
+  .LeftPatientDataWeb {
+    display: none;
+}
   .tskTabsweb, .TabContainerWeb {
       display: none;
   }
