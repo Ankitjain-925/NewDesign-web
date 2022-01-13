@@ -101,5 +101,5 @@
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.13.8"
   },
-  "homepage": "https://virtualhospital.aimedis.io"
+  "homepage": "https://aimedix.com"
 }
