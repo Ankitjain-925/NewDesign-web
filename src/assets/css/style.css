@@ -17414,9 +17414,9 @@ ul.duringCovid li:last-child {
 .react-confirm-alert-overlay {
     background: rgb(10 10 10 / 70%) !important;
 }
-ul.manageDragDrop {
+/* ul.manageDragDrop {
     display: flex;
     width: 100%;
     flex-direction: row;
     overflow-x: scroll;
-}
+} */

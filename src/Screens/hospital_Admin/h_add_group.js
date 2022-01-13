@@ -551,8 +551,8 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let { InstituteGroups, EditGroup, Delete, InstitutionName, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo, HospitalDescriptionNote,
-      CurrentLogo, save_and_close, InstitutionDescriptionNote, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo } = translate;
+    let { InstituteGroups, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
+      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo } = translate;
     return (
       <Grid
         className={
@@ -728,7 +728,7 @@ class Index extends Component {
                                   <Grid item xs={10} md={12} className="form-box">
 
                                     <VHfield
-                                      label={InstitutionName}
+                                      label="Institution Name"
                                       name="group_name"
                                       value={this.state?.institute_groups?.group_name || ''}
                                       placeholder="Enter institute group name"
@@ -737,7 +737,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label={InstitutionDescriptionNote}
+                                      label="Institution Description Note"
                                       name="group_description"
                                       value={this.state?.institute_groups?.group_description || ''}
                                       placeholder="Enter institution description note"
@@ -852,7 +852,7 @@ class Index extends Component {
                       </Grid>
                     </Modal>
 
-                    <Modal
+                   <Modal
                       open={this.state.openHospitalModal}
                       onClose={this.closeHospitalModal}
                       className={
@@ -887,7 +887,7 @@ class Index extends Component {
                                 <Grid container direction="row">
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label={hosp_name}
+                                      label="Hospital Name"
                                       name="house_name"
                                       value={this.state?.hospitalData?.house_name || ''}
                                       placeholder="Enter hospital name"
@@ -896,7 +896,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label={HospitalDescriptionNote}
+                                      label="Hospital Description Note"
                                       name="house_description"
                                       value={this.state?.hospitalData?.house_description || ''}
                                       placeholder="Enter hospital description note"
