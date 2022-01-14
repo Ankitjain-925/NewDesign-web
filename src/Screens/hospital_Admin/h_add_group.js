@@ -329,6 +329,9 @@ class Index extends Component {
     if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
       this.setState({ errorMsg: "Institution Name can't be empty" })
     }
+    else if (data.group_name == data.group_name){ 
+      this.setState({ errorMsg: "Institution Name already exist " })
+    }
     else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
       this.setState({ errorMsg: "Institution Description Note can't be empty" })
     }
@@ -403,6 +406,9 @@ class Index extends Component {
     let hospitalObject = this.state.hospitalData;
     if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
       this.setState({ errorHospMsg: "Hospital Name can't be empty" })
+    }
+    else if (hospitalObject.house_name=hospitalObject.house_name){ 
+      this.setState({ errorHospMsg: " Hospital Name is already exist " })
     }
     else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
       this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
@@ -726,7 +732,7 @@ class Index extends Component {
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">
                                   <Grid item xs={10} md={12} className="form-box">
-
+                              
                                     <VHfield
                                       label="Institution Name"
                                       name="group_name"

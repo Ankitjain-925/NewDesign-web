@@ -58,7 +58,7 @@ class Index extends Component {
             labelWidth: '',
             gender: '',
             language: [],
-            UpDataDetails: [],
+            // UpDataDetails: [],
             weoffer: [],
             language: [],
             speciality: [],
@@ -80,7 +80,7 @@ class Index extends Component {
             speciality_multidiscard: [],
             name_multidiscard: [],
             passwordDetails: [],
-            loaderImage:false,
+            loaderImage: false,
             regisError: '',
             city: '',
             area: '',
@@ -126,7 +126,9 @@ class Index extends Component {
             recaptcha: false,
             getIDPIN: false,
             idpin: {},
-            FirstName:""
+            FirstName: {},
+            Gender: {}
+
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -152,10 +154,11 @@ class Index extends Component {
         if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
             this.GetLanguageMetadata();
         }
+     
     }
     handlePinClose = (key) => {
         this.setState({ [key]: false });
-      
+
     };
 
     openIdPin = () => {
@@ -360,9 +363,9 @@ class Index extends Component {
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return emailPattern.test(elementValue);
     };
+   
     //Save the User profile
     saveUserData = () => {
-        var savedata = this.state.UpDataDetails;
         let translate = getLanguage(this.props.stateLanguageType)
          let {
              plz_fill_mob_number,
@@ -379,8 +382,36 @@ class Index extends Component {
              UpDataDetails.last_name &&
              UpDataDetails.first_name !== "" &&
              UpDataDetails.last_name !== ""
-         ) 
-                             
+         ) {
+             if (this.validateEmail(UpDataDetails.email)) {
+                 if (
+                     UpDataDetails &&
+                     UpDataDetails.password &&
+                     UpDataDetails.password.match(letter) &&
+                     UpDataDetails.password.match(number23) &&
+                     UpDataDetails.password.match(specialchar)
+                 ) {
+                     if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                         if (UpDataDetails?.mobile?.split('-')?.[0]) {
+                             var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
+                         } else {
+                             var country_code = "de";
+                         }
+                         if (this.state.recaptcha) {
+                            
+                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
+                             var savedata = this.state.UpDataDetails;
+                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
+                             savedata.type = 'patient';
+                             savedata.country_code = country_code;
+                             savedata.mobile = UpDataDetails?.mobile?.split('-')?.[1];
+                             savedata.lan = this.props.stateLanguageType;
+                             savedata.parent_id = parent_id;
+                             savedata.insurance = datas;
+                             if (this.state.city) {
+                                 savedata.area = this.state.area;
+                                 savedata.city = this.state.city;
+                             }
                              savedata.institute_id = this.props.stateLoginValueAim?.user?.institute_id.length>0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : '';
                              savedata.institute_name = this.props.stateLoginValueAim?.user?.institute_name;
                              savedata.parent_id = this.props.stateLoginValueAim?.user?._id;
@@ -388,19 +419,78 @@ class Index extends Component {
                              savedata.emergency_relation = this.state.contact_partner.relation;
                              savedata.emergency_email = this.state.contact_partner.email;
                              savedata.emergency_number = this.state.contact_partner.number;
-                            //  savedata.bucket = getBucket[0]?.bucket;
+                             savedata.bucket = getBucket[0]?.bucket;
                              savedata.token = this.state.recaptcha;
-                             this.setState({ loaderImage: false });
-                            //  if (responce.data.hassuccessed === true) {
-                           
-                             this.setState({
-                                 UpDataDetails: {}
-                            })
-                        // }
-                            console.log('updata',this.state.UpDataDetails)
-                          } 
-                 
-             
+                             axios
+                                 .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)
+                                 .then((responce) => {
+                                     this.setState({ loaderImage: false });
+                                     if (responce.data.hassuccessed === true) {
+                                         this.setState({
+                                             idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
+                                             UpDataDetails: {}, speciality_multi: [], area: '', city: '',  recaptcha: false
+                                         })
+                                        
+                                         datas = [];
+                                         this.openIdPin();
+                                         axios
+                                             .post(
+                                                 "https://api-eu.cometchat.io/v2.0/users",
+                                                 {
+                                                     uid: responce.data.data.profile_id,
+                                                     name:
+                                                         UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                                                 },
+                                                 commonCometHeader()
+                                             )
+                                             .then((res) => { });
+    
+                                     } else if (responce.data.message === "Phone is not verified") {
+                                         this.ScrolltoTop();
+                                         this.setState({
+                                             successfull: false,
+                                             Mnotvalid: true,
+                                             alreadyerror: false,
+                                         });
+                                     } else {
+                                         this.ScrolltoTop();
+                                         this.setState({
+                                             successfull: false,
+                                             alreadyerror: true,
+                                             Mnotvalid: false,
+                                         });
+                                     }
+                                 })
+                                 .catch((err) => { });
+    
+                         }
+                         else {
+                             this.setState({ regisError: "Please fill the RECAPTCHA" });
+                             this.ScrolltoTop();
+                         }
+                         // }else {
+                         //     this.setState({ regisError: "Please fill the city "});
+                         // }
+                     } else {
+                         this.setState({ regisError: plz_fill_mob_number });
+                         this.ScrolltoTop();
+                     }
+                 } else {
+                     this.setState({ regisError: pswd_not_valid });
+                     this.ScrolltoTop();
+                 }
+             } else {
+                 this.setState({ regisError: email_not_valid });
+                 this.ScrolltoTop();
+             }
+         } else {
+             this.setState({ regisError: plz_fill_fullname_user });
+             this.ScrolltoTop();
+         }
+    
+     }
+
+
 
     //For open the Insurance Edit popup
     editKYCopen(event, i) {
@@ -435,7 +525,7 @@ class Index extends Component {
     }
 
     Upsaterhesus = (rhesusfromD) => {
-        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType,  false, "rhesus")
+        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType, false, "rhesus")
         this.setState({ rhesus: rhesus })
     }
 
@@ -610,7 +700,7 @@ class Index extends Component {
         let { created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, BacktoPatientFlow, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
-            save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
+            save_change, submit,email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, AliesID, Pin, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
         if (
@@ -1291,6 +1381,7 @@ class Index extends Component {
                                                                 />
                                                             </Grid>
                                                             <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
+                                                     
                                                         </Grid>
                                                         <Grid item xs={12} md={7}></Grid>
                                                         <Grid className="clear"></Grid>
