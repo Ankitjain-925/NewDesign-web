@@ -353,7 +353,9 @@ class Index extends Component {
                         this.setState({
                             items: [],
                             addinvoice: {}, selectedPat: {},
-                        });
+                        
+                        })
+                        console.log('add',this.state.addinvoice)
                         this.Billing();
                     }
                     else {
