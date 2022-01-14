@@ -1083,6 +1083,7 @@ class Index extends Component {
         insurance_number: insurance_no,
         annotations: this.state.UpDataDetails.annotations,
         status: "free",
+        house_id: this.props?.House?.value,
         patient_info: {
           patient_id: this.state.personalinfo?.profile_id,
           first_name: this.state.personalinfo?.first_name,

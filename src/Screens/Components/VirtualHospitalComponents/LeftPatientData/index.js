@@ -2126,6 +2126,23 @@ class Index extends Component {
     // event.preventDefault();
 }
 
+calculateAge = (date) => {
+  if(date){
+    var birthDate = new Date(date);
+    var otherDate = new Date();
+  
+    var years = (otherDate.getFullYear() - birthDate.getFullYear());
+  
+    if (otherDate.getMonth() < birthDate.getMonth() ||
+      otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
+      years--;
+    }
+    console.log("years", years);
+    return years;
+  }
+  return '-';
+}
+
   render() {
     const { personalinfo, patientData } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
@@ -2174,7 +2191,7 @@ class Index extends Component {
                   <p><span>{getDate(
                     this.state.loggedinUser?.birthday,
                     this.props.settings.setting.date_format
-                  )}{" "} (32 y ears)</span></p>
+                  )}{" "} ({this.calculateAge(this.state.personalinfo?.info?.birthday)} years)</span></p>
                 }
               </Grid>
               <Grid className="entryInfo">
