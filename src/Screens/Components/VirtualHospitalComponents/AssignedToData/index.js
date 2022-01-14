@@ -46,7 +46,7 @@ class Index extends React.Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
-        let { AddTask, Grape, Lime, Coconut, Mango, Submit } = translate;
+        let { AddTask, Grapefruit, Lime, Coconut, Mango, Submit } = translate;
         const { selectField_data } = this.state;
         return (
             <Modal

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Index from "Screens/Components/FrameUse/index";
 import { getLanguage } from "translations/index";
 import Grid from '@material-ui/core/Grid';
+import { houseSelect } from "../Institutes/selecthouseaction";
 
 export class ComponentToPrint3 extends React.Component {
     constructor(props) {
@@ -15,18 +16,17 @@ export class ComponentToPrint3 extends React.Component {
         }
     };
 
-          //on adding new data
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.data !== this.props.data) {
-      this.setState({ data: this.props.data });
-    }
-  };
+    //on adding new data
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data) {
+            this.setState({ data: this.props.data });
+        }
+    };
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state
-        console.log("data", this.state.data)
         return (
             <div className="relativeCSS">
                 <div className="flash" />
@@ -41,8 +41,8 @@ export class ComponentToPrint3 extends React.Component {
                                         </td>
                                         <td align="right">
                                             <img
-                                                className="logo"
-                                                src="/static/media/LogoPNG.03ac2d92.png"
+                                                className="pattern-main-logo"
+                                                src={require("assets/virtual_images/fullLogo.png")}
                                                 alt=""
                                                 title="" />
                                         </td>
@@ -53,7 +53,7 @@ export class ComponentToPrint3 extends React.Component {
                                     <tr>
                                         <td>
                                             <p>From</p>
-                                            <strong>Max hospital</strong>
+                                            <strong>{this.props?.House?.label && this.props?.House.label}</strong>
                                             <p>{data?.email}</p>
                                             <p>{data?.address}</p>
                                             <p>{data?.phone}</p>
@@ -62,7 +62,7 @@ export class ComponentToPrint3 extends React.Component {
                                             <p>For</p>
                                             <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
                                             <p>{data?.patient?.profile_id}</p>
-                                            <p>{data?.patient?.patient_id}</p>
+                                            {/* <p>{data?.patient?.patient_id}</p> */}
                                             <p>{data?.phone}</p>
                                         </td>
                                     </tr>
@@ -71,11 +71,6 @@ export class ComponentToPrint3 extends React.Component {
                                 <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
                                     <tr>
                                         <th width="25%" align="left">Patient</th>
-                                        {/* <th width="20%">D.B.O</th>
-                                        <th width="15%">Gender</th>
-                                        <th width="15%" align="right">Weight</th>
-                                        <th width="10%" align="right">Height</th>
-                                        <th width="15%" align="right">Date</th> */}
                                     </tr>
                                 </table>
                                 <table width="100%">
@@ -83,11 +78,6 @@ export class ComponentToPrint3 extends React.Component {
                                     <table width="100%" >
                                         <tr>
                                             <th width="25%" align="left">{data?.patient?.first_name}</th>
-                                            {/* <th width="20%">{data?.patient?.first_name}</th>
-                                            <th width="15%">{data?.patient?.first_name}</th>
-                                            <th width="15%" align="right">{data?.patient?.first_name}</th>
-                                            <th width="10%" align="right">{data?.patient?.first_name}</th>
-                                            <th width="15%" align="right">{data?.patient?.first_name}</th> */}
                                         </tr>
                                     </table>
 
@@ -137,13 +127,16 @@ export class ComponentToPrint3 extends React.Component {
 
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { House } = state.houseSelect
     return {
-        stateLoginValueAim, loadingaIndicatoranswerdetail
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House
     };
 };
 
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim })(
+    connect(mapStateToProps, { LoginReducerAim, houseSelect })(
         Index
     )
 )

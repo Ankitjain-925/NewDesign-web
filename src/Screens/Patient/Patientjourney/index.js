@@ -115,13 +115,13 @@ class Index extends Component {
         updateTrack: []
       });
     } else {
-      if(finalIndex>-1){
+      if (finalIndex > -1) {
         answers[finalIndex].question_id = question_id;
         answers[finalIndex].rating = rating
       }
-      else{
+      else {
         answers.push({
-          question_id , rating
+          question_id, rating
         });
       }
       this.setState({
@@ -143,7 +143,7 @@ class Index extends Component {
           patient_id: this.props.stateLoginValueAim.user._id,
           house_id: qustiondata?.house_id,
           questionaire_id: qustiondata?._id,
-          created_at : new Date(),
+          created_at: new Date(),
           question: qustiondata.questions
         },
         commonHeader(this.props.stateLoginValueAim.token),
@@ -184,11 +184,11 @@ class Index extends Component {
   updateEntry2 = (e, name, id, type, index) => {
     var state = this.state.updateTrack;
     state[name] = e.target.value;
-    this.setState({ updateTrack: state }, ()=>{
+    this.setState({ updateTrack: state }, () => {
       this.handleSubmit(id, type, false, index)
     });
   }
-  
+
   componentDidMount() {
     var npmCountry = npmCountryList().getData();
     this.setState({ selectCountry: npmCountry });
@@ -198,12 +198,12 @@ class Index extends Component {
   }
 
 
-  getActive=(activeIndex, question_id)=>{
-    var finalIndex =  this.state.answers &&  this.state.answers.findIndex(x => x.question_id === question_id);
-    if(finalIndex>-1){
-      return this.state.answers?.length>0 ?  this.state.answers?.[finalIndex]?.rating == activeIndex ? true : false : false
+  getActive = (activeIndex, question_id) => {
+    var finalIndex = this.state.answers && this.state.answers.findIndex(x => x.question_id === question_id);
+    if (finalIndex > -1) {
+      return this.state.answers?.length > 0 ? this.state.answers?.[finalIndex]?.rating == activeIndex ? true : false : false
     }
-    else{
+    else {
       return false
     }
   }
@@ -292,6 +292,7 @@ class Index extends Component {
     }
 
     let translate = getLanguage(this.props.stateLanguageType)
+    let { Patientjourney, Questionnaire, Questionnaire_of, FinalSubmit } = translate;
     return (
       <Grid
         className={
@@ -325,7 +326,7 @@ class Index extends Component {
                           <Grid item xs={11} md={11}>
                             <Grid container direction="row">
                               <Grid item xs={6} md={6}>
-                                <h1>Patient journey</h1>
+                                <h1>{Patientjourney}</h1>
                               </Grid>
                               <Grid item xs={6} md={6}>
 
@@ -343,115 +344,115 @@ class Index extends Component {
                                     comesFrom="patient-journey"
                                   /> */}
                                   {this.state.AllQuestions1?.length > 0 &&
-                                  <Grid item xs={12} md={8} className="SApratQuestion">
-                                     {this.state.AllQuestions1?.length > 0 && this.state.AllQuestions1.map((item, index) => (<>
-                                      <h1>Questionnaire</h1>
-                                      {item?.length > 0 && item.map((data2, index2) => (
-                                        <>
-                                         <label>Questionnaire of - {data2.house_name}</label>
-                                        {data2?.questions?.length > 0 && data2.questions.map((data1, index1) => (
+                                    <Grid item xs={12} md={8} className="SApratQuestion">
+                                      {this.state.AllQuestions1?.length > 0 && this.state.AllQuestions1.map((item, index) => (<>
+                                        <h1>{Questionnaire}</h1>
+                                        {item?.length > 0 && item.map((data2, index2) => (
                                           <>
-                                            <Grid>
-                                              {data1.type === "classic" ?
-                                                <Grid className="QuesMrktUpr">
-                                                  <Grid container direction="row">
-                                                    <Grid item xs={12} md={12}>
-                                                      <Grid className="QuesMrkt">
-                                                        <h1>{data1?.question}</h1>
-                                                      </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={12}>
-                                                      <Grid className="onlineBox">
-                                                        {data1?.options.map((data3) => (
-                                                          <>
-                                                            <Grid><FormControlLabel
-                                                              control={<Checkbox
-                                                                value={data3}
-                                                                checked={this.state.newTask.options ? this.state.newTask.options : null}
-                                                                onChange={(e)=>this.options(e, data1._id, data1.type, index1)}
-                                                                name={data3}
-                                                                color="primary"
-                                                              />} />{data3}</Grid>
-                                                          </>))}
+                                            <label>{Questionnaire_of} {data2.house_name}</label>
+                                            {data2?.questions?.length > 0 && data2.questions.map((data1, index1) => (
+                                              <>
+                                                <Grid>
+                                                  {data1.type === "classic" ?
+                                                    <Grid className="QuesMrktUpr">
+                                                      <Grid container direction="row">
+                                                        <Grid item xs={12} md={12}>
+                                                          <Grid className="QuesMrkt">
+                                                            <h1>{data1?.question}</h1>
+                                                          </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={12}>
+                                                          <Grid className="onlineBox">
+                                                            {data1?.options.map((data3) => (
+                                                              <>
+                                                                <Grid><FormControlLabel
+                                                                  control={<Checkbox
+                                                                    value={data3}
+                                                                    checked={this.state.newTask.options ? this.state.newTask.options : null}
+                                                                    onChange={(e) => this.options(e, data1._id, data1.type, index1)}
+                                                                    name={data3}
+                                                                    color="primary"
+                                                                  />} />{data3}</Grid>
+                                                              </>))}
 
-                                                        {data1?.other === true && (
-                                                          <Grid className="otherBrdrUpr">
-                                                            <FormControlLabel
-                                                              control={<Checkbox
-                                                                name="other"
-                                                                color="primary"
-                                                                checked={this.state.newTask.other ? this.state.newTask.other : null}
-                                                                onChange={(e) =>
-                                                                  this.otheranswer(e.target.checked, "value", data1._id, data1.type, index1)
-                                                                }
-                                                                value="checkedB"
-                                                              />
-                                                              }
-                                                              label="other" />
-                                                            {/* <Grid  className="otherBorder"></Grid> */}
-                                                            {this.state.otherField && (
-                                                              <input type="text"
-                                                                onChange={(e) => { this.updateEntry2(e, "other", data1._id, data1.type, index1) }
-                                                                }
-                                                                name="other"></input>
+                                                            {data1?.other === true && (
+                                                              <Grid className="otherBrdrUpr">
+                                                                <FormControlLabel
+                                                                  control={<Checkbox
+                                                                    name="other"
+                                                                    color="primary"
+                                                                    checked={this.state.newTask.other ? this.state.newTask.other : null}
+                                                                    onChange={(e) =>
+                                                                      this.otheranswer(e.target.checked, "value", data1._id, data1.type, index1)
+                                                                    }
+                                                                    value="checkedB"
+                                                                  />
+                                                                  }
+                                                                  label="other" />
+                                                                {/* <Grid  className="otherBorder"></Grid> */}
+                                                                {this.state.otherField && (
+                                                                  <input type="text"
+                                                                    onChange={(e) => { this.updateEntry2(e, "other", data1._id, data1.type, index1) }
+                                                                    }
+                                                                    name="other"></input>
+                                                                )}
+                                                              </Grid>
                                                             )}
                                                           </Grid>
-                                                        )}
-                                                      </Grid>
-                                                    </Grid>
-                                                    {/* <Grid item xs={12} md={12}>
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={12}>
                                                       <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data1._id, data1.type)}>Submit Answer</Button></Grid>
                                                     </Grid> */}
-                                                  </Grid>
-                                                </Grid>
-                                                :
-                                                <Grid className="QuesMrktUpr">
-                                                  <Grid container direction="row">
-                                                    <Grid item xs={12} md={12}>
-                                                      <Grid className="QuesMrkt">
-                                                        {/* <Grid><a><img src={require('../../assets/images/germanMedical.png')} alt="" title="" /></a></Grid> */}
-                                                        {/* <Grid><a><img src={require('../../assets/images/close-search.svg')} alt="" title="" /></a></Grid> */}
                                                       </Grid>
                                                     </Grid>
-                                                    <Grid item xs={12} md={12}>
-                                                      <h1>{data1.question}</h1>
-                                                      <p>{data1.description}</p>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={12}>
-                                                      <Grid className="rateExp">
-                                                        {/* <h3>How would you rate your experience with us?</h3> */}
-                                                        <Grid>
-                                                          <ul >
-                                                            <li className={this.state.answers?.length>0 && this.getActive(1, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 1, index1)}><a >1</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(2, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 2, index1)}><a >2</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(3, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 3, index1)}><a >3</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(4, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 4, index1)} ><a >4</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(5, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 5, index1)}><a >5</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(6, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 6, index1)}><a >6</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(7, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 7, index1)}><a >7</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(8, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 8, index1)}><a >8</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(9, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 9, index1)}><a >9</a></li>
-                                                            <li className={this.state.answers?.length>0 && this.getActive(10, data1._id) ? 'activesecRating': ''} onClick={() => this.handleSubmit(data1._id, data1.type, 10, index1)}><a >10</a></li>
-                                                          </ul>
+                                                    :
+                                                    <Grid className="QuesMrktUpr">
+                                                      <Grid container direction="row">
+                                                        <Grid item xs={12} md={12}>
+                                                          <Grid className="QuesMrkt">
+                                                            {/* <Grid><a><img src={require('../../assets/images/germanMedical.png')} alt="" title="" /></a></Grid> */}
+                                                            {/* <Grid><a><img src={require('../../assets/images/close-search.svg')} alt="" title="" /></a></Grid> */}
+                                                          </Grid>
                                                         </Grid>
-                                                      </Grid>
-                                                    </Grid>
-                                                    {/* <Grid item xs={12} md={12}>
+                                                        <Grid item xs={12} md={12}>
+                                                          <h1>{data1.question}</h1>
+                                                          <p>{data1.description}</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={12}>
+                                                          <Grid className="rateExp">
+                                                            {/* <h3>How would you rate your experience with us?</h3> */}
+                                                            <Grid>
+                                                              <ul >
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(1, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 1, index1)}><a >1</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(2, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 2, index1)}><a >2</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(3, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 3, index1)}><a >3</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(4, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 4, index1)} ><a >4</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(5, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 5, index1)}><a >5</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(6, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 6, index1)}><a >6</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(7, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 7, index1)}><a >7</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(8, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 8, index1)}><a >8</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(9, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 9, index1)}><a >9</a></li>
+                                                                <li className={this.state.answers?.length > 0 && this.getActive(10, data1._id) ? 'activesecRating' : ''} onClick={() => this.handleSubmit(data1._id, data1.type, 10, index1)}><a >10</a></li>
+                                                              </ul>
+                                                            </Grid>
+                                                          </Grid>
+                                                        </Grid>
+                                                        {/* <Grid item xs={12} md={12}>
                                                       <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit(data1._id, data1.type)}>Submit Feedback</Button></Grid>
                                                     </Grid> */}
-                                                  </Grid>
-                                                </Grid>}
-                                            </Grid>
+                                                      </Grid>
+                                                    </Grid>}
+                                                </Grid>
+                                              </>
+                                            ))}
+                                            {data2?.questions?.length > 0 && <Grid item xs={12} md={12}>
+                                              <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2(data2, index2)}>{FinalSubmit}</Button></Grid>
+                                            </Grid>}
                                           </>
-                                        ))}
-                                          {data2?.questions?.length > 0 && <Grid item xs={12} md={12}>
-                                            <Grid className="asnswerSbmt"><Button onClick={() => this.handleSubmit2(data2, index2)}>Final Submit</Button></Grid>
-                                          </Grid>}
-                                        </>
 
-                                      ))}
-                                    </>))}
-                                  </Grid>
+                                        ))}
+                                      </>))}
+                                    </Grid>
                                   }
                                   {this.state.view &&
                                     this.state.view.length > 0 && (

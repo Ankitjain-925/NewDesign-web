@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Index from "Screens/Components/FrameUse/index";
 import { getLanguage } from "translations/index";
 import Grid from '@material-ui/core/Grid';
+import { houseSelect } from "../Institutes/selecthouseaction";
 
 export class ComponentToPrint2 extends React.Component {
     constructor(props) {
@@ -43,8 +44,8 @@ export class ComponentToPrint2 extends React.Component {
                                         </td>
                                         <td align="right">
                                             <img
-                                                className="logo"
-                                                src="/static/media/LogoPNG.03ac2d92.png"
+                                                className="pattern-main-logo"
+                                                src={require("assets/virtual_images/fullLogo.png")}
                                                 alt=""
                                                 title="" />
                                         </td>
@@ -54,9 +55,10 @@ export class ComponentToPrint2 extends React.Component {
                                 <table width="100%" className="TblPG2">
                                     <tr>
                                         <td >
-                                            {/* {  console.log("this.props",this.props.houseSelect)} */}
+                                            
                                             <p>From</p>
-                                            <strong>Max Hospital</strong>
+                                            <strong>{this.props?.House?.label && this.props?.House.label}</strong>
+                                            {/* <strong>Max Hospital</strong> */}
                                             {/* <p>{data?.email}</p>
                                             <p>{data?.address}</p>
                                             <p>{data?.phone}</p> */}
@@ -66,7 +68,7 @@ export class ComponentToPrint2 extends React.Component {
                                             <p>For</p>
                                             <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
                                             <p>{data?.patient?.profile_id}</p>
-                                            <p>{data?.patient?.patient_id}</p>
+                                            {/* <p>{data?.patient?.patient_id}</p> */}
                                             {/* <p>{data?.phone}</p> */}
                                         </td>
 
@@ -124,13 +126,16 @@ export class ComponentToPrint2 extends React.Component {
 
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { House } = state.houseSelect
     return {
-        stateLoginValueAim, loadingaIndicatoranswerdetail
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House
     };
 };
 
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim })(
+    connect(mapStateToProps, { LoginReducerAim, houseSelect })(
         Index
     )
 )

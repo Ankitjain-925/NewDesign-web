@@ -15,19 +15,19 @@ export class ComponentToPrint4 extends React.Component {
         }
 
     };
-          //on adding new data
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.data !== this.props.data) {
-      this.setState({ data: this.props.data });
-    }
-  };
+    //on adding new data
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data) {
+            this.setState({ data: this.props.data });
+        }
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state;
-        console.log("data", this.state.data)
+     
         return (
             <div className="relativeCSS">
                 <div className="flash" />
@@ -36,10 +36,11 @@ export class ComponentToPrint4 extends React.Component {
                         <tr>
                             <td align="center">
                                 <img
-                                    className="logo"
-                                    src="/static/media/LogoPNG.03ac2d92.png"
+                                    className="pattern-main-logo"
+                                    src={require("assets/virtual_images/fullLogo.png")}
                                     alt=""
                                     title="" />
+
                             </td>
                         </tr>
                     </table>
@@ -54,7 +55,7 @@ export class ComponentToPrint4 extends React.Component {
                                     <strong>
                                         <p>Invoice: &nbsp;{data?.invoice_id}</p>
                                         <p>Date: &nbsp;{data?.created_at}</p>
-                                        <p>CustomerID: {data?.patient?.patient_id}</p>
+                                        {/* <p>CustomerID: {data?.patient?.patient_id}</p> */}
                                     </strong>
                                 </td>
                                 <td className="txtalign tabL10Col2 TblPG2">
@@ -69,9 +70,10 @@ export class ComponentToPrint4 extends React.Component {
                         <table width="100%">
                             <table width="100%" bgcolor="black" className="tabL11 MedicalSer1">
                                 <tr>
-                                    <th width="60%" align="left">Medicine</th>
-                                    <th width="30%">Amount</th>
-                                    <th width="10%" align="right">Payment</th>
+                                    <th width="30%" align="left">Service</th>
+                                    <th width="30%">Quantity</th>
+                                    <th width="30%" align="right">Price Per Quantity</th>
+                                    <th width="10%" align="right">Amount</th>
                                 </tr>
                             </table>
                             <table width="100%" className="secsttabhead tab12 tabLLa">
@@ -79,9 +81,10 @@ export class ComponentToPrint4 extends React.Component {
                                 {data?.services && data?.services?.length > 0 &&
                                     data?.services.map((item) => (
                                         <tr>
-                                            <th width="60%">{item?.service}</th>
-                                            <th width="30%" align="left">{item?.price_per_quantity}</th>
-                                            <th width="10%" align="right">{item?.price}</th>
+                                            <th width="31%">{item?.service}</th>
+                                            <th width="30%" align="center" >{item?.quantity}</th>
+                                            <th width="30%" align="center" >{item?.price_per_quantity}</th>
+                                            <th width="9%" align="righ">{item?.price}</th>
                                         </tr>))}
                                 {/* {{/ each}} */}
                             </table>

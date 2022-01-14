@@ -109,8 +109,8 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Specialities, Iunderstandthat, AddSpeciality,
-      BacktoChangeHospital, addNewSpeciality,SpaceManagement, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
-      yesDeleteSpeciality, cancelKeepSpeciality, Room, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close} = translate;
+      BacktoChangeHospital, addNewSpeciality,SpaceManagement,Color,speciality,All_Patients_removed_beds,All_Rooms_Beds_deleted,All_Wards_deleted, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
+      yesDeleteSpeciality, cancelKeepSpeciality, Room,Ward, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close} = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -256,19 +256,19 @@ class Index extends Component {
                               <Grid className="wardLine">
                                 <FormControlLabel
                                   control={<Checkbox onChange={(e) => { this.setState({ wardDel: e.target.checked }) }} />}
-                                  label="All Wards will be deleted"
+                                  label={All_Wards_deleted}
                                 />
                               </Grid>
                               <Grid className="wardLine">
                                 <FormControlLabel
                                   control={<Checkbox onChange={(e) => { this.setState({ roomDel: e.target.checked }) }} />}
-                                  label="All Rooms & Beds will be deleted"
+                                  label={All_Rooms_Beds_deleted}
                                 />
                               </Grid>
                               <Grid className="wardLine">
                                 <FormControlLabel
                                   control={<Checkbox onChange={(e) => { this.setState({ patDel: e.target.checked }) }} />}
-                                  label="All Patients will be removed from their beds"
+                                  label={All_Patients_removed_beds}
                                 />
                               </Grid>
                               <Grid className="confirmActn">
@@ -405,7 +405,7 @@ class Index extends Component {
                         {/* <Grid><label>Speciality</label></Grid> */}
                         {/* <TextField placeholder="Enter Speciality name" /> */}
                         <VHfield
-                          label="Speciality"
+                          label={speciality}
                           name="specialty_name"
                           value={this.state.speciality.specialty_name}
                           placeholder="Enter Speciality name"
@@ -416,7 +416,7 @@ class Index extends Component {
                         <Grid className="colorBtnUpr">
                           <Grid>
                             <ColorSelection
-                              label="Color"
+                              label={Color}
                               updateEntryState1={(name, value) =>
                                 updateEntryState1(name, value, this)
                               }
@@ -474,7 +474,7 @@ class Index extends Component {
                                   <p className='err_message'>{this.state.errorMsg2}</p>
                                   <Grid item xs={12} md={12}>
                                     <VHfield
-                                      label="Ward"
+                                      label={Ward}
                                       value={this.state.ward?.ward_name}
                                       name="ward_name"
                                       placeholder="Enter Ward"
@@ -484,7 +484,7 @@ class Index extends Component {
                                     />
 
                                     <AddRoom
-                                      label="room"
+                                      label={Room}
                                       name="roomname"
                                       roomArray={this.state.ward?.rooms}
                                       onChange={(e) =>

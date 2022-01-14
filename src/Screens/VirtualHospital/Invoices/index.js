@@ -331,7 +331,6 @@ class Index extends Component {
             this.setState({ finishError: "Please select status" })
         }
         else if (!data.services || (data.services.length < 1)) {
-
             this.setState({ finishError: "Please add atleast one service" })
         }
         else {

@@ -34,7 +34,7 @@ class Index extends Component {
         const { value } = this.state;
         let translate = getLanguage(this.props.stateLanguageType);
         let { SpaceManagement, Institution, speciality, Ward, GermanMedicalCenterFZLLC, Neurology, AdultsWard, Cardiology, Radiology, Oncology,
-            BenitoNoboa, P_ukd832kd2, Room1, Room2, Move_patient_here, AddPatient, ChildrensWardContent } = translate;
+            BenitoNoboa, P_ukd832kd2, Room1, Room2, Move_patient_here, AddPatient,  } = translate;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -577,7 +577,7 @@ class Index extends Component {
 
                                             }
                                             {value === 1 && <Grid>
-                                                {ChildrensWardContent}
+
                                             </Grid>}
 
                                         </Grid>

@@ -2148,8 +2148,8 @@ class Index extends Component {
       last_document,
       prescriptions,
       sick_cert, personal_info,
-      Download, sixteen032020, twentyFourThousandEuro,
-      respiration, one, slash2, Neurology, AdultsWard, Room1, Bed, Examinations, twenty6, two021000248
+      Download, 
+      respiration, Bed,
     } = translate;
     var item = this.state.item;
     let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight, kg, Height, cm, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, LastDocuments, Prescription } = translate;

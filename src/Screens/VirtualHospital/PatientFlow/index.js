@@ -414,7 +414,7 @@ class Index extends Component {
           ? this.props.stateLoginValueAim?.user?.institute_id[0]
           : "";
       data.house_id = this.props?.House.value;
-      this.setState({ loaderImage: true });
+      // this.setState({ loaderImage: true });
       axios
         .post(
           sitedata.data.path + "/vh/checkPatient",
@@ -436,7 +436,12 @@ class Index extends Component {
                 alies_id: responce.data.data.alies_id,
               },
             };
-            axios
+            if(responce.data.data?.type !== 'patient'){
+              this.setState({ idpinerror: true, loaderImage: false});
+            }
+            else{
+              this.setState({ idpinerror: false});
+              axios
               .post(
                 sitedata.data.path + "/cases/AddCase",
                 case_data,
@@ -468,7 +473,7 @@ class Index extends Component {
                   }, 3000);
                 }
               });
-            this.setState({ loaderImage: false });
+            }
           } else {
             if (responce.data.data) {
               this.setState({ inOtherAlready: true, loaderImage: false, alreadyData: responce.data.data });
@@ -1008,6 +1013,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    <div className="custom-d-n-d">
                     <Drags
                       moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
@@ -1035,6 +1041,7 @@ class Index extends Component {
                         this.MovetoTask(speciality, patient_id)
                       }}
                     />
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>

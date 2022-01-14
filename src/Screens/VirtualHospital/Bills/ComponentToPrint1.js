@@ -13,23 +13,23 @@ export class ComponentToPrint1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data : this.props.data
+            data: this.props.data
         }
     };
 
-      //on adding new data
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.data !== this.props.data) {
-      this.setState({ data: this.props.data });
-    }
-  };
+    //on adding new data
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data) {
+            this.setState({ data: this.props.data });
+        }
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, id } = this.state;
-        console.log("data", this.state.data)
+
         return (
             <div className="relativeCSS">
 
@@ -44,10 +44,10 @@ export class ComponentToPrint1 extends React.Component {
                                             <td align="left">
                                                 <strong className="WlcmAimds">Welcome to Aimedis</strong>
                                             </td>
-                                            <td align="right">
+                                            <td align="center">
                                                 <img
-                                                    className="logo"
-                                                    src="/static/media/LogoPNG.03ac2d92.png"
+                                                    className="pattern-main-logo"
+                                                    src={require("assets/virtual_images/fullLogo.png")}
                                                     alt=""
                                                     title="" />
                                             </td>
@@ -57,10 +57,8 @@ export class ComponentToPrint1 extends React.Component {
 
                                         <tr>
                                             <td className="tabL2Col">
-
-
                                                 <p>From</p>
-                                                <strong>{data.service}</strong>
+                                                <strong>{this.props?.House?.label && this.props?.House.label}</strong>
 
                                             </td>
                                             <td className="tabL2Col1">
@@ -68,7 +66,7 @@ export class ComponentToPrint1 extends React.Component {
                                                 <p>For</p>
                                                 <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
                                                 <p>{data?.patient?.profile_id}</p>
-                                                <p>{data?.patient?.patient_id}</p>
+                                                {/* <p>{data?.patient?.patient_id}</p> */}
                                             </td>
                                         </tr>
                                     </table>
@@ -92,23 +90,23 @@ export class ComponentToPrint1 extends React.Component {
 
                                         <table className="firsttabhead tabL3a" width="100%" bgcolor="black">
                                             <tr>
-                                                <th width="70%" align="left">Service</th>
-                                                <th width="8%">Price Per Quantity</th>
-                                                <th width="8%">{quantity}</th>
-                                                <th width="14%" align="right">Amount</th>
+                                                <th width="30%" align="left">Service</th>
+                                                <th width="30%">Price Per Quantity</th>
+                                                <th width="30%">{quantity}</th>
+                                                <th width="10%" align="right">Amount</th>
                                             </tr>
                                         </table>
-                                        <table width="100%" class="secsttabhead tabL3Col1 tabLLa">
+                                        <table width="100%" class="secsttabhead tabLLa">
 
                                             {/* { #each Invoice } */}
 
                                             {data?.services && data?.services?.length > 0 &&
                                                 data?.services.map((item) => (
                                                     <tr>
-                                                        <th width="70%" align="left">{item?.service}</th>
-                                                        <th width="8%"> {item?.price_per_quantity}</th>
-                                                        <th width="8%"> {item?.quantity} </th>
-                                                        <th width="14%" align="right">{item?.price}</th>
+                                                        <th width="32%" align="left">{item?.service}</th>
+                                                        <th width="30%"> {item?.price_per_quantity}</th>
+                                                        <th width="30%"> {item?.quantity} </th>
+                                                        <th width="8%" align="right">{item?.price}</th>
                                                     </tr>))}
                                             {/* {/ each} */}
 
@@ -130,7 +128,7 @@ export class ComponentToPrint1 extends React.Component {
 
                                             <tr>
                                                 <td>
-                                                    <h1 className="termCond">Your Aimedis team</h1>
+                                                    <h1 className="termCond termCond2">Your Aimedis team</h1>
                                                     <p className="termCond1">https://aimedis.io</p>
                                                     <p>https://sys.aimedis.com</p>
                                                     <p className="termCond1">If you have any questions do not hesitate to
@@ -160,7 +158,7 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim }, houseSelect,)(
+    connect(mapStateToProps, { LoginReducerAim , houseSelect})(
         Index
     )
 )

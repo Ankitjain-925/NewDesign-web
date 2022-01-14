@@ -30,18 +30,17 @@ export class ComponentToPrint5 extends React.Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { AimedisInvoiceReport,ServiceList,InvoiceData,Services,CaseID, Created_at,YourAimedisTeam, aimedisIo,
-             ServiceName,TotalAmount,InvoiceID, srvc ,Price, quantity, contactAimedisForQuery, SysAimedis} = translate;
+        let { AimedisInvoiceReport,ServiceList,InvoiceData,Services,CaseID, Created_at,YourAimedisTeam,
+             ServiceName,TotalAmount,InvoiceID, srvc ,Price, quantity, contactAimedisForQuery, } = translate;
         var { data, index } = this.state;
-        console.log("data", this.state.data)
         return (
             <div className="relativeCSS">
                 <style type="text/css" media="print"></style>
                 <div className="flash" />
                 <Grid className="printPreview">
                     <a><img
-                        className="logo"
-                        src="/static/media/LogoPNG.03ac2d92.png"
+                        className="pattern-main-logo"
+                        src={require("assets/virtual_images/fullLogo.png")}
                         alt=""
                         title="" />
                     </a>
@@ -89,9 +88,9 @@ export class ComponentToPrint5 extends React.Component {
                         <Grid>
                             <b>{YourAimedisTeam}</b>
                             <br />
-                            <b>{aimedisIo}</b>
+                            <b>https://aimedis.io</b>
                             <br />
-                            <b>{SysAimedis}</b>
+                            <b>"https://sys.aimedis.com"</b>
                             <br />
                             <p>{contactAimedisForQuery}</p>
                         </Grid>

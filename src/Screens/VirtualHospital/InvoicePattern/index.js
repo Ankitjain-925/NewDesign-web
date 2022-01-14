@@ -100,7 +100,7 @@ class Index extends Component {
 
         const { selectedOption, attachedFile } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
-        let { } = translate;
+        let { Apply, Applied, ViewDemo } = translate;
 
         return (
             <Grid className={
@@ -125,78 +125,78 @@ class Index extends Component {
                                     <Grid className="tskOverView tskOverView2">
                                         <Grid className="pattern-sec">
                                             <a onClick={() => this.demo_pattern(1)}><Button className={this.state.invoice_pattern === 1 && "appliedbutton"}>A</Button></a>
-                                            <a onClick={() => this.demo_pattern(1)}>View Demo A</a>
-                                            <a onClick={() => this.invoice_pattern(1)}>{this.state.invoice_pattern === 1 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
+                                            <a onClick={() => this.demo_pattern(1)}>{ViewDemo} A</a>
+                                            <a onClick={() => this.invoice_pattern(1)}>{this.state.invoice_pattern === 1 ? <span className="AppliedPattern">{Applied}</span> : <span className="ApplyPattern">{Apply}</span>}</a>
                                         </Grid>
                                         <Grid className="pattern-sec">
                                             <a onClick={() => this.demo_pattern(2)}><Button className={this.state.invoice_pattern === 2 && "appliedbutton"}>B</Button></a>
-                                            <a onClick={() => this.demo_pattern(2)}>View Demo B</a>
-                                            <a onClick={() => this.invoice_pattern(2)}>{this.state.invoice_pattern === 2 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
+                                            <a onClick={() => this.demo_pattern(2)}>{ViewDemo} B</a>
+                                            <a onClick={() => this.invoice_pattern(2)}>{this.state.invoice_pattern === 2 ? <span className="AppliedPattern">{Applied}</span> : <span className="ApplyPattern">{Apply}</span>}</a>
                                         </Grid>
                                         <Grid className="pattern-sec">
                                             <a onClick={() => this.demo_pattern(3)}><Button className={this.state.invoice_pattern === 3 && "appliedbutton"}>C</Button></a>
-                                            <a onClick={() => this.demo_pattern(3)}>View Demo C</a>
-                                            <a onClick={() => this.invoice_pattern(3)}>{this.state.invoice_pattern === 3 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
+                                            <a onClick={() => this.demo_pattern(3)}>{ViewDemo} C</a>
+                                            <a onClick={() => this.invoice_pattern(3)}>{this.state.invoice_pattern === 3 ? <span className="AppliedPattern">{Applied}</span> : <span className="ApplyPattern">{Apply}</span>}</a>
                                         </Grid>
                                         <Grid className="pattern-sec">
                                             <a onClick={() => this.demo_pattern(4)}><Button className={this.state.invoice_pattern === 4 && "appliedbutton"}>D</Button></a>
-                                            <a onClick={() => this.demo_pattern(4)}>View Demo D</a>
-                                            <a onClick={() => this.invoice_pattern(4)}>{this.state.invoice_pattern === 4 ?  <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
+                                            <a onClick={() => this.demo_pattern(4)}>{ViewDemo} D</a>
+                                            <a onClick={() => this.invoice_pattern(4)}>{this.state.invoice_pattern === 4 ? <span className="AppliedPattern">{Applied}</span> : <span className="ApplyPattern">{Apply}</span>}</a>
                                         </Grid>
                                         <Grid className="pattern-sec">
                                             <a onClick={() => this.demo_pattern(5)}><Button className={this.state.invoice_pattern === 5 && "appliedbutton"}>E</Button></a>
-                                            <a onClick={() => this.demo_pattern(5)}>View Demo E</a>
-                                            <a onClick={() => this.invoice_pattern(5)}>{this.state.invoice_pattern === 5 ? <span className="AppliedPattern">Appiled</span> : <span className="ApplyPattern">Apply</span>}</a>
+                                            <a onClick={() => this.demo_pattern(5)}>{ViewDemo} E</a>
+                                            <a onClick={() => this.invoice_pattern(5)}>{this.state.invoice_pattern === 5 ? <span className="AppliedPattern">{Applied}</span> : <span className="ApplyPattern">{Apply}</span>}</a>
                                         </Grid>
                                     </Grid>
 
                                     <Grid item xs={12} md={12}>
                                         <Grid className="demOverView">
-                                            {this.state.showDemo == 1 && 
-                                            <>
-                                            <h1>View Demo A</h1>
-                                             <img
-                                                src={require("assets/virtual_images/IP5.png")}
-                                                alt=""
-                                                title=""
-                                            />
-                                            </>}
-                                            {this.state.showDemo == 2 && 
-                                            <>
-                                            <h1>View Demo B</h1>
-                                             <img
-                                                src={require("assets/virtual_images/IP2.png")}
-                                                alt=""
-                                                title=""
-                                            />
-                                            </>}
-                                            {this.state.showDemo == 3 && 
-                                            <>
-                                            <h1>View Demo C</h1>
-                                             <img
-                                                src={require("assets/virtual_images/IP3.png")}
-                                                alt=""
-                                                title=""
-                                            />
-                                            </>}
-                                            {this.state.showDemo == 4 && 
-                                            <>
-                                            <h1>View Demo D</h1>
-                                             <img
-                                                src={require("assets/virtual_images/IP1.png")}
-                                                alt=""
-                                                title=""
-                                            />
-                                            </>}
-                                            {this.state.showDemo == 5 && 
-                                            <>
-                                            <h1>View Demo E</h1>
-                                             <img
-                                                src={require("assets/virtual_images/IP4.png")}
-                                                alt=""
-                                                title=""
-                                            />
-                                            </>}
+                                            {this.state.showDemo == 1 &&
+                                                <>
+                                                    <h1>{ViewDemo} A</h1>
+                                                    <img
+                                                        src={require("assets/virtual_images/IP5.png")}
+                                                        alt=""
+                                                        title=""
+                                                    />
+                                                </>}
+                                            {this.state.showDemo == 2 &&
+                                                <>
+                                                    <h1>{ViewDemo} B</h1>
+                                                    <img
+                                                        src={require("assets/virtual_images/IP2.png")}
+                                                        alt=""
+                                                        title=""
+                                                    />
+                                                </>}
+                                            {this.state.showDemo == 3 &&
+                                                <>
+                                                    <h1>{ViewDemo} C</h1>
+                                                    <img
+                                                        src={require("assets/virtual_images/IP3.png")}
+                                                        alt=""
+                                                        title=""
+                                                    />
+                                                </>}
+                                            {this.state.showDemo == 4 &&
+                                                <>
+                                                    <h1>{ViewDemo} D</h1>
+                                                    <img
+                                                        src={require("assets/virtual_images/IP1.png")}
+                                                        alt=""
+                                                        title=""
+                                                    />
+                                                </>}
+                                            {this.state.showDemo == 5 &&
+                                                <>
+                                                    <h1>{ViewDemo} E</h1>
+                                                    <img
+                                                        src={require("assets/virtual_images/IP4.png")}
+                                                        alt=""
+                                                        title=""
+                                                    />
+                                                </>}
                                         </Grid>
                                     </Grid>
                                 </Grid>
