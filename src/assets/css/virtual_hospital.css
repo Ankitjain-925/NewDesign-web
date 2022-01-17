@@ -12903,6 +12903,7 @@ input:-moz-autofill:active{
     height: 100px;
     width: auto; 
 }
+
 .printPreview{
     padding: 15px;
 }
@@ -13271,3 +13272,39 @@ only screen and (max-width: 768px) {
     width:33%; text-align:right;
 }
 
+.tabDatPart{
+    padding-right: 40px!important;
+}
+.secsttabhead{
+    border-bottom: 1px solid red;
+}
+
+.tab1PG3{margin-top: 20px!important;}
+
+.tabAligPro {
+    text-align: center;
+}
+.tabDatPart{
+    text-align: right;
+    padding-right:20px!important;
+}
+
+.pattern-main-foot{
+    margin-top:55%;
+    height:70px;
+}
+
+ .pattern-main-foot2{
+    margin-top:60%;
+    height:70px;
+}
+
+.pattern-main-foot1{
+    margin-top:70%;
+    height:70px;
+}
+
+.invoiceidtxt{
+    font-weight: 20px!important;
+    font-size: 20px!important;
+}
