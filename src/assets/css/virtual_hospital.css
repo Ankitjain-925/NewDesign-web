@@ -9504,6 +9504,9 @@ button.crdoLghtBlu2 {
 .tskTabsMob, .TabContainerMob {
     display: none;
 }
+.LeftPatientDataWeb {
+    display: block;
+}
 @media (max-width: 468px) {
   .staticHeading h1 {
     text-align: center;
@@ -9669,6 +9672,9 @@ button.crdoLghtBlu2 {
   .tskTabsMob, .TabContainerMob {
     display: block;
   }
+  .LeftPatientDataWeb {
+    display: none;
+}
   .tskTabsweb, .TabContainerWeb {
       display: none;
   }
@@ -9902,6 +9908,19 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.homeBg.darkTheme.homeBgDrk .profileInfoIner input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #dfdfdf!important;
+  }
+  .homeBg.darkTheme.homeBgDrk .profileInfoIner input::-moz-placeholder { /* Firefox 19+ */
+    color: #dfdfdf!important;
+  }
+  .homeBg.darkTheme.homeBgDrk .profileInfoIner input:-ms-input-placeholder { /* IE 10+ */
+    color: #dfdfdf!important;
+  }
+  .homeBg.darkTheme.homeBgDrk .profileInfoIner input:-moz-placeholder { /* Firefox 18- */
+    color: #dfdfdf!important;
+  }
+
 .activesecRating{
     background-color: #00ABAF !important;
     box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%) !important;
@@ -12873,15 +12892,16 @@ input:-moz-autofill:active{
     min-width: 66px;
     border-radius: 12px;
 }
-.logo {
+.pattern-main-logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
     margin-bottom: 70px;
     height: 100px;
-    width: 100px; 
+    width: auto; 
 }
+
 .printPreview{
     padding: 15px;
 }
@@ -13250,3 +13270,39 @@ only screen and (max-width: 768px) {
     width:33%; text-align:right;
 }
 
+.tabDatPart{
+    padding-right: 40px!important;
+}
+.secsttabhead{
+    border-bottom: 1px solid red;
+}
+
+.tab1PG3{margin-top: 20px!important;}
+
+.tabAligPro {
+    text-align: center;
+}
+.tabDatPart{
+    text-align: right;
+    padding-right:20px!important;
+}
+
+.pattern-main-foot{
+    margin-top:55%;
+    height:70px;
+}
+
+ .pattern-main-foot2{
+    margin-top:60%;
+    height:70px;
+}
+
+.pattern-main-foot1{
+    margin-top:70%;
+    height:70px;
+}
+
+.invoiceidtxt{
+    font-weight: 20px!important;
+    font-size: 20px!important;
+}

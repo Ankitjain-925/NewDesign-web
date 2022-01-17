@@ -689,27 +689,27 @@ class Index extends Component {
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 1 &&
-                                                                                < ComponentToPrint1 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} House={this.props.House} />}
+                                                                                < ComponentToPrint1 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 2 &&
-                                                                                < ComponentToPrint2 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} House={this.props.House}/>}
+                                                                                < ComponentToPrint2 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 3 &&
-                                                                                < ComponentToPrint3 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} House={this.props.House}/>}
+                                                                                < ComponentToPrint3 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 4 &&
-                                                                                < ComponentToPrint4 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} House={this.props.House}/>}
+                                                                                < ComponentToPrint4 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 5 &&
-                                                                                < ComponentToPrint5 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} House={this.props.House}/>}
+                                                                                < ComponentToPrint5 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>{DownloadPDF}</span></li></a>
                                                                     </ul>

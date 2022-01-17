@@ -7,6 +7,10 @@ import Index from "Screens/Components/FrameUse/index";
 import { getLanguage } from "translations/index";
 import Grid from '@material-ui/core/Grid';
 import { houseSelect } from "../Institutes/selecthouseaction";
+import {
+    getDate,
+} from "Screens/Components/BasicMethod";
+import { Settings } from "Screens/Login/setting";
 
 export class ComponentToPrint2 extends React.Component {
     constructor(props) {
@@ -14,7 +18,6 @@ export class ComponentToPrint2 extends React.Component {
         this.state = {
             data: this.props.data,
         }
-
     };
 
     //on adding new data
@@ -39,69 +42,87 @@ export class ComponentToPrint2 extends React.Component {
                                 <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td align="left">
-                                            <strong className="WlcmAimds">Welcome to Aimedis</strong>
+                                            {/* <strong ></strong> */}
                                         </td>
-                                        <td align="right">
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
                                             <img
-                                                className="logo"
-                                                src="/static/media/LogoPNG.03ac2d92.png"
+                                                className="pattern-main-logo"
+                                                src={require("assets/virtual_images/fullLogo.png")}
                                                 alt=""
                                                 title="" />
                                         </td>
                                     </tr>
-                                </table>
-
-                                <table width="100%" className="TblPG2">
                                     <tr>
-                                        <td >
-                                            <p>From</p>
-                                            {this.props.House && this.props.House?.label &&
-                                                <strong>{this.props.House?.label}</strong>}
-                                        </td>
-                                        <td >
-                                            <p>For</p>
-                                            <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
-                                            <p>{data?.patient?.profile_id}</p>
-                                            <p>{data?.patient?.patient_id}</p>
-                                        </td>
-
-                                        <td>
-                                            <strong><p>Invoice &nbsp;{data?.invoice_id}</p></strong>
-                                            <p>Due Date &nbsp;{data?.created_at}</p>
-                                        </td>
+                                        <td className="WlcmAimds">Welcome to aimedis</td>
                                     </tr>
                                 </table>
+                                <table width="100%" className="TblPG2 secsttabhead">
+                                    <tr>
+                                        <td width="33%">
+                                            <p>From</p>
+                                        </td>
+                                        <td width="33%" >
+                                            <p>For</p>
+                                        </td>
+                                        <td width="33%">
+                                            <strong><p>InvoiceID: &nbsp;{data?.invoice_id}</p></strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{this.props?.House?.label && this.props?.House.label}</strong></td>
+                                        <td>  <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong> </td>
+                                        <td><p>Due Date: &nbsp; {getDate(
+                                            data?.created_at,
+                                            this.props.settings &&
+                                            this.props.settings?.setting &&
+                                            this.props.settings?.setting?.date_format
+                                        )}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
 
+                                        <td><p>{data?.patient?.profile_id}</p></td>
+                                        <td> </td>
+                                    </tr>
+                                </table>
                                 <table width="100%">
-                                    <table width="100%" className="MedicalSer MedicalSer1">
+                                    <table className="firsttabhead tabL3a" width="100%" bgcolor="black">
                                         <tr>
-                                            <th width="25%" align="left">Service</th>
-                                            <th width="20%">Quantity</th>
-                                            <th width="25%">Price Per Quantity</th>
-                                            <th width="15%" align="right">Total($)</th>
-
+                                            <th width="30%" align="left">Service</th>
+                                            <th width="30%">Price Per Quantity</th>
+                                            <th width="30%">Quantity</th>
+                                            <th width="10%" align="right">Amount</th>
                                         </tr>
                                     </table>
-                                    <table width="100%" className="tabLLa">
-                                        {/* {{ #each Invoice }} */}
+                                    <table width="100%" className="secsttabhead tabLLa">
                                         {data?.services && data?.services?.length > 0 &&
                                             data?.services.map((item) => (
                                                 <tr>
-                                                    <th width="25%" align="left">{item?.service}</th>
-                                                    <th width="20%">{item?.quantity}</th>
-                                                    <th width="25%">{item?.price_per_quantity}</th>
-                                                    <th width="15%" align="right">{item?.price}</th>
+                                                    <th width="42%" >{item?.service}</th>
+                                                    <th width="25%"> {item?.price_per_quantity}</th>
+                                                    <th width="25%">{item?.quantity}</th>
+                                                    <th width="8%" className="tabAligPro">{item?.price}</th>
                                                 </tr>))}
-                                        {/* {{/ each}} */}
                                     </table>
-
-                                    <table className="tabL5 tabL4">
+                                    <table width="100%" className="tabL3">
+                                        <tr>
+                                            <td width="68%">
+                                                <p>Total</p>
+                                            </td>
+                                            <td width="32%" className="tabDatPart">
+                                                <p>{data?.total_amount}</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table className="tabL4">
                                         <tr>
                                             <td>
-                                                <h1 className="termCond">Your Aimedis team</h1>
-                                                <p className="termCond1">https://aimedis.io</p>
-                                                <p>https://sys.aimedis.com</p>
-                                                <p className="termCond1">If you have any questions do not hesitate to
+                                                <h1 className="termCond termCond2">Your Aimedis team</h1><br />
+                                                <p>https://aimedis.io</p><br />
+                                                <p>https://sys.aimedis.com</p><br />
+                                                <p>If you have any questions do not hesitate to
                                                     contact us via the support chat or via contact@aimedis.com</p>
                                             </td>
                                         </tr>
@@ -110,6 +131,18 @@ export class ComponentToPrint2 extends React.Component {
                             </td>
                         </tr>
                     </table>
+
+                    <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center">
+                                    <img
+                                        className="pattern-main-foot1"
+                                        src={require("assets/virtual_images/logo_new.png")}
+                                        alt=""
+                                        title="" />
+                                </td>
+                            </tr>
+                        </table>
                 </Grid>
             </div>
         )
@@ -118,16 +151,18 @@ export class ComponentToPrint2 extends React.Component {
 
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
-    const { House } = state.houseSelect
+    const { House } = state.houseSelect;
+    const { settings } = state.Settings;
     return {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         House,
+        settings
     };
 };
 
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, houseSelect })(
+    connect(mapStateToProps, { LoginReducerAim, houseSelect, Settings })(
         Index
     )
 )

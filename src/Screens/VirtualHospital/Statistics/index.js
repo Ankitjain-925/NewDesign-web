@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
-import TotalPatientView from "Screens/Components/VirtualHospitalComponents/TotalPatientView/index";
 import StatisticsPatientFlow from "Screens/Components/VirtualHospitalComponents/StatisticsPatientFlow/index";
-import StatisticsStaffAction from "Screens/Components/VirtualHospitalComponents/StatisticsStaffAction/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -110,8 +105,8 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/space"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation, Statistics, TotalPatients,
-            Doctors, Nurses, Oneh23min, AvgTimeToStayInHospital, threeM, sixM, oneY, All, ActivityCounter, AvgTimeOfStay, zeroh43min, zeroh18min, zeroh24min, twelvedays } = translate;
+        let {  Statistics, TotalPatients,
+            Doctors, Nurses,  } = translate;
         const { tabvalue } = this.state;
         return (
             <Grid className={
