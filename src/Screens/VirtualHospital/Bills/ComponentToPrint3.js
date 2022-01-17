@@ -37,9 +37,11 @@ export class ComponentToPrint3 extends React.Component {
                                 <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td align="left">
-                                            <strong className="WlcmAimds">Welcome to Aimedis</strong>
+                                            {/* <strong ></strong> */}
                                         </td>
-                                        <td align="right">
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
                                             <img
                                                 className="pattern-main-logo"
                                                 src={require("assets/virtual_images/fullLogo.png")}
@@ -47,69 +49,70 @@ export class ComponentToPrint3 extends React.Component {
                                                 title="" />
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td className="WlcmAimds">Welcome to aimedis</td>
+                                        <td className="invoiceidtxt">InvoiceID: &nbsp;{data?.invoice_id}</td>
+                                    </tr>
                                 </table>
 
-                                <table width="100%" className="TblPG2">
+                                <table width="100%" className="TblPG2 secsttabhead">
                                     <tr>
                                         <td>
                                             <p>From</p>
-                                            <strong>{this.props?.House?.label && this.props?.House.label}</strong>
                                             <p>{data?.email}</p>
                                             <p>{data?.address}</p>
                                             <p>{data?.phone}</p>
                                         </td>
                                         <td class="txtalign tabL6Col1">
                                             <p>For</p>
-                                            <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
-                                            <p>{data?.patient?.profile_id}</p>
-                                            {/* <p>{data?.patient?.patient_id}</p> */}
-                                            <p>{data?.phone}</p>
                                         </td>
                                     </tr>
-                                </table>
-
-                                <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
                                     <tr>
-                                        <th width="25%" align="left">Patient</th>
+                                        <td><strong>{this.props?.House?.label && this.props?.House.label}</strong>  </td>
+                                        <td> <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td> <p>{data?.patient?.profile_id}</p></td>
                                     </tr>
                                 </table>
                                 <table width="100%">
-
-                                    <table width="100%" >
-                                        <tr>
-                                            <th width="25%" align="left">{data?.patient?.first_name}</th>
-                                        </tr>
-                                    </table>
-
                                     <table width="100%">
-                                        <table width="100%" bgcolor="black" className="tabL7 MedicalSer1">
+                                        <table className="firsttabhead tabL3a" width="100%" bgcolor="black">
                                             <tr>
-                                                <th width="20%" align="left">Service</th>
-                                                <th width="40%">Quantity</th>
-                                                <th width="20%" align="right">Price Per Quantity</th>
-                                                <th width="20%" align="right">Total($)</th>
+                                                <th width="30%" align="left">Service</th>
+                                                <th width="30%">Price Per Quantity</th>
+                                                <th width="30%">Quantity</th>
+                                                <th width="10%" align="right">Amount</th>
                                             </tr>
                                         </table>
-                                        <table width="100%" className="secsttabhead tabL8 tabLLa">
-                                            {/* {{ #each Invoice }} */}
+                                        <table width="100%" className="secsttabhead tabLLa">
                                             {data?.services && data?.services?.length > 0 &&
                                                 data?.services.map((item) => (
                                                     <tr>
-                                                        <th width="20%">{item?.service}</th>
-                                                        <th width="40%" align="right">{item?.quantity}</th>
-                                                        <th width="20%" align="left">{item?.price_per_quantity}</th>
-                                                        <th width="20%" align="right">{item?.price}</th>
+                                                        <th width="42%" >{item?.service}</th>
+                                                        <th width="25%"> {item?.price_per_quantity}</th>
+                                                        <th width="25%"> {item?.quantity} </th>
+                                                        <th width="8%" className="tabAligPro">{item?.price}</th>
                                                     </tr>))}
-                                            {/* {{/ each}} */}
                                         </table>
-
-                                        <table className="tabL9 tabL4">
+                                        <table width="100%" className="tabL3">
+                                            <tr>
+                                                <td width="68%">
+                                                    <p>Total</p>
+                                                </td>
+                                                <td width="32%" className="tabDatPart">
+                                                    <p>{data?.total_amount}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table className="tabL4">
                                             <tr>
                                                 <td>
-                                                    <h1 className="termCond">Your Aimedis team</h1>
-                                                    <p className="termCond1">https://aimedis.io</p>
-                                                    <p>https://sys.aimedis.com</p>
-                                                    <p className="termCond1">If you have any questions do not hesitate to
+                                                    <h1 className="termCond termCond2">Your Aimedis team</h1><br />
+                                                    <p>https://aimedis.io</p><br />
+                                                    <p>https://sys.aimedis.com</p><br />
+                                                    <p>If you have any questions do not hesitate to
                                                         contact us via the support chat or via contact@aimedis.com</p>
                                                 </td>
                                             </tr>
@@ -119,6 +122,18 @@ export class ComponentToPrint3 extends React.Component {
                             </td>
                         </tr>
                     </table>
+
+                    <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center">
+                                    <img
+                                        className="pattern-main-foot1"
+                                        src={require("assets/virtual_images/logo_new.png")}
+                                        alt=""
+                                        title="" />
+                                </td>
+                            </tr>
+                        </table>
                 </Grid>
             </div>
         )

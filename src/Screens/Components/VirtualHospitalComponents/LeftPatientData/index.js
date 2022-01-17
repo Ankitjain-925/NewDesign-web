@@ -64,8 +64,7 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => {
-  };
+  componentDidMount = () => {}
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -116,7 +115,7 @@ class Index extends Component {
       nextState.altLast !== this.state.altLast ||
       nextState.LRLast !== this.state.LRLast ||
       nextState.images !== this.state.images ||
-      nextState.LeftInfoPatient !== this.state.LeftInfoPatient || 
+      nextState.LeftInfoPatient !== this.state.LeftInfoPatient ||
       nextProps.LeftInfoPatient !== this.props.LeftInfoPatient ||
       nextProps.currenttab !== this.props.currenttab ||
       nextState.currenttab !== this.state.currenttab
@@ -309,7 +308,7 @@ class Index extends Component {
     if (prevProps.currenttab !== this.props.currenttab) {
       this.setState({ currenttab: this.props.currenttab });
     }
-    
+
   };
 
   getOptions = (current_Graph) => {
@@ -2120,11 +2119,11 @@ class Index extends Component {
       }
     } else return "";
   };
- 
+
   onTrigger = (event) => {
     this.props.parentCallback(event);
     // event.preventDefault();
-}
+  }
 
 calculateAge = (date) => {
   if(date){
@@ -2197,7 +2196,7 @@ calculateAge = (date) => {
               <Grid className="entryInfo">
                 <ul>
                   <li onClick={() => { this.onTrigger(0) }} className={this.state.currenttab == 0 && "entryInfoActv"}><img src={this.state.currenttab == 0 ? require("assets/images/nav-journal-white.svg") : require("assets/images/nav-journal.svg")} alt="" title="" /><label>{NewEntry}</label></li>
-                  <li onClick={() => { this.onTrigger(1) }} className={this.state.currenttab == 1 && "entryInfoActv"}><img src={this.state.currenttab == 1 ? require('assets/virtual_images/rightIcon2.png') :  require('assets/virtual_images/rightpng.png')} alt="" title="" /><label>{NewTask}</label></li>
+                  <li onClick={() => { this.onTrigger(1) }} className={this.state.currenttab == 1 && "entryInfoActv"}><img src={this.state.currenttab == 1 ? require('assets/virtual_images/rightIcon2.png') : require('assets/virtual_images/rightpng.png')} alt="" title="" /><label>{NewTask}</label></li>
                   <li onClick={() => { this.onTrigger(3) }} className={this.state.currenttab == 3 && "entryInfoActv"}><img src={this.state.currenttab == 3 ? require('assets/virtual_images/active-pencil.svg') : require('assets/virtual_images/pencil-1.svg')} alt="" title="" /><label>{personal_info}</label></li>
                   <li onClick={() => { this.onTrigger(2) }} className={this.state.currenttab == 2 && "entryInfoActv"}><img src={this.state.currenttab == 2 ? require("assets/images/nav-my-documents-inquiries-active.svg") : require("assets/images/nav-my-documents-inquiries.svg")} alt="" title="" /><label>{DocumentsFiles}</label></li>
                 </ul>
@@ -2257,20 +2256,20 @@ calculateAge = (date) => {
                     <Grid>
                       <Grid className="NeuroBtn">
                         <Grid>
-                        {this.state.LeftInfoPatient?.data?.speciality &&
-                        <SpecialityButton
-                          label={this.state.LeftInfoPatient?.data?.speciality?.specialty_name}
-                          backgroundColor={this.state.LeftInfoPatient?.data?.speciality?.background_color}
-                          viewImage={false}
-                          color={this.state.LeftInfoPatient?.data?.speciality?.color}
-                          onClick={() => this.setSpeciality(this.state.LeftInfoPatient?.data?.speciality)}
-                          showActive={false}
-                        />}
+                          {this.state.LeftInfoPatient?.data?.speciality &&
+                            <SpecialityButton
+                              label={this.state.LeftInfoPatient?.data?.speciality?.specialty_name}
+                              backgroundColor={this.state.LeftInfoPatient?.data?.speciality?.background_color}
+                              viewImage={false}
+                              color={this.state.LeftInfoPatient?.data?.speciality?.color}
+                              onClick={() => this.setSpeciality(this.state.LeftInfoPatient?.data?.speciality)}
+                              showActive={false}
+                            />}
                         </Grid>
                         <Grid className="roomsNum">
                           <ul>
                             <li><img src={require('assets/virtual_images/ward.png')} alt="" title="" />{this.state.LeftInfoPatient?.data?.wards?.ward_name}</li>
-                            <li><img src={require('assets/virtual_images/room22.svg')} alt="" title="" />{this.state.LeftInfoPatient?.data?.rooms?.room_name}</li>                            
+                            <li><img src={require('assets/virtual_images/room22.svg')} alt="" title="" />{this.state.LeftInfoPatient?.data?.rooms?.room_name}</li>
                             <li><img src={require('assets/virtual_images/bedColor.png')} alt="" title="" />{Bed} {this.state.LeftInfoPatient?.data?.bed}</li>
                           </ul>
                         </Grid>
@@ -2301,25 +2300,25 @@ calculateAge = (date) => {
               </Grid>
             </Grid>
             <a href className="yearSecBg">
-              {this.state.LeftInfoPatient?.invoice && this.state.LeftInfoPatient?.invoice.map((item)=>(
+              {this.state.LeftInfoPatient?.invoice && this.state.LeftInfoPatient?.invoice.map((item) => (
                 <Grid container direction="row" alignItems="center">
-                <Grid item xs={12} md={12}>
-                  <Grid className="yearSec">
-                    <label>{item?.invoice_id}</label>
-                    <label>{getDate(item.created_at,  this.props.settings.setting &&
-                          this.props.settings.setting.date_format)}</label>
+                  <Grid item xs={12} md={12}>
+                    <Grid className="yearSec">
+                      <label>{item?.invoice_id}</label>
+                      <label>{getDate(item.created_at, this.props.settings.setting &&
+                        this.props.settings.setting.date_format)}</label>
+                    </Grid>
+                    <Grid className="issuePrice">
+                      <label className="isuLbl">{item?.status?.label}</label>
+                      <label>{item?.total_amount} €</label>
+                    </Grid>
                   </Grid>
-                  <Grid className="issuePrice">
-                    <label className="isuLbl">{item?.status?.label}</label>
-                    <label>{item?.total_amount} €</label>
+                  <Grid item xs={12} md={4}>
+                    {/* <Grid className="yearOpen"><a>{open}</a></Grid> */}
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={4}>
-                  {/* <Grid className="yearOpen"><a>{open}</a></Grid> */}
-                </Grid>
-              </Grid>
               ))}
-            
+
             </a>
           </Grid>
           <Grid className="profileDescp">
@@ -2378,9 +2377,9 @@ calculateAge = (date) => {
                   {this.state.loggedinUser &&
                     this.state.loggedinUser?.blood_group &&
                     this.state.loggedinUser?.rhesus
-                    ? typeof this.state.loggedinUser?.blood_group === 'object' ? 
-                    this.state.loggedinUser?.blood_group.value +' '+ this.state.loggedinUser?.rhesus.value
-                    : this.state.loggedinUser?.blood_group +' '+ this.state.loggedinUser?.rhesus.value
+                    ? typeof this.state.loggedinUser?.blood_group === 'object' ?
+                      this.state.loggedinUser?.blood_group.value + ' ' + this.state.loggedinUser?.rhesus.value
+                      : this.state.loggedinUser?.blood_group + ' ' + this.state.loggedinUser?.rhesus.value
                     : "--"}
                 </p>
               </Grid>
