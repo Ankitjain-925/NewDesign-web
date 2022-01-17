@@ -8667,7 +8667,7 @@ button.creatInvoic {
 button.dischrgInvoic {
     border-radius: 8px;
     background-color: #E1F7F7 !important;
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
@@ -8703,6 +8703,9 @@ button.dischrgCncl {
 .dischargeHead img {
     height: 24px;
     width: 24px;
+    padding: 3px;
+    border: 1px solid #656969;
+    border-radius: 5px;
 }
 .dischargeHead a {
     display: block;
@@ -9909,6 +9912,13 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.dark-confirm button.dischrgInvoic span, button.dischrgInvoic span{
+    color: #00ABAF !important; 
+}
+.dark-confirm .dischargeHead h5, .dark-confirm .dischargeInfo label {
+    color: #dbdcdc;
+}
+
 .homeBgDrk .langInerFooter.dropdown-menu.show {
     background: #404646 !important;
     color: #cfcfcf !important;
