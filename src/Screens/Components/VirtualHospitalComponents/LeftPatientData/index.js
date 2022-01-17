@@ -64,25 +64,7 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => {
-    this.calculateAge();
-  }
-
-  calculateAge = () => {
-    console.log("this.state.personalinfo?.info?.birthday", this.props.personalinfo?.info?.birthday)
-    var birthDate = new Date(this.state.personalinfo?.info?.birthday);
-    console.log("birthDate", birthDate)
-    var otherDate = new Date();
-
-    var years = (otherDate.getFullYear() - birthDate.getFullYear());
-
-    if (otherDate.getMonth() < birthDate.getMonth() ||
-      otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
-      years--;
-    }
-
-    console.log("years", years);
-  }
+  componentDidMount = () => {}
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
