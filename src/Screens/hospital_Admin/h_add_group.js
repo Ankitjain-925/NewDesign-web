@@ -401,24 +401,31 @@ class Index extends Component {
     let date = new Date();
     let housesArray = this.state.houses;
     let hospitalObject = this.state.hospitalData;
-    if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
-      this.setState({ errorHospMsg: "Hospital Name can't be empty" })
+    var a = housesArray && housesArray?.length > 0 && housesArray.map((data) => { return data?.house_name })
+    var reapHouse = a?.length > 0 && a.includes(hospitalObject?.house_name)
+    if (reapHouse == true) {
+      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
     }
-    else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
-      this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
-    } else {
-      if (this.state.editId) {
-        let objIndex = housesArray.findIndex((item => item.house_id == this.state.editId));
-        housesArray[objIndex].house_name = hospitalObject.house_name
-        housesArray[objIndex].house_description = hospitalObject.house_description
-        housesArray[objIndex].house_logo = hospitalObject.house_logo
-      } else {
-        hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
-        housesArray.push(this.state.hospitalData);
+    else {
+      if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
+        this.setState({ errorHospMsg: "Hospital Name can't be empty" })
       }
-      var state = this.state.institute_groups;
-      state["houses"] = housesArray;
-      this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+      else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
+        this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
+      } else {
+        if (this.state.editId) {
+          let objIndex = housesArray.findIndex((item => item.house_id == this.state.editId));
+          housesArray[objIndex].house_name = hospitalObject.house_name
+          housesArray[objIndex].house_description = hospitalObject.house_description
+          housesArray[objIndex].house_logo = hospitalObject.house_logo
+        } else {
+          hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
+          housesArray.push(this.state.hospitalData);
+        }
+        var state = this.state.institute_groups;
+        state["houses"] = housesArray;
+        this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+      }
     }
   }
 
@@ -816,7 +823,7 @@ class Index extends Component {
                                                         <li>
                                                           <a
                                                             onClick={() => {
-                                                              this.deleteHospital(data._id);
+                                                              this.deleteHospital(index);
                                                             }}
                                                           >
                                                             <img
@@ -852,7 +859,7 @@ class Index extends Component {
                       </Grid>
                     </Modal>
 
-                   <Modal
+                    <Modal
                       open={this.state.openHospitalModal}
                       onClose={this.closeHospitalModal}
                       className={
