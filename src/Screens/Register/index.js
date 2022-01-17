@@ -512,68 +512,87 @@ class Index extends Component {
                           </span>
                         </li>
                         <UncontrolledDropdown nav inNavbar>
-                          <DropdownToggle nav caret>
-                            {this.state.dropDownValue}
-                          </DropdownToggle>
-                          <DropdownMenu className="langInerFooter">
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("en", "English");
-                              }}
-                            >
-                              <NavLink>English</NavLink>
-                            </DropdownItem>
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("de", "German");
-                              }}
-                            >
-                              <NavLink>German</NavLink>
-                            </DropdownItem>
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("ch", "Chinese");
-                              }}
-                            >
-                              <NavLink>Chinese</NavLink>
-                            </DropdownItem>
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("pt", "Portuguese");
-                              }}
-                            >
-                              <NavLink>Portuguese</NavLink>
-                            </DropdownItem>
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("sp", "Spanish");
-                              }}
-                            >
-                              <NavLink>Spanish</NavLink>
-                            </DropdownItem>
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("rs", "Russian");
-                              }}
-                            >
-                              <NavLink>Russian</NavLink>
-                            </DropdownItem>
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("sw", "Swahili");
-                              }}
-                            >
-                              <NavLink>Swahili</NavLink>
-                            </DropdownItem>
-                            <DropdownItem
-                              onClick={() => {
-                                this.changeValue("nl", "Dutch");
-                              }}
-                            >
-                              <NavLink>Dutch</NavLink>
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                            <DropdownToggle nav caret>
+                              {this.state.dropDownValue}
+                            </DropdownToggle>
+                            {/* 
+                                                en => English
+                                                de => German  
+
+                                            */}
+                            <DropdownMenu className="langInerFooter">
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("en", "English");
+                                }}
+                              >
+                                <NavLink>English</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("de", "German");
+                                }}
+                              >
+                                <NavLink>German</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("ch", "Chinese");
+                                }}
+                              >
+                                <NavLink>Chinese</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("pt", "Portuguese");
+                                }}
+                              >
+                                <NavLink>Portuguese</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("sp", "Spanish");
+                                }}
+                              >
+                                <NavLink>Spanish</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("rs", "Russian");
+                                }}
+                              >
+                                <NavLink>Russian</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("sw", "Swahili");
+                                }}
+                              >
+                                <NavLink>Swahili</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("fr", "French");
+                                }}
+                              >
+                                <NavLink>French</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("ar", "Arabic");
+                                }}
+                              >
+                                <NavLink>Arabic</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("tr", "Turkish");
+                                }}
+                              >
+                                <NavLink>Turkish</NavLink>
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -953,51 +972,88 @@ class Index extends Component {
                                 : "acType ProfSelect"
                             }
                           >
-                            <UncontrolledDropdown nav inNavbar>
-                              <DropdownToggle nav caret>
-                                <a>
-                                  {this.state.selectedOption === "" ||
-                                    this.state.selectedOption === "patient"
-                                    ? Professional
-                                    : this.state.selectedOption
-                                      .charAt(0)
-                                      .toUpperCase() +
-                                    this.state.selectedOption.slice(1)}
-                                </a>
-                              </DropdownToggle>
-                              <DropdownMenu>
-                                <DropdownItem
-                                  onClick={() => {
-                                    this.setState({ selectedOption: "" });
-                                  }}
-                                >
-                                  <NavLink>{Professional}</NavLink>
-                                </DropdownItem>
-                                <DropdownItem
-                                  onClick={() => {
-                                    this.setState({ selectedOption: "doctor" });
-                                  }}
-                                >
-                                  <NavLink>{capab_Doctors}</NavLink>
-                                </DropdownItem>
-                                <DropdownItem
-                                  onClick={() => {
-                                    this.setState({ selectedOption: "nurse" });
-                                  }}
-                                >
-                                  <NavLink>{Nurse}</NavLink>
-                                </DropdownItem>
-                                <DropdownItem
-                                  onClick={() => {
-                                    this.setState({
-                                      selectedOption: "pharmacy",
-                                    });
-                                  }}
-                                >
-                                  <NavLink>{Pharmacist}</NavLink>
-                                </DropdownItem>
-                              </DropdownMenu>
-                            </UncontrolledDropdown>
+                             <UncontrolledDropdown nav inNavbar>
+                            <DropdownToggle nav caret>
+                              {this.state.dropDownValue}
+                            </DropdownToggle>
+                            {/* 
+                                                en => English
+                                                de => German  
+
+                                            */}
+                            <DropdownMenu className="langInerFooter">
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("en", "English");
+                                }}
+                              >
+                                <NavLink>English</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("de", "German");
+                                }}
+                              >
+                                <NavLink>German</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("ch", "Chinese");
+                                }}
+                              >
+                                <NavLink>Chinese</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("pt", "Portuguese");
+                                }}
+                              >
+                                <NavLink>Portuguese</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("sp", "Spanish");
+                                }}
+                              >
+                                <NavLink>Spanish</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("rs", "Russian");
+                                }}
+                              >
+                                <NavLink>Russian</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("sw", "Swahili");
+                                }}
+                              >
+                                <NavLink>Swahili</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("fr", "French");
+                                }}
+                              >
+                                <NavLink>French</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("ar", "Arabic");
+                                }}
+                              >
+                                <NavLink>Arabic</NavLink>
+                              </DropdownItem>
+                              <DropdownItem
+                                onClick={() => {
+                                  this.changeValue("tr", "Turkish");
+                                }}
+                              >
+                                <NavLink>Turkish</NavLink>
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
                           </Grid>
                         </Grid>
                       </Grid>

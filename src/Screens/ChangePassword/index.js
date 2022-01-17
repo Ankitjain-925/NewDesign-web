@@ -167,11 +167,16 @@ class Index extends Component {
                           </span>
                         </li>
                         <UncontrolledDropdown nav inNavbar>
-                          <DropdownToggle nav caret>
-                            {this.state.dropDownValue}
-                          </DropdownToggle>
-                          <DropdownMenu className="changeLangIner">
-                          <DropdownItem
+                            <DropdownToggle nav caret>
+                              {this.state.dropDownValue}
+                            </DropdownToggle>
+                            {/* 
+                                                en => English
+                                                de => German  
+
+                                            */}
+                            <DropdownMenu className="langInerFooter">
+                              <DropdownItem
                                 onClick={() => {
                                   this.changeValue("en", "English");
                                 }}
@@ -235,14 +240,14 @@ class Index extends Component {
                                 <NavLink>Arabic</NavLink>
                               </DropdownItem>
                               <DropdownItem
-                              onClick={() => {
-                                this.changeValue("tr", "Turkish");
-                              }}
-                            >
-                              <NavLink>Turkish</NavLink>
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                                onClick={() => {
+                                  this.changeValue("tr", "Turkish");
+                                }}
+                              >
+                                <NavLink>Turkish</NavLink>
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
                       </Grid>
                     </Grid>
                   </Grid>
