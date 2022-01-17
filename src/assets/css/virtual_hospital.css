@@ -6963,8 +6963,7 @@ a.updateRmv img {
     margin-right: 10px;
 }
 .cmntMsgs button span {
-    color: #fff !important;
-    padding: 5px;
+    color: #7F8383 !important;
 }
 .cmntMsgs button:hover{
     background-color: transparent;
@@ -9910,6 +9909,14 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.homeBgDrk .langInerFooter.dropdown-menu.show {
+    background: #404646 !important;
+    color: #cfcfcf !important;
+}
+.cmntMsgs .editBtn-comment span {
+    color: #fff !important;
+    padding: 5px;
+}
 .homeBg.darkTheme.homeBgDrk .profileInfoIner input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #dfdfdf!important;
   }

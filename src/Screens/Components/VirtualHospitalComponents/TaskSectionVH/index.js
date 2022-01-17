@@ -1310,7 +1310,7 @@ class Index extends Component {
 
                                           value={data?.comment}
                                         ></textarea>
-                                        <Button onClick={() => this.editComment(false)}>{Submit}</Button>
+                                        <Button className="editBtn-comment" onClick={() => this.editComment(false)}>{Submit}</Button>
 
                                       </>
                                         :
