@@ -5119,6 +5119,7 @@ a.recodBlck:hover {
     text-align: center;
     justify-content: center;
     cursor: pointer;
+    margin-top:12px;
 }
 .roomName .MuiGrid-container {
     margin-bottom: 5px;
@@ -6962,7 +6963,8 @@ a.updateRmv img {
     margin-right: 10px;
 }
 .cmntMsgs button span {
-    color: #00ABAF !important;
+    color: #fff !important;
+    padding: 5px;
 }
 .cmntMsgs button:hover{
     background-color: transparent;
@@ -7004,8 +7006,8 @@ a.updateRmv img {
     bottom: 12px;
 }
 .addComit {
-    margin-top: 32px;
-    margin-bottom: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     position: relative;
 }
 .cmntUpr {
@@ -10282,7 +10284,7 @@ p.more-change-staff-img2 {
 .darkTheme .rrSysto div .css-12jo7m5 {
     color: #c6dada;
 }
-.stepTdotupper img, a.academy_ul img{
+.stepTdotupper img{
     padding: 3px !important;
 }
 .darkTheme a.srchSort {

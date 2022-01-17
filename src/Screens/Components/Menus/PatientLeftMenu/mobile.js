@@ -140,6 +140,7 @@ class Index extends Component {
       DarkMode,
       logout,
       journal,
+      Patientjourney,
       trackers,
       self_data,
       emrgancy_patient_data,
@@ -217,7 +218,7 @@ class Index extends Component {
                     title=""
                   />
                 )}
-                <span>{"Patient Journey"}</span>
+                <span>{Patientjourney}</span>
               </a>
             </li>
                   <li

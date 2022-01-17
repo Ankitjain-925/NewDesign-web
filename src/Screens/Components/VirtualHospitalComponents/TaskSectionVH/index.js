@@ -1371,9 +1371,8 @@ class Index extends Component {
                     <Tab label="ALL" className="billtabIner" />
                     <Tab label="Done" className="billtabIner" />
                     <Tab label="Open" className="billtabIner" />
-                    {(this.props.comesFrom !== "detailTask" || this.props.comesFrom !== "Professional") && (
-                      <Tab label="Archived" className="billtabIner" />
-                    )}
+                    {(this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask') && (<Tab label="Archived" className="billtabIner" />)}
+                   
                   </Tabs>
                 </AppBar>
               </Grid>

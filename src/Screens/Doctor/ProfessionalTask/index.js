@@ -90,7 +90,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}`,
+          `/vh/ProfessionalTask/${this.props.stateLoginValueAim?.user?.profile_id}/${this.props?.House?.value}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -147,8 +147,8 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Website Menu */}
-                <LeftMenu isNotShow={true} currentPage="more" />
-                <LeftMenuMobile isNotShow={true} currentPage="more" />
+                <LeftMenu isNotShow={true} currentPage="task" />
+                <LeftMenuMobile isNotShow={true} currentPage="task" />
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
