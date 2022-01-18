@@ -32,6 +32,7 @@ export class ComponentToPrint2 extends React.Component {
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state;
+        console.log("data", data)
         return (
             <div className="relativeCSS">
                 <div className="flash" />
@@ -72,7 +73,7 @@ export class ComponentToPrint2 extends React.Component {
                                     </tr>
                                     <tr>
                                         <td><strong>{this.props?.House?.label && this.props?.House.label}</strong></td>
-                                        <td>  <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong> </td>
+                                        <td><strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong> </td>
                                         <td><p>Due Date: &nbsp; {getDate(
                                             data?.created_at,
                                             this.props.settings &&
@@ -82,9 +83,13 @@ export class ComponentToPrint2 extends React.Component {
                                     </tr>
                                     <tr>
                                         <td></td>
-
                                         <td><p>{data?.patient?.profile_id}</p></td>
-                                        <td> </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><p>{data?.patient?.patient_id}</p></td>
+                                        <td></td>
                                     </tr>
                                 </table>
                                 <table width="100%">
@@ -133,16 +138,16 @@ export class ComponentToPrint2 extends React.Component {
                     </table>
 
                     <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td align="center">
-                                    <img
-                                        className="pattern-main-foot1"
-                                        src={require("assets/virtual_images/logo_new.png")}
-                                        alt=""
-                                        title="" />
-                                </td>
-                            </tr>
-                        </table>
+                        <tr>
+                            <td align="center">
+                                <img
+                                    className="pattern-main-foot1"
+                                    src={require("assets/virtual_images/logo_new.png")}
+                                    alt=""
+                                    title="" />
+                            </td>
+                        </tr>
+                    </table>
                 </Grid>
             </div>
         )

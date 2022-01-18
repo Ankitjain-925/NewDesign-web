@@ -53,7 +53,7 @@ class Index extends Component {
   };
   //close the institute group
   closeInstitute = () => {
-    this.setState({ openGroup: false });
+    this.setState({ errorMsg: '', openGroup: false });
   };
 
   //open the hospital modal
@@ -62,16 +62,17 @@ class Index extends Component {
   };
   //close the hospital modal
   closeHospitalModal = () => {
-    this.setState({ openHospitalModal: false, editId: '' });
+    this.setState({ errorHospMsg: "", openHospitalModal: false, editId: '' });
   };
 
   EditInstitute = (instituteId) => {
+    this.setState({ errorMsg: "" })
     let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);
     this.setState({ openGroup: true, institute_groups: result, houses: result?.houses, image: [{ filename: result.group_logo, filetype: "png" }] });
   };
 
   editHospital = (editData) => {
-    this.setState({ openHospitalModal: true, hospitalData: editData, editId: editData.house_id });
+    this.setState({ errorHospMsg: "", openHospitalModal: true, hospitalData: editData, editId: editData.house_id });
   };
 
   //add hospitals
@@ -323,55 +324,60 @@ class Index extends Component {
 
   SaveGroup = () => {
     this.setState({ errorMsg: "" })
-
     var data = this.state.institute_groups;
-
-    if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
-      this.setState({ errorMsg: "Institution Name can't be empty" })
-    }
-    else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
-      this.setState({ errorMsg: "Institution Description Note can't be empty" })
-    }
-    else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
-      this.setState({ errorMsg: "Select atleast one hospital" })
+    var a = this.state.AllGroupList && this.state.AllGroupList?.length > 0 &&this.state.AllGroupList.map((item) => { return item?.group_name })
+    var reapGroup = a?.length > 0 && a.includes(data?.group_name)
+    if (reapGroup == true) {
+      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
     }
     else {
-      var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
-      this.setState({ loaderImage: true });
-      if (data._id) {
-        axios
-          .put(
-            sitedata.data.path +
-            `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            if (responce.data.hassuccessed) {
-              this.getallGroups();
-              this.setState({ institute_groups: {}, })
-            }
-            else {
-              this.setState({ errorMsg: "Somthing went wrong, Please try again" })
-            }
-            this.setState({ loaderImage: false, openGroup: false });
-          });
+      if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
+        this.setState({ errorMsg: "Institution Name can't be empty" })
+      }
+      else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
+        this.setState({ errorMsg: "Institution Description Note can't be empty" })
+      }
+      else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
+        this.setState({ errorMsg: "Select atleast one hospital" })
       }
       else {
-        axios
-          .put(
-            sitedata.data.path +
-            `/hospitaladmin/AddGroup/${institute_id}`,
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            if (responce.data.hassuccessed) {
-              this.getallGroups();
-              this.setState({ institute_groups: {}, })
-            }
-            this.setState({ loaderImage: false, openGroup: false });
-          });
+        var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+        this.setState({ loaderImage: true });
+        if (data._id) {
+          axios
+            .put(
+              sitedata.data.path +
+              `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
+              data,
+              commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                this.getallGroups();
+                this.setState({ institute_groups: {}, })
+              }
+              else {
+                this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+              }
+              this.setState({ loaderImage: false, openGroup: false });
+            });
+        }
+        else {
+          axios
+            .put(
+              sitedata.data.path +
+              `/hospitaladmin/AddGroup/${institute_id}`,
+              data,
+              commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                this.getallGroups();
+                this.setState({ institute_groups: {}, })
+              }
+              this.setState({ loaderImage: false, openGroup: false });
+            });
+        }
       }
     }
   };
@@ -401,8 +407,13 @@ class Index extends Component {
     let date = new Date();
     let housesArray = this.state.houses;
     let hospitalObject = this.state.hospitalData;
-    var a = housesArray && housesArray?.length > 0 && housesArray.map((data) => { return data?.house_name })
-    var reapHouse = a?.length > 0 && a.includes(hospitalObject?.house_name)
+    var b = [];
+    let list = this.state.AllGroupList && this.state.AllGroupList?.length > 0 && this.state.AllGroupList.map((item) => (
+      item && item?.houses && item?.houses?.length > 0 && item?.houses.map((data) => (
+        b.push(data?.house_name)
+      ))
+    ))
+    let reapHouse = b?.length > 0 && b.includes(hospitalObject?.house_name)
     if (reapHouse == true) {
       this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
     }

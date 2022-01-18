@@ -13315,3 +13315,13 @@ only screen and (max-width: 768px) {
     font-weight: 20px!important;
     font-size: 20px!important;
 }
+
+.house-design{
+border-style: solid;
+}
+
+.house-design td{
+    padding-left: 10px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
