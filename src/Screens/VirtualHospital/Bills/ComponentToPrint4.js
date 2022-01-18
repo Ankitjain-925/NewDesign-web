@@ -36,7 +36,7 @@ export class ComponentToPrint4 extends React.Component {
             <div className="relativeCSS">
                 <div className="flash" />
                 <Grid className="printPreview printprv1">
-                    <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
+                    <table width="100%" class="makecenter" cellspacing="0" cellpadding="0" >
                         <tr>
                             <td align="center">
                                 <img
@@ -47,7 +47,7 @@ export class ComponentToPrint4 extends React.Component {
                             </td>
                         </tr>
                     </table>
-                    <table width="100%" className="TblPG2" >
+                    <table width="100%" className="TblPG2 house-design">
                         <tr>
                             <td>
                                 {this.props.House && this.props.House?.label &&
@@ -61,8 +61,8 @@ export class ComponentToPrint4 extends React.Component {
                                 <td className="tabL10Col1 TblPG2">
                                     <p><b>Service Charges</b></p>
                                     <strong>
-                                        <p>InvoiceID: &nbsp;{data?.invoice_id}</p>
-                                        <p>Date: &nbsp; {getDate(
+                                        <p>Invoice: &nbsp;{data?.invoice_id}</p>
+                                        <p>Date: &nbsp;{getDate(
                                             data?.created_at,
                                             this.props.settings &&
                                             this.props.settings?.setting &&
@@ -73,7 +73,7 @@ export class ComponentToPrint4 extends React.Component {
                                 </td>
                                 <td className="txtalign tabL10Col2 TblPG2">
                                     <strong>
-                                        <p>Bill to: {data?.patient?.first_name} &nbsp;{data?.patient?.last_name}</p>
+                                        <p>Bill to: &nbsp;{data?.patient?.first_name}&nbsp;{data?.patient?.last_name}</p>
                                     </strong>
                                 </td>
                             </tr>
@@ -121,16 +121,16 @@ export class ComponentToPrint4 extends React.Component {
                         </table>
                     </table>
                     <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td align="center">
-                                    <img
-                                        className="pattern-main-foot2"
-                                        src={require("assets/virtual_images/logo_new.png")}
-                                        alt=""
-                                        title="" />
-                                </td>
-                            </tr>
-                        </table>
+                        <tr>
+                            <td align="center">
+                                <img
+                                    className="pattern-main-foot2"
+                                    src={require("assets/virtual_images/logo_new.png")}
+                                    alt=""
+                                    title="" />
+                            </td>
+                        </tr>
+                    </table>
                 </Grid>
             </div>
         )
