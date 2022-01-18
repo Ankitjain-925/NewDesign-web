@@ -93,13 +93,13 @@ class Index extends Component {
     //For change Institutes
     MoveInstitute = () => {
       this.props.houseSelect({ value: null });
-      this.props.history.push('/doctor/institutes')
+      this.props.history.push('/nurse/institutes')
     };
     
      //For change Institutes
      NormalView = () => {
       this.props.houseSelect({ value: null });
-      this.props.history.push('/doctor/patient')
+      this.props.history.push('/nurse/journal')
     };
 
   render() {
@@ -445,16 +445,18 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect;
   const { settings } = state.Settings;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    House,
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, houseSelect })(
     Index
   )
 );
