@@ -228,7 +228,6 @@ class Index extends Component {
                               </Grid>
 
                               <Grid className="enterServMain">
-                                <div className="err_message">{this.state.errorMsg}</div>
                                 <Grid className="enterSpcl">
                                   <Grid>
                                     <VHfield
@@ -282,6 +281,8 @@ class Index extends Component {
                                     />
                                   </Grid>
                                 </Grid>
+                                
+                                <div className="err_message">{this.state.errorMsg}</div>
                               </Grid>
                               <Grid className="servSaveBtn">
                                 <a>

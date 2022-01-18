@@ -978,7 +978,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    <div className="err_message">{this.state.errorMsg}</div>
+                    
                     <Grid className="creatDetail">
                       <Grid className="creatInfoIner">
                         <Grid
@@ -1343,9 +1343,10 @@ class Index extends Component {
                               <Button onClick={(e) => this.handleComment()}>{AddComment}</Button>
                             </Grid>
                           </Grid>}
-
+                         
                           <Grid item xs={12} md={12} className="saveTasks">
                             <a>
+                            <div className="err_message">{this.state.errorMsg}</div>
                               <Button onClick={() => this.handleTaskSubmit()}>
                                 {save_task_and_close}
                               </Button>

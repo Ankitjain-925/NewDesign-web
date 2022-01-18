@@ -170,8 +170,23 @@ class Index extends Component {
   };
 
   DeleteGroupOk = (id) => {
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
+    var allIDS1 =this.state.AllGroupList?.length>0 && this.state.AllGroupList.filter((item)=>item._id === id)
+    if(allIDS1 && allIDS1.length>0){
+        var allIDS = allIDS1?.[0]?.houses?.length>0 && allIDS1?.[0]?.houses.map((house)=>{
+          return  house.house_id;
+        })
+    }
+    axios
+    .post(
+      sitedata.data.path +
+      `/vh/deletehouse/`, {house_id: allIDS},
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      if (responce.data.hassuccessed) {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+   
     axios
       .delete(
         sitedata.data.path +
@@ -184,6 +199,8 @@ class Index extends Component {
         }
         this.setState({ loaderImage: false });
       });
+    }
+  })
   }
 
   deleteHospital = (index) => {
@@ -258,10 +275,22 @@ class Index extends Component {
   DeleteInstitute = (index, data) => {
     if (data && data?.houses && data?.houses?.length > 0) {
       var house = data?.houses
-      house.splice(index, 1);
-      var datas = this.state.institute_groups;
-      data['houses'] = house;
-      this.setState({ institute_groups: datas, openGroup: true });
+      axios
+      .post(
+        sitedata.data.path +
+        `/vh/deletehouse/`, {house_id: [house[index].house_id]},
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          // house.splice(index, 1);
+          // var datas = this.state.institute_groups;
+          // data['houses'] = house;
+          // this.setState({ institute_groups: datas, openGroup: true });
+          // this.getallGroups();
+        }
+      });
+       
     }
   }
 

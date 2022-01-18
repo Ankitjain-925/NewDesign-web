@@ -12,7 +12,6 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from 'Screens/actions';
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
-import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "../../Institutes/selecthouseaction";
 import { authorQuoteMap } from "./data";
 import Drags from "./drags.js";
