@@ -75,6 +75,10 @@ export class ComponentToPrint3 extends React.Component {
                                         <td></td>
                                         <td> <p>{data?.patient?.profile_id}</p></td>
                                     </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td> <p>{data?.patient?.patient_id}</p></td>
+                                    </tr>
                                 </table>
                                 <table width="100%">
                                     <table width="100%">
@@ -124,16 +128,16 @@ export class ComponentToPrint3 extends React.Component {
                     </table>
 
                     <table width="100%" class="makecenter" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td align="center">
-                                    <img
-                                        className="pattern-main-foot1"
-                                        src={require("assets/virtual_images/logo_new.png")}
-                                        alt=""
-                                        title="" />
-                                </td>
-                            </tr>
-                        </table>
+                        <tr>
+                            <td align="center">
+                                <img
+                                    className="pattern-main-foot1"
+                                    src={require("assets/virtual_images/logo_new.png")}
+                                    alt=""
+                                    title="" />
+                            </td>
+                        </tr>
+                    </table>
                 </Grid>
             </div>
         )
