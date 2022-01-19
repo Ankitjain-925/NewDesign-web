@@ -13134,6 +13134,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .todaySrchLft label {
+    color: #404646 !important;
+}
 .medcalFZCntnt {
     margin: 0px 10px;
 }
@@ -15319,7 +15322,7 @@ input#graduationYear {
     min-height: 100vh;
 }
 .menuItems {
-    padding-bottom: 95px;
+    padding-bottom: 118px;
 }
 .unified .ccl-center-panel .CreatChatInner img {
     margin: initial !important;
@@ -17420,3 +17423,7 @@ ul.duringCovid li:last-child {
     flex-direction: row;
     overflow-x: scroll;
 } */
+
+.profileInfoDate .ant-picker-clear {
+    right: 5px !important;
+}
