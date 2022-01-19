@@ -20,7 +20,7 @@ import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import {
   getSpecialty, getAllServices, handleSubmit, getSpecialtyData, selectedID, deleteClickService, onChangePage,
-  handleOpenServ, handleCloseServ, updateEntryState1, EditService, onFieldChange
+  handleOpenServ, handleCloseServ, updateEntryState1, EditService, onFieldChange, searchFilter
 } from "./api";
 import { getLanguage } from "translations/index"
 
@@ -38,7 +38,8 @@ class Index extends Component {
       AllServices: [],
       updateTrack: {},
       AllSpeciality: [],
-      errorMsg: ''
+      errorMsg: '',
+      SearchValue: ''
 
     };
   }
@@ -316,12 +317,20 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
+                          {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
                             <a>
-                              <img
+                            {!this.state.showinput ? <img
                                 src={require("assets/virtual_images/search-entries.svg")}
                                 alt=""
                                 title=""
-                              />
+                                onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                            /> :
+                                <img
+                                src={require("assets/images/close-search.svg")}
+                                alt=""
+                                title=""
+                                onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: ''}); getAllServices(this) }}
+                                />}
                             </a>
                           </Grid>
                         </Grid>

@@ -90,73 +90,73 @@ class Index extends Component {
 
     var Creatinine1 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "Creatinine"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "Creatinine"
       );
     var Potassium =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "Potassium"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "Potassium"
       );
     var Hemoglobine =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "Hemoglobine"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "Hemoglobine"
       );
     var Leucocytes =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "Leucocytes"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "Leucocytes"
       );
     var Pancreaticlipase =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "Pancreaticlipase"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "Pancreaticlipase"
       );
     var Thrombocytes =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "Thrombocytes"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "Thrombocytes"
       );
     var Sodium =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "Sodium"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "Sodium"
       );
     var GGT =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "GGT"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "GGT"
       );
     var AST =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "AST/GOT"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "AST/GOT"
       );
     var ALT =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.filter(
-        (value, key) => value.lab_parameter.value === "ALT/GPT"
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.filter(
+        (value, key) => value?.lab_parameter?.value === "ALT/GPT"
       );
     this.setState({
       Creatinine: Creatinine1,
@@ -175,11 +175,11 @@ class Index extends Component {
     HeartLast = 0;
   var blood_pressure5 =
     this.state.personalinfo &&
-    this.state.personalinfo.blood_pressure &&
-    this.state.personalinfo.blood_pressure.length > 0 &&
-    this.state.personalinfo.blood_pressure.sort(SortByGraphView);
+    this.state.personalinfo?.blood_pressure &&
+    this.state.personalinfo?.blood_pressure?.length > 0 &&
+    this.state.personalinfo?.blood_pressure.sort(SortByGraphView);
   blood_pressure5 &&
-    blood_pressure5.length > 0 &&
+    blood_pressure5?.length > 0 &&
     blood_pressure5.map((data, index) => {
       if(data.rr_diastolic || data.rr_systolic)
       {
@@ -195,19 +195,19 @@ class Index extends Component {
 
   var laboratory_result5 =
   this.state.personalinfo &&
-  this.state.personalinfo.laboratory_result &&
-  this.state.personalinfo.laboratory_result.length > 0 &&
-  this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+  this.state.personalinfo?.laboratory_result &&
+  this.state.personalinfo?.laboratory_result?.length > 0 &&
+  this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
 var myFilterData1 =
   laboratory_result5 &&
-  laboratory_result5.length > 0 &&
+  laboratory_result5?.length > 0 &&
   laboratory_result5.filter(
     (value, key) =>
-      value.lab_parameter && value.lab_parameter.value === "Creatinine"
+      value.lab_parameter && value?.lab_parameter?.value === "Creatinine"
   );
 var LRLast =0;
   myFilterData1 &&
-    myFilterData1.length > 0 &&
+    myFilterData1?.length > 0 &&
     myFilterData1.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -220,20 +220,20 @@ var LRLast =0;
 
   var laboratory_result6 =
     this.state.personalinfo &&
-    this.state.personalinfo.laboratory_result &&
-    this.state.personalinfo.laboratory_result.length > 0 &&
-    this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    this.state.personalinfo?.laboratory_result &&
+    this.state.personalinfo?.laboratory_result?.length > 0 &&
+    this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
   var myFilterData2 =
     laboratory_result6 &&
-    laboratory_result6.length > 0 &&
+    laboratory_result6?.length > 0 &&
     laboratory_result6.filter(
       (value, key) =>
-        value.lab_parameter && value.lab_parameter.value === "Potassium"
+        value.lab_parameter && value?.lab_parameter?.value === "Potassium"
     );
   var potassiumLast = 0;
   
     myFilterData2 &&
-      myFilterData2.length > 0 &&
+      myFilterData2?.length > 0 &&
       myFilterData2.map((data, index) => {
         if(data.upper_limit || data.lower_limit || data.value)
         {
@@ -248,19 +248,19 @@ var LRLast =0;
 
   var laboratory_result7 =
     this.state.personalinfo &&
-    this.state.personalinfo.laboratory_result &&
-    this.state.personalinfo.laboratory_result.length > 0 &&
-    this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    this.state.personalinfo?.laboratory_result &&
+    this.state.personalinfo?.laboratory_result?.length > 0 &&
+    this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
   var myFilterData3 =
     laboratory_result7 &&
-    laboratory_result7.length > 0 &&
+    laboratory_result7?.length > 0 &&
     laboratory_result7.filter(
       (value, key) =>
-        value.lab_parameter && value.lab_parameter.value === "Hemoglobine"
+        value.lab_parameter && value?.lab_parameter?.value === "Hemoglobine"
     );
   var hemoglobineLast = 0; 
   myFilterData3 &&
-  myFilterData3.length > 0 &&
+  myFilterData3?.length > 0 &&
   myFilterData3.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -272,19 +272,19 @@ var LRLast =0;
 
   var laboratory_result8 =
     this.state.personalinfo &&
-    this.state.personalinfo.laboratory_result &&
-    this.state.personalinfo.laboratory_result.length > 0 &&
-    this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    this.state.personalinfo?.laboratory_result &&
+    this.state.personalinfo?.laboratory_result?.length > 0 &&
+    this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
   var myFilterData4 =
     laboratory_result8 &&
-    laboratory_result8.length > 0 &&
+    laboratory_result8?.length > 0 &&
     laboratory_result8.filter(
       (value, key) =>
-        value.lab_parameter && value.lab_parameter.value === "Leucocytes"
+        value.lab_parameter && value?.lab_parameter?.value === "Leucocytes"
     );
   var leucocytesLast=0;
     myFilterData4 &&
-      myFilterData4.length > 0 &&
+      myFilterData4?.length > 0 &&
       myFilterData4.map((data, index) => {
         if(data.upper_limit || data.lower_limit || data.value)
         {
@@ -296,21 +296,21 @@ var LRLast =0;
 
   var laboratory_result9 =
   this.state.personalinfo &&
-  this.state.personalinfo.laboratory_result &&
-  this.state.personalinfo.laboratory_result.length > 0 &&
-  this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+  this.state.personalinfo?.laboratory_result &&
+  this.state.personalinfo?.laboratory_result?.length > 0 &&
+  this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
 var myFilterData5 =
   laboratory_result9 &&
-  laboratory_result9.length > 0 &&
+  laboratory_result9?.length > 0 &&
   laboratory_result9.filter(
     (value, key) =>
       value.lab_parameter &&
-      value.lab_parameter.value === "Pancreaticlipase"
+      value?.lab_parameter?.value === "Pancreaticlipase"
   );
 var  pancreaticlipaseLast=0;
 
 myFilterData5 &&
-myFilterData5.length > 0 &&
+myFilterData5?.length > 0 &&
 myFilterData5.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -322,20 +322,20 @@ myFilterData5.map((data, index) => {
 
   var laboratory_result10 =
   this.state.personalinfo &&
-  this.state.personalinfo.laboratory_result &&
-  this.state.personalinfo.laboratory_result.length > 0 &&
-  this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+  this.state.personalinfo?.laboratory_result &&
+  this.state.personalinfo?.laboratory_result?.length > 0 &&
+  this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
 var myFilterData6 =
 laboratory_result10 &&
-laboratory_result10.length > 0 &&
+laboratory_result10?.length > 0 &&
 laboratory_result10.filter(
     (value, key) =>
-      value.lab_parameter && value.lab_parameter.value === "Thrombocytes"
+      value.lab_parameter && value?.lab_parameter?.value === "Thrombocytes"
   );
  var thrombocytesLast=0;
 
   myFilterData6 &&
-    myFilterData6.length > 0 &&
+    myFilterData6?.length > 0 &&
     myFilterData6.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -346,20 +346,20 @@ laboratory_result10.filter(
 
   var laboratory_result11 =
   this.state.personalinfo &&
-  this.state.personalinfo.laboratory_result &&
-  this.state.personalinfo.laboratory_result.length > 0 &&
-  this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+  this.state.personalinfo?.laboratory_result &&
+  this.state.personalinfo?.laboratory_result?.length > 0 &&
+  this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
 var myFilterData7 =
 laboratory_result11 &&
-laboratory_result11.length > 0 &&
+laboratory_result11?.length > 0 &&
 laboratory_result11.filter(
     (value, key) =>
-      value.lab_parameter && value.lab_parameter.value === "Sodium"
+      value.lab_parameter && value?.lab_parameter?.value === "Sodium"
   );
 var sodiumLast=0;
 
 myFilterData7 &&
-myFilterData7.length > 0 &&
+myFilterData7?.length > 0 &&
 myFilterData7.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -370,20 +370,20 @@ myFilterData7.map((data, index) => {
 
   var laboratory_result12 =
   this.state.personalinfo &&
-  this.state.personalinfo.laboratory_result &&
-  this.state.personalinfo.laboratory_result.length > 0 &&
-  this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+  this.state.personalinfo?.laboratory_result &&
+  this.state.personalinfo?.laboratory_result?.length > 0 &&
+  this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
 var myFilterData8 =
   laboratory_result12 &&
-  laboratory_result12.length > 0 &&
+  laboratory_result12?.length > 0 &&
   laboratory_result12.filter(
     (value, key) =>
-      value.lab_parameter && value.lab_parameter.value === "GGT"
+      value.lab_parameter && value?.lab_parameter?.value === "GGT"
   );
 var ggtLast=0;
 
   myFilterData8 &&
-    myFilterData8.length > 0 &&
+    myFilterData8?.length > 0 &&
     myFilterData8.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -395,20 +395,20 @@ var ggtLast=0;
 
   var laboratory_result13 =
   this.state.personalinfo &&
-  this.state.personalinfo.laboratory_result &&
-  this.state.personalinfo.laboratory_result.length > 0 &&
-  this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+  this.state.personalinfo?.laboratory_result &&
+  this.state.personalinfo?.laboratory_result?.length > 0 &&
+  this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
 var myFilterData9 =
 laboratory_result13 &&
-laboratory_result13.length > 0 &&
+laboratory_result13?.length > 0 &&
 laboratory_result13.filter(
     (value, key) =>
-      value.lab_parameter && value.lab_parameter.value === "AST/GOT"
+      value.lab_parameter && value?.lab_parameter?.value === "AST/GOT"
   );
 var astLast= 0;
 
   myFilterData9 &&
-  myFilterData9.length > 0 &&
+  myFilterData9?.length > 0 &&
   myFilterData9.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -420,20 +420,20 @@ var astLast= 0;
 
   var laboratory_result14 =
   this.state.personalinfo &&
-  this.state.personalinfo.laboratory_result &&
-  this.state.personalinfo.laboratory_result.length > 0 &&
-  this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+  this.state.personalinfo?.laboratory_result &&
+  this.state.personalinfo?.laboratory_result?.length > 0 &&
+  this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
 var myFilterData10 =
 laboratory_result14 &&
-laboratory_result14.length > 0 &&
+laboratory_result14?.length > 0 &&
 laboratory_result14.filter(
     (value, key) =>
-      value.lab_parameter && value.lab_parameter.value === "ALT/GPT"
+      value.lab_parameter && value?.lab_parameter?.value === "ALT/GPT"
   );
 var altLast = 0;
 
 myFilterData10 &&
-myFilterData10.length > 0 &&
+myFilterData10?.length > 0 &&
 myFilterData10.map((data, index) => {
       if(data.upper_limit || data.lower_limit || data.value)
       {
@@ -445,13 +445,13 @@ myFilterData10.map((data, index) => {
   var wiegthLast = 0;
 var weight_bmi5 =
   this.state.personalinfo &&
-  this.state.personalinfo.weight_bmi &&
-  this.state.personalinfo.weight_bmi.length > 0 &&
-  this.state.personalinfo.weight_bmi.sort(SortByGraphView);
+  this.state.personalinfo?.weight_bmi &&
+  this.state.personalinfo?.weight_bmi?.length > 0 &&
+  this.state.personalinfo?.weight_bmi.sort(SortByGraphView);
 
   weight_bmi5 &&
     weight_bmi5 &&
-    weight_bmi5.length > 0 &&
+    weight_bmi5?.length > 0 &&
     weight_bmi5.map((data, index) => {
       if(data.weight || data.height )
       {
@@ -464,12 +464,12 @@ var weight_bmi5 =
     BSLast = 0;
   var blood_sugar5 =
     this.state.personalinfo &&
-    this.state.personalinfo.blood_sugar &&
-    this.state.personalinfo.blood_sugar.length > 0 &&
-    this.state.personalinfo.blood_sugar.sort(SortByGraphView);
+    this.state.personalinfo?.blood_sugar &&
+    this.state.personalinfo?.blood_sugar?.length > 0 &&
+    this.state.personalinfo?.blood_sugar.sort(SortByGraphView);
   
     blood_sugar5 &&
-      blood_sugar5.length > 0 &&
+      blood_sugar5?.length > 0 &&
       blood_sugar5.map((data, index) => {
         if(data.Hba1c){
           this.setState({hbLast: hbLast})
@@ -485,11 +485,11 @@ var weight_bmi5 =
   var resprisationLast = 0;
   var respiration_result =
     this.state.personalinfo &&
-    this.state.personalinfo.respiration &&
-    this.state.personalinfo.respiration.length > 0 &&
-    this.state.personalinfo.respiration.sort(SortByGraphView);
+    this.state.personalinfo?.respiration &&
+    this.state.personalinfo?.respiration?.length > 0 &&
+    this.state.personalinfo?.respiration.sort(SortByGraphView);
     respiration_result &&
-      respiration_result.length > 0 &&
+      respiration_result?.length > 0 &&
       respiration_result.map((data, index) => {
         if(data.respiration){
           this.setState({resprisationLast : resprisationLast})
@@ -508,11 +508,11 @@ var weight_bmi5 =
         oldone;
       var blood_pressure5 =
         this.state.personalinfo &&
-        this.state.personalinfo.blood_pressure &&
-        this.state.personalinfo.blood_pressure.length > 0 &&
-        this.state.personalinfo.blood_pressure.sort(SortByGraphView);
+        this.state.personalinfo?.blood_pressure &&
+        this.state.personalinfo?.blood_pressure?.length > 0 &&
+        this.state.personalinfo?.blood_pressure.sort(SortByGraphView);
       blood_pressure5 &&
-        blood_pressure5.length > 0 &&
+        blood_pressure5?.length > 0 &&
         blood_pressure5.map((data, index) => {
           if(data.rr_diastolic || data.rr_systolic)
           {
@@ -661,15 +661,15 @@ var weight_bmi5 =
     if (current_Graph === "laboratory_result") {
       var laboratory_result5 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
     var myFilterData1 =
       laboratory_result5 &&
-      laboratory_result5.length > 0 &&
+      laboratory_result5?.length > 0 &&
       laboratory_result5.filter(
         (value, key) =>
-          value.lab_parameter && value.lab_parameter.value === "Creatinine"
+          value.lab_parameter && value?.lab_parameter?.value === "Creatinine"
       );
     var categorieslr = [],
       datalr1_u = [],
@@ -680,7 +680,7 @@ var weight_bmi5 =
       myFilterlr1 = [];
     {
       myFilterData1 &&
-        myFilterData1.length > 0 &&
+        myFilterData1?.length > 0 &&
         myFilterData1.map((data, index) => {
           if(data.upper_limit || data.lower_limit || data.value)
           {
@@ -785,15 +785,15 @@ var weight_bmi5 =
     if (current_Graph === "potassium") {
       var laboratory_result5 =
         this.state.personalinfo &&
-        this.state.personalinfo.laboratory_result &&
-        this.state.personalinfo.laboratory_result.length > 0 &&
-        this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+        this.state.personalinfo?.laboratory_result &&
+        this.state.personalinfo?.laboratory_result?.length > 0 &&
+        this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
       var myFilterData1 =
         laboratory_result5 &&
-        laboratory_result5.length > 0 &&
+        laboratory_result5?.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Potassium"
+            value.lab_parameter && value?.lab_parameter?.value === "Potassium"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -804,7 +804,7 @@ var weight_bmi5 =
         potassiumLast = 0;
       {
         myFilterData1 &&
-          myFilterData1.length > 0 &&
+          myFilterData1?.length > 0 &&
           myFilterData1.map((data, index) => {
             if(data.upper_limit || data.lower_limit || data.value)
             {
@@ -911,15 +911,15 @@ var weight_bmi5 =
     if (current_Graph === "hemoglobine") {
       var laboratory_result5 =
         this.state.personalinfo &&
-        this.state.personalinfo.laboratory_result &&
-        this.state.personalinfo.laboratory_result.length > 0 &&
-        this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+        this.state.personalinfo?.laboratory_result &&
+        this.state.personalinfo?.laboratory_result?.length > 0 &&
+        this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
       var myFilterData1 =
         laboratory_result5 &&
-        laboratory_result5.length > 0 &&
+        laboratory_result5?.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Hemoglobine"
+            value.lab_parameter && value?.lab_parameter?.value === "Hemoglobine"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -930,7 +930,7 @@ var weight_bmi5 =
         hemoglobineLast = 0;
       {
         myFilterData1 &&
-          myFilterData1.length > 0 &&
+          myFilterData1?.length > 0 &&
           myFilterData1.map((data, index) => {
             if(data.upper_limit || data.lower_limit || data.value)
             {
@@ -1036,15 +1036,15 @@ var weight_bmi5 =
     if (current_Graph === "leucocytes") {
       var laboratory_result5 =
         this.state.personalinfo &&
-        this.state.personalinfo.laboratory_result &&
-        this.state.personalinfo.laboratory_result.length > 0 &&
-        this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+        this.state.personalinfo?.laboratory_result &&
+        this.state.personalinfo?.laboratory_result?.length > 0 &&
+        this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
       var myFilterData1 =
         laboratory_result5 &&
-        laboratory_result5.length > 0 &&
+        laboratory_result5?.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Leucocytes"
+            value.lab_parameter && value?.lab_parameter?.value === "Leucocytes"
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1055,7 +1055,7 @@ var weight_bmi5 =
         myFilterlr1 = [];
       {
         myFilterData1 &&
-          myFilterData1.length > 0 &&
+          myFilterData1?.length > 0 &&
           myFilterData1.map((data, index) => {
             if(data.upper_limit || data.lower_limit || data.value)
             {
@@ -1161,16 +1161,16 @@ var weight_bmi5 =
     if (current_Graph === "pancreaticlipase") {
       var laboratory_result5 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
     var myFilterData1 =
       laboratory_result5 &&
-      laboratory_result5.length > 0 &&
+      laboratory_result5?.length > 0 &&
       laboratory_result5.filter(
         (value, key) =>
           value.lab_parameter &&
-          value.lab_parameter.value === "Pancreaticlipase"
+          value?.lab_parameter?.value === "Pancreaticlipase"
       );
     var categorieslr = [],
       datalr1_u = [],
@@ -1181,7 +1181,7 @@ var weight_bmi5 =
       myFilterlr1 = [];
     {
       myFilterData1 &&
-        myFilterData1.length > 0 &&
+        myFilterData1?.length > 0 &&
         myFilterData1.map((data, index) => {
           if(data.upper_limit || data.lower_limit || data.value)
           {
@@ -1287,15 +1287,15 @@ var weight_bmi5 =
     if (current_Graph === "thrombocytes") {
       var laboratory_result5 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
     var myFilterData1 =
       laboratory_result5 &&
-      laboratory_result5.length > 0 &&
+      laboratory_result5?.length > 0 &&
       laboratory_result5.filter(
         (value, key) =>
-          value.lab_parameter && value.lab_parameter.value === "Thrombocytes"
+          value.lab_parameter && value?.lab_parameter?.value === "Thrombocytes"
       );
     var categorieslr = [],
       datalr1_u = [],
@@ -1306,7 +1306,7 @@ var weight_bmi5 =
       myFilterlr1 = [];
     {
       myFilterData1 &&
-        myFilterData1.length > 0 &&
+        myFilterData1?.length > 0 &&
         myFilterData1.map((data, index) => {
           if(data.upper_limit || data.lower_limit || data.value)
           {
@@ -1412,15 +1412,15 @@ var weight_bmi5 =
     if (current_Graph === "sodium") {
       var laboratory_result5 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
     var myFilterData1 =
       laboratory_result5 &&
-      laboratory_result5.length > 0 &&
+      laboratory_result5?.length > 0 &&
       laboratory_result5.filter(
         (value, key) =>
-          value.lab_parameter && value.lab_parameter.value === "Sodium"
+          value.lab_parameter && value?.lab_parameter?.value === "Sodium"
       );
     var categorieslr = [],
       datalr1_u = [],
@@ -1431,7 +1431,7 @@ var weight_bmi5 =
       myFilterlr1 = [];
     {
       myFilterData1 &&
-        myFilterData1.length > 0 &&
+        myFilterData1?.length > 0 &&
         myFilterData1.map((data, index) => {
           if(data.upper_limit || data.lower_limit || data.value)
           {
@@ -1537,15 +1537,15 @@ var weight_bmi5 =
     if (current_Graph === "ggt") {
       var laboratory_result5 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
     var myFilterData1 =
       laboratory_result5 &&
-      laboratory_result5.length > 0 &&
+      laboratory_result5?.length > 0 &&
       laboratory_result5.filter(
         (value, key) =>
-          value.lab_parameter && value.lab_parameter.value === "GGT"
+          value.lab_parameter && value?.lab_parameter?.value === "GGT"
       );
     var categorieslr = [],
       datalr1_u = [],
@@ -1556,7 +1556,7 @@ var weight_bmi5 =
       myFilterlr1 = [];
     {
       myFilterData1 &&
-        myFilterData1.length > 0 &&
+        myFilterData1?.length > 0 &&
         myFilterData1.map((data, index) => {
           if(data.upper_limit || data.lower_limit || data.value)
           {
@@ -1662,15 +1662,15 @@ var weight_bmi5 =
     if (current_Graph === "ast/got") {
       var laboratory_result5 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
     var myFilterData1 =
       laboratory_result5 &&
-      laboratory_result5.length > 0 &&
+      laboratory_result5?.length > 0 &&
       laboratory_result5.filter(
         (value, key) =>
-          value.lab_parameter && value.lab_parameter.value === "AST/GOT"
+          value.lab_parameter && value?.lab_parameter?.value === "AST/GOT"
       );
     var categorieslr = [],
       datalr1_u = [],
@@ -1681,7 +1681,7 @@ var weight_bmi5 =
       myFilterlr1 = [];
     {
       myFilterData1 &&
-        myFilterData1.length > 0 &&
+        myFilterData1?.length > 0 &&
         myFilterData1.map((data, index) => {
           if(data.upper_limit || data.lower_limit || data.value)
           {
@@ -1787,15 +1787,15 @@ var weight_bmi5 =
     if (current_Graph === "alt/gpt") {
       var laboratory_result5 =
       this.state.personalinfo &&
-      this.state.personalinfo.laboratory_result &&
-      this.state.personalinfo.laboratory_result.length > 0 &&
-      this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+      this.state.personalinfo?.laboratory_result &&
+      this.state.personalinfo?.laboratory_result?.length > 0 &&
+      this.state.personalinfo?.laboratory_result.sort(SortByGraphView);
     var myFilterData1 =
       laboratory_result5 &&
-      laboratory_result5.length > 0 &&
+      laboratory_result5?.length > 0 &&
       laboratory_result5.filter(
         (value, key) =>
-          value.lab_parameter && value.lab_parameter.value === "ALT/GPT"
+          value.lab_parameter && value?.lab_parameter?.value === "ALT/GPT"
       );
     var categorieslr = [],
       datalr1_u = [],
@@ -1806,7 +1806,7 @@ var weight_bmi5 =
       myFilterlr1 = [];
     {
       myFilterData1 &&
-        myFilterData1.length > 0 &&
+        myFilterData1?.length > 0 &&
         myFilterData1.map((data, index) => {
           if(data.upper_limit || data.lower_limit || data.value)
           {
@@ -1918,14 +1918,14 @@ var weight_bmi5 =
       wiegthLast = 0;
     var weight_bmi5 =
       this.state.personalinfo &&
-      this.state.personalinfo.weight_bmi &&
-      this.state.personalinfo.weight_bmi.length > 0 &&
-      this.state.personalinfo.weight_bmi.sort(SortByGraphView);
+      this.state.personalinfo?.weight_bmi &&
+      this.state.personalinfo?.weight_bmi?.length > 0 &&
+      this.state.personalinfo?.weight_bmi.sort(SortByGraphView);
 
     {
       weight_bmi5 &&
         weight_bmi5 &&
-        weight_bmi5.length > 0 &&
+        weight_bmi5?.length > 0 &&
         weight_bmi5.map((data, index) => {
           if(data.weight || data.height )
           {
@@ -2043,12 +2043,12 @@ var weight_bmi5 =
         BSLast = 0;
       var blood_sugar5 =
         this.state.personalinfo &&
-        this.state.personalinfo.blood_sugar &&
-        this.state.personalinfo.blood_sugar.length > 0 &&
-        this.state.personalinfo.blood_sugar.sort(SortByGraphView);
+        this.state.personalinfo?.blood_sugar &&
+        this.state.personalinfo?.blood_sugar?.length > 0 &&
+        this.state.personalinfo?.blood_sugar.sort(SortByGraphView);
       {
         blood_sugar5 &&
-          blood_sugar5.length > 0 &&
+          blood_sugar5?.length > 0 &&
           blood_sugar5.map((data, index) => {
             if(data.Hba1c){
               hbac.push({
@@ -2187,12 +2187,12 @@ var weight_bmi5 =
         resprisationLast = 0;
       var respiration_result =
         this.state.personalinfo &&
-        this.state.personalinfo.respiration &&
-        this.state.personalinfo.respiration.length > 0 &&
-        this.state.personalinfo.respiration.sort(SortByGraphView);
+        this.state.personalinfo?.respiration &&
+        this.state.personalinfo?.respiration?.length > 0 &&
+        this.state.personalinfo?.respiration.sort(SortByGraphView);
       {
         respiration_result &&
-          respiration_result.length > 0 &&
+          respiration_result?.length > 0 &&
           respiration_result.map((data, index) => {
             if(data.respiration){
               r_value.push({
@@ -2290,8 +2290,8 @@ var weight_bmi5 =
 
               <Grid className="presurInner">
                 {this.state.personalinfo &&
-                  this.state.personalinfo.blood_pressure &&
-                  this.state.personalinfo.blood_pressure.length > 0 && this.state.BPLast !==-1 && (
+                  this.state.personalinfo?.blood_pressure &&
+                  this.state.personalinfo?.blood_pressure?.length > 0 && this.state.BPLast !==-1 && (
                     <a
                       className={
                         this.state.current_Graph === "blood_pressure" &&
@@ -2303,16 +2303,16 @@ var weight_bmi5 =
                       <Grid>
                         <span>
                           {this.state.personalinfo &&
-                            this.state.personalinfo.blood_pressure &&
-                            this.state.personalinfo.blood_pressure[
+                            this.state.personalinfo?.blood_pressure &&
+                            this.state.personalinfo?.blood_pressure[
                               this.state.BPLast
                             ] &&
-                            this.state.personalinfo.blood_pressure[
+                            this.state.personalinfo?.blood_pressure[
                               this.state.BPLast
                             ].rr_systolic +
                               "/" +
-                              this.state.personalinfo.blood_pressure[
-                                this.state.personalinfo.blood_pressure.length -
+                              this.state.personalinfo?.blood_pressure[
+                                this.state.personalinfo?.blood_pressure?.length -
                                   1
                               ].rr_diastolic}{" "}
                           mmHg
@@ -2320,7 +2320,7 @@ var weight_bmi5 =
                       </Grid>
                       <p>
                         {getDate(
-                          this.state.personalinfo.blood_pressure[
+                          this.state.personalinfo?.blood_pressure[
                             this.state.BPLast
                           ].datetime_on,
                           this.state.date_format
@@ -2328,7 +2328,7 @@ var weight_bmi5 =
                         ,{" "}
                         {getTime(
                           new Date(
-                            this.state.personalinfo.blood_pressure[
+                            this.state.personalinfo?.blood_pressure[
                               this.state.BPLast
                             ].datetime_on
                           ),
@@ -2338,8 +2338,8 @@ var weight_bmi5 =
                     </a>
                   )}
                 {this.state.personalinfo &&
-                  this.state.personalinfo.blood_pressure &&
-                  this.state.personalinfo.blood_pressure.length > 0 && this.state.HeartLast !==-1 && (
+                  this.state.personalinfo?.blood_pressure &&
+                  this.state.personalinfo?.blood_pressure?.length > 0 && this.state.HeartLast !==-1 && (
                     <a
                       className={
                         this.state.current_Graph === "heart_rate" &&
@@ -2351,11 +2351,11 @@ var weight_bmi5 =
                       <Grid>
                         <span>
                           {this.state.personalinfo &&
-                            this.state.personalinfo.blood_pressure &&
-                            this.state.personalinfo.blood_pressure[
+                            this.state.personalinfo?.blood_pressure &&
+                            this.state.personalinfo?.blood_pressure[
                               this.state.HeartLast
                             ] &&
-                            this.state.personalinfo.blood_pressure[
+                            this.state.personalinfo?.blood_pressure[
                               this.state.HeartLast
                             ].heart_frequncy}{" "}
                           bpm
@@ -2363,7 +2363,7 @@ var weight_bmi5 =
                       </Grid>
                       <p>
                         {getDate(
-                          this.state.personalinfo.blood_pressure[
+                          this.state.personalinfo?.blood_pressure[
                             this.state.HeartLast
                           ].datetime_on,
                           this.state.date_format
@@ -2371,7 +2371,7 @@ var weight_bmi5 =
                         ,{" "}
                         {getTime(
                           new Date(
-                            this.state.personalinfo.blood_pressure[
+                            this.state.personalinfo?.blood_pressure[
                               this.state.HeartLast
                             ].datetime_on
                           ),
@@ -2381,8 +2381,8 @@ var weight_bmi5 =
                     </a>
                   )}
                 {this.state.personalinfo &&
-                  this.state.personalinfo.blood_sugar &&
-                  this.state.personalinfo.blood_sugar.length > 0 && this.state.BSLast !==-1  && (
+                  this.state.personalinfo?.blood_sugar &&
+                  this.state.personalinfo?.blood_sugar?.length > 0 && this.state.BSLast !==-1  && (
                     <a
                       className={
                         this.state.current_Graph === "blood_sugar" &&
@@ -2394,11 +2394,11 @@ var weight_bmi5 =
                       <Grid>
                         <span>
                           {this.state.personalinfo &&
-                            this.state.personalinfo.blood_sugar &&
-                            this.state.personalinfo.blood_sugar[
+                            this.state.personalinfo?.blood_sugar &&
+                            this.state.personalinfo?.blood_sugar[
                               this.state.BSLast
                             ] &&
-                            this.state.personalinfo.blood_sugar[
+                            this.state.personalinfo?.blood_sugar[
                               this.state.BSLast
                             ].blood_sugar}{" "}
                           mg/dl
@@ -2406,7 +2406,7 @@ var weight_bmi5 =
                       </Grid>
                       <p>
                         {getDate(
-                          this.state.personalinfo.blood_sugar[
+                          this.state.personalinfo?.blood_sugar[
                             this.state.BSLast
                           ].datetime_on,
                           this.state.date_format
@@ -2414,7 +2414,7 @@ var weight_bmi5 =
                         ,{" "}
                         {getTime(
                           new Date(
-                            this.state.personalinfo.blood_sugar[
+                            this.state.personalinfo?.blood_sugar[
                               this.state.BSLast
                             ].datetime_on
                           ),
@@ -2425,8 +2425,8 @@ var weight_bmi5 =
                   )}
 
                 {this.state.personalinfo &&
-                  this.state.personalinfo.blood_sugar &&
-                  this.state.personalinfo.blood_sugar.length > 0 && this.state.hbLast !==-1 && (
+                  this.state.personalinfo?.blood_sugar &&
+                  this.state.personalinfo?.blood_sugar?.length > 0 && this.state.hbLast !==-1 && (
                     <a
                       className={
                         this.state.current_Graph === "hba" && "presurInnerActv"
@@ -2437,11 +2437,11 @@ var weight_bmi5 =
                       <Grid>
                         <span>
                           {this.state.personalinfo &&
-                            this.state.personalinfo.blood_sugar &&
-                            this.state.personalinfo.blood_sugar[
+                            this.state.personalinfo?.blood_sugar &&
+                            this.state.personalinfo?.blood_sugar[
                               this.state.hbLast
                             ] &&
-                            this.state.personalinfo.blood_sugar[
+                            this.state.personalinfo?.blood_sugar[
                               this.state.hbLast
                             ].Hba1c}{" "}
                           mg/dl
@@ -2449,7 +2449,7 @@ var weight_bmi5 =
                       </Grid>
                       <p>
                         {getDate(
-                          this.state.personalinfo.blood_sugar[
+                          this.state.personalinfo?.blood_sugar[
                             this.state.hbLast
                           ].datetime_on,
                           this.state.date_format
@@ -2457,7 +2457,7 @@ var weight_bmi5 =
                         ,{" "}
                         {getTime(
                           new Date(
-                            this.state.personalinfo.blood_sugar[
+                            this.state.personalinfo?.blood_sugar[
                               this.state.hbLast
                             ].datetime_on
                           ),
@@ -2467,8 +2467,8 @@ var weight_bmi5 =
                     </a>
                   )}
                 {this.state.personalinfo &&
-                  this.state.personalinfo.respiration &&
-                  this.state.personalinfo.respiration.length > 0 && this.state.resprisationLast!==-1 && (
+                  this.state.personalinfo?.respiration &&
+                  this.state.personalinfo?.respiration?.length > 0 && this.state.resprisationLast!==-1 && (
                     <a
                       className={
                         this.state.current_Graph === "respiration" &&
@@ -2480,11 +2480,11 @@ var weight_bmi5 =
                       <Grid>
                         <span>
                           {this.state.personalinfo &&
-                            this.state.personalinfo.respiration &&
-                            this.state.personalinfo.respiration[
+                            this.state.personalinfo?.respiration &&
+                            this.state.personalinfo?.respiration[
                               this.state.resprisationLast
                             ] &&
-                            this.state.personalinfo.respiration[
+                            this.state.personalinfo?.respiration[
                               this.state.resprisationLast
                             ].respiration}{" "}
                           / min
@@ -2492,7 +2492,7 @@ var weight_bmi5 =
                       </Grid>
                       <p>
                         {getDate(
-                          this.state.personalinfo.respiration[
+                          this.state.personalinfo?.respiration[
                             this.state.resprisationLast
                           ].datetime_on,
                           this.state.date_format
@@ -2500,7 +2500,7 @@ var weight_bmi5 =
                         ,{" "}
                         {getTime(
                           new Date(
-                            this.state.personalinfo.respiration[
+                            this.state.personalinfo?.respiration[
                               this.state.resprisationLast
                             ].datetime_on
                           ),
@@ -2510,8 +2510,8 @@ var weight_bmi5 =
                     </a>
                   )}
                 {this.state.personalinfo &&
-                  this.state.personalinfo.weight_bmi &&
-                  this.state.personalinfo.weight_bmi.length > 0 && this.state.wiegthLast !==-1 &&  (
+                  this.state.personalinfo?.weight_bmi &&
+                  this.state.personalinfo?.weight_bmi?.length > 0 && this.state.wiegthLast !==-1 &&  (
                     <a
                       className={
                         this.state.current_Graph === "weight_bmi" &&
@@ -2523,24 +2523,24 @@ var weight_bmi5 =
                       <Grid>
                         <span>
                           {this.state.personalinfo &&
-                            this.state.personalinfo.weight_bmi &&
-                            this.state.personalinfo.weight_bmi[
+                            this.state.personalinfo?.weight_bmi &&
+                            this.state.personalinfo?.weight_bmi[
                               this.state.wiegthLast
                             ] &&
-                            this.state.personalinfo.weight_bmi[
+                            this.state.personalinfo?.weight_bmi[
                               this.state.wiegthLast
                             ].weight}{" "}
                           kg,{" "}
                           {this.state.personalinfo &&
-                            this.state.personalinfo.weight_bmi &&
-                            this.state.personalinfo.weight_bmi[
+                            this.state.personalinfo?.weight_bmi &&
+                            this.state.personalinfo?.weight_bmi[
                               this.state.wiegthLast
                             ] &&
-                            this.state.personalinfo.weight_bmi[
+                            this.state.personalinfo?.weight_bmi[
                               this.state.wiegthLast
                             ].height +
                               "/" +
-                              this.state.personalinfo.weight_bmi[
+                              this.state.personalinfo?.weight_bmi[
                                 this.state.wiegthLast
                               ].weight}{" "}
                           BMI
@@ -2548,7 +2548,7 @@ var weight_bmi5 =
                       </Grid>
                       <p>
                         {getDate(
-                          this.state.personalinfo.weight_bmi[
+                          this.state.personalinfo?.weight_bmi[
                             this.state.wiegthLast
                           ].datetime_on,
                           this.state.date_format
@@ -2556,7 +2556,7 @@ var weight_bmi5 =
                         ,{" "}
                         {getTime(
                           new Date(
-                            this.state.personalinfo.weight_bmi[
+                            this.state.personalinfo?.weight_bmi[
                               this.state.wiegthLast
                             ].datetime_on
                           ),
@@ -2565,7 +2565,7 @@ var weight_bmi5 =
                       </p>
                     </a>
                   )}
-                {this.state.Creatinine && this.state.Creatinine.length > 0 && this.state.LRLast !==-1 && (
+                {this.state.Creatinine && this.state.Creatinine?.length > 0 && this.state.LRLast !==-1 && (
                   <a
                     className={
                       this.state.current_Graph === "laboratory_result" &&
@@ -2585,7 +2585,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.Creatinine &&
-                          this.state.Creatinine.length > 0 &&
+                          this.state.Creatinine?.length > 0 &&
                           this.state.Creatinine[
                             this.state.LRLast
                           ] &&
@@ -2618,7 +2618,7 @@ var weight_bmi5 =
                   </a>
                 )}
 
-                {this.state.AST && this.state.AST.length > 0 && this.state.astLast !==-1 && (
+                {this.state.AST && this.state.AST?.length > 0 && this.state.astLast !==-1 && (
                   <a
                     className={
                       this.state.current_Graph === "ast/got" &&
@@ -2638,7 +2638,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.AST &&
-                          this.state.AST.length > 0 &&
+                          this.state.AST?.length > 0 &&
                           this.state.AST[this.state.astLast] &&
                           this.state.AST[this.state.astLast].value}{" "}
                         {this.state.AST[this.state.astLast].unit &&
@@ -2660,7 +2660,7 @@ var weight_bmi5 =
                     </p>
                   </a>
                 )}
-                {this.state.GGT && this.state.GGT.length > 0 && this.state.ggtLast !==-1 && (
+                {this.state.GGT && this.state.GGT?.length > 0 && this.state.ggtLast !==-1 && (
                   <a
                     className={
                       this.state.current_Graph === "ggt" && "presurInnerActv"
@@ -2679,7 +2679,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.GGT &&
-                          this.state.GGT.length > 0 &&
+                          this.state.GGT?.length > 0 &&
                           this.state.GGT[this.state.ggtLast] &&
                           this.state.GGT[this.state.ggtLast].value}{" "}
                         {this.state.GGT[this.state.ggtLast].unit &&
@@ -2701,7 +2701,7 @@ var weight_bmi5 =
                     </p>
                   </a>
                 )}
-                {this.state.Sodium && this.state.Sodium.length > 0 && this.state.sodiumLast !==-1 && (
+                {this.state.Sodium && this.state.Sodium?.length > 0 && this.state.sodiumLast !==-1 && (
                   <a
                     className={
                       this.state.current_Graph === "sodium" && "presurInnerActv"
@@ -2720,7 +2720,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.Sodium &&
-                          this.state.Sodium.length > 0 &&
+                          this.state.Sodium?.length > 0 &&
                           this.state.Sodium[this.state.sodiumLast] &&
                           this.state.Sodium[this.state.sodiumLast]
                             .value}{" "}
@@ -2747,7 +2747,7 @@ var weight_bmi5 =
                     </p>
                   </a>
                 )}
-                {this.state.Thrombocytes && this.state.Thrombocytes.length > 0 && this.state.thrombocytesLast !==-1 &&  (
+                {this.state.Thrombocytes && this.state.Thrombocytes?.length > 0 && this.state.thrombocytesLast !==-1 &&  (
                   <a
                     className={
                       this.state.current_Graph === "thrombocytes" &&
@@ -2767,7 +2767,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.Thrombocytes &&
-                          this.state.Thrombocytes.length > 0 &&
+                          this.state.Thrombocytes?.length > 0 &&
                           this.state.Thrombocytes[
                             this.state.thrombocytesLast
                           ] &&
@@ -2802,7 +2802,7 @@ var weight_bmi5 =
                   </a>
                 )}
                 {this.state.Pancreaticlipase &&
-                  this.state.Pancreaticlipase.length > 0 && this.state.pancreaticlipaseLast !==-1 && (
+                  this.state.Pancreaticlipase?.length > 0 && this.state.pancreaticlipaseLast !==-1 && (
                     <a
                       className={
                         this.state.current_Graph === "pancreaticlipase" &&
@@ -2822,7 +2822,7 @@ var weight_bmi5 =
                       <Grid>
                         <span>
                           {this.state.Pancreaticlipase &&
-                            this.state.Pancreaticlipase.length > 0 &&
+                            this.state.Pancreaticlipase?.length > 0 &&
                             this.state.Pancreaticlipase[
                               this.state.pancreaticlipaseLast
                             ] &&
@@ -2856,7 +2856,7 @@ var weight_bmi5 =
                       </p>
                     </a>
                   )}
-                {this.state.Leucocytes && this.state.Leucocytes.length > 0 && this.state.leucocytesLast !==-1 &&  (
+                {this.state.Leucocytes && this.state.Leucocytes?.length > 0 && this.state.leucocytesLast !==-1 &&  (
                   <a
                     className={
                       this.state.current_Graph === "leucocytes" &&
@@ -2876,7 +2876,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.Leucocytes &&
-                          this.state.Leucocytes.length > 0 &&
+                          this.state.Leucocytes?.length > 0 &&
                           this.state.Leucocytes[
                             this.state.leucocytesLast
                           ] &&
@@ -2908,7 +2908,7 @@ var weight_bmi5 =
                     </p>
                   </a>
                 )}
-                {this.state.Hemoglobine && this.state.Hemoglobine.length > 0 && this.state.hemoglobineLast !==-1 && (
+                {this.state.Hemoglobine && this.state.Hemoglobine?.length > 0 && this.state.hemoglobineLast !==-1 && (
                   <a
                     className={
                       this.state.current_Graph === "hemoglobine" &&
@@ -2928,7 +2928,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.Hemoglobine &&
-                          this.state.Hemoglobine.length > 0 &&
+                          this.state.Hemoglobine?.length > 0 &&
                           this.state.Hemoglobine[
                             this.state.hemoglobineLast
                           ] &&
@@ -2963,7 +2963,7 @@ var weight_bmi5 =
                   </a>
                 )}
 
-                {this.state.Potassium && this.state.Potassium.length > 0 &&  this.state.potassiumLast !==-1 && (
+                {this.state.Potassium && this.state.Potassium?.length > 0 &&  this.state.potassiumLast !==-1 && (
                   <a
                     className={
                       this.state.current_Graph === "potassium" &&
@@ -2983,7 +2983,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.Potassium &&
-                          this.state.Potassium.length > 0 &&
+                          this.state.Potassium?.length > 0 &&
                           this.state.Potassium[
                             this.state.potassiumLast
                           ] &&
@@ -3015,7 +3015,7 @@ var weight_bmi5 =
                     </p>
                   </a>
                 )}
-                {this.state.ALT && this.state.ALT.length > 0 && this.state.altLast !==-1 && (
+                {this.state.ALT && this.state.ALT?.length > 0 && this.state.altLast !==-1 && (
                   <a
                     className={
                       this.state.current_Graph === "alt/gpt" &&
@@ -3035,7 +3035,7 @@ var weight_bmi5 =
                     <Grid>
                       <span>
                         {this.state.ALT &&
-                          this.state.ALT.length > 0 &&
+                          this.state.ALT?.length > 0 &&
                           this.state.ALT[this.state.altLast] &&
                           this.state.ALT[this.state.altLast].value}{" "}
                         {this.state.ALT[this.state.altLast].unit &&

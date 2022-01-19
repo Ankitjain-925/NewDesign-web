@@ -9195,8 +9195,16 @@ button.crdoLghtBlu2 {
    .questionfieldprop{
        margin-top:20px;
    }
-
-  .infoSub2 {
+   .infoSub2{
+       text-align: center;
+   }
+   .infoSub2 button:hover{
+         background-color: #00ABAF;
+         color: #fff;
+   }
+  .infoSub2 button{
+    width:90%;
+    padding: 10px 0px;
     border-radius: 8px;
     background-color: #00ABAF;
     border: none;
@@ -9912,6 +9920,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.displayBlogCase{
+    display: block !important;
+}
 .dark-confirm button.dischrgInvoic span, button.dischrgInvoic span{
     color: #00ABAF !important; 
 }
@@ -12389,9 +12400,9 @@ ul.patientHint li {
     border: 1px solid #00686bad;
 } */
 .darkTheme .dragdrop-horizontal ul {
-    padding-top: 1px;
+    padding-top: 33px;
     padding-bottom: 32px;
-    margin-top: 38px;
+    /* margin-top: 38px; */
 }
 @media (max-width: 959px){
   .detailInfo .MuiGrid-grid-sm-6 {

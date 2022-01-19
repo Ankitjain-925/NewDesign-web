@@ -179,7 +179,6 @@ class Index extends Component {
             state[name] = e;
         }
         else {
-
             state[name] = e;
         }
 
@@ -244,13 +243,13 @@ class Index extends Component {
                         data["description"] = newService?.custom_description;
                         data["price"] = newService?.price_per_quantity;
                         data["title"] = newService?.custom_title;
-                        // axios.post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
-                        // .then((responce) => {
-                        //     this.getAllServices();
-                        // })
-                        // .catch(function (error) {
-                        //     console.log(error);
-                        // });
+                        axios.post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
+                        .then((responce) => {
+                            this.getAllServices();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
 
                         this.setState({ items, service: {} },
                             () => { this.updateTotalPrize() })
@@ -297,7 +296,7 @@ class Index extends Component {
 
 
     handleCloseServ = () => {
-        this.setState({ editServ: false })
+        this.setState({ editServ: false, service: {} })
     }
 
     Billing = () => {
@@ -551,7 +550,7 @@ class Index extends Component {
                                                             <Th>{srvc}</Th><Th>{qty}</Th><Th>{Price}</Th><Th></Th>
                                                         </Tr>
                                                     </Thead>
-
+                                                       
                                                     {this.state.items?.length > 0 && this.state.items.map((data, id) => (
                                                         <Tbody>
                                                             {data && data?.quantity &&
@@ -579,6 +578,7 @@ class Index extends Component {
                                                     <Grid container direction="row" alignItems="center" spacing={3}>
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Addservice}</label>
+                                                           
                                                             <Select
                                                                 value={this.state.service?.service || ''}
                                                                 name="service"

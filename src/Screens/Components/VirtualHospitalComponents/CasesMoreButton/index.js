@@ -34,6 +34,7 @@ class Index extends React.Component {
       AllRoom: [],
       AllBeds: [],
       assignedTo: [],
+      setSec: false,
     }
   }
 
@@ -180,7 +181,7 @@ class Index extends React.Component {
           var stepData = data ? data : [];
           this.props.setDta(stepData);
         });
-        this.setState({ loaderImage: false });
+        this.setState({ loaderImage: false, setSec: false });
       }
     })
   }
@@ -256,7 +257,7 @@ class Index extends React.Component {
         {this.state.loaderImage && <Loader />}
         <a className="academy_ul stepTdotupper">
           <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
-          <ul>
+          <ul className={this.state.setSec && 'displayBlogCase'}  >
             {this.state.firstsec && <>
               <li><a onClick={() => { this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`) }}><span className="more-open-detail"></span>{OpenDetails}</a></li>
               <li><a onClick={() => { this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}`) }}><span className="more-new-entry"></span>{add_new_entry}</a></li>
@@ -264,7 +265,7 @@ class Index extends React.Component {
               <li><a onClick={() => { this.setState({ changeStaffsec: true, specialitysec: false, assignroom: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-change-staff"></span><p className="more-change-staff-img2">{change_staff}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec: true, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-move-patient"></span><p className="more-change-staff-img2">{move_patient_to}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: true, assignroom: false, changeStaffsec: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-new-speciality"></span><p className="more-change-staff-img2">{assign_to_speciality}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
-              <li><a onClick={() => { this.setState({ assignroom: true, specialitysec: false, changeStaffsec: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{assign_to_room}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p> </a></li>
+              <li><a onClick={() => { this.setState({ assignroom: true, specialitysec: false, changeStaffsec: false, movepatsec: false, firstsec: false, setSec: true }) }}><p className="more-change-staff-img"><span className="more-assign-room"></span><p className="more-change-staff-img2">{assign_to_room}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p> </a></li>
               {this.props.quote?.status !== 1 && <li><a onClick={() => { this.Discharge() }}><span className="more-discharge-patient"></span>{DischargePatient}</a></li>}
               {this.props.quote?.status !== 1 && <li><a onClick={() => { this.RemoveDirectPatient() }}><span className="more-remove-entry"></span>{RemovePatientfromFlow}</a></li>}
             </>}
@@ -318,9 +319,9 @@ class Index extends React.Component {
             {this.state.assignroom &&
               <div>
                 <Grid className="movHead">
-                  <Grid onClick={() => this.setState({ firstsec: true, assignroom: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
+                  <Grid onClick={() => this.setState({ firstsec: true, assignroom: false, setSec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                   <Grid className="movHeadMid"><label>{AssignWardRoom}</label></Grid>
-                  <Grid className="movHeadRght"><a onClick={() => this.setState({ firstsec: true, assignroom: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                  <Grid className="movHeadRght"><a onClick={() => this.setState({ setSec: false, firstsec: true, assignroom: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 </Grid>
                 <Grid className="positionDrop">
                   {this.props.quote?.speciality?._id ?
