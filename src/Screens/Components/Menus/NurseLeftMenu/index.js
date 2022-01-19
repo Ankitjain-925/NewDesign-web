@@ -12,6 +12,7 @@ import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { getLanguage } from "translations/index"
 import { getSetting } from "../api";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -89,6 +90,18 @@ class Index extends Component {
     this.props.history.push("/nurse/emergency");
   };
 
+    //For change Institutes
+    MoveInstitute = () => {
+      this.props.houseSelect({ value: null });
+      this.props.history.push('/nurse/institutes')
+    };
+    
+     //For change Institutes
+     NormalView = () => {
+      this.props.houseSelect({ value: null });
+      this.props.history.push('/nurse/journal')
+    };
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
@@ -101,6 +114,9 @@ class Index extends Component {
       DarkMode,
       logout,
       patient_access_data,
+      ProfessionalTask,
+      Normal_view,
+      VHS_view
     } = translate;
     return (
       <Grid
@@ -128,6 +144,58 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
+          {this.props?.House?.value &&
+              <>
+                <li
+                  className={
+                    this.props.currentPage === "task" ? "menuActv" : ""
+                  }
+                >
+                  <a onClick={this.handlePTask}>
+                    {this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark" ?
+                      (<img
+                        src={require("assets/virtual_images/rightIcon2.png")}
+                        alt=""
+                        title=""
+                      />) : (
+                        <img
+                          src={this.props.currentPage === "task" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                          alt=""
+                          title=""
+                        />
+                      )}
+                    <span>{ProfessionalTask}</span>
+                  </a>
+                </li>
+                <li
+              className={
+                this.props.currentPage === "institute" ? "menuActv" : ""
+              }
+            >
+              <a onClick={this.NormalView}>
+                {this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ?
+                  (<img
+                    src={require("assets/virtual_images/hospitalIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
+                      src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                <span>{Normal_view}</span>
+              </a>
+            </li>
+              </>}
+          {!this.props?.House?.value && <>
             <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
               <a onClick={this.Chats}>
                 {this.props.settings &&
@@ -223,6 +291,31 @@ class Index extends Component {
                 <span>Aimedis {online_course}</span>
               </a>
             </li>
+            <li
+              className={
+                this.props.currentPage === "institute" ? "menuActv" : ""
+              }
+            >
+              <a onClick={this.MoveInstitute}>
+                {this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ?
+                  (<img
+                    src={require("assets/virtual_images/hospitalIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
+                      src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                <span>{VHS_view}</span>
+              </a>
+            </li>
+            </>}
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >
@@ -352,16 +445,18 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect;
   const { settings } = state.Settings;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    House,
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, houseSelect })(
     Index
   )
 );

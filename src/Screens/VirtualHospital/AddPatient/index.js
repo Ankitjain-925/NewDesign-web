@@ -58,7 +58,7 @@ class Index extends Component {
             labelWidth: '',
             gender: '',
             language: [],
-            // UpDataDetails: [],
+            UpDataDetails: [],
             weoffer: [],
             language: [],
             speciality: [],
@@ -125,10 +125,7 @@ class Index extends Component {
             hidden: true,
             recaptcha: false,
             getIDPIN: false,
-            idpin: {},
-            FirstName: {},
-            Gender: {}
-
+            idpin: {}
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -154,11 +151,9 @@ class Index extends Component {
         if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
             this.GetLanguageMetadata();
         }
-     
     }
     handlePinClose = (key) => {
         this.setState({ [key]: false });
-
     };
 
     openIdPin = () => {
@@ -363,134 +358,129 @@ class Index extends Component {
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return emailPattern.test(elementValue);
     };
-   
     //Save the User profile
     saveUserData = () => {
+        console.log("UpDataDetails", this.state.UpDataDetails)
         let translate = getLanguage(this.props.stateLanguageType)
-         let {
-             plz_fill_mob_number,
-             pswd_not_valid,
-             email_not_valid,
-             plz_fill_fullname_user,
-         } = translate;
-    
-         const {UpDataDetails}  = this.state;
-        
-         this.setState({ regisError: null });
-         if (
-             UpDataDetails.first_name &&
-             UpDataDetails.last_name &&
-             UpDataDetails.first_name !== "" &&
-             UpDataDetails.last_name !== ""
-         ) {
-             if (this.validateEmail(UpDataDetails.email)) {
-                 if (
-                     UpDataDetails &&
-                     UpDataDetails.password &&
-                     UpDataDetails.password.match(letter) &&
-                     UpDataDetails.password.match(number23) &&
-                     UpDataDetails.password.match(specialchar)
-                 ) {
-                     if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
-                         if (UpDataDetails?.mobile?.split('-')?.[0]) {
-                             var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
-                         } else {
-                             var country_code = "de";
-                         }
-                         if (this.state.recaptcha) {
-                            
-                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
-                             var savedata = this.state.UpDataDetails;
-                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
-                             savedata.type = 'patient';
-                             savedata.country_code = country_code;
-                             savedata.mobile = UpDataDetails?.mobile?.split('-')?.[1];
-                             savedata.lan = this.props.stateLanguageType;
-                             savedata.parent_id = parent_id;
-                             savedata.insurance = datas;
-                             if (this.state.city) {
-                                 savedata.area = this.state.area;
-                                 savedata.city = this.state.city;
-                             }
-                             savedata.institute_id = this.props.stateLoginValueAim?.user?.institute_id.length>0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : '';
-                             savedata.institute_name = this.props.stateLoginValueAim?.user?.institute_name;
-                             savedata.parent_id = this.props.stateLoginValueAim?.user?._id;
-                             savedata.emergency_contact_name = this.state.contact_partner.name;
-                             savedata.emergency_relation = this.state.contact_partner.relation;
-                             savedata.emergency_email = this.state.contact_partner.email;
-                             savedata.emergency_number = this.state.contact_partner.number;
-                             savedata.bucket = getBucket[0]?.bucket;
-                             savedata.token = this.state.recaptcha;
-                             axios
-                                 .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)
-                                 .then((responce) => {
-                                     this.setState({ loaderImage: false });
-                                     if (responce.data.hassuccessed === true) {
-                                         this.setState({
-                                             idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
-                                             UpDataDetails: {}, speciality_multi: [], area: '', city: '',  recaptcha: false
-                                         })
-                                        
-                                         datas = [];
-                                         this.openIdPin();
-                                         axios
-                                             .post(
-                                                 "https://api-eu.cometchat.io/v2.0/users",
-                                                 {
-                                                     uid: responce.data.data.profile_id,
-                                                     name:
-                                                         UpDataDetails.first_name + " " + UpDataDetails.last_name,
-                                                 },
-                                                 commonCometHeader()
-                                             )
-                                             .then((res) => { });
-    
-                                     } else if (responce.data.message === "Phone is not verified") {
-                                         this.ScrolltoTop();
-                                         this.setState({
-                                             successfull: false,
-                                             Mnotvalid: true,
-                                             alreadyerror: false,
-                                         });
-                                     } else {
-                                         this.ScrolltoTop();
-                                         this.setState({
-                                             successfull: false,
-                                             alreadyerror: true,
-                                             Mnotvalid: false,
-                                         });
-                                     }
-                                 })
-                                 .catch((err) => { });
-    
-                         }
-                         else {
-                             this.setState({ regisError: "Please fill the RECAPTCHA" });
-                             this.ScrolltoTop();
-                         }
-                         // }else {
-                         //     this.setState({ regisError: "Please fill the city "});
-                         // }
-                     } else {
-                         this.setState({ regisError: plz_fill_mob_number });
-                         this.ScrolltoTop();
-                     }
-                 } else {
-                     this.setState({ regisError: pswd_not_valid });
-                     this.ScrolltoTop();
-                 }
-             } else {
-                 this.setState({ regisError: email_not_valid });
-                 this.ScrolltoTop();
-             }
-         } else {
-             this.setState({ regisError: plz_fill_fullname_user });
-             this.ScrolltoTop();
-         }
-    
-     }
+        let {
+            plz_fill_mob_number,
+            pswd_not_valid,
+            email_not_valid,
+            plz_fill_fullname_user,
+        } = translate;
 
+        const { UpDataDetails } = this.state;
+        this.setState({ regisError: null });
+        if (
+            UpDataDetails.first_name &&
+            UpDataDetails.last_name &&
+            UpDataDetails.first_name !== "" &&
+            UpDataDetails.last_name !== ""
+        ) {
+            if (this.validateEmail(UpDataDetails.email)) {
+                if (
+                    UpDataDetails &&
+                    UpDataDetails.password &&
+                    UpDataDetails.password.match(letter) &&
+                    UpDataDetails.password.match(number23) &&
+                    UpDataDetails.password.match(specialchar)
+                ) {
+                    if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                        if (UpDataDetails?.mobile?.split('-')?.[0]) {
+                            var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
+                        } else {
+                            var country_code = "de";
+                        }
+                        if (this.state.recaptcha) {
 
+                            var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
+                            var savedata = this.state.UpDataDetails;
+                            var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
+                            savedata.type = 'patient';
+                            savedata.country_code = country_code;
+                            savedata.mobile = UpDataDetails?.mobile?.split('-')?.[1];
+                            savedata.lan = this.props.stateLanguageType;
+                            savedata.parent_id = parent_id;
+                            savedata.insurance = datas;
+                            if (this.state.city) {
+                                savedata.area = this.state.area;
+                                savedata.city = this.state.city;
+                            }
+                            savedata.institute_id = this.props.stateLoginValueAim?.user?.institute_id.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : '';
+                            savedata.institute_name = this.props.stateLoginValueAim?.user?.institute_name;
+                            savedata.parent_id = this.props.stateLoginValueAim?.user?._id;
+                            savedata.emergency_contact_name = this.state.contact_partner.name;
+                            savedata.emergency_relation = this.state.contact_partner.relation;
+                            savedata.emergency_email = this.state.contact_partner.email;
+                            savedata.emergency_number = this.state.contact_partner.number;
+                            savedata.bucket = getBucket[0].bucket;
+                            savedata.token = this.state.recaptcha;
+                            axios
+                                .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)
+                                .then((responce) => {
+                                    this.setState({ loaderImage: false });
+                                    if (responce.data.hassuccessed === true) {
+                                        this.setState({
+                                            idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
+                                            UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
+                                        })
+                                        datas = [];
+                                        this.openIdPin();
+                                        axios
+                                            .post(
+                                                "https://api-eu.cometchat.io/v2.0/users",
+                                                {
+                                                    uid: responce.data.data.profile_id,
+                                                    name:
+                                                        UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                                                },
+                                                commonCometHeader()
+                                            )
+                                            .then((res) => { });
+
+                                    } else if (responce.data.message === "Phone is not verified") {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            Mnotvalid: true,
+                                            alreadyerror: false,
+                                        });
+                                    } else {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            alreadyerror: true,
+                                            Mnotvalid: false,
+                                        });
+                                    }
+                                })
+                                .catch((err) => { });
+                        }
+                        else {
+                            this.setState({ regisError: "Please fill the RECAPTCHA" });
+                            this.ScrolltoTop();
+                        }
+                        // }else {
+                        //     this.setState({ regisError: "Please fill the city "});
+                        // }
+                    } else {
+                        this.setState({ regisError: plz_fill_mob_number });
+                        this.ScrolltoTop();
+                    }
+                } else {
+                    this.setState({ regisError: pswd_not_valid });
+                    this.ScrolltoTop();
+                }
+            } else {
+                this.setState({ regisError: email_not_valid });
+                this.ScrolltoTop();
+            }
+        } else {
+            this.setState({ regisError: plz_fill_fullname_user });
+            this.ScrolltoTop();
+        }
+
+    }
 
     //For open the Insurance Edit popup
     editKYCopen(event, i) {
@@ -700,7 +690,7 @@ class Index extends Component {
         let { created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, BacktoPatientFlow, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
-            save_change, submit,email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
+            save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, AliesID, Pin, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
         if (
@@ -788,7 +778,7 @@ class Index extends Component {
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                                                     <Grid item xs={12} md={12}>
                                                                         <label>{email}</label>
-                                                                        <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} /></Grid>
+                                                                        <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email || ''} /></Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -802,6 +792,7 @@ class Index extends Component {
                                                                         type={this.state.hidden ? "password" : "text"}
                                                                         name="password"
                                                                         onChange={this.handleChange1}
+                                                                        value={this.state.UpDataDetails.password || ''}
                                                                     />
                                                                     {this.state.hidden && (
                                                                         <a onClick={this.toggleShow}>
@@ -983,7 +974,8 @@ class Index extends Component {
                                                                             </ul>
                                                                         </div>
                                                                     </div>
-                                                                )}
+                                                                ) || ''
+                                                                }
                                                             </Grid>
 
                                                             <Grid className="profileInfoIner titleDegre">
@@ -994,7 +986,7 @@ class Index extends Component {
                                                                             <Select
                                                                                 value={this.state.title}
                                                                                 onChange={(e) => this.onSelectDegree(e)}
-                                                                                options={this.state.title_degreeData}
+                                                                                options={this.state.title_degreeData || ''}
                                                                                 placeholder="Mr."
                                                                                 name="title"
                                                                                 isSearchable={false}
@@ -1005,11 +997,11 @@ class Index extends Component {
                                                                     </Grid>
                                                                     <Grid item xs={12} md={4}>
                                                                         <label>{first} {name}</label>
-                                                                        <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name} onChange={this.updateEntryState} /></Grid>
+                                                                        <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name || ''} onChange={this.updateEntryState} /></Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={4}>
                                                                         <label>{last} {name}</label>
-                                                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name} /></Grid>
+                                                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name || ''} /></Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -1045,7 +1037,7 @@ class Index extends Component {
                                                                                     this.state.handleMaritalStatus,
                                                                                     this.state.UpDataDetails.marital_status.value,
                                                                                     this.props.stateLanguageType
-                                                                                )}
+                                                                                ) || ''}
                                                                                 className="cntryDrop"
                                                                                 // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
                                                                                 onChange={this.handleMaritalStatus} />
@@ -1084,7 +1076,7 @@ class Index extends Component {
                                                                         <label>{country}</label>
                                                                         <Grid className="cntryDropTop">
                                                                             <Select
-                                                                                value={this.state.UpDataDetails.country}
+                                                                                value={this.state.UpDataDetails.country || ''}
                                                                                 onChange={(e) => this.EntryValueName(e, 'country')}
                                                                                 options={this.state.selectCountry}
                                                                                 placeholder=""
@@ -1111,7 +1103,7 @@ class Index extends Component {
                                                                                 placeholder={phone}
                                                                                 name="phone"
                                                                                 onChange={this.updateEntryState1}
-                                                                                value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone)}
+                                                                                value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone) || ''}
                                                                             />
                                                                         </Grid>
                                                                     </Grid>
@@ -1133,7 +1125,7 @@ class Index extends Component {
                                                                                 name="mobile"
                                                                                 type="text"
                                                                                 onChange={this.updateEntryState1}
-                                                                                value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile)}
+                                                                                value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile) || ''}
                                                                             />
                                                                         </Grid>
                                                                     </Grid>
@@ -1148,7 +1140,7 @@ class Index extends Component {
                                                                         <label>{Languages} {spoken}</label>
                                                                         <Grid>
                                                                             <Select
-                                                                                value={this.state.name_multi}
+                                                                                value={this.state.name_multi || ''}
                                                                                 name="languages"
                                                                                 closeMenuOnSelect={false}
                                                                                 onChange={(e) => { this.handleChange_multi(e, 'languages') }}
@@ -1170,7 +1162,7 @@ class Index extends Component {
                                                                         <label>{Blood}</label>
                                                                         <Grid>
                                                                             <Select
-                                                                                value={this.state.bloods}
+                                                                                value={this.state.bloods || ''}
                                                                                 name="bloodgroup"
                                                                                 onChange={(e) => { this.onSelectBlood(e, 'bloodgroup') }}
                                                                                 options={this.state.bloodgroup}
@@ -1185,7 +1177,7 @@ class Index extends Component {
                                                                         <label>{Rhesus}</label>
                                                                         <Grid>
                                                                             <Select
-                                                                                value={this.state.rhesus}
+                                                                                value={this.state.rhesus || ''}
                                                                                 name="rhesus"
                                                                                 onChange={(e) => { this.onSelectRshesus(e, 'rhesus') }}
                                                                                 options={this.state.rhesusgroup}
@@ -1209,11 +1201,11 @@ class Index extends Component {
                                                     <Grid className="insrnceTbl"><h3>{emergency} {Contact}</h3></Grid>
                                                     <Grid className="emrgncyFrmInpt">
                                                         <Grid><label>{Register_Name}</label></Grid>
-                                                        <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
+                                                        <Grid><input type="text" name="name" value={this.state.contact_partner.name || ''} onChange={this.contact_partnerState} /></Grid>
                                                     </Grid>
                                                     <Grid className="emrgncyFrmInpt">
                                                         <Grid><label>{relation}</label></Grid>
-                                                        <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
+                                                        <Grid><input name="relation" value={this.state.contact_partner.relation || ''} onChange={this.contact_partnerState} /></Grid>
                                                     </Grid>
                                                     <Grid className="emrgncyFrmInpt">
                                                         <Grid><label>{telephone_nmbr}</label></Grid>
@@ -1229,13 +1221,13 @@ class Index extends Component {
                                                                 className="Mobile_extra Emergency_number"
                                                                 placeholder={phone}
                                                                 onChange={this.updateEntryState11}
-                                                                value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number)}
+                                                                value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number) || ''}
                                                             />
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="emrgncyFrmInpt">
                                                         <Grid><label>{email}</label></Grid>
-                                                        <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
+                                                        <Grid><input name="email" value={this.state.contact_partner.email || ''} onChange={this.contact_partnerState} /></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="insrnceTbl">
@@ -1381,7 +1373,6 @@ class Index extends Component {
                                                                 />
                                                             </Grid>
                                                             <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
-                                                     
                                                         </Grid>
                                                         <Grid item xs={12} md={7}></Grid>
                                                         <Grid className="clear"></Grid>

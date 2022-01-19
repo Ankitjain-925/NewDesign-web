@@ -11,6 +11,7 @@ import Mode from "Screens/Components/ThemeMode/index.js";
 import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
 import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import { getLanguage } from "translations/index"
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { getSetting } from "../api";
@@ -54,6 +55,7 @@ class Index extends Component {
         let email = "";
         let password = "";
         this.props.LoginReducerAim(email, password);
+        this.props.houseSelect({ value: null });
         let languageType = "en";
         this.props.LanguageFetchReducer(languageType);
       } 
@@ -124,6 +126,18 @@ class Index extends Component {
     this.props.history.push("/doctor/professional-task");
   }
 
+  //For change Institutes
+  MoveInstitute = () => {
+    this.props.houseSelect({ value: null });
+    this.props.history.push('/doctor/institutes')
+  };
+  
+   //For change Institutes
+   NormalView = () => {
+    this.props.houseSelect({ value: null });
+    this.props.history.push('/doctor/patient')
+  };
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
@@ -141,6 +155,9 @@ class Index extends Component {
       Language,
       DarkMode,
       logout,
+      ProfessionalTask,
+      Normal_view,
+      VHS_view
     } = translate;
     const { inputValue, value } = this.state;
     const { selectedOption } = this.state;
@@ -170,7 +187,7 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
-            <li
+          <li
               className={
                 this.props.currentPage === "appointment" ? "menuActv" : ""
               }
@@ -195,7 +212,60 @@ class Index extends Component {
                 <span>{appointments}</span>
               </a>
             </li>
-            <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
+          {this.props?.House?.value &&
+              <>
+                <li
+                  className={
+                    this.props.currentPage === "task" ? "menuActv" : ""
+                  }
+                >
+                  <a onClick={this.handlePTask}>
+                    {this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark" ?
+                      (<img
+                        src={require("assets/virtual_images/rightIcon2.png")}
+                        alt=""
+                        title=""
+                      />) : (
+                        <img
+                          src={this.props.currentPage === "task" ? require("assets/virtual_images/rightIcon2.png") : require("assets/virtual_images/rightpng.png")}
+                          alt=""
+                          title=""
+                        />
+                      )}
+                    <span>{ProfessionalTask}</span>
+                  </a>
+                </li>
+                <li
+              className={
+                this.props.currentPage === "institute" ? "menuActv" : ""
+              }
+            >
+              <a onClick={this.NormalView}>
+                {this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ?
+                  (<img
+                    src={require("assets/virtual_images/hospitalIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
+                      src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                <span>{Normal_view}</span>
+              </a>
+            </li>
+              </>}
+            
+            {!this.props?.House?.value && <>
+              <li className={this.props.currentPage === "chat" ? "menuActv" : ""}>
               <a onClick={this.Chats}>
                 {this.props.settings &&
                 this.props.settings.setting &&
@@ -288,6 +358,30 @@ class Index extends Component {
                 <span>{emegancy_access}</span>
               </a>
             </li>
+            <li
+              className={
+                this.props.currentPage === "institute" ? "menuActv" : ""
+              }
+            >
+              <a onClick={this.MoveInstitute}>
+                {this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark" ?
+                  (<img
+                    src={require("assets/virtual_images/hospitalIcon2.png")}
+                    alt=""
+                    title=""
+                  />) : (
+                    <img
+                      src={this.props.currentPage === "institute" ? require("assets/virtual_images/hospitalIcon2.png") : require("assets/virtual_images/hospitalIcon.png")}
+                      alt=""
+                      title=""
+                    />
+                  )}
+                <span>{VHS_view}</span>
+              </a>
+            </li>
             <li>
               <a className="moreMenu">
                 {this.props.settings &&
@@ -328,27 +422,6 @@ class Index extends Component {
                           />
                         )}
                         {invite_doc}
-                      </a>
-                    </li>
-                    <li>
-                      <a onClick={this.handlePTask}>
-                        {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
-                          <img
-                            src={require("assets/images/menudocs-white.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        ) : (
-                          <img
-                            src={require("assets/images/menudocs.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        )}
-                        {"Professional Tasks"}
                       </a>
                     </li>
                     <li>
@@ -397,6 +470,8 @@ class Index extends Component {
                 </div>
               </a>
             </li>
+          
+            </>} 
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >
@@ -542,6 +617,7 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
+  const { House } = state.houseSelect;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   return {
@@ -549,10 +625,11 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    House,
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, houseSelect })(
     Index
   )
 );

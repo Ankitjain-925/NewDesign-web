@@ -222,11 +222,11 @@ class Index extends React.Component {
           ? "dark-confirm deleteStep"
           : "deleteStep"}>
             <Grid className="dischargeHead">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
-                <h5>Discharge All Patients in This Step</h5>
+                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                <h5>Discharge Patient in This Step</h5>
             </Grid>
             <Grid className="dischargeInfo">
-                <p>All Patients in this Step will be discharged from the flow.</p>
+                <p>Patient in this Step will be discharged from the flow.</p>
                 <Grid><label>What would you like to do?</label></Grid>
                 <Grid>
                     <Button className="creatInvoic" onClick={() => { this.RemoveDirectPatientOk(1 , true); onClose(); }} >Create Invoices</Button>

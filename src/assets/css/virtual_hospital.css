@@ -5119,6 +5119,7 @@ a.recodBlck:hover {
     text-align: center;
     justify-content: center;
     cursor: pointer;
+    margin-top:12px;
 }
 .roomName .MuiGrid-container {
     margin-bottom: 5px;
@@ -6962,7 +6963,7 @@ a.updateRmv img {
     margin-right: 10px;
 }
 .cmntMsgs button span {
-    color: #00ABAF !important;
+    color: #7F8383 !important;
 }
 .cmntMsgs button:hover{
     background-color: transparent;
@@ -7004,8 +7005,8 @@ a.updateRmv img {
     bottom: 12px;
 }
 .addComit {
-    margin-top: 32px;
-    margin-bottom: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     position: relative;
 }
 .cmntUpr {
@@ -8666,7 +8667,7 @@ button.creatInvoic {
 button.dischrgInvoic {
     border-radius: 8px;
     background-color: #E1F7F7 !important;
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
@@ -8702,6 +8703,9 @@ button.dischrgCncl {
 .dischargeHead img {
     height: 24px;
     width: 24px;
+    padding: 3px;
+    border: 1px solid #656969;
+    border-radius: 5px;
 }
 .dischargeHead a {
     display: block;
@@ -9908,6 +9912,21 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.dark-confirm button.dischrgInvoic span, button.dischrgInvoic span{
+    color: #00ABAF !important; 
+}
+.dark-confirm .dischargeHead h5, .dark-confirm .dischargeInfo label {
+    color: #dbdcdc;
+}
+
+.homeBgDrk .langInerFooter.dropdown-menu.show {
+    background: #404646 !important;
+    color: #cfcfcf !important;
+}
+.cmntMsgs .editBtn-comment span {
+    color: #fff !important;
+    padding: 5px;
+}
 .homeBg.darkTheme.homeBgDrk .profileInfoIner input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #dfdfdf!important;
   }
@@ -10282,7 +10301,7 @@ p.more-change-staff-img2 {
 .darkTheme .rrSysto div .css-12jo7m5 {
     color: #c6dada;
 }
-.stepTdotupper img, a.academy_ul img{
+.stepTdotupper img{
     padding: 3px !important;
 }
 .darkTheme a.srchSort {
@@ -12901,6 +12920,7 @@ input:-moz-autofill:active{
     height: 100px;
     width: auto; 
 }
+
 .printPreview{
     padding: 15px;
 }
@@ -13269,3 +13289,49 @@ only screen and (max-width: 768px) {
     width:33%; text-align:right;
 }
 
+.tabDatPart{
+    padding-right: 40px!important;
+}
+.secsttabhead{
+    border-bottom: 1px solid red;
+}
+
+.tab1PG3{margin-top: 20px!important;}
+
+.tabAligPro {
+    text-align: center;
+}
+.tabDatPart{
+    text-align: right;
+    padding-right:20px!important;
+}
+
+.pattern-main-foot{
+    margin-top:55%;
+    height:70px;
+}
+
+ .pattern-main-foot2{
+    margin-top:60%;
+    height:70px;
+}
+
+.pattern-main-foot1{
+    margin-top:70%;
+    height:70px;
+}
+
+.invoiceidtxt{
+    font-weight: 20px!important;
+    font-size: 20px!important;
+}
+
+.house-design{
+border-style: solid;
+}
+
+.house-design td{
+    padding-left: 10px;
+    padding-top:10px;
+    padding-bottom:10px;
+}

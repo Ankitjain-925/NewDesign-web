@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
-import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -124,11 +124,20 @@ class Index extends Component {
       stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
       stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "doctor" ||
       !this.props.verifyCode ||
       !this.props.verifyCode.code
     ) {
-      return <Redirect to={"/"} />;
+      if (stateLoginValueAim.user) {
+        if (
+          stateLoginValueAim?.user?.type === "nurse" ||
+          stateLoginValueAim?.user?.type === "therapist"
+        ) {
+        } else {
+          return <Redirect to={"/"} />;
+        }
+      } else {
+        return <Redirect to={"/"} />;
+      }
     }
     return (
       <Grid

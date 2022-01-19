@@ -97,7 +97,9 @@ import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
 import InvoicePattern from "Screens/VirtualHospital/InvoicePattern/index.js"
 
-
+import DoctorInstitute from "Screens/Doctor/institites/index";
+import NurseInstitute from "Screens/Nurse/institutes/index";
+import NursePT from "Screens/Nurse/ProfessionalTask/index";
 
 class Routermain extends Component {
   render() {
@@ -529,6 +531,25 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
             />
+
+            <Route
+              path="/doctor/institutes"
+              exact={true}
+              render={(props) => <DoctorInstitute {...props} />}
+            />
+
+          <Route
+              path="/nurse/institutes"
+              exact={true}
+              render={(props) => <NurseInstitute {...props} />}
+            />
+               <Route
+              path="/nurse/professional-task"
+              exact={true}
+              render={(props) => <NursePT {...props} />}
+            />
+
+
             {/* <Route
               path="/virtualhospital/assign"
               exact={true}
