@@ -171,8 +171,23 @@ class Index extends Component {
   };
 
   DeleteGroupOk = (id) => {
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
+    var allIDS1 =this.state.AllGroupList?.length>0 && this.state.AllGroupList.filter((item)=>item._id === id)
+    if(allIDS1 && allIDS1.length>0){
+        var allIDS = allIDS1?.[0]?.houses?.length>0 && allIDS1?.[0]?.houses.map((house)=>{
+          return  house.house_id;
+        })
+    }
+    axios
+    .post(
+      sitedata.data.path +
+      `/vh/deletehouse/`, {house_id: allIDS},
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      if (responce.data.hassuccessed) {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+   
     axios
       .delete(
         sitedata.data.path +
@@ -185,6 +200,8 @@ class Index extends Component {
         }
         this.setState({ loaderImage: false });
       });
+    }
+  })
   }
 
   deleteHospital = (index) => {
@@ -259,10 +276,22 @@ class Index extends Component {
   DeleteInstitute = (index, data) => {
     if (data && data?.houses && data?.houses?.length > 0) {
       var house = data?.houses
-      house.splice(index, 1);
-      var datas = this.state.institute_groups;
-      data['houses'] = house;
-      this.setState({ institute_groups: datas, openGroup: true });
+      axios
+      .post(
+        sitedata.data.path +
+        `/vh/deletehouse/`, {house_id: [house[index].house_id]},
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          // house.splice(index, 1);
+          // var datas = this.state.institute_groups;
+          // data['houses'] = house;
+          // this.setState({ institute_groups: datas, openGroup: true });
+          // this.getallGroups();
+        }
+      });
+       
     }
   }
 
@@ -299,23 +328,22 @@ class Index extends Component {
             });
           }
           this.setState({
-            totalPage: totalPage,
-            currentPage: 1, AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id
+            AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id
           },
             () => {
-              if (totalPage > 1) {
-                var pages = [];
-                for (var i = 1; i <= this.state.totalPage; i++) {
-                  pages.push(i);
-                }
-                this.setState({
-                  GroupList: this.state.AllGroupList.slice(0, 10),
-                  pages: pages,
-                });
-              } else {
+              // if (totalPage > 1) {
+              //   var pages = [];
+              //   for (var i = 1; i <= this.state.totalPage; i++) {
+              //     pages.push(i);
+              //   }
+              //   this.setState({
+              //     GroupList: this.state.AllGroupList.slice(0, 10),
+              //     pages: pages,
+              //   });
+              // } else {
                 this.setState({ GroupList: this.state.AllGroupList });
 
-              }
+              // }
             })
           this.setState({ loaderImage: false });
         }
@@ -326,8 +354,17 @@ class Index extends Component {
     this.setState({ errorMsg: "" })
     var data = this.state.institute_groups;
     var a = this.state.AllGroupList && this.state.AllGroupList?.length > 0 &&this.state.AllGroupList.map((item) => { return item?.group_name })
+    var count = 0;
+    if (data._id) {
+      var reapGroup1 = a?.length > 0 && a.filter((data1)=> data1 === data?.group_name)
+      count = reapGroup1.length;
+    }
     var reapGroup = a?.length > 0 && a.includes(data?.group_name)
-    if (reapGroup == true) {
+   
+    if (reapGroup == true && count > 1 && data._id) { 
+      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
+    }
+    else if (reapGroup == true && count == 0 && !data._id) {
       this.setState({ errorMsg: "Institution Name is already exist's select another name" })
     }
     else {
@@ -413,8 +450,17 @@ class Index extends Component {
         b.push(data?.house_name)
       ))
     ))
+    this.state.houses && this.state.houses?.length > 0 && this.state.houses.map((data) => (
+      b.push(data?.house_name)
+    ))
     let reapHouse = b?.length > 0 && b.includes(hospitalObject?.house_name)
-    if (reapHouse == true) {
+    var count = 0;
+    var dataCComing = b && b.filter((data) => data === hospitalObject.house_name)
+    count = dataCComing.length;
+    if (reapHouse == true && count > 2 && this.state.editId !=='') {
+      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
+    }
+    else if (reapHouse == true && count > 0 && this.state.editId ==='') {
       this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
     }
     else {

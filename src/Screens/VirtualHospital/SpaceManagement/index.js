@@ -398,7 +398,6 @@ class Index extends Component {
               </Grid>
               {/* <Grid className="enterSpclUpr"> */}
                 <Grid className="enterSpclMain">
-                  <p className='err_message'>{this.state.errorMsg}</p>
                   <Grid className="enterSpcl">
                     <Grid container direction="row">
                       <Grid item xs={10} md={11}>
@@ -532,11 +531,13 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <Grid className="spclSaveBtn saveNclose">
+                    <p className='err_message'>{this.state.errorMsg}</p>
                       <Button onClick={()=>SaveSpeciality(this)}>
                         {save_and_close}
                       </Button>
                     </Grid>
                   </Grid>
+                 
                 </Grid>
               </Grid>
             {/* </Grid> */}

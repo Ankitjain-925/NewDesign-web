@@ -92,6 +92,10 @@ Tasks = () => {
 Calendar = () => {
   this.props.history.push('/virtualHospital/calendar')
 };
+//For calendar
+ProfileLink = () => {
+  this.props.history.push('/virtualHospital/profile')
+};
 //For change Institutes
 MoveInstitute = () => {
   this.props.houseSelect({value: null});
