@@ -360,7 +360,6 @@ class Index extends Component {
     };
     //Save the User profile
     saveUserData = () => {
-        console.log("UpDataDetails", this.state.UpDataDetails)
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             plz_fill_mob_number,
@@ -424,6 +423,7 @@ class Index extends Component {
                                             idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
                                             UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
                                         })
+                                        this.captcha.reset();
                                         datas = [];
                                         this.openIdPin();
                                         axios
@@ -1370,6 +1370,7 @@ class Index extends Component {
                                                                 <ReCAPTCHA
                                                                     sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
                                                                     onChange={this.onChangeRec}
+                                                                    ref={(r) => this.captcha = r}
                                                                 />
                                                             </Grid>
                                                             <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
