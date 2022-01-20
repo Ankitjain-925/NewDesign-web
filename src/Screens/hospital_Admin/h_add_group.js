@@ -284,11 +284,11 @@ class Index extends Component {
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-          // house.splice(index, 1);
-          // var datas = this.state.institute_groups;
-          // data['houses'] = house;
-          // this.setState({ institute_groups: datas, openGroup: true });
-          // this.getallGroups();
+          house.splice(index, 1);
+          var datas = this.state.institute_groups;
+          data['houses'] = house;
+          this.setState({ institute_groups: datas, openGroup: true });
+          this.getallGroups();
         }
       });
        

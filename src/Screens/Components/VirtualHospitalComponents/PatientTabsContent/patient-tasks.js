@@ -78,7 +78,7 @@ class Index extends Component {
               last_name: responce1.data.data?.patient?.last_name,
               patient_id: responce1.data.data?.patient_id,
               image: responce1.data.data?.patient?.image,
-              first_name: responce1.data.data?.first_name,
+              first_name: responce1.data.data?.patient?.first_name,
               profile_id: responce1.data.data?.patient?.profile_id,
               alies_id: responce1.data.data?.patient?.alies_id,
               type: responce1.data.data?.patient?.type,

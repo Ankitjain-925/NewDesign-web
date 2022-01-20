@@ -639,7 +639,7 @@ class Index extends Component {
   getPatientData = async () => {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
-    if (response.isdata) {
+    if (response?.isdata) {
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
