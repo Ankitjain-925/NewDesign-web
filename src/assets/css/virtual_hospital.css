@@ -4282,15 +4282,16 @@ button.onlogyBtn {
     display: flex;
     border-radius: 4px;
     padding: 6px 12px;
-    margin: 0px 8px;
+    margin: 8px 8px;
     margin-bottom: 8px;
+    width:100%;
 }
 .drListMain2:last-child {
     margin-bottom: 0px !important;
 }
-.drListMain2:hover {
+/* .drListMain2:hover {
     opacity: initial !important;
-}
+} */
 .drListLft2 {
     width: 25%;
 }
@@ -4298,9 +4299,9 @@ button.onlogyBtn {
     width: 75%;
     border-radius: 4px;
 }
-.drListMain2:hover {
+/* .drListMain2:hover {
     background-color: #f9f2fd;
-}
+} */
 @media (max-width: 599px) {
   .roomMgntRght2 {
     text-align: left !important;
@@ -4311,7 +4312,7 @@ button.onlogyBtn {
     position: absolute;
     right: -11px;
     top: 5px;
-    display: none;
+    /* display: none; */
 }
 .drRmv img {
     height: initial !important;
@@ -4319,9 +4320,9 @@ button.onlogyBtn {
     margin-right: 0px;
     width: 100%;
 }
-.drListMain2:hover .drRmv {
+/* .drListMain2:hover .drRmv {
     display: block !important;
-}
+} */
 .bedArnge {
     text-align: right;
 }
@@ -4421,9 +4422,9 @@ button.onlogyBtn {
     opacity: initial !important;
     border: 1px solid #e1f7f7;
 }
-.drListMain2:hover button {
+/* .drListMain2:hover button {
     border: 1px solid #00abb166 !important;
-}
+} */
 .drCollection {
     border-radius: 8px;
     background-color: #FFFFFF;
@@ -9929,6 +9930,16 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.room-img-move img{
+    padding: 2px;
+    border: 1px solid #e5e5e5;
+    border-radius: 7px;
+    width: 25px;
+    height: 25px;
+}
+.setinFullidrh{
+    width: 100%!important;
+}
 @media (max-width: 568px){
 .demOverView img {
     width: 100%;
@@ -13401,4 +13412,19 @@ input:-webkit-autofill:active{
 {
     -webkit-box-shadow: 0 0 0 30px #202323 inset !important;
     -webkit-text-fill-color: #BFC1C1 !important;
+}
+
+.academy_ul.stepTdotupper ul {
+    height: 250px;
+    overflow-y: auto;
+}
+
+.house-design{
+border-style: solid;
+}
+
+.house-design td{
+    padding-left: 10px;
+    padding-top:10px;
+    padding-bottom:10px;
 }
