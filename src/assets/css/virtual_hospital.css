@@ -2492,10 +2492,12 @@ a.lineSort {
     display: inline-block;
     font-family: 'Mulish', sans-serif !important;
     text-align: left;
-    margin-right: 22px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 2px;
 }
 .allSpec .css-yk16xz-control {
-    border-radius: 8px !important;
+    /* border-radius: 8px !important; */
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
 }
@@ -2508,6 +2510,9 @@ a.lineSort {
 }
 .allSpec div {
     min-height: initial !important;
+}
+.allSpec div {
+    border-radius: 0px !important;
 }
 
 @media (max-width: 959px){
@@ -10338,20 +10343,28 @@ p.more-change-staff-img2 {
     background: transparent;
 }
 .darkTheme .allSpec div {
-    background-color: #192020 !important;
-    background: #192020 !important;
+    background-color: #404646 !important;
+    background: #404646 !important;
     border: none;
     height: initial !important;
     min-height: initial !important;
     color: #fafafa;
 }
-.darkTheme .allSpec .css-yk16xz-control {
+.darkTheme .allSpec {
     background-color: #202323 !important;
-    border: 1px solid #7d7d7d !important;
-    border-radius: 7px !important;
-    padding: 4px !important;
+    border: 1px solid #8c8c8c !important;
 }
-
+.allSpec {
+    border: 1px solid #7d7d7d52 !important;
+    outline: none !important;
+}
+.allSpec div , 
+.allSpec div input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: initial !important;
+    /* height: 30px; */
+}
 .detailInfo1 {
     padding: 12px;
     margin: 45px 6px 0;
@@ -13026,12 +13039,12 @@ input:-moz-autofill:active{
     margin:0px 30px;
 }
 @media (max-width: 959px){
- .ptntFlowSpc ul.manageDragDrop {
+ /* .ptntFlowSpc ul.manageDragDrop {
     display: flex;
     flex-direction: row;
     width: 100%;
     overflow-x: scroll;
- }
+ } */
 }
 @media (max-width:580px){
     .addServContnt{
@@ -13365,30 +13378,27 @@ only screen and (max-width: 768px) {
     font-weight: 20px!important;
     font-size: 20px!important;
 }
-
-.house-design{
-    border-style: solid;
-    }
-    
-    .house-design td{
-        padding-left: 10px;
-        padding-top:10px;
-        padding-bottom:10px;
-    }
 .darkTheme a.taskHover {
     color: #D9DADA !important;
 }
-input:-webkit-autofill,
+
+/* input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
     -webkit-text-fill-color: #000808 !important;
-}
+} */
+
 .darkTheme input:-webkit-autofill,
 .darkTheme input:-webkit-autofill:hover, 
 .darkTheme input:-webkit-autofill:focus, 
-.darkTheme input:-webkit-autofill:active{
+.darkTheme input:-webkit-autofill:active,
+.darkTheme input:-moz-autofill,
+.darkTheme input:-moz-autofill:hover, 
+.darkTheme input:-moz-autofill:focus, 
+.darkTheme input:-moz-autofill:active
+{
     -webkit-box-shadow: 0 0 0 30px #202323 inset !important;
     -webkit-text-fill-color: #BFC1C1 !important;
 }
