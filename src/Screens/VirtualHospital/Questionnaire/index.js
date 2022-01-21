@@ -501,7 +501,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder="Enter a question"
+                                                placeholder={"Enter a question"}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "question", 0)
                                                 }
@@ -513,7 +513,7 @@ class Index extends Component {
                                               <AddHouses
                                                 label={Add_a_Choice}
                                                 name="choice"
-                                                placeholder="Enter choice"
+                                                placeholder={"Enter choice"}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "options", 0)
                                                 }
@@ -550,7 +550,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Questionnairetitle}
                                                 name="title"
-                                                placeholder="Enter title"
+                                                placeholder={"Enter title"}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "title", 0)
                                                 }
@@ -562,7 +562,7 @@ class Index extends Component {
                                               <label>{QuestionnaireDescription}</label>
                                               <Grid>
                                                 <textarea
-                                                  placeholder="Enter description"
+                                                  placeholder={"Enter description"}
                                                   name="description"
                                                   onChange={(e) =>
                                                     this.updateEntryState1(e, "description", 0)
@@ -577,7 +577,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder="Enter question"
+                                                placeholder={"Enter question"}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "question", 0)
                                                 }
@@ -660,7 +660,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder="Enter a question"
+                                                placeholder={"Enter a question"}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "question")
                                                 }
@@ -672,7 +672,7 @@ class Index extends Component {
                                               <AddHouses
                                                 label={Add_a_Choice}
                                                 name="choice"
-                                                placeholder="Enter choice"
+                                                placeholder={"Enter choice"}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "options")
                                                 }
@@ -706,7 +706,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Questionnairetitle}
                                                 name="title"
-                                                placeholder="Enter title"
+                                                placeholder={"Enter title"}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "title")
                                                 }
@@ -718,7 +718,7 @@ class Index extends Component {
                                               <label>{QuestionnaireDescription}</label>
                                               <Grid>
                                                 <textarea
-                                                  placeholder="Enter description"
+                                                  placeholder={"Enter description"}
                                                   name="description"
                                                   onChange={(e) =>
                                                     this.editQuestionState(e, "description")
@@ -733,7 +733,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder="Enter question"
+                                                placeholder={"Enter question"}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "question")
                                                 }

@@ -232,9 +232,9 @@ class Index extends Component {
                                 <Grid className="enterSpcl">
                                   <Grid>
                                     <VHfield
-                                      label="Service name"
+                                      label={"Service name"}
                                       name="title"
-                                      placeholder="Enter Service name"
+                                      placeholder={"Enter Service name"}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
@@ -244,9 +244,9 @@ class Index extends Component {
 
                                   <Grid>
                                     <VHfield
-                                      label="Service short description"
+                                      label={"Service short description"}
                                       name="description"
-                                      placeholder="Enter service short description"
+                                      placeholder={"Enter service short description"}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
@@ -272,9 +272,9 @@ class Index extends Component {
 
                                   <Grid>
                                     <VHfield
-                                      label="Price"
+                                      label={"Price"}
                                       name="price"
-                                      placeholder="Enter service price"
+                                      placeholder={"Enter service price"}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
