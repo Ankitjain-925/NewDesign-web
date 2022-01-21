@@ -9936,6 +9936,7 @@ button.crdoLghtBlu2 {
     border-radius: 7px;
     width: 25px;
     height: 25px;
+    margin-left:20px;
 }
 .setinFullidrh{
     width: 100%!important;
@@ -13402,6 +13403,22 @@ input:-webkit-autofill:active{
 } */
 
 .darkTheme input:-webkit-autofill,
+.darkTheme .docHlthMain input:-webkit-autofill,
+.darkTheme .docHlthMain input:-webkit-autofill:hover, 
+.darkTheme .docHlthMain input:-webkit-autofill:focus, 
+.darkTheme .docHlthMain input:-webkit-autofill:active,
+.darkTheme .docHlthMain input:-moz-autofill,
+.darkTheme .docHlthMain input:-moz-autofill:hover, 
+.darkTheme .docHlthMain input:-moz-autofill:focus, 
+.darkTheme .docHlthMain input:-moz-autofill:active,
+.darkTheme .emlCreatSub input:-webkit-autofill,
+.darkTheme .emlCreatSub input:-webkit-autofill:hover, 
+.darkTheme .emlCreatSub input:-webkit-autofill:focus, 
+.darkTheme .emlCreatSub input:-webkit-autofill:active,
+.darkTheme .emlCreatSub input:-moz-autofill,
+.darkTheme .emlCreatSub input:-moz-autofill:hover, 
+.darkTheme .emlCreatSub input:-moz-autofill:focus, 
+.darkTheme .emlCreatSub input:-moz-autofill:active,
 .darkTheme input:-webkit-autofill:hover, 
 .darkTheme input:-webkit-autofill:focus, 
 .darkTheme input:-webkit-autofill:active,
@@ -13427,4 +13444,29 @@ border-style: solid;
     padding-left: 10px;
     padding-top:10px;
     padding-bottom:10px;
+}
+/* @media screen and (min-width: 1368px){ */
+/* .dragdrop-vertical .manageDragDrop {
+    display: flex;
+    width: 100%;
+}
+} */
+.dragdrop-vertical .manageDragDrop {
+    /* display: flex;
+    width: 100%; */
+    /* overflow-x: auto; */
+}
+.TabCSS{
+    
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1;
+        flex-direction: row;
+    
+}
+.TabCSS img{
+    margin-right: 12px;
+    height:20px;
+    width:auto;
 }
