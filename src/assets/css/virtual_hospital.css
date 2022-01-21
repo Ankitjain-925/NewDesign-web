@@ -2216,6 +2216,7 @@ a.menuActv img{
 }
 .srchPatient{
     margin-top: 32px;
+    margin-bottom: 32px;
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
@@ -2491,10 +2492,12 @@ a.lineSort {
     display: inline-block;
     font-family: 'Mulish', sans-serif !important;
     text-align: left;
-    margin-right: 22px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 2px;
 }
 .allSpec .css-yk16xz-control {
-    border-radius: 8px !important;
+    /* border-radius: 8px !important; */
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
 }
@@ -2507,6 +2510,9 @@ a.lineSort {
 }
 .allSpec div {
     min-height: initial !important;
+}
+.allSpec div {
+    border-radius: 0px !important;
 }
 
 @media (max-width: 959px){
@@ -4105,8 +4111,8 @@ button.onlogyBtn {
 .settingInfo {
     text-align: right;
 }
-.settingInfo a:last-child {
-    margin-left: 14px;
+.settingInfo a {
+    margin-left: 6px;
 }
 @media screen and (max-width: 959px) {
   .topLeftSpc {
@@ -4276,15 +4282,16 @@ button.onlogyBtn {
     display: flex;
     border-radius: 4px;
     padding: 6px 12px;
-    margin: 0px 8px;
+    margin: 8px 8px;
     margin-bottom: 8px;
+    width:100%;
 }
 .drListMain2:last-child {
     margin-bottom: 0px !important;
 }
-.drListMain2:hover {
+/* .drListMain2:hover {
     opacity: initial !important;
-}
+} */
 .drListLft2 {
     width: 25%;
 }
@@ -4292,9 +4299,9 @@ button.onlogyBtn {
     width: 75%;
     border-radius: 4px;
 }
-.drListMain2:hover {
+/* .drListMain2:hover {
     background-color: #f9f2fd;
-}
+} */
 @media (max-width: 599px) {
   .roomMgntRght2 {
     text-align: left !important;
@@ -4305,7 +4312,7 @@ button.onlogyBtn {
     position: absolute;
     right: -11px;
     top: 5px;
-    display: none;
+    /* display: none; */
 }
 .drRmv img {
     height: initial !important;
@@ -4313,9 +4320,9 @@ button.onlogyBtn {
     margin-right: 0px;
     width: 100%;
 }
-.drListMain2:hover .drRmv {
+/* .drListMain2:hover .drRmv {
     display: block !important;
-}
+} */
 .bedArnge {
     text-align: right;
 }
@@ -4415,9 +4422,9 @@ button.onlogyBtn {
     opacity: initial !important;
     border: 1px solid #e1f7f7;
 }
-.drListMain2:hover button {
+/* .drListMain2:hover button {
     border: 1px solid #00abb166 !important;
-}
+} */
 .drCollection {
     border-radius: 8px;
     background-color: #FFFFFF;
@@ -6393,15 +6400,15 @@ button.downloadPDF:hover {
     margin-left: 0px !important;
 }
 .taskSort a {
-    height: 34px;
-    width: 32px;
+    height: 31px;
+    width: 31px;
     border-radius: 8px;
     background-color: #F2F2F2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin: initial;
-    margin-left: 14px;
+    margin-left: 6px;
 }
 .taskSort img {
     height: 16px;
@@ -9196,32 +9203,35 @@ button.crdoLghtBlu2 {
        margin-top:20px;
    }
    .infoSub2{
-       text-align: center;
-   }
-   .infoSub2 button:hover{
-         background-color: #00ABAF;
-         color: #fff;
-   }
-  .infoSub2 button{
-    width:90%;
-    padding: 10px 0px;
-    border-radius: 8px;
-    background-color: #00ABAF;
-    border: none;
-    color: #FFFFFF;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: 16px;
     text-align: center;
-    /* width: 100%; */
-    outline: none;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 0px;
 }
-
+.infoSub2 button:hover{
+      background-color: #00ABAF;
+      color: #fff;
+}
+.infoSub2 button{
+ width:90%;
+ padding: 10px 0px;
+ border-radius: 8px;
+ background-color: #00ABAF;
+ border: none;
+ color: #FFFFFF;
+ font-family: Muli;
+ font-size: 14px;
+ font-weight: bold;
+ letter-spacing: 0;
+ line-height: 16px;
+ text-align: center;
+ /* width: 100%; */
+ outline: none;
+ margin-left: 20px;
+ margin-right: 20px;
+ margin-top: 0px;
+}
+.infoSub2 button {
+    color: #FFFFFF;
+    background-color: #00abaf !important;
+}
 
   .add_a_choice
   {
@@ -9920,6 +9930,28 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.room-img-move img{
+    padding: 2px;
+    border: 1px solid #e5e5e5;
+    border-radius: 7px;
+    width: 25px;
+    height: 25px;
+}
+.setinFullidrh{
+    width: 100%!important;
+}
+@media (max-width: 568px){
+.demOverView img {
+    width: 100%;
+    height:auto;
+}
+}
+.dragdrop-vertical ul li, .dragdrop-horizontal ul li {
+    text-align: left!important;
+}
+.darkTheme a.academy_ul.stepTdotupper ul {
+    background: #192020 !important;
+}
 .displayBlogCase{
     display: block !important;
 }
@@ -10289,7 +10321,7 @@ p.more-change-staff-img2 {
        color: #028B66 !important; 
 }
 .darkTheme .TaskSearch {
-    border: 1px solid #8e8e8e8a;
+    border: 1px solid #939393;
     background-color: #192020;
     color: #fafafa;
 }
@@ -10301,9 +10333,11 @@ p.more-change-staff-img2 {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    height: 34px;
+    height: 32px;
     box-sizing: border-box !important;
     color: #000808;
+    vertical-align: top;
+    padding: 0px 7px;
 }
 .darkTheme .hideTask {
     background-color: #192020;
@@ -10320,16 +10354,27 @@ p.more-change-staff-img2 {
     background: transparent;
 }
 .darkTheme .allSpec div {
-    background-color: #192020 !important;
-    background: #192020 !important;
+    background-color: #404646 !important;
+    background: #404646 !important;
     border: none;
     height: initial !important;
     min-height: initial !important;
     color: #fafafa;
 }
-.darkTheme .allSpec .css-yk16xz-control {
+.darkTheme .allSpec {
     background-color: #202323 !important;
-    border: 1px solid #7d7d7d !important;
+    border: 1px solid #8c8c8c !important;
+}
+.allSpec {
+    border: 1px solid #7d7d7d52 !important;
+    outline: none !important;
+}
+.allSpec div , 
+.allSpec div input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: initial !important;
+    /* height: 30px; */
 }
 .detailInfo1 {
     padding: 12px;
@@ -10360,15 +10405,16 @@ p.more-change-staff-img2 {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
     background-color: #FFFFFF;
-    padding: 7px 6px;
+    padding: 6px 6px;
     outline: none;
-    margin-right:5px;
+    margin-right: 0px;
     color: #000808;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 18px;
+    line-height: 17px;
+    vertical-align: top;
 }
 .recaptchaMargin{
     margin-top:12px;
@@ -10956,6 +11002,9 @@ ul.patientHint li {
     text-transform: capitalize;
     padding: 8px 4px;
     word-break: break-all;
+    width: 122px;
+    text-align: center;
+    margin-right: 5px;
 }
 .specialitybutton-parent {
     text-align: center;
@@ -11431,13 +11480,16 @@ ul.patientHint li {
 .darkTheme .creatInfoIner input:-moz-placeholder { 
     color: #bfc1c1;
 }
-
 .darkTheme .enterSpcl input, 
 .darkTheme .creatInfoIner input,
 .darkTheme .taskDescp textarea, .darkTheme .creatInfoIner .ant-picker {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
+}
+.darkTheme .creatInfoIner ul.patientHint {
+    box-shadow: initial !important;
+    background: #404646 !important;
 }
 .darkTheme .plusWards {
     background: #192020;
@@ -11636,9 +11688,9 @@ ul.patientHint li {
     color: #e0e0e0;
 }
 .darkTheme .addStafSelect div {
-    background: #303737;
+    background: #202323;
     color: #dfdfdf;
-    border-color: #676565;
+    border-color: #7d7d7d;
     font-family: Muli;
     box-shadow: initial !important;
     outline: none !important;
@@ -12021,7 +12073,8 @@ ul.patientHint li {
     color: #bfc1c1;
 }
 .darkTheme .settingInfo a {
-    background-color: #192020;
+    background-color: transparent;
+    border: 1px solid #7f8383;
 }
 .darkTheme .dataPaginationLft p {
     color: #fafafa;
@@ -12135,7 +12188,7 @@ ul.patientHint li {
 }
 .darkTheme .taskSort a {
     background-color: transparent;
-    border: 1px solid #c3c3c3;
+    border: 1px solid #939393;
 }
 .darkTheme .allInfo img {
     border-radius: 22px;
@@ -12400,9 +12453,9 @@ ul.patientHint li {
     border: 1px solid #00686bad;
 } */
 .darkTheme .dragdrop-horizontal ul {
-    padding-top: 33px;
-    padding-bottom: 32px;
-    /* margin-top: 38px; */
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 0px;
 }
 @media (max-width: 959px){
   .detailInfo .MuiGrid-grid-sm-6 {
@@ -12592,6 +12645,7 @@ ul.patientHint li {
 .darkTheme .homeBgIner {
     background: #192020 !important;
     min-height: 100vh;
+    padding-bottom: 9%;
 }
 .darkTheme .MenuMob {
     background: #404646;
@@ -12996,12 +13050,12 @@ input:-moz-autofill:active{
     margin:0px 30px;
 }
 @media (max-width: 959px){
- .ptntFlowSpc ul.manageDragDrop {
+ /* .ptntFlowSpc ul.manageDragDrop {
     display: flex;
     flex-direction: row;
     width: 100%;
     overflow-x: scroll;
- }
+ } */
 }
 @media (max-width:580px){
     .addServContnt{
@@ -13331,10 +13385,38 @@ only screen and (max-width: 768px) {
     margin-top:70%;
     height:70px;
 }
-
 .invoiceidtxt{
     font-weight: 20px!important;
     font-size: 20px!important;
+}
+.darkTheme a.taskHover {
+    color: #D9DADA !important;
+}
+
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+    -webkit-text-fill-color: #000808 !important;
+} */
+
+.darkTheme input:-webkit-autofill,
+.darkTheme input:-webkit-autofill:hover, 
+.darkTheme input:-webkit-autofill:focus, 
+.darkTheme input:-webkit-autofill:active,
+.darkTheme input:-moz-autofill,
+.darkTheme input:-moz-autofill:hover, 
+.darkTheme input:-moz-autofill:focus, 
+.darkTheme input:-moz-autofill:active
+{
+    -webkit-box-shadow: 0 0 0 30px #202323 inset !important;
+    -webkit-text-fill-color: #BFC1C1 !important;
+}
+
+.academy_ul.stepTdotupper ul {
+    height: 250px;
+    overflow-y: auto;
 }
 
 .house-design{

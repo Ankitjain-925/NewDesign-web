@@ -7567,6 +7567,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .todaySrch {
     background-color: #404646 !important;
 }
+.homeBgDrk .todaySrchLft label {
+    background: #00abaf;
+}
 .homeBgDrk .crntMonth {
     color: #D9DADA !important;
 }
@@ -13094,6 +13097,7 @@ a.academy_ul ul {
     top: 23px;
     min-width: 140px;
     z-index: 111;
+    /* text-align: left; */
 }
 a.academy_ul {
     position: relative;
@@ -13134,6 +13138,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .todaySrchLft label {
+    color: #404646 !important;
+}
 .medcalFZCntnt {
     margin: 0px 10px;
 }
@@ -15319,7 +15326,7 @@ input#graduationYear {
     min-height: 100vh;
 }
 .menuItems {
-    padding-bottom: 95px;
+    padding-bottom: 118px;
 }
 .unified .ccl-center-panel .CreatChatInner img {
     margin: initial !important;
@@ -17420,3 +17427,7 @@ ul.duringCovid li:last-child {
     flex-direction: row;
     overflow-x: scroll;
 } */
+
+.profileInfoDate .ant-picker-clear {
+    right: 5px !important;
+}

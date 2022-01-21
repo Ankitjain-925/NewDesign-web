@@ -14,7 +14,6 @@ import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import {
     commonHeader,
-    commonCometDelHeader,
 } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";

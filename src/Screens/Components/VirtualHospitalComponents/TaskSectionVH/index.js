@@ -175,7 +175,7 @@ class Index extends Component {
   };
   // close model Add Task
   handleCloseTask = () => {
-    this.setState({ openTask: false, newTask:{} });
+    this.setState({ openTask: false, newTask: {} });
   };
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
@@ -530,7 +530,7 @@ class Index extends Component {
   getPatientData = async () => {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
-    if (response.isdata) {
+    if (response?.isdata) {
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
@@ -545,7 +545,6 @@ class Index extends Component {
           }
           this.updateEntryState2(this.props.location?.state?.user);
         }
-
       });
     }
     else {
@@ -904,9 +903,9 @@ class Index extends Component {
       CreateaTask,
       ForPatient,
       Taskdescription,
-      Assignedto,Ward,Room,
-      Speciallity,Patient,Staff,
-      Dueon,Comments,filters,Taskstatus,speciality,
+      Assignedto, Ward, Room,
+      Speciallity, Patient, Staff,
+      Dueon, Comments, filters, Taskstatus, speciality,
       Duplicate, applyFilters, clear_all_filters, Submit,
       Archive, Delete, edit, AddComment, save_task_and_close,
       Markasdone, remove_time,
@@ -979,7 +978,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
-                    
+
                     <Grid className="creatDetail">
                       <Grid className="creatInfoIner">
                         <Grid
@@ -999,14 +998,13 @@ class Index extends Component {
                                   e.target.name
                                 )
                               }
-                              value={this.state.newTask.task_name}
+                              value={this.state.newTask.task_name || ''}
                               disabled={this.props.comesFrom === 'Professional' ? true : false}
                             />
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
-                          
-                            {(this.props.comesFrom === 'detailTask') ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
+                            {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
                               this.props.comesFrom === 'Professional' ? <h2>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</h2>
                                 : <Grid>
                                   <input
@@ -1054,7 +1052,7 @@ class Index extends Component {
                                     e.target.name
                                   )
                                 }
-                                value={this.state.newTask.description}
+                                value={this.state.newTask.description || ''}
                                 disabled={this.props.comesFrom === 'Professional' ? true : false}
                               ></textarea>
                             </Grid>
@@ -1345,10 +1343,10 @@ class Index extends Component {
                               <Button onClick={(e) => this.handleComment()}>{AddComment}</Button>
                             </Grid>
                           </Grid>}
-                         
+
                           <Grid item xs={12} md={12} className="saveTasks">
                             <a>
-                            <div className="err_message">{this.state.errorMsg}</div>
+                              <div className="err_message">{this.state.errorMsg}</div>
                               <Button onClick={() => this.handleTaskSubmit()}>
                                 {save_task_and_close}
                               </Button>
@@ -1375,7 +1373,7 @@ class Index extends Component {
                     <Tab label="Done" className="billtabIner" />
                     <Tab label="Open" className="billtabIner" />
                     {(this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask') && (<Tab label="Archived" className="billtabIner" />)}
-                   
+
                   </Tabs>
                 </AppBar>
               </Grid>
