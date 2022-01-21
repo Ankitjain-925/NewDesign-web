@@ -57,6 +57,14 @@ export const getAllServices = (current) => {
 };
 
 
+export const searchFilter = (e, current) => {
+  current.setState({ SearchValue: e.target.value })
+  let track1 = current.state.AllServices;
+  let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+    return JSON.stringify(obj.title).toLowerCase().includes(e.target?.value?.toLowerCase());
+  });
+  current.setState({ services_data: FilterFromSearch1 })
+}
 //For adding the New Service and Update Service
 export const handleSubmit = (current) => {
   current.setState({ errorMsg: '' })

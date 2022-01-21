@@ -374,7 +374,8 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {type,Question,Options, AddQuestionnaire, EditQuestionnaire, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of } = translate;
+    let { type, Question, Options, AddQuestionnaire, Add_other, EditQuestionnaire, Add_a_Choice, Questionnairetitle, Make_it_multiple_questionnaire,
+      Choose_questionnaire_type, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of } = translate;
     const { questions_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -408,11 +409,11 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
 
               {/* Mobile menu */}
-              <LeftMenuMobile isNotShow={true}  currentPage="more" />
+              <LeftMenuMobile isNotShow={true} currentPage="more" />
               <Grid container direction="row">
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                  <LeftMenu isNotShow={true}  currentPage="more" />
+                  <LeftMenu isNotShow={true} currentPage="more" />
                 </Grid>
                 {/* End of Menu */}
 
@@ -444,162 +445,159 @@ class Index extends Component {
                             }
                           >
                             <Grid className="addSpeclContnt">
-                            <Grid className="addSpeclContntIner">
-                              <Grid className="addSpeclLbl">
-                                <Grid className="nwDiaCloseBtn">
-                                  <a onClick={this.handleCloseQues}>
-                                    <img
-                                      src={require("assets/images/close-search.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  </a>
-                                </Grid>
-                                <Grid>
-                                  <label>{AddQuestionnaire}</label>
-                                </Grid>
-                              </Grid>
-                              {this.state.myQuestions && (
-                                <Grid>
-                                  <Grid className="cnfrmDiaMain">
-                                    <p className='err_message'>{this.state.errorMsg}</p>
-                                    <Grid className="fillDia">
-                                      {/* <Grid> */}
-                                      {/* <label>Choose questionnaire type </label> */}
-                                      <Grid className="fillDia">
-                                        <SelectByTwo
-                                          name="situation"
-                                          label={"Choose questionnaire type"}
-                                          options={options}
-                                          onChange={(e) => this.updateEntryState1(e, "type", 0)}
-                                          value={this.SelectedValue(this.state.myQuestions[0]?.type)}
-                                        />
-                                      </Grid>
-                                      {this.state.openOpti ? (
-                                        <>
-                                          <Grid>
-                                            <FormControlLabel
-                                              className="checkboxques"
-                                              control={
-                                                <Checkbox name="multiple_answer"
-                                                  checked={this.state.myQuestions[0]?.multiple_answer === true}
-                                                  onChange={(e) =>
-                                                    this.updateEntryState1(
-                                                      e.target.checked,
-                                                      "multiple_answer",
-                                                      0
-                                                    )
-                                                  }
-                                                />
-                                              }
-                                              label="Make it a multiple questionnaire"
-                                            />
-                                          </Grid>
-
-                                          <Grid>
-                                            <VHfield
-                                              label="Question"
-                                              name="question"
-                                              placeholder="Enter a question"
-                                              onChange={(e) =>
-                                                this.updateEntryState1(e, "question", 0)
-                                              }
-                                              value={this.state.myQuestions[0]?.question}
-                                            />
-                                          </Grid>
-
-                                          <Grid className="add_a_choice">
-                                            <AddHouses
-                                              label="Add a Choice"
-                                              name="choice"
-                                              placeholder="Enter choice"
-                                              onChange={(e) =>
-                                                this.updateEntryState1(e, "options", 0)
-                                              }
-                                              comesFrom={'questionaire'}
-                                              roomArray={
-                                                this.state.myQuestions[0]?.options
-                                              }
-                                            />
-                                          </Grid>
-
-                                          <Grid>
-                                            <FormControlLabel
-                                              className="checkboxquestion"
-                                              control={
-                                                <Checkbox name="other"
-                                                  checked={this.state.myQuestions[0]?.other === true}
-                                                  onChange={(e) =>
-                                                    this.updateEntryState1(
-                                                      e.target.checked,
-                                                      "other",
-                                                      0
-                                                    )
-                                                  }
-                                                />
-                                              }
-                                              label="Add ''other'' text field"
-                                            />
-
-                                          </Grid>
-                                        </>
-                                      ) : (
-                                        <>
-                                          <Grid className="questionfieldprop">
-                                            <VHfield
-                                              label="Questionnaire title"
-                                              name="title"
-                                              placeholder="Enter title"
-                                              onChange={(e) =>
-                                                this.updateEntryState1(e, "title", 0)
-                                              }
-                                              value={this.state.myQuestions[0]?.title}
-                                            />
-                                          </Grid>
-
-                                          <Grid item xs={12} md={12} className="taskDescp">
-                                            <label>{QuestionnaireDescription}</label>
-                                            <Grid>
-                                              <textarea
-                                                placeholder="Enter description"
-                                                name="description"
-                                                onChange={(e) =>
-                                                  this.updateEntryState1(e, "description", 0)
-                                                }
-                                                value={this.state.myQuestions[0]?.description}
-                                              >
-                                              </textarea>
-                                            </Grid>
-                                          </Grid>
-
-                                          <Grid>
-                                            <VHfield
-                                              label="Question"
-                                              name="question"
-                                              placeholder="Enter question"
-                                              onChange={(e) =>
-                                                this.updateEntryState1(e, "question", 0)
-                                              }
-                                              value={this.state.myQuestions[0]?.question}
-                                            />
-                                          </Grid>
-
-                                        </>
-                                      )}
-                                    </Grid>
+                              <Grid className="addSpeclContntIner">
+                                <Grid className="addSpeclLbl">
+                                  <Grid className="nwDiaCloseBtn">
+                                    <a onClick={this.handleCloseQues}>
+                                      <img
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    </a>
+                                  </Grid>
+                                  <Grid>
+                                    <label>{AddQuestionnaire}</label>
                                   </Grid>
                                 </Grid>
-                              )}
-                              <Grid className="infoSub2">
-                                <a 
-                                onClick={() => this.handleSubmit()}
-                                >
-                                  <Button>
-                                  {save_and_close}
-                                  </Button>
-                                </a>
+                                {this.state.myQuestions && (
+                                  <Grid>
+                                    <Grid className="cnfrmDiaMain">
+                                     
+                                      <Grid className="fillDia">
+                                        {/* <Grid> */}
+                                        {/* <label>Choose questionnaire type </label> */}
+                                        <Grid className="fillDia">
+                                          <SelectByTwo
+                                            name="situation"
+                                            label={Choose_questionnaire_type}
+                                            options={options}
+                                            onChange={(e) => this.updateEntryState1(e, "type", 0)}
+                                            value={this.SelectedValue(this.state.myQuestions[0]?.type)}
+                                          />
+                                        </Grid>
+                                        {this.state.openOpti ? (
+                                          <>
+                                            <Grid>
+                                              <FormControlLabel
+                                                className="checkboxques"
+                                                control={
+                                                  <Checkbox name="multiple_answer"
+                                                    checked={this.state.myQuestions[0]?.multiple_answer === true}
+                                                    onChange={(e) =>
+                                                      this.updateEntryState1(
+                                                        e.target.checked,
+                                                        "multiple_answer",
+                                                        0
+                                                      )
+                                                    }
+                                                  />
+                                                }
+                                                label={Make_it_multiple_questionnaire}
+                                              />
+                                            </Grid>
+
+                                            <Grid>
+                                              <VHfield
+                                                label={Question}
+                                                name="question"
+                                                placeholder="Enter a question"
+                                                onChange={(e) =>
+                                                  this.updateEntryState1(e, "question", 0)
+                                                }
+                                                value={this.state.myQuestions[0]?.question}
+                                              />
+                                            </Grid>
+
+                                            <Grid className="add_a_choice">
+                                              <AddHouses
+                                                label={Add_a_Choice}
+                                                name="choice"
+                                                placeholder="Enter choice"
+                                                onChange={(e) =>
+                                                  this.updateEntryState1(e, "options", 0)
+                                                }
+                                                comesFrom={'questionaire'}
+                                                roomArray={
+                                                  this.state.myQuestions[0]?.options
+                                                }
+                                              />
+                                            </Grid>
+
+                                            <Grid>
+                                              <FormControlLabel
+                                                className="checkboxquestion"
+                                                control={
+                                                  <Checkbox name="other"
+                                                    checked={this.state.myQuestions[0]?.other === true}
+                                                    onChange={(e) =>
+                                                      this.updateEntryState1(
+                                                        e.target.checked,
+                                                        "other",
+                                                        0
+                                                      )
+                                                    }
+                                                  />
+                                                }
+                                                label={Add_other}
+                                              />
+
+                                            </Grid>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <Grid className="questionfieldprop">
+                                              <VHfield
+                                                label={Questionnairetitle}
+                                                name="title"
+                                                placeholder="Enter title"
+                                                onChange={(e) =>
+                                                  this.updateEntryState1(e, "title", 0)
+                                                }
+                                                value={this.state.myQuestions[0]?.title}
+                                              />
+                                            </Grid>
+
+                                            <Grid item xs={12} md={12} className="taskDescp">
+                                              <label>{QuestionnaireDescription}</label>
+                                              <Grid>
+                                                <textarea
+                                                  placeholder="Enter description"
+                                                  name="description"
+                                                  onChange={(e) =>
+                                                    this.updateEntryState1(e, "description", 0)
+                                                  }
+                                                  value={this.state.myQuestions[0]?.description}
+                                                >
+                                                </textarea>
+                                              </Grid>
+                                            </Grid>
+
+                                            <Grid>
+                                              <VHfield
+                                                label={Question}
+                                                name="question"
+                                                placeholder="Enter question"
+                                                onChange={(e) =>
+                                                  this.updateEntryState1(e, "question", 0)
+                                                }
+                                                value={this.state.myQuestions[0]?.question}
+                                              />
+                                            </Grid>
+
+                                          </>
+                                        )}
+                                      </Grid>
+                                      <p className='err_message'>{this.state.errorMsg}</p>
+                                    </Grid>
+                                  </Grid>
+                                )}
+                                <Grid className="infoSub2">
+                                    <Button  onClick={() => this.handleSubmit()}>
+                                      {save_and_close}
+                                    </Button>
+                                </Grid>
                               </Grid>
-                            </Grid>
                             </Grid>
                           </Modal>
 
@@ -616,148 +614,146 @@ class Index extends Component {
                             }
                           >
                             <Grid className="addSpeclContnt">
-                            <Grid className="addSpeclContntIner">
-                              <Grid className="addSpeclLbl">
-                                <Grid className="nwDiaCloseBtn">
-                                  <a onClick={this.handleEditCloseQues}>
-                                    <img
-                                      src={require("assets/images/close-search.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  </a>
-                                </Grid>
-                                <Grid>
-                                  <label>{EditQuestionnaire}</label>
-                                </Grid>
-                              </Grid>
-                              {this.state.myQuestions && (
-                                <Grid>
-                                  <Grid className="cnfrmDiaMain">
-                                    <Grid className="fillDia">
-                                      <Grid className="fillDia">
-
-                                      </Grid>
-                                      {this.state.editopenOpti ? (
-                                        <>
-                                          <Grid>
-                                            <FormControlLabel
-                                              className="checkboxques"
-                                              control={
-                                                <Checkbox name="multiple_answer"
-                                                  checked={this.state.editQuestions?.multiple_answer === true}
-                                                  onChange={(e) =>
-                                                    this.editQuestionState(
-                                                      e,
-                                                      "multiple_answer",
-                                                    )
-                                                  }
-                                                />
-                                              }
-                                              label="Make it a multiple questionnaire"
-                                            />
-                                          </Grid>
-
-                                          <Grid>
-                                            <VHfield
-                                              label="Question"
-                                              name="question"
-                                              placeholder="Enter a question"
-                                              onChange={(e) =>
-                                                this.editQuestionState(e, "question")
-                                              }
-                                              value={this.state.editQuestions?.question}
-                                            />
-                                          </Grid>
-
-                                          <Grid className="add_a_choice">
-                                            <AddHouses
-                                              label="Add a Choice"
-                                              name="choice"
-                                              placeholder="Enter choice"
-                                              onChange={(e) =>
-                                                this.editQuestionState(e, "options")
-                                              }
-                                              comesFrom={'questionaire'}
-                                              roomArray={this.state.editQuestions?.options}
-                                            />
-                                          </Grid>
-
-                                          <Grid>
-                                            <FormControlLabel
-                                              className="checkboxquestion"
-                                              control={
-                                                <Checkbox name="other"
-                                                  checked={this.state.editQuestions?.other === true}
-                                                  onChange={(e) =>
-                                                    this.editQuestionState(
-                                                      e,
-                                                      "other",
-                                                    )
-                                                  }
-                                                />
-                                              }
-                                              label="Add ''other'' text field"
-                                            />
-
-                                          </Grid>
-                                        </>
-                                      ) : (
-                                        <>
-                                          <Grid className="questionfieldprop">
-                                            <VHfield
-                                              label="Questionnaire title"
-                                              name="title"
-                                              placeholder="Enter title"
-                                              onChange={(e) =>
-                                                this.editQuestionState(e, "title")
-                                              }
-                                              value={this.state.editQuestions?.title}
-                                            />
-                                          </Grid>
-
-                                          <Grid item xs={12} md={12} className="taskDescp">
-                                            <label>{QuestionnaireDescription}</label>
-                                            <Grid>
-                                              <textarea
-                                                placeholder="Enter description"
-                                                name="description"
-                                                onChange={(e) =>
-                                                  this.editQuestionState(e, "description")
-                                                }
-                                                value={this.state.editQuestions?.description}
-                                              >
-                                              </textarea>
-                                            </Grid>
-                                          </Grid>
-
-                                          <Grid>
-                                            <VHfield
-                                              label="Question"
-                                              name="question"
-                                              placeholder="Enter question"
-                                              onChange={(e) =>
-                                                this.editQuestionState(e, "question")
-                                              }
-                                              value={this.state.editQuestions?.question}
-                                            />
-                                          </Grid>
-
-                                        </>
-                                      )}
-                                    </Grid>
+                              <Grid className="addSpeclContntIner">
+                                <Grid className="addSpeclLbl">
+                                  <Grid className="nwDiaCloseBtn">
+                                    <a onClick={this.handleEditCloseQues}>
+                                      <img
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    </a>
                                   </Grid>
-
+                                  <Grid>
+                                    <label>{EditQuestionnaire}</label>
+                                  </Grid>
                                 </Grid>
-                              )}
-                              <Grid className="infoSub2">
-                                <a onClick={() => {this.handleeditSubmit(); this.handleEditCloseQues()}} >
-                                  <Button >
-                                  {save_and_close}
-                                  </Button>
-                                </a>
+                                {this.state.myQuestions && (
+                                  <Grid>
+                                    <Grid className="cnfrmDiaMain">
+                                      <Grid className="fillDia">
+                                        <Grid className="fillDia">
+
+                                        </Grid>
+                                        {this.state.editopenOpti ? (
+                                          <>
+                                            <Grid>
+                                              <FormControlLabel
+                                                className="checkboxques"
+                                                control={
+                                                  <Checkbox name="multiple_answer"
+                                                    checked={this.state.editQuestions?.multiple_answer === true}
+                                                    onChange={(e) =>
+                                                      this.editQuestionState(
+                                                        e,
+                                                        "multiple_answer",
+                                                      )
+                                                    }
+                                                  />
+                                                }
+                                                label={Make_it_multiple_questionnaire}
+                                              />
+                                            </Grid>
+
+                                            <Grid>
+                                              <VHfield
+                                                label={Question}
+                                                name="question"
+                                                placeholder="Enter a question"
+                                                onChange={(e) =>
+                                                  this.editQuestionState(e, "question")
+                                                }
+                                                value={this.state.editQuestions?.question}
+                                              />
+                                            </Grid>
+
+                                            <Grid className="add_a_choice">
+                                              <AddHouses
+                                                label={Add_a_Choice}
+                                                name="choice"
+                                                placeholder="Enter choice"
+                                                onChange={(e) =>
+                                                  this.editQuestionState(e, "options")
+                                                }
+                                                comesFrom={'questionaire'}
+                                                roomArray={this.state.editQuestions?.options}
+                                              />
+                                            </Grid>
+
+                                            <Grid>
+                                              <FormControlLabel
+                                                className="checkboxquestion"
+                                                control={
+                                                  <Checkbox name="other"
+                                                    checked={this.state.editQuestions?.other === true}
+                                                    onChange={(e) =>
+                                                      this.editQuestionState(
+                                                        e,
+                                                        "other",
+                                                      )
+                                                    }
+                                                  />
+                                                }
+                                                label={Add_other}
+                                              />
+
+                                            </Grid>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <Grid className="questionfieldprop">
+                                              <VHfield
+                                                label={Questionnairetitle}
+                                                name="title"
+                                                placeholder="Enter title"
+                                                onChange={(e) =>
+                                                  this.editQuestionState(e, "title")
+                                                }
+                                                value={this.state.editQuestions?.title}
+                                              />
+                                            </Grid>
+
+                                            <Grid item xs={12} md={12} className="taskDescp">
+                                              <label>{QuestionnaireDescription}</label>
+                                              <Grid>
+                                                <textarea
+                                                  placeholder="Enter description"
+                                                  name="description"
+                                                  onChange={(e) =>
+                                                    this.editQuestionState(e, "description")
+                                                  }
+                                                  value={this.state.editQuestions?.description}
+                                                >
+                                                </textarea>
+                                              </Grid>
+                                            </Grid>
+
+                                            <Grid>
+                                              <VHfield
+                                                label={Question}
+                                                name="question"
+                                                placeholder="Enter question"
+                                                onChange={(e) =>
+                                                  this.editQuestionState(e, "question")
+                                                }
+                                                value={this.state.editQuestions?.question}
+                                              />
+                                            </Grid>
+
+                                          </>
+                                        )}
+                                      </Grid>
+                                    </Grid>
+
+                                  </Grid>
+                                )}
+                                <Grid className="infoSub2">
+                                    <Button onClick={() => { this.handleeditSubmit(); this.handleEditCloseQues() }}>
+                                      {save_and_close}
+                                    </Button>
+                                </Grid>
                               </Grid>
-                            </Grid>
                             </Grid>
                           </Modal>
                         </Grid>

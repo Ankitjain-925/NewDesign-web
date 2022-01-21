@@ -53,7 +53,7 @@ class Index extends Component {
   };
   //close the institute group
   closeInstitute = () => {
-    this.setState({ openGroup: false });
+    this.setState({ errorMsg: '', openGroup: false });
   };
 
   //open the hospital modal
@@ -62,16 +62,17 @@ class Index extends Component {
   };
   //close the hospital modal
   closeHospitalModal = () => {
-    this.setState({ openHospitalModal: false, editId: '' });
+    this.setState({ errorHospMsg: "", openHospitalModal: false, editId: '' });
   };
 
   EditInstitute = (instituteId) => {
+    this.setState({ errorMsg: "" })
     let result = this.state.AllGroupList && this.state.AllGroupList.length > 0 && this.state.AllGroupList.find(item => item._id === instituteId);
     this.setState({ openGroup: true, institute_groups: result, houses: result?.houses, image: [{ filename: result.group_logo, filetype: "png" }] });
   };
 
   editHospital = (editData) => {
-    this.setState({ openHospitalModal: true, hospitalData: editData, editId: editData.house_id });
+    this.setState({ errorHospMsg: "", openHospitalModal: true, hospitalData: editData, editId: editData.house_id });
   };
 
   //add hospitals
@@ -170,8 +171,23 @@ class Index extends Component {
   };
 
   DeleteGroupOk = (id) => {
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
+    var allIDS1 =this.state.AllGroupList?.length>0 && this.state.AllGroupList.filter((item)=>item._id === id)
+    if(allIDS1 && allIDS1.length>0){
+        var allIDS = allIDS1?.[0]?.houses?.length>0 && allIDS1?.[0]?.houses.map((house)=>{
+          return  house.house_id;
+        })
+    }
+    axios
+    .post(
+      sitedata.data.path +
+      `/vh/deletehouse/`, {house_id: allIDS},
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      if (responce.data.hassuccessed) {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+   
     axios
       .delete(
         sitedata.data.path +
@@ -184,6 +200,8 @@ class Index extends Component {
         }
         this.setState({ loaderImage: false });
       });
+    }
+  })
   }
 
   deleteHospital = (index) => {
@@ -258,10 +276,22 @@ class Index extends Component {
   DeleteInstitute = (index, data) => {
     if (data && data?.houses && data?.houses?.length > 0) {
       var house = data?.houses
-      house.splice(index, 1);
-      var datas = this.state.institute_groups;
-      data['houses'] = house;
-      this.setState({ institute_groups: datas, openGroup: true });
+      axios
+      .post(
+        sitedata.data.path +
+        `/vh/deletehouse/`, {house_id: [house[index].house_id]},
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          house.splice(index, 1);
+          var datas = this.state.institute_groups;
+          data['houses'] = house;
+          this.setState({ institute_groups: datas, openGroup: true });
+          this.getallGroups();
+        }
+      });
+       
     }
   }
 
@@ -298,23 +328,22 @@ class Index extends Component {
             });
           }
           this.setState({
-            totalPage: totalPage,
-            currentPage: 1, AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id
+            AllGroupList: responce.data?.data?.institute_groups, instituteId: responce.data?.data?._id
           },
             () => {
-              if (totalPage > 1) {
-                var pages = [];
-                for (var i = 1; i <= this.state.totalPage; i++) {
-                  pages.push(i);
-                }
-                this.setState({
-                  GroupList: this.state.AllGroupList.slice(0, 10),
-                  pages: pages,
-                });
-              } else {
+              // if (totalPage > 1) {
+              //   var pages = [];
+              //   for (var i = 1; i <= this.state.totalPage; i++) {
+              //     pages.push(i);
+              //   }
+              //   this.setState({
+              //     GroupList: this.state.AllGroupList.slice(0, 10),
+              //     pages: pages,
+              //   });
+              // } else {
                 this.setState({ GroupList: this.state.AllGroupList });
 
-              }
+              // }
             })
           this.setState({ loaderImage: false });
         }
@@ -323,55 +352,69 @@ class Index extends Component {
 
   SaveGroup = () => {
     this.setState({ errorMsg: "" })
-
     var data = this.state.institute_groups;
-
-    if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
-      this.setState({ errorMsg: "Institution Name can't be empty" })
+    var a = this.state.AllGroupList && this.state.AllGroupList?.length > 0 &&this.state.AllGroupList.map((item) => { return item?.group_name })
+    var count = 0;
+    if (data._id) {
+      var reapGroup1 = a?.length > 0 && a.filter((data1)=> data1 === data?.group_name)
+      count = reapGroup1.length;
     }
-    else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
-      this.setState({ errorMsg: "Institution Description Note can't be empty" })
+    var reapGroup = a?.length > 0 && a.includes(data?.group_name)
+   
+    if (reapGroup == true && count > 1 && data._id) { 
+      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
     }
-    else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
-      this.setState({ errorMsg: "Select atleast one hospital" })
+    else if (reapGroup == true && count == 0 && !data._id) {
+      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
     }
     else {
-      var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
-      this.setState({ loaderImage: true });
-      if (data._id) {
-        axios
-          .put(
-            sitedata.data.path +
-            `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            if (responce.data.hassuccessed) {
-              this.getallGroups();
-              this.setState({ institute_groups: {}, })
-            }
-            else {
-              this.setState({ errorMsg: "Somthing went wrong, Please try again" })
-            }
-            this.setState({ loaderImage: false, openGroup: false });
-          });
+      if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
+        this.setState({ errorMsg: "Institution Name can't be empty" })
+      }
+      else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
+        this.setState({ errorMsg: "Institution Description Note can't be empty" })
+      }
+      else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
+        this.setState({ errorMsg: "Select atleast one hospital" })
       }
       else {
-        axios
-          .put(
-            sitedata.data.path +
-            `/hospitaladmin/AddGroup/${institute_id}`,
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            if (responce.data.hassuccessed) {
-              this.getallGroups();
-              this.setState({ institute_groups: {}, })
-            }
-            this.setState({ loaderImage: false, openGroup: false });
-          });
+        var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+        this.setState({ loaderImage: true });
+        if (data._id) {
+          axios
+            .put(
+              sitedata.data.path +
+              `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
+              data,
+              commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                this.getallGroups();
+                this.setState({ institute_groups: {}, })
+              }
+              else {
+                this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+              }
+              this.setState({ loaderImage: false, openGroup: false });
+            });
+        }
+        else {
+          axios
+            .put(
+              sitedata.data.path +
+              `/hospitaladmin/AddGroup/${institute_id}`,
+              data,
+              commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                this.getallGroups();
+                this.setState({ institute_groups: {}, })
+              }
+              this.setState({ loaderImage: false, openGroup: false });
+            });
+        }
       }
     }
   };
@@ -401,24 +444,45 @@ class Index extends Component {
     let date = new Date();
     let housesArray = this.state.houses;
     let hospitalObject = this.state.hospitalData;
-    if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
-      this.setState({ errorHospMsg: "Hospital Name can't be empty" })
+    var b = [];
+    let list = this.state.AllGroupList && this.state.AllGroupList?.length > 0 && this.state.AllGroupList.map((item) => (
+      item && item?.houses && item?.houses?.length > 0 && item?.houses.map((data) => (
+        b.push(data?.house_name)
+      ))
+    ))
+    this.state.houses && this.state.houses?.length > 0 && this.state.houses.map((data) => (
+      b.push(data?.house_name)
+    ))
+    let reapHouse = b?.length > 0 && b.includes(hospitalObject?.house_name)
+    var count = 0;
+    var dataCComing = b && b.filter((data) => data === hospitalObject.house_name)
+    count = dataCComing.length;
+    if (reapHouse == true && count > 2 && this.state.editId !=='') {
+      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
     }
-    else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
-      this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
-    } else {
-      if (this.state.editId) {
-        let objIndex = housesArray.findIndex((item => item.house_id == this.state.editId));
-        housesArray[objIndex].house_name = hospitalObject.house_name
-        housesArray[objIndex].house_description = hospitalObject.house_description
-        housesArray[objIndex].house_logo = hospitalObject.house_logo
-      } else {
-        hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
-        housesArray.push(this.state.hospitalData);
+    else if (reapHouse == true && count > 0 && this.state.editId ==='') {
+      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
+    }
+    else {
+      if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
+        this.setState({ errorHospMsg: "Hospital Name can't be empty" })
       }
-      var state = this.state.institute_groups;
-      state["houses"] = housesArray;
-      this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+      else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
+        this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
+      } else {
+        if (this.state.editId) {
+          let objIndex = housesArray.findIndex((item => item.house_id == this.state.editId));
+          housesArray[objIndex].house_name = hospitalObject.house_name
+          housesArray[objIndex].house_description = hospitalObject.house_description
+          housesArray[objIndex].house_logo = hospitalObject.house_logo
+        } else {
+          hospitalObject["house_id"] = `${this.state.instituteId}-${date.getTime()}`
+          housesArray.push(this.state.hospitalData);
+        }
+        var state = this.state.institute_groups;
+        state["houses"] = housesArray;
+        this.setState({ houses: housesArray, institute_groups: state, openHospitalModal: false, editId: '' });
+      }
     }
   }
 
@@ -816,7 +880,7 @@ class Index extends Component {
                                                         <li>
                                                           <a
                                                             onClick={() => {
-                                                              this.deleteHospital(data._id);
+                                                              this.deleteHospital(index);
                                                             }}
                                                           >
                                                             <img

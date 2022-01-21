@@ -112,7 +112,7 @@ class Index extends Component {
         <Droppable
           droppableId="board"
           type="COLUMN"
-          direction="horizontal"
+          // direction="horizontal"
           isCombineEnabled={false}
         >
           {provided => (

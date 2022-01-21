@@ -1083,6 +1083,7 @@ class Index extends Component {
         insurance_number: insurance_no,
         annotations: this.state.UpDataDetails.annotations,
         status: "free",
+        house_id: this.props?.House?.value,
         patient_info: {
           patient_id: this.state.personalinfo?.profile_id,
           first_name: this.state.personalinfo?.first_name,
@@ -1235,11 +1236,11 @@ class Index extends Component {
       Services,
       latest_info,
       see_avlbl_date,
-      location_of_srvc,
+      location_of_srvc, Tasks,
       this_way_can_instntly_list_of_specility,
-      find_apointment,
+      find_apointment,Appointments,filters,
       consultancy_cstm_calnder,
-      vdo_call,
+      vdo_call, All, Open, done,
       allow_location_access, } =
       translate;
 
@@ -1313,9 +1314,9 @@ class Index extends Component {
                             value={tabvalue}
                             onChange={this.handleChangeTab}
                           >
-                            <Tab label="All" className="appTabIner" />
-                            <Tab label="Appointments" className="appTabIner" />
-                            <Tab label="Tasks" className="appTabIner" />
+                            <Tab label={All} className="appTabIner" />
+                            <Tab label={Appointments} className="appTabIner" />
+                            <Tab label={Tasks} className="appTabIner" />
                           </Tabs>
                         </AppBar>
 
@@ -1490,7 +1491,7 @@ class Index extends Component {
                         <Grid className="fltrLblClose">
                           <a onClick={this.handleCloseFil}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a>
                         </Grid>
-                        <label>Filters</label>
+                        <label>{filters}</label>
                       </Grid>
                       {/* <Grid item xs={12} sm={7} md={6}> */}
                       <AppBar position="static" className="appTabs modAppTabs">
@@ -1498,9 +1499,9 @@ class Index extends Component {
                           value={tabvalue}
                           onChange={this.handleChangeTab}
                         >
-                          <Tab label="All" className="appTabIner" />
-                          <Tab label="Appointments" className="appTabIner" />
-                          <Tab label="Tasks" className="appTabIner" />
+                          <Tab label={All} className="appTabIner" />
+                          <Tab label={Appointments} className="appTabIner" />
+                          <Tab label={Tasks} className="appTabIner" />
                         </Tabs>
                       </AppBar>
 
@@ -1588,7 +1589,7 @@ class Index extends Component {
                                     }
                                   />
                                 }
-                                label="Open"
+                                label={Open}
                               />
                               <FormControlLabel
                                 control={
@@ -1602,7 +1603,7 @@ class Index extends Component {
                                     }
                                   />
                                 }
-                                label="Done"
+                                label={done}
                               />
                             </Grid>
 

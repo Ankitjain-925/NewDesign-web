@@ -93,6 +93,7 @@ class Index extends Component {
             paidCSS: '',
             currentData: {},
             patientForFilter: [],
+            SearchValue: '',
         }
     };
 
@@ -439,6 +440,22 @@ class Index extends Component {
         this.fetchbillsdata(ApiStatus, value);
     };
 
+    searchFilter = (e) => {
+        this.setState({ SearchValue: e.target.value })
+        if(e.target.value !==''){
+        let track1 = this.state.AllBills;
+        let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+          var name = (obj?.patient?.first_name && obj?.patient?.last_name) ? obj?.patient?.first_name + " " + obj?.patient?.last_name : obj?.patient?.first_name;
+          return (JSON.stringify(obj?.invoice_id).toLowerCase().includes(e.target?.value?.toLowerCase()) || 
+          JSON.stringify(name).toLowerCase().includes(e.target?.value?.toLowerCase()));
+
+        });
+        this.setState({ bills_data: FilterFromSearch1 })
+        }
+        else{
+            this.setState({ bills_data:  this.state.AllBills}) 
+        }
+    }
 
     downloadInvoicePdf = (datas) => {
         var invoice = datas;
@@ -533,7 +550,7 @@ class Index extends Component {
 
                                         <Grid className="bilingTabUpr">
                                             <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={12} sm={9} md={9}>
+                                                <Grid item xs={12} sm={7} md={7}>
                                                     <AppBar position="static" className="billTabs">
                                                         <Tabs value={value} onChange={this.handleChangeTab}>
                                                             <Tab label="All" className="billtabIner" />
@@ -543,8 +560,24 @@ class Index extends Component {
                                                         </Tabs>
                                                     </AppBar>
                                                 </Grid>
-                                                <Grid item xs={12} sm={3} md={3}>
+                                                <Grid item xs={12} sm={5} md={5}>
                                                     <Grid className="billSeting">
+                                                        {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
+                                                        <a>
+                                                        {!this.state.showinput ? <img
+                                                            src={require("assets/virtual_images/search-entries.svg")}
+                                                            alt=""
+                                                            title=""
+                                                            onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                                                        /> :
+                                                            <img
+                                                            src={require("assets/images/close-search.svg")}
+                                                            alt=""
+                                                            title=""
+                                                            onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: ''}); this.handleChangeTab('', value) }}
+                                                            />}
+                                                        </a>
+                                                        
                                                         {value === 0 &&
                                                             <a className={allBillsCSS}><img src={allBillsCSS === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
                                                         }
@@ -642,8 +675,8 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                         </Modal>
-                                                        <a><img src={require('assets/virtual_images/search-entries.svg')} alt="" title="" /></a>
-                                                        <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
+                                                        {/* <a><img src={require('assets/virtual_images/search-entries.svg')} alt="" title="" /></a> */}
+                                                        {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -689,27 +722,27 @@ class Index extends Component {
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 1 &&
-                                                                                < ComponentToPrint1 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                                < ComponentToPrint1 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 2 &&
-                                                                                < ComponentToPrint2 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                                < ComponentToPrint2 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 3 &&
-                                                                                < ComponentToPrint3 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                                < ComponentToPrint3 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 4 &&
-                                                                                < ComponentToPrint4 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                                < ComponentToPrint4 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                             {this.props.settings &&
                                                                                 this.props.settings.setting &&
                                                                                 this.props.settings.setting.invoice_pattern &&
                                                                                 this.props.settings.setting.invoice_pattern == 5 &&
-                                                                                < ComponentToPrint5 ref={(el) => (this.componentRef = el)} data={this.state.currentData} index={index} />}
+                                                                                < ComponentToPrint5 ref={(el) => (this.componentRef = el)} data={this.state.currentData} House={this.props.House} index={index} />}
                                                                         </div>
                                                                         <a onClick={() => { this.downloadInvoicePdf(data) }}> <li><img src={require('assets/virtual_images/DownloadPDF.png')} alt="" title="" /><span>{DownloadPDF}</span></li></a>
                                                                     </ul>

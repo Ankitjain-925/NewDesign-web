@@ -7567,6 +7567,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .todaySrch {
     background-color: #404646 !important;
 }
+.homeBgDrk .todaySrchLft label {
+    background: #00abaf;
+}
 .homeBgDrk .crntMonth {
     color: #D9DADA !important;
 }
@@ -13094,6 +13097,7 @@ a.academy_ul ul {
     top: 23px;
     min-width: 140px;
     z-index: 111;
+    /* text-align: left; */
 }
 a.academy_ul {
     position: relative;
@@ -13134,6 +13138,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .todaySrchLft label {
+    color: #404646 !important;
+}
 .medcalFZCntnt {
     margin: 0px 10px;
 }
@@ -15319,7 +15326,7 @@ input#graduationYear {
     min-height: 100vh;
 }
 .menuItems {
-    padding-bottom: 95px;
+    padding-bottom: 118px;
 }
 .unified .ccl-center-panel .CreatChatInner img {
     margin: initial !important;
@@ -16100,16 +16107,17 @@ td.dotsImgColor.pivoted{
 .addBirthSlot .react-date-picker__button{
     padding: 0px 2px;
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
+.darkTheme input:-webkit-autofill,
+.darkTheme input:-webkit-autofill:hover, 
+.darkTheme input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #ff000000 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #202323 inset !important;
+    -webkit-text-fill-color: #BFC1C1 !important;
 }
 .homeBgDrk input:-webkit-autofill,
 .homeBgDrk input:-webkit-autofill:hover, 
@@ -17420,3 +17428,7 @@ ul.duringCovid li:last-child {
     flex-direction: row;
     overflow-x: scroll;
 } */
+
+.profileInfoDate .ant-picker-clear {
+    right: 5px !important;
+}

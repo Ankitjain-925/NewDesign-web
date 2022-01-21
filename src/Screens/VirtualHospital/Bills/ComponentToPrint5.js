@@ -21,34 +21,34 @@ export class ComponentToPrint5 extends React.Component {
         }
     };
 
-              //on adding new data
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.data !== this.props.data) {
-      this.setState({ data: this.props.data });
-    }
-  };
+    //on adding new data
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data) {
+            this.setState({ data: this.props.data });
+        }
+    };
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { AimedisInvoiceReport,ServiceList,InvoiceData,Services,CaseID, Created_at,YourAimedisTeam, aimedisIo,
-             ServiceName,TotalAmount,InvoiceID, srvc ,Price, quantity, contactAimedisForQuery, SysAimedis} = translate;
+        let { AimedisInvoiceReport,ServiceList,InvoiceData,Services,CaseID, Created_at,YourAimedisTeam,
+             ServiceName,TotalAmount,InvoiceID, srvc ,Price, quantity, contactAimedisForQuery, } = translate;
         var { data, index } = this.state;
-        console.log("data", this.state.data)
         return (
             <div className="relativeCSS">
                 <style type="text/css" media="print"></style>
                 <div className="flash" />
                 <Grid className="printPreview">
                     <a><img
-                        className="logo"
-                        src="/static/media/LogoPNG.03ac2d92.png"
+                        className="pattern-main-logo"
+                        src={require("assets/virtual_images/fullLogo.png")}
                         alt=""
                         title="" />
                     </a>
                     <div className="printPreviewText nextPart"><b>{AimedisInvoiceReport}</b></div>
                     <br />
                     <div className="printPreviewText">
-                        <label><b>{ServiceList}</b></label>
+                        {this.props.House && this.props.House?.label &&
+                            <strong>{this.props.House?.label}</strong>}
                         <Table className="printPreviewText">
                             <Thead>
                                 <Tr>
@@ -59,14 +59,14 @@ export class ComponentToPrint5 extends React.Component {
                             <Tbody>
                                 <Tr>
                                     { }
-                                    <Td>{Services} : <ul>{data?.services && data?.services?.length>0 && 
-                                    data?.services.map((item)=>(
-                                        <li>
-                                         {ServiceName}:    {item.service}<br/>
-                                         {srvc} {Price} / {quantity}:   {item.price}<br/>
-                                         {quantity}:   {item.quantity}<br/>
-                                        </li>   
-                                    ))
+                                    <Td>{Services} : <ul>{data?.services && data?.services?.length > 0 &&
+                                        data?.services.map((item) => (
+                                            <li>
+                                                {ServiceName}:    {item.service}<br />
+                                                {srvc} {Price} / {quantity}:   {item.price}<br />
+                                                {quantity}:   {item.quantity}<br />
+                                            </li>
+                                        ))
                                     }</ul>
                                     </Td>
                                 </Tr>
@@ -89,9 +89,9 @@ export class ComponentToPrint5 extends React.Component {
                         <Grid>
                             <b>{YourAimedisTeam}</b>
                             <br />
-                            <b>{aimedisIo}</b>
+                            <b>https://aimedis.io</b>
                             <br />
-                            <b>{SysAimedis}</b>
+                            <b>"https://sys.aimedis.com"</b>
                             <br />
                             <p>{contactAimedisForQuery}</p>
                         </Grid>

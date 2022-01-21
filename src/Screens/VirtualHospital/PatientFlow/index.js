@@ -639,7 +639,7 @@ class Index extends Component {
   getPatientData = async () => {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
-    if (response.isdata) {
+    if (response?.isdata) {
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
@@ -1013,6 +1013,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
+                    <div className="custom-d-n-d">
                     <Drags
                       moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
@@ -1040,6 +1041,7 @@ class Index extends Component {
                         this.MovetoTask(speciality, patient_id)
                       }}
                     />
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>

@@ -1495,10 +1495,10 @@
 		"Hospital": "Hospital",
 		"ShoworHide": "Show or Hide",
 		"Create": "Create",
-		"Patient journey": "Patientjourney",
+		"Patientjourney": "Patient journey",
 		"Questionnaire": "Questionnaire",
 		"Questionnaire_of": "Questionnaire of -",
-		"Final Submit": "FinalSubmit",
+		"FinalSubmit": "Final Submit",
 		"Apply": "Apply",
 		"Applied": "Applied",
 		"ViewDemo": "View Demo",
@@ -1546,6 +1546,7 @@
 		"Task": "Task",
 		"ServiceName": "Service Name",
 		"General": "General",
-		"select_user_type": "Please select user type"
+		"select_user_type": "Please select user type",
+		"ProfessionalTask": "Professional Tasks"
 	}
 }

@@ -279,6 +279,7 @@ class Index extends Component {
         const { value } = this.state;
         const { valueMob } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
+        let { Overview, journal, Tasks, DocumentsFiles, Room, personal_info } = translate;
         return (
             <Grid className={
                 this.props.settings &&
@@ -297,12 +298,12 @@ class Index extends Component {
                                 <Grid className="tskTabsMob">
                                     <AppBar position="static" className="tskTabs">
                                         <Tabs value={valueMob} onChange={this.handleChangeTabMob}>
-                                            <Tab label="Overview" className="tsktabIner tsktabInerMob" />
-                                            <Tab label="Journal" className="tsktabIner" />
-                                            <Tab label="Tasks" className="tsktabIner" />
-                                            <Tab label="Documents / Files" className="tsktabIner" />
-                                            {/* <Tab label="Room" className="tsktabIner" /> */}
-                                            <Tab label="Personal info" className="tsktabIner" />
+                                            <Tab label={Overview} className="tsktabIner tsktabInerMob" />
+                                            <Tab label={journal} className="tsktabIner" />
+                                            <Tab label={Tasks} className="tsktabIner" />
+                                            <Tab label={DocumentsFiles} className="tsktabIner" />
+                                            {/* <Tab label={Room} className="tsktabIner" /> */}
+                                            <Tab label={personal_info} className="tsktabIner" />
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
@@ -351,10 +352,10 @@ class Index extends Component {
                                         <Grid className="tskTabsweb">
                                             <AppBar position="static" className="tskTabs">
                                                 <Tabs value={value} onChange={this.handleChangeTab}>
-                                                    <Tab label="Journal" className="tsktabIner" />
-                                                    <Tab label="Tasks" className="tsktabIner" />
-                                                    <Tab label="Documents / Files" className="tsktabIner" />
-                                                    <Tab label="Personal info" className="tsktabIner" />
+                                                    <Tab label={journal} className="tsktabIner" />
+                                                    <Tab label={Tasks} className="tsktabIner" />
+                                                    <Tab label={DocumentsFiles} className="tsktabIner" />
+                                                    <Tab label={personal_info} className="tsktabIner" />
                                                 </Tabs>
                                             </AppBar>
                                         </Grid>

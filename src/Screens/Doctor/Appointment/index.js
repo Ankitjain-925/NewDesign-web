@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction.js";
 import TooltipTrigger from "react-popper-tooltip";
 import "react-popper-tooltip/dist/styles.css";
 import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
@@ -287,6 +288,22 @@ class Index extends Component {
                             start: new Date(da1).valueOf(),
                             end: new Date(da2).valueOf(),
                           });
+                          if(this.props.House?.value){
+                            if(d1.house_id === this.props.House.value){
+                              finaldata.push({
+                                id: index,
+                                title:
+                                  d1.patient_info.first_name +
+                                  " " +
+                                  d1.patient_info.last_name,
+                                start: new Date(da1),
+                                end: new Date(da2),
+                                indexout: indexout,
+                                fulldata: [d1],
+                              });
+                            }
+                          }
+                         else{
                           finaldata.push({
                             id: index,
                             title:
@@ -298,6 +315,7 @@ class Index extends Component {
                             indexout: indexout,
                             fulldata: [d1],
                           });
+                         }
                         }
                       });
                   }
@@ -382,6 +400,9 @@ class Index extends Component {
                 }
               }
             });
+            if(this.props?.House?.value){
+              newAppoint = newAppoint && newAppoint.length>0 && newAppoint.filter((data)=>data.house_id===this.props?.House?.value)
+            }
           this.setState({ newAppoinments: newAppoint });
         }
       });
@@ -1433,6 +1454,7 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { House } = state.houseSelect;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
   return {
@@ -1440,6 +1462,7 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    House,
     verifyCode,
     //   Doctorsetget,
     //   catfil
@@ -1450,6 +1473,7 @@ export default withRouter(
     LoginReducerAim,
     LanguageFetchReducer,
     Settings,
+    houseSelect,
     authy,
   })(Index)
 );

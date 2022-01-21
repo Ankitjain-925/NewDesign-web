@@ -10,6 +10,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import axios from "axios";
 import { authy } from "Screens/Login/authy.js";
 import Geocode from "react-geocode";
@@ -24,7 +25,7 @@ import { pure } from "recompose";
 import "react-popper-tooltip/dist/styles.css";
 import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
 import DatePicker from "react-date-picker";
-import { S3Image } from "Screens/Components/GetS3Images/index"
+// import { S3Image } from "Screens/Components/GetS3Images/index"
 import {
   getDate,
   getImage,
@@ -1716,11 +1717,13 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <a>
-                                  <img
+                                
+                                  {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
-                                  />
+                                  /> */}
+                                  <S3Image imgUrl={apoint?.docProfile?.profile_image} />
                                   {apoint.docProfile &&
                                     `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}
                                 </a>
@@ -1854,7 +1857,7 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <a>
-                                  <S3Image imgUrl={apoint.docProfile.profile_image} />
+                                  <S3Image imgUrl={apoint?.docProfile?.profile_image} />
                                   {/* <img
                                     src={apoint.docProfile.image ? apoint.docProfile.image : require("assets/images/avatar.png")}
                                     // src={require("assets/images/dr1.jpg")}

@@ -20,6 +20,7 @@ import Modal from "@material-ui/core/Modal";
 import { commonHeader, } from "component/CommonHeader/index";
 import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
 import { authy } from 'Screens/Login/authy.js';
+import _ from 'lodash';
 import { Invoices } from 'Screens/Login/invoices.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 // import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicetopData/index";
@@ -28,7 +29,6 @@ import { getPatientData } from "Screens/Components/CommonApi/index";
 import { Redirect, Route } from "react-router-dom";
 import { PatientMoveFromHouse } from "../PatientFlow/data";
 import { getLanguage } from "translations/index";
-import { logout } from 'Screens/Components/CometChat/store/action';
 
 const customStyles = {
     control: base => ({
@@ -48,6 +48,7 @@ class Index extends Component {
             editServ: false,
             users1: {},
             AllStatus: [],
+            AllStatus1: [],
             service: {},
             viewCutom: false,
             serviceList1: [],
@@ -58,6 +59,12 @@ class Index extends Component {
         };
     }
 
+    componentDidUpdate(prevProps, prevState) {
+            if(prevProps.stateLanguageType !== this.props.stateLanguageType){
+                this.getMetadata()
+            }
+        
+    }
     componentDidMount() {
         this.getMetadata()
         this.getAllServices();
@@ -104,15 +111,24 @@ class Index extends Component {
 
     //Get All status
     GetLanguageMetadata = () => {
-        var AllStatus = GetLanguageDropdown(
+        var AllStatus1 = GetLanguageDropdown(
             this.state.allMetadata &&
             this.state.allMetadata.billing_status &&
             this.state.allMetadata.billing_status.length > 0 &&
             this.state.allMetadata.billing_status,
             this.props.stateLanguageType
         );
+        var AllStatus = _.cloneDeep(AllStatus1);
+        AllStatus.map((item, index) => {
+            item.label = item.value === 'paid' ? <><span className="revwGren"></span><span>{item.label}</span></>
+            : item.value === 'draft' ? <><span className="revwGry"></span><span>{item.label}</span></>
+            : item.value === 'issued' ? <><span className="revwYelow"></span><span>{item.label}</span></>
+            : <><span className="revwRed"></span><span>{item.label}</span></>
+        })
+            
         this.setState({
             AllStatus: AllStatus,
+            AllStatus1: AllStatus1
         });
     };
 
@@ -163,7 +179,6 @@ class Index extends Component {
             state[name] = e;
         }
         else {
-
             state[name] = e;
         }
 
@@ -228,13 +243,13 @@ class Index extends Component {
                         data["description"] = newService?.custom_description;
                         data["price"] = newService?.price_per_quantity;
                         data["title"] = newService?.custom_title;
-                        // axios.post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
-                        // .then((responce) => {
-                        //     this.getAllServices();
-                        // })
-                        // .catch(function (error) {
-                        //     console.log(error);
-                        // });
+                        axios.post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
+                        .then((responce) => {
+                            this.getAllServices();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
 
                         this.setState({ items, service: {} },
                             () => { this.updateTotalPrize() })
@@ -281,7 +296,7 @@ class Index extends Component {
 
 
     handleCloseServ = () => {
-        this.setState({ editServ: false })
+        this.setState({ editServ: false, service: {} })
     }
 
     Billing = () => {
@@ -292,8 +307,9 @@ class Index extends Component {
     finishInvoice = (draft) => {
         this.setState({ finishError: "" })
         var data = this.state.addinvoice;
+        data.status = this.state.AllStatus1 && this.state.AllStatus1.filter((item) => item.value === data?.status?.value)?.[0];
         if (draft) {
-            data.status = this.state.AllStatus && this.state.AllStatus.filter((item) => item.value === 'draft')?.[0]
+            data.status = this.state.AllStatus1 && this.state.AllStatus1.filter((item) => item.value === 'draft')?.[0]
         }
         // if(data._id){
         //     this.setState({ loaderImage: true });
@@ -513,7 +529,7 @@ class Index extends Component {
                                                         <label>{Status}</label>
                                                         <Select
                                                             name="status"
-                                                            placeholder="Draft"
+                                                            placeholder={<><span className="revwGry"></span><span>{"Draft"}</span></>}
                                                             onChange={(e) => this.onFieldChange1(e, "status")}
                                                             value={this.state.addinvoice?.status || ''}
                                                             options={this.state.AllStatus}
@@ -534,7 +550,7 @@ class Index extends Component {
                                                             <Th>{srvc}</Th><Th>{qty}</Th><Th>{Price}</Th><Th></Th>
                                                         </Tr>
                                                     </Thead>
-
+                                                       
                                                     {this.state.items?.length > 0 && this.state.items.map((data, id) => (
                                                         <Tbody>
                                                             {data && data?.quantity &&
@@ -562,6 +578,7 @@ class Index extends Component {
                                                     <Grid container direction="row" alignItems="center" spacing={3}>
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Addservice}</label>
+                                                           
                                                             <Select
                                                                 value={this.state.service?.service || ''}
                                                                 name="service"
