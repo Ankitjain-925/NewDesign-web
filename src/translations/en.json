@@ -1569,7 +1569,13 @@
 		"Enterquantity":"Enter quantity",
 		"EnterTitlename":"Enter Title name",
 		"Filterbypatient":"Filter by patient",
-		"FilterbyWard":"Filter by Ward"
+		"FilterbyWard":"Filter by Ward",
+		"FilterbyStatus":"Filter by Status",
+		"Remove_the_Bill":"Remove the Bill ?",
+		"Are_you_sure_to_remove_this_Bill":"Are you sure to remove this Bill ?",
+		"Remove_Bill":"Remove Bill ?",
+		"Are_you_really_want_to_remove_this_Bill":"Are you really want to remove this Bill ?"
+	
 		
 	
 		 
