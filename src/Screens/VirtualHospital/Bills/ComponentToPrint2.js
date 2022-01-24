@@ -32,7 +32,6 @@ export class ComponentToPrint2 extends React.Component {
         let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam, aimedisIo,
             ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, SysAimedis } = translate;
         var { data, index } = this.state;
-        console.log("data", data)
         return (
             <div className="relativeCSS">
                 <div className="flash" />

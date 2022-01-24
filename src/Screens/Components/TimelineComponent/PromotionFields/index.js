@@ -89,7 +89,6 @@ class Index extends Component {
 
         return (
             <div>
-                {console.log('PatientList', this.state.PatientList, this.props.PatientList)}
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <SelectByTwo

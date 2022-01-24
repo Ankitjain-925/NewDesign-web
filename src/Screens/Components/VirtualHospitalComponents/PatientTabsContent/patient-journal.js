@@ -457,7 +457,6 @@ class Index extends Component {
     }
   }
   getPatientList = ()=>{
-    console.log('I am here34')
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
      axios.get(`${sitedata.data.path}/User/PatientListPromotion/${this.props.House?.value}/${institute_id}`,
         {

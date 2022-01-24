@@ -5352,6 +5352,7 @@ span.revwRed{
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    padding-left:25px;
 }
 .docInfo img {
     margin-right: 6px;

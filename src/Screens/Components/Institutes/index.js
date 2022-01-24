@@ -176,7 +176,7 @@ class Index extends Component {
                               <ul>
                                 <li>
                                   <a>
-                                    <label>{Institution}</label>
+                                    <label>{this.props.comesFrom === 'professional' ? Hospitals : Institution}</label>
                                   </a>
                                 </li>
                               </ul>
