@@ -214,6 +214,8 @@ class Index extends React.Component {
   }
 
   Discharge=()=>{
+    let translate = getLanguage(this.props.stateLanguageType)
+    let {Discharge_Patient_in_This_Step ,Patient_in_this_Step_will_be_discharged_from_the_flow ,What_would_you_like_to_do ,CreateInvoices ,Discharge_without_Invoices ,Cancel } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -224,15 +226,15 @@ class Index extends React.Component {
           : "deleteStep"}>
             <Grid className="dischargeHead">
                 <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
-                <h5>Discharge Patient in This Step</h5>
+                <h5>{Discharge_Patient_in_This_Step}</h5>
             </Grid>
             <Grid className="dischargeInfo">
-                <p>Patient in this Step will be discharged from the flow.</p>
-                <Grid><label>What would you like to do?</label></Grid>
+                <p>{Patient_in_this_Step_will_be_discharged_from_the_flow}</p>
+                <Grid><label>{What_would_you_like_to_do}</label></Grid>
                 <Grid>
-                    <Button className="creatInvoic" onClick={() => { this.RemoveDirectPatientOk(1 , true); onClose(); }} >Create Invoices</Button>
-                    <Button className="dischrgInvoic" onClick={() => { this.RemoveDirectPatientOk(4 , false);  onClose(); }} >Discharge without Invoices</Button>
-                    <Button className="dischrgCncl" onClick={() => { onClose(); }} >Cancel</Button>
+                    <Button className="creatInvoic" onClick={() => { this.RemoveDirectPatientOk(1 , true); onClose(); }} >{CreateInvoices}</Button>
+                    <Button className="dischrgInvoic" onClick={() => { this.RemoveDirectPatientOk(4 , false);  onClose(); }} >{Discharge_without_Invoices}</Button>
+                    <Button className="dischrgCncl" onClick={() => { onClose(); }} >{Cancel}</Button>
                 </Grid>
             </Grid>
           </Grid>
@@ -309,7 +311,7 @@ class Index extends React.Component {
                       this.updateEntryState3(e)}
                     value={this.state.assignedTo}
                     options={this.props.professional_id_list}
-                    placeholder="Search & Select"
+                    placeholder={"Search & Select"}
                     className="addStafSelect"
                     isMulti={true}
                     isSearchable={true} />
