@@ -349,6 +349,8 @@ class Index extends Component {
 
     //Delete the perticular Bill with confirmation box
     removeBills = (data) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Remove_the_Bill,Are_you_sure_to_remove_this_Bill ,No,  Yes} = translate;
         // this.setState({ message: null, openTask: false });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -363,17 +365,17 @@ class Index extends Component {
                                 : "react-confirm-alert-body"
                         }
                     >
-                        <h1>Remove the Bill?</h1>
-                        <p>Are you sure to remove this Bill?</p>
+                        <h1>{Remove_the_Bill}</h1>
+                        <p>{Are_you_sure_to_remove_this_Bill} </p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
+                            <button onClick={onClose}>{No}</button>
                             <button
                                 onClick={() => {
                                     this.removeBills2(data);
                                     // onClose();
                                 }}
                             >
-                                Yes
+                               { Yes}
                             </button>
                         </div>
                     </div>
@@ -382,6 +384,8 @@ class Index extends Component {
         });
     };
     removeBills2 = (data) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Remove_Bill,Are_you_really_want_to_remove_this_Bill ,Yes,No} = translate;
         // this.setState({ message: null, openTask: false });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -396,17 +400,17 @@ class Index extends Component {
                                 : "react-confirm-alert-body"
                         }
                     >
-                        <h1 class="alert-btn">Remove Bill?</h1>
-                        <p>Are you really want to remove this Bill?</p>
+                        <h1 class="alert-btn">{Remove_Bill}</h1>
+                        <p>{Are_you_really_want_to_remove_this_Bill}</p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
+                            <button onClick={onClose}>{No}</button>
                             <button
                                 onClick={() => {
                                     this.deleteClickBill(data);
                                     onClose();
                                 }}
                             >
-                                Yes
+                               { Yes}
                             </button>
                         </div>
                     </div>
@@ -510,7 +514,7 @@ class Index extends Component {
         }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total, NewInvoice, applyFilters, Paid, Draft, Overdue, Issued, DeleteInvoice,
-            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus } = translate;
+            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus  } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
@@ -628,7 +632,7 @@ class Index extends Component {
                                                                                         onChange={this.updateUserFilter}
                                                                                         value={this.state.userFilter}
                                                                                         options={this.state.patientForFilter}
-                                                                                        placeholder="Filter by Patient"
+                                                                                        placeholder={"Filter by Patient"}
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
                                                                                         isSearchable={true}
@@ -643,7 +647,7 @@ class Index extends Component {
                                                                                         onChange={this.updateEntryState4}
                                                                                         value={this.state.specFilter}
                                                                                         options={SpecialityData}
-                                                                                        placeholder="Filter by Speciality"
+                                                                                        placeholder={"Filter by Speciality"}
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
                                                                                         isSearchable={true}
@@ -659,7 +663,7 @@ class Index extends Component {
                                                                                             options={PatientStatus}
                                                                                             name="specialty_name"
                                                                                             value={this.state.statusFilter}
-                                                                                            placeholder="Filter by Status"
+                                                                                            placeholder={"Filter by Status"}
                                                                                             className="addStafSelect"
                                                                                             isMulti={true}
                                                                                             isSearchable={true} />

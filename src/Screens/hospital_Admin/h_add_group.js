@@ -790,7 +790,7 @@ class Index extends Component {
                               <Grid className="enterSpcl">
                                 <Grid container direction="row">
                                   <Grid item xs={10} md={12} className="form-box">
-
+                              
                                     <VHfield
                                       label="Institution Name"
                                       name="group_name"

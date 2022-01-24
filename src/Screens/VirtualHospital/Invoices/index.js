@@ -368,7 +368,9 @@ class Index extends Component {
                         this.setState({
                             items: [],
                             addinvoice: {}, selectedPat: {},
-                        });
+                        
+                        })
+                        console.log('add',this.state.addinvoice)
                         this.Billing();
                     }
                     else {
@@ -503,7 +505,7 @@ class Index extends Component {
                                                         {/* <TextField placeholder="Invoice ID" value="548756" /> */}
                                                         <VHfield
                                                             name="invoice_id"
-                                                            placeholder="Invoice ID"
+                                                            placeholder={"Invoice ID"}
                                                             onChange={(e) =>
                                                                 this.onFieldChange1(e.target.value, "invoice_id")
                                                             }
@@ -516,12 +518,13 @@ class Index extends Component {
                                                             <Select
                                                                 name="patient"
                                                                 options={this.state.users1}
-                                                                placeholder="Search & Select"
+                                                                placeholder={"Search & Select"}
                                                                 onChange={(e) => this.onFieldChange1(e, "patient")}
                                                                 value={this.state.selectedPat || ''}
                                                                 className="addStafSelect"
                                                                 isMulti={false}
                                                                 isSearchable={true} />
+                                                              
                                                         </Grid>
                                                     </Grid>
 
@@ -584,7 +587,7 @@ class Index extends Component {
                                                                 name="service"
                                                                 onChange={(e) => this.onFieldChange(e, "service")}
                                                                 options={this.state.service_id_list}
-                                                                placeholder="Search service or add custom input"
+                                                                placeholder={"Search service or add custom input"}
                                                                 className="cstmSelect"
                                                                 isSearchable={true}
                                                                 styles={customStyles}
@@ -594,7 +597,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label="Quantity"
                                                                 name="quantity"
-                                                                placeholder="Enter quantity"
+                                                                placeholder={"Enter quantity"}
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "quantity")
                                                                 }
@@ -605,7 +608,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label="Price per quantity"
                                                                 name="per_quantity"
-                                                                placeholder="Enter price"
+                                                                placeholder={"Enter price"}
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "price_per_quantity")
                                                                 }
@@ -623,7 +626,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicetitle}</label>
                                                             <TextField
-                                                                placeholder="Custom service title"
+                                                                placeholder={"Custom service title"}
                                                                 name="custom_title"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_title")
@@ -633,7 +636,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicedescription}</label>
                                                             <TextField
-                                                                placeholder="Custom service description"
+                                                                placeholder={"Custom service description"}
                                                                 name="custom_description"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_description")
@@ -686,9 +689,9 @@ class Index extends Component {
                                                     <Grid className="enterSpcl">
                                                         <Grid>
                                                             <VHfield
-                                                                label="Service name"
+                                                                label={"Service name"}
                                                                 name="label"
-                                                                placeholder="Enter Title name"
+                                                                placeholder={"Enter Title name"}
                                                                 disabled={true}
                                                                 value={this.state.service?.service}
                                                             />
@@ -696,9 +699,9 @@ class Index extends Component {
 
                                                         <Grid>
                                                             <VHfield
-                                                                label="Quantity"
+                                                                label={"Quantity"}
                                                                 name="quantity"
-                                                                placeholder="Enter quantity"
+                                                                placeholder={"Enter quantity"}
                                                                 onChange={(e) =>
                                                                     this.updateEntryState1(e, 'quantity')
                                                                 }
@@ -710,7 +713,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label="Price"
                                                                 name="price"
-                                                                placeholder="Enter service price"
+                                                                placeholder={"Enter service price"}
                                                                 onChange={(e) =>
                                                                     this.updateEntryState1(e, 'price_per_quantity')
                                                                 }

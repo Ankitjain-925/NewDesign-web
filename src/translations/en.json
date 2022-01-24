@@ -1547,6 +1547,44 @@
 		"ServiceName": "Service Name",
 		"General": "General",
 		"select_user_type": "Please select user type",
-		"ProfessionalTask": "Professional Tasks"
+		"ProfessionalTask": "Professional Tasks",
+		"Entertitle" :"Enter title",
+		"FilterbyStaff":"Filter by Staff",
+		"FilterbySpeciality":"Filter by Speciality",
+		"FilterbyRoom":"Filter by Room",
+		"EnterWard":"Enter Ward",
+		"EnterServicename":"Enter Service name",
+		"Serviceshortdescription":"Service short description",
+		"Enterserviceshortdescription":"Enter service short description",
+        "Enterserviceprice":"Enter service price",
+		"Enteraquestion":"Enter a question",
+		"EnterSpecialityname":"Enter Speciality name",
+		"Enterchoice":"Enter choice",
+		"Enterquestion":"Enter question",
+		"Search&Select":"Search & Select",
+		"AllSpecialities":"All Specialities",
+		"SelectStepName":"Select Step Name",
+		"Name":"Name",
+		"Searchserviceoraddcustominput":"Search service or add custom input",
+		"Enterquantity":"Enter quantity",
+		"EnterTitlename":"Enter Title name",
+		"Filterbypatient":"Filter by patient",
+		"FilterbyWard":"Filter by Ward",
+		"FilterbyStatus":"Filter by Status",
+		"Remove_the_Bill":"Remove the Bill ?",
+		"Are_you_sure_to_remove_this_Bill":"Are you sure to remove this Bill ?",
+		"Remove_Bill":"Remove Bill ?",
+		"Are_you_really_want_to_remove_this_Bill":"Are you really want to remove this Bill ?",
+		"Discharge_Patient_in_This_Step":"Discharge Patient in This Step",
+		"Patient_in_this_Step_will_be_discharged_from_the_flow":"Patient in this Step will be discharged from the flow.",
+		"What_would_you_like_to_do":" What would you like to do ?",
+		"CreateInvoices":"Create Invoices",
+		"Discharge_without_Invoices":"Discharge without Invoices",
+		"Cancel" :"Cancel"
+	
+		
+	
+		 
+		
 	}
 }

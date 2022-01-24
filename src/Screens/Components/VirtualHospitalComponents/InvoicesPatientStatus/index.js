@@ -50,7 +50,7 @@ class Index extends React.Component {
                                 //     this.updateEntryState3(e)}
                                 // value={this.state.assignedTo}
                                 options={this.state.options}
-                                placeholder="Search & Select"
+                                placeholder={"Search & Select"}
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true} />
@@ -71,7 +71,7 @@ class Index extends React.Component {
                                 value={this.state.selectedOption}
                                 onChange={this.handleChange}
                                 // options={option}
-                                placeholder="Draft"
+                                placeholder={"Draft"}
                                 className="cstmSelect"
                                 isSearchable={false}
                             // styles={customStyles}
