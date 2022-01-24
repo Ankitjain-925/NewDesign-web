@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import axios from "axios";
 import { connect } from "react-redux";
+import Loader from "Screens/Components/Loader/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
@@ -48,8 +49,10 @@ class Index extends Component {
   };
   boardRef;
 
-  handleChangeTab = (event, value) => {
-    this.setState({ value });
+  handleChangeTab = (value) => {
+    this.setState({ selectedward: value, value: value.ward_name },
+      () => { this.getFinalDat(this.state.selectedward?.ward_name)});
+   
   };
 
   componentDidMount = () => {
@@ -61,7 +64,7 @@ class Index extends Component {
           selectedSpeciality: this.props.history?.location?.state?.selectedspec,
         },
         () => {
-          this.getFinalDat();
+          this.getFinalDat(this.props.history?.location?.state?.selectedward?.ward_name);
         }
       );
     } else {
@@ -69,12 +72,12 @@ class Index extends Component {
     }
   };
 
-  getFinalDat=(index)=>{
+  getFinalDat=(ward_name)=>{
     this.state.selectedSpeciality?.wards?.length > 0 &&
     this.state.selectedSpeciality.wards.map((item, index) => {
       if (
-        item.ward_name ===
-        this.props.history?.location?.state?.selectedward?.ward_name
+        item.ward_name === ward_name
+        
       ) {
         this.setState({ value: index, loaderImage: true });
         axios
@@ -106,10 +109,12 @@ class Index extends Component {
   moveAnotherSpeciality = (data) => {
     this.setState({
       selectedSpeciality: data,
-      selectedward: data.wards?.length > 0 ? data.wards[0]?.ward_name : false,
-      value: 0,
+      selectedward: data.wards?.length > 0 ? data.wards[0] : false,
+      value: data.wards?.length > 0 ? data.wards[0]?.ward_name : false,
+    }, ()=>{
+      this.getFinalDat(data.wards?.length > 0 ? data.wards[0]?.ward_name : false)
     });
-    this.getFinalDat(0)
+   
   };
 
   getListOption = () => {
@@ -118,7 +123,6 @@ class Index extends Component {
     this.GetAllBed();
   }
 
-  
   setsRoom = (e) => {
     this.setState({ loaderImage: true });
     
@@ -170,12 +174,16 @@ class Index extends Component {
     var response = setBed(e, this.state.case_ID._id, this.props.stateLoginValueAim.token)
     response.then((responce1) => {
       if (responce1.data.hassuccessed) {
-        this.getFinalDat();
+        this.getFinalDat(this.state.selectedward?.ward_name);
         this.handleCloseWarn();
         this.setState({ loaderImage: false, setSec: false });
       }
     })
   }
+
+  PatientFlow = () => {
+    this.props.history.push("/virtualHospital/patient-flow")
+  };
 
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
@@ -204,6 +212,8 @@ class Index extends Component {
         }
       >
         <Grid className="homeBgIner">
+          
+        {this.state.loaderImage && <Loader />}
           <Grid container direction="row" justify="center">
             <Grid item xs={12} md={12}>
               <LeftMenuMobile isNotShow={true} currentPage="space" />
@@ -228,7 +238,7 @@ class Index extends Component {
                           md={6}
                           className="addFlowRght"
                         >
-                          <a>{AddPatient}</a>
+                          {/* <a onClick={()=>{this.PatientFlow()}}>{AddPatient}</a> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -269,7 +279,7 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={3}>
-                          <Grid className="settingInfo">
+                          {/* <Grid className="settingInfo">
                             <a>
                               <img
                                 src={require("assets/virtual_images/search-entries.svg")}
@@ -284,7 +294,7 @@ class Index extends Component {
                                 title=""
                               />
                             </a>
-                          </Grid>
+                          </Grid> */}
                         </Grid>
                       </Grid>
                     </Grid>
@@ -313,14 +323,19 @@ class Index extends Component {
                         </Grid>
                         <Grid className="cardioTabUpr">
                           <AppBar position="static" className="cardioTabs">
-                            <Tabs value={value} onChange={this.handleChangeTab}>
+                            <Tabs value={value}>
                               {this.state.selectedSpeciality?.wards?.length >
                                 0 &&
                                 this.state.selectedSpeciality?.wards.map(
                                   (items) => (
                                     <Tab
-                                      label={items.ward_name}
+                                      label={<span className="TabCSS"><span>  <img
+                                        src={require("assets/virtual_images/activetogle.png")}
+                                        alt=""
+                                        title=""
+                                      /> </span><span>{items.ward_name}</span> </span>}
                                       className="cardiotabIner"
+                                      onClick={()=>this.handleChangeTab(items)}
                                     />
                                   )
                                 )}
@@ -371,9 +386,8 @@ class Index extends Component {
                                               </Grid>
                                               <Grid className="enterWrnUpr">
                                                 <Grid className="enterWrnMain">
-                                                  {console.log('this.state.case_ID',this.state.case_ID)}
                                                   <Grid className="wrnUndr">
-                                                  {this.state.case_ID?.wards?._id && <Grid>
+                                                  {this.state.case_ID?.wards?._id && <Grid className="fillDia">
                                                       <SelectField
                                                         isSearchable={true}
                                                         name="type"
@@ -384,7 +398,7 @@ class Index extends Component {
                                                         className="addStafSelect1"
                                                       />
                                                     </Grid>}
-                                                    {this.state.case_ID?.rooms?._id && <Grid>
+                                                    {this.state.case_ID?.rooms?._id && <Grid className="fillDia">
                                                       <SelectField
                                                         isSearchable={true}
                                                         name="type"
