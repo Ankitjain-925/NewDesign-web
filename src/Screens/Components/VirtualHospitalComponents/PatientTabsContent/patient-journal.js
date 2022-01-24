@@ -452,6 +452,9 @@ class Index extends Component {
     if (this.props.match.params.id) {
       this.GetInfoForPatient();
     }
+    if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
+      this.setState({ openEntry: true });
+    }
   }
   getPatientList = ()=>{
     console.log('I am here34')
