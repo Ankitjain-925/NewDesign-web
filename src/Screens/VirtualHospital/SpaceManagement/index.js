@@ -315,7 +315,7 @@ class Index extends Component {
                                             manageBeds(
                                               this.state.specialityData,
                                               data,
-                                              item.ward_name, this
+                                              item, this
                                             );
                                           }}
                                         >

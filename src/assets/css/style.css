@@ -16107,16 +16107,17 @@ td.dotsImgColor.pivoted{
 .addBirthSlot .react-date-picker__button{
     padding: 0px 2px;
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
+.darkTheme input:-webkit-autofill,
+.darkTheme input:-webkit-autofill:hover, 
+.darkTheme input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #ff000000 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #202323 inset !important;
+    -webkit-text-fill-color: #BFC1C1 !important;
 }
 .homeBgDrk input:-webkit-autofill,
 .homeBgDrk input:-webkit-autofill:hover, 
