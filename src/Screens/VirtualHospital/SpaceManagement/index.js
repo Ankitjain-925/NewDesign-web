@@ -188,7 +188,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                            {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
+                            {this.state.showinput && <input name="Search" placeholder={"Search"} value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
                             <a>
                               {!this.state.showinput ? <img
                                 src={require("assets/virtual_images/search-entries.svg")}

@@ -844,7 +844,7 @@ class Index extends Component {
                     <Grid className="srchPatient">
                       <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={5} className="srchLft">
-                          <Input name="searchValue" value={searchValue} placeholder="Search by Patient ID, Patient name, Doctor..." onChange={this.handleSearch} />
+                          <Input name="searchValue" value={searchValue} placeholder={"Search by Patient ID, Patient name, Doctor"} onChange={this.handleSearch} />
                           <a><img src={require("assets/virtual_images/InputField.svg")} alt="" title="" /></a>
                         </Grid>
                         <Grid item xs={12} md={7}>

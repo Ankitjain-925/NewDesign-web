@@ -1301,7 +1301,7 @@ class Index extends Component {
                         value={this.state.title}
                         onChange={(e) => this.onSelectDegree(e)}
                         options={this.state.title_degreeData}
-                        placeholder="Mr."
+                        placeholder={"Mr."}
                         isSearchable={false}
                         className="mr_sel"
                       />

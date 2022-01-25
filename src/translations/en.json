@@ -1580,7 +1580,18 @@
 		"What_would_you_like_to_do":" What would you like to do ?",
 		"CreateInvoices":"Create Invoices",
 		"Discharge_without_Invoices":"Discharge without Invoices",
-		"Cancel" :"Cancel"
+		"Cancel" :"Cancel",
+		"selectpatient":" Select Patient",
+		"Search_by_Patient_ID, Patient_name_Doctor":"Search by Patient ID, Patient name, Doctor...",
+		"Search_by_Hospital_name_or_ID":"Search by Hospital name or ID"
+	
+		
+	
+	
+		
+		
+		
+		
 	
 		
 	

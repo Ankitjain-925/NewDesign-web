@@ -14,6 +14,9 @@ import PropTypes from "prop-types";
 import { getLanguage } from "translations/index"
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import axios from "axios";
+import { commonHeader } from "component/CommonHeader/index";
+import sitedata from "sitedata";
 import { GetLanguageDropdown, GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 const options = [
     { value: 'specific', label: 'Specific Patient' },
@@ -48,18 +51,48 @@ class Index extends Component {
 
     updateEntryState1 = (value, name) => {
         var state = this.state.updateTrack;
-        if(name === 'UserId'){
+        if (name === 'UserId') {
             state[name] = [value?.value];
-            this.setState({ updateTrack: state , selectedUser: value});
+            this.setState({ updateTrack: state, selectedUser: value });
             this.props.updateEntryState1([value?.value], name);
+            console.log('name', this.props.updateEntryState1)
         }
-        else{
+        else {
             state[name] = value;
             this.setState({ updateTrack: state });
             this.props.updateEntryState1(value, name);
         }
     };
 
+    componentDidMount() {
+        this.getCase();
+    }
+
+    getCase = () => {
+        this.setState({ loaderImage: true });
+        let case_id = this.props.match.params.case_id;
+        axios.get(
+            sitedata.data.path + "/cases/AddCase/" + case_id,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+            .then((responce1) => {
+                if (responce1.data.hassuccessed) {
+                    this.setState({
+                        caseData: responce1.data.data,
+                        patient: {
+                            last_name: responce1.data.data?.patient?.last_name,
+                            patient_id: responce1.data.data?.patient_id,
+                            image: responce1.data.data?.patient?.image,
+                            first_name: responce1.data.data?.patient?.first_name,
+                            profile_id: responce1.data.data?.patient?.profile_id,
+                            alies_id: responce1.data.data?.patient?.alies_id,
+                            type: responce1.data.data?.patient?.type,
+                            case_id: responce1.data.data?._id,
+                        }
+                    })
+                }
+            })
+    }
     updateEntryState = (e) => {
         var state = this.state.updateTrack;
         state[e.target.name] = e.target.value;
@@ -72,11 +105,11 @@ class Index extends Component {
             this.setState({ updateTrack: this.props.updateTrack });
         }
     };
-
     render() {
         const { value } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
         let {
+            selectpatient,
             save_entry,
             rr_systolic,
             attachments,
@@ -86,7 +119,6 @@ class Index extends Component {
             heart_rate,
             feeling,
         } = translate;
-
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
@@ -99,56 +131,56 @@ class Index extends Component {
                             value={this.state.updateTrack?.option}
                         />
                     </Grid>
-                        {this.state.updateTrack?.option?.value === 'specific' && (
-                            <Grid className="fillDia">
-                                <SelectField
-                                    name="patient"
-                                    isSearchable={true}
-                                    label={'select patient'}
-                                    option={this.state.PatientList}
-                                    onChange={(e) => this.updateEntryState1(e, "UserId")}
-                                    value={this.state.selectedUser}
-                                />
-                            </Grid>
-                        )}
+                    {this.state.updateTrack?.option?.value === 'specific' && (
                         <Grid className="fillDia">
-                            <SelectField
-                                name="promotion_type"
+                           <SelectField
+                                name="patient"
                                 isSearchable={true}
-                                label={"Promotion Type"}
-                                option={this.state.options}
-                                onChange={(e) => this.updateEntryState1(e, "promotion_type")}
-                                value={GetShowLabel1(
-                                    this.props.options,
-                                    this.state.updateTrack &&
-                                      this.state.updateTrack.promotion_type &&
-                                      this.state.updateTrack.promotion_type.value,
-                                    this.props.stateLanguageType,
-                                    false,
-                                    "anamnesis"
-                                  )}
-                                // value={this.state.updateTrack?.promotion_type}
+                                label={'select patient'}
+                                option={this.state.PatientList}
+                                onChange={(e) => this.updateEntryState1(e, "UserId")}
+                                value={this.state.selectedUser}
                             />
                         </Grid>
-                        <Grid className="fillDia">
-                            <MMHG
-                                name="title"
-                                label={"Title"}
-                                onChange={(e) => this.props.updateEntryState(e)}
-                                value={this.state.updateTrack.title}
-                            />
-                        </Grid>
-                        <Grid className="fillDia">
-                            <NotesEditor
-                                name="text"
-                                label={'Text'}
-                                onChange={(e) => this.updateEntryState1(e, "text")}
-                                value={this.state.updateTrack.remarks}
-                            />
-                        </Grid>
-                        <Grid className="fillDia">
-                            <FormControlLabel
-                                control={
+                    )}
+                    <Grid className="fillDia">
+                        <SelectField
+                            name="promotion_type"
+                            isSearchable={true}
+                            label={"Promotion Type"}
+                            option={this.state.options}
+                            onChange={(e) => this.updateEntryState1(e, "promotion_type")}
+                            value={GetShowLabel1(
+                                this.props.options,
+                                this.state.updateTrack &&
+                                this.state.updateTrack.promotion_type &&
+                                this.state.updateTrack.promotion_type.value,
+                                this.props.stateLanguageType,
+                                false,
+                                "anamnesis"
+                            )}
+                        // value={this.state.updateTrack?.promotion_type}
+                        />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <MMHG
+                            name="title"
+                            label={"Title"}
+                            onChange={(e) => this.props.updateEntryState(e)}
+                            value={this.state.updateTrack.title}
+                        />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <NotesEditor
+                            name="text"
+                            label={'Text'}
+                            onChange={(e) => this.updateEntryState1(e, "text")}
+                            value={this.state.updateTrack.remarks}
+                        />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <FormControlLabel
+                            control={
                                 <Checkbox
                                     value="checkedB"
                                     color="#00ABAF"
@@ -156,20 +188,20 @@ class Index extends Component {
                                     checked={this.state.updateTrack.isbutton}
                                     onChange={(e) => this.updateEntryState1(e.target.checked, "isbutton")}
                                 />
-                                }
-                                label={"Add button at the end of post"}
-                            />
-                         </Grid>
-                         {this.state.updateTrack?.isbutton == true && (
-                            <Grid className="fillDia">
-                                 <MMHG
+                            }
+                            label={"Add button at the end of post"}
+                        />
+                    </Grid>
+                    {this.state.updateTrack?.isbutton == true && (
+                        <Grid className="fillDia">
+                            <MMHG
                                 name="button_text"
                                 label={"Set button text"}
                                 onChange={(e) => this.props.updateEntryState(e)}
                                 value={this.state.updateTrack.button_text}
                             />
-                            </Grid>
-                        )}
+                        </Grid>
+                    )}
                     {/* </Grid> */}
                     <Grid className="infoShwSave3">
                         <input
