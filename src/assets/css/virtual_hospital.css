@@ -13470,3 +13470,11 @@ border-style: solid;
     height:20px;
     width:auto;
 }
+/* ADD by Tanya */
+.enterPricePart3{
+    position: absolute;
+    top:32px;
+    right:30px;
+    color: #404646;
+    font-weight: 600;
+}
