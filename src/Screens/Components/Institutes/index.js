@@ -176,7 +176,7 @@ class Index extends Component {
                               <ul>
                                 <li>
                                   <a>
-                                    <label>{Institution}</label>
+                                    <label>{Hospitals}</label>
                                   </a>
                                 </li>
                               </ul>
