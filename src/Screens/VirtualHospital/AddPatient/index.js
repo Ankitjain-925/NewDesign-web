@@ -987,7 +987,7 @@ class Index extends Component {
                                                                                 value={this.state.title}
                                                                                 onChange={(e) => this.onSelectDegree(e)}
                                                                                 options={this.state.title_degreeData || ''}
-                                                                                placeholder="Mr."
+                                                                                placeholder={"Mr."}
                                                                                 name="title"
                                                                                 isSearchable={false}
                                                                                 className="mr_sel"
@@ -1118,7 +1118,7 @@ class Index extends Component {
                                                                         <label>{mobile_number}</label>
                                                                         <Grid>
                                                                             {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
-                                                                                <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
+                                                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
                                                                             <input type="text"
                                                                                 className="Mobile_extra"
                                                                                 placeholder={mobile}

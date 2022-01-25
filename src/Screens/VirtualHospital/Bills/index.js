@@ -566,7 +566,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} sm={5} md={5}>
                                                     <Grid className="billSeting">
-                                                        {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
+                                                        {this.state.showinput && <input name="Search" placeholder={"Search"} value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
                                                         <a>
                                                         {!this.state.showinput ? <img
                                                             src={require("assets/virtual_images/search-entries.svg")}

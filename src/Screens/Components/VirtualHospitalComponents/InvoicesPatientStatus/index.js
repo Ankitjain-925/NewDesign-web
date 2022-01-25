@@ -39,7 +39,7 @@ class Index extends React.Component {
                     <Grid container direction="row" alignItems="center" spacing={3}>
                         <Grid item xs={12} md={3} className="invoiceID">
                             <label>{InvoiceID}</label>
-                            <TextField placeholder="Invoice ID" value="548756" />
+                            <TextField placeholder={"Invoice ID"} value="548756" />
                         </Grid>
 
                         <Grid item xs={12} md={4}>

@@ -1004,7 +1004,7 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
-                            {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
+                             {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
                               this.props.comesFrom === 'Professional' ? <h2>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</h2>
                                 : <Grid>
                                   <input
@@ -1013,6 +1013,7 @@ class Index extends Component {
                                     value={this.state.q}
                                     onChange={this.onChange}
                                   />
+                              
                                   <ul className={this.state.shown && "patientHint"}>
                                     {userList}
                                   </ul>
@@ -1379,7 +1380,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
                 <Grid className="taskSort">
-                  {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder="Search" value={this.state.text} onChange={this.FilterText} />}
+                  {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder={"Search"} value={this.state.text} onChange={this.FilterText} />}
                   <a>
                     {!this.state.showinput ? <img
                       src={require("assets/virtual_images/search-entries.svg")}
@@ -1546,7 +1547,7 @@ class Index extends Component {
                         onChange={(e) => this.updateUserFilter(e)}
                         value={this.state.userFilter}
                         options={this.state.patientForFilter}
-                        placeholder="Filter by patient"
+                        placeholder={"Filter by patient"}
                         className="addStafSelect"
                         isMulti={true}
                         isSearchable={true}
@@ -1591,7 +1592,7 @@ class Index extends Component {
                           options={this.state.wardList}
                           name="ward_name"
                           value={this.state.selectWard}
-                          placeholder="Filter by Ward"
+                          placeholder={"Filter by Ward"}
                           isMulti={false}
                           className="addStafSelect"
                           isSearchable={true} />

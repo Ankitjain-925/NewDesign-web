@@ -102,7 +102,7 @@ class Index extends Component {
                                                                     value={specialistOption}
                                                                     onChange={this.handleSpecialist}
                                                                     options={specialistOptions}
-                                                                    placeholder="Select"
+                                                                    placeholder={"Select"}
                                                                     isSearchable={false}
                                                                     isMulti={false}
                                                                 />
@@ -165,7 +165,7 @@ class Index extends Component {
                                                     <Grid className="emlCreatSub">
                                                         <Grid><label>{Hospital}</label></Grid>
                                                         <Grid className="emlCreatSubSrch">
-                                                            <input type="text" placeholder="Search by Hospital name or ID" />
+                                                            <input type="text" placeholder={"Search by Hospital name or ID"} />
                                                             <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                                         </Grid>
                                                     </Grid>

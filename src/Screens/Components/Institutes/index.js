@@ -162,7 +162,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Institution, Hospitals, Save, Rename } = translate;
+    let {Hospital, Hospitals, Save, Rename } = translate;
     const { currentList2 } = this.state;
     return (
      
@@ -176,7 +176,7 @@ class Index extends Component {
                               <ul>
                                 <li>
                                   <a>
-                                    <label>{Institution}</label>
+                                    <label>{Hospital}</label>
                                   </a>
                                 </li>
                               </ul>
