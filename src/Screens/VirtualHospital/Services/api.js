@@ -115,11 +115,10 @@ export const getSpecialtyData = (id, current) => {
     }
     else {
       var filterData = current.state.AllServices?.length > 0 && current.state.AllServices.filter((data) => (data?.specialty_id && data?.specialty_id.includes(id)))
-
     }
   }
   else {
-    current.setState({ specialty_id: false })
+    current.setState({ speciality_id: false })
     var filterData = current.state.AllServices;
   }
   var totalPage = Math.ceil(filterData.length / 10);
@@ -176,7 +175,13 @@ export const onFieldChange = (e, current) => {
 
 //Modal Open
 export const handleOpenServ = (current) => {
-  current.setState({ openServ: true, updateTrack: {} });
+  if(current.state.speciality_id && current.state.speciality_id !== 'general'){
+    current.setState({ openServ: true, updateTrack: {specialty_id: [current.state.speciality_id]} });
+  }
+  else{
+    current.setState({ openServ: true, updateTrack: {} });
+  }
+  
 };
 
 //Modal Close

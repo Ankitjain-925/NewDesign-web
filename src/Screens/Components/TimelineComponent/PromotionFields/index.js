@@ -15,6 +15,9 @@ import { getLanguage } from "translations/index"
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { GetLanguageDropdown, GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import sitedata from "sitedata";
+import axios from "axios";
+import { commonHeader } from "component/CommonHeader/index";
 const options = [
     { value: 'specific', label: 'Specific Patient' },
     { value: 'all', label: 'All Patients' }
@@ -39,6 +42,7 @@ class Index extends Component {
             date_format: this.props.date_format,
             time_format: this.props.time_format,
             PatientList: this.props.PatientList,
+            personalinfo: this.props.personalinfo,
             buttonField: false,
             updateTrack: {},
             selectedUser: {},
@@ -48,12 +52,12 @@ class Index extends Component {
 
     updateEntryState1 = (value, name) => {
         var state = this.state.updateTrack;
-        if(name === 'UserId'){
+        if (name === 'UserId') {
             state[name] = [value?.value];
-            this.setState({ updateTrack: state , selectedUser: value});
+            this.setState({ updateTrack: state, selectedUser: value });
             this.props.updateEntryState1([value?.value], name);
         }
-        else{
+        else {
             state[name] = value;
             this.setState({ updateTrack: state });
             this.props.updateEntryState1(value, name);
@@ -66,6 +70,7 @@ class Index extends Component {
         this.setState({ updateTrack: state });
         this.props.updateEntryState(e);
     };
+
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.updateTrack !== this.props.updateTrack) {
@@ -74,7 +79,7 @@ class Index extends Component {
     };
 
     render() {
-        const { value } = this.state;
+        const { value, personalinfo } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             save_entry,
@@ -89,7 +94,6 @@ class Index extends Component {
 
         return (
             <div>
-                {console.log('PatientList', this.state.PatientList, this.props.PatientList)}
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <SelectByTwo
@@ -100,56 +104,56 @@ class Index extends Component {
                             value={this.state.updateTrack?.option}
                         />
                     </Grid>
-                        {this.state.updateTrack?.option?.value === 'specific' && (
-                            <Grid className="fillDia">
-                                <SelectField
-                                    name="patient"
-                                    isSearchable={true}
-                                    label={'select patient'}
-                                    option={this.state.PatientList}
-                                    onChange={(e) => this.updateEntryState1(e, "UserId")}
-                                    value={this.state.selectedUser}
-                                />
-                            </Grid>
-                        )}
+                    {this.state.updateTrack?.option?.value === 'specific' && (
                         <Grid className="fillDia">
                             <SelectField
-                                name="promotion_type"
+                                name="patient"
                                 isSearchable={true}
-                                label={"Promotion Type"}
-                                option={this.state.options}
-                                onChange={(e) => this.updateEntryState1(e, "promotion_type")}
-                                value={GetShowLabel1(
-                                    this.props.options,
-                                    this.state.updateTrack &&
-                                      this.state.updateTrack.promotion_type &&
-                                      this.state.updateTrack.promotion_type.value,
-                                    this.props.stateLanguageType,
-                                    false,
-                                    "anamnesis"
-                                  )}
-                                // value={this.state.updateTrack?.promotion_type}
+                                label={'select patient'}
+                                option={this.state.PatientList}
+                                onChange={(e) => this.updateEntryState1(e, "UserId")}
+                                value={this.state.selectedUser || this.state.personalinfo?.firstname}
                             />
                         </Grid>
-                        <Grid className="fillDia">
-                            <MMHG
-                                name="title"
-                                label={"Title"}
-                                onChange={(e) => this.props.updateEntryState(e)}
-                                value={this.state.updateTrack.title}
-                            />
-                        </Grid>
-                        <Grid className="fillDia">
-                            <NotesEditor
-                                name="text"
-                                label={'Text'}
-                                onChange={(e) => this.updateEntryState1(e, "text")}
-                                value={this.state.updateTrack.remarks}
-                            />
-                        </Grid>
-                        <Grid className="fillDia">
-                            <FormControlLabel
-                                control={
+                    )}
+                    <Grid className="fillDia">
+                        <SelectField
+                            name="promotion_type"
+                            isSearchable={true}
+                            label={"Promotion Type"}
+                            option={this.state.options}
+                            onChange={(e) => this.updateEntryState1(e, "promotion_type")}
+                            value={GetShowLabel1(
+                                this.props.options,
+                                this.state.updateTrack &&
+                                this.state.updateTrack.promotion_type &&
+                                this.state.updateTrack.promotion_type.value,
+                                this.props.stateLanguageType,
+                                false,
+                                "anamnesis"
+                            )}
+                        // value={this.state.updateTrack?.promotion_type}
+                        />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <MMHG
+                            name="title"
+                            label={"Title"}
+                            onChange={(e) => this.props.updateEntryState(e)}
+                            value={this.state.updateTrack.title}
+                        />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <NotesEditor
+                            name="text"
+                            label={'Text'}
+                            onChange={(e) => this.updateEntryState1(e, "text")}
+                            value={this.state.updateTrack.remarks}
+                        />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <FormControlLabel
+                            control={
                                 <Checkbox
                                     value="checkedB"
                                     color="#00ABAF"
@@ -157,20 +161,20 @@ class Index extends Component {
                                     checked={this.state.updateTrack.isbutton}
                                     onChange={(e) => this.updateEntryState1(e.target.checked, "isbutton")}
                                 />
-                                }
-                                label={"Add button at the end of post"}
-                            />
-                         </Grid>
-                         {this.state.updateTrack?.isbutton == true && (
-                            <Grid className="fillDia">
-                                 <MMHG
+                            }
+                            label={"Add button at the end of post"}
+                        />
+                    </Grid>
+                    {this.state.updateTrack?.isbutton == true && (
+                        <Grid className="fillDia">
+                            <MMHG
                                 name="button_text"
                                 label={"Set button text"}
                                 onChange={(e) => this.props.updateEntryState(e)}
                                 value={this.state.updateTrack.button_text}
                             />
-                            </Grid>
-                        )}
+                        </Grid>
+                    )}
                     {/* </Grid> */}
                     <Grid className="infoShwSave3">
                         <input

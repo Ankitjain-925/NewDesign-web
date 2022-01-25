@@ -10077,7 +10077,7 @@ span.AppliedPattern {
     letter-spacing: 0;
     line-height: 12px;
 }
-.rrSysto3 label{
+.darkTheme .rrSysto3 label{
     color: #bfc1c1 !important;
 }
 .darkTheme .cstmSelect1 div, .homeBgDrk .cstmSelect1 div {
@@ -13469,4 +13469,8 @@ border-style: solid;
     margin-right: 12px;
     height:20px;
     width:auto;
+}
+
+.darkTheme .infoSubInp input{
+    background-color: #00ABAF!important;
 }

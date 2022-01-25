@@ -147,7 +147,6 @@ class Index extends Component {
   }
 
   onChangePage = (pageNumber) => {
-    console.log("page", pageNumber)
     this.setState({ currentPage: pageNumber },
       () => {
         this.getAdminstaff();

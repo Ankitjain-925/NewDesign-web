@@ -448,6 +448,8 @@ class Index extends Component {
     var npmCountry = npmCountryList().getData();
     this.setState({ selectCountry: npmCountry });
     this.getMetadata();
+    this.getPatient();
+    console.log("this.props.rightInfo",this.props.rightInfo())
     this.getPatientList();
     if (this.props.match.params.id) {
       this.GetInfoForPatient();
@@ -456,8 +458,18 @@ class Index extends Component {
       this.setState({ openEntry: true });
     }
   }
+
+  getPatient = () => {
+    var user_token = this.props.stateLoginValueAim.token;
+    axios
+        .get(sitedata.data.path + "/rightinfo/patient/" + this.props.match.params.id,
+            commonHeader(user_token))
+        .then((response) => {
+            this.setState({ personalinfo: response?.data?.data?.info });
+        });
+}
+
   getPatientList = ()=>{
-    console.log('I am here34')
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
      axios.get(`${sitedata.data.path}/User/PatientListPromotion/${this.props.House?.value}/${institute_id}`,
         {
@@ -919,6 +931,7 @@ class Index extends Component {
     this.cur_one2();
     this.getUpcomingAppointment();
     this.props.rightInfo();
+    
     this.getTrack();
     this.getPesonalized();
     this.handleCloseData();
@@ -1998,6 +2011,7 @@ class Index extends Component {
                         {this.state.current_select ===
                           "promotion" && (
                             <PromotionFields
+                            personalinfo={this.state.personalinfo}
                               options={this.state.PromotionType}
                               PatientList={this.state.PatientList}
                               cur_one={this.state.cur_one2}

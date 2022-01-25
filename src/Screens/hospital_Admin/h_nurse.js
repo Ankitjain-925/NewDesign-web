@@ -136,7 +136,6 @@ class Index extends Component {
             , commonHeader(user_token)
         )
             .then((response) => {
-                console.log("Response Nurse", response);
                 if (response.data.data) {
                     var images = [];
                     this.setState({ AllUsers: response.data.data });

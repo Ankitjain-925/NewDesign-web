@@ -110,7 +110,8 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Specialities, Iunderstandthat, AddSpeciality,
       BacktoChangeHospital, addNewSpeciality,SpaceManagement,Color,speciality,All_Patients_removed_beds,All_Rooms_Beds_deleted,All_Wards_deleted, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
-      yesDeleteSpeciality, cancelKeepSpeciality, Room,Ward, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close} = translate;
+      yesDeleteSpeciality, cancelKeepSpeciality, Room,Ward, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close
+     } = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -407,7 +408,7 @@ class Index extends Component {
                           label={speciality}
                           name="specialty_name"
                           value={this.state.speciality.specialty_name}
-                          placeholder="Enter Speciality name"
+                          placeholder={"Enter Speciality name"}
                           onChange={(e) => updateEntryState(e, this)}
                         />
                       </Grid>
@@ -476,7 +477,7 @@ class Index extends Component {
                                       label={Ward}
                                       value={this.state.ward?.ward_name}
                                       name="ward_name"
-                                      placeholder="Enter Ward"
+                                      placeholder={"Enter Ward"}
                                       onChange={(e) =>
                                         updateEntryState2(e, this)
                                       }

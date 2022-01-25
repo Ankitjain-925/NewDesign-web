@@ -97,7 +97,8 @@ class Index extends Component {
       check: {},
       allWards: '',
       newComment: '',
-      length: ''
+      length: '',
+      selectedPat: {},
     };
   }
 
@@ -170,7 +171,7 @@ class Index extends Component {
     });
     if (this.props.patient) {
       let user = { value: this.props.patient?.patient_id }
-      this.updateEntryState2(user);
+       this.updateEntryState2(user);
     }
   };
   // close model Add Task
@@ -476,14 +477,16 @@ class Index extends Component {
 
   //Select the patient name
   updateEntryState2 = (user) => {
+    console.log('user', user, this.state.users)
     var user1 = this.state.users?.length > 0 &&
       this.state.users.filter((data) => data.patient_id === user.value);
+      console.log('user1', user1)
     if (user1 && user1.length > 0) {
       const state = this.state.newTask;
       state["patient"] = user1[0];
       state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
-      this.setState({ newTask: state });
+      this.setState({ newTask: state, selectedPat: user });
     }
   };
   // let filterbadge =
@@ -703,6 +706,7 @@ class Index extends Component {
       pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
     } else if (data?.first_name) {
       pat1name = data?.patient?.first_name;
+      
     }
     this.setState({
       newTask: data,
@@ -809,6 +813,7 @@ class Index extends Component {
       });
     return dd;
   }
+
   applyFilter = () => {
     let { userFilter, assignedTo2, selectSpec2, tabvalue2, selectRoom, selectWard } = this.state
 
@@ -988,9 +993,9 @@ class Index extends Component {
                         >
                           <Grid item xs={12} md={12}>
                             <VHfield
-                              label="Task title"
+                              label={"Task title"}
                               name="task_name"
-                              placeholder="Enter title"
+                              placeholder={"Enter title"}
                               onChange={(e) =>
                                 this.updateEntryState1(
                                   e.target.value,
@@ -1005,8 +1010,20 @@ class Index extends Component {
                             <label>{ForPatient}</label>
                             {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
                               this.props.comesFrom === 'Professional' ? <h2>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</h2>
-                                : <Grid>
-                                  <input
+                                : 
+                                <Grid>
+                                 
+                                  <Select
+                                      name="patient"
+                                      options={this.state.users1}
+                                      placeholder="Search & Select"
+                                      onChange={(e) => this.updateEntryState2(e)}
+                                      value={this.state.selectedPat || ''}
+                                      className="addStafSelect"
+                                      isMulti={false}
+                                      isSearchable={true} />
+                                                    
+                                  {/* <input
                                     type="text"
                                     placeholder={"Search & Select"}
                                     value={this.state.q}
@@ -1014,7 +1031,7 @@ class Index extends Component {
                                   />
                                   <ul className={this.state.shown && "patientHint"}>
                                     {userList}
-                                  </ul>
+                                  </ul> */}
                                 </Grid>}
                           </Grid>
                           {!this.state.newTask._id && (
@@ -1043,7 +1060,7 @@ class Index extends Component {
                             <label>{Taskdescription}</label>
                             <Grid>
                               <textarea
-                                placeholder="Enter description"
+                                placeholder={"Enter description"}
                                 name="description"
                                 onChange={(e) =>
                                   this.updateEntryState1(
@@ -1064,7 +1081,7 @@ class Index extends Component {
                                 onChange={(e) => this.updateEntryState3(e)}
                                 value={this.state.assignedTo}
                                 options={this.state.professional_id_list}
-                                placeholder="Search & Select"
+                                placeholder={"Search & Select"}
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true}
@@ -1299,7 +1316,7 @@ class Index extends Component {
                                     <Grid className="addComit">
                                       {this.state.editcomment === index ? <>
                                         <textarea
-                                          placeholder="Edit Comment"
+                                          placeholder={"Edit Comment"}
                                           name="comment"
                                           onChange={(e) =>
                                             this.oNEditText(
@@ -1329,7 +1346,7 @@ class Index extends Component {
                             ))}
                             <Grid className="addComit">
                               <textarea
-                                placeholder="Enter Comment"
+                                placeholder={"Enter Comment"}
                                 name="comment"
                                 onChange={(e) =>
                                   this.updateCommemtState(
@@ -1560,7 +1577,7 @@ class Index extends Component {
                         onChange={(e) => this.updateEntryState4(e)}
                         value={this.state.assignedTo2}
                         options={this.state.professional_id_list}
-                        placeholder="Filter by Staff"
+                        placeholder={"Filter by Staff"}
                         className="addStafSelect"
                         isMulti={true}
                         isSearchable={true}
@@ -1575,7 +1592,7 @@ class Index extends Component {
                         options={this.state.specilaityList}
                         name="specialty_name"
                         value={this.state.selectSpec2}
-                        placeholder="Filter by Speciality"
+                        placeholder={"Filter by Speciality"}
                         isMulti={false}
                         className="addStafSelect"
                         isSearchable={true} />
@@ -1606,7 +1623,7 @@ class Index extends Component {
                           options={this.state.roomList}
                           name="room_name"
                           value={this.state.selectRoom}
-                          placeholder="Filter by Room"
+                          placeholder={"Filter by Room"}
                           isMulti={false}
                           className="addStafSelect"
                           isSearchable={true} />

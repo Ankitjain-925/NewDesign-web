@@ -880,7 +880,7 @@ class Index extends Component {
                                         <Select
                                           name="patient"
                                           options={this.state.users1}
-                                          placeholder="Search & Select"
+                                          placeholder={"Search & Select"}
                                           onChange={(e) => this.onFieldChange1(e, "patient")}
                                           value={this.state.selectedPat || ''}
                                           className="addStafSelect"
@@ -896,7 +896,7 @@ class Index extends Component {
                                           name="professional"
                                           value={this.state.assignedTo2}
                                           options={this.state.professional_id_list}
-                                          placeholder="Filter by Staff"
+                                          placeholder={"Filter by Staff"}
                                           isMulti={true}
                                           isSearchable={true}
                                           className="addStafSelect"
@@ -912,7 +912,7 @@ class Index extends Component {
                                           options={this.state.specialitiesList}
                                           name="specialty_name"
                                           value={this.state.selectSpec2}
-                                          placeholder="Filter by Speciality"
+                                          placeholder={"Filter by Speciality"}
                                           className="addStafSelect"
                                           isSearchable={true} />
                                       </Grid>
@@ -927,7 +927,7 @@ class Index extends Component {
                                             options={this.state.wardList}
                                             name="specialty_name"
                                             value={this.state.selectWard}
-                                            placeholder="Filter by Ward"
+                                            placeholder={"Filter by Ward"}
                                             className="addStafSelect"
                                             isSearchable={true} />
                                         </Grid>
@@ -942,7 +942,7 @@ class Index extends Component {
                                             options={this.state.roomList}
                                             name="specialty_name"
                                             value={this.state.selectRoom}
-                                            placeholder="Filter by Room"
+                                            placeholder={"Filter by Room"}
                                             className="addStafSelect"
                                             isSearchable={true} />
                                         </Grid>
@@ -966,7 +966,7 @@ class Index extends Component {
                               value={selectedOption}
                               onChange={this.onChooseSpeciality}
                               options={specialitiesList}
-                              placeholder="All Specialities"
+                              placeholder={"All Specialities"}
                               className="allSpec"
                               isSearchable={false}
                             />
@@ -1119,7 +1119,7 @@ class Index extends Component {
                     value={SelectedStep}
                     onChange={this.onSelectingStep}
                     options={StepNameList}
-                    placeholder="Select Step Name"
+                    placeholder={"Select Step Name"}
                     className="allSpec allSpeces"
                     isSearchable={false}
                   />
@@ -1162,7 +1162,7 @@ class Index extends Component {
                 </Grid>
                 <p className='err_message'>{this.state.stepError}</p>
                 <Grid className="buttonStyle fltrInput">
-                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
+                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={"Name"} value={this.state.step_name}
                     onChange={this.handleName} type="text" />
                   <a color="primary" onClick={this.OnAdd}>{Add}</a>
                 </Grid>

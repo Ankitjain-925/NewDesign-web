@@ -1117,7 +1117,7 @@ class Index extends Component {
       fax_nmbr,
       sub_specilaity,
       profile_qr_code,
-      Prof_img
+      Chan_Prof_img
     } = translate;
 
     return (
@@ -1673,7 +1673,7 @@ class Index extends Component {
                   >
 
                     <Grid item xs={12} md={6}>
-                      <label>{Prof_img}</label>
+                      <label>{Chan_Prof_img}</label>
                       <FileUploader
                         name="uploadImage"
                         fileUpload={this.fileUpload}
