@@ -64,35 +64,7 @@ class Index extends Component {
         }
     };
 
-    componentDidMount() {
-        this.getCase();
-    }
-
-    getCase = () => {
-        this.setState({ loaderImage: true });
-        let case_id = this.props.match.params.case_id;
-        axios.get(
-            sitedata.data.path + "/cases/AddCase/" + case_id,
-            commonHeader(this.props.stateLoginValueAim.token)
-        )
-            .then((responce1) => {
-                if (responce1.data.hassuccessed) {
-                    this.setState({
-                        caseData: responce1.data.data,
-                        patient: {
-                            last_name: responce1.data.data?.patient?.last_name,
-                            patient_id: responce1.data.data?.patient_id,
-                            image: responce1.data.data?.patient?.image,
-                            first_name: responce1.data.data?.patient?.first_name,
-                            profile_id: responce1.data.data?.patient?.profile_id,
-                            alies_id: responce1.data.data?.patient?.alies_id,
-                            type: responce1.data.data?.patient?.type,
-                            case_id: responce1.data.data?._id,
-                        }
-                    })
-                }
-            })
-    }
+   
     updateEntryState = (e) => {
         var state = this.state.updateTrack;
         state[e.target.name] = e.target.value;
