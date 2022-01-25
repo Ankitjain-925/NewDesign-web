@@ -797,7 +797,7 @@ class Index extends Component {
                               value={this.state.title}
                               options={this.state.title_degreeData}
                               isDisabled={true}
-                              placeholder="Mr."
+                              placeholder={"Mr."}
                               name="title"
                               isSearchable={false}
                               className="mr_sel"
@@ -1083,7 +1083,7 @@ class Index extends Component {
                                 <ReactFlagsSelect
                                   disabled
                                   searchable={true}
-                                  placeholder="Country Code"
+                                  placeholder={"Country_Code"}
                                   name="flag_mobile"
                                   showSelectedLabel={false}
                                   defaultCountry={this.updateFLAG(

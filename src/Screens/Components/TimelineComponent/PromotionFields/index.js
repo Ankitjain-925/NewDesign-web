@@ -14,10 +14,10 @@ import PropTypes from "prop-types";
 import { getLanguage } from "translations/index"
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { GetLanguageDropdown, GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
-import sitedata from "sitedata";
 import axios from "axios";
 import { commonHeader } from "component/CommonHeader/index";
+import sitedata from "sitedata";
+import { GetLanguageDropdown, GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 const options = [
     { value: 'specific', label: 'Specific Patient' },
     { value: 'all', label: 'All Patients' }
@@ -64,6 +64,35 @@ class Index extends Component {
         }
     };
 
+    componentDidMount() {
+        this.getCase();
+    }
+
+    getCase = () => {
+        this.setState({ loaderImage: true });
+        let case_id = this.props.match.params.case_id;
+        axios.get(
+            sitedata.data.path + "/cases/AddCase/" + case_id,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+            .then((responce1) => {
+                if (responce1.data.hassuccessed) {
+                    this.setState({
+                        caseData: responce1.data.data,
+                        patient: {
+                            last_name: responce1.data.data?.patient?.last_name,
+                            patient_id: responce1.data.data?.patient_id,
+                            image: responce1.data.data?.patient?.image,
+                            first_name: responce1.data.data?.patient?.first_name,
+                            profile_id: responce1.data.data?.patient?.profile_id,
+                            alies_id: responce1.data.data?.patient?.alies_id,
+                            type: responce1.data.data?.patient?.type,
+                            case_id: responce1.data.data?._id,
+                        }
+                    })
+                }
+            })
+    }
     updateEntryState = (e) => {
         var state = this.state.updateTrack;
         state[e.target.name] = e.target.value;
@@ -77,11 +106,11 @@ class Index extends Component {
             this.setState({ updateTrack: this.props.updateTrack });
         }
     };
-
     render() {
         const { value, personalinfo } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
         let {
+            selectpatient,
             save_entry,
             rr_systolic,
             attachments,
@@ -91,7 +120,6 @@ class Index extends Component {
             heart_rate,
             feeling,
         } = translate;
-
         return (
             <div>
                 <Grid className="cnfrmDiaMain">

@@ -615,7 +615,7 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let { InstituteGroups, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
+    let { Hospital, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
       CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo } = translate;
     return (
       <Grid
@@ -648,7 +648,7 @@ class Index extends Component {
                     className="archvOpinLbl"
                   >
                     <Grid item xs={12} md={6}>
-                      <label>{InstituteGroups}</label>
+                      <label>{Hospital}</label>
                     </Grid>
                   </Grid>
 
