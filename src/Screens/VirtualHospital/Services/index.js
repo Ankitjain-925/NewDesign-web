@@ -270,7 +270,7 @@ class Index extends Component {
                                     />
                                   </Grid>
 
-                                  <Grid>
+                                  <Grid item xs={12} md={12} className="enterPricePart1">
                                     <VHfield
                                       label={"Price"}
                                       name="price"
@@ -278,8 +278,9 @@ class Index extends Component {
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
-                                      value={this.state.updateTrack.price}
+                                      value={this.state.updateTrack.price || 0}
                                     />
+                                      <p className="enterPricePart3">€</p>
                                   </Grid>
                                 </Grid>
                                 
@@ -367,7 +368,7 @@ class Index extends Component {
                                     <label>{data.title}</label>
                                     <p>{data.description}</p>
                                   </Td>
-                                  <Td>{data.price}</Td>
+                                  <Td>{data.price} €</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid
