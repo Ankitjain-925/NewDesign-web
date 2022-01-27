@@ -220,10 +220,10 @@ class Index extends React.Component {
       customUI: ({ onClose }) => {
         return (
           <Grid className={this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode === "dark"
-          ? "dark-confirm deleteStep"
-          : "deleteStep"}>
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
+            ? "dark-confirm deleteStep"
+            : "deleteStep"}>
             <Grid className="dischargeHead">
                 <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 <h5>{Discharge_Patient_in_This_Step}</h5>
@@ -240,13 +240,20 @@ class Index extends React.Component {
           </Grid>
         );
       },
-    }); 
+    });
   }
 
   MovetoTask = () => {
     this.props.history.push({
       pathname: '/virtualhospital/tasks',
       state: { speciality: this.props.quote?.speciality, user: { value: this.props.quote?.patient_id } }
+    })
+  }
+
+  moveEntry = () => {
+    this.props.history.push({
+      pathname: `/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}`,
+      state: { data: true }
     })
   }
 
@@ -262,7 +269,7 @@ class Index extends React.Component {
           <ul className={this.state.setSec && 'displayBlogCase'}  >
             {this.state.firstsec && <>
               <li><a onClick={() => { this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`) }}><span className="more-open-detail"></span>{OpenDetails}</a></li>
-              <li><a onClick={() => { this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}`) }}><span className="more-new-entry"></span>{add_new_entry}</a></li>
+              <li><a onClick={() => { this.moveEntry() }}><span className="more-new-entry"></span>{add_new_entry}</a></li>
               <li><a onClick={() => { this.MovetoTask() }}><span className="more-add-task"></span>{AddTask} </a></li>
               <li><a onClick={() => { this.setState({ changeStaffsec: true, specialitysec: false, assignroom: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-change-staff"></span><p className="more-change-staff-img2">{change_staff}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec: true, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-move-patient"></span><p className="more-change-staff-img2">{move_patient_to}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>

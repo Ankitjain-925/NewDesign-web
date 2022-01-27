@@ -140,7 +140,6 @@ class Index extends Component {
             + '/doctor/1'
             , commonHeader(user_token))
             .then((response) => {
-                console.log("Response Doctor", response)
                 if (response.data.data) {
                     var images = [];
                     this.setState({ AllUsers: response.data.data });

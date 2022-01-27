@@ -2136,7 +2136,6 @@ calculateAge = (date) => {
       otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
       years--;
     }
-    console.log("years", years);
     return years;
   }
   return '-';

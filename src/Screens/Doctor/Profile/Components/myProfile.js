@@ -30,7 +30,7 @@ import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
 import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
 import { LanguageFetchReducer } from "Screens/actions";
 import { getLanguage } from "translations/index"
-import {update_CometUser} from "Screens/Components/CommonApi/index";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import Loader from "Screens/Components/Loader/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import Autocomplete from "Screens/Components/Autocomplete/index.js";
@@ -273,8 +273,8 @@ class Index extends Component {
             commonCometHeader()
           )
           .then((res) => {
-            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-           });
+            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
+          });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
       });
@@ -673,8 +673,8 @@ class Index extends Component {
               },
               commonCometHeader()
             )
-            .then((res) => { 
-              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+            .then((res) => {
+              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
             });
         } else {
           this.setState({ loaderImage: false });
@@ -1117,6 +1117,7 @@ class Index extends Component {
       fax_nmbr,
       sub_specilaity,
       profile_qr_code,
+      Chan_Prof_img
     } = translate;
 
     return (
@@ -1670,7 +1671,9 @@ class Index extends Component {
                     alignItems="center"
                     spacing={2}
                   >
+
                     <Grid item xs={12} md={6}>
+                      <label>{Chan_Prof_img}</label>
                       <FileUploader
                         name="uploadImage"
                         fileUpload={this.fileUpload}

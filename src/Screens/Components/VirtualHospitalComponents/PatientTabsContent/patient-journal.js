@@ -452,9 +452,12 @@ class Index extends Component {
     if (this.props.match.params.id) {
       this.GetInfoForPatient();
     }
+    if (this.props.history.location?.state?.data && this.props.history.location?.state?.data === true) {
+      this.setState({ openEntry: true });
+    }
   }
+
   getPatientList = ()=>{
-    console.log('I am here34')
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
      axios.get(`${sitedata.data.path}/User/PatientListPromotion/${this.props.House?.value}/${institute_id}`,
         {
@@ -882,8 +885,6 @@ class Index extends Component {
     }
   };
 
-
-
   // Get the Current User Profile
   cur_one2 = async () => {
     var user_token = this.props.stateLoginValueAim.token;
@@ -916,6 +917,7 @@ class Index extends Component {
     this.cur_one2();
     this.getUpcomingAppointment();
     this.props.rightInfo();
+    
     this.getTrack();
     this.getPesonalized();
     this.handleCloseData();

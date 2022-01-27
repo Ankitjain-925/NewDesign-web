@@ -79,7 +79,7 @@ class Index extends Component {
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={11}>
-                <Institutes redirectSpace={(data) => this.redirectSpace(data)}/>
+                <Institutes comesFrom="professional" redirectSpace={(data) => this.redirectSpace(data)}/>
                   {/* End of Model setup */}
                 </Grid>
               </Grid>

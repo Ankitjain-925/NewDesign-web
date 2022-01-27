@@ -97,7 +97,8 @@ class Index extends Component {
       check: {},
       allWards: '',
       newComment: '',
-      length: ''
+      length: '',
+      selectedPat: {},
     };
   }
 
@@ -476,14 +477,16 @@ class Index extends Component {
 
   //Select the patient name
   updateEntryState2 = (user) => {
+    console.log('user', user, this.state.users)
     var user1 = this.state.users?.length > 0 &&
       this.state.users.filter((data) => data.patient_id === user.value);
+      console.log('user1', user1)
     if (user1 && user1.length > 0) {
       const state = this.state.newTask;
       state["patient"] = user1[0];
       state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
-      this.setState({ newTask: state });
+      this.setState({ newTask: state, selectedPat: user });
     }
   };
   // let filterbadge =
@@ -810,6 +813,7 @@ class Index extends Component {
       });
     return dd;
   }
+
   applyFilter = () => {
     let { userFilter, assignedTo2, selectSpec2, tabvalue2, selectRoom, selectWard } = this.state
 
@@ -1006,8 +1010,20 @@ class Index extends Component {
                             <label>{ForPatient}</label>
                              {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
                               this.props.comesFrom === 'Professional' ? <h2>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</h2>
-                                : <Grid>
-                                  <input
+                                : 
+                                <Grid>
+                                 
+                                  <Select
+                                      name="patient"
+                                      options={this.state.users1}
+                                      placeholder="Search & Select"
+                                      onChange={(e) => this.updateEntryState2(e)}
+                                      value={this.state.selectedPat || ''}
+                                      className="addStafSelect"
+                                      isMulti={false}
+                                      isSearchable={true} />
+                                                    
+                                  {/* <input
                                     type="text"
                                     placeholder={"Search & Select"}
                                     value={this.state.q}
@@ -1016,7 +1032,7 @@ class Index extends Component {
                               
                                   <ul className={this.state.shown && "patientHint"}>
                                     {userList}
-                                  </ul>
+                                  </ul> */}
                                 </Grid>}
                           </Grid>
                           {!this.state.newTask._id && (

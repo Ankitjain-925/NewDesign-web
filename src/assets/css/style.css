@@ -3801,7 +3801,7 @@ span.css-1okebmr-indicatorSeparator {
 }
 .infoSub input {
     border-radius: 8px;
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     border: none;
     color: #FFFFFF;
     font-family: Muli;
@@ -5340,6 +5340,7 @@ span.revwRed{
 }
 .docInfoName img {
     width: 16px;
+    height: 16px;
     border-radius: 28px;
     position: absolute;
     left: 0px;
@@ -5352,6 +5353,7 @@ span.revwRed{
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    padding-left:25px;
 }
 .docInfo img {
     margin-right: 6px;

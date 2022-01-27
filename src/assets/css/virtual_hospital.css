@@ -9930,6 +9930,10 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .vh-section .infoSub input, .darkTheme .genPass input[type="submit"],
+.darkTheme .kycSaveChng input[type="submit"],.darkTheme .timDatSubmit input[type="submit"] {
+    background-color: #00ABAF !important;
+}
 .room-img-move img{
     padding: 2px;
     border: 1px solid #e5e5e5;
@@ -10077,7 +10081,7 @@ span.AppliedPattern {
     letter-spacing: 0;
     line-height: 12px;
 }
-.rrSysto3 label{
+.darkTheme .rrSysto3 label{
     color: #bfc1c1 !important;
 }
 .darkTheme .cstmSelect1 div, .homeBgDrk .cstmSelect1 div {
@@ -13470,6 +13474,11 @@ border-style: solid;
     height:20px;
     width:auto;
 }
+
+.darkTheme .infoSubInp input{
+    background-color: #00ABAF!important;
+}
+
 /* ADD by Tanya */
 .enterPricePart3{
     position: absolute;
