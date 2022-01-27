@@ -13470,6 +13470,11 @@ border-style: solid;
     height:20px;
     width:auto;
 }
+
+.darkTheme .infoSubInp input{
+    background-color: #00ABAF!important;
+}
+
 /* ADD by Tanya */
 .enterPricePart3{
     position: absolute;

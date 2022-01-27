@@ -379,29 +379,29 @@ class Index extends Component {
                                         <div className="TabContainerMob">
                                             {valueMob === 0 && <TabContainer>{
                                                 <LeftPatientData
-                                                currenttab={this.state.value}
-                                                LeftInfoPatient={this.state.LeftInfoPatient}
-                                                parentCallback={this.handleCallback}
-                                                upcoming_appointment={this.state.upcoming_appointment}
-                                                OpenGraph={this.OpenGraph}
-                                                date_format={
-                                                    this.props.settings &&
-                                                    this.props.settings.setting &&
-                                                    this.props.settings.setting.date_format
-                                                }
-                                                time_format={
-                                                    this.props.settings &&
-                                                    this.props.settings.setting &&
-                                                    this.props.settings.setting.time_format
-                                                }
-                                                from="patient"
-                                                added_data={this.state.added_data}
-                                                MoveAppoint={this.MoveAppoint}
-                                                SelectOption={this.SelectOption}
-                                                personalinfo={this.state.personalinfo}
-                                                loggedinUser={this.state.cur_one}
-                                                downloadTrack={(data) => this.downloadTrack(data)}
-                                                DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
+                                                    currenttab={this.state.value}
+                                                    LeftInfoPatient={this.state.LeftInfoPatient}
+                                                    parentCallback={this.handleCallback}
+                                                    upcoming_appointment={this.state.upcoming_appointment}
+                                                    OpenGraph={this.OpenGraph}
+                                                    date_format={
+                                                        this.props.settings &&
+                                                        this.props.settings.setting &&
+                                                        this.props.settings.setting.date_format
+                                                    }
+                                                    time_format={
+                                                        this.props.settings &&
+                                                        this.props.settings.setting &&
+                                                        this.props.settings.setting.time_format
+                                                    }
+                                                    from="patient"
+                                                    added_data={this.state.added_data}
+                                                    MoveAppoint={this.MoveAppoint}
+                                                    SelectOption={this.SelectOption}
+                                                    personalinfo={this.state.personalinfo}
+                                                    loggedinUser={this.state.cur_one}
+                                                    downloadTrack={(data) => this.downloadTrack(data)}
+                                                    DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
                                             }</TabContainer>}
                                             {valueMob === 1 && <TabContainer>
                                                 <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph} />

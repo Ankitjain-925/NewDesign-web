@@ -42,6 +42,7 @@ class Index extends Component {
             date_format: this.props.date_format,
             time_format: this.props.time_format,
             PatientList: this.props.PatientList,
+            cur_one: this.props.cur_one,
             buttonField: false,
             updateTrack: {},
             selectedUser: {},
@@ -55,7 +56,6 @@ class Index extends Component {
             state[name] = [value?.value];
             this.setState({ updateTrack: state, selectedUser: value });
             this.props.updateEntryState1([value?.value], name);
-            console.log('name', this.props.updateEntryState1)
         }
         else {
             state[name] = value;
@@ -64,21 +64,29 @@ class Index extends Component {
         }
     };
 
-   
     updateEntryState = (e) => {
         var state = this.state.updateTrack;
         state[e.target.name] = e.target.value;
         this.setState({ updateTrack: state });
         this.props.updateEntryState(e);
     };
+
+    componentDidMount() {
+        var data = this.state.PatientList?.length > 0 && this.state.PatientList.filter((item) => this.props.cur_one?._id?.includes(item?.value))
+        if (data && data?.length > 0) {
+            this.setState({ selectedUser: data[0] });
+        }
+    }
+
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.updateTrack !== this.props.updateTrack) {
             this.setState({ updateTrack: this.props.updateTrack });
         }
     };
+
     render() {
-        const { value } = this.state;
+        const { value, personalinfo } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             selectpatient,
@@ -105,7 +113,7 @@ class Index extends Component {
                     </Grid>
                     {this.state.updateTrack?.option?.value === 'specific' && (
                         <Grid className="fillDia">
-                           <SelectField
+                            <SelectField
                                 name="patient"
                                 isSearchable={true}
                                 label={'select patient'}
