@@ -514,7 +514,7 @@ class Index extends Component {
         }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total, NewInvoice, applyFilters, Paid, Draft, Overdue, Issued, DeleteInvoice,
-            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus  } = translate;
+            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus ,Search ,FilterbyPatient ,FilterbySpeciality ,FilterbyStatus} = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
@@ -566,7 +566,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} sm={5} md={5}>
                                                     <Grid className="billSeting">
-                                                        {this.state.showinput && <input name="Search" placeholder={"Search"} value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
+                                                        {this.state.showinput && <input name="Search" placeholder={Search} value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
                                                         <a>
                                                         {!this.state.showinput ? <img
                                                             src={require("assets/virtual_images/search-entries.svg")}
@@ -632,7 +632,7 @@ class Index extends Component {
                                                                                         onChange={this.updateUserFilter}
                                                                                         value={this.state.userFilter}
                                                                                         options={this.state.patientForFilter}
-                                                                                        placeholder={"Filter by Patient"}
+                                                                                        placeholder={FilterbyPatient}
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
                                                                                         isSearchable={true}
@@ -647,7 +647,7 @@ class Index extends Component {
                                                                                         onChange={this.updateEntryState4}
                                                                                         value={this.state.specFilter}
                                                                                         options={SpecialityData}
-                                                                                        placeholder={"Filter by Speciality"}
+                                                                                        placeholder={FilterbySpeciality}
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
                                                                                         isSearchable={true}
@@ -663,7 +663,7 @@ class Index extends Component {
                                                                                             options={PatientStatus}
                                                                                             name="specialty_name"
                                                                                             value={this.state.statusFilter}
-                                                                                            placeholder={"Filter by Status"}
+                                                                                            placeholder={FilterbyStatus}
                                                                                             className="addStafSelect"
                                                                                             isMulti={true}
                                                                                             isSearchable={true} />

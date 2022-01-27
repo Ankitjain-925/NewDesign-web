@@ -1565,7 +1565,7 @@
 		"EnterSpecialityname":"Enter Speciality name",
 		"Enterchoice":"Enter choice",
 		"Enterquestion":"Enter question",
-		"Search&Select":"Search & Select",
+		"Search_Select":"Search & Select",
 		"AllSpecialities":"All Specialities",
 		"SelectStepName":"Select Step Name",
 		"Name":"Name",
@@ -1586,7 +1586,26 @@
 		"Discharge_without_Invoices":"Discharge without Invoices",
 		"Cancel" :"Cancel",
 		"selectpatient":" Select Patient",
-		"Search_by_Hospital_name_or_ID":"Search by Hospital name or ID"
+		"Search_by_Hospital_name_or_ID":"Search by Hospital name or ID",
+		"Enterprice":"Enter price",
+		"FilterbyPatient":"Filter by Patient",
+		"Enterinstitutegroupname":"Enter institute group name",
+		"Enterinstitutiondescriptionnote":"Enter institution description note",
+		"Enterhospitalname":"Enter hospital name",
+		"Enterhospitaldescriptionnote":"Enter hospital description note",
+		"Findaadminstaff":"Find a admin staff"
+	
+		
+	
+	
+		
+		
+		
+		
+	
+		
+	
+		 
 		
 	}
 }
