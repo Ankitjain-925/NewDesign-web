@@ -1421,7 +1421,7 @@ class Index extends Component {
         <Grid className="infoSub">
           <Grid container direction="row" alignItems="center" spacing={2}>
             <Grid item xs={12} md={5}>
-              <Grid>
+              <Grid className="infoSubInp">
                 <input
                   type="submit"
                   onClick={this.saveUserData}

@@ -456,6 +456,7 @@ class Index extends Component {
       this.setState({ openEntry: true });
     }
   }
+
   getPatientList = ()=>{
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
      axios.get(`${sitedata.data.path}/User/PatientListPromotion/${this.props.House?.value}/${institute_id}`,
@@ -884,8 +885,6 @@ class Index extends Component {
     }
   };
 
-
-
   // Get the Current User Profile
   cur_one2 = async () => {
     var user_token = this.props.stateLoginValueAim.token;
@@ -918,6 +917,7 @@ class Index extends Component {
     this.cur_one2();
     this.getUpcomingAppointment();
     this.props.rightInfo();
+    
     this.getTrack();
     this.getPesonalized();
     this.handleCloseData();

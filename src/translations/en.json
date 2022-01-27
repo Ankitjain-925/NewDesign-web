@@ -1255,7 +1255,6 @@
 		"needUnblock": "Your account is not unlocked yet, please provide your professional ID or if you have submitted it recently, please give us up to 24 hours to unlock it.",
 		"fillreptcha": "Please fill the reCAPTCHA",
 		"Tachykardia": "Tachycardia",
-		
 		"Billing": "Billing",
 		"Institution": "Institution",
 		"Addservice": "Add service",
@@ -1291,6 +1290,7 @@
 		"Dueon": "Due on",
 		"Duplicate": "Duplicate",
 		"Archive": "Archive",
+		"Chan_Prof_img": "Change Profile Image",
 		"Markasdone": "Mark as done",
 		"Attachments": "Attachments",
 		"Roomname": "Room name",
@@ -1513,12 +1513,12 @@
 		"All_Wards_deleted": "All Wards will be deleted",
 		"All_Rooms_Beds_deleted": "All Rooms & Beds will be deleted",
 		"All_Patients_removed_beds": "All Patients will be removed from their beds",
-		"Color" :"Color",
+		"Color": "Color",
 		"Choose_questionnaire_type": "Choose questionnaire type",
 		"Make_it_multiple_questionnaire": "Make it a multiple questionnaire",
 		"Add_a_Choice": "Add a Choice",
 		"Questionnairetitle": "Questionnaire title",
-		"Enterdescription":"Enter description",
+		"Enterdescription": "Enter description",
 		"Overview": "Overview",
 		"Quantity": "Quantity",
 		"Priceperquantity": "Price per quantity",
@@ -1583,20 +1583,7 @@
 		"Discharge_without_Invoices":"Discharge without Invoices",
 		"Cancel" :"Cancel",
 		"selectpatient":" Select Patient",
-		"Search_by_Patient_ID, Patient_name_Doctor":"Search by Patient ID, Patient name, Doctor...",
-		"Search_by_Hospital_name_or_ID":"Search by Hospital name or ID"
-	
-		
-	
-	
-		
-		
-		
-		
-	
-		
-	
-		 
+		"Search_by_Hospital_name_or_ID":"Search by Hospital name or ID"	 
 		
 	}
 }

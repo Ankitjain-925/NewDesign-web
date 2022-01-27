@@ -31,7 +31,7 @@ class Index extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.speciality_id !== this.props.speciality_id || nextProps.ward_id !== this.props.ward_id ||
-      nextState.AllBeds !== this.state.AllBeds
+      nextState.AllBeds == this.state.AllBeds
     );
   }
 
@@ -40,7 +40,7 @@ class Index extends React.Component {
       var response = await AllBedOnWard(this.props.speciality_id, this.props.ward_id, this.props?.House?.value, this.props.stateLoginValueAim.token);
       if (response.data.hassuccessed) {
         this.setState({ AllBeds: response?.data?.data })
-      }
+        }
     }
   }
 
