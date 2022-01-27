@@ -448,8 +448,6 @@ class Index extends Component {
     var npmCountry = npmCountryList().getData();
     this.setState({ selectCountry: npmCountry });
     this.getMetadata();
-    this.getPatient();
-    console.log("this.props.rightInfo",this.props.rightInfo())
     this.getPatientList();
     if (this.props.match.params.id) {
       this.GetInfoForPatient();
@@ -458,16 +456,6 @@ class Index extends Component {
       this.setState({ openEntry: true });
     }
   }
-
-  getPatient = () => {
-    var user_token = this.props.stateLoginValueAim.token;
-    axios
-        .get(sitedata.data.path + "/rightinfo/patient/" + this.props.match.params.id,
-            commonHeader(user_token))
-        .then((response) => {
-            this.setState({ personalinfo: response?.data?.data?.info });
-        });
-}
 
   getPatientList = ()=>{
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
@@ -896,8 +884,6 @@ class Index extends Component {
       });
     }
   };
-
-
 
   // Get the Current User Profile
   cur_one2 = async () => {
@@ -2011,7 +1997,6 @@ class Index extends Component {
                         {this.state.current_select ===
                           "promotion" && (
                             <PromotionFields
-                            personalinfo={this.state.personalinfo}
                               options={this.state.PromotionType}
                               PatientList={this.state.PatientList}
                               cur_one={this.state.cur_one2}
