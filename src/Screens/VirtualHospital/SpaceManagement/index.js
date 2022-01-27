@@ -496,7 +496,7 @@ class Index extends Component {
                                     <Button
                                       onClick={(e) => {
                                         this.setState({
-                                          isEditWrd: false,
+                                          isEditWrd:false,
                                           openWard: false,
                                           ward: {},
                                         });
@@ -504,6 +504,7 @@ class Index extends Component {
                                     >
                                       {cancel}
                                     </Button>
+                                    
                                     {this.state.isEditWrd ? (
                                       <Button
                                         className="wrdsBtnActv"

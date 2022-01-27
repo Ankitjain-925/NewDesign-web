@@ -44,6 +44,7 @@ export const SaveSpeciality = (current) => {
           commonHeader(current.props.stateLoginValueAim.token)
         )
         .then((responce) => {
+          console.log("response",responce)
           if (responce.data.hassuccessed) {
             getSpeciality(current);
           }
