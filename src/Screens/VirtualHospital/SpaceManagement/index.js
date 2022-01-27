@@ -108,7 +108,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Specialities, Iunderstandthat, AddSpeciality,
+    let { Specialities, Iunderstandthat, AddSpeciality, EnterSpecialityname,
       BacktoChangeHospital, addNewSpeciality,SpaceManagement,Color,speciality,All_Patients_removed_beds,All_Rooms_Beds_deleted,All_Wards_deleted, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
       yesDeleteSpeciality, cancelKeepSpeciality, Room,Ward, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close
      } = translate;
@@ -408,7 +408,7 @@ class Index extends Component {
                           label={speciality}
                           name="specialty_name"
                           value={this.state.speciality.specialty_name}
-                          placeholder={"Enter Speciality name"}
+                          placeholder={EnterSpecialityname}
                           onChange={(e) => updateEntryState(e, this)}
                         />
                       </Grid>

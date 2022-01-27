@@ -1257,6 +1257,7 @@
 		"needUnblock": "您的帐户尚未解锁，请提供您的职业 ID 或者如果您最近提交过，请给我们最多 24 小时解锁它。",
 		"fillreptcha": "请填写 reCAPTCHA",
 		"Tachykardia": "心动过速",
-		"select_user_type": "请选择用户类型"
+		"select_user_type": "请选择用户类型",
+		"suported_file_type_jpg": "支持的文件类型：。jpg，。png"
 	}
 }

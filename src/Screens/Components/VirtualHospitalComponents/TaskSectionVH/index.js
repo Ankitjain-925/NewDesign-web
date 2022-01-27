@@ -293,58 +293,40 @@ class Index extends Component {
         data.archived = false;
         data.status = "open";
         data.created_at = new Date();
-
+        if(!data?.due_on?.date){
+          let due_on = data?.due_on || {};
+          due_on['date'] =  new Date()
+          data.due_on = due_on;
+        }
+        if(!data?.due_on?.time){
+          let due_on = data?.due_on || {};
+          due_on['time'] =  new Date()
+          data.due_on = due_on;
+        }
         axios
-          .post(
-            sitedata.data.path + "/vh/AddTask",
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-
-            this.setState({ loaderImage: false });
-            if (responce.data.hassuccessed) {
-              let patient_id = data && data?.patient_id
-              let id = this.props && this.props?.settings && this.props?.settings?.setting && this.props?.settings?.setting?.user_id
-              let url = sitedata.data.path + `/User/AddTrack/${patient_id}`
-              if ((data?.hidePatient == "false") || (!data.hidePatient)) {
-                let newDate = new Date();
-                data["created_by"] = id
-                data["public"] = "always"
-                data["publicdatetime"] = null
-                data["visible"] = "show"
-                data["type"] = "task"
-                data["datetime_on"] = newDate
-                data["created_on"] = newDate
-                axios.put(
-                  url,
-                  { data: data },
-                  commonHeader(this.props.stateLoginValueAim.token)
-                ).then(res => {
-                  // let response = JSON.parse(res)
-                })
-                  .catch(function (error) {
-                    // console.log("error", error)
-                  })
-              }
-              this.setState({
-                newTask: {},
-                fileattach: {},
-                professional_data: [],
-                fileupods: false,
-                assignedTo: [],
-                q: "",
-                selectSpec: {},
-                newComment: ''
-              });
-              this.props.getAddTaskData();
-              this.handleCloseTask();
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-            this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+        .post(
+          sitedata.data.path + "/vh/AddTask",
+          data,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({
+            newTask: {},
+            fileattach: {},
+            professional_data: [],
+            fileupods: false,
+            assignedTo: [],
+            q: "",
+            selectSpec: {},
+            newComment: ''
           });
+          this.props.getAddTaskData();
+          this.handleCloseTask();
+        })
+        .catch(function (error) {
+          console.log(error);
+          this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+        });    
       }
     }
   };

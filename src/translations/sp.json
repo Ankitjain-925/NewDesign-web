@@ -1256,6 +1256,7 @@
 		"needUnblock": "Su cuenta aún no está desbloqueada, proporcione su identificación profesional o, si la ha enviado recientemente, denos hasta 24 horas para desbloquearla.",
 		"fillreptcha": "Por favor complete el reCAPTCHA",
 		"Tachykardia":"Taquicardia",
-		"select_user_type": "Seleccione el tipo de usuario"
+		"select_user_type": "Seleccione el tipo de usuario",
+		"suported_file_type_jpg": "Tipos de archivos admitidos: .jpg, .png"
 	}
 }

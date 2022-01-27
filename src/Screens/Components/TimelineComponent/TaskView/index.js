@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
-import ReactTooltip from "react-tooltip";
 import FileViews from "./../FileViews/index";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
-import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens//actions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
@@ -54,22 +51,13 @@ class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
-            show,
-            hide,
-            until,
-            archive,
-            visibility,
-            edit,
-            Delete,
-            always,
             details,
-            Change,
-            de_archive,
-            Download,
+            Task
         } = translate;
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
+                {console.log('dueon', item?.due_on?.date)}
                 <Grid item xs={12} md={1} className="descpCntntLft">
                     {item &&
                         item?.due_on &&
@@ -87,7 +75,7 @@ class Index extends Component {
                                             alt=""
                                             title=""
                                         />
-                                        <span>Task</span>
+                                        <span>{Task}</span>
                                     </a>
                                 </Grid>
                             </Grid>

@@ -268,6 +268,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
+      Chan_Prof_img,
       profile_info,
       profile,
       information,
@@ -840,10 +841,12 @@ class Index extends Component {
               <Grid item xs={12} md={11}>
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={6}>
+                  <label>{Chan_Prof_img}</label>
                     <FileUploader
                       name="uploadImage"
                       fileUpload={(e)=>this.fileUpload(e)}
                       isMulti={false}
+                      comesFrom="profile"
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>

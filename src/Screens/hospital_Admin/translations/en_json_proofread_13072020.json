@@ -348,6 +348,7 @@
 		"more" :"more",
 		"DarkMode": "Dark Mode",
 		"AssignHouse": "Assign Hospital",
+		"InstituteGroups": "Hospital Groups",
 		"Hospital": "Hospital",
 		"EditGroup": "Edit Group",
 		"AddInstituteGroup": "+ Add Institute Group",

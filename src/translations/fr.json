@@ -1257,6 +1257,7 @@
 		"fillreptcha":"Veuillez remplir le reCAPTCHA",
 		"Tachykardia":"Tachycardie",
 		"plz_fill_mob_number": "Veuillez remplir le numéro de portable",
-		"select_user_type": "Veuillez sélectionner le type d'utilisateur"
+		"select_user_type": "Veuillez sélectionner le type d'utilisateur",
+		"suported_file_type_jpg": "Types de fichiers pris en charge .jpg, .png"
 	}
 }

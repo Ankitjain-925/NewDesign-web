@@ -631,7 +631,7 @@
 		"DarkMode": "Dunkler Modus",
 		
 		"AssignHouse": "Assign Hospital",
-		"InstituteGroups": "Institute Groups",
+		"InstituteGroups": "Hospital Groups",
 		"EditGroup": "Edit Group",
 		"AddInstituteGroup": "+ Add Institute Group",
 		"AddInstitution": "Add Institution",
@@ -641,6 +641,13 @@
 		"DescriptionNote": "Description Note",
 		"EditHospital": "Edit Hospital",
 		"EnterHospitals": "+ Enter Hospitals",
-		"AddHospital": "Add Hospital"
+		"AddHospital": "Add Hospital",
+		"save_and_close": "Save & Close",
+		"Archived": "Archived",
+		"InstitutionName": "Institution Name",
+		"InstitutionDescriptionNote": "Institution Description Note",
+		"HospitalDescriptionNote": "Hospital Description Note",
+		"hosp_name": "Hospital Name",
+		"hosp_id": "Hospital ID"
 	}
 }

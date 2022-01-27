@@ -1255,6 +1255,8 @@
 		"verifyAccount":"Uw account is niet geverifieerd, controleer uw e-mailaccount.",
 		"needUnblock": " Uw account is nog niet ontgrendeld. Geef uw professionele ID op of geef ons, als u het onlangs heeft ingediend, maximaal 24 uur de tijd om het te ontgrendelen.",
 		"fillreptcha":"Vul a.u.b. de reCAPTCHA in",
-		"Tachykardia":"Tachycardie"
+		"Tachykardia":"Tachycardie",
+		"select_user_type": "Selecteer a.u.b. gebruikerstype",
+		"suported_file_type_jpg": "Ondersteunde bestandssoorten: .jpg, .png"
 	}
 }

@@ -351,6 +351,14 @@ export const blobToFile = (theBlob, fileName) => {
   return new File([theBlob], fileName);
 }
 
+export const isLessThanToday = (someDate) => {
+  const today = new Date()
+  someDate = new Date(someDate)
+  return someDate.getDate() >= today.getDate() &&
+    someDate.getMonth() >=  today.getMonth() &&
+    someDate.getFullYear() >= today.getFullYear()
+}
+
 export const isToday = (someDate) => {
   const today = new Date()
   someDate = new Date(someDate)

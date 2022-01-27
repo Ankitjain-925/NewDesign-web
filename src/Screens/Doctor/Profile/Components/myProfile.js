@@ -1678,6 +1678,7 @@ class Index extends Component {
                         name="uploadImage"
                         fileUpload={this.fileUpload}
                         isMulti={false}
+                        comesFrom="profile"
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>

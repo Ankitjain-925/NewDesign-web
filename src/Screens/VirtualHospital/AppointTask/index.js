@@ -39,7 +39,7 @@ import Calendar2 from "react-calendar";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
-import { getSpec, timeDiffCalc, filterPatient } from "Screens/Components/BasicMethod/index";
+import { getSpec, timeDiffCalc, filterPatient, isLessThanToday } from "Screens/Components/BasicMethod/index";
 import Loader from "Screens/Components/Loader/index";
 
 const CURRENT_DATE = moment().toDate();
@@ -183,7 +183,7 @@ class Index extends Component {
             data?.due_on &&
             data?.due_on?.time &&
             data?.due_on?.date &&
-            data?.task_name) {
+            data?.task_name ) {
 
             var datetime1 = new Date(data?.due_on?.time);
             var hours1 = datetime1.getHours()
@@ -235,6 +235,7 @@ class Index extends Component {
             this.handleCloseFil();
           }
         } else {
+          if(isLessThanToday(data?.date)){
           if (data.start_time) {
             var t1 = data.start_time.split(":");
           }
@@ -273,6 +274,7 @@ class Index extends Component {
             indexout: indexout,
             fulldata: [data],
           });
+        }
         }
         indexout++;
         this.setState({ myEventsList: [...this.state.myEventsList, ...appioinmentdata], appioinmentEventList: appioinmentdata, appioinmentTimes: appioinmentTimes, })

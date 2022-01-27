@@ -1257,6 +1257,7 @@
 		"needUnblock": "Ihr Konto ist noch nicht entsperrt, bitte geben Sie Ihren Berufsausweis an oder geben Sie uns bitte bis zu 24 Stunden Zeit, um es zu entsperren, falls Sie es kürzlich eingereicht haben.",
 		"fillreptcha": "Bitte füllen Sie das reCAPTCHA aus",
 		"Tachykardia":"Tachykardie",
-		"select_user_type": "Bitte wählen Sie den Benutzertyp"
+		"select_user_type": "Bitte wählen Sie den Benutzertyp",
+		"suported_file_type_jpg": "Unterstützte Dateitypen: .jpg, .png"
 	}
 }
