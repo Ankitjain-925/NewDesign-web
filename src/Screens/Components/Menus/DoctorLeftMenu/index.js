@@ -156,7 +156,7 @@ class Index extends Component {
       DarkMode,
       logout,
       ProfessionalTask,
-      Normal_view,
+      Doctor_view,
       VHS_view
     } = translate;
     const { inputValue, value } = this.state;
@@ -259,7 +259,7 @@ class Index extends Component {
                       title=""
                     />
                   )}
-                <span>{Normal_view}</span>
+                <span>{Doctor_view}</span>
               </a>
             </li>
               </>}

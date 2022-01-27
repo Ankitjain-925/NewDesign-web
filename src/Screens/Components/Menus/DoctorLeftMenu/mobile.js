@@ -185,7 +185,7 @@ class Index extends Component {
       invite_doc,
       pharma_prescription,
       ProfessionalTask,
-      Normal_view,
+      Doctor_view,
       VHS_view,
       online_course,
       profile_setting,
@@ -290,7 +290,7 @@ class Index extends Component {
                       title=""
                     />
                   )}
-                <span>{Normal_view}</span>
+                <span>{Doctor_view}</span>
               </a>
             </li>
               </>}

@@ -115,7 +115,7 @@ class Index extends Component {
       logout,
       patient_access_data,
       ProfessionalTask,
-      Normal_view,
+      Nurse_view,
       VHS_view
     } = translate;
     return (
@@ -191,7 +191,7 @@ class Index extends Component {
                       title=""
                     />
                   )}
-                <span>{Normal_view}</span>
+                <span>{Nurse_view}</span>
               </a>
             </li>
               </>}

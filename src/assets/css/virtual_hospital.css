@@ -9930,6 +9930,10 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .vh-section .infoSub input, .darkTheme .genPass input[type="submit"],
+.darkTheme .kycSaveChng input[type="submit"],.darkTheme .timDatSubmit input[type="submit"] {
+    background-color: #00ABAF !important;
+}
 .room-img-move img{
     padding: 2px;
     border: 1px solid #e5e5e5;
