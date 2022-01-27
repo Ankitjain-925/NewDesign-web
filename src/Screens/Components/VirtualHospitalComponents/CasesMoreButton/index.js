@@ -260,7 +260,7 @@ class Index extends React.Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let { AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient, OpenDetails, add_new_entry, AddTask, change_staff, move_patient_to,
-      assign_to_speciality, assign_to_room, RemovePatientfromFlow, DischargePatient, Please_assign_speciality_first } = translate;
+      assign_to_speciality, assign_to_room, RemovePatientfromFlow, DischargePatient, Please_assign_speciality_first,Search_Select } = translate;
     return (
       <>
         {this.state.loaderImage && <Loader />}
@@ -318,7 +318,7 @@ class Index extends React.Component {
                       this.updateEntryState3(e)}
                     value={this.state.assignedTo}
                     options={this.props.professional_id_list}
-                    placeholder={"Search & Select"}
+                    placeholder={Search_Select}
                     className="addStafSelect"
                     isMulti={true}
                     isSearchable={true} />

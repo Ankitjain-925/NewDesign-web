@@ -913,7 +913,18 @@ class Index extends Component {
       Duplicate, applyFilters, clear_all_filters, Submit,
       Archive, Delete, edit, AddComment, save_task_and_close,
       Markasdone, remove_time,
-      Attachments, add_task, Addtime
+      Attachments, add_task, Addtime,
+      Entertitle,
+      Search_Select,
+      Enterdescription,
+      EditComment,
+      EnterComment,
+      Search,
+      Filterbypatient,
+      FilterbyStaff,
+      FilterbySpeciality,
+      FilterbyWard,
+      FilterbyRoom
     } = translate;
     const { tabvalue, tabvalue2, professional_data, newTask, AllTasks, AllTaskCss, DoneTaskCss, OpenTaskCss, ArchivedTasksCss } =
       this.state;
@@ -995,7 +1006,7 @@ class Index extends Component {
                             <VHfield
                               label={"Task title"}
                               name="task_name"
-                              placeholder={"Enter title"}
+                              placeholder={Entertitle}
                               onChange={(e) =>
                                 this.updateEntryState1(
                                   e.target.value,
@@ -1016,7 +1027,7 @@ class Index extends Component {
                                   <Select
                                       name="patient"
                                       options={this.state.users1}
-                                      placeholder="Search & Select"
+                                      placeholder={Search_Select}
                                       onChange={(e) => this.updateEntryState2(e)}
                                       value={this.state.selectedPat || ''}
                                       className="addStafSelect"
@@ -1061,7 +1072,7 @@ class Index extends Component {
                             <label>{Taskdescription}</label>
                             <Grid>
                               <textarea
-                                placeholder={"Enter description"}
+                                placeholder={Enterdescription}
                                 name="description"
                                 onChange={(e) =>
                                   this.updateEntryState1(
@@ -1082,7 +1093,7 @@ class Index extends Component {
                                 onChange={(e) => this.updateEntryState3(e)}
                                 value={this.state.assignedTo}
                                 options={this.state.professional_id_list}
-                                placeholder={"Search & Select"}
+                                placeholder={Search_Select}
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true}
@@ -1317,7 +1328,7 @@ class Index extends Component {
                                     <Grid className="addComit">
                                       {this.state.editcomment === index ? <>
                                         <textarea
-                                          placeholder={"Edit Comment"}
+                                          placeholder={EditComment}
                                           name="comment"
                                           onChange={(e) =>
                                             this.oNEditText(
@@ -1347,7 +1358,7 @@ class Index extends Component {
                             ))}
                             <Grid className="addComit">
                               <textarea
-                                placeholder={"Enter Comment"}
+                                placeholder={EnterComment}
                                 name="comment"
                                 onChange={(e) =>
                                   this.updateCommemtState(
@@ -1396,7 +1407,7 @@ class Index extends Component {
               </Grid>
               <Grid item xs={12} sm={6} md={5}>
                 <Grid className="taskSort">
-                  {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder={"Search"} value={this.state.text} onChange={this.FilterText} />}
+                  {this.state.showinput && <input className="TaskSearch" type='text' name='search' placeholder={Search} value={this.state.text} onChange={this.FilterText} />}
                   <a>
                     {!this.state.showinput ? <img
                       src={require("assets/virtual_images/search-entries.svg")}
@@ -1563,7 +1574,7 @@ class Index extends Component {
                         onChange={(e) => this.updateUserFilter(e)}
                         value={this.state.userFilter}
                         options={this.state.patientForFilter}
-                        placeholder={"Filter by patient"}
+                        placeholder={Filterbypatient}
                         className="addStafSelect"
                         isMulti={true}
                         isSearchable={true}
@@ -1578,7 +1589,7 @@ class Index extends Component {
                         onChange={(e) => this.updateEntryState4(e)}
                         value={this.state.assignedTo2}
                         options={this.state.professional_id_list}
-                        placeholder={"Filter by Staff"}
+                        placeholder={FilterbyStaff}
                         className="addStafSelect"
                         isMulti={true}
                         isSearchable={true}
@@ -1593,7 +1604,7 @@ class Index extends Component {
                         options={this.state.specilaityList}
                         name="specialty_name"
                         value={this.state.selectSpec2}
-                        placeholder={"Filter by Speciality"}
+                        placeholder={FilterbySpeciality}
                         isMulti={false}
                         className="addStafSelect"
                         isSearchable={true} />
@@ -1608,7 +1619,7 @@ class Index extends Component {
                           options={this.state.wardList}
                           name="ward_name"
                           value={this.state.selectWard}
-                          placeholder={"Filter by Ward"}
+                          placeholder={FilterbyWard}
                           isMulti={false}
                           className="addStafSelect"
                           isSearchable={true} />
@@ -1624,7 +1635,7 @@ class Index extends Component {
                           options={this.state.roomList}
                           name="room_name"
                           value={this.state.selectRoom}
-                          placeholder={"Filter by Room"}
+                          placeholder={FilterbyRoom}
                           isMulti={false}
                           className="addStafSelect"
                           isSearchable={true} />
