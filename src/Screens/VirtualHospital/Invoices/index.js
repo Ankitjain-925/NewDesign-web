@@ -451,7 +451,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { InvoiceID, Patient, Status, Services, srvc, qty, Price, Add, FinishInvoice, SaveDraft, Addservice, BacktoBilling, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close, Search_Select ,Draft ,Searchserviceoraddcustominput ,Enterquantity ,Enterprice , Customservicetitle ,EnterTitlename ,Enterserviceprice} =
+        let { InvoiceID, Patient, Status, Services, srvc, qty, Price, Add, FinishInvoice, SaveDraft, Addservice, BacktoBilling, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close, Search_Select ,Draft ,Searchserviceoraddcustominput ,Enterquantity ,Enterprice ,EnterTitlename ,Enterserviceprice} =
             translate;
         const { selectedOption } = this.state;
         const { addinvoice } = this.state;
