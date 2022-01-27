@@ -446,6 +446,7 @@ class Index extends Component {
       imprint_Email,
       restore,
       Delete, AssignHouse,
+      Findaadminstaff,
       see_detail,
     } = translate;
 
@@ -505,7 +506,7 @@ class Index extends Component {
                       <input
                         onChange={this.search_user}
                         type="text"
-                        placeholder={"Find a admin staff"}
+                        placeholder={Findaadminstaff}
                       />
                     </Grid>
                     <img

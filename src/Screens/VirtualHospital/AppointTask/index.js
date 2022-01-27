@@ -1215,7 +1215,11 @@ class Index extends Component {
       Patient, speciality, Ward, Room,
       slct_time_slot, Iamhere,
       holiday,
+      Filterbypatient,
       NotAvailable,
+      FilterbyWard,
+      FilterbyRoom,
+      Search_Select,
       select_specility,
       Details,
       Questions,
@@ -1241,7 +1245,7 @@ class Index extends Component {
       find_apointment,Appointments,filters,
       consultancy_cstm_calnder,
       vdo_call, All, Open, done,
-      allow_location_access, } =
+      allow_location_access,FilterbySpeciality, } =
       translate;
 
     const { tabvalue,
@@ -1516,7 +1520,7 @@ class Index extends Component {
                               onChange={(e) => this.updateUserFilter(e)}
                               value={this.state.userFilter}
                               options={this.state.patientForFilter}
-                              placeholder={"Filter by patient"}
+                              placeholder={Filterbypatient}
                               className="addStafSelect"
                               isMulti={true}
                               isSearchable={true}
@@ -1532,7 +1536,7 @@ class Index extends Component {
                                 options={this.state.specilaityList}
                                 name="specialty_name"
                                 value={this.state.selectSpec2}
-                                placeholder={"Filter by Speciality"}
+                                placeholder={FilterbySpeciality}
                                 className="addStafSelect"
                                 isMulti={false}
                                 isSearchable={true} />
@@ -1549,7 +1553,7 @@ class Index extends Component {
                                   options={this.state.wardList}
                                   name="ward_name"
                                   value={this.state.selectWard}
-                                  placeholder={"Filter by Ward"}
+                                  placeholder={FilterbyWard}
                                   isMulti={false}
                                   className="addStafSelect"
                                   isSearchable={true} />
@@ -1566,7 +1570,7 @@ class Index extends Component {
                                   options={this.state.roomList}
                                   name="room_name"
                                   value={this.state.selectRoom}
-                                  placeholder={"Filter by Room"}
+                                  placeholder={FilterbyRoom}
                                   isMulti={false}
                                   className="addStafSelect"
                                   isSearchable={true} />
@@ -1649,7 +1653,7 @@ class Index extends Component {
                             <Select
                               name="patient"
                               options={this.state.users1}
-                              placeholder={"Search & Select"}
+                              placeholder={Search_Select}
                               onChange={(e) => this.selectPatient(e)}
                               // value={this.state.selectedPat || ''}
                               className="addStafSelect"
@@ -1857,7 +1861,7 @@ class Index extends Component {
                             <Select
                               name="patient"
                               options={this.state.users1}
-                              placeholder={"Search & Select"}
+                              placeholder={Search_Select}
                               onChange={(e) => this.onFieldChange1(e, "patient")}
                               // value={this.state.selectedPat || ''}
                               className="addStafSelect"

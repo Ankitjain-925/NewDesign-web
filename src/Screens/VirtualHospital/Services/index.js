@@ -133,7 +133,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Addnewservice, Services, speciality, newService,
-      save_and_close, all, General, srvc, Price, editService, deleteService } = translate;
+      save_and_close, all, General, srvc, Price, editService, deleteService ,EnterServicename,Enterserviceshortdescription ,Enterserviceprice ,Search} = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -234,7 +234,7 @@ class Index extends Component {
                                     <VHfield
                                       label={"Service name"}
                                       name="title"
-                                      placeholder={"Enter Service name"}
+                                      placeholder={EnterServicename}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
@@ -246,7 +246,7 @@ class Index extends Component {
                                     <VHfield
                                       label={"Service short description"}
                                       name="description"
-                                      placeholder={"Enter service short description"}
+                                      placeholder={Enterserviceshortdescription}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
@@ -274,7 +274,7 @@ class Index extends Component {
                                     <VHfield
                                       label={"Price"}
                                       name="price"
-                                      placeholder={"Enter service price"}
+                                      placeholder={Enterserviceprice}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
@@ -318,7 +318,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                          {this.state.showinput && <input name="Search" placeholder={"Search"} value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
+                          {this.state.showinput && <input name="Search" placeholder={Search} value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
                             <a>
                             {!this.state.showinput ? <img
                                 src={require("assets/virtual_images/search-entries.svg")}

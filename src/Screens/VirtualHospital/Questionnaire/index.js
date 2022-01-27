@@ -375,7 +375,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { type, Question, Options, AddQuestionnaire, Add_other, EditQuestionnaire, Add_a_Choice, Questionnairetitle, Make_it_multiple_questionnaire,
-      Choose_questionnaire_type, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of } = translate;
+      Choose_questionnaire_type, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of, Enteraquestion ,Enterchoice,Entertitle ,Enterdescription,Enterquestion} = translate;
     const { questions_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -501,7 +501,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder={"Enter a question"}
+                                                placeholder={Enteraquestion}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "question", 0)
                                                 }
@@ -513,7 +513,7 @@ class Index extends Component {
                                               <AddHouses
                                                 label={Add_a_Choice}
                                                 name="choice"
-                                                placeholder={"Enter choice"}
+                                                placeholder={Enterchoice}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "options", 0)
                                                 }
@@ -550,7 +550,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Questionnairetitle}
                                                 name="title"
-                                                placeholder={"Enter title"}
+                                                placeholder={Entertitle}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "title", 0)
                                                 }
@@ -562,7 +562,7 @@ class Index extends Component {
                                               <label>{QuestionnaireDescription}</label>
                                               <Grid>
                                                 <textarea
-                                                  placeholder={"Enter description"}
+                                                  placeholder={Enterdescription}
                                                   name="description"
                                                   onChange={(e) =>
                                                     this.updateEntryState1(e, "description", 0)
@@ -577,7 +577,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder={"Enter question"}
+                                                placeholder={Enterquestion}
                                                 onChange={(e) =>
                                                   this.updateEntryState1(e, "question", 0)
                                                 }
@@ -660,7 +660,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder={"Enter a question"}
+                                                placeholder={Enteraquestion}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "question")
                                                 }
@@ -672,7 +672,7 @@ class Index extends Component {
                                               <AddHouses
                                                 label={Add_a_Choice}
                                                 name="choice"
-                                                placeholder={"Enter choice"}
+                                                placeholder={Enterchoice}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "options")
                                                 }
@@ -706,7 +706,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Questionnairetitle}
                                                 name="title"
-                                                placeholder={"Enter title"}
+                                                placeholder={Entertitle}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "title")
                                                 }
@@ -718,7 +718,7 @@ class Index extends Component {
                                               <label>{QuestionnaireDescription}</label>
                                               <Grid>
                                                 <textarea
-                                                  placeholder={"Enter description"}
+                                                  placeholder={Enterdescription}
                                                   name="description"
                                                   onChange={(e) =>
                                                     this.editQuestionState(e, "description")
@@ -733,7 +733,7 @@ class Index extends Component {
                                               <VHfield
                                                 label={Question}
                                                 name="question"
-                                                placeholder={"Enter question"}
+                                                placeholder={Enterquestion}
                                                 onChange={(e) =>
                                                   this.editQuestionState(e, "question")
                                                 }

@@ -52,7 +52,7 @@ class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
         let { OpenCreateUserModelHospitalAdmin, new_entry, Confirm_your_password, Create, cancel, create_new_user, mobile_number,
-            First_name, speciality, email, Last_name, two_fac_auth, Currentpassword, Hospital, we_use_authy, ShoworHide, edit } = translate;
+            First_name, speciality, email, Last_name, two_fac_auth, Currentpassword, Hospital, we_use_authy, ShoworHide, edit,Search_by_Hospital_name_or_ID ,Select } = translate;
         if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
         }
@@ -102,7 +102,7 @@ class Index extends Component {
                                                                     value={specialistOption}
                                                                     onChange={this.handleSpecialist}
                                                                     options={specialistOptions}
-                                                                    placeholder={"Select"}
+                                                                    placeholder={Select}
                                                                     isSearchable={false}
                                                                     isMulti={false}
                                                                 />
@@ -165,7 +165,7 @@ class Index extends Component {
                                                     <Grid className="emlCreatSub">
                                                         <Grid><label>{Hospital}</label></Grid>
                                                         <Grid className="emlCreatSubSrch">
-                                                            <input type="text" placeholder={"Search by Hospital name or ID"} />
+                                                            <input type="text" placeholder={Search_by_Hospital_name_or_ID} />
                                                             <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                                         </Grid>
                                                     </Grid>

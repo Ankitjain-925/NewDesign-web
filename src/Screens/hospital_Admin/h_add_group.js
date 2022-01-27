@@ -616,7 +616,7 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let { Hospital, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
-      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo } = translate;
+      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo ,Enterinstitutegroupname ,Enterinstitutiondescriptionnote ,Enterhospitalname, Enterhospitaldescriptionnote} = translate;
     return (
       <Grid
         className={
@@ -795,7 +795,7 @@ class Index extends Component {
                                       label="Institution Name"
                                       name="group_name"
                                       value={this.state?.institute_groups?.group_name || ''}
-                                      placeholder="Enter institute group name"
+                                      placeholder={Enterinstitutegroupname}
                                       onChange={(e) => this.updateEntryState(e)}
                                     />
                                   </Grid>
@@ -804,7 +804,7 @@ class Index extends Component {
                                       label="Institution Description Note"
                                       name="group_description"
                                       value={this.state?.institute_groups?.group_description || ''}
-                                      placeholder="Enter institution description note"
+                                      placeholder={Enterinstitutiondescriptionnote}
                                       onChange={(e) => this.updateEntryState(e)}
                                     />
                                   </Grid>
@@ -954,7 +954,7 @@ class Index extends Component {
                                       label="Hospital Name"
                                       name="house_name"
                                       value={this.state?.hospitalData?.house_name || ''}
-                                      placeholder="Enter hospital name"
+                                      placeholder={Enterhospitalname}
                                       onChange={(e) => this.updateHospitalState(e)}
                                     />
                                   </Grid>
@@ -963,7 +963,7 @@ class Index extends Component {
                                       label="Hospital Description Note"
                                       name="house_description"
                                       value={this.state?.hospitalData?.house_description || ''}
-                                      placeholder="Enter hospital description note"
+                                      placeholder={Enterhospitaldescriptionnote}
                                       onChange={(e) => this.updateHospitalState(e)}
                                     />
                                   </Grid>

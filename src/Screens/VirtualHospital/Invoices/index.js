@@ -451,7 +451,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { InvoiceID, Patient, Status, Services, srvc, qty, Price, Add, FinishInvoice, SaveDraft, Addservice, BacktoBilling, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close } =
+        let { InvoiceID, Patient, Status, Services, srvc, qty, Price, Add, FinishInvoice, SaveDraft, Addservice, BacktoBilling, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close, Search_Select ,Draft ,Searchserviceoraddcustominput ,Enterquantity ,Enterprice , Customservicetitle ,EnterTitlename ,Enterserviceprice} =
             translate;
         const { selectedOption } = this.state;
         const { addinvoice } = this.state;
@@ -505,7 +505,7 @@ class Index extends Component {
                                                         {/* <TextField placeholder="Invoice ID" value="548756" /> */}
                                                         <VHfield
                                                             name="invoice_id"
-                                                            placeholder={"Invoice ID"}
+                                                            placeholder={InvoiceID}
                                                             onChange={(e) =>
                                                                 this.onFieldChange1(e.target.value, "invoice_id")
                                                             }
@@ -518,7 +518,7 @@ class Index extends Component {
                                                             <Select
                                                                 name="patient"
                                                                 options={this.state.users1}
-                                                                placeholder={"Search & Select"}
+                                                                placeholder={Search_Select}
                                                                 onChange={(e) => this.onFieldChange1(e, "patient")}
                                                                 value={this.state.selectedPat || ''}
                                                                 className="addStafSelect"
@@ -532,7 +532,7 @@ class Index extends Component {
                                                         <label>{Status}</label>
                                                         <Select
                                                             name="status"
-                                                            placeholder={<><span className="revwGry"></span><span>{"Draft"}</span></>}
+                                                            placeholder={<><span className="revwGry"></span><span>{Draft}</span></>}
                                                             onChange={(e) => this.onFieldChange1(e, "status")}
                                                             value={this.state.addinvoice?.status || ''}
                                                             options={this.state.AllStatus}
@@ -587,7 +587,7 @@ class Index extends Component {
                                                                 name="service"
                                                                 onChange={(e) => this.onFieldChange(e, "service")}
                                                                 options={this.state.service_id_list}
-                                                                placeholder={"Search service or add custom input"}
+                                                                placeholder={Searchserviceoraddcustominput}
                                                                 className="cstmSelect"
                                                                 isSearchable={true}
                                                                 styles={customStyles}
@@ -597,7 +597,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label="Quantity"
                                                                 name="quantity"
-                                                                placeholder={"Enter quantity"}
+                                                                placeholder={Enterquantity}
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "quantity")
                                                                 }
@@ -608,7 +608,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label="Price per quantity"
                                                                 name="per_quantity"
-                                                                placeholder={"Enter price"}
+                                                                placeholder={Enterprice}
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "price_per_quantity")
                                                                 }
@@ -626,7 +626,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicetitle}</label>
                                                             <TextField
-                                                                placeholder={"Custom service title"}
+                                                                placeholder={Customservicetitle}
                                                                 name="custom_title"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_title")
@@ -636,7 +636,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={4}>
                                                             <label>{Customservicedescription}</label>
                                                             <TextField
-                                                                placeholder={"Custom service description"}
+                                                                placeholder={Customservicedescription}
                                                                 name="custom_description"
                                                                 onChange={(e) =>
                                                                     this.onFieldChange(e.target.value, "custom_description")
@@ -691,7 +691,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label={"Service name"}
                                                                 name="label"
-                                                                placeholder={"Enter Title name"}
+                                                                placeholder={EnterTitlename}
                                                                 disabled={true}
                                                                 value={this.state.service?.service}
                                                             />
@@ -701,7 +701,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label={"Quantity"}
                                                                 name="quantity"
-                                                                placeholder={"Enter quantity"}
+                                                                placeholder={Enterquantity}
                                                                 onChange={(e) =>
                                                                     this.updateEntryState1(e, 'quantity')
                                                                 }
@@ -713,7 +713,7 @@ class Index extends Component {
                                                             <VHfield
                                                                 label="Price"
                                                                 name="price"
-                                                                placeholder={"Enter service price"}
+                                                                placeholder={Enterserviceprice}
                                                                 onChange={(e) =>
                                                                     this.updateEntryState1(e, 'price_per_quantity')
                                                                 }
