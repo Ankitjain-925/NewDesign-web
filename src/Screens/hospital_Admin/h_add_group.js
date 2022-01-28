@@ -616,7 +616,7 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let { InstituteGroups, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
-      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo } = translate;
+      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo ,Enterinstitutegroupname ,Enterinstitutiondescriptionnote ,Enterhospitalname, Enterhospitaldescriptionnote} = translate;
     return (
       <Grid
         className={
