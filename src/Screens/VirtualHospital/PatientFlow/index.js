@@ -229,14 +229,16 @@ class Index extends Component {
   //Change the value of the step_name
   onChange = (e, index) => {
     var state = this.state.actualData;
-    var changes = state.filter((newa) => {
-      return newa.step_name?.toLowerCase() === e.target?.value?.toLowerCase();
-    })
-    if (!(changes?.length > 0)) {
-      state[index][e.target.name] = e.target.value;
-      this.setDta(state);
-      this.setState({ edit: false });
-      this.CallApi();
+    if (e.target.value !== "") {
+      var changes = state.filter((newa) => {
+        return newa.step_name?.toLowerCase() === e.target?.value?.toLowerCase();
+      })
+      if (!(changes?.length > 0)) {
+        state[index][e.target.name] = e.target.value;
+        this.setDta(state);
+        this.setState({ edit: false });
+        this.CallApi();
+      }
     }
   };
 
@@ -436,43 +438,43 @@ class Index extends Component {
                 alies_id: responce.data.data.alies_id,
               },
             };
-            if(responce.data.data?.type !== 'patient'){
-              this.setState({ idpinerror: true, loaderImage: false});
+            if (responce.data.data?.type !== 'patient') {
+              this.setState({ idpinerror: true, loaderImage: false });
             }
-            else{
-              this.setState({ idpinerror: false});
+            else {
+              this.setState({ idpinerror: false });
               axios
-              .post(
-                sitedata.data.path + "/cases/AddCase",
-                case_data,
-                commonHeader(this.props.stateLoginValueAim.token)
-              )
-              .then((responce1) => {
-                if (responce1.data.hassuccessed) {
-                  this.setState({
-                    idpinerror: false,
-                    openAddP: false,
-                    case: {},
-                    addp: {},
-                  });
-                  var state = this.state.actualData;
-                  let indexData = ''
-                  state && state.length > 0 && state.filter((item, index) => {
-                    if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
-                      indexData = index;
-                    }
-                  })
-                  state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                  this.setState({ SelectedStep: '' });
-                  this.setDta(state);
-                  this.CallApi();
-                } else {
-                  this.setState({ caseAlready: true, loaderImage: false });
-                  setTimeout(() => {
-                    this.setState({ caseAlready: false });
-                  }, 3000);
-                }
-              });
+                .post(
+                  sitedata.data.path + "/cases/AddCase",
+                  case_data,
+                  commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce1) => {
+                  if (responce1.data.hassuccessed) {
+                    this.setState({
+                      idpinerror: false,
+                      openAddP: false,
+                      case: {},
+                      addp: {},
+                    });
+                    var state = this.state.actualData;
+                    let indexData = ''
+                    state && state.length > 0 && state.filter((item, index) => {
+                      if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+                        indexData = index;
+                      }
+                    })
+                    state[indexData].case_numbers.push({ case_id: responce1.data.data });
+                    this.setState({ SelectedStep: '' });
+                    this.setDta(state);
+                    this.CallApi();
+                  } else {
+                    this.setState({ caseAlready: true, loaderImage: false });
+                    setTimeout(() => {
+                      this.setState({ caseAlready: false });
+                    }, 3000);
+                  }
+                });
             }
           } else {
             if (responce.data.data) {
@@ -604,7 +606,7 @@ class Index extends Component {
   }
 
   clearFilter = () => {
-    this.setState({ filteredData : '', selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
+    this.setState({ filteredData: '', selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
     this.mapActualToFullData(this.state.actualData);
     this.handleCloseFil();
   }
@@ -620,9 +622,9 @@ class Index extends Component {
   mapActualToFullData = (result) => {
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => {
-      if (previous && !previous.hasOwnProperty(author.step_name)) previous =  {...previous,  [author.step_name]: author.case_numbers};
-      return previous;
-    }, {});
+        if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
+        return previous;
+      }, {});
 
     this.setState({ fullData: authorQuoteMap });
   }
@@ -767,9 +769,9 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,FilterbyStaff,FilterbySpeciality,FilterbyWard,FilterbyRoom,
-      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,AllSpecialities,SelectStepName,
-      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient ,Name ,search_by_patient_id_name_doc ,Search_Select } =
+    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality, FilterbyStaff, FilterbySpeciality, FilterbyWard, FilterbyRoom,
+      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters, AllSpecialities, SelectStepName,
+      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient, Name, search_by_patient_id_name_doc, Search_Select } =
       translate;
 
     const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep, filteredData } = this.state;
@@ -849,7 +851,7 @@ class Index extends Component {
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
                             <a className={filteredData} onClick={this.handleOpenFil}>
-                              <img src={filteredData==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
+                              <img src={filteredData === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
                               <Grid className={
@@ -1013,33 +1015,33 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <div className="custom-d-n-d">
-                    <Drags
-                      moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
-                      DeleteStep={(index) => this.DeleteStep(index)}
-                      onKeyDownlogin={this.onKeyDownlogin}
-                      editName={this.editName}
-                      edit={this.state.edit}
-                      onChange={this.onChange}
-                      AddStep={this.AddStep}
-                      openAddPatient={this.openAddPatient}
-                      initial={this.state.fullData}
-                      dragDropFlow={this.dragDropFlow}
-                      moveAllPatient={(to, from, data) =>
-                        this.moveAllPatient(to, from, data)
-                      }
-                      view={this.state.view}
-                      moveStep={(to, from, item) => {
-                        this.moveStep(to, from, item);
-                      }}
-                      setDta={(item) => this.setDta(item)}
-                      professional_id_list={this.state.professional_id_list}
-                      updateEntryState3={(e, case_id) => {
-                        this.updateEntryState3(e, case_id);
-                      }}
-                      MovetoTask={(speciality, patient_id) => {
-                        this.MovetoTask(speciality, patient_id)
-                      }}
-                    />
+                      <Drags
+                        moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
+                        DeleteStep={(index) => this.DeleteStep(index)}
+                        onKeyDownlogin={this.onKeyDownlogin}
+                        editName={this.editName}
+                        edit={this.state.edit}
+                        onChange={this.onChange}
+                        AddStep={this.AddStep}
+                        openAddPatient={this.openAddPatient}
+                        initial={this.state.fullData}
+                        dragDropFlow={this.dragDropFlow}
+                        moveAllPatient={(to, from, data) =>
+                          this.moveAllPatient(to, from, data)
+                        }
+                        view={this.state.view}
+                        moveStep={(to, from, item) => {
+                          this.moveStep(to, from, item);
+                        }}
+                        setDta={(item) => this.setDta(item)}
+                        professional_id_list={this.state.professional_id_list}
+                        updateEntryState3={(e, case_id) => {
+                          this.updateEntryState3(e, case_id);
+                        }}
+                        MovetoTask={(speciality, patient_id) => {
+                          this.MovetoTask(speciality, patient_id)
+                        }}
+                      />
                     </div>
                   </Grid>
                 </Grid>
