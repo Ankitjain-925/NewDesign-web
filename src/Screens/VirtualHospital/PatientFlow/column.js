@@ -69,7 +69,7 @@ export default class Column extends Component {
                             forceNotifyByEnter={true}
                             forceNotifyOnBlur={true}
                             minLength={0}
-                            debounceTimeout={2000}
+                            debounceTimeout={4000}
                             onChange={e => this.onChange(e)}
                             value={title}
                           />
@@ -134,7 +134,7 @@ export default class Column extends Component {
                               forceNotifyByEnter={true}
                               forceNotifyOnBlur={true}
                               minLength={0}
-                              debounceTimeout={2000}
+                              debounceTimeout={4000}
                               onChange={e => this.onChange(e)}
                               value={title}
                             />
