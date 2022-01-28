@@ -1587,7 +1587,15 @@
 		"Cancel" :"Cancel",
 		"selectpatient":" Select Patient",
 		"Search_by_Hospital_name_or_ID":"Search by Hospital name or ID",
-		"Enterprice":"Enter price"
-			
+		"Enterprice":"Enter price",
+		"FilterbyPatient":"Filter by Patient",
+		"Enterinstitutegroupname":"Enter institute group name",
+		"Enterinstitutiondescriptionnote":"Enter institution description note",
+		"Enterhospitalname":"Enter hospital name",
+		"Enterhospitaldescriptionnote":"Enter hospital description note",
+		"Findaadminstaff":"Find a admin staff",
+		"Country_Code":"Country Code",
+		"EditComment":"Edit Comment",
+		"EnterComment":"Enter Comment"		
 	}
 }

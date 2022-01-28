@@ -620,6 +620,7 @@ class Index extends Component {
       company,
       of, PersonalInformation,
       insurance_added,
+      Country_Code
     } = translate;
 
     return (
@@ -1083,7 +1084,7 @@ class Index extends Component {
                                 <ReactFlagsSelect
                                   disabled
                                   searchable={true}
-                                  placeholder={"Country_Code"}
+                                  placeholder={Country_Code}
                                   name="flag_mobile"
                                   showSelectedLabel={false}
                                   defaultCountry={this.updateFLAG(
