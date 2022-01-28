@@ -155,9 +155,9 @@ class Index extends Component {
         if (response.data.hassuccessed) {
           this.showDataCalendar(response)
         }
-        setTimeout(() => {
-          this.setState({ loaderImage: false });
-        }, 3000);
+        // setTimeout(() => {
+        //   this.setState({ loaderImage: false });
+        // }, 3000);
       })
   };
 
@@ -178,12 +178,12 @@ class Index extends Component {
       response.data.data.length > 0 &&
       response.data.data.map((data, index) => {
         if (data && data.task_name) {
-          this.setState({ loaderImage: true });
+          // this.setState({ loaderImage: true });
           if (data &&
             data?.due_on &&
             data?.due_on?.time &&
             data?.due_on?.date &&
-            data?.task_name ) {
+            data?.task_name) {
 
             var datetime1 = new Date(data?.due_on?.time);
             var hours1 = datetime1.getHours()
@@ -231,50 +231,50 @@ class Index extends Component {
             });
             indexout++;
             this.setState({ myEventsList: taskdata, taskEventList: taskdata, appioinmentTimes: appioinmentTimes, })
-            this.setState({ loaderImage: true });
+            this.setState({ loaderImage: false });
             this.handleCloseFil();
           }
         } else {
-          if(isLessThanToday(data?.date)){
-          if (data.start_time) {
-            var t1 = data.start_time.split(":");
+          if (isLessThanToday(data?.date)) {
+            if (data.start_time) {
+              var t1 = data.start_time.split(":");
+            }
+            if (data.end_time) {
+              var t2 = data.end_time.split(":");
+            }
+            let da1 = new Date(data.date);
+            let da2 = new Date(data.date);
+            if (t1 && t1.length > 0) {
+              da1.setHours(t1[0]);
+              da1.setMinutes(t1[1]);
+            } else {
+              da1.setHours("00");
+              da1.setMinutes("00");
+            }
+            if (t2 && t2.length > 0) {
+              da2.setHours(t2[0]);
+              da2.setMinutes(t2[1]);
+            } else {
+              da2.setHours("00");
+              da2.setMinutes("00");
+            }
+            this[`${indexout}_ref`] = React.createRef();
+            appioinmentTimes.push({
+              start: new Date(da1).valueOf(),
+              end: new Date(da2).valueOf(),
+            });
+            appioinmentdata.push({
+              id: index,
+              title:
+                data?.patient_info?.first_name +
+                " " +
+                data?.patient_info?.last_name,
+              start: new Date(da1),
+              end: new Date(da2),
+              indexout: indexout,
+              fulldata: [data],
+            });
           }
-          if (data.end_time) {
-            var t2 = data.end_time.split(":");
-          }
-          let da1 = new Date(data.date);
-          let da2 = new Date(data.date);
-          if (t1 && t1.length > 0) {
-            da1.setHours(t1[0]);
-            da1.setMinutes(t1[1]);
-          } else {
-            da1.setHours("00");
-            da1.setMinutes("00");
-          }
-          if (t2 && t2.length > 0) {
-            da2.setHours(t2[0]);
-            da2.setMinutes(t2[1]);
-          } else {
-            da2.setHours("00");
-            da2.setMinutes("00");
-          }
-          this[`${indexout}_ref`] = React.createRef();
-          appioinmentTimes.push({
-            start: new Date(da1).valueOf(),
-            end: new Date(da2).valueOf(),
-          });
-          appioinmentdata.push({
-            id: index,
-            title:
-              data.patient_info.first_name +
-              " " +
-              data.patient_info.last_name,
-            start: new Date(da1),
-            end: new Date(da2),
-            indexout: indexout,
-            fulldata: [data],
-          });
-        }
         }
         indexout++;
         this.setState({ myEventsList: [...this.state.myEventsList, ...appioinmentdata], appioinmentEventList: appioinmentdata, appioinmentTimes: appioinmentTimes, })
@@ -1066,82 +1066,85 @@ class Index extends Component {
         : "";
     this.setState({ loaderImage: true });
     const user_token = this.props.stateLoginValueAim.token;
-    axios
-      .post(sitedata.data.path + "/User/appointment", {
-        patient: this.state.personalinfo?._id,
-        doctor_id:
-          this.state.selectedDoc?.data && this.state.selectedDoc?.data._id,
-        insurance:
-          this.state.personalinfo &&
-          this.state.personalinfo?.insurance &&
-          this.state.personalinfo?.insurance?.length > 0 &&
-          this.state.personalinfo?.insurance[0] &&
-          this.state.personalinfo?.insurance[0]?.insurance_number &&
-          this.state.personalinfo?.insurance[0]?.insurance_number,
-        date: this.state.selectedDate,
-        start_time: this.state.mypoint.start,
-        end_time: this.state.mypoint.end,
-        appointment_type: this.state.mypoint.type,
-        insurance_number: insurance_no,
-        annotations: this.state.UpDataDetails.annotations,
-        status: "free",
-        house_id: this.props?.House?.value,
-        patient_info: {
-          patient_id: this.state.personalinfo?.profile_id,
-          first_name: this.state.personalinfo?.first_name,
-          last_name: this.state.personalinfo?.last_name,
-          email: this.state.personalinfo?.email,
-          birthday: this.state.personalinfo?.birthday,
-          profile_image: this.state.personalinfo?.image,
-          bucket: this.state.personalinfo?.bucket,
-        },
-        lan: this.props.stateLanguageType,
-        docProfile: {
-          patient_id:
-            this.state.selectedDoc.data &&
-            this.state.selectedDoc.data.profile_id,
-          first_name:
-            this.state.selectedDoc.data &&
-            this.state.selectedDoc.data.first_name,
-          last_name:
-            this.state.selectedDoc.data &&
-            this.state.selectedDoc.data.last_name,
-          email:
-            this.state.selectedDoc.data && this.state.selectedDoc.data.email,
-          birthday:
-            this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
-          profile_image:
-            this.state.selectedDoc.data && this.state.selectedDoc.data.image,
-          speciality:
-            this.state.selectedDoc.data &&
-            this.state.selectedDoc.data.speciality,
-          subspeciality:
-            this.state.selectedDoc.data &&
-            this.state.selectedDoc.data.subspeciality,
-          phone:
-            this.state.selectedDoc.data && this.state.selectedDoc.data.phone,
-        },
-      })
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        if (responce.data.hassuccessed === true) {
-          this.setState({
-            successfull: true,
-            openAllowAccess: false,
-            openAllowLoc: false,
-            openFancyVdo: false,
-            currentSelected: {},
-          });
-          this.getTaskData();
-          this.getPatientData();
-          setTimeout(
-            function () {
-              this.setState({ successfull: false });
-            }.bind(this),
-            5000
-          );
-        }
-      });
+    if (this.state.personalinfo &&
+      this.state.personalinfo?.first_name !== "") {
+      axios
+        .post(sitedata.data.path + "/User/appointment", {
+          patient: this.state.personalinfo?._id,
+          doctor_id:
+            this.state.selectedDoc?.data && this.state.selectedDoc?.data._id,
+          insurance:
+            this.state.personalinfo &&
+            this.state.personalinfo?.insurance &&
+            this.state.personalinfo?.insurance?.length > 0 &&
+            this.state.personalinfo?.insurance[0] &&
+            this.state.personalinfo?.insurance[0]?.insurance_number &&
+            this.state.personalinfo?.insurance[0]?.insurance_number,
+          date: this.state.selectedDate,
+          start_time: this.state.mypoint.start,
+          end_time: this.state.mypoint.end,
+          appointment_type: this.state.mypoint.type,
+          insurance_number: insurance_no,
+          annotations: this.state.UpDataDetails.annotations,
+          status: "free",
+          house_id: this.props?.House?.value,
+          patient_info: {
+            patient_id: this.state.personalinfo?.profile_id,
+            first_name: this.state.personalinfo?.first_name,
+            last_name: this.state.personalinfo?.last_name,
+            email: this.state.personalinfo?.email,
+            birthday: this.state.personalinfo?.birthday,
+            profile_image: this.state.personalinfo?.image,
+            bucket: this.state.personalinfo?.bucket,
+          },
+          lan: this.props.stateLanguageType,
+          docProfile: {
+            patient_id:
+              this.state.selectedDoc.data &&
+              this.state.selectedDoc.data.profile_id,
+            first_name:
+              this.state.selectedDoc.data &&
+              this.state.selectedDoc.data.first_name,
+            last_name:
+              this.state.selectedDoc.data &&
+              this.state.selectedDoc.data.last_name,
+            email:
+              this.state.selectedDoc.data && this.state.selectedDoc.data.email,
+            birthday:
+              this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
+            profile_image:
+              this.state.selectedDoc.data && this.state.selectedDoc.data.image,
+            speciality:
+              this.state.selectedDoc.data &&
+              this.state.selectedDoc.data.speciality,
+            subspeciality:
+              this.state.selectedDoc.data &&
+              this.state.selectedDoc.data.subspeciality,
+            phone:
+              this.state.selectedDoc.data && this.state.selectedDoc.data.phone,
+          },
+        })
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          if (responce.data.hassuccessed === true) {
+            this.setState({
+              successfull: true,
+              openAllowAccess: false,
+              openAllowLoc: false,
+              openFancyVdo: false,
+              currentSelected: {},
+            });
+            this.getTaskData();
+            this.getPatientData();
+            setTimeout(
+              function () {
+                this.setState({ successfull: false });
+              }.bind(this),
+              5000
+            );
+          }
+        });
+    }
   };
 
   _getHourMinut = (time) => {
@@ -1244,10 +1247,10 @@ class Index extends Component {
       see_avlbl_date,
       location_of_srvc, Tasks,
       this_way_can_instntly_list_of_specility,
-      find_apointment,Appointments,filters,
+      find_apointment, Appointments, filters,
       consultancy_cstm_calnder,
       vdo_call, All, Open, done,
-      allow_location_access,FilterbySpeciality, } =
+      allow_location_access, FilterbySpeciality, } =
       translate;
 
     const { tabvalue,
