@@ -365,7 +365,12 @@
 		"InstitutionDescriptionNote": "Institution Description Note",
 		"HospitalDescriptionNote": "Hospital Description Note",
 		"hosp_name": "Hospital Name",
-		"hosp_id": "Hospital ID"
+		"hosp_id": "Hospital ID",
+		"Enterinstitutegroupname":"Enter institute group name",
+		"Enterinstitutiondescriptionnote":"Enter institution description note",
+		"Enterhospitalname":"Enter hospital name",
+		"Enterhospitaldescriptionnote":"Enter hospital description note",
+		"Change_Hospital":"Change Hospital"
 	}
 }
 
