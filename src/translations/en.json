@@ -1593,7 +1593,10 @@
 		"Enterinstitutiondescriptionnote":"Enter institution description note",
 		"Enterhospitalname":"Enter hospital name",
 		"Enterhospitaldescriptionnote":"Enter hospital description note",
-		"Findaadminstaff":"Find a admin staff"
+		"Findaadminstaff":"Find a admin staff",
+		"Country_Code":"Country_Code",
+		"EditComment":"Edit Comment",
+		"EnterComment":"Enter Comment"
 	
 		
 	
