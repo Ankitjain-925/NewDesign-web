@@ -9404,16 +9404,16 @@ button.crdoLghtBlu2 {
     width: 16px;
     height: initial;
 }
-.dtlCntRght a {
-    height: 24px;
-    width: 24px;
+.newassignLft a {
+    height: 32px;
+    width: 32px;
     display: inline-block;
     margin-right: 2px;
 }
 .dtlCntRght a img {
     width: 100%;
 }
-.dtlCntRght a:last-child {
+.newassignLft a:last-child {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -9423,7 +9423,7 @@ button.crdoLghtBlu2 {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 12px;
-    border-radius: 14px;
+    border-radius: 50%;
     margin-right: 0px;
 }
 .dtlCntUprNw .dtlCntLft {
@@ -9930,6 +9930,39 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.newassignLft {
+    display: flex;
+}
+.attchNotePart {
+    display: flex;
+}
+.setAssignedTo:hover span{
+    display: block;
+}
+.setAssignedTo{
+    position: relative;
+}
+.setAssignedTo span {
+    z-index: 1;
+    font-weight: 700 !important;
+    text-align: center;
+    top:-40px;
+    position: absolute;
+    left: -35px;
+    display: none;
+    padding: 6px 7px;
+    color: #E5E6E6;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    border-radius: 8px;
+    background-color: rgba(0,8,8,0.9);
+    box-shadow: 0 8px 24px 0 rgb(0 8 8 / 8%);
+}
+.showAllAssignedInner{
+    padding: 6px 0px;
+}
 .homeBgDrk .detailCntnt p span{
     color: #D9DADA !important;
 }
@@ -13489,4 +13522,19 @@ border-style: solid;
     right:30px;
     color: #404646;
     font-weight: 600;
+}
+
+.setAssignedTo span:after {
+    z-index: 1;
+    width: 0px;
+    height: 0px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000808e6;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -4px;
+    content: "";
+    margin: 0 auto;
 }

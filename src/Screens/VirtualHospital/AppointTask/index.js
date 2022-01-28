@@ -155,9 +155,9 @@ class Index extends Component {
         if (response.data.hassuccessed) {
           this.showDataCalendar(response)
         }
-        // setTimeout(() => {
-        //   this.setState({ loaderImage: false });
-        // }, 3000);
+        setTimeout(() => {
+          this.setState({ loaderImage: false });
+        }, 3000);
       })
   };
 
@@ -178,7 +178,7 @@ class Index extends Component {
       response.data.data.length > 0 &&
       response.data.data.map((data, index) => {
         if (data && data.task_name) {
-          // this.setState({ loaderImage: true });
+          this.setState({ loaderImage: true });
           if (data &&
             data?.due_on &&
             data?.due_on?.time &&

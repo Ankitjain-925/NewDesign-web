@@ -459,15 +459,22 @@ class Index extends Component {
 
   //Select the patient name
   updateEntryState2 = (user) => {
-    console.log('user', user, this.state.users)
     var user1 = this.state.users?.length > 0 &&
       this.state.users.filter((data) => data.patient_id === user.value);
-      console.log('user1', user1)
-    if (user1 && user1.length > 0) {
+      if (user1 && user1.length > 0) {
       const state = this.state.newTask;
       state["patient"] = user1[0];
       state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
+      if(!user.label){
+        user['label'] = (user1[0].first_name &&  user1[0].last_name) ? user1[0].first_name + ' ' + user1[0].last_name
+        :user1[0].first_name
+      }
+      if(!state?.speciality){
+        state['speciality'] = user1[0].speciality
+        this.setState({ selectSpec : {label: user1[0]?.speciality?.specialty_name,
+          value: user1[0]?.speciality?._id} })
+      }    
       this.setState({ newTask: state, selectedPat: user });
     }
   };
@@ -514,7 +521,7 @@ class Index extends Component {
   // Get the Patient data
   getPatientData = async () => {
     this.setState({ loaderImage: true });
-    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
+    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'taskpage')
     if (response?.isdata) {
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
@@ -524,10 +531,9 @@ class Index extends Component {
               (user) =>
                 user.value === this.props.location?.state?.user.value
             );
-
-          if (user?.length > 0) {
-            this.setState({ q: user[0]?.name, selectedUser: user[0] });
-          }
+          // if (user?.length > 0) {
+          //   this.setState({ q: user[0]?.name, selectedUser: user[0] });
+          // }
           this.updateEntryState2(this.props.location?.state?.user);
         }
       });
@@ -655,6 +661,7 @@ class Index extends Component {
     });
     this.setState({ ArchivedTasks: FilterFromSearch4 })
   }
+  //for delete the Task
   deleteClickTask(id) {
     this.setState({ loaderImage: true });
     axios
@@ -906,7 +913,8 @@ class Index extends Component {
       FilterbyStaff,
       FilterbySpeciality,
       FilterbyWard,
-      FilterbyRoom
+      FilterbyRoom,
+      Tasktitle
     } = translate;
     const { tabvalue, tabvalue2, professional_data, newTask, AllTasks, AllTaskCss, DoneTaskCss, OpenTaskCss, ArchivedTasksCss } =
       this.state;
@@ -986,7 +994,7 @@ class Index extends Component {
                         >
                           <Grid item xs={12} md={12}>
                             <VHfield
-                              label={"Task title"}
+                              label={Tasktitle}
                               name="task_name"
                               placeholder={Entertitle}
                               onChange={(e) =>

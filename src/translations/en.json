@@ -1596,6 +1596,7 @@
 		"Findaadminstaff":"Find a admin staff",
 		"Country_Code":"Country Code",
 		"EditComment":"Edit Comment",
-		"EnterComment":"Enter Comment"		
+		"EnterComment":"Enter Comment",
+		"InstituteGroups": "Hospital Groups"	
 	}
 }

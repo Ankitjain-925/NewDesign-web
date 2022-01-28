@@ -106,7 +106,7 @@ class Index extends Component {
       logout,
       DarkMode,
       archive,
-      Change_Hospital
+      InstituteGroups
     } = translate;
 
     if (
@@ -244,7 +244,7 @@ class Index extends Component {
                     title=""
                   />
                 )}
-                <span>{Change_Hospital}</span>
+                <span>{InstituteGroups}</span>
               </a>
             </li>
          
