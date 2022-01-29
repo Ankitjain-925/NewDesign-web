@@ -451,7 +451,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/institutes"} />;
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { InvoiceID, Patient, Status, Services, srvc, qty, Price, Add, FinishInvoice, SaveDraft, Addservice, BacktoBilling, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close, Search_Select ,Draft ,Searchserviceoraddcustominput ,Enterquantity ,Enterprice ,EnterTitlename ,Enterserviceprice} =
+        let { InvoiceID, Patient, Status, Services, srvc, qty, Price, Add, FinishInvoice, SaveDraft, Addservice, BacktoBilling, Customservicetitle, Customservicedescription, Editservice, InvoiceAmount, save_and_close, Search_Select ,Draft ,Searchserviceoraddcustominput ,Enterquantity ,Enterprice ,EnterTitlename ,Enterserviceprice ,Quantity,Priceperquantity ,Servicename } =
             translate;
         const { selectedOption } = this.state;
         const { addinvoice } = this.state;
@@ -595,7 +595,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={2}>
                                                             <VHfield
-                                                                label="Quantity"
+                                                                label={Quantity}
                                                                 name="quantity"
                                                                 placeholder={Enterquantity}
                                                                 onChange={(e) =>
@@ -606,7 +606,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={2} className="enterPricePart1">
                                                             <VHfield
-                                                                label="Price per quantity"
+                                                                label={Priceperquantity}
                                                                 name="per_quantity"
                                                                 placeholder={Enterprice}
                                                                 onChange={(e) =>
@@ -689,7 +689,7 @@ class Index extends Component {
                                                     <Grid className="enterSpcl">
                                                         <Grid>
                                                             <VHfield
-                                                                label={"Service name"}
+                                                                label={Servicename}
                                                                 name="label"
                                                                 placeholder={EnterTitlename}
                                                                 disabled={true}
@@ -699,7 +699,7 @@ class Index extends Component {
 
                                                         <Grid>
                                                             <VHfield
-                                                                label={"Quantity"}
+                                                                label={Quantity}
                                                                 name="quantity"
                                                                 placeholder={Enterquantity}
                                                                 onChange={(e) =>
@@ -711,7 +711,7 @@ class Index extends Component {
 
                                                         <Grid>
                                                             <VHfield
-                                                                label="Price"
+                                                                label={Price}
                                                                 name="price"
                                                                 placeholder={Enterserviceprice}
                                                                 onChange={(e) =>

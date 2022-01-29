@@ -372,7 +372,10 @@
 		"Enterinstitutiondescriptionnote":"Enter institution description note",
 		"Enterhospitalname":"Enter hospital name",
 		"Enterhospitaldescriptionnote":"Enter hospital description note",
-		"Change_Hospital":"Change Hospital"
+		"Change_Hospital":"Change Hospital",
+		"HospitalName":"Hospital Name",
+		"Archives":"Archives"
+	
 	}
 }
 

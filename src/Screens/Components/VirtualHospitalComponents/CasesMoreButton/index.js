@@ -260,7 +260,7 @@ class Index extends React.Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let { AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient, OpenDetails, add_new_entry, AddTask, change_staff, move_patient_to,
-      assign_to_speciality, assign_to_room, RemovePatientfromFlow, DischargePatient, Please_assign_speciality_first,Search_Select } = translate;
+      assign_to_speciality, assign_to_room, RemovePatientfromFlow, DischargePatient, Please_assign_speciality_first,Search_Select,Wards,Room ,Bed } = translate;
     return (
       <>
         {this.state.loaderImage && <Loader />}
@@ -340,7 +340,7 @@ class Index extends React.Component {
                           <SelectField
                             isSearchable={true}
                             name="type"
-                            label="Wards"
+                            label={Wards}
                             option={AllWards(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY,)}
                             onChange={(e) =>
                               this.setsWard(e)
@@ -353,7 +353,7 @@ class Index extends React.Component {
                           <SelectField
                             isSearchable={true}
                             name="type"
-                            label="Room"
+                            label={Room}
                             option={this.state.AllRoom}
                             onChange={(e) => this.setsRoom(e)}
                             value={CurrentRoom(this.props.quote?.rooms)}
@@ -364,7 +364,7 @@ class Index extends React.Component {
                           <SelectField
                             isSearchable={true}
                             name="type"
-                            label="Bed"
+                            label={Bed}
                             option={this.state.AllBeds}
                             onChange={(e) => this.setsBed(e)}
                             value={CurrentBed(this.props.quote?.bed)}
