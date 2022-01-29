@@ -616,7 +616,7 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let { InstituteGroups, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
-      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo ,Enterinstitutegroupname ,Enterinstitutiondescriptionnote ,Enterhospitalname, Enterhospitaldescriptionnote} = translate;
+      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo ,Enterinstitutegroupname ,Enterinstitutiondescriptionnote ,Enterhospitalname, Enterhospitaldescriptionnote ,HospitalName ,HospitalDescriptionNote,InstitutionName ,InstitutionDescriptionNote} = translate;
     return (
       <Grid
         className={
@@ -792,7 +792,7 @@ class Index extends Component {
                                   <Grid item xs={10} md={12} className="form-box">
 
                                     <VHfield
-                                      label="Institution Name"
+                                      label={InstitutionName}
                                       name="group_name"
                                       value={this.state?.institute_groups?.group_name || ''}
                                       placeholder={Enterinstitutegroupname}
@@ -801,7 +801,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label="Institution Description Note"
+                                      label={InstitutionDescriptionNote}
                                       name="group_description"
                                       value={this.state?.institute_groups?.group_description || ''}
                                       placeholder={Enterinstitutiondescriptionnote}
@@ -951,7 +951,7 @@ class Index extends Component {
                                 <Grid container direction="row">
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label="Hospital Name"
+                                      label={HospitalName}
                                       name="house_name"
                                       value={this.state?.hospitalData?.house_name || ''}
                                       placeholder={Enterhospitalname}
@@ -960,7 +960,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label="Hospital Description Note"
+                                      label={HospitalDescriptionNote}
                                       name="house_description"
                                       value={this.state?.hospitalData?.house_description || ''}
                                       placeholder={Enterhospitaldescriptionnote}
