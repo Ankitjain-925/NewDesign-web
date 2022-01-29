@@ -255,7 +255,10 @@ class Index extends Component {
       this.setState({ errorMsg: "Please select a Patient" })
     }
     else {
-
+      if(data?.patient?.speciality?._id !== data?.speciality?._id){
+        this.setSpeciality(data?.speciality, data?.case_id)
+      }
+      delete data?.patient?.speciality;
       if (this.state.fileupods) {
         data.attachments = this.state.fileattach;
       }
@@ -371,6 +374,7 @@ class Index extends Component {
       },
     });
   };
+  
   removebtn = (index) => {
     this.setState({ message: null, openTask: false });
     let translate = getLanguage(this.props.stateLanguageType)
@@ -428,6 +432,24 @@ class Index extends Component {
     this.setState({ newTask: state });
   }
 
+  
+  setSpeciality = (data, case_id) => {
+    // this.setState({ loaderImage: true });
+    axios.put(
+      sitedata.data.path + "/cases/AddCase/" + case_id,
+      {
+        speciality: {
+          background_color: data.background_color,
+          color: data.color,
+          specialty_name: data.specialty_name,
+          _id: data._id
+        },
+        wards: {}, rooms: {}, bed: ""
+      },
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    .then((responce1) => {})
+  }
   // onKeyUp = (e) => {
   //   if (e.key === "Enter") {
   //     

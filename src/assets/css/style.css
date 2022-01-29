@@ -12017,8 +12017,7 @@ span.srchMobIcon img {
     margin-top: 0px !important;
   }
   .profilMenuList {
-    min-width: 130px !important;
-    padding: 8px 10px !important;
+    padding: 14px 10px !important;
   }
   .descpInerRght2 {
     margin-left: 0px !important;
@@ -12056,6 +12055,9 @@ span.srchMobIcon img {
     padding-left: 12px;
     padding-right: 12px;
    }
+  .menuItems ul li ul li span {
+    display: block !important;
+  }
 }
 @media (max-width: 599px){ 
  .descpInerRght {
@@ -17430,7 +17432,13 @@ ul.duringCovid li:last-child {
     flex-direction: row;
     overflow-x: scroll;
 } */
-
 .profileInfoDate .ant-picker-clear {
     right: 5px !important;
+}
+@media (max-width: 959px){
+ .menuItems ul li ul li a {
+    margin-bottom: 24px !important;
+    font-size: 14px;
+    display: block;
+  }
 }
