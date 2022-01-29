@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import InfoIcon from "@material-ui/icons/Info";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import axios from "axios";
@@ -153,6 +154,8 @@ class Index extends Component {
       })
   }
 
+
+
   // getAdminstaff = (user_id, pagenumber) => {
   //   var user_token = this.props.stateLoginValueAim.token;
   //   // var pagenumber = 1
@@ -221,9 +224,7 @@ class Index extends Component {
   // }
 
   getAdminstaff() {
-
     var user_token = this.props.stateLoginValueAim.token;
-
     axios
       .get(
         sitedata.data.path +
@@ -234,7 +235,6 @@ class Index extends Component {
       )
       .then((res) => {
         var images = [];
-
         const AllNurse = res.data && res.data.data && res.data.data;
         AllNurse && AllNurse.length > 0 && AllNurse.map((item) => {
           var find = item && item.image && item.image
@@ -250,14 +250,11 @@ class Index extends Component {
               })
           }
         })
-        console.log('res.data.data', AllNurse.length)
         var totalPage = Math.round(AllNurse.length / 20);
-        console.log("res.data.Total_count", res.data.Total_count)
         this.setState({
           totalPage: Math.ceil(res.data.Total_count / 20),
           MypatientsData: AllNurse, TotalCount: res.data.Total_count
         })
-
         // this.setState({ AllNurse: AllNurse, forSearch: AllNurse })
       })
   }
@@ -514,6 +511,7 @@ class Index extends Component {
                       title=""
                     />
                   </Grid>
+
                   <Grid className="archvOpinionIner">
                     <Table>
                       <Thead>
@@ -524,15 +522,13 @@ class Index extends Component {
                           <Th>{imprint_Email}</Th>
                           <Th>{ID}</Th>
                           <Th>{Status}</Th>
+                          <Th></Th>
                         </Tr>
                       </Thead>
                       <Tbody>
                         {this.state.MypatientsData &&
                           this.state.MypatientsData.length > 0 &&
                           this.state.MypatientsData.map((nurse, i) => (
-                            // console.log("current Page",this.state.currentPage)
-                            // console.log("nurse", nurse, "i",i)
-                            console.log("i", i),
                             <Tr>
                               <Td>
                                 {((this.state.currentPage - 1) * 5) + i + 1}
@@ -564,6 +560,24 @@ class Index extends Component {
                                   {Normal}
                                 </Td>
                               )}
+
+                              <Td className="billDots">
+
+                                <a className="academy_ul">
+                                  <InfoIcon className="infoIconCol" />
+                                  <ul>
+                                    <li>
+                                      <h6 className="assignHos">Assigned Hospitals</h6>
+                                      {nurse &&
+                                        nurse?.houses &&
+                                        nurse?.houses?.length > 0 ?
+                                        nurse?.houses.map((item) => <div className="assHosList">{(item?.label)}</div>)
+                                        :
+                                        <Grid className="noHosAss">No hospitals!</Grid>}
+                                    </li>
+                                  </ul>
+                                </a>
+                              </Td>
                               <Td className="billDots">
                                 <a className="academy_ul">
                                   <img

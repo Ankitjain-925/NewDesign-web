@@ -5,10 +5,10 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
+import InfoIcon from "@material-ui/icons/Info";
 import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
-
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Loader from 'Screens/Components/Loader/index';
@@ -398,6 +398,7 @@ class Index extends Component {
                                                     <Th>{imprint_Email}</Th>
                                                     <Th>{ID}</Th>
                                                     <Th>{Status}</Th>
+                                                    <Th></Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
@@ -413,6 +414,22 @@ class Index extends Component {
                                                             <Td style={{ minWidth: "100px" }}><span className="revwRed"></span>{Blocked}</Td >
                                                             : <Td><span className="revwGren"></span>{Normal}</Td>
                                                         }
+                                                           <Td className="billDots">
+                                                            <a className="academy_ul">
+                                                                <InfoIcon className="infoIconCol" />
+                                                                <ul className="listBullets">
+                                                                    <li>
+                                                                        <h6 className="assignHos">Assigned Hospitals</h6>
+                                                                        {doctor &&
+                                                                            doctor?.houses &&
+                                                                            doctor?.houses?.length > 0 ?
+                                                                            doctor?.houses.map((item) => <div className="assHosList">{(item?.label)}</div>)
+                                                                            :
+                                                                            <Grid className="noHosAss">No hospitals!</Grid>}
+                                                                    </li>
+                                                                </ul>
+                                                            </a>
+                                                        </Td>
                                                         <Td className="billDots">
                                                             <a className="academy_ul">
                                                                 <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" className="academyDots" />

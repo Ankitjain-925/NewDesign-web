@@ -13490,3 +13490,26 @@ border-style: solid;
     color: #404646;
     font-weight: 600;
 }
+
+.assignHos{
+    font-size: 18px!important;
+    font-weight: 700!important;
+    padding-bottom: 10px!important;
+}
+
+.darkTheme .assignHos{
+    color:#c3c3c3;
+}
+
+.infoIconCol{
+    color: #00ABAF;
+}
+
+.noHosAss{
+    color:red;
+    text-align: center!important;
+}
+
+.assHosList{
+    padding-bottom: 10px;
+}
