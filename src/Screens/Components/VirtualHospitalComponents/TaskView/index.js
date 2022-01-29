@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";
 import { LanguageFetchReducer } from "Screens/actions";
-import SelectField from "Screens/Components/Select/index";
 import Button from "@material-ui/core/Button";
 import { Settings } from 'Screens/Login/setting';
 import { getLanguage } from "translations/index"
 import { S3Image } from "Screens/Components/GetS3Images/index";
+import { getDate, getTime, } from "Screens/Components/BasicMethod/index";
 import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 
@@ -27,7 +26,6 @@ class PointPain extends Component {
             this.setState({ data: this.props.data, });
         }
     };
-    setSpeciality = () => { };
 
     componentDidMount = () => { };
     render() {
@@ -66,19 +64,27 @@ class PointPain extends Component {
                     <Grid item xs={12} sm={8} md={6}>
                         <Grid className="attchNoteMain">
                             <Grid className="attchNotePart">
-                            <Grid className="attchNoteUpr">
-                                <Grid className="attchNote">
-                                    <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />
-                                    <label>{data?.comments?.length}</label>
+                                <Grid className="attchNoteUpr">
+                                    <Grid className="attchNote">
+                                        <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />
+                                        <label>{data?.comments?.length}</label>
+                                    </Grid>
+                                    <Grid className="attchNote attchImg">
+                                        <img src={require('assets/virtual_images/attatchment.png')} alt="" title="" />
+                                        <label>{data?.attachments?.length}</label>
+                                    </Grid>
                                 </Grid>
-                                <Grid className="attchNote attchImg">
-                                    <img src={require('assets/virtual_images/attatchment.png')} alt="" title="" />
-                                    <label>{data?.attachments?.length}</label>
+                                <Grid className={data.status === 'done' ? "attchDone" : "attchOpen"}>
+                                    <Button><label></label>{data.status}</Button>
                                 </Grid>
-                            </Grid>
-                            <Grid className={data.status === 'done' ? "attchDone" : "attchOpen"}>
-                                <Button><label></label>{data.status}</Button>
-                            </Grid>
+                                <Grid>                    
+                                    <Grid className="allInfo allInfo1">
+                                    <Grid className="allInfoRght">
+                                        <Grid><label>{data?.due_on?.date && getDate(data?.due_on?.date, this.state.date_format)}</label></Grid>
+                                        <p>{data?.due_on?.time && getTime(new Date(data?.due_on?.time), this.state.time_foramt)}</p>
+                                    </Grid>
+                                </Grid>
+                                </Grid>
                             </Grid>
                             <Assigned assigned_to={data.assinged_to} />
                             <Grid item xs={6} md={6} className="spcMgntRght7 presEditDot scndOptionIner">

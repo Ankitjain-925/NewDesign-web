@@ -467,7 +467,7 @@ Questionaires = () => {
                 <div className="profilMenuList">
                   <ul>
                     <li>
-                      <a onClick={this.ProfileLink}>
+                      <a onClick={()=>this.ProfileLink()}>
                         {this.props.settings &&
                           this.props.settings.setting &&
                           this.props.settings.setting.mode &&

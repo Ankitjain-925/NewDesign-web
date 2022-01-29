@@ -107,7 +107,7 @@ class Index extends Component {
       Language,
       logout,
       DarkMode,
-    
+      InstituteGroups
     } = translate;
 
     return (
@@ -249,7 +249,7 @@ class Index extends Component {
                           title=""
                         />
                       )}
-                      <span>{"Institute Groups"}</span>
+                      <span>{InstituteGroups}</span>
                     </a>
                   </li>
                  

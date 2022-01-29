@@ -2179,6 +2179,7 @@ a.srtDiaTim {
 /* img.MenuImg{
     margin-left: 17px;
 } */
+
 a.menuActv img{
     padding: 0px !important;
     border: none;
@@ -2187,6 +2188,7 @@ a.menuActv img{
     padding-left: 5.5%;
     padding-right: 5.5%;
     padding-top: 40px;
+    padding-bottom: 9%;
 }
 .addFlow h1{
     color: #000808;
@@ -9404,16 +9406,16 @@ button.crdoLghtBlu2 {
     width: 16px;
     height: initial;
 }
-.dtlCntRght a {
-    height: 24px;
-    width: 24px;
+.newassignLft a {
+    height: 32px;
+    width: 32px;
     display: inline-block;
     margin-right: 2px;
 }
 .dtlCntRght a img {
     width: 100%;
 }
-.dtlCntRght a:last-child {
+.newassignLft a:last-child {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -9423,7 +9425,7 @@ button.crdoLghtBlu2 {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 12px;
-    border-radius: 14px;
+    border-radius: 50%;
     margin-right: 0px;
 }
 .dtlCntUprNw .dtlCntLft {
@@ -9930,6 +9932,42 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.allInfo1 {
+    min-width: 150px;
+}
+.newassignLft {
+    display: flex;
+}
+.attchNotePart {
+    display: flex;
+}
+.setAssignedTo:hover span{
+    display: block;
+}
+.setAssignedTo{
+    position: relative;
+}
+.setAssignedTo span {
+    z-index: 1;
+    font-weight: 700 !important;
+    text-align: center;
+    top:-40px;
+    position: absolute;
+    left: -35px;
+    display: none;
+    padding: 6px 7px;
+    color: #E5E6E6;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    border-radius: 8px;
+    background-color: rgba(0,8,8,0.9);
+    box-shadow: 0 8px 24px 0 rgb(0 8 8 / 8%);
+}
+.showAllAssignedInner{
+    padding: 6px 0px;
+}
 .homeBgDrk .detailCntnt p span{
     color: #D9DADA !important;
 }
@@ -11490,7 +11528,8 @@ ul.patientHint li {
 }
 .darkTheme .enterSpcl input, 
 .darkTheme .creatInfoIner input,
-.darkTheme .taskDescp textarea, .darkTheme .creatInfoIner .ant-picker {
+.darkTheme .taskDescp textarea, 
+.darkTheme .creatInfoIner .ant-picker {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
@@ -12584,6 +12623,9 @@ ul.patientHint li {
 .darkTheme .rrSysto div {
     background-color: #192020;
 }
+.darkTheme .rrSysto div input[type="text"] {
+    background-color: transparent !important;
+}
 /* .darkTheme .rrSysto div:last-child div {
     border-color: transparent;
 } */
@@ -12653,7 +12695,6 @@ ul.patientHint li {
 .darkTheme .homeBgIner {
     background: #192020 !important;
     min-height: 100vh;
-    padding-bottom: 9%;
 }
 .darkTheme .MenuMob {
     background: #404646;
@@ -13512,4 +13553,18 @@ border-style: solid;
 
 .assHosList{
     padding-bottom: 10px;
+}
+.setAssignedTo span:after {
+    z-index: 1;
+    width: 0px;
+    height: 0px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000808e6;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -4px;
+    content: "";
+    margin: 0 auto;
 }

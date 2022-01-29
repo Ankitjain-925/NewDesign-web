@@ -79,6 +79,15 @@ export const getPatientData = async (user_token, house_id, comesFrom) => {
             else if (response.data?.data[i].patient?.first_name) {
                 name = response.data?.data[i].patient?.first_name
             }
+            comesFrom === 'taskpage' ?patientArray.push({
+                last_name: response.data?.data[i].patient?.last_name,
+                first_name: response.data?.data[i].patient?.first_name,
+                image: response.data?.data[i].patient?.image,
+                profile_id: response.data?.data[i].patient?.profile_id,
+                case_id: response.data?.data[i]._id,
+                patient_id: response.data?.data[i].patient_id,
+                speciality: response.data?.data[i]?.speciality,
+            }) :
             patientArray.push({
                 last_name: response.data?.data[i].patient?.last_name,
                 first_name: response.data?.data[i].patient?.first_name,

@@ -249,7 +249,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { documents, document, DocumentMovedToDocuments, add_new, date_last_opened, find_document, ID, Status, no_, file_name, Normal, Blocked,
-            type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents } = translate
+            type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents ,Archives } = translate
         return (
             <Grid className={
                 this.props.settings &&
@@ -275,7 +275,7 @@ class Index extends Component {
 
                                 <Grid item xs={12} md={10} className="adminMenuRghtUpr">
                                     <Grid container direction="row" justifyContent="center" className="archvOpinLbl">
-                                        <Grid item xs={12} md={6}><label>Archives</label></Grid>
+                                        <Grid item xs={12} md={6}><label>{Archives}</label></Grid>
                                         <Grid item xs={12} md={6} className="archvOpinRght">
                                             {/* <a onClick={this.openDocUpload.bind(this)}>+ {add_new} {document}</a> */}
                                         </Grid>
