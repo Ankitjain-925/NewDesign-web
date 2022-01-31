@@ -41,6 +41,7 @@ import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
 import { getSpec, timeDiffCalc, filterPatient, isLessThanToday } from "Screens/Components/BasicMethod/index";
 import Loader from "Screens/Components/Loader/index";
+import { getProfessionalData } from '../../VirtualHospital/PatientFlow/data'
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
@@ -89,7 +90,9 @@ class Index extends Component {
       openApoint: false,
       cancelappoint: {},
       UpDataDetails: [],
-      TasksCss: ''
+      TasksCss: '',
+      selectDocData: {},
+      selectedPatient: {}
     };
   }
 
@@ -642,13 +645,22 @@ class Index extends Component {
     })
   }
 
-  handleAllowAccess = () => {
+  handleAllowAccess = async () => {
+    const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
+    const doctorsData = [];
+    // eslint-disable-next-line no-unused-expressions
+    await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
+      if (data.type === 'doctor') {
+        doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
+      }
+    })
+
     this.getGeoLocation();
-    this.setState({ openAllowAccess: true });
+    this.setState({ openAllowAccess: true, doctorsData });
   };
 
   handleCloseAllowAccess = () => {
-    this.setState({ openAllowAccess: false });
+    this.setState({ openAllowAccess: false, selectDocData: {} });
   };
 
   applyFilter = () => {
@@ -717,9 +729,10 @@ class Index extends Component {
     axios
       .get(sitedata.data.path + "/UserProfile/getLocation/" + radius, {
         params: {
-          speciality: this.state.searchDetails.specialty,
-          longitude: longitude,
-          Latitude: Latitude,
+          // speciality: this.state.searchDetails.specialty,
+          // longitude: longitude,
+          // Latitude: Latitude,
+          doctor_id: this.state.selectDocData && this.state.selectDocData.value
         },
       })
       .then((responce) => {
@@ -844,6 +857,10 @@ class Index extends Component {
     }
     this.setState({ searchDetails: searchDetails });
   };
+
+  handleDocSelect = (data) => {
+    this.setState({ selectDocData: data })
+  }
 
   handleChangeSelect = (selectedOption) => {
     let searchDetails = this.state.searchDetails;
@@ -1210,13 +1227,14 @@ class Index extends Component {
 
   selectPatient = (e) => {
     this.patientinfo(e?.value);
+    this.setState({ selectedPatient: e })
   }
 
   render() {
 
     let translate = getLanguage(this.props.stateLanguageType);
     let { Appointmentiscanceled, add_task, AddAppointment,
-      select_spec, Taskstatus, clear_all_filters, applyFilters,
+      select_spec, Taskstatus, clear_all_filters, applyFilters, capab_Doctors, select,
       Patient, speciality, Ward, Room,
       slct_time_slot, Iamhere,
       holiday,
@@ -1263,7 +1281,9 @@ class Index extends Component {
       date,
       doc_select,
       appointType,
-      apointDay } = this.state;
+      apointDay, doctorsData,
+      selectDocData, selectedPatient } = this.state;
+
     const userList =
       this.state.filteredUsers &&
       this.state.filteredUsers.map((user) => {
@@ -1660,54 +1680,20 @@ class Index extends Component {
                               options={this.state.users1}
                               placeholder={Search_Select}
                               onChange={(e) => this.selectPatient(e)}
-                              // value={this.state.selectedPat || ''}
+                              value={selectedPatient || ''}
                               className="addStafSelect"
                               isMulti={false}
                               isSearchable={true} />
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={3}>
-                          <Grid><label>{speciality}</label></Grid>
+                          <Grid><label>{capab_Doctors}</label></Grid>
                           <Select
-                            value={selectedOption}
-                            onChange={this.handleChangeSelect}
-                            options={specialityData}
-                            placeholder={select_spec}
+                            value={selectDocData}
+                            onChange={this.handleDocSelect}
+                            options={doctorsData}
+                            placeholder={`${select} ${capab_Doctors}`}
                             className="sel_specialty"
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={4} className="locat_srvc">
-                          <Grid>
-                            <label>{location_of_srvc}</label>
-                          </Grid>
-                          {/* <input type="text" placeholder="Search for city" onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
-                          {/* <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
-                          <Autocomplete
-                            stateLanguageType={this.props.stateLanguageType}
-                            onPlaceChanged={this.showPlaceDetails.bind(
-                              this
-                            )}
-                          />
-                          <img
-                            src={require("assets/images/search-entries.svg")}
-                            alt=""
-                            title=""
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={2} className="srchKm">
-                          <Grid>
-                            <label>{search_within}</label>
-                          </Grid>
-                          <input
-                            type="text"
-                            name="range"
-                            onChange={this.setRadius}
-                            value={
-                              this.state.searchDetails &&
-                                this.state.searchDetails.radius
-                                ? this.state.searchDetails.radius
-                                : ""
-                            }
                           />
                         </Grid>
                         <Grid item xs={12} md={3} className="apointType">
@@ -1868,54 +1854,23 @@ class Index extends Component {
                               options={this.state.users1}
                               placeholder={Search_Select}
                               onChange={(e) => this.onFieldChange1(e, "patient")}
-                              // value={this.state.selectedPat || ''}
+                              value={selectedPatient || ''}
                               className="addStafSelect"
                               isMulti={false}
                               isSearchable={true} />
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={3}>
-                          <Grid>
-                            <label>{speciality}</label>
-                          </Grid>
+                          <Grid><label>{capab_Doctors}</label></Grid>
                           <Select
-                            value={selectedOption}
-                            onChange={this.handleChangeSelect}
-                            options={specialityData}
-                            placeholder={select_specility}
+                            value={selectDocData}
+                            onChange={this.handleDocSelect}
+                            options={doctorsData}
+                            placeholder={`${select} ${capab_Doctors}`}
                             className="sel_specialty"
                           />
                         </Grid>
-                        <Grid item xs={12} md={3} className="locat_srvc">
-                          <Grid>
-                            <label>{location_of_srvc}</label>
-                          </Grid>
-                          {/* <input type="text" placeholder="Search for city" /> */}
-                          <Autocomplete
-                            onPlaceChanged={this.showPlaceDetails.bind(this)}
-                          />
-                          <img
-                            src={require("assets/images/search-entries.svg")}
-                            alt=""
-                            title=""
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={2} className="srchKm">
-                          <Grid>
-                            <label>{search_within}</label>
-                          </Grid>
-                          <input
-                            type="text"
-                            name="range"
-                            value={
-                              this.state.searchDetails &&
-                                this.state.searchDetails.radius
-                                ? this.state.searchDetails.radius
-                                : ""
-                            }
-                            onChange={this.setRadius}
-                          />
-                        </Grid>
+
                         <Grid item xs={12} md={4} className="apointType">
                           <Grid>
                             <label>
