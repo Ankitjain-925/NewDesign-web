@@ -1599,8 +1599,14 @@
 		"EnterComment":"Enter Comment",
 		"InstituteGroups": "Hospital Groups",
 		"Wards"	:"Wards",
+		"Whowouldyouliketosendthisto":"Who would you like to send this to ?",
+		"Text":"Text",
+		"Addbuttonattheendofpost":"Add button at the end of post",
+		"Setbuttontext":"Set button text",
+		"Dueon_time":"Due on (time)",
+		"ALL":"ALL",
+		"Done":"Done",
 		"plz_select_patient": "Please, Select a patient"
-		
-	
+			
 	}
 }
