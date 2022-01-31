@@ -193,7 +193,7 @@ class Index extends Component {
       this.props.stateLoginValueAim.token
     );
     response.then((responce1) => {
-      if (responce1.data.hassuccessed) {
+      if (responce1?.data?.hassuccessed) {
         var steps = getSteps(
           this.props?.House?.value,
           this.props.stateLoginValueAim.token
@@ -1035,8 +1035,8 @@ class Index extends Component {
                         }}
                         setDta={(item) => this.setDta(item)}
                         professional_id_list={this.state.professional_id_list}
-                        updateEntryState3={(e, case_id) => {
-                          this.updateEntryState3(e, case_id);
+                        updateEntryState3={(already, e, case_id) => {
+                          this.updateEntryState3(already, e, case_id);
                         }}
                         MovetoTask={(speciality, patient_id) => {
                           this.MovetoTask(speciality, patient_id)
