@@ -1258,6 +1258,7 @@
 		"fillreptcha": "Bitte füllen Sie das reCAPTCHA aus",
 		"Tachykardia":"Tachykardie",
 		"select_user_type": "Bitte wählen Sie den Benutzertyp",
-		"suported_file_type_jpg": "Unterstützte Dateitypen: .jpg, .png"
+		"suported_file_type_jpg": "Unterstützte Dateitypen: .jpg, .png",
+		"plz_select_patient":"Bitte wählen Sie ein Lack aus"
 	}
 }
