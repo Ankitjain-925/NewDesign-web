@@ -292,7 +292,7 @@ class Index extends Component {
     }
 
     let translate = getLanguage(this.props.stateLanguageType)
-    let { Patientjourney, Questionnaire, Questionnaire_of, FinalSubmit } = translate;
+    let { Patientjourney, Questionnaire, Questionnaire_of, FinalSubmit ,other} = translate;
     return (
       <Grid
         className={
@@ -388,7 +388,7 @@ class Index extends Component {
                                                                     value="checkedB"
                                                                   />
                                                                   }
-                                                                  label="other" />
+                                                                  label={other}/>
                                                                 {/* <Grid  className="otherBorder"></Grid> */}
                                                                 {this.state.otherField && (
                                                                   <input type="text"

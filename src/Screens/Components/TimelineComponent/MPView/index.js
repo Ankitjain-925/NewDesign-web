@@ -80,6 +80,7 @@ class Index extends Component {
       time,
       not_mentioned,
       de_archive,
+      INR
     } = translate;
 
     return (
@@ -362,7 +363,7 @@ class Index extends Component {
                           <Grid item xs={12} md={6} className="bloodPreBy">
                             <Grid container direction="row">
                               <Grid item xs={5} md={5}>
-                                <label>INR</label>
+                                <label>{INR}</label>
                               </Grid>
                               <Grid item xs={7} md={7}>
                                 <span>{item.INR && item.INR}</span>

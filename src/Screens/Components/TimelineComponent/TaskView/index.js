@@ -52,7 +52,9 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
             details,
-            Task
+            Task,
+            Dueon,
+            Dueon_time
         } = translate;
         var item = this.state.item;
         return (
@@ -295,7 +297,7 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
-                                                                <label>Due on</label>
+                                                                <label>{Dueon}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
                                                                 {item && item?.due_on && item?.due_on?.time &&
@@ -310,7 +312,7 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
-                                                                <label>Due on (time)</label>
+                                                                <label>{Dueon_time}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
                                                                 {item && item?.due_on && item?.due_on?.time &&
