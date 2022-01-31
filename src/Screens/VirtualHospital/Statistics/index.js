@@ -12,9 +12,7 @@ import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
-import {
-    commonHeader,
-} from "component/CommonHeader/index";
+import { commonHeader, } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
@@ -119,7 +117,7 @@ class Index extends Component {
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
                              {/* Mobile menu */}
-                             <LeftMenuMobile isNotShow={true} currentPage="more" />
+                            <LeftMenuMobile isNotShow={true} currentPage="more" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 

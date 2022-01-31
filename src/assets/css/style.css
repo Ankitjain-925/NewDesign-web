@@ -6527,9 +6527,6 @@ a.archvDel:hover ul {
 .checkHelthLbl a:hover{
     color: #00ABAF;
 }
-
-/* -------------- */
-
 .nwDiaCntnt {
     padding: 1px;
     padding-top: 10px;
@@ -17327,7 +17324,6 @@ ul.duringCovid li:last-child {
     padding: 10px !important;
     background: #E1F7F7 !important;
 }
-
 .timeTask {
     display: flex !important;
     justify-content: space-between !important;
