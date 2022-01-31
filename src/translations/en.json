@@ -1605,9 +1605,8 @@
 		"Setbuttontext":"Set button text",
 		"Dueon_time":"Due on (time)",
 		"ALL":"ALL",
-		"Done":"Done"
-		
-		
-	
+		"Done":"Done",
+		"plz_select_patient": "Please, Select a patient"
+			
 	}
 }

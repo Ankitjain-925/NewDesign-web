@@ -1258,6 +1258,7 @@
 		"fillreptcha": "请填写 reCAPTCHA",
 		"Tachykardia": "心动过速",
 		"select_user_type": "请选择用户类型",
-		"suported_file_type_jpg": "支持的文件类型：。jpg，。png"
+		"suported_file_type_jpg": "支持的文件类型：。jpg，。png",
+		"plz_select_patient":"請選擇一個patinet"
 	}
 }

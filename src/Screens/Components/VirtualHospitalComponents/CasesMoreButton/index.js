@@ -112,21 +112,20 @@ class Index extends React.Component {
       },
       commonHeader(this.props.stateLoginValueAim.token)
     )
-      .then((responce1) => {
-        if (responce1.data.hassuccessed) {
-          var steps = getSteps(
-            this.props?.House?.value,
-            this.props.stateLoginValueAim.token
-          );
-          steps.then((data) => {
-            var stepData = data ? data : [];
-            this.props.setDta(stepData);
-            this.setState({ loaderImage: false });
-          });
+    .then((responce1) => {
+      if (responce1.data.hassuccessed) {
+        var steps = getSteps(
+          this.props?.House?.value,
+          this.props.stateLoginValueAim.token
+        );
+        steps.then((data) => {
+          var stepData = data ? data : [];
+          this.props.setDta(stepData);
           this.setState({ loaderImage: false });
-        }
-      })
-
+        });
+        this.setState({ loaderImage: false });
+      }
+    })
   }
   setsWard = (e) => {
     this.setState({ loaderImage: true });

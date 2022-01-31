@@ -1257,6 +1257,7 @@
 		"fillreptcha":"الرجاء ملء reCAPTCHA",
 		"Tachykardia":"عدم انتظام دقات القلب",
 		"select_user_type":"الرجاء تحديد نوع المستخدم",
-		"suported_file_type_jpg": "أنواع الملفات المدعومة: .jpg و .png و"
+		"suported_file_type_jpg": "أنواع الملفات المدعومة: .jpg و .png و",
+		"plz_select_patient":"من فضلك ، حدد باتينيت"
 	}
 }

@@ -59,7 +59,6 @@ class Index extends Component {
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
-                {console.log('dueon', item?.due_on?.date)}
                 <Grid item xs={12} md={1} className="descpCntntLft">
                     {item &&
                         item?.due_on &&
@@ -300,9 +299,9 @@ class Index extends Component {
                                                                 <label>{Dueon}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
-                                                                {item && item?.due_on && item?.due_on?.time &&
+                                                                {item && item?.due_on && item?.due_on?.date &&
                                                                     <span>
-                                                                        {getDate(item?.due_on?.time, this.state.date_format)}
+                                                                        {getDate(item?.due_on?.date, this.state.date_format)}
                                                                     </span>
                                                                 }
                                                             </Grid>
