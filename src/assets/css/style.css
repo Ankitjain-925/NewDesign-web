@@ -12305,6 +12305,12 @@ a.srtDiaTim {
 img.MenuImg {
     margin-left: 17px;
 }
+
+.error_message{
+    justify-content: center;
+    display: flex;
+    color: #e23f3f;
+}
 .slotBoxMain {
     width: 673px;
     background: #fff;

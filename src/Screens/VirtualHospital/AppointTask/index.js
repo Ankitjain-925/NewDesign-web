@@ -92,7 +92,8 @@ class Index extends Component {
       UpDataDetails: [],
       TasksCss: '',
       selectDocData: {},
-      selectedPatient: {}
+      selectedPatient: {},
+      patNotSelected:false
     };
   }
 
@@ -1161,6 +1162,11 @@ class Index extends Component {
             );
           }
         });
+    } else if (!this.state.personalinfo) {
+      this.setState({ patNotSelected: true })
+      setTimeout(() => {
+        this.setState({ patNotSelected: false })
+      }, 3000);
     }
   };
 
@@ -1268,10 +1274,10 @@ class Index extends Component {
       find_apointment, Appointments, filters,
       consultancy_cstm_calnder,
       vdo_call, All, Open, done,
-      allow_location_access, FilterbySpeciality, } =
+      allow_location_access, FilterbySpeciality, plz_select_patient } =
       translate;
 
-    const { tabvalue,
+    const { tabvalue, patNotSelected,
       pastappointment,
       selectedOption,
       specialityData,
@@ -1689,7 +1695,7 @@ class Index extends Component {
                         <Grid item xs={12} md={3}>
                           <Grid><label>{capab_Doctors}</label></Grid>
                           <Select
-                            value={selectDocData}
+                            value={selectDocData || ''}
                             onChange={this.handleDocSelect}
                             options={doctorsData}
                             placeholder={`${select} ${capab_Doctors}`}
@@ -1863,7 +1869,7 @@ class Index extends Component {
                         <Grid item xs={12} md={3}>
                           <Grid><label>{capab_Doctors}</label></Grid>
                           <Select
-                            value={selectDocData}
+                            value={selectDocData || ''}
                             onChange={this.handleDocSelect}
                             options={doctorsData}
                             placeholder={`${select} ${capab_Doctors}`}
@@ -2248,6 +2254,7 @@ class Index extends Component {
                 >
                   <Grid className="slotBoxMain">
                     <Grid className="slotBoxCourse">
+                      {patNotSelected && <p className="error_message">{plz_select_patient}</p>}
                       <a
                         onClick={this.handleCloseFancyVdo}
                         className="timSlotClose"
