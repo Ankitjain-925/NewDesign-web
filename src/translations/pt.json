@@ -1258,6 +1258,8 @@
 		"fillreptcha": "Por favor, preencha o reCAPTCHA",
 		"Tachykardia":"Taquicardia",
 		"select_user_type":"Selecione o tipo de usuário",
-		"suported_file_type_jpg": "Tipos de arquivos permitidos: .jpg, .png"
+		"suported_file_type_jpg": "Tipos de arquivos permitidos: .jpg, .png",
+		"plz_select_patient":"Por favor, selecione um patinet"
+
 	}
 }

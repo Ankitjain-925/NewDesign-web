@@ -1257,6 +1257,7 @@
 		"fillreptcha":"Vul a.u.b. de reCAPTCHA in",
 		"Tachykardia":"Tachycardie",
 		"select_user_type": "Selecteer a.u.b. gebruikerstype",
-		"suported_file_type_jpg": "Ondersteunde bestandssoorten: .jpg, .png"
-	}
+		"suported_file_type_jpg": "Ondersteunde bestandssoorten: .jpg, .png",
+		"plz_select_patient":"Selecteer a.u.b. een patet"
+		}
 }

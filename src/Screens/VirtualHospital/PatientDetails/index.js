@@ -309,8 +309,6 @@ class Index extends Component {
                                 </Grid>
                                 <Grid container direction="row" className="mainMenuAllSec">
                                     {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
-
-
                                     {/* Start of Menu */}
                                     <Grid item xs={12} md={1} className="MenuLeftUpr">
                                         <LeftMenu isNotShow={true} currentPage="chat" />

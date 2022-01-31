@@ -1257,6 +1257,8 @@
 		"fillreptcha": "Lütfen RECAPTCHA'yı doldurun",
 		"Tachykardia": "taşikardi",
 		"select_user_type":"Lütfen kullanıcı türünü seçin",
-		"suported_file_type_jpg": "Desteklenen dosya tipleri: .jpg, .png"
+		"suported_file_type_jpg": "Desteklenen dosya tipleri: .jpg, .png",
+		"plz_select_patient":"Lütfen, bir patine seçin"
+
 	}
 }

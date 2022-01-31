@@ -1258,6 +1258,8 @@
     "fillreptcha": "Пожалуйста, заполните RECAPTCHA",
     "Tachykardia":"Тахикардия",
     "select_user_type": "Пожалуйста, выберите тип пользователя",
-    "suported_file_type_jpg": "Поддерживаемые типы файлов: .JPG, .PNG"
+    "suported_file_type_jpg": "Поддерживаемые типы файлов: .JPG, .PNG",
+		"plz_select_patient":"Пожалуйста, выберите патинет"
+
   }
 }

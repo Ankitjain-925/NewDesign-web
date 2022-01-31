@@ -1598,7 +1598,8 @@
 		"EditComment":"Edit Comment",
 		"EnterComment":"Enter Comment",
 		"InstituteGroups": "Hospital Groups",
-		"Wards"	:"Wards"
+		"Wards"	:"Wards",
+		"plz_select_patient": "Please, Select a patient"
 		
 	
 	}

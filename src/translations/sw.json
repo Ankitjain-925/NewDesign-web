@@ -1256,6 +1256,8 @@
 		"Tachykardia":"Tachycardia",
 		"Currentpaincondition":"Hali ya maumivu ya sasa",
 		"select_user_type":"Tafadhali chagua aina ya mtumiaji",
-		"suported_file_type_jpg": "Mkono faili aina: .jpg, .png"
+		"suported_file_type_jpg": "Mkono faili aina: .jpg, .png",
+		"plz_select_patient":"Tafadhali, Chagua patinet"
+
 	}
 }
