@@ -88,16 +88,14 @@ class Index extends Component {
     render() {
         const { value, personalinfo } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
-        let {
+        let {Whowouldyouliketosendthisto,
             selectpatient,
-            save_entry,
-            rr_systolic,
-            attachments,
-            time_measure,
-            date_measure,
-            RR_diastolic,
-            heart_rate,
-            feeling,
+            PromotionType,
+            Title,
+            Text,
+            Addbuttonattheendofpost,
+            Setbuttontext
+           
         } = translate;
         return (
             <div>
@@ -105,7 +103,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <SelectByTwo
                             name="option"
-                            label={"Who would you like to send this to ?"}
+                            label={Whowouldyouliketosendthisto}
                             options={options}
                             onChange={(e) => this.updateEntryState1(e, "option")}
                             value={this.state.updateTrack?.option}
@@ -116,7 +114,7 @@ class Index extends Component {
                             <SelectField
                                 name="patient"
                                 isSearchable={true}
-                                label={'select patient'}
+                                label={selectpatient}
                                 option={this.state.PatientList}
                                 onChange={(e) => this.updateEntryState1(e, "UserId")}
                                 value={this.state.selectedUser}
@@ -127,7 +125,7 @@ class Index extends Component {
                         <SelectField
                             name="promotion_type"
                             isSearchable={true}
-                            label={"Promotion Type"}
+                            label={PromotionType}
                             option={this.state.options}
                             onChange={(e) => this.updateEntryState1(e, "promotion_type")}
                             value={GetShowLabel1(
@@ -145,7 +143,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <MMHG
                             name="title"
-                            label={"Title"}
+                            label={Title}
                             onChange={(e) => this.props.updateEntryState(e)}
                             value={this.state.updateTrack.title}
                         />
@@ -153,7 +151,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <NotesEditor
                             name="text"
-                            label={'Text'}
+                            label={Text}
                             onChange={(e) => this.updateEntryState1(e, "text")}
                             value={this.state.updateTrack.remarks}
                         />
@@ -169,14 +167,14 @@ class Index extends Component {
                                     onChange={(e) => this.updateEntryState1(e.target.checked, "isbutton")}
                                 />
                             }
-                            label={"Add button at the end of post"}
+                            label={Addbuttonattheendofpost}
                         />
                     </Grid>
                     {this.state.updateTrack?.isbutton == true && (
                         <Grid className="fillDia">
                             <MMHG
                                 name="button_text"
-                                label={"Set button text"}
+                                label={Setbuttontext}
                                 onChange={(e) => this.props.updateEntryState(e)}
                                 value={this.state.updateTrack.button_text}
                             />

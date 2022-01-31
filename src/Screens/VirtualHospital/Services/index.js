@@ -133,7 +133,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Addnewservice, Services, speciality, newService,
-      save_and_close, all, General, srvc, Price, editService, deleteService ,EnterServicename,Enterserviceshortdescription ,Enterserviceprice ,Search} = translate;
+      save_and_close, all, General, srvc, Price, editService, deleteService ,EnterServicename,Enterserviceshortdescription ,Enterserviceprice ,Search ,Serviceshortdescription ,Servicename} = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -232,7 +232,7 @@ class Index extends Component {
                                 <Grid className="enterSpcl">
                                   <Grid>
                                     <VHfield
-                                      label={"Service name"}
+                                      label={Servicename}
                                       name="title"
                                       placeholder={EnterServicename}
                                       onChange={(e) =>
@@ -244,7 +244,7 @@ class Index extends Component {
 
                                   <Grid>
                                     <VHfield
-                                      label={"Service short description"}
+                                      label={Serviceshortdescription}
                                       name="description"
                                       placeholder={Enterserviceshortdescription}
                                       onChange={(e) =>
@@ -272,7 +272,7 @@ class Index extends Component {
 
                                   <Grid item xs={12} md={12} className="enterPricePart1">
                                     <VHfield
-                                      label={"Price"}
+                                      label={Price}
                                       name="price"
                                       placeholder={Enterserviceprice}
                                       onChange={(e) =>

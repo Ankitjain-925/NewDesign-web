@@ -99,6 +99,7 @@ class Index extends Component {
       newComment: '',
       length: '',
       selectedPat: {},
+      professional_id_list1: []
     };
   }
 
@@ -150,6 +151,18 @@ class Index extends Component {
     }
   }
 
+  // manage assign to list
+  selectProf = (listing, data) => {
+    var showdata = data;
+    var alredyAssigned = listing && listing?.length > 0 && listing.map((item) => { return item.user_id })
+    if (alredyAssigned && alredyAssigned.length > 0) {
+      showdata = data?.length > 0 && data.filter((item) => !alredyAssigned.includes(item.value))
+      var assignedto = data?.length > 0 && data.filter((item) => alredyAssigned.includes(item.value))
+      this.setState({ assignedTo: assignedto })
+    }
+    this.setState({ professional_id_list1: showdata })
+  }
+
   //to get the speciality list
   specailityList = () => {
     var spec =
@@ -171,7 +184,7 @@ class Index extends Component {
     });
     if (this.props.patient) {
       let user = { value: this.props.patient?.patient_id }
-       this.updateEntryState2(user);
+      this.updateEntryState2(user);
     }
   };
   // close model Add Task
@@ -255,7 +268,7 @@ class Index extends Component {
       this.setState({ errorMsg: "Please select a Patient" })
     }
     else {
-      if(data?.patient?.speciality?._id !== data?.speciality?._id){
+      if (data?.patient?.speciality?._id !== data?.speciality?._id) {
         this.setSpeciality(data?.speciality, data?.case_id)
       }
       delete data?.patient?.speciality;
@@ -296,40 +309,40 @@ class Index extends Component {
         data.archived = false;
         data.status = "open";
         data.created_at = new Date();
-        if(!data?.due_on?.date){
+        if (!data?.due_on?.date) {
           let due_on = data?.due_on || {};
-          due_on['date'] =  new Date()
+          due_on['date'] = new Date()
           data.due_on = due_on;
         }
-        if(!data?.due_on?.time){
+        if (!data?.due_on?.time) {
           let due_on = data?.due_on || {};
-          due_on['time'] =  new Date()
+          due_on['time'] = new Date()
           data.due_on = due_on;
         }
         axios
-        .post(
-          sitedata.data.path + "/vh/AddTask",
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({
-            newTask: {},
-            fileattach: {},
-            professional_data: [],
-            fileupods: false,
-            assignedTo: [],
-            q: "",
-            selectSpec: {},
-            newComment: ''
+          .post(
+            sitedata.data.path + "/vh/AddTask",
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            this.setState({
+              newTask: {},
+              fileattach: {},
+              professional_data: [],
+              fileupods: false,
+              assignedTo: [],
+              q: "",
+              selectSpec: {},
+              newComment: ''
+            });
+            this.props.getAddTaskData();
+            this.handleCloseTask();
+          })
+          .catch(function (error) {
+            console.log(error);
+            this.setState({ errorMsg: "Somthing went wrong, Please try again" })
           });
-          this.props.getAddTaskData();
-          this.handleCloseTask();
-        })
-        .catch(function (error) {
-          console.log(error);
-          this.setState({ errorMsg: "Somthing went wrong, Please try again" })
-        });    
       }
     }
   };
@@ -374,7 +387,7 @@ class Index extends Component {
       },
     });
   };
-  
+
   removebtn = (index) => {
     this.setState({ message: null, openTask: false });
     let translate = getLanguage(this.props.stateLanguageType)
@@ -432,7 +445,7 @@ class Index extends Component {
     this.setState({ newTask: state });
   }
 
-  
+
   setSpeciality = (data, case_id) => {
     // this.setState({ loaderImage: true });
     axios.put(
@@ -448,7 +461,7 @@ class Index extends Component {
       },
       commonHeader(this.props.stateLoginValueAim.token)
     )
-    .then((responce1) => {})
+      .then((responce1) => { })
   }
   // onKeyUp = (e) => {
   //   if (e.key === "Enter") {
@@ -483,20 +496,24 @@ class Index extends Component {
   updateEntryState2 = (user) => {
     var user1 = this.state.users?.length > 0 &&
       this.state.users.filter((data) => data.patient_id === user.value);
-      if (user1 && user1.length > 0) {
+    if (user1 && user1.length > 0) {
       const state = this.state.newTask;
       state["patient"] = user1[0];
       state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
-      if(!user.label){
-        user['label'] = (user1[0].first_name &&  user1[0].last_name) ? user1[0].first_name + ' ' + user1[0].last_name
-        :user1[0].first_name
+      if (!user.label) {
+        user['label'] = (user1[0].first_name && user1[0].last_name) ? user1[0].first_name + ' ' + user1[0].last_name
+          : user1[0].first_name
       }
-      if(!state?.speciality){
+      if (!state?.speciality) {
         state['speciality'] = user1[0].speciality
-        this.setState({ selectSpec : {label: user1[0]?.speciality?.specialty_name,
-          value: user1[0]?.speciality?._id} })
-      }    
+        this.setState({
+          selectSpec: {
+            label: user1[0]?.speciality?.specialty_name,
+            value: user1[0]?.speciality?._id
+          }
+        })
+      }
       this.setState({ newTask: state, selectedPat: user });
     }
   };
@@ -530,7 +547,10 @@ class Index extends Component {
         }, []);
       const state = this.state.newTask;
       state["assinged_to"] = data;
-      this.setState({ newTask: state });
+      this.setState({ newTask: state },
+        () => {
+          this.selectProf(this.state.newTask?.assinged_to, this.state.professional_id_list)
+        });
     });
   };
 
@@ -701,28 +721,28 @@ class Index extends Component {
   }
   // open Edit model
   editTask = (data) => {
-    var assignedTo =
-      data?.assinged_to?.length > 0 &&
-      data?.assinged_to.map((data) => {
-        var name = "";
-        if (data?.first_name && data?.last_name) {
-          name = data?.first_name + " " + data?.last_name;
-        } else if (data?.first_name) {
-          name = data?.first_name;
-        }
-        return { label: name, value: data._id };
-      });
+    // var assignedTo =
+    //   data?.assinged_to?.length > 0 &&
+    //   data?.assinged_to.map((data) => {
+    //     var name = "";
+    //     if (data?.first_name && data?.last_name) {
+    //       name = data?.first_name + " " + data?.last_name;
+    //     } else if (data?.first_name) {
+    //       name = data?.first_name;
+    //     }
+    //     return { label: name, value: data._id };
+    //   });
+    this.selectProf(data?.assinged_to, this.state.professional_id_list)
     var pat1name = "";
     if (data?.patient?.first_name && data?.patient?.last_name) {
       pat1name = data?.patient?.first_name + " " + data?.patient?.last_name;
     } else if (data?.first_name) {
       pat1name = data?.patient?.first_name;
-      
     }
     this.setState({
       newTask: data,
       openTask: true,
-      assignedTo: assignedTo,
+      // assignedTo: assignedTo,
       q: pat1name,
       selectSpec: {
         label: data?.speciality?.specialty_name,
@@ -936,7 +956,12 @@ class Index extends Component {
       FilterbySpeciality,
       FilterbyWard,
       FilterbyRoom,
-      Tasktitle
+      Tasktitle,
+      ALL,
+      Done,
+      Open,
+      Archived,
+      Hide_task_from_patient
     } = translate;
     const { tabvalue, tabvalue2, professional_data, newTask, AllTasks, AllTaskCss, DoneTaskCss, OpenTaskCss, ArchivedTasksCss } =
       this.state;
@@ -1031,21 +1056,21 @@ class Index extends Component {
                           </Grid>
                           <Grid item xs={12} md={12}>
                             <label>{ForPatient}</label>
-                             {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
+                            {this.props.comesFrom === 'detailTask' ? <h2>{this.props.patient?.first_name} {this.props.patient?.last_name}</h2> :
                               this.props.comesFrom === 'Professional' ? <h2>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</h2>
-                                : 
+                                :
                                 <Grid>
-                                 
+
                                   <Select
-                                      name="patient"
-                                      options={this.state.users1}
-                                      placeholder={Search_Select}
-                                      onChange={(e) => this.updateEntryState2(e)}
-                                      value={this.state.selectedPat || ''}
-                                      className="addStafSelect"
-                                      isMulti={false}
-                                      isSearchable={true} />
-                                                    
+                                    name="patient"
+                                    options={this.state.users1}
+                                    placeholder={Search_Select}
+                                    onChange={(e) => this.updateEntryState2(e)}
+                                    value={this.state.selectedPat || ''}
+                                    className="addStafSelect"
+                                    isMulti={false}
+                                    isSearchable={true} />
+
                                   {/* <input
                                     type="text"
                                     placeholder={"Search & Select"}
@@ -1075,7 +1100,7 @@ class Index extends Component {
                                       disabled={this.props.comesFrom === 'Professional' ? true : false}
                                     />
                                   }
-                                  label="Hide task from patient"
+                                  label={Hide_task_from_patient}
                                 />
                               </Grid>
                             </Grid>
@@ -1104,7 +1129,7 @@ class Index extends Component {
                                 name="professional"
                                 onChange={(e) => this.updateEntryState3(e)}
                                 value={this.state.assignedTo}
-                                options={this.state.professional_id_list}
+                                options={this.state.professional_id_list1}
                                 placeholder={Search_Select}
                                 className="addStafSelect"
                                 isMulti={true}
@@ -1409,10 +1434,10 @@ class Index extends Component {
               <Grid item xs={12} sm={6} md={7}>
                 <AppBar position="static" className="billTabs">
                   <Tabs value={tabvalue2} onChange={this.handleChangeTab2}>
-                    <Tab label="ALL" className="billtabIner" />
-                    <Tab label="Done" className="billtabIner" />
-                    <Tab label="Open" className="billtabIner" />
-                    {(this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask') && (<Tab label="Archived" className="billtabIner" />)}
+                    <Tab label={ALL} className="billtabIner" />
+                    <Tab label={Done} className="billtabIner" />
+                    <Tab label={Open} className="billtabIner" />
+                    {(this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask') && (<Tab label={Archived} className="billtabIner" />)}
 
                   </Tabs>
                 </AppBar>
@@ -1558,7 +1583,7 @@ class Index extends Component {
                               }
                             />
                           }
-                          label="Open"
+                          label={Open}
                         />
                         <FormControlLabel
                           control={
@@ -1572,7 +1597,7 @@ class Index extends Component {
                               }
                             />
                           }
-                          label="Done"
+                          label={Done}
                         />
                       </Grid>
                     </Grid>
@@ -1580,7 +1605,6 @@ class Index extends Component {
                   <Grid className="fltrInput">
                     <label>{Patient}</label>
                     <Grid className="addInput">
-                      {/* {console.log('userFilter', this.state.userFilter.length)} */}
                       <Select
                         name="professional"
                         onChange={(e) => this.updateUserFilter(e)}
