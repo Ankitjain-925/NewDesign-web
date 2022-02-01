@@ -1606,7 +1606,14 @@
 		"Dueon_time":"Due on (time)",
 		"ALL":"ALL",
 		"Done":"Done",
-		"plz_select_patient": "Please, Select a patient"
+		"plz_select_patient": "Please, Select a patient",
+		"Newappointment":"New appointment",
+		"Findpatient":"Find patient",
+		"Appointmentreason":"Appointment reason",
+		"Specialty":"Specialty",
+		"EnterpatientnameorID":"Enter patient name or ID",
+		"Selectspecialty":"Select specialty",
+		"Searchforcity":"Search for city"
 			
 	}
 }
