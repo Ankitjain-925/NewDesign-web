@@ -186,6 +186,8 @@ class Index extends Component {
         }
         return last;
       }, []);
+    
+    data  = data ? data : [];
     this.setState({ loaderImage: true });
     var response = setAssignedTo(
       data,
@@ -194,6 +196,7 @@ class Index extends Component {
     );
     response.then((responce1) => {
       if (responce1?.data?.hassuccessed) {
+        console.log('sdsdfsdf222222', )
         var steps = getSteps(
           this.props?.House?.value,
           this.props.stateLoginValueAim.token
@@ -204,6 +207,7 @@ class Index extends Component {
         });
         this.setState({ loaderImage: false });
       } else {
+        console.log('fsdfdsdf')
         this.setState({ loaderImage: false });
       }
     });
@@ -1035,8 +1039,8 @@ class Index extends Component {
                         }}
                         setDta={(item) => this.setDta(item)}
                         professional_id_list={this.state.professional_id_list}
-                        updateEntryState3={(already, e, case_id) => {
-                          this.updateEntryState3(already, e, case_id);
+                        updateEntryState3={(e, case_id) => {
+                          this.updateEntryState3(e, case_id);
                         }}
                         MovetoTask={(speciality, patient_id) => {
                           this.MovetoTask(speciality, patient_id)

@@ -531,6 +531,7 @@ class Index extends Component {
     this.setState({ assignedTo2: e })
   }
   updateEntryState3 = (e) => {
+    console.log('professional_id_list', e)
     this.setState({ assignedTo: e }, () => {
       var data =
         e?.length > 0 &&
