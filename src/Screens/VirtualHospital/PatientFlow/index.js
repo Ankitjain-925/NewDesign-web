@@ -1045,6 +1045,7 @@ class Index extends Component {
                         MovetoTask={(speciality, patient_id) => {
                           this.MovetoTask(speciality, patient_id)
                         }}
+                        mode={this.props?.settings?.setting?.mode}
                       />
                     </div>
                   </Grid>

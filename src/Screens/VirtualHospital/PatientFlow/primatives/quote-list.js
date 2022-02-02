@@ -1,7 +1,53 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import QuoteItem from "./quote-item";
+import { grid } from "../constants";
+import styled from "@emotion/styled";
 
+const getBackgroundColor = (isDraggingOver, isDraggingFrom, mode) => {
+  if (isDraggingOver) {
+    return "#757575";
+  }
+  if (isDraggingFrom) {
+    return "#757575";
+  }
+  return mode ==='wrapperdnd' ? "#404646" : "#f2f2f2";
+};
+
+const Wrapper = styled.div`
+  background-color: ${props =>
+    { return getBackgroundColor(props.isDraggingOver, props.isDraggingFrom, props.className)}};
+  display: flex;
+  flex-direction: column;
+  opacity: ${({ isDropDisabled }) => (isDropDisabled ? 0.5 : "inherit")};
+  padding: ${grid}px;
+  border: ${grid}px;
+  padding-bottom: 0;
+  transition: background-color 0.2s ease, opacity 0.1s ease;
+  user-select: none;
+`;
+
+const scrollContainerHeight = 250;
+
+const DropZone = styled.div`
+  /* stop the list collapsing when empty */
+  min-height: ${scrollContainerHeight}px;
+  /*
+    not relying on the items for a margin-bottom
+    as it will collapse when the list is empty
+  */
+  padding-bottom: ${grid}px;
+`;
+
+const ScrollContainer = styled.div`
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: ${scrollContainerHeight}px;
+`;
+
+/* stylelint-disable block-no-empty */
+const Container = styled.div``;
+/* stylelint-enable */
 
 class InnerQuoteList extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -49,7 +95,7 @@ class InnerList extends React.Component {
     const { quotes, dropProvided } = this.props;
     return (
       <div>
-        <div ref={dropProvided.innerRef}>
+        <div ref={dropProvided.innerRef}  className="quote-list">
           <InnerQuoteList  MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }} updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}} professional_id_list={this.props.professional_id_list} moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)} setDta={(item)=>this.props.setDta(item)} columns={this.props.columns} onDragEnd={(data)=>{this.props.onDragEnd(data)}} ordered={this.props.ordered} quotes={quotes}  view={this.props.view}/>
         </div>
       </div>
@@ -85,15 +131,16 @@ export default class QuoteList extends React.Component {
         isCombineEnabled={isCombineEnabled}
       >
         {(dropProvided, dropSnapshot) => (
-          <div
+          <Wrapper
             style={style}
             isDraggingOver={dropSnapshot.isDraggingOver}
             isDropDisabled={isDropDisabled}
             isDraggingFrom={Boolean(dropSnapshot.draggingFromThisWith)}
             {...dropProvided.droppableProps}
+            className={this.props.mode ==='dark'? "wrapperdnd" : "wrapperdnd-light"}
           >
             {internalScroll ? (
-              <div style={scrollContainerStyle}>
+              <ScrollContainer style={scrollContainerStyle}>
                 <InnerList
                   moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
                   columns={this.props.columns}
@@ -109,7 +156,7 @@ export default class QuoteList extends React.Component {
                   MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
                   
                 />
-              </div>
+              </ScrollContainer>
             ) : (
               <InnerList
                 moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
@@ -126,7 +173,7 @@ export default class QuoteList extends React.Component {
                 MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
               />
             )}
-          </div>
+          </Wrapper>
         )}
       </Droppable>
     );
