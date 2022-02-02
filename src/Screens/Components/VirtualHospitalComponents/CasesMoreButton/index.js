@@ -227,7 +227,7 @@ class Index extends React.Component {
   updateEntryState3 = (e) => {
     this.setState({ assignedTo: e },
       () => {
-        this.props.updateEntryState3([], e, this.props.quote._id)
+        this.props.updateEntryState3(e, this.props.quote._id)
       })
   }
 

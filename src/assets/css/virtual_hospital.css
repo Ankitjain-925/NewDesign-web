@@ -2502,7 +2502,7 @@ a.lineSort {
 .srchRght a {
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #e1f7f7;
+    border: 1px solid #cfcfcf;
 }
 .allSpec div {
     min-height: initial !important;
@@ -9454,6 +9454,7 @@ button.crdoLghtBlu2 {
     width: 100%;
     padding: 14px 0px;
     cursor: pointer !important;
+    min-width: 320px;
 }
 .nwPatentAdd button {
     color: #7F8383;
@@ -9923,6 +9924,41 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+@media (max-width: 640px) {
+.vh-section .presOpinionIner td.pivoted img.openScnd {
+    margin-top: -15px;
+}
+}
+.dragdrop-vertical .wrapperdnd, .dragdrop-vertical .wrapperdnd-light {
+    min-width: 320px !important;
+}
+.dragdrop-horizontal .wrapperdnd, .dragdrop-horizontal .wrapperdnd-light{
+    width:100%;
+}
+.quote-list{
+    min-height:50px;
+}
+.innerdivfordrag{
+    margin: 8px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.maindivfordrag
+{
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width:100%;
+    overflow: hidden;
+    overflow-x: auto;
+    height: auto !important;
+}
 .stepTdotupper ul{
     top: 20px !important;
 }
@@ -13571,9 +13607,12 @@ border-style: solid;
     .vh-section .presOpinionIner td.pivoted {
         font-size: 12px;
     }
-    .presOpinionIner td.pivoted {
+    /* .vh-section .presOpinionIner td.pivoted {
+        padding: auto !important;
+    } */
+    /* .presOpinionIner td.pivoted {
         padding: 12px 2px !important;
-    }
+    } */
 }
 @media screen and (min-width: 960px) and (max-width: 1268px){
   .mainMenuAllSec .MuiGrid-grid-md-11 {

@@ -5,7 +5,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
 import { getLanguage } from "translations/index";
-
 class Index extends Component {
   static defaultProps = {
     isCombineEnabled: false
@@ -102,27 +101,23 @@ class Index extends Component {
     this.props.AddStep();
   }
 
+
   render() {
     const columns = this.state.columns;
     const ordered = this.state.ordered;
     let translate = getLanguage(this.props.stateLanguageType);
     let { AddStep } = translate;
     const board = (
-      <div className={this.props.view === 'vertical' ? "dragdrop-vertical" : "dragdrop-horizontal"}>
+      <div className={this.props.view === 'vertical' ? "dragdrop-vertical":"dragdrop-horizontal"}>
         <Droppable
-          droppableId="board"
-          type="COLUMN"
-          // direction="horizontal"
-          isCombineEnabled={false}
+        droppableId="board"
+        type={"COLUMN"}
+        direction={this.props.view === 'vertical' ? "horizontal" : "vertical"}
+        isCombineEnabled={this.props.isCombineEnabled}
         >
           {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <ul className="manageDragDrop">
-                {/* {console.log("ordered",ordered)} */}
+            <div ref={provided.innerRef} {...provided.droppableProps} className={this.props.view === 'vertical' ? "maindivfordrag manageDragDrop": "manageDragDrop"}>
                 {ordered.map((key, index) => (
-                  <li>
-                    {/* {console.log("key",key)} */}
-                    <div className="detailInfo">
                     <Column
                         moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
                         key={key}
@@ -146,21 +141,15 @@ class Index extends Component {
                         professional_id_list={this.props.professional_id_list}
                         updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                         MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
+                        mode={this.props?.mode}
                       />
-                    </div>
-                  </li>
-
                 ))}
-                 <li>
-                 <Grid className="newAddStepBtn"><Button onClick={this.AddMoreStep}>{AddStep}</Button></Grid>
-                 </li>
-                 {/* {console.log('this.state.columns', this.state.columns)} */}
-              </ul>
+                <Grid className="newAddStepBtn"><Button onClick={this.AddMoreStep}>{AddStep}</Button></Grid>
               {provided.placeholder}
             </div>
           )}
         </Droppable>
-      </div>
+        </div>
     );
 
     return (

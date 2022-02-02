@@ -7,12 +7,113 @@ import SpecialityButton from "Screens/Components/VirtualHospitalComponents/Speci
 import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getLanguage } from "translations/index"
+import { borderRadius, grid } from "../constants";
+import styled from "@emotion/styled";
+
+const getBackgroundColor = (isDragging, isGroupedOver, authorColors) => {
+  if (isDragging) {
+    // return authorColors.soft;
+  }
+
+  if (isGroupedOver) {
+    return "#00abaf";
+  }
+
+  return "transparent";
+};
 
 const getBorderColor = (isDragging, authorColors) =>
-  isDragging ? "#333" : "transparent";
+  isDragging ? '#000000' : "transparent";
 
+const Container = styled.a`
+  border-radius: ${borderRadius}px;
+  border: 2px solid transparent;
+  border-color: ${props => getBorderColor(props.isDragging, props.colors)};
+  background-color: ${props =>
+    getBackgroundColor(props.isDragging, props.isGroupedOver, props.colors)};
+  box-shadow: ${({ isDragging }) =>
+    isDragging ? `2px 2px 1px #00abaf` : "none"};
+  padding: ${grid}px;
+  min-height: 40px;
+  margin-bottom: ${grid}px;
+  user-select: none;
+
+  /* anchor overrides */
+  color: #00abaf;
+
+  &:hover,
+  &:active {
+    color: #00abaf;
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* flexbox */
+  display: flex;
+`;
+
+const Avatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: ${grid}px;
+  flex-shrink: 0;
+  flex-grow: 0;
+`;
+
+const Content = styled.div`
+  /* flex child */
+  flex-grow: 1;
+  /*
+    Needed to wrap text in ie11
+    https://stackoverflow.com/questions/35111090/why-ie11-doesnt-wrap-the-text-in-flexbox
+  */
+  flex-basis: 100%;
+  /* flex parent */
+  display: flex;
+  flex-direction: column;
+`;
+
+const BlockQuote = styled.div`
+  &::before {
+    content: open-quote;
+  }
+  &::after {
+    content: close-quote;
+  }
+`;
+
+const Footer = styled.div`
+  display: flex;
+  margin-top: ${grid}px;
+  align-items: center;
+`;
+
+const Author = styled.small`
+  flex-grow: 0;
+  margin: 0;
+  background-color: ${props => props.colors.soft};
+  border-radius: ${borderRadius}px;
+  font-weight: normal;
+  padding: ${grid / 2}px;
+`;
+
+const QuoteId = styled.small`
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin: 0;
+  font-weight: normal;
+  text-overflow: ellipsis;
+  text-align: right;
+`;
 export default class QuoteItem extends React.Component {
   setSpeciality = () => { };
+
+  
 
   render() {
     const { quote, isDragging, isGroupedOver, provided, onDragEnd } =
