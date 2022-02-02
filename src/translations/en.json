@@ -1613,7 +1613,31 @@
 		"Specialty":"Specialty",
 		"EnterpatientnameorID":"Enter patient name or ID",
 		"Selectspecialty":"Select specialty",
-		"Searchforcity":"Search for city"
+		"Searchforcity":"Search for city",
+		"Plz_fill_the_recaptcha":"Please fill the RECAPTCHA",
+		"Ser_already_exists":"Service is already exists, please manage with update that one",
+		"Please_enter_valid_price":"Please enter valid price",
+		"Custom_service_title_cant_be_empty":"Custom service title can't be empty",
+		"Invoice_Id_cant_be_empty":"Invoice Id can't be empty",
+		"Please_select_patient":"Please select patient",
+		"Please_select_status":"Please select status",
+		"Please_add_atleast_one_service":"Please add atleast one service",
+		"Invoice_Id_is_already_exists":"Invoice Id is already exists",
+		"Plz_select_question_type":"Please select question type",
+		"Title_cant_be_empty":"Title can't be empty",
+		"Ques_cant_be_empty":"Question can't be empty",
+		"Plz_enter_Service_Name":"Please enter Service Name",
+		"Plz_enter_a_valid_price":"Please enter a valid price",
+		"Something_went_wrong":"Somthing went wrong, Please try again",
+		"Plz_enter_Speciality_name":"Please enter Speciality name",
+		"Plz_select_color":"Please select color",
+		"Plz_add_atleast_one_ward":"Please add atleast one ward",
+		"Plz_enter_ward_name":"Please enter ward name",
+		"Plz_enter_alteast_one_room":"Please enter alteast one room",
+		"Plz_enter_valid_room_name_or_number_of_beds":"Please enter valid room name or number of beds",
+		"Task_title_cant_be_empty":"Task title can't be empty",
+		"Plz_select_a_Patient":"Please select a Patient"
+
 			
 	}
 }

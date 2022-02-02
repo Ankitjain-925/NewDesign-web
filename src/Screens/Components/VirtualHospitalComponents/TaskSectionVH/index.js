@@ -257,15 +257,19 @@ class Index extends Component {
   }
   // submit Task model
   handleTaskSubmit = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {Task_title_cant_be_empty ,
+      Plz_select_a_Patient ,
+      Something_went_wrong} = translate;
     this.setState({ errorMsg: "" })
 
     var data = this.state.newTask;
     if (!data.task_name || (data && data.task_name && data.task_name.length < 1)) {
-      this.setState({ errorMsg: "Task title can't be empty" })
+      this.setState({ errorMsg: Task_title_cant_be_empty })
 
     }
     else if (!data.patient || (data && data.patient && data.patient.length < 1)) {
-      this.setState({ errorMsg: "Please select a Patient" })
+      this.setState({ errorMsg:Plz_select_a_Patient })
     }
     else {
       if (data?.patient?.speciality?._id !== data?.speciality?._id) {
@@ -300,7 +304,7 @@ class Index extends Component {
               this.handleCloseTask()
             }
             else {
-              this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+              this.setState({ errorMsg: Something_went_wrong})
             }
           });
       } else {
@@ -341,7 +345,7 @@ class Index extends Component {
           })
           .catch(function (error) {
             console.log(error);
-            this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+            this.setState({ errorMsg: Something_went_wrong })
           });
       }
     }

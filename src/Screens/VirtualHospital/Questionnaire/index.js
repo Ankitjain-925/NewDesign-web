@@ -137,20 +137,22 @@ class Index extends Component {
   }
 
   handleSubmit = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {Plz_select_question_type, Title_cant_be_empty ,Ques_cant_be_empty} = translate;
     this.setState({ errorMsg: "" })
     // this.setState({myQuestions: {} ,openOpti: true})
     var myQuestions = this.state.AllQuestions;
     myQuestions = [...myQuestions, ...this.state.myQuestions]
     let length = myQuestions.length
     if (!myQuestions[length - 1]?.type || (myQuestions[length - 1]?.type.length < 1)) {
-      this.setState({ errorMsg: "Please select question type" })
+      this.setState({ errorMsg: Plz_select_question_type })
     }
     else if (myQuestions[length - 1].type == "rating_scale") {
       if (!myQuestions[length - 1].title || myQuestions[length - 1].title.length < 1) {
-        this.setState({ errorMsg: "Title can't be empty" })
+        this.setState({ errorMsg: Title_cant_be_empty })
       }
       else if (!myQuestions[length - 1].question || myQuestions[length - 1].question.length < 1) {
-        this.setState({ errorMsg: "Question can't be empty" })
+        this.setState({ errorMsg: Ques_cant_be_empty })
       }
       else {
         this.conditionFunc(myQuestions)
@@ -158,7 +160,7 @@ class Index extends Component {
     }
     else if (myQuestions[length - 1].type == "classic") {
       if (!myQuestions[length - 1].question || myQuestions[length - 1].question.length < 1) {
-        this.setState({ errorMsg: "Question can't be empty" })
+        this.setState({ errorMsg: Ques_cant_be_empty })
       }
       else {
         this.conditionFunc(myQuestions)

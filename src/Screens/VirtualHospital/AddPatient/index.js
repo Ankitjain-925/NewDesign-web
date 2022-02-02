@@ -366,6 +366,7 @@ class Index extends Component {
             pswd_not_valid,
             email_not_valid,
             plz_fill_fullname_user,
+            Plz_fill_the_recaptcha
         } = translate;
 
         const { UpDataDetails } = this.state;
@@ -457,7 +458,7 @@ class Index extends Component {
                                 .catch((err) => { });
                         }
                         else {
-                            this.setState({ regisError: "Please fill the RECAPTCHA" });
+                            this.setState({ regisError: Plz_fill_the_recaptcha });
                             this.ScrolltoTop();
                         }
                         // }else {
