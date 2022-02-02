@@ -98,8 +98,10 @@ class Index extends Component {
   }
 
   handleOpenWarn = (id) => {
-    this.GetAllBed();
-    this.setState({ openWarn: true, case_ID: id });
+    this.setState({ openWarn: true, case_ID: id },
+      ()=>{
+        this.GetAllBed();
+      });
   };
 
   handleCloseWarn = () => {

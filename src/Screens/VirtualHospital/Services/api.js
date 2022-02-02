@@ -72,7 +72,7 @@ export const handleSubmit = (current) => {
   if (!data.title || (data && data?.title && data?.title.length < 1)) {
     current.setState({ errorMsg: "Please enter Service Name" })
   }
-   else if (!data.price || (data && data?.price && data?.price < 1)) {
+  else if (!data.price || (data && data?.price && data?.price < 1)) {
     current.setState({ errorMsg: "Please enter a valid price" })
   }
   else {
@@ -104,7 +104,7 @@ export const handleSubmit = (current) => {
 
         });
     }
-  } 
+  }
 };
 
 export const getSpecialtyData = (id, current) => {
@@ -175,18 +175,20 @@ export const onFieldChange = (e, current) => {
 
 //Modal Open
 export const handleOpenServ = (current) => {
-  if(current.state.speciality_id && current.state.speciality_id !== 'general'){
-    current.setState({ openServ: true, updateTrack: {specialty_id: [current.state.speciality_id]} });
+  if (current.state.speciality_id && current.state.speciality_id !== 'general') {
+    current.setState({ openServ: true, updateTrack: { specialty_id: [current.state.speciality_id] } });
   }
-  else{
+  else {
     current.setState({ openServ: true, updateTrack: {} });
   }
-  
+
 };
 
 //Modal Close
 export const handleCloseServ = (current) => {
-  current.setState({ openServ: false });
+  current.setState({ openServ: false, updateTrack: {} }, () => {
+    getAllServices(current);
+  });
 };
 export const updateEntryState1 = (e, current) => {
   const state = current.state.updateTrack;
