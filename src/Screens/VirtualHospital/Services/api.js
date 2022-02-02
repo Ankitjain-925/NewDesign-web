@@ -1,6 +1,7 @@
 import axios from "axios";
 import sitedata from "sitedata";
-import { commonHeader } from "component/CommonHeader/index"
+import { commonHeader } from "component/CommonHeader/index";
+import { getLanguage } from "translations/index"
 
 export const getSpecialty = (current) => {
   current.setState({ loaderImage: true });
@@ -67,13 +68,15 @@ export const searchFilter = (e, current) => {
 }
 //For adding the New Service and Update Service
 export const handleSubmit = (current) => {
+  let translate = getLanguage(this.props.stateLanguageType);
+  let {Plz_enter_Service_Name, Plz_enter_a_valid_price,Something_went_wrong} = translate;
   current.setState({ errorMsg: '' })
   var data = current.state.updateTrack;
   if (!data.title || (data && data?.title && data?.title.length < 1)) {
-    current.setState({ errorMsg: "Please enter Service Name" })
+    current.setState({ errorMsg: Plz_enter_Service_Name })
   }
    else if (!data.price || (data && data?.price && data?.price < 1)) {
-    current.setState({ errorMsg: "Please enter a valid price" })
+    current.setState({ errorMsg: Plz_enter_a_valid_price })
   }
   else {
     if (current.state.updateTrack._id) {
@@ -100,7 +103,7 @@ export const handleSubmit = (current) => {
         })
         .catch(function (error) {
           console.log(error);
-          current.setState({ errorMsg: "Somthing went wrong, Please try again" })
+          current.setState({ errorMsg: Something_went_wrong })
 
         });
     }

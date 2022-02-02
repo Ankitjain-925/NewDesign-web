@@ -1,18 +1,23 @@
 import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index"
+import { getLanguage } from "translations/index";
  //to save and edit the speciality
 export const SaveSpeciality = (current) => {
+  let translate = getLanguage(this.props.stateLanguageType);
+  let {Plz_enter_Speciality_name ,
+    Plz_select_color ,
+    Plz_add_atleast_one_ward} = translate;
   current.setState({ errorMsg: '' })
   var data = current.state.speciality;
   if (data && (!data.specialty_name || data.specialty_name.length < 1)) {
-    current.setState({ errorMsg: 'Please enter Speciality name' })
+    current.setState({ errorMsg: Plz_enter_Speciality_name })
   }
   else if (data && !data.color) {
-    current.setState({ errorMsg: 'Please select color' })
+    current.setState({ errorMsg: Plz_select_color })
   }
   else if (data && (!data.wards || data.wards.length < 1)) {
-    current.setState({ errorMsg: "Please add atleast one ward" })
+    current.setState({ errorMsg: Plz_add_atleast_one_ward })
   }
   else {
     if (data._id) {
@@ -124,13 +129,17 @@ export const SaveSpeciality = (current) => {
   }
 //add the ward of the speciality
   export const  handleOpenRoom = (current) => { 
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {Plz_enter_ward_name ,
+      Plz_enter_alteast_one_room,
+      Plz_enter_valid_room_name_or_number_of_beds} = translate;
     current.setState({ errorMsg2: "" })
     let data = current.state.ward
     if ((data && !data.ward_name) || (data && data?.ward_name && data?.ward_name?.length < 1)) {
-      current.setState({ errorMsg2: "Please enter ward name" })
+      current.setState({ errorMsg2: Plz_enter_ward_name })
     }
     else if ((data && !data.rooms)) {
-      current.setState({ errorMsg2: "Please enter alteast one room" })
+      current.setState({ errorMsg2: Plz_enter_alteast_one_room })
     }
     else {
       let length = data.rooms.length
@@ -162,7 +171,7 @@ export const SaveSpeciality = (current) => {
         });
       }
       else {
-        current.setState({ errorMsg2: 'Please enter valid room name or number of beds' })
+        current.setState({ errorMsg2: Plz_enter_valid_room_name_or_number_of_beds })
       }
     }
   };

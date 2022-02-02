@@ -218,20 +218,24 @@ class Index extends Component {
 
     //Add the services  
     handleAddSubmit = () => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Ser_already_exists,
+            Please_enter_valid_price ,
+            Custom_service_title_cant_be_empty } = translate;
         this.setState({ error: "" })
         var newService = this.state.service
         var a = this.state.items && this.state.items?.length > 0 && this.state.items.map((element) => { return element?.service })
         var b = a?.length > 0 && a.includes(this.state.service?.service?.label);
         if (b == true) {
-            this.setState({ error: "Service is already exists, please manage with update that one" })
+            this.setState({ error: Ser_already_exists })
         } else {
              if (newService?.service?.value == "custom") {
                 if (newService?.price_per_quantity < 1 || !newService?.price_per_quantity) {
-                    this.setState({ error: "Please enter valid price" })
+                    this.setState({ error: Please_enter_valid_price })
                 }
                 else {
                     if (newService && !newService?.custom_title) {
-                        this.setState({ error: "Custom service title can't be empty" })
+                        this.setState({ error: Custom_service_title_cant_be_empty })
                     }
                     else {
                         newService.price = newService?.price_per_quantity * newService?.quantity;
@@ -305,6 +309,12 @@ class Index extends Component {
 
     // For calculate value of finish invoice
     finishInvoice = (draft) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Invoice_Id_cant_be_empty,
+            Please_select_patient ,
+            Please_select_status,
+            Please_add_atleast_one_service,
+            Invoice_Id_is_already_exists} = translate;
         this.setState({ finishError: "" })
         var data = this.state.addinvoice;
         data.status = this.state.AllStatus1 && this.state.AllStatus1.filter((item) => item.value === data?.status?.value)?.[0];
@@ -338,16 +348,16 @@ class Index extends Component {
         data.created_at = new Date();
 
         if (!data.invoice_id) {
-            this.setState({ finishError: "Invoice Id can't be empty" })
+            this.setState({ finishError: Invoice_Id_cant_be_empty })
         }
         else if (!data.patient || (data.patient && data.patient.length < 1)) {
-            this.setState({ finishError: "Please select patient" })
+            this.setState({ finishError: Please_select_patient })
         }
         else if (!data.status || (data.status && data.status.length < 1)) {
-            this.setState({ finishError: "Please select status" })
+            this.setState({ finishError: Please_select_status })
         }
         else if (!data.services || (data.services.length < 1)) {
-            this.setState({ finishError: "Please add atleast one service" })
+            this.setState({ finishError: Please_add_atleast_one_service })
         }
         else {
             this.setState({ loaderImage: true });
@@ -374,7 +384,7 @@ class Index extends Component {
                         this.Billing();
                     }
                     else {
-                        this.setState({ finishError: 'Invoice Id is already exists' })
+                        this.setState({ finishError: Invoice_Id_is_already_exists })
                     }
 
                 })
