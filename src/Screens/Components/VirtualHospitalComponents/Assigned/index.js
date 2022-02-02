@@ -73,7 +73,7 @@ class Index extends React.Component {
                                                         />
                                                     </a>
                                                 </Grid>
-                                                <label>{"Assigned to"}</label>
+                                                <label>{Assignedto}</label>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={12} lg={12}>

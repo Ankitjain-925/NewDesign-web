@@ -186,6 +186,8 @@ class Index extends Component {
         }
         return last;
       }, []);
+    
+    data  = data ? data : [];
     this.setState({ loaderImage: true });
     var response = setAssignedTo(
       data,
@@ -193,7 +195,8 @@ class Index extends Component {
       this.props.stateLoginValueAim.token
     );
     response.then((responce1) => {
-      if (responce1.data.hassuccessed) {
+      if (responce1?.data?.hassuccessed) {
+        console.log('sdsdfsdf222222', )
         var steps = getSteps(
           this.props?.House?.value,
           this.props.stateLoginValueAim.token
@@ -204,6 +207,7 @@ class Index extends Component {
         });
         this.setState({ loaderImage: false });
       } else {
+        console.log('fsdfdsdf')
         this.setState({ loaderImage: false });
       }
     });

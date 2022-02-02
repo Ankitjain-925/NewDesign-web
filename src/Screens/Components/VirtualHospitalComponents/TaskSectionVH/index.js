@@ -531,6 +531,7 @@ class Index extends Component {
     this.setState({ assignedTo2: e })
   }
   updateEntryState3 = (e) => {
+    console.log('professional_id_list', e)
     this.setState({ assignedTo: e }, () => {
       var data =
         e?.length > 0 &&
@@ -956,7 +957,12 @@ class Index extends Component {
       FilterbySpeciality,
       FilterbyWard,
       FilterbyRoom,
-      Tasktitle
+      Tasktitle,
+      ALL,
+      Done,
+      Open,
+      Archived,
+      Hide_task_from_patient
     } = translate;
     const { tabvalue, tabvalue2, professional_data, newTask, AllTasks, AllTaskCss, DoneTaskCss, OpenTaskCss, ArchivedTasksCss } =
       this.state;
@@ -1095,7 +1101,7 @@ class Index extends Component {
                                       disabled={this.props.comesFrom === 'Professional' ? true : false}
                                     />
                                   }
-                                  label="Hide task from patient"
+                                  label={Hide_task_from_patient}
                                 />
                               </Grid>
                             </Grid>
@@ -1429,10 +1435,10 @@ class Index extends Component {
               <Grid item xs={12} sm={6} md={7}>
                 <AppBar position="static" className="billTabs">
                   <Tabs value={tabvalue2} onChange={this.handleChangeTab2}>
-                    <Tab label="ALL" className="billtabIner" />
-                    <Tab label="Done" className="billtabIner" />
-                    <Tab label="Open" className="billtabIner" />
-                    {(this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask') && (<Tab label="Archived" className="billtabIner" />)}
+                    <Tab label={ALL} className="billtabIner" />
+                    <Tab label={Done} className="billtabIner" />
+                    <Tab label={Open} className="billtabIner" />
+                    {(this.props.comesFrom !== 'Professional' && this.props.comesFrom !== 'detailTask') && (<Tab label={Archived} className="billtabIner" />)}
 
                   </Tabs>
                 </AppBar>
@@ -1578,7 +1584,7 @@ class Index extends Component {
                               }
                             />
                           }
-                          label="Open"
+                          label={Open}
                         />
                         <FormControlLabel
                           control={
@@ -1592,7 +1598,7 @@ class Index extends Component {
                               }
                             />
                           }
-                          label="Done"
+                          label={Done}
                         />
                       </Grid>
                     </Grid>

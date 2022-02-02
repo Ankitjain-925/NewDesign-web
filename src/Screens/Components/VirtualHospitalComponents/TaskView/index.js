@@ -37,7 +37,7 @@ class PointPain extends Component {
         return (
             <Grid className="allTabCntnt">
                 <Grid container direction="row" alignItems="center">
-                    <Grid item xs={12} sm={8} md={6}>
+                    <Grid className="tasklistDsply" item xs={12} sm={6} md={6}>
                         <Grid className="revwFiles revwFiles1">
                             {data.status === 'done' ? <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid> :
                                 <Grid><img src={require('assets/virtual_images/greyImg.png')} alt="" title="" /></Grid>}
@@ -61,7 +61,7 @@ class PointPain extends Component {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={8} md={6}>
+                    <Grid item xs={12} sm={6} md={6}>
                         <Grid className="attchNoteMain">
                             <Grid className="attchNotePart">
                                 <Grid className="attchNoteUpr">
@@ -87,7 +87,7 @@ class PointPain extends Component {
                                 </Grid>
                             </Grid>
                             <Assigned assigned_to={data.assinged_to} />
-                            <Grid item xs={6} md={6} className="spcMgntRght7 presEditDot scndOptionIner">
+                            <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                                 <a className="openScndhrf">
                                     <img
                                         src={require("assets/images/three_dots_t.png")}
