@@ -196,7 +196,6 @@ class Index extends Component {
     );
     response.then((responce1) => {
       if (responce1?.data?.hassuccessed) {
-        console.log('sdsdfsdf222222', )
         var steps = getSteps(
           this.props?.House?.value,
           this.props.stateLoginValueAim.token
@@ -207,7 +206,6 @@ class Index extends Component {
         });
         this.setState({ loaderImage: false });
       } else {
-        console.log('fsdfdsdf')
         this.setState({ loaderImage: false });
       }
     });
@@ -323,6 +321,8 @@ class Index extends Component {
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
+  
+    var index = index;
     if (state[index]?.case_numbers?.length > 0) {
       let translate = getLanguage(this.props.stateLanguageType);
       let { deleteStep, yes_deleteStep, all_patient_removed_cannot_be_reversed, are_you_sure, cancel_keepStep } = translate;
@@ -356,8 +356,9 @@ class Index extends Component {
     }
   };
 
-  removestep2 = (index) => {
+  removestep2 = (state, index) => {
     var state = this.state.actualData;
+    var index = index;
     let translate = getLanguage(this.props.stateLanguageType);
     let { removeStep, really_want_to_remove, No, Yes } = translate;
     confirmAlert({
@@ -393,15 +394,28 @@ class Index extends Component {
   };
 
   DeleteStepOk = (state, index) => {
-    if (state[index]?.case_numbers?.length > 0) {
       var yt = state[index]?.case_numbers.map((item) => {
-        var response = PatientMoveFromHouse(item._id, this.props.stateLoginValueAim.token, 5, false)
+        return item._id;
       })
-    }
-    state.splice(index, 1);
-    this.setDta(state);
-    this.CallApi();
-    this.GetStep();
+      this.setState({loaderImage: true})
+      axios
+      .post(
+        sitedata.data.path + "/vh/setCasenotInhospital",
+        {case_id: yt},
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          this.setState({loaderImage: false})
+          state.splice(index, 1);
+          this.setDta(state);
+          this.CallApi();
+          this.GetStep();
+        }
+        else{
+          this.setState({loaderImage: false})
+        }
+      });
   }
 
   //On Add case
@@ -610,7 +624,7 @@ class Index extends Component {
   }
 
   clearFilter = () => {
-    this.setState({ filteredData: '', selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
+    this.setState({ selectedOption: null, filteredData: '', selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
     this.mapActualToFullData(this.state.actualData);
     this.handleCloseFil();
   }
@@ -1126,7 +1140,7 @@ class Index extends Component {
                     onChange={this.onSelectingStep}
                     options={StepNameList}
                     placeholder={SelectStepName}
-                    className="allSpec allSpeces"
+                    className="allSpeces"
                     isSearchable={false}
                   />
                 </Grid>
@@ -1166,11 +1180,15 @@ class Index extends Component {
                   </Grid>
                   <label>{add_step}</label>
                 </Grid>
+                </Grid>
+                <Grid className="enterWrnUpr">
+                  <Grid className="enterWrnMain">
                 <p className='err_message'>{this.state.stepError}</p>
                 <Grid className="buttonStyle fltrInput">
                   <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
                     onChange={this.handleName} type="text" />
                   <a color="primary" onClick={this.OnAdd}>{Add}</a>
+                </Grid>
                 </Grid>
               </Grid>
             </Grid>

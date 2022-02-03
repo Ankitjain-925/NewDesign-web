@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import { DebounceInput } from 'react-debounce-input';
 import { getLanguage } from "translations/index";
 import { grid, borderRadius } from "./constants";
+import Button from '@material-ui/core/Button';
 import Title from "./primatives/title";
 
 const Container = styled.div`
@@ -31,6 +32,7 @@ export default class Column extends Component {
 
     // Creating a reference
     this.box = React.createRef();
+    this.list = React.createRef();
   }
   state = {
     title: this.props.title,
@@ -54,7 +56,7 @@ export default class Column extends Component {
   }
 
   handleOutsideClick = (event) => {
-    if (this?.box && !this.box?.current?.contains(event.target)) {
+    if (this?.box && !this.box?.current?.contains(event.target) && this?.list && !this.list?.current?.contains(event.target)) {
       this.setState({ edit: false })
     }
   }
@@ -68,7 +70,7 @@ export default class Column extends Component {
     const quotes = this.props.quotes;
     const index = this.props.index;
     let translate = getLanguage(this.props.stateLanguageType);
-    let { AddPatientStep, MoveAll, move_all_patients, move_step, AddNewPatient, deleteStep } = translate;
+    let { AddPatientStep, renameStep, MoveAll, move_all_patients, move_step, AddNewPatient, deleteStep } = translate;
 
     return (
       <div className="detailInfo">
@@ -95,6 +97,7 @@ export default class Column extends Component {
                             debounceTimeout={4000}
                             onChange={e => this.onChange(e)}
                             value={title}
+                            className="stepchange-input"
                           />
                         </div>
                         : <label onDoubleClick={() => { this.setState({ edit: index }) }}>{title?.substr(0, 12)} {title.length > 12 && <>...</>}</label>}
@@ -104,6 +107,7 @@ export default class Column extends Component {
                         <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                         <ul>
                           {!this.state.inneerSec && <Grid>
+                            <li ref={this.list}><a onClick={() => { this.setState({ edit: index }) }}><span></span>{renameStep}</a></li>
                             <li><a onClick={() => { this.props.openAddPatient(title) }}><span><img src={require('assets/virtual_images/plusIcon.png')} alt="" title="" /></span>{AddPatientStep}</a></li>
                             <li><a onClick={() => { this.setState({ inneerSec: "step_move" }) }}><span>
                               {/* <img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /> */}
@@ -151,7 +155,7 @@ export default class Column extends Component {
                   <Grid className="receLbl">
                     <Grid container direction="row" justify="center" alignItems="center">
                       <Grid item xs={12} sm={6} md={6}><label>
-                        <Grid>{this.props.edit === index ?
+                        <Grid>{this.state.edit === index ?
                           <div ref={this.box}>
                             <DebounceInput
                               name="step_name"
@@ -161,6 +165,7 @@ export default class Column extends Component {
                               debounceTimeout={4000}
                               onChange={e => this.onChange(e)}
                               value={title}
+                              className="stepchange-input"
                             />
                           </div>
                           : <label onDoubleClick={() => { this.setState({ edit: index }) }}>{title?.substr(0, 12)} {title.length > 12 && <>...</>}</label>}
@@ -172,6 +177,7 @@ export default class Column extends Component {
                             <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                             <ul>
                               {!this.state.inneerSec && <Grid>
+                                <li ref={this.list}><a onClick={() => { this.setState({ edit: index }) }}><span></span>{renameStep}</a></li>
                                 <li><a onClick={() => { this.props.openAddPatient(title) }}><span><img src={require('assets/virtual_images/plusIcon.png')} alt="" title="" /></span>{AddPatientStep}</a></li>
                                 <li><a onClick={() => { this.setState({ inneerSec: "step_move" }) }}><span>
                                   {/* <img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /> */}
@@ -240,7 +246,7 @@ export default class Column extends Component {
               MovetoTask={(speciality, patient_id) => { this.props.MovetoTask(speciality, patient_id) }}
               mode={this.props?.mode}
             />
-            {/* {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</Button></Grid>} */}
+            {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</Button></Grid>}
           </Container>
         )}
       </Draggable>

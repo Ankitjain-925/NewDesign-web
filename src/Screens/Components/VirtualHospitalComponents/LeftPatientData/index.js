@@ -2230,7 +2230,7 @@ calculateAge = (date) => {
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask">
                       <Grid><label>{CompletedTasks}</label></Grid>
-                      <p><span>{this.state.LeftInfoPatient?.done_task}</span>/ {this.state.LeftInfoPatient?.total_task}</p>
+                      <p><span>{this.state.LeftInfoPatient?.done_task ? this.state.LeftInfoPatient?.done_task: 0}</span>/ {this.state.LeftInfoPatient?.total_task ? this.state.LeftInfoPatient?.total_task : 0}</p>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>

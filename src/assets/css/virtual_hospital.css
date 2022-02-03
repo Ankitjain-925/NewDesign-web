@@ -9924,6 +9924,17 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.stepchange-input{
+    height: 32px;
+    border: 1PX SOLID #CFCFCF;
+    border-radius: 4px;
+    padding: 10px;
+} 
+
+.darkTheme .allSpeces div{
+ background-color: #192020;
+ color: #cfcfcf;
+}
 @media (max-width: 640px) {
 .vh-section .presOpinionIner td.pivoted img.openScnd {
     margin-top: -15px;

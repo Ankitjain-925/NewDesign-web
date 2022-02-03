@@ -1,7 +1,8 @@
 import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
-import { getLanguage } from "translations/index"
+import { getLanguage } from "translations/index";
+import _ from 'lodash';
 
 export const getSpecialty = (current) => {
   current.setState({ loaderImage: true });
@@ -68,7 +69,7 @@ export const searchFilter = (e, current) => {
 }
 //For adding the New Service and Update Service
 export const handleSubmit = (current) => {
-  let translate = getLanguage(this.props.stateLanguageType);
+  let translate = getLanguage(current.props.stateLanguageType);
   let {Plz_enter_Service_Name, Plz_enter_a_valid_price,Something_went_wrong} = translate;
   current.setState({ errorMsg: '' })
   var data = current.state.updateTrack;
@@ -201,7 +202,6 @@ export const updateEntryState1 = (e, current) => {
 
 // Open Edit Model
 export const EditService = (data, current) => {
-  current.setState({ updateTrack: data, openServ: true });
-};
-
-
+    var deep =  _.cloneDeep(data);
+    current.setState({ updateTrack: deep, openServ: true });
+  };  

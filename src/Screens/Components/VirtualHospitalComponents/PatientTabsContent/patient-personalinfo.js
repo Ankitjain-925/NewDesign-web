@@ -122,6 +122,7 @@ class Index extends Component {
   }
   // Copy the Profile id and PIN
   copyText = (copyT) => {
+    console.log('copyT', copyT)
     this.setState({ copied: false });
     var copyText = document.getElementById(copyT);
     var textArea = document.createElement("textarea");

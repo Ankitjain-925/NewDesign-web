@@ -3,9 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import { pure } from "recompose";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import Modal from "@material-ui/core/Modal";
-import {
-    getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { Settings } from "Screens/Login/setting";
 
 class Index extends React.Component {
     constructor(props) {
@@ -119,4 +120,14 @@ class Index extends React.Component {
         );
     }
 }
-export default pure(Index);
+const mapStateToProps = (state) => {
+    const { settings } = state.Settings;
+    return {
+      settings,
+    };
+  };
+  export default pure(withRouter(
+    connect(mapStateToProps, {
+      Settings,
+    })(Index))
+  );

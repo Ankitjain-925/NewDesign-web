@@ -2254,7 +2254,7 @@ class Index extends Component {
                 >
                   <Grid className="slotBoxMain">
                     <Grid className="slotBoxCourse">
-                      {patNotSelected && <p className="error_message">{plz_select_patient}</p>}
+                      {patNotSelected && <p className="err_message">{plz_select_patient}</p>}
                       <a
                         onClick={this.handleCloseFancyVdo}
                         className="timSlotClose"
