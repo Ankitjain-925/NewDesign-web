@@ -68,7 +68,7 @@ export const searchFilter = (e, current) => {
 }
 //For adding the New Service and Update Service
 export const handleSubmit = (current) => {
-  let translate = getLanguage(this.props.stateLanguageType);
+  let translate = getLanguage(current.props.stateLanguageType);
   let {Plz_enter_Service_Name, Plz_enter_a_valid_price,Something_went_wrong} = translate;
   current.setState({ errorMsg: '' })
   var data = current.state.updateTrack;

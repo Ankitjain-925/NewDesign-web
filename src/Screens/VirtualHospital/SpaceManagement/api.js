@@ -4,7 +4,7 @@ import { commonHeader } from "component/CommonHeader/index"
 import { getLanguage } from "translations/index";
  //to save and edit the speciality
 export const SaveSpeciality = (current) => {
-  let translate = getLanguage(this.props.stateLanguageType);
+  let translate = getLanguage(current.props.stateLanguageType);
   let {Plz_enter_Speciality_name ,
     Plz_select_color ,
     Plz_add_atleast_one_ward} = translate;
@@ -129,7 +129,7 @@ export const SaveSpeciality = (current) => {
   }
 //add the ward of the speciality
   export const  handleOpenRoom = (current) => { 
-    let translate = getLanguage(this.props.stateLanguageType);
+    let translate = getLanguage(current.props.stateLanguageType);
     let {Plz_enter_ward_name ,
       Plz_enter_alteast_one_room,
       Plz_enter_valid_room_name_or_number_of_beds} = translate;
