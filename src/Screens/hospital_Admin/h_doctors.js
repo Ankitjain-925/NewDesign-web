@@ -12,7 +12,7 @@ import sitedata from 'sitedata';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Loader from 'Screens/Components/Loader/index';
-import { getImage, blockClick } from 'Screens/Components/BasicMethod/index'
+import { getImage, blockClick, allusers } from 'Screens/Components/BasicMethod/index'
 import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
@@ -56,6 +56,7 @@ class Index extends Component {
             MypatientsData: [],
             UpDataDetails: {},
             deleteHouses: {},
+            type: 'doctor'
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
@@ -133,54 +134,78 @@ class Index extends Component {
 
     }
 
-    getDoctors = (user_id) => {
+    getDoctors = () => {
+        let {currentPage, type} = this.state
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
-            + '/doctor/1'
-            , commonHeader(user_token))
-            .then((response) => {
-                if (response.data.data) {
-                    var images = [];
-                    this.setState({ AllUsers: response.data.data });
-                    const AllDoctor = this.state.AllUsers;
+        this.setState({loaderImage : true})
+         let res= allusers(currentPage,user_token,type, this.props.stateLoginValueAim.user.institute_id)
+         res.then((res) => {
+           var images = [];
+           const AllPatient = res.data && res.data.data && res.data.data;
+           this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
+           AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+               var find = item && item.image && item.image
+               if (find) {
+                   var find1 = find.split('.com/')[1]
+                   axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                   .then((response2) => {
+                       if (response2.data.hassuccessed) {
+                           item.new_image = response2.data.data
+                           images.push({ image: find, new_image: response2.data.data })
+                           this.setState({ images: images })
+                       }
+                   })
+               }
+           })
+           this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
+       })
+        // var user_token = this.props.stateLoginValueAim.token;
+        // axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
+        //     + '/doctor/1'
+        //     , commonHeader(user_token))
+        //     .then((response) => {
+        //         if (response.data.data) {
+        //             var images = [];
+        //             this.setState({ AllUsers: response.data.data });
+        //             const AllDoctor = this.state.AllUsers;
 
-                    this.setState({ AllDoctor: AllDoctor })
-                    var totalPage = Math.ceil(AllDoctor.length / 20);
-                    this.setState({ totalPage: totalPage, currentPage: 1 },
-                        () => {
-                            if (totalPage > 1) {
-                                var pages = [];
-                                for (var i = 1; i <= this.state.totalPage; i++) {
-                                    pages.push(i)
-                                }
-                                this.setState({ MypatientsData: AllDoctor.slice(0, 20), pages: pages })
-                            }
-                            else {
-                                this.setState({ MypatientsData: AllDoctor })
-                            }
-                        })
-                    this.setState({ forSearch: AllDoctor })
+        //             this.setState({ AllDoctor: AllDoctor })
+        //             var totalPage = Math.ceil(AllDoctor.length / 20);
+        //             this.setState({ totalPage: totalPage, currentPage: 1 },
+        //                 () => {
+        //                     if (totalPage > 1) {
+        //                         var pages = [];
+        //                         for (var i = 1; i <= this.state.totalPage; i++) {
+        //                             pages.push(i)
+        //                         }
+        //                         this.setState({ MypatientsData: AllDoctor.slice(0, 20), pages: pages })
+        //                     }
+        //                     else {
+        //                         this.setState({ MypatientsData: AllDoctor })
+        //                     }
+        //                 })
+        //             this.setState({ forSearch: AllDoctor })
 
-                    AllDoctor && AllDoctor.length > 0 && AllDoctor.map((item) => {
-                        var find = item && item.image && item.image
-                        if (find) {
-                            var find1 = find.split('.com/')[1]
-                            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                                .then((response2) => {
-                                    if (response2.data.hassuccessed) {
-                                        item.new_image = response2.data.data
-                                        images.push({ image: find, new_image: response2.data.data })
-                                        this.setState({ images: images })
-                                    }
-                                })
-                        }
-                    })
-                }
-                else {
-                    this.setState({ AllDoctor: [] });
-                }
-            }).catch((error) => {
-            });
+        //             AllDoctor && AllDoctor.length > 0 && AllDoctor.map((item) => {
+        //                 var find = item && item.image && item.image
+        //                 if (find) {
+        //                     var find1 = find.split('.com/')[1]
+        //                     axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+        //                         .then((response2) => {
+        //                             if (response2.data.hassuccessed) {
+        //                                 item.new_image = response2.data.data
+        //                                 images.push({ image: find, new_image: response2.data.data })
+        //                                 this.setState({ images: images })
+        //                             }
+        //                         })
+        //                 }
+        //             })
+        //         }
+        //         else {
+        //             this.setState({ AllDoctor: [] });
+        //         }
+        //     }).catch((error) => {
+        //     });
     }
 
     submitDelete = (deletekey, profile_id, bucket) => {
@@ -231,13 +256,11 @@ class Index extends Component {
     }
 
     onChangePage = (pageNumber) => {
-        this.setState({
-            MypatientsData: this.state.AllDoctor.slice(
-                (pageNumber - 1) * 20,
-                pageNumber * 20),
-            currentPage: pageNumber
-        });
-    };
+        this.setState({ currentPage: pageNumber },
+            ()=>{
+                this.getDoctors();
+            })
+    }
 
     assignHouse = (patient) => {
         this.setState({ openHouse: true, current_user: patient })
@@ -270,7 +293,7 @@ class Index extends Component {
                             this.setState({ assignedhouse: false, openHouse: false, house: {} })
                         }, 5000)
                         this.getallGroups();
-                        this.getDoctors(this.state.current_user._id);
+                        this.getDoctors();
                     }
                     // else {
                     //     this.setState({ alredyExist: true })
@@ -307,7 +330,7 @@ class Index extends Component {
                         this.setState({ deleteHouses: false, openHouse: false })
                     }, 5000)
                     this.getallGroups();
-                    this.getDoctors(this.state.current_user._id);
+                    this.getDoctors();
                 }
                 this.setState({ loaderImage: false });
             });
@@ -445,12 +468,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                        <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
-                                                        {/* {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
-                                                        {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
-                                                            <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
-                                                        ))}
-                                                        {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>{next}</a>} */}
+                                                    <Pagination from="userlist" totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
                                                     </Grid>}
                                                 </Grid>
                                             </Grid>

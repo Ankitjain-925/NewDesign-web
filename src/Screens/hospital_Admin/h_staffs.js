@@ -12,9 +12,7 @@ import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
-  getDate,
-  getImage,
-  blockClick,
+  allusers, getImage, blockClick
 } from "Screens/Components/BasicMethod/index";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SelectField from "Screens/Components/Select/index";
@@ -64,7 +62,8 @@ class Index extends Component {
       openHouse: false,
       house: {},
       UpDataDetails: {},
-      pagenumber: []
+      pagenumber: [],
+      type: 'adminstaff'
     };
     // new Timer(this.logOutClick.bind(this))
     this.search_user = this.search_user.bind(this);
@@ -223,39 +222,63 @@ class Index extends Component {
   // }
 
   getAdminstaff() {
+    let {currentPage, type} = this.state
     var user_token = this.props.stateLoginValueAim.token;
-    axios
-      .get(
-        sitedata.data.path +
-        "/admin/allHospitalusers/" +
-        this.props.stateLoginValueAim.user.institute_id + '/adminstaff/1'
-        ,
-        commonHeader(user_token)
-      )
-      .then((res) => {
-        var images = [];
-        const AllNurse = res.data && res.data.data && res.data.data;
-        AllNurse && AllNurse.length > 0 && AllNurse.map((item) => {
-          var find = item && item.image && item.image
-          if (find) {
-            var find1 = find.split('.com/')[1]
-            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-              .then((response2) => {
-                if (response2.data.hassuccessed) {
-                  item.new_image = response2.data.data
-                  images.push({ image: find, new_image: response2.data.data })
-                  this.setState({ images: images })
-                }
-              })
-          }
-        })
-        var totalPage = Math.round(AllNurse.length / 20);
-        this.setState({
-          totalPage: Math.ceil(res.data.Total_count / 20),
-          MypatientsData: AllNurse, TotalCount: res.data.Total_count
-        })
-        // this.setState({ AllNurse: AllNurse, forSearch: AllNurse })
-      })
+    this.setState({loaderImage : true})
+     let res= allusers(currentPage,user_token,type, this.props.stateLoginValueAim.user.institute_id)
+     res.then((res) => {
+       var images = [];
+       const AllPatient = res.data && res.data.data && res.data.data;
+       this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
+       AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+           var find = item && item.image && item.image
+           if (find) {
+               var find1 = find.split('.com/')[1]
+               axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+               .then((response2) => {
+                   if (response2.data.hassuccessed) {
+                       item.new_image = response2.data.data
+                       images.push({ image: find, new_image: response2.data.data })
+                       this.setState({ images: images })
+                   }
+               })
+           }
+       })
+       this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
+   })
+    // var user_token = this.props.stateLoginValueAim.token;
+    // axios
+    //   .get(
+    //     sitedata.data.path +
+    //     "/admin/allHospitalusers/" +
+    //     this.props.stateLoginValueAim.user.institute_id + '/adminstaff/1'
+    //     ,
+    //     commonHeader(user_token)
+    //   )
+    //   .then((res) => {
+    //     var images = [];
+    //     const AllNurse = res.data && res.data.data && res.data.data;
+    //     AllNurse && AllNurse.length > 0 && AllNurse.map((item) => {
+    //       var find = item && item.image && item.image
+    //       if (find) {
+    //         var find1 = find.split('.com/')[1]
+    //         axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+    //           .then((response2) => {
+    //             if (response2.data.hassuccessed) {
+    //               item.new_image = response2.data.data
+    //               images.push({ image: find, new_image: response2.data.data })
+    //               this.setState({ images: images })
+    //             }
+    //           })
+    //       }
+    //     })
+    //     var totalPage = Math.round(AllNurse.length / 20);
+    //     this.setState({
+    //       totalPage: Math.ceil(res.data.Total_count / 20),
+    //       MypatientsData: AllNurse, TotalCount: res.data.Total_count
+    //     })
+    //     // this.setState({ AllNurse: AllNurse, forSearch: AllNurse })
+    //   })
   }
 
   submitDelete = (deletekey, profile_id, bucket) => {
@@ -510,7 +533,7 @@ class Index extends Component {
                           this.state.MypatientsData.map((nurse, i) => (
                             <Tr>
                               <Td>
-                                {((this.state.currentPage - 1) * 5) + i + 1}
+                                {((this.state.currentPage - 1) * 20) + i + 1}
                               </Td>
                               <Td>
                                 <img
@@ -648,14 +671,7 @@ class Index extends Component {
                         <Grid item xs={12} md={6}>
                           {this.state.totalPage > 1 && (
                             <Grid className="prevNxtpag">
-                              <Pagination
-                                totalPage={this.state.totalPage}
-                                currentPage={this.state.currentPage}
-                                pages={this.state.pages}
-                                onChangePage={(page) => {
-                                  this.onChangePage(page);
-                                }}
-                              />
+                              <Pagination from="userlist" totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
                             </Grid>
                           )}
                         </Grid>

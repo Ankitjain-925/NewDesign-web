@@ -9924,6 +9924,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.setRedColor{
+    border:rgb(233, 29, 29) 2px solid;
+}
 .stepchange-input{
     height: 32px;
     border: 1PX SOLID #CFCFCF;

@@ -380,3 +380,16 @@ export const filterPatient = (taskForSelectedHouse) => {
   })
   return patientForFilterArr1;
 };
+
+export function allusers(currentPage,user_token,type,institute_id){
+  let data1 = axios.get(`${sitedata.data.path}/admin/allHospitalusers/${institute_id}/${type}/${currentPage}`,
+      {
+          headers: {
+              'token': user_token,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          }
+      }
+  )
+  return data1;
+}
