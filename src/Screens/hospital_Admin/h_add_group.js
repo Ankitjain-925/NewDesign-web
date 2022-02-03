@@ -9,8 +9,7 @@ import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Button from "@material-ui/core/Button";
-import * as translationEN from "./translations/en_json_proofread_13072020.json";
-import * as translationDE from "./translations/de.json";
+import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index";
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile";
 import "./style.css";
@@ -21,7 +20,6 @@ import Loader from "Screens/Components/Loader/index";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { getLanguage } from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { S3Image } from "Screens/Components/GetS3Images/index";
 
@@ -615,17 +613,7 @@ class Index extends Component {
     if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
       this.props.history.push("/");
     }
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType);
     let { InstituteGroups, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
       CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo ,Enterinstitutegroupname ,Enterinstitutiondescriptionnote ,Enterhospitalname, Enterhospitaldescriptionnote ,HospitalName ,HospitalDescriptionNote,InstitutionName ,InstitutionDescriptionNote} = translate;
     return (

@@ -11,8 +11,7 @@ import sitedata from 'sitedata';
 import Modal from '@material-ui/core/Modal';
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index'
-import * as translationEN from './translations/en_json_proofread_13072020.json';
-import * as translationDE from "./translations/de.json"
+import { getLanguage } from "./translations/index";
 import LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import $ from "jquery";
@@ -201,17 +200,7 @@ class Index extends Component {
         if(this.props.stateLoginValueAim.user.type != "hospitaladmin"){
             this.props.history.push("/")
         }
-        let translate={};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default :
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { documents, document, add_new, date_last_opened, find_document, ID,of, Status, no_, file_name, Normal, Blocked,
             type, imprint_Email, restore, Delete, see_detail,DocumentMovedToArchive, previous, next, upload_documents, upload_a_doc, doc_successfully_uploaded, no_doc_selected } = translate
 

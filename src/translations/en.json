@@ -1257,6 +1257,7 @@
 		"Tachykardia": "Tachycardia",
 		"select_user_type": "Please select user type",
 		"suported_file_type_jpg": "Supported file types: .jpg, .png",
+		"plz_select_patient": "Please, Select a patient",
 		
 		
 		"Billing": "Billing",
@@ -1606,7 +1607,6 @@
 		"Dueon_time":"Due on (time)",
 		"ALL":"ALL",
 		"Done":"Done",
-		"plz_select_patient": "Please, Select a patient",
 		"Newappointment":"New appointment",
 		"Findpatient":"Find patient",
 		"Appointmentreason":"Appointment reason",

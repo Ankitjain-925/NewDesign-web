@@ -12,8 +12,7 @@ import sitedata from 'sitedata';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { getDate, getImage, blockClick } from 'Screens/Components/BasicMethod/index'
-import * as translationEN from './translations/en_json_proofread_13072020.json';
-import * as translationDE from "./translations/de.json"
+import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import { SearchUser } from 'Screens/Components/Search';
@@ -180,17 +179,7 @@ class Index extends Component {
     }
 
     submitDelete = (deletekey, profile_id, bucket) => {
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { DeleteUser, Yes, No, click_on_YES_user } = translate;
         confirmAlert({
             title: DeleteUser,
@@ -318,17 +307,7 @@ class Index extends Component {
         if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
         }
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { srvc_Nurses, add_new, AssignHouse, Nurse, find_nurse, ID, Status, no_, previous, next,
             recEmp_FirstName, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 

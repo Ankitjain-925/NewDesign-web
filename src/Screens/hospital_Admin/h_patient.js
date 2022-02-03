@@ -11,8 +11,7 @@ import sitedata from 'sitedata';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { getDate, getImage, blockClick } from 'Screens/Components/BasicMethod/index'
-import * as translationEN from './translations/en_json_proofread_13072020.json';
-import * as translationDE from "./translations/de.json"
+import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import { SearchUser } from 'Screens/Components/Search';
@@ -80,17 +79,7 @@ class Index extends Component {
         this.setState({ addCreate: false })
     }
     submitDelete = (deletekey, profile_id, bucket) => {
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { DeleteUser, Yes, No, click_on_YES_user } = translate;
         confirmAlert({
             title: DeleteUser,
@@ -205,17 +194,7 @@ class Index extends Component {
 
     render() {
 
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { capab_Patients, add_new, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
             previous, next, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 

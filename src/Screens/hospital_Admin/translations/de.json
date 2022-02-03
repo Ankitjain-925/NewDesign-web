@@ -654,6 +654,25 @@
 		"Enterinstitutiondescriptionnote":"Enter institution description note",
 		"Enterhospitalname":"Enter hospital name",
 		"Enterhospitaldescriptionnote":"Enter hospital description note",
-		"Findaadminstaff":"Find a admin staff"
+		"Findaadminstaff":"Find a admin staff",
+		"capab_Doctors":"Doctors",
+		"Course_for": "Course is for",
+		"price": "Price",
+		"select_topic": "Select topic",
+		"message": "Message",
+		"capab_Patients" :"Patients",
+		"capab_Hospitals": "Hospitals",
+		"Hospital": "Hospital",
+		"Change_Hospital":"Change Hospital",
+		"HospitalName":"Hospital Name",
+		"Archives":"Archives",
+		"Inst_Name_is_already_exists":"Institution Name is already exist's select another name",
+		"Institution_Name_cant_be_empty":"Institution Name can't be empty",
+		"Institution_Description_Note_cant_be_empty":"Institution Description Note can't be empty",
+		"Select_atleast_one_hospital":"Select atleast one hospital",
+		"Something_went_wrong":"Somthing went wrong, Please try again",
+		"Hospital_Name_is_already_exist":"Hospital Name is already exist please select another one",
+		"Hospital_Name_cant_be_empty":"Hospital Name can't be empty",
+		"Hospital_Description_Note_cant_be_empty":"Hospital Description Note can't be empty"
 	}
 }

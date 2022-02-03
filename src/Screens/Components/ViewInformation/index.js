@@ -9,8 +9,7 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import { getDate, getImage, GetUrlImage } from '../BasicMethod/index'
 import sitedata from 'sitedata';
 import axios from "axios"
-import translationEN from "Screens/hospital_Admin/translations/en_json_proofread_13072020.json"
-import translationDE from "Screens/hospital_Admin/translations/de.json"
+import { getLanguage } from "Screens/hospital_Admin/translations/index";
 import { commonHeader } from "component/CommonHeader/index"
 
 class Index extends Component {
@@ -71,17 +70,7 @@ class Index extends Component {
     }
 
     render() {
-        let translate={}
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default :
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { user_info, Liscence, personal_info, profile_id, add, customer_since, type, email, kyc, details, terms_Country, number, authority }= translate
         var { patient_info, kycs, KYC_LICENSE, KYC_ID } = this.state;
         return (
