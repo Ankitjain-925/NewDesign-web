@@ -351,6 +351,12 @@ class Index extends Component {
   }
 
   SaveGroup = () => {
+    let translate = getLanguage(this.props.stateLanguageType)
+    let {Inst_Name_is_already_exists,
+      Institution_Name_cant_be_empty,
+      Institution_Description_Note_cant_be_empty ,
+      Select_atleast_one_hospital ,
+      Something_went_wrong} = translate;
     this.setState({ errorMsg: "" })
     var data = this.state.institute_groups;
     var a = this.state.AllGroupList && this.state.AllGroupList?.length > 0 && this.state.AllGroupList.map((item) => { return item?.group_name })
@@ -362,20 +368,20 @@ class Index extends Component {
     var reapGroup = a?.length > 0 && a.includes(data?.group_name)
 
     if (reapGroup == true && count > 1 && data._id) {
-      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
+      this.setState({ errorMsg: Inst_Name_is_already_exists })
     }
     else if (reapGroup == true && count == 0 && !data._id) {
-      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
+      this.setState({ errorMsg: Inst_Name_is_already_exists })
     }
     else {
       if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
-        this.setState({ errorMsg: "Institution Name can't be empty" })
+        this.setState({ errorMsg: Institution_Name_cant_be_empty })
       }
       else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
-        this.setState({ errorMsg: "Institution Description Note can't be empty" })
+        this.setState({ errorMsg: Institution_Description_Note_cant_be_empty })
       }
       else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
-        this.setState({ errorMsg: "Select atleast one hospital" })
+        this.setState({ errorMsg: Select_atleast_one_hospital })
       }
       else {
         var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
@@ -394,7 +400,7 @@ class Index extends Component {
                 this.setState({ institute_groups: {}, })
               }
               else {
-                this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+                this.setState({ errorMsg: Something_went_wrong })
               }
               this.setState({ loaderImage: false, openGroup: false });
             });
@@ -440,6 +446,11 @@ class Index extends Component {
   };
 
   saveHospital = (e) => {
+    let translate = getLanguage(this.props.stateLanguageType)
+    let {Hospital_Name_is_already_exist ,
+      Hospital_Name_cant_be_empty,
+      Hospital_Description_Note_cant_be_empty
+    } = translate;
     this.setState({ errorHospMsg: "" })
     let date = new Date();
     let housesArray = this.state.houses;
@@ -458,17 +469,17 @@ class Index extends Component {
     var dataCComing = b && b.filter((data) => data === hospitalObject.house_name)
     count = dataCComing.length;
     if (reapHouse == true && count > 2 && this.state.editId !== '') {
-      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
+      this.setState({ errorHospMsg: Hospital_Name_is_already_exist })
     }
     else if (reapHouse == true && count > 0 && this.state.editId === '') {
-      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
+      this.setState({ errorHospMsg: Hospital_Name_is_already_exist })
     }
     else {
       if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
-        this.setState({ errorHospMsg: "Hospital Name can't be empty" })
+        this.setState({ errorHospMsg: Hospital_Name_cant_be_empty })
       }
       else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
-        this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
+        this.setState({ errorHospMsg: Hospital_Description_Note_cant_be_empty })
       } else {
         if (this.state.editId) {
           let objIndex = housesArray.findIndex((item => item.house_id == this.state.editId));
