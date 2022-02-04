@@ -9,6 +9,9 @@ import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
 import Modal from '@material-ui/core/Modal';
+import Iframeview from "Screens/Components/FrameUse/index";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+import InnerImageZoom from "react-inner-image-zoom";
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index'
 import { getLanguage } from "./translations/index";
@@ -38,6 +41,7 @@ class Index extends Component {
             loaderImage: false,
             document_is_archive: false,
             MypatientsData: [],
+            current_image: false
 
         };
         // new Timer(this.logOutClick.bind(this)) 
@@ -49,10 +53,25 @@ class Index extends Component {
 
     // fancybox open
     handleOpenPres = (data) => {
-        this.setState({ openPres: true, openDetail: data });
+        var find = data && data.url;
+        if (find) {
+        var find1 = find.split(".com/")[1];
+        this.setState({loaderImage: true})
+        axios
+            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+            .then((response) => {
+            if (response.data.hassuccessed) {
+                this.setState({ current_image: response.data.data },
+                    ()=>{
+                        this.setState({ openPres: true, openDetail : data, loaderImage: false });
+                    });
+            }
+            });
+        }
+        
     };
     handleClosePres = () => {
-        this.setState({ openPres: false, openDetail: false });
+        this.setState({ openPres: false, openDetail : false, current_image: false});
     };
 
 
@@ -67,18 +86,18 @@ class Index extends Component {
                 var images = [];
                 if (response.data.data) {
                     response.data.data.map((item, index) => {
-                        var find = item && item.url;
-                        if (find) {
-                            var find1 = find.split('.com/')[1]
-                            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                                .then((response2) => {
-                                    if (response2.data.hassuccessed) {
-                                        item.new_image = response2.data.data
-                                        images.push({ image: find, new_image: response2.data.data })
-                                        this.setState({ images: images })
-                                    }
-                                })
-                        }
+                        // var find = item && item.url;
+                        // if (find) {
+                        //     var find1 = find.split('.com/')[1]
+                        //     axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                        //         .then((response2) => {
+                        //             if (response2.data.hassuccessed) {
+                        //                 item.new_image = response2.data.data
+                        //                 images.push({ image: find, new_image: response2.data.data })
+                        //                 this.setState({ images: images })
+                        //             }
+                        //         })
+                        // }
                         if (item.status === true) {
                             archive.push(item)
                         }
@@ -286,13 +305,19 @@ class Index extends Component {
                                             <Tbody>
                                                 {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((doc, i) => (
                                                     <Tr>
+
                                                         <Td>{((this.state.currentPage - 1) * 10) + i + 1}</Td>
                                                         <Td>{doc.filename && doc.filename}</Td>
                                                         <Td>{doc.filename && doc.filename.split(".").pop()}</Td>
                                                         <Td>{doc.createdate ? getDate(doc.createdate, 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                                         <Td className="billDots">
                                                             <a className="academy_ul">
-                                                                <img src={require('assets/images/threedots.png')} alt="" title="" className="academyDots" />
+                                                            <img
+                                                                src={require("assets/virtual_images/threeDots.png")}
+                                                                alt=""
+                                                                title=""
+                                                                className="academyDots"
+                                                            />
                                                                 <ul>
                                                                     <li onClick={() => this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
                                                                     <li onClick={() => { this.DocumentarchiveClick(doc.DocumentId) }}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
@@ -394,14 +419,28 @@ class Index extends Component {
                         <Grid className="medicInqUpr">
                             <Grid className="prescripList">
                                 <Grid>
-                                    {this.state.openDetail &&
-                                        <div>
-                                            {this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'pdf' && <iframe className="FramesetHeightWidth" width={700} height="500" src={getImage(this.state.openDetail.url, this.state.images)} frameborder="0" allowtransparency="true" allowfullscreen></iframe>}
-                                            {(this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'png' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'jpeg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'jpg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() === 'svg') &&
-                                                <img src={getImage(this.state.openDetail.url, this.state.images)} alt="" title="" />
-                                            }
-                                        </div>
-                                    }
+                                {this.state.openDetail && 
+                                    <div>
+                                    {this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "png" ||
+                                    this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "jpeg" ||
+                                    this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "jpg" ||
+                                    this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "svg" ? (
+                                    <InnerImageZoom src={this.state.current_image} />
+                                    ) : (
+                                    <Iframeview
+                                        new_image={this.state.current_image}
+                                        type={this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop()}
+                                        comesFrom="LMS"
+                                    />
+                                    )}
+                                    </div>
+                                    // <div>
+                                    //     {this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='pdf' && <iframe className="FramesetHeightWidth" width={700} height="500" src={getImage(this.state.openDetail.url, this.state.images)} frameborder="0" allowtransparency="true" allowfullscreen></iframe>}
+                                    //     {(this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='png' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpeg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='svg') && 
+                                    //         <img src={getImage(this.state.openDetail.url, this.state.images)} alt="" title="" />
+                                    //     }
+                                    // </div>
+                                } 
                                 </Grid>
                             </Grid>
                         </Grid>
