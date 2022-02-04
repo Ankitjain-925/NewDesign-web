@@ -10,7 +10,10 @@ import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import InnerImageZoom from "react-inner-image-zoom";
 import sitedata from "sitedata";
 import Loader from "Screens/Components/Loader/index";
-export const DocView = ({ attachedFile, documentName, dateAdded, added_by, settings }) => {
+import { getLanguage } from 'translations/index';
+export const DocView = ({ attachedFile, documentName, dateAdded, added_by, settings, language }) => {
+    let translate = getLanguage(language)
+    let {DocumentsFiles} = translate;
     const [filetype, setFiletype] = useState(false);
     const [filename, setFilename] = useState(false);
     const [zoomer, setZoomer] = useState({});
@@ -147,6 +150,7 @@ export const DocView = ({ attachedFile, documentName, dateAdded, added_by, setti
                                 />
                             </a>
                         </Grid>
+                        <p>{DocumentsFiles}</p>
                     </Grid>
                     {filetype === "png" ||
                         filetype === "jpeg" ||

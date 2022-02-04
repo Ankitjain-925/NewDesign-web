@@ -376,7 +376,7 @@ class Index extends Component {
                 <Grid container direction="row">
                     <Grid item xs={12} md={11}>
                         <Grid className="presOpinionIner">
-                            <DocView settings={this.props.settings} attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
+                            <DocView settings={this.props.settings} language={this.props.stateLanguageType} attachedFile={attachedFile} documentName={documentName} dateAdded={dateAdded} added_by={added_by} />
                             <Grid className="tablePagNum">
                                 <Grid container direction="row">
                                     <Grid item xs={12} md={6}>
