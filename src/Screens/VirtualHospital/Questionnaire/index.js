@@ -25,6 +25,7 @@ import { getLanguage } from "translations/index"
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SelectByTwo from "Screens/Components/SelectbyTwo/index";
+import _ from 'lodash';
 
 const options = [{ label: "Classic", value: "classic" }, { label: "Rating scale", value: "rating_scale" }];
 class Index extends Component {
@@ -138,7 +139,7 @@ class Index extends Component {
 
   handleSubmit = () => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {Plz_select_question_type, Title_cant_be_empty ,Ques_cant_be_empty} = translate;
+    let { Plz_select_question_type, Title_cant_be_empty, Ques_cant_be_empty } = translate;
     this.setState({ errorMsg: "" })
     // this.setState({myQuestions: {} ,openOpti: true})
     var myQuestions = this.state.AllQuestions;
@@ -312,7 +313,8 @@ class Index extends Component {
   };
   //Manage edit questionnaire
   editQuestion = (data, _id) => {
-    this.setState({ editQuestions: data, editQues: true, editopenOpti: data?.type === 'classic' ? true : false });
+    var deep = _.cloneDeep(data);
+    this.setState({ editQuestions: deep, editQues: true, editopenOpti: data?.type === 'classic' ? true : false });
   };
   //Delete the quesitonnaire
   deleteClickQuestion(status, perticular_id) {
@@ -377,7 +379,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { type, Question, Options, AddQuestionnaire, Add_other, EditQuestionnaire, Add_a_Choice, Questionnairetitle, Make_it_multiple_questionnaire,
-      Choose_questionnaire_type, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of, Enteraquestion ,Enterchoice,Entertitle ,Enterdescription,Enterquestion} = translate;
+      Choose_questionnaire_type, NewQuestion, QuestionnaireDescription, save_and_close, EditQuestion, DeleteQuestion, of, Enteraquestion, Enterchoice, Entertitle, Enterdescription, Enterquestion } = translate;
     const { questions_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -465,7 +467,7 @@ class Index extends Component {
                                 {this.state.myQuestions && (
                                   <Grid>
                                     <Grid className="cnfrmDiaMain">
-                                     
+
                                       <Grid className="fillDia">
                                         {/* <Grid> */}
                                         {/* <label>Choose questionnaire type </label> */}
@@ -595,9 +597,9 @@ class Index extends Component {
                                   </Grid>
                                 )}
                                 <Grid className="infoSub2">
-                                    <Button  onClick={() => this.handleSubmit()}>
-                                      {save_and_close}
-                                    </Button>
+                                  <Button onClick={() => this.handleSubmit()}>
+                                    {save_and_close}
+                                  </Button>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -751,9 +753,9 @@ class Index extends Component {
                                   </Grid>
                                 )}
                                 <Grid className="infoSub2">
-                                    <Button onClick={() => { this.handleeditSubmit(); this.handleEditCloseQues() }}>
-                                      {save_and_close}
-                                    </Button>
+                                  <Button onClick={() => { this.handleeditSubmit(); this.handleEditCloseQues() }}>
+                                    {save_and_close}
+                                  </Button>
                                 </Grid>
                               </Grid>
                             </Grid>
