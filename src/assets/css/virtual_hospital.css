@@ -9924,6 +9924,20 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+@media (max-width: 959px){
+    .profilMenuList, .moreMenuList{
+        top: 30px;
+        left: 0px;
+    }
+    .moreMenuList a{
+        display: flex !important;
+    }
+    .moreMenuList a img{
+        width: 17px;
+        height: 17px;
+    }
+   
+}
 .setRedColor{
     border:rgb(233, 29, 29) 2px solid;
 }
