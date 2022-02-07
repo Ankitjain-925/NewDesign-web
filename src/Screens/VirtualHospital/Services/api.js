@@ -2,7 +2,7 @@ import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { getLanguage } from "translations/index";
-import _ from 'lodash';
+import _ from 'lodash';
 
 export const getSpecialty = (current) => {
   current.setState({ loaderImage: true });
@@ -70,13 +70,13 @@ export const searchFilter = (e, current) => {
 //For adding the New Service and Update Service
 export const handleSubmit = (current) => {
   let translate = getLanguage(current.props.stateLanguageType);
-  let {Plz_enter_Service_Name, Plz_enter_a_valid_price,Something_went_wrong} = translate;
+  let { Plz_enter_Service_Name, Plz_enter_a_valid_price, Something_went_wrong } = translate;
   current.setState({ errorMsg: '' })
   var data = current.state.updateTrack;
   if (!data.title || (data && data?.title && data?.title.length < 1)) {
     current.setState({ errorMsg: Plz_enter_Service_Name })
   }
-   else if (!data.price || (data && data?.price && data?.price < 1)) {
+  else if (!data.price || (data && data?.price && data?.price < 1)) {
     current.setState({ errorMsg: Plz_enter_a_valid_price })
   }
   else {
@@ -190,9 +190,7 @@ export const handleOpenServ = (current) => {
 
 //Modal Close
 export const handleCloseServ = (current) => {
-  current.setState({ openServ: false, updateTrack: {} }, () => {
-    getAllServices(current);
-  });
+  current.setState({ openServ: false, updateTrack: {} });
 };
 export const updateEntryState1 = (e, current) => {
   const state = current.state.updateTrack;
@@ -202,6 +200,6 @@ export const updateEntryState1 = (e, current) => {
 
 // Open Edit Model
 export const EditService = (data, current) => {
-    var deep =  _.cloneDeep(data);
-    current.setState({ updateTrack: deep, openServ: true });
-  };  
+  var deep = _.cloneDeep(data);
+  current.setState({ updateTrack: deep, openServ: true });
+};  

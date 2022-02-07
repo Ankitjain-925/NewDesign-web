@@ -9,6 +9,9 @@ import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
 import Modal from '@material-ui/core/Modal';
+import Iframeview from "Screens/Components/FrameUse/index";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+import InnerImageZoom from "react-inner-image-zoom";
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index'
 import { getLanguage } from "./translations/index";
@@ -18,6 +21,8 @@ import $ from "jquery";
 import { commonHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import Button from "@material-ui/core/Button";
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -34,8 +39,9 @@ class Index extends Component {
             successfullsent: false,
             openDocUploadModel: false,
             loaderImage: false,
-            document_is_archive : false,
-            MypatientsData:[],
+            document_is_archive: false,
+            MypatientsData: [],
+            current_image: false
 
         };
         // new Timer(this.logOutClick.bind(this)) 
@@ -47,10 +53,25 @@ class Index extends Component {
 
     // fancybox open
     handleOpenPres = (data) => {
-        this.setState({ openPres: true, openDetail : data });
+        var find = data && data.url;
+        if (find) {
+        var find1 = find.split(".com/")[1];
+        this.setState({loaderImage: true})
+        axios
+            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+            .then((response) => {
+            if (response.data.hassuccessed) {
+                this.setState({ current_image: response.data.data },
+                    ()=>{
+                        this.setState({ openPres: true, openDetail : data, loaderImage: false });
+                    });
+            }
+            });
+        }
+        
     };
     handleClosePres = () => {
-        this.setState({ openPres: false, openDetail : false });
+        this.setState({ openPres: false, openDetail : false, current_image: false});
     };
 
 
@@ -65,18 +86,18 @@ class Index extends Component {
                 var images = [];
                 if (response.data.data) {
                     response.data.data.map((item, index) => {
-                        var find = item && item.url;
-                        if (find) {
-                            var find1 = find.split('.com/')[1]
-                            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                                .then((response2) => {
-                                    if (response2.data.hassuccessed) {
-                                        item.new_image = response2.data.data
-                                        images.push({ image: find, new_image: response2.data.data })
-                                        this.setState({ images: images })
-                                    }
-                                })
-                        }
+                        // var find = item && item.url;
+                        // if (find) {
+                        //     var find1 = find.split('.com/')[1]
+                        //     axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                        //         .then((response2) => {
+                        //             if (response2.data.hassuccessed) {
+                        //                 item.new_image = response2.data.data
+                        //                 images.push({ image: find, new_image: response2.data.data })
+                        //                 this.setState({ images: images })
+                        //             }
+                        //         })
+                        // }
                         if (item.status === true) {
                             archive.push(item)
                         }
@@ -86,20 +107,20 @@ class Index extends Component {
                     })
                     var totalPage = Math.ceil(archive.length / 10);
                     this.setState({ totalPage: totalPage, currentPage: 1 },
-                    () => {
-                        if (totalPage > 1) {
-                            var pages = [];
-                            for (var i = 1; i <= this.state.totalPage; i++) {
-                                pages.push(i)
+                        () => {
+                            if (totalPage > 1) {
+                                var pages = [];
+                                for (var i = 1; i <= this.state.totalPage; i++) {
+                                    pages.push(i)
+                                }
+                                this.setState({ MypatientsData: archive.slice(0, 10), pages: pages })
                             }
-                            this.setState({ MypatientsData: archive.slice(0, 10), pages: pages })
-                        }
-                        else {
-                            this.setState({ MypatientsData: archive })
-                        }
-                    })  
+                            else {
+                                this.setState({ MypatientsData: archive })
+                            }
+                        })
                     this.setState({ AllDocuments: archive, forSearch: archive });
-                  
+
                 }
             }).catch((error) => { });
     }
@@ -109,7 +130,7 @@ class Index extends Component {
     }
     search_user(event) {
         if (event.target.value == '') {
-               this.setState({ MypatientsData: this.state.forSearch })
+            this.setState({ MypatientsData: this.state.forSearch })
             this.onChangePage(1)
         } else {
             let searchKey = event.target.value
@@ -160,12 +181,12 @@ class Index extends Component {
                         .then((response) => {
                             this.setState({ loaderImage: false, openPres: false });
                             this.getAlldocument();
-                           
+
                         })
                     var returnData = response.data.data.returnData;
                     var signedRequest = returnData.signedRequest;
                     var url = returnData.url;
-                    if(fileType ==='pdf'){
+                    if (fileType === 'pdf') {
                         fileType = 'application/pdf'
                     }
                     // Put the fileType in the headers for the upload
@@ -178,41 +199,72 @@ class Index extends Component {
                         .then(result => {
 
                         })
-                        .catch(error => {})
+                        .catch(error => { })
                 })
-                .catch(error => {})
+                .catch(error => { })
         }
     }
 
-    DocumentarchiveClick=(deletekey)=>{
+    DocumentarchiveClick = (deletekey) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { This_document_is_not_permanently_deleted_this_is_only_go_in_archive, Delete_Document, are_you_sure, YesDelete, cancel } = translate;
+        if (deletekey) {
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                    return (
+                        <Grid className={this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode === "dark"
+                            ? "dark-confirm deleteStep"
+                            : "deleteStep"}>
+                            <Grid className="deleteStepLbl">
+                                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                                <label>{Delete_Document}</label>
+                            </Grid>
+                            <Grid className="deleteStepInfo">
+                                <p>{This_document_is_not_permanently_deleted_this_is_only_go_in_archive}</p>
+                                <Grid><label>{are_you_sure}</label></Grid>
+                                <Grid>
+                                    <Button onClick={() => { this.DocumentarchiveClick1(deletekey); onClose(); }}>{YesDelete}</Button>
+                                    <Button onClick={() => { onClose(); }}>{cancel}</Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    );
+                },
+            });
+        }
+    }
+
+    DocumentarchiveClick1 = (deletekey) => {
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ loaderImage: true });
         axios.put(sitedata.data.path + '/admin/ChangeStatus/' + deletekey,
-            { status: false},
+            { status: false },
             commonHeader(user_token))
             .then((response) => {
-                this.setState({ loaderImage: false, document_is_archive: response.data.status });
+                this.setState({ loaderImage: false });
                 this.getAlldocument();
-            }).catch((error) => {});
+            }).catch((error) => { });
     }
 
     render() {
-        if(this.props.stateLoginValueAim.user.type != "hospitaladmin"){
+        if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { documents, document, add_new, date_last_opened, find_document, ID,of, Status, no_, file_name, Normal, Blocked,
-            type, imprint_Email, restore, Delete, see_detail,DocumentMovedToArchive, previous, next, upload_documents, upload_a_doc, doc_successfully_uploaded, no_doc_selected } = translate
+        let { documents, document, add_new, date_last_opened, find_document, ID, of, Status, no_, file_name, Normal, Blocked,
+            type, imprint_Email, restore, Delete, see_detail, DocumentMovedToArchive, previous, next, upload_documents, upload_a_doc, doc_successfully_uploaded, no_doc_selected } = translate
 
         return (
             <Grid className={
                 this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode &&
-                  this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -251,18 +303,24 @@ class Index extends Component {
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
-                                            {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((doc, i) => (
+                                                {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((doc, i) => (
                                                     <Tr>
-                                                          <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
+
+                                                        <Td>{((this.state.currentPage - 1) * 10) + i + 1}</Td>
                                                         <Td>{doc.filename && doc.filename}</Td>
                                                         <Td>{doc.filename && doc.filename.split(".").pop()}</Td>
-                                                        <Td>{doc.createdate  ? getDate(doc.createdate , 'DD/MM/YYYY') : 'Not mentioned'}</Td>
+                                                        <Td>{doc.createdate ? getDate(doc.createdate, 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                                         <Td className="billDots">
                                                             <a className="academy_ul">
-                                                                <img src={require('assets/images/threedots.png')} alt="" title="" className="academyDots" />
+                                                            <img
+                                                                src={require("assets/virtual_images/threeDots.png")}
+                                                                alt=""
+                                                                title=""
+                                                                className="academyDots"
+                                                            />
                                                                 <ul>
-                                                                    <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={()=>{this.DocumentarchiveClick(doc.DocumentId)}}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                    <li onClick={() => this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={() => { this.DocumentarchiveClick(doc.DocumentId) }}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>
@@ -280,7 +338,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                                        <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                                                         {/* {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                                         {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                                             <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
@@ -300,12 +358,12 @@ class Index extends Component {
                             onClose={() => this.setState({ openDocUploadModel: false })}
                             className={
                                 this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === "dark"
-                                  ? "darkTheme"
-                                  : ""
-                              }>
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.mode &&
+                                    this.props.settings.setting.mode === "dark"
+                                    ? "darkTheme"
+                                    : ""
+                            }>
                             <Grid className="LanguageBoxMain">
                                 <Grid className="nwPresCourse">
                                     <Grid className="nwPresCloseBtn nwEntrCloseBtnAdd">
@@ -342,12 +400,12 @@ class Index extends Component {
                 <Modal open={this.state.openPres} onClose={this.handleClosePres}
                     className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark"
-                          ? "darkTheme presBoxModel"
-                          : "presBoxModel"
-                      }>
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
+                            ? "darkTheme presBoxModel"
+                            : "presBoxModel"
+                    }>
                     <Grid className="presBoxCntnt">
                         <Grid className="presCourse">
                             <Grid className="presCloseBtn nwEntrCloseBtnAdd">
@@ -363,11 +421,25 @@ class Index extends Component {
                                 <Grid>
                                 {this.state.openDetail && 
                                     <div>
-                                        {this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='pdf' && <iframe className="FramesetHeightWidth" width={700} height="500" src={getImage(this.state.openDetail.url, this.state.images)} frameborder="0" allowtransparency="true" allowfullscreen></iframe>}
-                                        {(this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='png' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpeg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='svg') && 
-                                            <img src={getImage(this.state.openDetail.url, this.state.images)} alt="" title="" />
-                                        }
+                                    {this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "png" ||
+                                    this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "jpeg" ||
+                                    this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "jpg" ||
+                                    this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop() === "svg" ? (
+                                    <InnerImageZoom src={this.state.current_image} />
+                                    ) : (
+                                    <Iframeview
+                                        new_image={this.state.current_image}
+                                        type={this.state.openDetail?.url?.split("&bucket=")[0]?.split('.')?.pop()}
+                                        comesFrom="LMS"
+                                    />
+                                    )}
                                     </div>
+                                    // <div>
+                                    //     {this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='pdf' && <iframe className="FramesetHeightWidth" width={700} height="500" src={getImage(this.state.openDetail.url, this.state.images)} frameborder="0" allowtransparency="true" allowfullscreen></iframe>}
+                                    //     {(this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='png' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpeg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='jpg' || this.state.openDetail && (this.state.openDetail.url.split("&bucket=")[0]).split('.').pop() ==='svg') && 
+                                    //         <img src={getImage(this.state.openDetail.url, this.state.images)} alt="" title="" />
+                                    //     }
+                                    // </div>
                                 } 
                                 </Grid>
                             </Grid>
