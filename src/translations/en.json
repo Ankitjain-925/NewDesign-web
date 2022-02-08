@@ -1148,6 +1148,7 @@
 		"InsurancecompanyError": "Please fill the Pharma / Research / Insurance country and Pharma / Research / Insurance company",
 		"StartDate": "Start Date",
 		"EndDate": "End Date",
+		"with_professional": "with professional -",
 		"Loading": "Loading...",
 		"goto_top": "Go to top",
 		"Consultancy_custom_calendar": "Consultancy (custom calendar)",
