@@ -281,6 +281,7 @@ export const saveUserData = (current, datas) => {
                 insurance: datas,
                 is2fa: current.state.UpDataDetails.is2fa,
                 country: current.state.UpDataDetails.country,
+                citizen_country: current.state.UpDataDetails.citizen_country,
                 pastal_code: current.state.UpDataDetails.pastal_code,
             },
             commonHeader(user_token)

@@ -614,6 +614,7 @@ class Index extends Component {
   newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
+  
   filterResult = () => {
     let { selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData } = this.state
     var data = _.cloneDeep(actualData);
@@ -868,7 +869,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
-                            <a className={filteredData} onClick={this.handleOpenFil}>
+                            <a className={`${filteredData} flowfilter`} onClick={this.handleOpenFil}>
                               <img src={filteredData === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>

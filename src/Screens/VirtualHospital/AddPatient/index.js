@@ -21,6 +21,7 @@ import * as SwitzerlandC from 'Screens/Components/insuranceCompanies/switzerland
 import * as AmericaC from 'Screens/Components/insuranceCompanies/us.json';
 import * as ThailandC from 'Screens/Components/insuranceCompanies/thailand.json';
 import { LanguageFetchReducer } from 'Screens/actions';
+import Autocomplete from 'Screens/Components/Autocomplete/index';
 import Modal from '@material-ui/core/Modal';
 import Loader from 'Screens/Components/Loader/index';
 import contry from "Screens/Components/countryBucket/countries.json";
@@ -688,7 +689,7 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
+        let { Citizenship, created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, BacktoPatientFlow, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
@@ -1047,29 +1048,29 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
 
-                                                            {/* <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{street} {add}</label>
-                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid> */}
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{street} {add}</label>
+                                                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                                                            {/* <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{city}</label>
-                                        <Grid>
-                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <label>{postal_code}</label>
-                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid> */}
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{city}</label>
+                                                                        <Grid>
+                                                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{postal_code}</label>
+                                                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
                                                             <Grid className="profileInfoIner">
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
@@ -1079,6 +1080,27 @@ class Index extends Component {
                                                                             <Select
                                                                                 value={this.state.UpDataDetails.country || ''}
                                                                                 onChange={(e) => this.EntryValueName(e, 'country')}
+                                                                                options={this.state.selectCountry}
+                                                                                placeholder=""
+                                                                                isSearchable={true}
+                                                                                name="country"
+                                                                                className="cntryDrop"
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}></Grid>
+                                                                    <Grid className="clear"></Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{Citizenship} {country}</label>
+                                                                        <Grid className="cntryDropTop">
+                                                                            <Select
+                                                                                value={this.state.UpDataDetails.citizen_country || ''}
+                                                                                onChange={(e) => this.EntryValueName(e, 'citizen_country')}
                                                                                 options={this.state.selectCountry}
                                                                                 placeholder=""
                                                                                 isSearchable={true}

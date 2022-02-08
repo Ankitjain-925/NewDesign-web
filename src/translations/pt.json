@@ -1638,7 +1638,8 @@
 		"Plz_enter_valid_room_name_or_number_of_beds":"Please enter valid room name or number of beds",
 		"Task_title_cant_be_empty":"Task title can't be empty",
 		"Plz_select_a_Patient":"Please select a Patient",
-		"renameStep":"Rename step name"
+		"renameStep":"Rename step name",
+		"Citizenship": "Citizenship"
 
 	}
 }

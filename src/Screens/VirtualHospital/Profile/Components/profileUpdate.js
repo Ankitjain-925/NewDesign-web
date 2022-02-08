@@ -409,6 +409,7 @@ class Index extends Component {
           insurance: datas,
           is2fa: this.state.UpDataDetails.is2fa,
           country: this.state.UpDataDetails.country,
+          citizen_country: this.state.UpDataDetails.citizen_country,
           pastal_code: this.state.UpDataDetails.pastal_code,
         },
         commonHeader(user_token)
@@ -791,6 +792,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      Citizenship,
       Chan_Prof_img,
       profile_info,
       profile,
@@ -1276,6 +1278,27 @@ class Index extends Component {
                   <Grid className="clear"></Grid>
                 </Grid>
               </Grid>
+
+              <Grid className="profileInfoIner">
+                <Grid container direction="row" alignItems="center" spacing={2}>
+                    <Grid item xs={12} md={8}>
+                        <label>{Citizenship} {country}</label>
+                        <Grid className="cntryDropTop">
+                            <Select
+                                value={this.state.UpDataDetails.citizen_country || ''}
+                                onChange={(e) => this.EntryValueName(e, 'citizen_country')}
+                                options={this.state.selectCountry}
+                                placeholder=""
+                                isSearchable={true}
+                                name="country"
+                                className="cntryDrop"
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={4}></Grid>
+                    <Grid className="clear"></Grid>
+                </Grid>
+            </Grid>
 
               <Grid className="profileInfoIner">
                 <Grid container direction="row" alignItems="center" spacing={2}>

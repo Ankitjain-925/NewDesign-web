@@ -425,7 +425,7 @@ class Index extends Component {
                                         item.bedData.map((bed, index) => (
                                           <>
                                             <Grid className="drListMain2">
-                                              <Grid className="drListLft2">
+                                              <Grid className={bed.cases?._id ? "OnExistBed drListLft2": "drListLft2"}>
                                                 <img
                                                   src={require("assets/virtual_images//bed2.png")}
                                                   alt=""

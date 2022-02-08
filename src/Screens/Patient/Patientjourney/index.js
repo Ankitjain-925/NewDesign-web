@@ -358,7 +358,7 @@ class Index extends Component {
                                                       <Grid container direction="row">
                                                         <Grid item xs={12} md={12}>
                                                           <Grid className="QuesMrkt">
-                                                            <h1>{data1?.question}</h1>
+                                                            <p className="quesitonPattient">{data1?.question}</p>
                                                           </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -415,7 +415,7 @@ class Index extends Component {
                                                           </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
-                                                          <h1>{data1.question}</h1>
+                                                          <p className="quesitonPattient">{data1.question}</p>
                                                           <p>{data1.description}</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
