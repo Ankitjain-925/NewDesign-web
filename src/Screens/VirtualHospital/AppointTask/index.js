@@ -389,6 +389,7 @@ class Index extends Component {
       // office_visit,
       Task,
       consultancy_appintment,
+      with_professional
     } = translate;
     return (
       <div
@@ -472,7 +473,7 @@ class Index extends Component {
                   </Grid>
                 </Grid>
                 <Grid className="meetDetail">
-                  <h1>{event.title}</h1>
+                  {data.docProfile ? <h1>{event.title} { with_professional} ({data?.docProfile?.first_name} {data?.docProfile?.last_name}) - {data?.docProfile?.email}</h1>: <h1>{event.title}</h1>}
                   {data?.appointment_type == true ? <span>{DetailsQuestions}</span> : <span>{data.description}</span>}
                   <p>{data.annotations}</p>
                 </Grid>
