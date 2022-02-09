@@ -32,6 +32,7 @@ import TaskView from "Screens/Components/VirtualHospitalComponents/TaskView/inde
 import { getLanguage } from "translations/index";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import _ from 'lodash';
 
 
 
@@ -535,7 +536,6 @@ class Index extends Component {
     this.setState({ assignedTo2: e })
   }
   updateEntryState3 = (e) => {
-    console.log('professional_id_list', e)
     this.setState({ assignedTo: e }, () => {
       var data =
         e?.length > 0 &&
@@ -744,8 +744,9 @@ class Index extends Component {
     } else if (data?.first_name) {
       pat1name = data?.patient?.first_name;
     }
+    var deep = _.cloneDeep(data);
     this.setState({
-      newTask: data,
+      newTask: deep,
       openTask: true,
       // assignedTo: assignedTo,
       q: pat1name,

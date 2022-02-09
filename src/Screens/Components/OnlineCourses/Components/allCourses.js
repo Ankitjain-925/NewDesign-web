@@ -159,8 +159,32 @@ class Index extends Component {
       this.props.removeWishlist(Reuslt[0]);
     }
   };
+
+  isThisAvilabel = (object, text) => {
+    return JSON.stringify(object).toLowerCase().includes(text);
+  }
   //on getting filter and filter Accordingly
   componentDidUpdate = (prevProps) => {
+    if (prevProps.SearchValue !== this.props.SearchValue) {
+      if(this.props.SearchValue===''){
+        this.setState({
+          allCourse: this.state.allCourse1,
+          newCourse: this.state.newCourse1,
+        });
+      }
+      else{
+        let FilterFromSearch1 = this.state.allCourse1?.length>0 && this.state.allCourse1.filter((obj) => {
+          return this.isThisAvilabel(obj, this.props.SearchValue?.toLowerCase());
+        });
+        let FilterFromSearch2 = this.state.newCourse1?.length>0 && this.state.newCourse1.filter((obj) => {
+          return this.isThisAvilabel(obj, this.props.SearchValue?.toLowerCase());
+        });
+        this.setState({
+          allCourse: FilterFromSearch1,
+          newCourse: FilterFromSearch2,
+        });
+      }
+    }
     if (prevProps.cartAlready !== this.props.cartAlready) {
       this.setState({ cartAlready: this.props.cartAlready });
     }

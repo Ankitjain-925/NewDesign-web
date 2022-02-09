@@ -354,6 +354,7 @@ export const saveUserData = (current) => {
         insurance: datas,
         is2fa: current.state.UpDataDetails.is2fa,
         country: current.state.UpDataDetails.country,
+        citizen_country: current.state.UpDataDetails.citizen_country,
         pastal_code: current.state.UpDataDetails.pastal_code,
         blood_group: current.state.UpDataDetails.blood_group,
         rhesus: current.state.UpDataDetails.rhesus,

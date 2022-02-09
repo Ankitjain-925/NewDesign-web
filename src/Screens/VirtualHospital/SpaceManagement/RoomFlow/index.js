@@ -51,8 +51,8 @@ class Index extends Component {
 
   handleChangeTab = (value) => {
     this.setState({ selectedward: value, value: value.ward_name },
-      () => { this.getFinalDat(this.state.selectedward?.ward_name)});
-   
+      () => { this.getFinalDat(this.state.selectedward?.ward_name) });
+
   };
 
   componentDidMount = () => {
@@ -72,40 +72,40 @@ class Index extends Component {
     }
   };
 
-  getFinalDat=(ward_name)=>{
+  getFinalDat = (ward_name) => {
     this.state.selectedSpeciality?.wards?.length > 0 &&
-    this.state.selectedSpeciality.wards.map((item, index) => {
-      if (
-        item.ward_name === ward_name
-        
-      ) {
-        this.setState({ value: index, loaderImage: true });
-        axios
-          .get(
-            `${sitedata.data.path}/vh/BedAvability/${this.state.selectedSpeciality?._id}/${this.state.selectedward._id}`,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((response) => {
-            if (response.data.hassuccessed) {
-              this.setState({ Rooms: response.data.data });
-              this.getListOption();
-              
-            }
-            this.setState({ loaderImage: false });
-          });
-      }
-    });
+      this.state.selectedSpeciality.wards.map((item, index) => {
+        if (
+          item.ward_name === ward_name
+
+        ) {
+          this.setState({ value: index, loaderImage: true });
+          axios
+            .get(
+              `${sitedata.data.path}/vh/BedAvability/${this.state.selectedSpeciality?._id}/${this.state.selectedward._id}`,
+              commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+              if (response.data.hassuccessed) {
+                this.setState({ Rooms: response.data.data });
+                this.getListOption();
+
+              }
+              this.setState({ loaderImage: false });
+            });
+        }
+      });
   }
 
   handleOpenWarn = (id) => {
     this.setState({ openWarn: true, case_ID: id },
-      ()=>{
+      () => {
         this.GetAllBed();
       });
   };
 
   handleCloseWarn = () => {
-    this.setState({ openWarn: false, case_ID: false});
+    this.setState({ openWarn: false, case_ID: false });
   };
 
   moveAnotherSpeciality = (data) => {
@@ -113,10 +113,10 @@ class Index extends Component {
       selectedSpeciality: data,
       selectedward: data.wards?.length > 0 ? data.wards[0] : false,
       value: data.wards?.length > 0 ? data.wards[0]?.ward_name : false,
-    }, ()=>{
+    }, () => {
       this.getFinalDat(data.wards?.length > 0 ? data.wards[0]?.ward_name : false)
     });
-   
+
   };
 
   getListOption = () => {
@@ -127,25 +127,25 @@ class Index extends Component {
 
   setsRoom = (e) => {
     this.setState({ loaderImage: true });
-    
+
     var response = setRoom(e, this.state.case_ID?.speciality?._id, this.props.speciality?.SPECIALITY, this.state.case_ID._id, this.props.stateLoginValueAim.token, this.state.case_ID?.wards?._id)
     response.then((responce1) => {
       if (responce1.data.hassuccessed) {
-          var mydata1 = this.props.speciality?.SPECIALITY.filter((element)=>element._id === this.state.case_ID?.speciality?._id)
-          var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === this.state.case_ID?.wards?._id)
-          if(mydata && mydata.length>0){
-            var data = this.state.case_ID;
-           var setData = mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.filter((data, i)=>data._id === e.value)?.[0];
-          data['rooms']= {
+        var mydata1 = this.props.speciality?.SPECIALITY.filter((element) => element._id === this.state.case_ID?.speciality?._id)
+        var mydata = mydata1[0]?.wards.length > 0 && mydata1[0]?.wards.filter((element) => element._id === this.state.case_ID?.wards?._id)
+        if (mydata && mydata.length > 0) {
+          var data = this.state.case_ID;
+          var setData = mydata[0]?.rooms?.length > 0 && mydata[0]?.rooms.filter((data, i) => data._id === e.value)?.[0];
+          data['rooms'] = {
             _id: setData?._id,
             room_name: setData?.room_name,
           };
-         data['bed']="";
-         this.setState({  case_ID: data });
-      }
-          // this.getListOption();
-          this.GetAllBed();
-          this.setState({ loaderImage: false });
+          data['bed'] = "";
+          this.setState({ case_ID: data });
+        }
+        // this.getListOption();
+        this.GetAllBed();
+        this.setState({ loaderImage: false });
         // });
         // this.setState({ loaderImage: false });
       }
@@ -206,16 +206,16 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
       >
         <Grid className="homeBgIner">
-          
-        {this.state.loaderImage && <Loader />}
+
+          {this.state.loaderImage && <Loader />}
           <Grid container direction="row" justify="center">
             <Grid item xs={12} md={12}>
               <LeftMenuMobile isNotShow={true} currentPage="space" />
@@ -337,7 +337,7 @@ class Index extends Component {
                                         title=""
                                       /> </span><span>{items.ward_name}</span> </span>}
                                       className="cardiotabIner"
-                                      onClick={()=>this.handleChangeTab(items)}
+                                      onClick={() => this.handleChangeTab(items)}
                                     />
                                   )
                                 )}
@@ -361,9 +361,9 @@ class Index extends Component {
                                           onClose={() => this.handleCloseWarn()}
                                           className={
                                             this.props.settings &&
-                                            this.props.settings.setting &&
-                                            this.props.settings.setting.mode &&
-                                            this.props.settings.setting.mode ===
+                                              this.props.settings.setting &&
+                                              this.props.settings.setting.mode &&
+                                              this.props.settings.setting.mode ===
                                               "dark"
                                               ? "darkTheme addWrnModel"
                                               : "addWrnModel"
@@ -389,7 +389,7 @@ class Index extends Component {
                                               <Grid className="enterWrnUpr">
                                                 <Grid className="enterWrnMain">
                                                   <Grid className="wrnUndr">
-                                                  {this.state.case_ID?.wards?._id && <Grid className="fillDia">
+                                                    {this.state.case_ID?.wards?._id && <Grid className="fillDia">
                                                       <SelectField
                                                         isSearchable={true}
                                                         name="type"
@@ -425,7 +425,7 @@ class Index extends Component {
                                         item.bedData.map((bed, index) => (
                                           <>
                                             <Grid className="drListMain2">
-                                              <Grid className="drListLft2">
+                                              <Grid className={bed.cases?._id ? "OnExistBed drListLft2": "drListLft2"}>
                                                 <img
                                                   src={require("assets/virtual_images//bed2.png")}
                                                   alt=""
@@ -433,7 +433,7 @@ class Index extends Component {
                                                 />
                                                 <span>{bed.bed}</span>
                                               </Grid>
-                                              <Grid item xs={12} md={12}>
+                                              <Grid item xs={12} md={12} className='pat_flow_sec'>
                                                 <Grid className="drListRght2 setinFullidrh">
                                                   {bed.cases?._id ? (
                                                     <Grid className="drRghtIner2">
@@ -465,17 +465,17 @@ class Index extends Component {
                                                             {bed?.cases?.patient
                                                               ?.alies_id
                                                               ? bed?.cases
-                                                                  ?.patient
-                                                                  ?.alies_id
+                                                                ?.patient
+                                                                ?.alies_id
                                                               : bed?.cases
-                                                                  ?.patient
-                                                                  ?.profile_id}
+                                                                ?.patient
+                                                                ?.profile_id}
                                                           </p>
                                                         </Grid>
                                                       </Grid>
                                                       <Grid className="room-img-move">
                                                         <img
-                                                          onClick={() =>this.handleOpenWarn(bed?.cases)}
+                                                          onClick={() => this.handleOpenWarn(bed?.cases)}
                                                           src={require("assets/images/three_dots_t.png")}
                                                           alt=""
                                                           title=""

@@ -97,15 +97,15 @@ class Index extends Component {
     this.setState({ viewDemo: false });
   }
 
-  handleSubmit = (question_id, type, rating , index) => {
+  handleSubmit = (question_id, type, rating, index) => {
     const answers = this.state.answers;
     var finalIndex = answers && answers.findIndex(x => x.question_id === question_id);
-    if(type === 'classic'){
-      if(finalIndex>-1){
+    if (type === 'classic') {
+      if (finalIndex > -1) {
         answers[finalIndex].question_id = question_id;
         answers[finalIndex].options = this.state.updateTrack?.options ? this.state.updateTrack?.options : []
       }
-      else{
+      else {
         answers.push({
           question_id, options: this.state.updateTrack?.options ? this.state.updateTrack?.options : []
         });
@@ -292,7 +292,7 @@ class Index extends Component {
     }
 
     let translate = getLanguage(this.props.stateLanguageType)
-    let { Patientjourney, Questionnaire, Questionnaire_of, FinalSubmit ,other} = translate;
+    let { Patientjourney, Questionnaire, Questionnaire_of, FinalSubmit, other } = translate;
     return (
       <Grid
         className={
@@ -358,7 +358,7 @@ class Index extends Component {
                                                       <Grid container direction="row">
                                                         <Grid item xs={12} md={12}>
                                                           <Grid className="QuesMrkt">
-                                                            <h1>{data1?.question}</h1>
+                                                            <p className="quesitonPattient">{data1?.question}</p>
                                                           </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
@@ -388,10 +388,10 @@ class Index extends Component {
                                                                     value="checkedB"
                                                                   />
                                                                   }
-                                                                  label={other}/>
+                                                                  label={other} />
                                                                 {/* <Grid  className="otherBorder"></Grid> */}
                                                                 {this.state.otherField && (
-                                                                  <input type="text"
+                                                                  <input type="text" className="othbackcol"
                                                                     onChange={(e) => { this.updateEntry2(e, "other", data1._id, data1.type, index1) }
                                                                     }
                                                                     name="other"></input>
@@ -415,7 +415,7 @@ class Index extends Component {
                                                           </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>
-                                                          <h1>{data1.question}</h1>
+                                                          <p className="quesitonPattient">{data1.question}</p>
                                                           <p>{data1.description}</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={12}>

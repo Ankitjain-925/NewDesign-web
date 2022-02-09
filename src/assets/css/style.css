@@ -16388,6 +16388,13 @@ select:-webkit-autofill:focus {
         padding-right: 12px;
     }
 }
+@media screen and (min-width: 1280px){
+    .pat_flow_sec {
+        margin-left: 11px !important;
+    }
+}
+
+
 .homeBgDrk .MuiInputBase-root {
     color: #b9bfbd !important;
 }
@@ -17443,4 +17450,18 @@ ul.duringCovid li:last-child {
     font-size: 14px;
     display: block;
   }
+  .room-img-move img {
+    margin-left: 10px;
+  }
+  .drListRght2 label {
+    font-size: 12px;
+  }
+}
+.drListLft2 {
+    width: 20%;
+    display: flex;
+    margin-top: 10px;
+}
+.OnExistBed{
+    margin-top: 18px;
 }

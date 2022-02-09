@@ -643,6 +643,7 @@ class Index extends Component {
           area: this.state.area,
           address: UpDataDetails.address,
           country: UpDataDetails.country,
+          citizen_country: UpDataDetails.citizen_country,
           pastal_code: UpDataDetails.pastal_code,
         },
         commonHeader(user_token)
@@ -1059,6 +1060,7 @@ class Index extends Component {
       profile_info,
       profile,
       information,
+      Citizenship,
       ID,
       pin,
       pin_greater_then_4,
@@ -1468,6 +1470,26 @@ class Index extends Component {
                 </Grid>
               </Grid>
 
+              <Grid className="profileInfoIner">
+                <Grid container direction="row" alignItems="center" spacing={2}>
+                  <Grid item xs={12} md={8}>
+                    <label>{Citizenship} {country}</label>
+                    <Grid className="cntryDropTop">
+                      <Select
+                        isSearchable={true}
+                        value={UpDataDetails.citizen_country}
+                        onChange={(e) => this.EntryValueName(e, "citizen_country")}
+                        options={this.state.selectCountry}
+                        placeholder=""
+                        isSearchable={true}
+                        className="cntryDrop"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={4}></Grid>
+                  <Grid className="clear"></Grid>
+                </Grid>
+              </Grid>
               <Grid className="profileInfoIner">
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={8}>

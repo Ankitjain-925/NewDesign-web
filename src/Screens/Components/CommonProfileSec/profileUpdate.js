@@ -270,6 +270,7 @@ class Index extends Component {
     let {
       Chan_Prof_img,
       profile_info,
+      Citizenship,
       profile,
       information,
       ID,
@@ -730,6 +731,28 @@ class Index extends Component {
                   <Grid className="clear"></Grid>
                 </Grid>
               </Grid>
+
+              <Grid className="profileInfoIner">
+                  <Grid container direction="row" alignItems="center" spacing={2}>
+                      <Grid item xs={12} md={8}>
+                          <label>{Citizenship} {country}</label>
+                          <Grid className="cntryDropTop">
+                              <Select
+                                  value={this.state.UpDataDetails.citizen_country || ''}
+                                  onChange={(e) => this.EntryValueName(e, 'citizen_country')}
+                                  options={this.state.selectCountry}
+                                  placeholder=""
+                                  isSearchable={true}
+                                  name="country"
+                                  className="cntryDrop"
+                              />
+                          </Grid>
+                      </Grid>
+                      <Grid item xs={12} md={4}></Grid>
+                      <Grid className="clear"></Grid>
+                  </Grid>
+              </Grid>
+
 
               <Grid className="profileInfoIner">
                 <Grid container direction="row" alignItems="center" spacing={2}>

@@ -4256,7 +4256,7 @@ button.onlogyBtn {
 }
 .drListLft2 img {
     width: 18px;
-    height: initial !important;
+    height: 20px !important;
 }
 .drListRght2 p {
     color: #7F8383;
@@ -9763,7 +9763,7 @@ button.crdoLghtBlu2 {
     margin-left:20px;
     
 }
-.QuesMrktUpr h1 {
+.QuesMrktUpr h1, .QuesMrktUpr .quesitonPattient {
     color: #000808;
     font-size: 20px;
     font-weight: bold;
@@ -9924,6 +9924,40 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.quesitonPattient{
+
+}
+@media (max-width: 1400px){
+    .attchNoteMain {
+        display: block;
+    }
+}
+@media (max-width: 768px){
+    .attchOpen, .attchDone, .date-secTask, .allInfo1 {
+        margin: 5px 0px !important;
+        padding:0px !important;
+    }
+    .attchNotePart{
+        display: block !important;
+    }
+}
+.setAssignedToupper{
+    min-width:100px;
+}
+@media (max-width: 368px){
+    .flowfilter{
+        float: right;
+        margin-top: 24px;
+    }
+}
+.searchonLMS{
+    border-radius: 8px;
+    border: none;
+    background: #f2f2f2;
+    padding: 9px;
+    width: 100%;
+}
+
 @media (max-width: 959px){
     .profilMenuList, .moreMenuList{
         top: 30px;
@@ -12010,7 +12044,8 @@ ul.patientHint li {
 .darkTheme .QuesMrktUpr {
     background-color: #404646;
 }
-.darkTheme .QuesMrktUpr h1 {
+.darkTheme .QuesMrktUpr .quesitonPattient,
+.darkTheme .QuesMrktUpr h1  {
     color: #bfc1c1;
 }
 .darkTheme .onlineBox span {
@@ -13182,9 +13217,9 @@ input:-moz-autofill:active{
     .attchNotePart{
         display:flex;
     }
-    .attchOpen button{
+    /* .attchOpen button{
         margin-left: 40px;
-    }
+    } */
 }
 @media(max-width:599px){
    .taskSort input[type=text]{
@@ -13668,5 +13703,9 @@ border-style: solid;
     height: 19px !important;
     width: 19px !important;
   }
+}
+
+.darkTheme .othbackcol{
+    background-color: #404646;
 }
 
