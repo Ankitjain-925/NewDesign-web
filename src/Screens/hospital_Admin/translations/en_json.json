@@ -361,7 +361,7 @@
 		"Status" :"Status",
 		"more" :"more",
 		"DarkMode": "Dark Mode",
-		"AssignHouse": "Assign Hospital",
+		"ManageHouse": "Manage Hospital",
 		"InstituteGroups": "Hospital Groups",
 		"Hospital": "Hospital",
 		"EditGroup": "Edit Group",
