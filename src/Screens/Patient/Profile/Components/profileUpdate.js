@@ -216,7 +216,7 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
+        let { Contact, Citizenship, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
@@ -430,6 +430,27 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.UpDataDetails.country}
                                                 onChange={(e) => EntryValueName(e, 'country', this)}
+                                                options={this.state.selectCountry}
+                                                placeholder=""
+                                                isSearchable={true}
+                                                name="country"
+                                                className="cntryDrop"
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} md={4}></Grid>
+                                    <Grid className="clear"></Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid className="profileInfoIner">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={8}>
+                                        <label>{Citizenship} {country}</label>
+                                        <Grid className="cntryDropTop">
+                                            <Select
+                                                value={this.state.UpDataDetails.citizen_country || ''}
+                                                onChange={(e) => EntryValueName(e, 'citizen_country', this)}
                                                 options={this.state.selectCountry}
                                                 placeholder=""
                                                 isSearchable={true}

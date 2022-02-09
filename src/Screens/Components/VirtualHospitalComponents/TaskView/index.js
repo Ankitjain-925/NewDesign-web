@@ -37,7 +37,7 @@ class PointPain extends Component {
         return (
             <Grid className="allTabCntnt">
                 <Grid container direction="row" alignItems="center">
-                    <Grid className="tasklistDsply" item xs={12} sm={6} md={6}>
+                    <Grid className="" item xs={12} sm={6} md={6}>
                         <Grid className="revwFiles revwFiles1">
                             {data.status === 'done' ? <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid> :
                                 <Grid><img src={require('assets/virtual_images/greyImg.png')} alt="" title="" /></Grid>}
@@ -79,14 +79,16 @@ class PointPain extends Component {
                                 </Grid>
                                 <Grid>                    
                                     <Grid className="allInfo allInfo1">
-                                    <Grid className="allInfoRght">
+                                    <Grid className="allInfoRght date-secTask">
                                         <Grid><label>{data?.due_on?.date && getDate(data?.due_on?.date, this.state.date_format)}</label></Grid>
                                         <p>{data?.due_on?.time && getTime(new Date(data?.due_on?.time), this.state.time_foramt)}</p>
                                     </Grid>
                                 </Grid>
                                 </Grid>
                             </Grid>
-                            <Assigned assigned_to={data.assinged_to} />
+                            <Grid className='setAssignedToupper'>
+                                <Assigned assigned_to={data.assinged_to} />
+                            </Grid>
                             <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                                 <a className="openScndhrf">
                                     <img
