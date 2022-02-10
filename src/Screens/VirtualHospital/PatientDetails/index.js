@@ -71,7 +71,7 @@ class Index extends Component {
         if (this.props.location.search) {
             var data = this.props.location.search === '?view=4' ? 3 : 0;
             this.handleChangeTab('', data);
-            this.handleChangeTabMob('', data);
+            this.handleChangeTabMob('', data+1);
         }
         this.cur_one();
         this.getPesonalized();
@@ -98,7 +98,7 @@ class Index extends Component {
 
     handleCallback = (childData) => {
         this.handleChangeTab('', childData)
-        this.handleChangeTabMob('', childData)
+        this.handleChangeTabMob('', childData+1)
     }
 
     handleChangeTab = (event, value) => {
@@ -304,6 +304,7 @@ class Index extends Component {
                                             <Tab label={DocumentsFiles} className="tsktabIner" />
                                             {/* <Tab label={Room} className="tsktabIner" /> */}
                                             <Tab label={personal_info} className="tsktabIner" />
+                                            <Tab label={"Appointments"} className="tsktabIner" />
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
@@ -354,6 +355,7 @@ class Index extends Component {
                                                     <Tab label={Tasks} className="tsktabIner" />
                                                     <Tab label={DocumentsFiles} className="tsktabIner" />
                                                     <Tab label={personal_info} className="tsktabIner" />
+                                                    <Tab label={"Appointments"} className="tsktabIner" />
                                                 </Tabs>
                                             </AppBar>
                                         </Grid>

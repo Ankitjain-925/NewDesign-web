@@ -514,9 +514,9 @@ class Index extends Component {
                                                         </Grid>}
                                                         <Grid className="stndrdQues">
                                                             <h3>{specilist_and_secnd_openion}</h3>
-                                                            <Grid className="splestQues">
+                                                            <Grid className="splestQues fillDia">
                                                                 <Grid><label>{specialist}</label></Grid>
-                                                                <Grid>
+                                                                <Grid className="rrSysto">
                                                                     <Select
                                                                         value={this.state.selectedPdoc}
                                                                         onChange={(e) => this.AddDoctorSS(e, 'doctor_id')}
@@ -605,9 +605,9 @@ class Index extends Component {
                                                         </Grid>}
                                                         <Grid className="drstndrdQues">
                                                             <h3>{doc_and_statnderd_ques}</h3>
-                                                            <Grid className="drsplestQues">
+                                                            <Grid className="drsplestQues fillDia">
                                                                 <Grid><label>{doc_aimedis_private}</label></Grid>
-                                                                <Grid>
+                                                                <Grid className="rrSysto">
                                                                     <Select
                                                                         value={this.state.selectedSdoc}
                                                                         onChange={(e) => this.AddDocotor(e, 'doctor_id')}
@@ -733,9 +733,9 @@ class Index extends Component {
                                                         </Grid>}
                                                         <Grid className="drstndrdQues">
                                                             <h3>{doc_and_statnderd_ques}</h3>
-                                                            <Grid className="drsplestQues">
+                                                            <Grid className="drsplestQues fillDia">
                                                                 <Grid><label>{doc_aimedis_private}</label></Grid>
-                                                                <Grid>
+                                                                <Grid className="rrSysto">
                                                                     <Select
                                                                         value={this.state.selectedPdoc}
                                                                         onChange={(e) => this.AddDoctor(e, 'doctor_id')}

@@ -9924,8 +9924,20 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
-.quesitonPattient{
-
+.tskTabsMob header{
+    color: #fff;
+    background-color: #192020 !important;
+}
+.movetoPage input {
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    width: 40px;
+}
+.darkTheme .vh-section .movetoPage input, .homeBgDrk .movetoPage input{
+    background-color: #192020 !important;
+}
+.homeBgDrk .movetoPage, .darkTheme .movetoPage{
+    color: #fff !important;
 }
 @media (max-width: 1400px){
     .attchNoteMain {

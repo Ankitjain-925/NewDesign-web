@@ -15791,7 +15791,7 @@ a.SelectedGender{
 .homeBgDrk .wrkHour a.seleted-days{
     background-color: #00abaf !important;
 }
-.homeBgDrk a.prevpag{
+.darkTheme a.prevpag, .homeBgDrk a.prevpag{
     color: #00ABAF !important;
 }
 .homeBgDrk .sortBySec label{

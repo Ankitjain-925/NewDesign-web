@@ -1379,6 +1379,7 @@ class Index extends Component {
                               <Grid className="getCalBnr">
 
                                 <Calendar
+
                                   localizer={localizer}
                                   events={this.state.myEventsList}
                                   value={this.state.data}

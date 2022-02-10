@@ -47,7 +47,7 @@ class Index extends React.Component {
 
 
   render() {
-    this.GetBedAvailability();
+    // this.GetBedAvailability();
     let translate = getLanguage(this.props.stateLanguageType);
     let { available } = translate;
     return (
