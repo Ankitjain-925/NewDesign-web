@@ -21,7 +21,7 @@ function App() {
    <CardContent>
      <Grid container spacing ={2}>
       <Grid item xl={4} lg ={4} sm ={12} xs={12}>
-         <h3> Qr Code scan by Web cam</h3>
+         <h3> Qr_Code_scan_by_Web_cam</h3>
          <QrReader
          delay={300}
          style={{width:'100%'}}
