@@ -92,6 +92,7 @@ import Questionnaire from "Screens/VirtualHospital/Questionnaire"
 import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
+import QR_Scanner from "Screens/VirtualHospital/QR_Scanner/index.js";
 // import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
@@ -503,7 +504,7 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <VHInstitutes {...props} />}
             />
-
+            
             {/* Adding by Ankit */}
             <Route
               path="/virtualhospital/room-flow"
@@ -530,6 +531,11 @@ class Routermain extends Component {
               path="/virtualHospital/invoice_pattern"
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
+            />
+             <Route
+              path="/virtualhospital/qr-scanner"
+              exact={true}
+              render={(props) => <QR_Scanner  {...props} />}
             />
 
             <Route
