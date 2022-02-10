@@ -331,7 +331,7 @@ class Index extends Component {
             this.props.history.push("/")
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { srvc_Nurses, add_new, AssignHouse, Nurse, find_nurse, ID, Status, no_, previous, next,
+        let { srvc_Nurses, add_new, ManageHouse, Nurse, find_nurse, ID, Status, no_, previous, next,
             recEmp_FirstName, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 
         return (
@@ -437,7 +437,7 @@ class Index extends Component {
                                                                                     title=""
                                                                                 />
                                                                             </span>
-                                                                            {AssignHouse}
+                                                                            {ManageHouse}
                                                                         </a>
                                                                     </li>
                                                                     <li onClick={() => this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>

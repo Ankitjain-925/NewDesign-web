@@ -443,7 +443,7 @@ class Index extends Component {
       recEmp_LastName,
       imprint_Email,
       restore,
-      Delete, AssignHouse,
+      Delete, ManageHouse,
       Findaadminstaff,
       see_detail,
     } = translate;
@@ -610,7 +610,7 @@ class Index extends Component {
                                             title=""
                                           />
                                         </span>
-                                        {AssignHouse}
+                                        {ManageHouse}
                                       </a>
                                     </li>
                                     <li
