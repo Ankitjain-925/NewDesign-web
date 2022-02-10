@@ -1948,7 +1948,7 @@ class Index extends Component {
                       {allDocData &&
                         allDocData.length > 0 &&
                         allDocData.map((doc, i) => (
-                          <div className="allowAvailListIner">
+                          <div key = {i} className="allowAvailListIner">
                             <Grid container direction="row" spacing={1}>
                               <Grid item xs={12} md={3}>
                                 <Grid className="spclistDr">
