@@ -33,7 +33,7 @@ class Index extends React.Component {
       loaderImage: false,
       AllRoom: [],
       AllBeds: [],
-      assignedTo:[],
+      assignedTo: [],
       professional_id_list: [],
       setSec: false,
     }
@@ -45,14 +45,14 @@ class Index extends React.Component {
   }
 
   UpdateDoc = (assinged_to) => {
-    var getAllData = assinged_to && assinged_to.length>0 && assinged_to.map((item) => { return item.user_id });
+    var getAllData = assinged_to && assinged_to.length > 0 && assinged_to.map((item) => { return item.user_id });
     var professional_id_list = this.props.professional_id_list;
-    if(getAllData){
-      professional_id_list = this.props.professional_id_list?.length>0 && this.props.professional_id_list.filter((data)=>!getAllData.includes(data.value))
-      var setUpdates = this.props.professional_id_list?.length>0 && this.props.professional_id_list.filter((data)=>getAllData.includes(data.value))
-      this.setState({assignedTo: setUpdates })
+    if (getAllData) {
+      professional_id_list = this.props.professional_id_list?.length > 0 && this.props.professional_id_list.filter((data) => !getAllData.includes(data.value))
+      var setUpdates = this.props.professional_id_list?.length > 0 && this.props.professional_id_list.filter((data) => getAllData.includes(data.value))
+      this.setState({ assignedTo: setUpdates })
     }
-    this.setState({ professional_id_list: professional_id_list,  });
+    this.setState({ professional_id_list: professional_id_list, });
   }
 
   getListOption = () => {
@@ -125,20 +125,20 @@ class Index extends React.Component {
       },
       commonHeader(this.props.stateLoginValueAim.token)
     )
-    .then((responce1) => {
-      if (responce1.data.hassuccessed) {
-        var steps = getSteps(
-          this.props?.House?.value,
-          this.props.stateLoginValueAim.token
-        );
-        steps.then((data) => {
-          var stepData = data ? data : [];
-          this.props.setDta(stepData);
+      .then((responce1) => {
+        if (responce1.data.hassuccessed) {
+          var steps = getSteps(
+            this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+          );
+          steps.then((data) => {
+            var stepData = data ? data : [];
+            this.props.setDta(stepData);
+            this.setState({ loaderImage: false });
+          });
           this.setState({ loaderImage: false });
-        });
-        this.setState({ loaderImage: false });
-      }
-    })
+        }
+      })
   }
   setsWard = (e) => {
     this.setState({ loaderImage: true });
@@ -218,8 +218,7 @@ class Index extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if(prevProps.quote != this.props.quote)
-    {
+    if (prevProps.quote != this.props.quote) {
       this.UpdateDoc(this.props.quote?.assinged_to);
     }
   }
@@ -231,9 +230,9 @@ class Index extends React.Component {
       })
   }
 
-  Discharge=()=>{
+  Discharge = () => {
     let translate = getLanguage(this.props.stateLanguageType)
-    let {Discharge_Patient_in_This_Step ,Patient_in_this_Step_will_be_discharged_from_the_flow ,What_would_you_like_to_do ,CreateInvoices ,Discharge_without_Invoices ,Cancel } = translate;
+    let { Discharge_Patient_in_This_Step, Patient_in_this_Step_will_be_discharged_from_the_flow, What_would_you_like_to_do, CreateInvoices, Discharge_without_Invoices, Cancel } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -243,17 +242,17 @@ class Index extends React.Component {
             ? "dark-confirm deleteStep"
             : "deleteStep"}>
             <Grid className="dischargeHead">
-                <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
-                <h5>{Discharge_Patient_in_This_Step}</h5>
+              <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+              <h5>{Discharge_Patient_in_This_Step}</h5>
             </Grid>
             <Grid className="dischargeInfo">
-                <p>{Patient_in_this_Step_will_be_discharged_from_the_flow}</p>
-                <Grid><label>{What_would_you_like_to_do}</label></Grid>
-                <Grid>
-                    <Button className="creatInvoic" onClick={() => { this.RemoveDirectPatientOk(1 , true); onClose(); }} >{CreateInvoices}</Button>
-                    <Button className="dischrgInvoic" onClick={() => { this.RemoveDirectPatientOk(4 , false);  onClose(); }} >{Discharge_without_Invoices}</Button>
-                    <Button className="dischrgCncl" onClick={() => { onClose(); }} >{Cancel}</Button>
-                </Grid>
+              <p>{Patient_in_this_Step_will_be_discharged_from_the_flow}</p>
+              <Grid><label>{What_would_you_like_to_do}</label></Grid>
+              <Grid>
+                <Button className="creatInvoic" onClick={() => { this.RemoveDirectPatientOk(1, true); onClose(); }} >{CreateInvoices}</Button>
+                <Button className="dischrgInvoic" onClick={() => { this.RemoveDirectPatientOk(4, false); onClose(); }} >{Discharge_without_Invoices}</Button>
+                <Button className="dischrgCncl" onClick={() => { onClose(); }} >{Cancel}</Button>
+              </Grid>
             </Grid>
           </Grid>
         );
@@ -277,8 +276,8 @@ class Index extends React.Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
-    let { AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient, OpenDetails, add_new_entry, AddTask, change_staff, move_patient_to,
-      assign_to_speciality, assign_to_room, RemovePatientfromFlow, DischargePatient, Please_assign_speciality_first,Search_Select,Wards,Room ,Bed } = translate;
+    let { AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient, OpenDetails, add_new_entry, AddTask, Add_Appointment, change_staff, move_patient_to,
+      assign_to_speciality, assign_to_room, RemovePatientfromFlow, DischargePatient, Please_assign_speciality_first, Search_Select, Wards, Room, Bed } = translate;
     return (
       <>
         {this.state.loaderImage && <Loader />}
@@ -289,6 +288,7 @@ class Index extends React.Component {
               <li><a onClick={() => { this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`) }}><span className="more-open-detail"></span>{OpenDetails}</a></li>
               <li><a onClick={() => { this.moveEntry() }}><span className="more-new-entry"></span>{add_new_entry}</a></li>
               <li><a onClick={() => { this.MovetoTask() }}><span className="more-add-task"></span>{AddTask} </a></li>
+              <li><a onClick={() => { this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`) }}><span className="more-add-task"></span>{Add_Appointment} </a></li>
               <li><a onClick={() => { this.setState({ changeStaffsec: true, setSec: true, specialitysec: false, assignroom: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-change-staff"></span><p className="more-change-staff-img2">{change_staff}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec: true, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-move-patient"></span><p className="more-change-staff-img2">{move_patient_to}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
               <li><a onClick={() => { this.setState({ specialitysec: true, assignroom: false, changeStaffsec: false, movepatsec: false, firstsec: false }) }}><p className="more-change-staff-img"><span className="more-new-speciality"></span><p className="more-change-staff-img2">{assign_to_speciality}<img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" /></p></p></a></li>
@@ -327,7 +327,7 @@ class Index extends React.Component {
                 <Grid className="movHead">
                   <Grid onClick={() => this.setState({ setSec: false, firstsec: true, changeStaffsec: false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                   <Grid className="movHeadMid"><label>{ChangeStaff}</label></Grid>
-                  <Grid className="movHeadRght"><a onClick={() => this.setState({setSec: false, firstsec: true, changeStaffsec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                  <Grid className="movHeadRght"><a onClick={() => this.setState({ setSec: false, firstsec: true, changeStaffsec: false })}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                 </Grid>
                 <Grid className="positionDrop">
                   <Select

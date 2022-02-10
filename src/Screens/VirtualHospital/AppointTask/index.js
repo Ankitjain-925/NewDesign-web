@@ -1702,7 +1702,7 @@ class Index extends Component {
                             className="sel_specialty"
                           />
                         </Grid>
-                        <Grid item xs={12} md={3} className="apointType">
+                        {/* <Grid item xs={12} md={3} className="apointType">
                           <Grid>
                             <label>
                               {appointment} {type}
@@ -1742,7 +1742,7 @@ class Index extends Component {
                             }
                             label={Office}
                           />
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                     </div>
                  
@@ -1792,12 +1792,13 @@ class Index extends Component {
                             <Select
                               name="patient"
                               options={this.state.users1}
-                              placeholder={Search_Select}
+                              placeholder=""
                               onChange={(e) => this.onFieldChange1(e, "patient")}
                               value={selectedPatient || ''}
                               className="addStafSelect"
                               isMulti={false}
                               isSearchable={true} />
+                              
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={3}>
@@ -1811,7 +1812,7 @@ class Index extends Component {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={4} className="apointType">
+                        {/* <Grid item xs={12} md={4} className="apointType">
                           <Grid>
                             <label>
                               {appointment} {type}
@@ -1851,7 +1852,7 @@ class Index extends Component {
                             }
                             label={Office}
                           />
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                       <div className="showSpcial">
                         <p>

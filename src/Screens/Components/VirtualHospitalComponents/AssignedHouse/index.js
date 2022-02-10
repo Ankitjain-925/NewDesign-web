@@ -75,7 +75,7 @@ class PointPain extends Component {
   componentDidMount = () => { };
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
-    let { AssignHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
+    let { ManageHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
     return (
       <Modal
         open={this.state.openHouse}
@@ -102,7 +102,7 @@ class PointPain extends Component {
               </a>
             </Grid>
             <Grid>
-              <label>{AssignHouse}</label>
+              <label>{ManageHouse}</label>
             </Grid>
           </Grid>
           <Grid className="enterSpclUpr">

@@ -343,7 +343,7 @@ class Index extends Component {
             this.props.history.push("/")
         }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { AssignHouse, capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
+        let { ManageHouse, capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
             recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next } = translate
         return (
             <Grid className={
@@ -447,7 +447,7 @@ class Index extends Component {
                                                                                     title=""
                                                                                 />
                                                                             </span>
-                                                                            {AssignHouse}
+                                                                            {ManageHouse}
                                                                         </a>
                                                                     </li>
                                                                     <li onClick={() => this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
