@@ -2177,7 +2177,7 @@ calculateAge = (date) => {
           <Grid className="newStaffUpr">
             <Grid className="newStaffInfo">
               <Grid className="newStaff">
-                <p>{this.state.personalinfo?.info?.profile_id}</p>
+                <p>{this.state.personalinfo?.info?.alies_id ? this.state.personalinfo?.info?.alies_id : this.state.personalinfo?.info?.profile_id}</p>
                 {/* <Grid><a><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></a></Grid> */}
                 <Grid><a><S3Image imgUrl={this.state.personalinfo?.info?.image} /></a></Grid>
                 <Grid><label>

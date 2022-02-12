@@ -1379,6 +1379,7 @@ class Index extends Component {
                               <Grid className="getCalBnr">
 
                                 <Calendar
+
                                   localizer={localizer}
                                   events={this.state.myEventsList}
                                   value={this.state.data}
@@ -1702,7 +1703,7 @@ class Index extends Component {
                             className="sel_specialty"
                           />
                         </Grid>
-                        {/* <Grid item xs={12} md={3} className="apointType">
+                        <Grid item xs={12} md={3} className="apointType">
                           <Grid>
                             <label>
                               {appointment} {type}
@@ -1742,7 +1743,7 @@ class Index extends Component {
                             }
                             label={Office}
                           />
-                        </Grid> */}
+                        </Grid>
                       </Grid>
                     </div>
                  
@@ -1792,13 +1793,12 @@ class Index extends Component {
                             <Select
                               name="patient"
                               options={this.state.users1}
-                              placeholder=""
+                              placeholder={Search_Select}
                               onChange={(e) => this.onFieldChange1(e, "patient")}
                               value={selectedPatient || ''}
                               className="addStafSelect"
                               isMulti={false}
                               isSearchable={true} />
-                              
                           </Grid>
                         </Grid>
                         <Grid item xs={12} md={3}>
@@ -1812,7 +1812,7 @@ class Index extends Component {
                           />
                         </Grid>
 
-                        {/* <Grid item xs={12} md={4} className="apointType">
+                        <Grid item xs={12} md={4} className="apointType">
                           <Grid>
                             <label>
                               {appointment} {type}
@@ -1852,7 +1852,7 @@ class Index extends Component {
                             }
                             label={Office}
                           />
-                        </Grid> */}
+                        </Grid>
                       </Grid>
                       <div className="showSpcial">
                         <p>
@@ -1881,7 +1881,7 @@ class Index extends Component {
                       {allDocData &&
                         allDocData.length > 0 &&
                         allDocData.map((doc, i) => (
-                          <div key = {i} className="allowAvailListIner">
+                          <div className="allowAvailListIner">
                             <Grid container direction="row" spacing={1}>
                               <Grid item xs={12} md={3}>
                                 <Grid className="spclistDr">
