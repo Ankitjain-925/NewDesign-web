@@ -152,7 +152,7 @@ class PointPain extends Component {
                             <a className="delet-house" onClick={() => { this.props.deleteHouse(item.value) }}>{Delete}</a>
                           </Grid>
                         </>
-                      ))}
+                     ))}
                     </Grid>
                   </Grid>
 

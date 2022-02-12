@@ -15,37 +15,26 @@ const getLanguage = (languageType) => {
     switch (languageType) {
         case "en":
             return translationEN.text
-            break;
         case "de":
             return translationDE.text
-            break;
         case "pt":
             return translationPT.text
-            break;
         case "sp":
             return translationSP.text
-            break;
         case "rs":
             return translationRS.text
-            break;
         case "nl":
             return translationNL.text
-            break;
         case "ch":
             return translationCH.text
-            break;
         case "sw":
             return translationSW.text
-            break;
         case "fr":
             return translationFR.text
-            break;
         case "ar":
             return translationAR.text
-            break;
         case "tr":
             return translationTR.text
-            break;
         default:
             return translationEN.text
     }
