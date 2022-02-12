@@ -1396,7 +1396,7 @@
 		"AddNewPatient": "+ Add a new patient",
 		"Choice": "Choice",
 		"AddRoom": "+ Add a Room",
-		"RemovePatientfromFlow": "Remove Patient from Flow",
+		"RemovePatientfromFlow": "Remove Patient",
 		"patient_will_be_removed_and_cannot_be_reversed": "This patient will be removed from the flow. This action can not be reversed.",
 		"Yes_remove_patient": "Yes, Remove Patient",
 		"Cancel_keep_patient": "Cancel, Keep Patient",
@@ -1543,7 +1543,6 @@
 		"Nurse_view" : "Nurse view",
 		"Doctor_view" : "Doctor view",
 		"qty": "Qty",
-		"Price": "Price",
 		"quantity": "quantity",
 		"avlbl": "available",
 		"Hidden": "Hidden",
@@ -1638,7 +1637,7 @@
 		"Plz_enter_valid_room_name_or_number_of_beds":"Please enter valid room name or number of beds",
 		"Task_title_cant_be_empty":"Task title can't be empty",
 		"Plz_select_a_Patient":"Please select a Patient",
-		"renameStep":"Rename step name",
+		"renameStep":"Rename step",
 		"Citizenship": "Citizenship"
 	}
 }
