@@ -360,6 +360,7 @@
 		"two_fac_auth_enable":"The 2-factor authentication is activated",
 		"Status" :"Status",
 		"more" :"more",
+		"imprint_Email":"Email",
 		"DarkMode": "Dark Mode",
 		"ManageHouse": "Manage Hospital",
 		"InstituteGroups": "Hospital Groups",

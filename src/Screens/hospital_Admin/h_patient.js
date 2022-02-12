@@ -264,7 +264,7 @@ class Index extends Component {
                                                     <Th>{recEmp_LastName}</Th>
                                                     <Th>{imprint_Email}</Th>
                                                     <Th>{ID}</Th>
-                                                    <Th>{Status}</Th>
+                                                    <Th></Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
@@ -310,7 +310,10 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user} />
+                                    <ViewDetail
+                                     openDetial={this.state.openDetial} 
+                                     CloseDetail={this.CloseDetail} 
+                                     patient_info={this.state.current_user} />
                                 </Grid>
                             </Grid>
                         </Grid>

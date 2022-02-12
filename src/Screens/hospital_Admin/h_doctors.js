@@ -399,7 +399,7 @@ class Index extends Component {
                                                     <Th>{recEmp_LastName}</Th>
                                                     <Th>{imprint_Email}</Th>
                                                     <Th>{ID}</Th>
-                                                    <Th>{Status}</Th>
+                                                    <Th></Th>
                                                     <Th></Th>
                                                 </Tr>
                                             </Thead>

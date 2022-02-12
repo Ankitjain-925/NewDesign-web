@@ -37,20 +37,21 @@ class Index extends Component {
         }
         if (prevProps.patient_info !== this.props.patient_info) {
             this.setState({ patient_info: this.props.patient_info }, () => { this.getKyc() })
+
         }
     }
 
     getKyc = () => {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/User/getKyc/' + this.props.patient_info._id,
-        commonHeader(user_token)).then((response) => {
+            commonHeader(user_token)).then((response) => {
                 if (response.data.data) {
                     this.setState({ kycs: response.data.fulldata, loaderImage: false }, () => {
-                        
+
                         this.setState({ KYC_ID: '', KYC_LICENSE: '' })
                         if (this.state.kycs.attachment && this.state.kycs.attachment.length > 0) {
                             var KYC_ID = this.state.kycs.attachment && this.state.kycs.attachment.length > 0 && this.state.kycs.attachment[0] && this.state.kycs.attachment[0].file && this.state.kycs.attachment[0].file
-                            if (KYC_ID) { 
+                            if (KYC_ID) {
                                 this.setState({ KYC_ID: KYC_ID })
                             }
                             var KYC_LICENSE = this.state.kycs.attachment && this.state.kycs.attachment.length > 0 && this.state.kycs.attachment[1] && this.state.kycs.attachment[1].file && this.state.kycs.attachment[1].file
@@ -71,7 +72,7 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { user_info, Liscence, personal_info, profile_id, add, customer_since, type, email, kyc, details, terms_Country, number, authority }= translate
+        let { user_info, Liscence, personal_info, profile_id, add, customer_since, type, email, kyc, details, terms_Country, number, authority } = translate
         var { patient_info, kycs, KYC_LICENSE, KYC_ID } = this.state;
         return (
             <div>
@@ -81,12 +82,12 @@ class Index extends Component {
                     onClose={this.handleCloseCreate}
                     className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark"
-                          ? "prespBoxModel darkTheme"
-                          : "prespBoxModel"
-                      }>
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
+                            ? "prespBoxModel darkTheme"
+                            : "prespBoxModel"
+                    }>
                     <Grid className="prespBoxCntnt">
                         <Grid className="prespCourse">
                             <Grid className="prespCloseBtn nwEntrCloseBtnAdd">
@@ -111,16 +112,23 @@ class Index extends Component {
                                     <p>{patient_info && patient_info.type && patient_info.type}</p>
                                     <Grid><label>{email}</label></Grid>
                                     <p>{patient_info && patient_info.email && patient_info.email}</p>
+                                    {patient_info && patient_info?.type === "patient" ? null : <><Grid><label>Assigned hospital</label></Grid>
+                                        <p>{patient_info &&
+                                            patient_info?.houses &&
+                                            patient_info?.houses?.length > 0 &&
+                                            patient_info?.houses.map((items) =>
+                                                <div className="assiHospDet">{items?.label}</div>)}</p>
+                                    </>}
                                 </Grid>
                             </Grid>
-                            {patient_info && patient_info.type && patient_info.type==='doctor' && <Grid className="stndQues">
+                            {patient_info && patient_info.type && patient_info.type === 'doctor' && <Grid className="stndQues">
                                 <Grid><span>{Liscence}</span></Grid>
-                                <Grid className="pointThis" onClick={()=>GetUrlImage(patient_info.licence && patient_info.licence && patient_info.licence.length>0 && patient_info.licence[0].url && patient_info.licence[0].url)}>{patient_info.licence && patient_info.licence.length>0 && patient_info.licence[0].url && (patient_info.licence[0].url.split('registration/')[1]).split("&bucket=")[0]}</Grid>
+                                <Grid className="pointThis" onClick={() => GetUrlImage(patient_info.licence && patient_info.licence && patient_info.licence.length > 0 && patient_info.licence[0].url && patient_info.licence[0].url)}>{patient_info.licence && patient_info.licence.length > 0 && patient_info.licence[0].url && (patient_info.licence[0].url.split('registration/')[1]).split("&bucket=")[0]}</Grid>
                             </Grid>}
                             <Grid className="stndQues">
                                 <Grid><span>{kyc}</span></Grid>
-                                <Grid className="pointThis" onClick={()=>GetUrlImage(KYC_LICENSE)}>{KYC_LICENSE && (KYC_LICENSE.split('KYC/')[1]).split("&bucket=")[0]}</Grid>
-                                <Grid className="pointThis" onClick={()=>GetUrlImage(KYC_ID)}>{KYC_ID && (KYC_ID.split('KYC/')[1]).split("&bucket=")[0]}</Grid>
+                                <Grid className="pointThis" onClick={() => GetUrlImage(KYC_LICENSE)}>{KYC_LICENSE && (KYC_LICENSE.split('KYC/')[1]).split("&bucket=")[0]}</Grid>
+                                <Grid className="pointThis" onClick={() => GetUrlImage(KYC_ID)}>{KYC_ID && (KYC_ID.split('KYC/')[1]).split("&bucket=")[0]}</Grid>
                             </Grid>
 
 
