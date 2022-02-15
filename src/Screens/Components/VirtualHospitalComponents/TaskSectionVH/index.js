@@ -302,7 +302,8 @@ class Index extends Component {
                 selectSpec: {},
               });
               this.props.getAddTaskData();
-              this.handleCloseTask()
+              this.handleCloseTask();
+              this.props.getArchived();
             }
             else {
               this.setState({ errorMsg: Something_went_wrong})

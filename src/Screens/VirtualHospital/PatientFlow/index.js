@@ -1088,7 +1088,15 @@ class Index extends Component {
                 </Grid>
                 <label>{AddPatienttoFlow}</label>
               </Grid>
-              <Grid className="patentInfo">
+
+              <Grid className="patentInfo">    
+                <Grid className="patentInfoBtn pateintInfoUser">
+                  <Button  onClick={() => this.newPatient()}>New User</Button>
+                  <Button onClick={this.AddCase}>Existing user</Button>
+                </Grid>
+              </Grid>
+              
+              {/* <Grid className="patentInfo">    
                 {this.state.caseAlready && (
                   <div className="err_message">
                     {case_already_exists_in_hospital}
@@ -1148,7 +1156,7 @@ class Index extends Component {
                 <Grid className="patentInfoBtn">
                   <Button onClick={this.AddCase}>{add_patient_to_flow}</Button>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Grid>
         </Modal>
