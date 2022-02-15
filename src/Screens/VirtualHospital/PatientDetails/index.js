@@ -28,6 +28,8 @@ import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
+import { getProfessionalData } from 'Screens/VirtualHospital/PatientFlow/data'
+import ArrangeAppoint from "Screens/VirtualHospital/AppointTask/arrangeAppoint";
 
 function TabContainer(props) {
     return (
@@ -63,13 +65,15 @@ class Index extends Component {
             vaccinations: [],
             defaultValue: 20,
             loading: false,
-            LeftInfoPatient: {}
+            LeftInfoPatient: {},
+            openAllowAccess: false,
+            doctorsData: []
         };
     }
 
     componentDidMount = () => {
         if (this.props.location.search) {
-            var data = this.props.location.search === '?view=4' ? 3 : 0;
+            var data = this.props.location.search === '?view=4' ? 3 : this.props.location.search === '?view=5'? 4: 0;
             this.handleChangeTab('', data);
             this.handleChangeTabMob('', data+1);
         }
@@ -101,11 +105,33 @@ class Index extends Component {
         this.handleChangeTabMob('', childData+1)
     }
 
+    handleAllowAccess = async () => {
+        const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
+        const doctorsData = [];
+        // eslint-disable-next-line no-unused-expressions
+        await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
+          if (data.type === 'doctor') {
+            doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
+          }
+        });
+        this.setState({ openAllowAccess: true, doctorsData });
+    };
+
     handleChangeTab = (event, value) => {
-        this.setState({ value });
+        if(value === 4){
+            this.handleAllowAccess();
+        }
+        else{
+            this.setState({ value });
+        }
     };
     handleChangeTabMob = (event, valueMob) => {
-        this.setState({ valueMob });
+        if(valueMob === 5){
+            this.handleAllowAccess();
+        }
+        else{
+            this.setState({ valueMob });
+        }
     };
 
     getUpcomingAppointment() {
@@ -201,7 +227,11 @@ class Index extends Component {
             .get(sitedata.data.path + "/rightinfo/patient/" + this.props.match.params.id,
                 commonHeader(user_token))
             .then((response) => {
-                this.setState({ personalinfo: response.data.data });
+                this.setState({ personalinfo: response.data.data, selectedPatient: {
+                    label: response.data.data?.first_name && response.data.data?.last_name ? response.data.data?.first_name +' '+response.data.data?.last_name : response.data.data?.first_name,
+                    profile_id: response.data.data?.profile_id,
+                    value: response.data.data?._id
+                } });
             });
     }
 
@@ -293,7 +323,6 @@ class Index extends Component {
                     <Grid container direction="row" justify="center">
                         {!this.state.isGraph && (
                             <Grid item xs={12} md={12}>
-
                                 <LeftMenuMobile isNotShow={true} currentPage="chat" />
                                 <Grid className="tskTabsMob">
                                     <AppBar position="static" className="tskTabs">
@@ -308,6 +337,7 @@ class Index extends Component {
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
+                                <ArrangeAppoint getTaskData={()=> this.MoveAppoint()} openAllowAccess={this.state.openAllowAccess} doctorsData={this.state.doctorsData} selectedPatient={this.state.selectedPatient}/>
                                 <Grid container direction="row" className="mainMenuAllSec">
                                     {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
                                     {/* Start of Menu */}

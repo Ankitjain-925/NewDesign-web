@@ -9924,7 +9924,41 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
-.tskTabsMob header{
+.alowLocAces1 .addStafSelect {
+    z-index: 999999 !important;
+}
+.alowLocAces1 .alowLocAces1Inner{
+    height: 100%;
+}
+.darkTheme .alowLocAces1{
+	background-color: #404646 !important;
+}
+@media (max-width: 959px){
+    .alowLocAces1 {
+        width: 96% !important;
+    }
+}
+@media (max-width: 599px){ 
+    .alowLocAces1 .srchAccessLoc{
+        overflow-y: auto;
+    }
+}
+.alowLocAces1 {
+    width: 945px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+    padding: 0px 2px 6px 2px;
+}
+.alowLocAces1.\32 2 .srchKm:after {
+    bottom: 29px;
+}
+.darkTheme .tskTabsMob header{
     color: #fff;
     background-color: #192020 !important;
 }

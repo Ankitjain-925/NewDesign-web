@@ -525,7 +525,7 @@ class Index extends Component {
                     ? "homeBg darkTheme"
                     : "homeBg"
             }>
-                <Grid className="homeBgIner">
+                <Grid className="homeBgIner vh-section">
                     {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
