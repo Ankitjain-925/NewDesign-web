@@ -13759,6 +13759,18 @@ border-style: solid;
     margin-bottom: 5px;
 }
 
-.pateintInfoUser button{
-    margin-bottom:10px
+.pateintInfoUser {
+    margin:10px
 }
+
+.pateintInfoUser p{
+    margin:5px;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.pateintInfoUser a:hover{
+    color: #0088a9;
+}
+
