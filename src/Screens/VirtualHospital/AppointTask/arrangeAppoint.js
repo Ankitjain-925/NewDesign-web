@@ -763,6 +763,7 @@ componentDidUpdate = (prevProps) => {
                                     value={this.state.selectWard}
                                     placeholder={FilterbyWard}
                                     isMulti={false}
+                                    className="addStafSelect"
                                     isSearchable={true} />
                                 </Grid>
                               </Grid>

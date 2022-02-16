@@ -9924,6 +9924,11 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.filterPatlistInner button {
+    background: #00abaf;
+    margin: 7px 7px 7px 0px;
+    padding: 1px 15px;
+}
 .filterPatlist {
  position: relative;   
 }
