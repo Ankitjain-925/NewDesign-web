@@ -147,9 +147,26 @@ class Index extends Component {
     }
   };
 
+  setFilterValue = (data) =>{
+    if(data?.house_id === this.props.House?.value){
+      let specialityList = this.props.speciality?.SPECIALITY && this.props.speciality?.SPECIALITY.length > 0 && this.props.speciality?.SPECIALITY.filter((item) => item && item._id === data.speciality_id)
+      let wardsFullData = specialityList && specialityList.length > 0 && specialityList[0].wards
+      let wards_data = wardsFullData && wardsFullData.length > 0 && wardsFullData.map((item) => {
+        return { label: item.ward_name, value: item._id }
+      })
+      let CurrentSpec = {value: specialityList?.[0]?._id, label: specialityList?.[0]?.specialty_name}
+      let getCurrentWard = wards_data && wards_data.length > 0 && wards_data.filter((item) => item && item.value === data.ward_id)
+      let check = {open : data?.status.includes('open') ? true: false , done : data?.status.includes('done') ? true: false }
+      let tabvalue = data?.filter === 'Appointment' ? 1 : data?.filter === 'Task' ? 2 : 0;
+      this.setState({ selectSpec2: CurrentSpec, wardList: wards_data, allWards: wardsFullData, selectWard: getCurrentWard?.[0] , check: check, tabvalue: tabvalue})
+    }
+    
+  }
   //get Add task data
   getTaskData = (isclear) => {
     if(!isclear && this.props?.settings?.setting?.calendar_filter?.house_id){
+      // this.setState({selectWard: this.props.settings.setting.calendar_filter?.})
+     this.setFilterValue(this.props.settings.setting.calendar_filter);
      this.applyfilterOndata(this.props?.settings?.setting?.calendar_filter)
     }
     else{
@@ -194,7 +211,6 @@ class Index extends Component {
             data?.due_on?.time &&
             data?.due_on?.date &&
             data?.task_name) {
-              console.log('222222')
             var datetime1 = new Date(data?.due_on?.time);
             var hours1 = datetime1.getHours()
             var minutes1 = datetime1.getMinutes()
@@ -242,7 +258,6 @@ class Index extends Component {
             indexout++;
             this.setState({ taskEventList: taskdata, appioinmentTimes: appioinmentTimes, })
           }
-          console.log('3333333')
           // this.setState({ loaderImage: false });
           // this.handleCloseFil();
         } else {
@@ -503,11 +518,11 @@ class Index extends Component {
   handleOpenFil = () => {
     var tabvalue = this.state.tabvalue
     if (tabvalue == 0) {
-      this.setState({ showField: true, setFilter: "All", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
+      this.setState({ showField: true, setFilter: "All", userFilter: '', selectSpec2: this.state.selectSpec2, selectWard: this.state.selectWard, selectRoom: '' })
     } else if (tabvalue == 1) {
-      this.setState({ showField: true, setFilter: "Appointment", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
+      this.setState({ showField: true, setFilter: "Appointment", userFilter: '', selectSpec2: this.state.selectSpec2, selectWard: this.state.selectWard, selectRoom: '' })
     } else if (tabvalue == 2) {
-      this.setState({ showField: true, setFilter: "Task", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
+      this.setState({ showField: true, setFilter: "Task", userFilter: '', selectSpec2: this.state.selectSpec2, selectWard: this.state.selectWard, selectRoom: '' })
     }
     this.setState({ openFil: true, q: "" })
   }
