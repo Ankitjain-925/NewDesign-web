@@ -7682,7 +7682,7 @@ a.horzSort2 {
     padding: 10px 14px;
 }
 .aplyRght {
-    text-align: right;
+    /* text-align: right; */
 }
 .pantNames li:hover {
     background-color: #E1F7F7 !important;
@@ -9924,6 +9924,26 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.filterPatlist {
+ position: relative;   
+}
+.filterPatlist img{
+    width:12px;
+    margin-left:7px;
+}
+.darkTheme .filterPatlistInner{
+    background: #3f4141;
+}
+.filterPatlistInner {
+    position: absolute;
+    width: 244px;
+    background: #e7e5e5;
+    padding: 15px;
+    top: 18px;
+    left: 65px;
+    z-index: 9999999;
+    border-radius: 5px;
+}
 .alowLocAces1 .addStafSelect {
     z-index: 999999 !important;
 }
@@ -10044,7 +10064,7 @@ button.crdoLghtBlu2 {
     width:100%;
 }
 .quote-list{
-    min-height:50px;
+    min-height:10px;
 }
 .innerdivfordrag{
     margin: 8px;
