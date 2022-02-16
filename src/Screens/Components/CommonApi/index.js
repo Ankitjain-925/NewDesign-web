@@ -57,7 +57,6 @@ export const get_personalized = async (user_token, user_id) => {
 export const get_track = async (user_token, user_id) => {
     let response = await axios.get(sitedata.data.path + "/User/AddTrack/" + user_id,
         commonHeader(user_token))
-
     if (response.data.hassuccessed) {
         return response
     } else {
@@ -79,7 +78,17 @@ export const getPatientData = async (user_token, house_id, comesFrom) => {
             else if (response.data?.data[i].patient?.first_name) {
                 name = response.data?.data[i].patient?.first_name
             }
-            comesFrom === 'taskpage' ?patientArray.push({
+            comesFrom === 'arrangeappoint' ? patientArray.push({
+                last_name: response.data?.data[i].patient?.last_name,
+                first_name: response.data?.data[i].patient?.first_name,
+                image: response.data?.data[i].patient?.image,
+                profile_id: response.data?.data[i].patient?.profile_id,
+                case_id: response.data?.data[i]._id,
+                patient_id: response.data?.data[i].patient_id,
+                speciality: response.data?.data[i]?.speciality,
+                wards: response.data?.data[i]?.wards,
+            }) :
+            comesFrom === 'taskpage' ? patientArray.push({
                 last_name: response.data?.data[i].patient?.last_name,
                 first_name: response.data?.data[i].patient?.first_name,
                 image: response.data?.data[i].patient?.image,

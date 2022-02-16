@@ -67,10 +67,15 @@ class Index extends Component {
             loading: false,
             LeftInfoPatient: {},
             openAllowAccess: false,
-            doctorsData: []
+            doctorsData: [],
+            doctorsData1: []
         };
     }
 
+    
+  handleCloseAllowAccess = () => {
+    this.setState({ openAllowAccess: false });
+  };
     componentDidMount = () => {
         if (this.props.location.search) {
             var data = this.props.location.search === '?view=4' ? 3 : this.props.location.search === '?view=5'? 4: 0;
@@ -106,15 +111,16 @@ class Index extends Component {
     }
 
     handleAllowAccess = async () => {
-        const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
-        const doctorsData = [];
-        // eslint-disable-next-line no-unused-expressions
-        await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
-          if (data.type === 'doctor') {
-            doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
-          }
-        });
-        this.setState({ openAllowAccess: true, doctorsData });
+        // const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
+        // const doctorsData = [], doctorsData1 = [];
+        // // eslint-disable-next-line no-unused-expressions
+        // await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
+        //   if (data.type === 'doctor') {
+        //     doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
+        //     doctorsData1.push(data)
+        //   }
+        // });
+        this.setState({ openAllowAccess: true, });
     };
 
     handleChangeTab = (event, value) => {
@@ -337,7 +343,7 @@ class Index extends Component {
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
-                                <ArrangeAppoint getTaskData={()=> this.MoveAppoint()} openAllowAccess={this.state.openAllowAccess} doctorsData={this.state.doctorsData} selectedPatient={this.state.selectedPatient}/>
+                                <ArrangeAppoint getTaskData={()=> this.MoveAppoint()} handleCloseAllowAccess={()=>{this.handleCloseAllowAccess()}} openAllowAccess={this.state.openAllowAccess} selectedPatient={this.state.selectedPatient} />
                                 <Grid container direction="row" className="mainMenuAllSec">
                                     {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
                                     {/* Start of Menu */}

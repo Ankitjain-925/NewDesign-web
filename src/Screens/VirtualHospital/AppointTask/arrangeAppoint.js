@@ -27,6 +27,8 @@ import Calendar2 from "react-calendar";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import SPECIALITY from "speciality";
 import { subspeciality } from "subspeciality.js";
+import { Button } from "@material-ui/core";
+import { getProfessionalData } from '../PatientFlow/data'
 import { getSpec } from "Screens/Components/BasicMethod/index";
 
 const CURRENT_DATE = moment().toDate();
@@ -80,19 +82,39 @@ class Index extends Component {
       selectDocData: {},
       selectedPatient: {},
       patNotSelected:false,
-      doctorsData: this.props.doctorsData
+      doctorsData: [],
+      plistfilter: false,
+      dlistfilter: false,
+      filterUser: [],
+      filterDocs: [],
+      selectSpec3: ''
     };
   }
 
   componentDidMount() {
     this.getPatientData();
+    this.getDoctorData();
+    this.specailityList();
+    this.getSpecialities();
   }
 
+  getDoctorData = async ()=> {
+   const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token, 'appoint')
+    const doctorsData = [], doctorsData1 = [];
+     // eslint-disable-next-line no-unused-expressions
+    professionals?.professionalArray?.length > 0 && professionals?.professionalArray.map(function (data) {
+      if (data.type === 'doctor') {
+        doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data._id}` })
+        doctorsData1.push(data);
+      }
+    })
+    this.setState({ doctorsData1: doctorsData1, doctorsData: doctorsData, filterDocs: doctorsData});
+  }
   //on adding new data
 componentDidUpdate = (prevProps) => {
-    if (prevProps.openAllowAccess !== this.props.openAllowAccess || prevProps.doctorsData !== this.props.doctorsData) {
+    if (prevProps.openAllowAccess !== this.props.openAllowAccess ) {
       this.getPatientData();
-      this.setState({ selectDocData: {}, selectedPatient: {}, openAllowAccess: this.props.openAllowAccess , doctorsData: this.props.doctorsData});
+      this.setState({ selectDocData: {}, selectedPatient: {}, openAllowAccess: this.props.openAllowAccess });
     }
 };
 
@@ -123,26 +145,6 @@ componentDidUpdate = (prevProps) => {
     }
   };
 
-  //get Add task data
-//   getTaskData = () => {
-//     var taskdata = [], appioinmentdata = [];
-//     this.setState({ loaderImage: true });
-//     axios
-//       .get(
-//         sitedata.data.path + "/vh/getAppointTask/" + this.props?.House?.value,
-//         commonHeader(this.props.stateLoginValueAim.token)
-//       )
-//       .then((response) => {
-//         if (response.data.hassuccessed) {
-//           this.showDataCalendar(response)
-//         }
-//         setTimeout(() => {
-//           this.setState({ loaderImage: false });
-//         }, 3000);
-//       })
-//   };
-
-
   //open fiter modal
   handleCloseFil = () => {
     this.setState({ openFil: false })
@@ -151,10 +153,10 @@ componentDidUpdate = (prevProps) => {
   // Get the Patient data
   getPatientData = async () => {
     this.setState({ loaderImage: true });
-    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
+    let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value, 'arrangeappoint')
     if (response.isdata) {
 
-      this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
+      this.setState({ users1: response.PatientList1, filterUser :response.PatientList1, users: response.patientArray }, () => {
         if (this.props?.match?.params?.id) {
           let user =
             this.state.users1.length > 0 &&
@@ -174,7 +176,6 @@ componentDidUpdate = (prevProps) => {
       this.setState({ loaderImage: false });
     }
   };
-
 
   //to get the speciality list
   specailityList = () => {
@@ -208,6 +209,32 @@ componentDidUpdate = (prevProps) => {
     this.setState({ selectSpec2: e, wardList: wards_data, allWards: wardsFullData })
   }
 
+  //On Changing the specialty id
+  onFieldChange3 = (e) => {
+    this.setState({ selectSpec3: e })
+  }
+
+  UpdateDocList = ()=>{
+    if(this.state.selectSpec3?.value){
+      var filterDocs = this.state.doctorsData1.map((item) =>{ 
+        var exstingOrnot =item?.speciality.some((iy)=> iy.value === this.state.selectSpec3.value)
+        if(exstingOrnot){
+          return item._id;
+        }
+      });
+      var doctorsData = this.state.doctorsData.filter((item)=>filterDocs.includes(item.value)) 
+      this.setState({filterDocs: doctorsData, dlistfilter: false })
+    }
+    else{
+      this.setState({ dlistfilter: false, filterDocs: this.state.doctorsData })
+    }
+  }
+
+  ClearDocList = ()=>{
+    this.setState({selectSpec3: '', dlistfilter: false, filterDocs: this.state.doctorsData})
+  }
+
+
   // ward Change
   onWardChange = (e) => {
     this.setState({ selectRoom: '' })
@@ -219,7 +246,26 @@ componentDidUpdate = (prevProps) => {
     let rooms = roomsData && roomsData.length > 0 && roomsData.map((item) => {
       return { label: item.room_name, value: item._id }
     })
-    this.setState({ selectWard: e, roomList: rooms })
+    this.setState({ selectWard: e })
+  }
+
+  UpdatePatientList = ()=>{
+    if(this.state.selectSpec2?.value && this.state.selectWard?.value ){
+      var filterUser1 = this.state.users.map((item) => {
+        if(item.speciality?._id === this.state.selectSpec2.value && item.wards?._id === this.state.selectWard.value){
+          return item.patient_id;
+        }
+      }).filter((item)=> item !== 'undefined')
+      var filterUser = this.state.users1.filter((item) => filterUser1.includes(item?.value))
+      this.setState({filterUser: filterUser, plistfilter: false })
+    }
+    else{
+      this.setState({filterUser: this.state.users1, plistfilter: false })
+    }
+  }
+
+  ClearPatientList = ()=>{
+    this.setState({filterUser: this.state.users1, plistfilter: false, wardList: [], selectSpec2: '', selectWard: ''})
   }
 
   //room cahnge
@@ -234,22 +280,10 @@ componentDidUpdate = (prevProps) => {
     })
   }
 
-//   handleAllowAccess = async () => {
-//     const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
-//     const doctorsData = [];
-//     // eslint-disable-next-line no-unused-expressions
-//     await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
-//       if (data.type === 'doctor') {
-//         doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
-//       }
-//     })
-
-//     this.getGeoLocation();
-//     this.setState({ openAllowAccess: true, doctorsData });
-//   };
 
   handleCloseAllowAccess = () => {
     this.setState({ openAllowAccess: false, selectDocData: {} });
+    this.props.handleCloseAllowAccess();
   };
 
   // find appointment by location or speciality
@@ -310,29 +344,6 @@ componentDidUpdate = (prevProps) => {
       });
     // }
   }
-
-//   getGeoLocation = () => {
-//     if (navigator.geolocation) {
-//       navigator.geolocation.getCurrentPosition((position) => {
-//         this.setState({ clat: parseFloat(position.coords.latitude) });
-//         this.setState({ clng: parseFloat(position.coords.longitude) });
-//         Geocode.setApiKey("AIzaSyCNLBs_RtZoI4jdrZg_CjBp9hEM6SBIh-4");
-//         Geocode.enableDebug();
-//         Geocode.fromLatLng(
-//           position.coords.latitude,
-//           position.coords.longitude
-//         ).then(
-//           (response) => {
-//             const address = response.results[0].formatted_address;
-//             this.setState({ MycurrentLocationName: address });
-//           },
-//           (error) => {
-//             console.error(error);
-//           }
-//         );
-//       });
-//     }
-//   };
 
   handleOpenFancyVdo = (i, type, data) => {
     this.setState({
@@ -475,7 +486,6 @@ componentDidUpdate = (prevProps) => {
 
   //For patient Info..
   patientinfo(user_id) {
-    console.log('fddsfdsf', user_id)
     var user_token = this.props.stateLoginValueAim.token;
     axios
       .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
@@ -485,7 +495,6 @@ componentDidUpdate = (prevProps) => {
   }
 
   bookAppointment = () => {
-    console.log('personalinfo', this.state.personalinfo)
     var insurance_no =
       this.state.personalinfo?.insurance &&
         this.state.personalinfo?.insurance.length > 0 &&
@@ -705,6 +714,7 @@ componentDidUpdate = (prevProps) => {
         <>
     {this.state.loaderImage && <Loader />}
                 {/* Allow Location Access */}
+             
                 <Modal
                   open={this.state.openAllowAccess}
                   onClose={this.handleCloseAllowAccess}
@@ -724,30 +734,90 @@ componentDidUpdate = (prevProps) => {
                           <img src={require("assets/images/close-search.svg")} alt="" title="" />
                         </a>
                       </div>
-                      <Grid container direction="row" spacing={2} className="srchAccessLoc">
-                        <Grid item xs={12} md={4}>
-                          <label>{Patient}</label>
+                      <Grid container direction="row" spacing={2}  className="srchAccessLoc">
+                        <Grid item xs={12} md={4}  className="filterPatlist">
+                        {this.state.plistfilter && (
+                          <div className="filterPatlistInner">
+                            <Grid>
+                                  <label>{speciality}</label>
+                                  <Grid className="addInput">
+                                    <Select
+                                      onChange={(e) => this.onFieldChange2(e)}
+                                      options={this.state.specilaityList}
+                                      name="specialty_name"
+                                      value={this.state.selectSpec2}
+                                      placeholder={FilterbySpeciality}
+                                      className="addStafSelect"
+                                      isMulti={false}
+                                      isSearchable={true} />
+                                  </Grid>
+                            </Grid>
+                            {this.state.wardList && this.state.wardList.length > 0 &&
+                              <Grid>
+                                <label>{Ward}</label>
+                                <Grid className="addInput">
+                                  <Select
+                                    onChange={(e) => this.onWardChange(e)}
+                                    options={this.state.wardList}
+                                    name="ward_name"
+                                    value={this.state.selectWard}
+                                    placeholder={FilterbyWard}
+                                    isMulti={false}
+                                    isSearchable={true} />
+                                </Grid>
+                              </Grid>
+                            }
+                            <Button onClick={this.UpdatePatientList}>{"Ok"}</Button>
+                            <Button onClick={this.ClearPatientList}>{"Cancel"}</Button>
+                          </div>)}
+                          <label>{Patient}
+                              <img src={(this.state.selectSpec2 && this.state.selectWard) ? require("assets/virtual_images/sort-active.png") :require("assets/virtual_images/sort.png")} alt="" title="" onClick={()=>{this.setState({plistfilter: true})}} />
+                          </label>
                           <Grid>
                             <Select
                               name="patient"
-                              options={this.state.users1}
+                              options={this.state.filterUser}
                               placeholder={Search_Select}
                               onChange={(e) => this.selectPatient(e)}
                               value={selectedPatient || ''}
                               className="addStafSelect"
                               isMulti={false}
                               isSearchable={true} />
+                              
                           </Grid>
                         </Grid>
-                        <Grid item xs={12} md={3}>
-                          <Grid><label>{capab_Doctors}</label></Grid>
+                        <Grid item xs={12} md={3} className="filterPatlist">
+                        {this.state.dlistfilter && (
+                          <div className="filterPatlistInner">
+                            <Grid>
+                                  <label>{speciality}</label>
+                                  <Grid className="addInput">
+                                    <Select
+                                      onChange={(e) => this.onFieldChange3(e)}
+                                      options={this.state.specialityData}
+                                      name="specialty_name"
+                                      value={this.state.selectSpec3}
+                                      placeholder={FilterbySpeciality}
+                                      className="addStafSelect"
+                                      isMulti={false}
+                                      isSearchable={true} />
+                                  </Grid>
+                            </Grid>
+                            <Button onClick={this.UpdateDocList}>{"Ok"}</Button>
+                            <Button onClick={this.ClearDocList}>{"Cancel"}</Button>
+                          </div>)}
+                          <label>{capab_Doctors}
+                          <img src={(this.state.selectSpec3) ? require("assets/virtual_images/sort-active.png") :require("assets/virtual_images/sort.png")} alt="" title="" onClick={()=>{this.setState({dlistfilter: true})}} />
+                          </label>
+                          <Grid>
                           <Select
                             value={selectDocData || ''}
                             onChange={this.handleDocSelect}
-                            options={doctorsData}
+                            options={this.state.filterDocs}
                             placeholder={`${select} ${capab_Doctors}`}
                             className="sel_specialty"
                           />
+                          </Grid>
                         </Grid>
                         {/* <Grid item xs={12} md={3} className="apointType">
                           <Grid>

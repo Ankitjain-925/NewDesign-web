@@ -94,7 +94,8 @@ class Index extends Component {
       TasksCss: '',
       selectDocData: {},
       selectedPatient: {},
-      patNotSelected: false
+      patNotSelected: false,
+      doctorsData1: []
     };
   }
 
@@ -589,17 +590,18 @@ class Index extends Component {
   }
 
   handleAllowAccess = async () => {
-    const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
-    const doctorsData = [];
-    // eslint-disable-next-line no-unused-expressions
-    await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
-      if (data.type === 'doctor') {
-        doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
-      }
-    })
+    // const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
+    // const doctorsData = [], doctorsData1 = [];
+    // // eslint-disable-next-line no-unused-expressions
+    // await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
+    //   if (data.type === 'doctor') {
+    //     doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
+    //     doctorsData1.push(data);
+    //   }
+    // })
 
-    this.getGeoLocation();
-    this.setState({ openAllowAccess: true, doctorsData });
+    // this.getGeoLocation();
+    this.setState({ openAllowAccess: true});
   };
 
   handleCloseAllowAccess = () => {
@@ -633,6 +635,7 @@ class Index extends Component {
   }
 
   applyfilterOndata = (data, isSave) =>{
+    this.setState({loaderImage: true})
     axios.post(
       sitedata.data.path + "/vh/CalenderFilter",
       data,
@@ -646,6 +649,7 @@ class Index extends Component {
           this.showDataCalendar(responce)
           this.setState({ TasksCss: 'filterApply', loaderImage: false, openFil: false });
         }
+        this.setState({loaderImage: false})
       })
       .catch((error) => {
         this.setState({ loaderImage: false, TasksCss: '' });
@@ -1460,7 +1464,7 @@ class Index extends Component {
                   </Grid>
                 </Modal>
                 {/* End of {cancel_apointmnt} */}
-                <ArrangeAppoint getTaskData={() => this.getTaskData()} openAllowAccess={this.state.openAllowAccess} doctorsData={this.state.doctorsData} />
+                <ArrangeAppoint getTaskData={() => this.getTaskData()} handleCloseAllowAccess={()=>{ this.handleCloseAllowAccess()}} openAllowAccess={this.state.openAllowAccess} />
                 {/* End of Video Model */}
 
               </Grid>
