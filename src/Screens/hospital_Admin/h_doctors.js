@@ -83,7 +83,6 @@ class Index extends Component {
                                     value: item.house_id
                                 })
                                 this.setState({ Housesoptions: Housesoptions });
-
                             })
                         })
                     }
@@ -134,31 +133,34 @@ class Index extends Component {
 
     }
 
-    getDoctors = () => {
-        let {currentPage, type} = this.state
+    getDoctors = (check) => {
+        let { currentPage, type } = this.state
         var user_token = this.props.stateLoginValueAim.token;
-        this.setState({loaderImage : true})
-         let res= allusers(currentPage,user_token,type, this.props.stateLoginValueAim.user.institute_id)
-         res.then((res) => {
-           var images = [];
-           const AllPatient = res.data && res.data.data && res.data.data;
-           this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
-           AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
-               var find = item && item.image && item.image
-               if (find) {
-                   var find1 = find.split('.com/')[1]
-                   axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                   .then((response2) => {
-                       if (response2.data.hassuccessed) {
-                           item.new_image = response2.data.data
-                           images.push({ image: find, new_image: response2.data.data })
-                           this.setState({ images: images })
-                       }
-                   })
-               }
-           })
-           this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
-       })
+        this.setState({ loaderImage: true })
+        let res = allusers(currentPage, user_token, type, this.props.stateLoginValueAim.user.institute_id)
+        res.then((res) => {
+            var images = [];
+            const AllPatient = res.data && res.data.data && res.data.data;
+            this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
+            AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+                var find = item && item.image && item.image
+                if (find) {
+                    var find1 = find.split('.com/')[1]
+                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                        .then((response2) => {
+                            if (response2.data.hassuccessed) {
+                                item.new_image = response2.data.data
+                                images.push({ image: find, new_image: response2.data.data })
+                                this.setState({ images: images })
+                                if (check == true) {
+                                    this.assignHouse(item);
+                                }
+                            }
+                        })
+                }
+            })
+            this.setState({ loaderImage: false, totalPage: Math.ceil(res.data.Total_count / 20), MypatientsData: this.state.AllPatient, TotalCount: res.data.Total_count })
+        })
         // var user_token = this.props.stateLoginValueAim.token;
         // axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
         //     + '/doctor/1'
@@ -257,7 +259,7 @@ class Index extends Component {
 
     onChangePage = (pageNumber) => {
         this.setState({ currentPage: pageNumber },
-            ()=>{
+            () => {
                 this.getDoctors();
             })
     }
@@ -289,11 +291,12 @@ class Index extends Component {
                 .then((responce) => {
                     if (responce.data.hassuccessed) {
                         this.setState({ assignedhouse: true, blankerror: false, house: {} })
+                        this.getallGroups();
+                        this.getDoctors(true);
                         setTimeout(() => {
                             this.setState({ assignedhouse: false, openHouse: false, house: {} })
-                        }, 5000)
-                        this.getallGroups();
-                        this.getDoctors();
+                        }, 8000)
+
                     }
                     // else {
                     //     this.setState({ alredyExist: true })
@@ -314,7 +317,7 @@ class Index extends Component {
         // /assignedHouse/:
     }
 
-    deleteHouse = (deleteId) => {
+    deleteHouse = (deleteId, items) => {
         var userid = this.state.current_user._id;
         this.setState({ loaderImage: true });
         axios
@@ -324,13 +327,14 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
+                console.log("response", responce)
                 if (responce.data.hassuccessed) {
                     this.setState({ deleteHouses: true })
                     setTimeout(() => {
                         this.setState({ deleteHouses: false, openHouse: false })
                     }, 5000)
                     this.getallGroups();
-                    this.getDoctors();
+                    this.getDoctors(true);
                 }
                 this.setState({ loaderImage: false });
             });
@@ -416,7 +420,7 @@ class Index extends Component {
                                                             <Td style={{ minWidth: "100px" }}><span className="revwRed"></span>{Blocked}</Td >
                                                             : <Td><span className="revwGren"></span>{Normal}</Td>
                                                         }
-                                                           <Td className="billDots">
+                                                        <Td className="billDots">
                                                             <a className="academy_ul">
                                                                 <InfoIcon className="infoIconCol" />
                                                                 <ul className="listBullets">
@@ -468,7 +472,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                    <Pagination from="userlist" totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                                        <Pagination from="userlist" totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                                                     </Grid>}
                                                 </Grid>
                                             </Grid>
