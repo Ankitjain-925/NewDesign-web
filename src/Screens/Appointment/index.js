@@ -81,7 +81,7 @@ class Index extends Component {
                                                         <ul>
                                                             <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
                                                             <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                                            <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                                            <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />AIS Online Courses</a></li>
                                                             <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
                                                             <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
                                                             <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
