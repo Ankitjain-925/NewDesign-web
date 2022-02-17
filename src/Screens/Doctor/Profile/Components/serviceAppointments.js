@@ -1282,7 +1282,7 @@ class Index extends Component {
                     <Grid>
                       <label>{appointment_system}</label>
                     </Grid>
-                    <p>{offer_practice_online_appointment} Aimedis</p>
+                    <p>{offer_practice_online_appointment} AIS</p>
                   </Grid>
                 </Grid>
                 <Grid className="onlinSickVdo">

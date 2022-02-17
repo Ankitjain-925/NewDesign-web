@@ -24,7 +24,7 @@ class Index extends Component {
       ur_helthcare_on_blockchain,
       we_hv_prpared_short_introductry,
       entry_example,
-      u_get_from_aimedis,
+      u_get_from_AIS,
       example_entry_of_journal_timline_etc,
       to,
     } = translate;
@@ -33,15 +33,15 @@ class Index extends Component {
       <div>
         <Grid container direction="row">
           <Grid item xs={11} md={11} className="descpCntntRght">
-            <Grid className="welAimedis">
+            <Grid className="welAIS">
               <Grid>
                 <h1>
-                  {welcome} {to} Aimedis
+                  {welcome} {to} AIS
                 </h1>
                 <p>{ur_helthcare_on_blockchain}</p>
                 <h2>
                   {we_hv_prpared_short_introductry} <br />
-                  {u_get_from_aimedis}
+                  {u_get_from_AIS}
                 </h2>
               </Grid>
               <Grid className="welVideo">
@@ -122,7 +122,7 @@ class Index extends Component {
                         alt=""
                         title=""
                       />
-                      <span>Aimedis {team}</span>
+                      <span>AIS {team}</span>
                     </a>
                   </Grid>
                 </Grid>
