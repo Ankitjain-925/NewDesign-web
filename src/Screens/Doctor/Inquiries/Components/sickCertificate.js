@@ -155,7 +155,7 @@ class Index extends Component {
               ? responce.data.message
               : responce.data.msg,
           });
-          if (responce.data.hassuccessed) this.setState({ saveAttach: true });
+          if (responce.data.hassuccessed) this.setState({ saveAttach: true, });
           setTimeout(
             function () {
               this.setState({ saveAttach: false, serverMsg: "" });

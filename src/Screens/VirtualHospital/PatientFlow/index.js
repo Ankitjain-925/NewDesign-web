@@ -37,8 +37,6 @@ import _ from "lodash";
 import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
-import QrReader from 'react-qr-reader'
-import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -71,35 +69,13 @@ class Index extends Component {
       assignedTo2: '',
       allWards: '',
       filteredData: '',
-      result: 'No result',
-      enableEmail: "scan"
+
     };
   }
   static defaultProps = {
     isCombineEnabled: false,
   };
   boardRef;
-
-
-  handleScan = data => {
-    if (data) {
-      this.setState({
-        result: data
-      })
-    }
-  }
-
-  handleError = err => {
-    console.error(err)
-  }
-
-  handleEnableEmail = (value) => {
-    this.setState({ enableEmail: value })
-  }
-
-  // handleScanSubmit = () => {
-  //   console.log("result", this.state.result);
-  // }
 
   handleOpenPopup = () => {
     this.setState({ openPopup: true })
@@ -210,8 +186,8 @@ class Index extends Component {
         }
         return last;
       }, []);
-
-    data = data ? data : [];
+    
+    data  = data ? data : [];
     this.setState({ loaderImage: true });
     var response = setAssignedTo(
       data,
@@ -327,7 +303,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false, SelectedStep: '', result: 'No result',enableEmail: "scan" });
+    this.setState({ openAddP: false, SelectedStep: '' });
   };
 
   // Set patient and status data
@@ -345,7 +321,7 @@ class Index extends Component {
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
-
+  
     var index = index;
     if (state[index]?.case_numbers?.length > 0) {
       let translate = getLanguage(this.props.stateLanguageType);
@@ -418,26 +394,26 @@ class Index extends Component {
   };
 
   DeleteStepOk = (state, index) => {
-    var yt = state[index]?.case_numbers.map((item) => {
-      return item._id;
-    })
-    this.setState({ loaderImage: true })
-    axios
+      var yt = state[index]?.case_numbers.map((item) => {
+        return item._id;
+      })
+      this.setState({loaderImage: true})
+      axios
       .post(
         sitedata.data.path + "/vh/setCasenotInhospital",
-        { case_id: yt },
+        {case_id: yt},
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-          this.setState({ loaderImage: false })
+          this.setState({loaderImage: false})
           state.splice(index, 1);
           this.setDta(state);
           this.CallApi();
           this.GetStep();
         }
-        else {
-          this.setState({ loaderImage: false })
+        else{
+          this.setState({loaderImage: false})
         }
       });
   }
@@ -638,7 +614,7 @@ class Index extends Component {
   newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
-
+  
   filterResult = () => {
     let { selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData } = this.state
     var data = _.cloneDeep(actualData);
@@ -1112,97 +1088,66 @@ class Index extends Component {
                 </Grid>
                 <label>{AddPatienttoFlow}</label>
               </Grid>
-
               <Grid className="patentInfo">
-                {this.state.enableEmail == "email" &&
-                  <Grid className="patentInfoBtn pateintInfoUser">
-                    <VHfield
-                      label="Patient Email"
-                      name="patient"
-                      placeholder="Enter Email"
-                    // onChange={(e) =>this.updateEntryState1(e, "question", 0)}
-                    // value={this.state.myQuestions[0]?.question}
-                    />
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr scanner</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Use other details</li>
-                    </ul>
-                    <Grid className="patentInfoBtn">
-                      <Button onClick={this.AddCase}>Submit</Button>
-                    </Grid>
-                  </Grid>
-                }
-                {this.state.enableEmail == "scan" &&
-                  <Grid className="patentInfoBtn pateintInfoUser">
-                    <QrReader
-                      delay={300}
-                      onError={this.handleError}
-                      onScan={this.handleScan}
-                      style={{ width: '100%' }}
-                    />
-                    <p>{this.state.result}</p>
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("email")}>Don't have Qr Code then use email</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Don't have both Qr Code and use email then use other details</li>
-                    </ul>
-                    <Grid className="patentInfoBtn">
-                      <Button onClick={this.handleScanSubmit}>Submit</Button>
-                    </Grid>
-                  </Grid>
+                {this.state.caseAlready && (
+                  <div className="err_message">
+                    {case_already_exists_in_hospital}
+                  </div>
+                )}
+                {this.state.inOtherAlready && (
+                  <div className="err_message">
+                    {case_already_exists_in_other_hospital} <b>{this.state.alreadyData?.house?.house_name}</b> {ofInstitution}<b>{this.state.alreadyData?.institute_groups?.group_name}</b>
+                  </div>
+                )}
 
-                }
-
-                {this.state.enableEmail == "other" &&
+                {this.state.idpinerror && (
+                  <div className="err_message">{id_and_pin_not_correct}</div>
+                )}
+                <p className="err_message">{this.state.errorMsg}</p>
+                <Grid className="patentInfoTxt">
                   <Grid>
-                    <Grid className="patentInfoTxt">
-                      <Grid>
-                        <label>First name</label>
-                      </Grid>
-                      <TextField
-                        name="first_name"
-                      // value={this.state.addp.patient_id}
-                      // onChange={this.changeAddp}
-                      />
-                    </Grid>
-                    <Grid className="patentInfoTxt">
-                      <Grid>
-                        <label>Last name</label>
-                      </Grid>
-                      <TextField
-                        name="last_name"
-                      // value={this.state.addp.pin}
-                      // onChange={this.changeAddp}
-                      />
-                    </Grid>
-                    <Grid className="patentInfoTxt">
-                      <Grid>
-                        <label>Birthday</label>
-                      </Grid>
-                      <TextField
-                        name="birthday"
-                      // value={this.state.case.case_number}
-                      // onChange={this.onChangeCase}
-                      />
-                    </Grid>
-                    <Grid className="patentInfoTxt">
-                      <Grid>
-                        <label>Mobile number</label>
-                      </Grid>
-                      <TextField
-                        name="mobile_number"
-                      // value={this.state.case.case_number}
-                      // onChange={this.onChangeCase}
-                      />
-                    </Grid>
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("email")}>Use email</li>
-                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr Scanner</li>
-                    </ul>
-                    <Grid className="patentInfoBtn">
-                      <Button onClick={this.AddCase}>Submit</Button>
-                    </Grid>
-
-                  </Grid>}
+                    <label>{PatientID}</label>
+                  </Grid>
+                  <TextField
+                    name="patient_id"
+                    value={this.state.addp.patient_id}
+                    onChange={this.changeAddp}
+                  />
+                </Grid>
+                <Grid className="patentInfoTxt">
+                  <Grid>
+                    <label>{PatientPIN}</label>
+                  </Grid>
+                  <TextField
+                    name="pin"
+                    value={this.state.addp.pin}
+                    onChange={this.changeAddp}
+                  />
+                </Grid>
+                <Grid className="patentInfoTxt">
+                  <Grid>
+                    <label>{CaseNumber}</label>
+                  </Grid>
+                  <TextField
+                    name="case_number"
+                    value={this.state.case.case_number}
+                    onChange={this.onChangeCase}
+                  />
+                </Grid>
+                <label>{step_name}</label>
+                <Grid className="patentInfoTxt">
+                  <Select
+                    value={SelectedStep}
+                    onChange={this.onSelectingStep}
+                    options={StepNameList}
+                    placeholder={SelectStepName}
+                    className="allSpeces"
+                    isSearchable={false}
+                  />
+                </Grid>
+                <Grid className="patentInfoBtn">
+                  <Button onClick={this.AddCase}>{add_patient_to_flow}</Button>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -1236,15 +1181,15 @@ class Index extends Component {
                   </Grid>
                   <label>{add_step}</label>
                 </Grid>
-              </Grid>
-              <Grid className="enterWrnUpr">
-                <Grid className="enterWrnMain">
-                  <p className='err_message'>{this.state.stepError}</p>
-                  <Grid className="buttonStyle fltrInput">
-                    <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
-                      onChange={this.handleName} type="text" />
-                    <a color="primary" onClick={this.OnAdd}>{Add}</a>
-                  </Grid>
+                </Grid>
+                <Grid className="enterWrnUpr">
+                  <Grid className="enterWrnMain">
+                <p className='err_message'>{this.state.stepError}</p>
+                <Grid className="buttonStyle fltrInput">
+                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
+                    onChange={this.handleName} type="text" />
+                  <a color="primary" onClick={this.OnAdd}>{Add}</a>
+                </Grid>
                 </Grid>
               </Grid>
             </Grid>

@@ -156,7 +156,7 @@ class Index extends Component {
       })
       let CurrentSpec = {value: specialityList?.[0]?._id, label: specialityList?.[0]?.specialty_name}
       let getCurrentWard = wards_data && wards_data.length > 0 && wards_data.filter((item) => item && item.value === data.ward_id)
-      let check = {open : data?.status.includes('open') ? true: false , done : data?.status.includes('done') ? true: false }
+      let check = {open : data?.status?.includes('open') ? true: false , done : data?.status?.includes('done') ? true: false }
       let tabvalue = data?.filter === 'Appointment' ? 1 : data?.filter === 'Task' ? 2 : 0;
       this.setState({ selectSpec2: CurrentSpec, wardList: wards_data, allWards: wardsFullData, selectWard: getCurrentWard?.[0] , check: check, tabvalue: tabvalue})
     }
@@ -1516,9 +1516,6 @@ export default withRouter(
     authy,
     houseSelect,
     Speciality,
-  })(
-    GoogleApiWrapper({
-      apiKey: "AIzaSyCNLBs_RtZoI4jdrZg_CjBp9hEM6SBIh-4",
-    })(Index)
+  })((Index)
   )
 );

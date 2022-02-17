@@ -567,11 +567,11 @@ componentDidUpdate = (prevProps) => {
           if (responce.data.hassuccessed === true) {
             this.setState({
               successfull: true,
-              openAllowAccess: false,
               openAllowLoc: false,
               openFancyVdo: false,
               currentSelected: {},
             });
+            this.props.handleCloseAllowAccess();
             this.props.getTaskData();
             this.getPatientData();
             setTimeout(
@@ -1431,9 +1431,6 @@ export default withRouter(
     authy,
     houseSelect,
     Speciality,
-  })(
-    GoogleApiWrapper({
-      apiKey: "AIzaSyCNLBs_RtZoI4jdrZg_CjBp9hEM6SBIh-4",
-    })(Index)
+  })((Index)
   )
 );

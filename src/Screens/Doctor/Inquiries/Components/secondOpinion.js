@@ -46,7 +46,6 @@ class Index extends Component {
       inqstatus: null,
       message: "",
       fileattach: [],
-      uploadedimage: "",
       success: false,
       send_to_timeline: false,
     };
@@ -158,9 +157,11 @@ class Index extends Component {
       this.setState({ send_to_timeline: true });
     }
     this.setState({ serverMsg: "", saveAttach: false });
-    if (this.state.uploadedimage == "") {
-      this.setState({ serverMsg: "please upload documents" });
-    } else {
+    // if (this.state.uploadedimage == "") {
+    //   this.setState({ serverMsg: "please upload documents" });
+    // } else {
+      if(typeof this.state.uploadedimage === "object"){
+        console.log('fgdfgdfgdfgfdg4444')
       this.setState({ loaderImage: true });
       const user_token = this.props.stateLoginValueAim.token;
       axios
@@ -178,7 +179,7 @@ class Index extends Component {
               ? responce.data.message
               : responce.data.msg,
           });
-          if (responce.data.hassuccessed) this.setState({ saveAttach: true });
+          if (responce.data.hassuccessed) this.setState({ saveAttach: true , uploadedimage: ""});
           setTimeout(
             function () {
               this.setState({ saveAttach: false, serverMsg: "" });
@@ -187,6 +188,9 @@ class Index extends Component {
           );
           this.setState({ loaderImage: false });
         });
+    }
+    else{
+      send();
     }
   };
   UploadFile = (event, patient_profile_id, bucket, id) => {
@@ -336,6 +340,7 @@ class Index extends Component {
       this.UpdatetheStatus(status, id);
     }
   };
+
   UpdatetheStatus = (status, id) => {
     let user_token = this.props.stateLoginValueAim.token;
     const { message } = this.state;
@@ -347,7 +352,7 @@ class Index extends Component {
           doctor_name:
             this.props.myData.first_name + " " + this.props.myData.last_name,
           short_msg: message,
-          attachfile: [this.state.uploadedimage],
+          // attachfile: [this.state.uploadedimage],
           type: "second_opinion",
           send_to_timeline: true,
         },

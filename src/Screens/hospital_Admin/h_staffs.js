@@ -221,7 +221,7 @@ class Index extends Component {
   //     .catch((error) => { });
   // }
 
-  getAdminstaff() {
+  getAdminstaff =(currentID) => {
     let {currentPage, type} = this.state
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({loaderImage : true})
@@ -244,6 +244,10 @@ class Index extends Component {
                })
            }
        })
+       if(currentID){
+        var current_user = AllPatient?.length>0 && AllPatient.filter((item)=> item._id === currentID)
+        this.setState({current_user : current_user?.[0]})
+       }
        this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
    })
     // var user_token = this.props.stateLoginValueAim.token;
@@ -378,7 +382,7 @@ class Index extends Component {
           if (responce.data.hassuccessed) {
             this.setState({ assignedhouse: true, blankerror: false, house: {} })
             setTimeout(() => {
-              this.setState({ assignedhouse: false, openHouse: false, house: {} })
+              this.setState({ assignedhouse: false, house: {} })
             }, 5000)
             this.getallGroups();
             this.getAdminstaff(this.state.current_user._id);
@@ -414,7 +418,7 @@ class Index extends Component {
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true })
           setTimeout(() => {
-            this.setState({ deleteHouses: false, openHouse: false })
+            this.setState({ deleteHouses: false, })
           }, 5000)
           this.getallGroups();
           this.getAdminstaff(this.state.current_user._id);
