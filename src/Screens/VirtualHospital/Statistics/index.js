@@ -16,10 +16,7 @@ import { commonHeader, } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
-import {
-    getLanguage
-} from "translations/index"
-
+import { getLanguage } from "translations/index"
 
 function TabContainer(props) {
     return (
@@ -43,8 +40,6 @@ class Index extends Component {
             patientflow_data: [],
             Statistics: {},
             rightinfo: [],
-
-
         }
     };
     handleChangeTab = (event, tabvalue) => {
@@ -59,32 +54,32 @@ class Index extends Component {
     getStatistics = () => {
         this.setState({ loaderImage: true });
         axios
-            .get(
-                sitedata.data.path + "/vh/statisticstopinfo/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    this.setState({ Statistics: response.data.data });
-                }
-                this.setState({ loaderImage: false });
-            });
+        .get(
+            sitedata.data.path + "/vh/statisticstopinfo/" + this.props?.House?.value,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+            if (response.data.hassuccessed) {
+                this.setState({ Statistics: response.data.data });
+            }
+            this.setState({ loaderImage: false });
+        });
     }
 
     getrightinfo = () => {
         this.setState({ loaderImage: true });
         axios
-            .get(
-                sitedata.data.path + "/vh/stasticsrightinfo/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    var finalData = response.data.data && response.data.data.length > 0 && response.data.data.filter((item) => item.step_name)
-                    this.setState({ patientflow_data: finalData });
-                }
-                this.setState({ loaderImage: false });
-            });
+        .get(
+            sitedata.data.path + "/vh/stasticsrightinfo/" + this.props?.House?.value,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+            if (response.data.hassuccessed) {
+                var finalData = response.data.data && response.data.data.length > 0 && response.data.data.filter((item) => item.step_name)
+                this.setState({ patientflow_data: finalData });
+            }
+            this.setState({ loaderImage: false });
+        });
     }
 
     render() {

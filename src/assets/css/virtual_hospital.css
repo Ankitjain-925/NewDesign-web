@@ -7682,7 +7682,7 @@ a.horzSort2 {
     padding: 10px 14px;
 }
 .aplyRght {
-    text-align: right;
+    /* text-align: right; */
 }
 .pantNames li:hover {
     background-color: #E1F7F7 !important;
@@ -8639,6 +8639,12 @@ img.sendDropImg {
     line-height: 24px;
     margin-top: 20px;
     margin-bottom: 25px;
+}
+.headercont{
+    background-color:white;
+    padding:15px 60px;
+    border-radius: 20px;
+    margin-left: 20px;
 }
 .dischargeInfo label {
     color: #000808;
@@ -9924,7 +9930,61 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
-.tskTabsMob header{
+.filterPatlist {
+ position: relative;   
+}
+.filterPatlist img{
+    width:12px;
+    margin-left:7px;
+}
+.darkTheme .filterPatlistInner{
+    background: #3f4141;
+}
+.filterPatlistInner {
+    position: absolute;
+    width: 244px;
+    background: #e7e5e5;
+    padding: 15px;
+    top: 18px;
+    left: 65px;
+    z-index: 9999999;
+    border-radius: 5px;
+}
+.alowLocAces1 .addStafSelect {
+    z-index: 999999 !important;
+}
+.alowLocAces1 .alowLocAces1Inner{
+    height: 100%;
+}
+.darkTheme .alowLocAces1{
+	background-color: #404646 !important;
+}
+@media (max-width: 959px){
+    .alowLocAces1 {
+        width: 96% !important;
+    }
+}
+@media (max-width: 599px){ 
+    .alowLocAces1 .srchAccessLoc{
+        overflow-y: auto;
+    }
+}
+.alowLocAces1 {
+    width: 945px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+    padding: 0px 2px 6px 2px;
+}
+.alowLocAces1.\32 2 .srchKm:after {
+    bottom: 29px;
+}
+.darkTheme .tskTabsMob header{
     color: #fff;
     background-color: #192020 !important;
 }
@@ -10010,7 +10070,7 @@ button.crdoLghtBlu2 {
     width:100%;
 }
 .quote-list{
-    min-height:50px;
+    min-height:10px;
 }
 .innerdivfordrag{
     margin: 8px;
@@ -13721,3 +13781,6 @@ border-style: solid;
     background-color: #404646;
 }
 
+.assiHospDet{
+    margin-bottom: 5px;
+}

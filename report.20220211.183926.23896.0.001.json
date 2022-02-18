@@ -4,10 +4,10 @@
     "reportVersion": 1,
     "event": "Allocation failed - JavaScript heap out of memory",
     "trigger": "FatalError",
-    "filename": "report.20220131.181237.18580.0.001.json",
-    "dumpEventTime": "2022-01-31T18:12:37Z",
-    "dumpEventTimeStamp": "1643632957684",
-    "processId": 18580,
+    "filename": "report.20220211.183926.23896.0.001.json",
+    "dumpEventTime": "2022-02-11T18:39:26Z",
+    "dumpEventTimeStamp": "1644584966502",
+    "processId": 23896,
     "cwd": "D:\\ankita\\2021\\GitSection\\Aimedis\\virtualhos-master",
     "commandLine": [
       "node",
@@ -50,74 +50,74 @@
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 14036687,
+        "user": 46033687,
         "nice": 0,
-        "sys": 14781906,
-        "idle": 140052078,
-        "irq": 2808687
+        "sys": 48796187,
+        "idle": 369517703,
+        "irq": 8952718
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 13642218,
+        "user": 45353234,
         "nice": 0,
-        "sys": 11687468,
-        "idle": 143540781,
-        "irq": 1103937
+        "sys": 39188109,
+        "idle": 379806046,
+        "irq": 3517921
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 15344750,
+        "user": 51182468,
         "nice": 0,
-        "sys": 10671750,
-        "idle": 142853968,
-        "irq": 1011703
+        "sys": 35537359,
+        "idle": 377627562,
+        "irq": 3390281
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 12579187,
+        "user": 42856359,
         "nice": 0,
-        "sys": 8204203,
-        "idle": 148087078,
-        "irq": 718031
+        "sys": 28286984,
+        "idle": 393204046,
+        "irq": 2353984
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 12323312,
+        "user": 41648046,
         "nice": 0,
-        "sys": 8576125,
-        "idle": 147971031,
-        "irq": 556375
+        "sys": 29254859,
+        "idle": 393444484,
+        "irq": 1867390
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 10731125,
+        "user": 37067937,
         "nice": 0,
-        "sys": 6915468,
-        "idle": 151223875,
-        "irq": 334906
+        "sys": 24224250,
+        "idle": 403055203,
+        "irq": 1146359
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 11941875,
+        "user": 40837421,
         "nice": 0,
-        "sys": 7661234,
-        "idle": 149267359,
-        "irq": 498812
+        "sys": 26132875,
+        "idle": 397377078,
+        "irq": 1651296
       },
       {
         "model": "Intel(R) Core(TM) i5-1035G4 CPU @ 1.10GHz",
         "speed": 1498,
-        "user": 11049281,
+        "user": 38336234,
         "nice": 0,
-        "sys": 6391031,
-        "idle": 151430156,
-        "irq": 245609
+        "sys": 22384328,
+        "idle": 403626828,
+        "irq": 885046
       }
     ],
     "networkInterfaces": [
@@ -125,7 +125,7 @@
         "name": "Wi-Fi",
         "internal": false,
         "mac": "c8:09:a8:e9:88:c9",
-        "address": "2401:4900:30d9:cda3:6c2f:2b13:eb2c:a4ab",
+        "address": "2401:4900:30d5:f25:6c2f:2b13:eb2c:a4ab",
         "netmask": "ffff:ffff:ffff:ffff::",
         "family": "IPv6",
         "scopeid": 0
@@ -134,7 +134,7 @@
         "name": "Wi-Fi",
         "internal": false,
         "mac": "c8:09:a8:e9:88:c9",
-        "address": "2401:4900:30d9:cda3:403f:8283:5b93:df33",
+        "address": "2401:4900:30d5:f25:b194:7ff0:e5ed:df57",
         "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
         "family": "IPv6",
         "scopeid": 0
@@ -184,71 +184,75 @@
   },
   "nativeStack": [
     {
-      "pc": "0x00007ff7e8de19f9",
+      "pc": "0x00007ff74ea019f9",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
     },
     {
-      "pc": "0x00007ff7e8de5e1c",
+      "pc": "0x00007ff74ea05e1c",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28316"
     },
     {
-      "pc": "0x00007ff7e8de4dd8",
+      "pc": "0x00007ff74ea04dd8",
       "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+24152"
     },
     {
-      "pc": "0x00007ff7e8ee34cb",
+      "pc": "0x00007ff74eb034cb",
       "symbol": "v8::base::CPU::has_sse+38363"
     },
     {
-      "pc": "0x00007ff7e96f9f4e",
+      "pc": "0x00007ff74f319f4e",
       "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
     },
     {
-      "pc": "0x00007ff7e96e2021",
+      "pc": "0x00007ff74f302021",
       "symbol": "v8::SharedArrayBuffer::Externalize+833"
     },
     {
-      "pc": "0x00007ff7e95ae57c",
+      "pc": "0x00007ff74f1ce57c",
       "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
     },
     {
-      "pc": "0x00007ff7e95b97d0",
+      "pc": "0x00007ff74f1d97d0",
       "symbol": "v8::internal::Heap::ProtectUnprotectedMemoryChunks+1312"
     },
     {
-      "pc": "0x00007ff7e95b62f4",
+      "pc": "0x00007ff74f1d62f4",
       "symbol": "v8::internal::Heap::PageFlagsAreConsistent+3204"
     },
     {
-      "pc": "0x00007ff7e95abb13",
+      "pc": "0x00007ff74f1cbb13",
       "symbol": "v8::internal::Heap::CollectGarbage+1283"
     },
     {
-      "pc": "0x00007ff7e95aa184",
+      "pc": "0x00007ff74f1ca184",
       "symbol": "v8::internal::Heap::AddRetainedMap+2452"
     },
     {
-      "pc": "0x00007ff7e95cb36d",
+      "pc": "0x00007ff74f1eb36d",
       "symbol": "v8::internal::Factory::NewFillerObject+61"
     },
     {
-      "pc": "0x00007ff7e9330c51",
+      "pc": "0x00007ff74ef50c51",
       "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+1665"
     },
     {
-      "pc": "0x00007ff7e9b44ddd",
+      "pc": "0x00007ff74f764ddd",
       "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+546637"
     },
     {
-      "pc": "0x0000023aef1d449c",
+      "pc": "0x00007ff74f6eb281",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+48113"
+    },
+    {
+      "pc": "0x000000ae744b2946",
       "symbol": ""
     }
   ],
   "javascriptHeap": {
-    "totalMemory": 2163544064,
-    "totalCommittedMemory": 2163544064,
-    "usedMemory": 2134982024,
-    "availableMemory": 51546704,
+    "totalMemory": 2184761344,
+    "totalCommittedMemory": 2184761344,
+    "usedMemory": 2140011608,
+    "availableMemory": 43807848,
     "memoryLimit": 2197815296,
     "heapSpaces": {
       "read_only_space": {
@@ -259,38 +263,38 @@
         "available": 0
       },
       "new_space": {
-        "memorySize": 14680064,
-        "committedMemory": 14680064,
-        "capacity": 7332192,
-        "used": 1245232,
-        "available": 6086960
+        "memorySize": 33554432,
+        "committedMemory": 33554432,
+        "capacity": 16759296,
+        "used": 5174288,
+        "available": 11585008
       },
       "old_space": {
-        "memorySize": 1589264384,
-        "committedMemory": 1589264384,
-        "capacity": 1582605992,
-        "used": 1578749672,
-        "available": 3856320
+        "memorySize": 1564360704,
+        "committedMemory": 1564360704,
+        "capacity": 1556625824,
+        "used": 1554216232,
+        "available": 2409592
       },
       "code_space": {
-        "memorySize": 2527232,
-        "committedMemory": 2527232,
-        "capacity": 2259360,
-        "used": 2259360,
+        "memorySize": 3837952,
+        "committedMemory": 3837952,
+        "capacity": 3354560,
+        "used": 3354560,
         "available": 0
       },
       "map_space": {
-        "memorySize": 10489856,
-        "committedMemory": 10489856,
-        "capacity": 6858000,
-        "used": 6858000,
+        "memorySize": 12587008,
+        "committedMemory": 12587008,
+        "capacity": 7650160,
+        "used": 7650160,
         "available": 0
       },
       "large_object_space": {
-        "memorySize": 545697792,
-        "committedMemory": 545697792,
-        "capacity": 545292664,
-        "used": 545292664,
+        "memorySize": 569536512,
+        "committedMemory": 569536512,
+        "capacity": 569039272,
+        "used": 569039272,
         "available": 0
       },
       "code_large_object_space": {
@@ -303,24 +307,24 @@
       "new_large_object_space": {
         "memorySize": 0,
         "committedMemory": 0,
-        "capacity": 7332192,
+        "capacity": 16759296,
         "used": 0,
-        "available": 7332192
+        "available": 16759296
       }
     }
   },
   "resourceUsage": {
-    "userCpuSeconds": 336.75,
-    "kernelCpuSeconds": 54,
-    "cpuConsumptionPercent": 161.467,
-    "maxRss": 2269618176,
+    "userCpuSeconds": 560.875,
+    "kernelCpuSeconds": 58.125,
+    "cpuConsumptionPercent": 148.086,
+    "maxRss": 2203545600,
     "pageFaults": {
-      "IORequired": 2201580,
+      "IORequired": 3405048,
       "IONotRequired": 0
     },
     "fsActivity": {
-      "reads": 25987,
-      "writes": 120
+      "reads": 19965,
+      "writes": 8657
     }
   },
   "libuv": [
@@ -336,8 +340,6 @@
     "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
     "dp0": "D:\\ankita\\2021\\GitSection\\Aimedis\\virtualhos-master\\node_modules\\.bin\\",
     "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
-    "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
-    "FPS_BROWSER_USER_PROFILE_STRING": "Default",
     "HOME": "C:\\Users\\manik",
     "HOMEDRIVE": "C:",
     "HOMEPATH": "\\Users\\manik",
@@ -537,7 +539,7 @@
     "npm_package_dependencies_react_resizable": "^1.11.1",
     "npm_package_dependencies_react_resizable_custom": "^1.8.5",
     "npm_package_dependencies_react_router_dom": "^5.1.2",
-    "npm_package_dependencies_react_scripts": "^3.4.1",
+    "npm_package_dependencies_react_scripts": "^3.4.4",
     "npm_package_dependencies_react_scrollbar": "^0.5.6",
     "npm_package_dependencies_react_select": "^3.1.0",
     "npm_package_dependencies_react_select_country_list": "^2.2.1",
@@ -552,23 +554,33 @@
     "npm_package_dependencies_redux_localstorage_simple": "^2.1.6",
     "npm_package_dependencies_redux_state_sync": "^3.1.1",
     "npm_package_dependencies_redux_thunk": "^2.3.0",
+    "npm_package_dependencies_start": "^5.1.0",
     "npm_package_dependencies_styled_components": "^5.3.3",
     "npm_package_dependencies_swiper": "^6.7.5",
+    "npm_package_dependencies__atlaskit_theme": "^12.1.2",
     "npm_package_dependencies__cometchat_pro_chat": "^2.4.0",
+    "npm_package_dependencies__emotion_react": "^11.7.1",
+    "npm_package_dependencies__emotion_styled": "^11.6.0",
     "npm_package_dependencies__material_ui_core": "^4.8.3",
     "npm_package_dependencies__material_ui_icons": "^4.9.1",
     "npm_package_dependencies__stripe_react_stripe_js": "^1.1.2",
     "npm_package_dependencies__stripe_stripe_js": "^1.5.0",
     "npm_package_description": "",
+    "npm_package_devDependencies_eslint": "^6.8.0",
+    "npm_package_devDependencies_eslint_plugin_react": "^7.28.0",
     "npm_package_devDependencies__babel_plugin_proposal_optional_chaining": "^7.13.8",
+    "npm_package_devDependencies__typescript_eslint_eslint_plugin": "^5.11.0",
+    "npm_package_devDependencies__typescript_eslint_parser": "^5.11.0",
     "npm_package_eslintConfig_extends": "react-app",
-    "npm_package_gitHead": "ca0b0da4925b63944792d148ef5f5e56162b0ca8",
+    "npm_package_gitHead": "dfe8188dd36583595d74544b00c116874ac7db38",
     "npm_package_homepage": "https://virtualhospital.aimedis.io",
     "npm_package_name": "reactjs",
     "npm_package_private": "true",
     "npm_package_readmeFilename": "README.md",
     "npm_package_scripts_build": "react-scripts build",
     "npm_package_scripts_eject": "react-scripts eject",
+    "npm_package_scripts_lint": "eslint src/**/*.js",
+    "npm_package_scripts_lint_fix": "eslint src/**/*.js --fix",
     "npm_package_scripts_start": "react-scripts start",
     "npm_package_scripts_test": "react-scripts test",
     "npm_package_version": "0.1.0",
@@ -577,7 +589,7 @@
     "OneDrive": "C:\\Users\\manik\\OneDrive",
     "OneDriveConsumer": "C:\\Users\\manik\\OneDrive",
     "OS": "Windows_NT",
-    "Path": "C:\\Program Files\\nodejs\\node_modules\\npm\\node_modules\\npm-lifecycle\\node-gyp-bin;D:\\ankita\\2021\\GitSection\\Aimedis\\virtualhos-master\\node_modules\\.bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\PuTTY\\;C:\\Program Files\\nodejs\\;C:\\Program Files\\MongoDB\\Server\\4.2\\bin;C:\\Users\\manik\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\manik\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\manik\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\manik\\AppData\\Roaming\\npm;%USERPROFILE%\\AppData\\Local\\Microsoft\\WindowsApps;",
+    "Path": "C:\\Program Files\\nodejs\\node_modules\\npm\\node_modules\\npm-lifecycle\\node-gyp-bin;D:\\ankita\\2021\\GitSection\\Aimedis\\virtualhos-master\\node_modules\\.bin;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\PuTTY\\;C:\\Program Files\\MongoDB\\Server\\4.2\\bin;C:\\Program Files\\nodejs\\;C:\\Users\\manik\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\manik\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\manik\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\manik\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\manik\\AppData\\Roaming\\npm",
     "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC",
     "PROCESSOR_ARCHITECTURE": "AMD64",
     "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
@@ -599,6 +611,7 @@
     "REACT_APP_USERNAME": "vh-user",
     "REACT_RECAPTCHA": "6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3",
     "SESSIONNAME": "Console",
+    "SKIP_PREFLIGHT_CHECK": "true",
     "SystemDrive": "C:",
     "SystemRoot": "C:\\WINDOWS",
     "TEMP": "C:\\Users\\manik\\AppData\\Local\\Temp",

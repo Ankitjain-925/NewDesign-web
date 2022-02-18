@@ -2,6 +2,7 @@ import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index"
 import _ from 'lodash';
+import { AppointFilter } from "Screens/Components/MultiFilter/index";
 
 export const getSteps = async (house_id, user_token)=> {
   let response = await axios.get(sitedata.data.path + "/step/GetStep/" + house_id,
@@ -215,7 +216,7 @@ export const CurrentBed = (bed) => {
 }
 
   // Get the Professional data
-  export const getProfessionalData  = async (house_id, user_token) => {
+  export const getProfessionalData  = async (house_id, user_token, comesFrom) => {
     var professionalList = [], professionalList1 = [],
     professionalArray = [];
     var response = await axios
@@ -234,7 +235,11 @@ export const CurrentBed = (bed) => {
                 else if (response.data?.data[i]?.first_name) {
                     name = response.data?.data[i]?.first_name
                 }
-                professionalArray.push({
+                if(comesFrom === 'appoint'){
+                  professionalArray.push( response.data?.data[i])
+                }
+                else{
+                  professionalArray.push({
                     first_name: response.data?.data[i].first_name,
                     last_name: response.data?.data[i].last_name,
                     user_id: response.data?.data[i]._id,
@@ -244,6 +249,8 @@ export const CurrentBed = (bed) => {
                     type: response.data?.data[i].type,
                     title: response.data?.data[i].title,
                 })
+                }
+                
                 professionalList.push({ value: response.data?.data[i]._id, label: name })
                 // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })
             }

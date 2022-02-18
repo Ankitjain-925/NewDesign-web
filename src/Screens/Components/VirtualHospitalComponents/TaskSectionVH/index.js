@@ -303,6 +303,7 @@ class Index extends Component {
               });
               this.props.getAddTaskData();
               this.handleCloseTask()
+              this.props.getArchived();
             }
             else {
               this.setState({ errorMsg: Something_went_wrong})
