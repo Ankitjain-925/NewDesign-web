@@ -5,6 +5,8 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
+import axios from "axios";
+import sitedata from "sitedata";
 import "react-calendar/dist/Calendar.css";
 import { getLanguage } from "translations/index"
 class Index extends Component {
