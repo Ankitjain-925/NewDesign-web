@@ -41,6 +41,7 @@ import { ComponentToPrint4 } from "./ComponentToPrint4";
 import { ComponentToPrint5 } from "./ComponentToPrint5";
 import { filterPatient } from "Screens/Components/BasicMethod/index";
 import { Speciality } from "Screens/Login/speciality.js";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -130,7 +131,7 @@ class Index extends Component {
     // };
 
     reactToPrintContent = (data) => {
-        return this.componentRef 
+        return this.componentRef
     };
 
     // handleBeforeGetContent = (data) => {
@@ -351,7 +352,7 @@ class Index extends Component {
     //Delete the perticular Bill with confirmation box
     removeBills = (data) => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {Remove_the_Bill,Are_you_sure_to_remove_this_Bill ,No,  Yes} = translate;
+        let { Remove_the_Bill, Are_you_sure_to_remove_this_Bill, No, Yes } = translate;
         // this.setState({ message: null, openTask: false });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -376,7 +377,7 @@ class Index extends Component {
                                     // onClose();
                                 }}
                             >
-                               { Yes}
+                                {Yes}
                             </button>
                         </div>
                     </div>
@@ -386,7 +387,7 @@ class Index extends Component {
     };
     removeBills2 = (data) => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {Remove_Bill,Are_you_really_want_to_remove_this_Bill ,Yes,No} = translate;
+        let { Remove_Bill, Are_you_really_want_to_remove_this_Bill, Yes, No } = translate;
         // this.setState({ message: null, openTask: false });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -411,7 +412,7 @@ class Index extends Component {
                                     onClose();
                                 }}
                             >
-                               { Yes}
+                                {Yes}
                             </button>
                         </div>
                     </div>
@@ -447,18 +448,18 @@ class Index extends Component {
 
     searchFilter = (e) => {
         this.setState({ SearchValue: e.target.value })
-        if(e.target.value !==''){
-        let track1 = this.state.AllBills;
-        let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
-          var name = (obj?.patient?.first_name && obj?.patient?.last_name) ? obj?.patient?.first_name + " " + obj?.patient?.last_name : obj?.patient?.first_name;
-          return (JSON.stringify(obj?.invoice_id).toLowerCase().includes(e.target?.value?.toLowerCase()) || 
-          JSON.stringify(name).toLowerCase().includes(e.target?.value?.toLowerCase()));
+        if (e.target.value !== '') {
+            let track1 = this.state.AllBills;
+            let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+                var name = (obj?.patient?.first_name && obj?.patient?.last_name) ? obj?.patient?.first_name + " " + obj?.patient?.last_name : obj?.patient?.first_name;
+                return (JSON.stringify(obj?.invoice_id).toLowerCase().includes(e.target?.value?.toLowerCase()) ||
+                    JSON.stringify(name).toLowerCase().includes(e.target?.value?.toLowerCase()));
 
-        });
-        this.setState({ bills_data: FilterFromSearch1 })
+            });
+            this.setState({ bills_data: FilterFromSearch1 })
         }
-        else{
-            this.setState({ bills_data:  this.state.AllBills}) 
+        else {
+            this.setState({ bills_data: this.state.AllBills })
         }
     }
 
@@ -515,7 +516,7 @@ class Index extends Component {
         }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total, NewInvoice, applyFilters, Paid, Draft, Overdue, Issued, DeleteInvoice,
-            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus ,Search ,FilterbyPatient ,FilterbySpeciality ,FilterbyStatus} = translate;
+            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus, Search, FilterbyPatient, FilterbySpeciality, FilterbyStatus } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
@@ -569,20 +570,20 @@ class Index extends Component {
                                                     <Grid className="billSeting">
                                                         {this.state.showinput && <input name="Search" placeholder={Search} value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
                                                         <a>
-                                                        {!this.state.showinput ? <img
-                                                            src={require("assets/virtual_images/search-entries.svg")}
-                                                            alt=""
-                                                            title=""
-                                                            onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
-                                                        /> :
-                                                            <img
-                                                            src={require("assets/images/close-search.svg")}
-                                                            alt=""
-                                                            title=""
-                                                            onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: ''}); this.handleChangeTab('', value) }}
-                                                            />}
+                                                            {!this.state.showinput ? <img
+                                                                src={require("assets/virtual_images/search-entries.svg")}
+                                                                alt=""
+                                                                title=""
+                                                                onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                                                            /> :
+                                                                <img
+                                                                    src={require("assets/images/close-search.svg")}
+                                                                    alt=""
+                                                                    title=""
+                                                                    onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: '' }); this.handleChangeTab('', value) }}
+                                                                />}
                                                         </a>
-                                                        
+
                                                         {value === 0 &&
                                                             <a className={allBillsCSS}><img src={allBillsCSS === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
                                                         }
@@ -721,7 +722,7 @@ class Index extends Component {
                                                                             <ReactToPrint
                                                                                 content={() => this.reactToPrintContent()}
                                                                                 documentTitle="Report.pdf"
-                                                                                onBeforeGetContent={()=>this.handleOnBeforeGetContent(data)}
+                                                                                onBeforeGetContent={() => this.handleOnBeforeGetContent(data)}
                                                                                 removeAfterPrint
                                                                                 trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>{PrintInvoice}</span></li></a>}
                                                                                 _id={data._id}

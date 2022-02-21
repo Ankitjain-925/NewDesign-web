@@ -37,6 +37,9 @@ import _ from "lodash";
 import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
+import QrReader from 'react-qr-reader'
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import DateFormat from "Screens/Components/DateFormat/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -69,13 +72,23 @@ class Index extends Component {
       assignedTo2: '',
       allWards: '',
       filteredData: '',
-
+      result: 'No result',
+      enableEmail: "scan",
+      updateState: {}
     };
   }
   static defaultProps = {
     isCombineEnabled: false,
   };
   boardRef;
+
+  handleError = err => {
+    console.error(err)
+  }
+
+  handleEnableEmail = (value) => {
+    this.setState({ enableEmail: value, updateState: {} })
+  }
 
   handleOpenPopup = () => {
     this.setState({ openPopup: true })
@@ -186,8 +199,8 @@ class Index extends Component {
         }
         return last;
       }, []);
-    
-    data  = data ? data : [];
+
+    data = data ? data : [];
     this.setState({ loaderImage: true });
     var response = setAssignedTo(
       data,
@@ -303,7 +316,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false, SelectedStep: '' });
+    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {} });
   };
 
   // Set patient and status data
@@ -321,7 +334,7 @@ class Index extends Component {
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
-  
+
     var index = index;
     if (state[index]?.case_numbers?.length > 0) {
       let translate = getLanguage(this.props.stateLanguageType);
@@ -394,119 +407,149 @@ class Index extends Component {
   };
 
   DeleteStepOk = (state, index) => {
-      var yt = state[index]?.case_numbers.map((item) => {
-        return item._id;
-      })
-      this.setState({loaderImage: true})
-      axios
+    var yt = state[index]?.case_numbers.map((item) => {
+      return item._id;
+    })
+    this.setState({ loaderImage: true })
+    axios
       .post(
         sitedata.data.path + "/vh/setCasenotInhospital",
-        {case_id: yt},
+        { case_id: yt },
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-          this.setState({loaderImage: false})
+          this.setState({ loaderImage: false })
           state.splice(index, 1);
           this.setDta(state);
           this.CallApi();
           this.GetStep();
         }
-        else{
-          this.setState({loaderImage: false})
+        else {
+          this.setState({ loaderImage: false })
         }
       });
+  }
+
+  handleScan = (data, name) => {
+    const state = this.state.updateState;
+    if (data) {
+      state[name] = data;
+      this.setState({
+        updateState: state
+      })
+    }
+  }
+
+  updateEntryState1 = (e, name) => {
+    const state = this.state.updateState;
+    if (name === "email") {
+      state[name] = e.target.value;
+    } else {
+      if (name === "birthday") {
+        state[name] = e;
+      } else {
+        state[name] = e.target.value;
+      }
+    }
+    this.setState({ updateState: state })
   }
 
   //On Add case
   AddCase = () => {
     this.setState({ errorMsg: '' })
-    var data = this.state.addp;
-    if (data && !this.state.case.case_number) {
-      this.setState({ errorMsg: 'Please enter case number' })
-    }
-    else if (data && !this.state.SelectedStep) {
-      this.setState({ errorMsg: 'Please select step' })
-    }
-    else {
-      data.institute_id =
-        this.props.stateLoginValueAim?.user?.institute_id?.length > 0
-          ? this.props.stateLoginValueAim?.user?.institute_id[0]
-          : "";
-      data.house_id = this.props?.House.value;
-      // this.setState({ loaderImage: true });
-      axios
-        .post(
-          sitedata.data.path + "/vh/checkPatient",
-          data,
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          if (responce.data.hassuccessed) {
-            var case_data = {
-              house_id: this.props?.House.value,
-              inhospital: true,
-              case_number: this.state.case.case_number,
-              patient_id: responce.data.data._id,
-              patient: {
-                first_name: responce.data.data.first_name,
-                last_name: responce.data.data.last_name,
-                image: responce.data.data.image,
-                profile_id: responce.data.data.profile_id,
-                alies_id: responce.data.data.alies_id,
-              },
-            };
-            if (responce.data.data?.type !== 'patient') {
-              this.setState({ idpinerror: true, loaderImage: false });
-            }
-            else {
-              this.setState({ idpinerror: false });
-              axios
-                .post(
-                  sitedata.data.path + "/cases/AddCase",
-                  case_data,
-                  commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce1) => {
-                  if (responce1.data.hassuccessed) {
-                    this.setState({
-                      idpinerror: false,
-                      openAddP: false,
-                      case: {},
-                      addp: {},
-                    });
-                    var state = this.state.actualData;
-                    let indexData = ''
-                    state && state.length > 0 && state.filter((item, index) => {
-                      if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
-                        indexData = index;
-                      }
-                    })
-                    state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                    this.setState({ SelectedStep: '' });
-                    this.setDta(state);
-                    this.CallApi();
-                  } else {
-                    this.setState({ caseAlready: true, loaderImage: false });
-                    setTimeout(() => {
-                      this.setState({ caseAlready: false });
-                    }, 3000);
-                  }
-                });
-            }
-          } else {
-            if (responce.data.data) {
-              this.setState({ inOtherAlready: true, loaderImage: false, alreadyData: responce.data.data });
-            }
-            else {
-              this.setState({ idpinerror: true, loaderImage: false });
-            }
-            setTimeout(() => {
-              this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
-            }, 3000);
-          }
-        });
-    }
+    var data = this.state.updateState
+    // if (this.state.updateState) {
+    //   data = this.state.updateState
+    // }
+    // var data = this.state.result;
+    // console.log("data", data)
+    // if (data && !this.state.case.case_number) {
+    //   this.setState({ errorMsg: 'Please enter case number' })
+    // }
+    // else if (data && !this.state.SelectedStep) {
+    //   this.setState({ errorMsg: 'Please select step' })
+    // }
+    // else {
+    //   data.institute_id =
+    //     this.props.stateLoginValueAim?.user?.institute_id?.length > 0
+    //       ? this.props.stateLoginValueAim?.user?.institute_id[0]
+    //       : "";
+    //   data.house_id = this.props?.House.value;
+    // this.setState({ loaderImage: true });
+    axios
+      .post(
+        sitedata.data.path + "/vh/checkPatient1",
+        data,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ updateState: {} })
+        //   if (responce.data.hassuccessed) {
+        //     var case_data = {
+        //       house_id: this.props?.House.value,
+        //       inhospital: true,
+        //       case_number: this.state.case.case_number,
+        //       patient_id: responce.data.data._id,
+        //       patient: {
+        //         first_name: responce.data.data.first_name,
+        //         last_name: responce.data.data.last_name,
+        //         image: responce.data.data.image,
+        //         profile_id: responce.data.data.profile_id,
+        //         alies_id: responce.data.data.alies_id,
+        //       },
+        //     };
+        //     if (responce.data.data?.type !== 'patient') {
+        //       this.setState({ idpinerror: true, loaderImage: false });
+        //     }
+        //     else {
+        //       this.setState({ idpinerror: false });
+        //       axios
+        //         .post(
+        //           sitedata.data.path + "/cases/AddCase",
+        //           case_data,
+        //           commonHeader(this.props.stateLoginValueAim.token)
+        //         )
+        //         .then((responce1) => {
+        //           if (responce1.data.hassuccessed) {
+        //             this.setState({
+        //               idpinerror: false,
+        //               openAddP: false,
+        //               case: {},
+        //               addp: {},
+        //             });
+        //             var state = this.state.actualData;
+        //             let indexData = ''
+        //             state && state.length > 0 && state.filter((item, index) => {
+        //               if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+        //                 indexData = index;
+        //               }
+        //             })
+        //             state[indexData].case_numbers.push({ case_id: responce1.data.data });
+        //             this.setState({ SelectedStep: '' });
+        //             this.setDta(state);
+        //             this.CallApi();
+        //           } else {
+        //             this.setState({ caseAlready: true, loaderImage: false });
+        //             setTimeout(() => {
+        //               this.setState({ caseAlready: false });
+        //             }, 3000);
+        //           }
+        //         });
+        //     }
+        //   } else {
+        //     if (responce.data.data) {
+        //       this.setState({ inOtherAlready: true, loaderImage: false, alreadyData: responce.data.data });
+        //     }
+        //     else {
+        //       this.setState({ idpinerror: true, loaderImage: false });
+        //     }
+        //     setTimeout(() => {
+        //       this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
+        //     }, 3000);
+        //   }
+      });
+    // }
   };
 
   //On change the case
@@ -614,7 +657,7 @@ class Index extends Component {
   newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
-  
+
   filterResult = () => {
     let { selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData } = this.state
     var data = _.cloneDeep(actualData);
@@ -1088,66 +1131,105 @@ class Index extends Component {
                 </Grid>
                 <label>{AddPatienttoFlow}</label>
               </Grid>
-              <Grid className="patentInfo">
-                {this.state.caseAlready && (
-                  <div className="err_message">
-                    {case_already_exists_in_hospital}
-                  </div>
-                )}
-                {this.state.inOtherAlready && (
-                  <div className="err_message">
-                    {case_already_exists_in_other_hospital} <b>{this.state.alreadyData?.house?.house_name}</b> {ofInstitution}<b>{this.state.alreadyData?.institute_groups?.group_name}</b>
-                  </div>
-                )}
 
-                {this.state.idpinerror && (
-                  <div className="err_message">{id_and_pin_not_correct}</div>
-                )}
-                <p className="err_message">{this.state.errorMsg}</p>
-                <Grid className="patentInfoTxt">
-                  <Grid>
-                    <label>{PatientID}</label>
+              <Grid className="patentInfo">
+                {this.state.enableEmail == "email" &&
+                  <Grid className="patentInfoBtn pateintInfoUser">
+                    <VHfield
+                      label="Patient Email"
+                      name="email"
+                      placeholder="Enter Email"
+                      onChange={(e) => this.updateEntryState1(e, "email")}
+                    // value={this.state.myQuestions[0]?.question}
+                    />
+                    <ul>
+                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr scanner</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Use other details</li>
+                    </ul>
+                    <Grid className="patentInfoBtn">
+                      <Button onClick={this.AddCase}>Submit</Button>
+                    </Grid>
                   </Grid>
-                  <TextField
-                    name="patient_id"
-                    value={this.state.addp.patient_id}
-                    onChange={this.changeAddp}
-                  />
-                </Grid>
-                <Grid className="patentInfoTxt">
-                  <Grid>
-                    <label>{PatientPIN}</label>
+                }
+                {this.state.enableEmail == "scan" &&
+                  <Grid className="patentInfoBtn pateintInfoUser">
+                    <QrReader
+                      delay={300}
+                      onError={this.handleError}
+                      onScan={(e) => this.handleScan(e, "patient_id")}
+                      style={{ width: '100%' }}
+                    />
+                    <p>{this.state.updateState?.patient_id}</p>
+                    <ul>
+                      <li onClick={() => this.handleEnableEmail("email")}>Don't have Qr Code then use email</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Don't have both Qr Code and use email then use other details</li>
+                    </ul>
+                    <Grid className="patentInfoBtn">
+                      <Button onClick={this.AddCase}>Submit</Button>
+                    </Grid>
                   </Grid>
-                  <TextField
-                    name="pin"
-                    value={this.state.addp.pin}
-                    onChange={this.changeAddp}
-                  />
-                </Grid>
-                <Grid className="patentInfoTxt">
+
+                }
+
+                {this.state.enableEmail == "other" &&
                   <Grid>
-                    <label>{CaseNumber}</label>
-                  </Grid>
-                  <TextField
-                    name="case_number"
-                    value={this.state.case.case_number}
-                    onChange={this.onChangeCase}
-                  />
-                </Grid>
-                <label>{step_name}</label>
-                <Grid className="patentInfoTxt">
-                  <Select
-                    value={SelectedStep}
-                    onChange={this.onSelectingStep}
-                    options={StepNameList}
-                    placeholder={SelectStepName}
-                    className="allSpeces"
-                    isSearchable={false}
-                  />
-                </Grid>
-                <Grid className="patentInfoBtn">
-                  <Button onClick={this.AddCase}>{add_patient_to_flow}</Button>
-                </Grid>
+                    <Grid className="patentInfoTxt">
+                      <Grid>
+                        <label>First name</label>
+                      </Grid>
+                      <TextField
+                        name="first_name"
+                        // value={this.state.addp.patient_id}
+                        onChange={(e) => this.updateEntryState1(e, "first_name")}
+                      />
+                    </Grid>
+                    <Grid className="patentInfoTxt">
+                      <Grid>
+                        <label>Last name</label>
+                      </Grid>
+                      <TextField
+                        name="last_name"
+                        // value={this.state.addp.pin}
+                        onChange={(e) => this.updateEntryState1(e, "last_name")}
+
+                      />
+                    </Grid>
+                    <Grid className="patentInfoTxt">
+                      <Grid>
+                        <label>Birthday</label>
+                      </Grid>
+                      <DateFormat
+                        name="birthday"
+                        value={new Date()}
+                        notFullBorder
+                        date_format={
+                          this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.date_format
+                        }
+                        onChange={(e) => this.updateEntryState1(e, "birthday")}
+                      />
+                    </Grid>
+
+                    <Grid className="patentInfoTxt">
+                      <Grid>
+                        <label>Mobile number</label>
+                      </Grid>
+                      <TextField
+                        name="mobile"
+                        // value={this.state.case.case_number}
+                        onChange={(e) => this.updateEntryState1(e, "mobile")}
+                      />
+                    </Grid>
+                    <ul>
+                      <li onClick={() => this.handleEnableEmail("email")}>Use email</li>
+                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr Scanner</li>
+                    </ul>
+                    <Grid className="patentInfoBtn">
+                      <Button onClick={this.AddCase}>Submit</Button>
+                    </Grid>
+
+                  </Grid>}
               </Grid>
             </Grid>
           </Grid>
@@ -1181,15 +1263,15 @@ class Index extends Component {
                   </Grid>
                   <label>{add_step}</label>
                 </Grid>
-                </Grid>
-                <Grid className="enterWrnUpr">
-                  <Grid className="enterWrnMain">
-                <p className='err_message'>{this.state.stepError}</p>
-                <Grid className="buttonStyle fltrInput">
-                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
-                    onChange={this.handleName} type="text" />
-                  <a color="primary" onClick={this.OnAdd}>{Add}</a>
-                </Grid>
+              </Grid>
+              <Grid className="enterWrnUpr">
+                <Grid className="enterWrnMain">
+                  <p className='err_message'>{this.state.stepError}</p>
+                  <Grid className="buttonStyle fltrInput">
+                    <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
+                      onChange={this.handleName} type="text" />
+                    <a color="primary" onClick={this.OnAdd}>{Add}</a>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
