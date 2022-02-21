@@ -160,7 +160,7 @@ class Index extends Component {
                           title=""
                         />
                       )}
-                      <span>Aimedis {online_course}</span>
+                      <span>AIS {online_course}</span>
                     </a>
                   </li>
                   <li

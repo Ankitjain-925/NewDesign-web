@@ -390,7 +390,7 @@ class Index extends Component {
                             title=""
                           />
                         )}
-                        Aimedis {online_course}
+                        AIS {online_course}
                       </a>
                     </li>
                     <li>

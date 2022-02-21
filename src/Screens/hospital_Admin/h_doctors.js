@@ -133,34 +133,35 @@ class Index extends Component {
 
     }
 
-    getDoctors = (check) => {
-        let { currentPage, type } = this.state
+    getDoctors = (currentID) => {
+        let {currentPage, type} = this.state
         var user_token = this.props.stateLoginValueAim.token;
-        this.setState({ loaderImage: true })
-        let res = allusers(currentPage, user_token, type, this.props.stateLoginValueAim.user.institute_id)
-        res.then((res) => {
-            var images = [];
-            const AllPatient = res.data && res.data.data && res.data.data;
-            this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
-            AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
-                var find = item && item.image && item.image
-                if (find) {
-                    var find1 = find.split('.com/')[1]
-                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                        .then((response2) => {
-                            if (response2.data.hassuccessed) {
-                                item.new_image = response2.data.data
-                                images.push({ image: find, new_image: response2.data.data })
-                                this.setState({ images: images })
-                                if (check == true) {
-                                    this.assignHouse(item);
-                                }
-                            }
-                        })
-                }
-            })
-            this.setState({ loaderImage: false, totalPage: Math.ceil(res.data.Total_count / 20), MypatientsData: this.state.AllPatient, TotalCount: res.data.Total_count })
-        })
+        this.setState({loaderImage : true})
+         let res= allusers(currentPage,user_token,type, this.props.stateLoginValueAim.user.institute_id)
+         res.then((res) => {
+           var images = [];
+           const AllPatient = res.data && res.data.data && res.data.data;
+           this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
+           AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+               var find = item && item.image && item.image
+               if (find) {
+                   var find1 = find.split('.com/')[1]
+                   axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                   .then((response2) => {
+                       if (response2.data.hassuccessed) {
+                           item.new_image = response2.data.data
+                           images.push({ image: find, new_image: response2.data.data })
+                           this.setState({ images: images })
+                       }
+                   })
+               }
+           })
+           if(currentID){
+            var current_user = AllPatient?.length>0 && AllPatient.filter((item)=> item._id === currentID)
+            this.setState({current_user : current_user?.[0]})
+           }
+           this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
+       })
         // var user_token = this.props.stateLoginValueAim.token;
         // axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
         //     + '/doctor/1'
@@ -294,9 +295,10 @@ class Index extends Component {
                         this.getallGroups();
                         this.getDoctors(true);
                         setTimeout(() => {
-                            this.setState({ assignedhouse: false, openHouse: false, house: {} })
-                        }, 8000)
-
+                            this.setState({ assignedhouse: false, house: {} })
+                        }, 5000)
+                        this.getallGroups();
+                        this.getDoctors(this.state.current_user._id);
                     }
                     // else {
                     //     this.setState({ alredyExist: true })
@@ -331,10 +333,10 @@ class Index extends Component {
                 if (responce.data.hassuccessed) {
                     this.setState({ deleteHouses: true })
                     setTimeout(() => {
-                        this.setState({ deleteHouses: false, openHouse: false })
+                        this.setState({ deleteHouses: false, })
                     }, 5000)
                     this.getallGroups();
-                    this.getDoctors(true);
+                    this.getDoctors(this.state.current_user._id);
                 }
                 this.setState({ loaderImage: false });
             });

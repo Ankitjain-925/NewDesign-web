@@ -52,6 +52,22 @@ class Index extends Component {
         this.getSentPriscriptions();
     }
 
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.searchValue !== this.props.searchValue) {
+            if(this.props.searchValue===''){
+              this.getSentPriscriptions();
+            }
+            else{
+              let FilterFromSearch1 = this.state.AllSentPres?.length>0 && this.state.AllSentPres.filter((obj) => {
+                return JSON.stringify(obj).toLowerCase().includes(this.props.searchValue?.toLowerCase());;
+              });
+              this.setState({
+                MypatientsData : FilterFromSearch1
+              });
+            }
+          }
+    }
+
     getSentPriscriptions() {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token;

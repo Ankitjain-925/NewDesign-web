@@ -522,7 +522,7 @@ class Index extends Component {
 
     //For checkout Button
     const Checkout = ({
-      name = "Aimedis",
+      name = "AIS",
       description = "Stripe Payment",
       amount = this.state.amount,
     }) => (
@@ -531,7 +531,7 @@ class Index extends Component {
           this.StripeClick = ref;
         }}
         name={name}
-        image="https://sys.aimedis.io/static/media/LogoPNG.03ac2d92.png"
+        image="https://sys.AIS.io/static/media/LogoPNG.03ac2d92.png"
         billingAddress
         description={description}
         amount={this.fromDollarToCent(amount)}
@@ -550,7 +550,7 @@ class Index extends Component {
             <Grid className="onlinCours">
               <Grid container direction="row">
                 <Grid item xs={12} md={6} className="onlinLft">
-                  <h4>Aimedis {online_course}</h4>
+                  <h4>AIS {online_course}</h4>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Grid className="onlinRght">

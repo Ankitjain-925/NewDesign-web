@@ -10449,7 +10449,7 @@ a.newacademyul ul li img
     margin-right: 10px;
     margin-bottom: 8px;
 }
-.darkTheme .serchInput {
+.darkTheme .serchInput, .homeBgDrk .serchInput {
     color: #cfcfcf;
     background: #192020;
 }
@@ -12288,7 +12288,7 @@ ul.patientHint li {
 .darkTheme .srvcTable3 td p {
     color: #bfc1c1;
 }
-.darkTheme .settingInfo a {
+.darkTheme .settingInfo a, .homeBgDrk .settingInfo a {
     background-color: transparent;
     border: 1px solid #7f8383;
 }

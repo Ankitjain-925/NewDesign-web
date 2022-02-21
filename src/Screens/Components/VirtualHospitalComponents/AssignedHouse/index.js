@@ -142,7 +142,6 @@ class PointPain extends Component {
                   <Grid item xs={10} md={12}>
                     <b>{AssignedHouses}</b>
                     <Grid container direction="row">
-
                       {this.state.current_user?.houses?.length > 0 && this.state.current_user?.houses.map((item) => (
                         <>
                           <Grid item xs={10} md={10}>

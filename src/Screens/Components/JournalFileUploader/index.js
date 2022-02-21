@@ -239,60 +239,60 @@ class ImageUploderView extends Component {
           ? this.state.attachfile.map((file, index) => (
               <Grid container direction="row" className="updatedfileuploader">
                 <Grid item xs={3} md={3} className="updatedfileLft">
-                  {file.filetype === "mp4" && (
+                  {file?.filetype === "mp4" && (
                     <img
                       src={require("assets/images/videoIcon.png")}
                       alt=""
                       title=""
                     />
                   )}
-                  {(file.filetype === "png" ||
-                    file.filetype === "jpeg" ||
-                    file.filetype === "jpg" ||
-                    file.filetype === "svg") && (
+                  {(file?.filetype === "png" ||
+                    file?.filetype === "jpeg" ||
+                    file?.filetype === "jpg" ||
+                    file?.filetype === "svg") && (
                     <img
                       src={getImage(file.filename, this.state.images)}
                       alt=""
                       title=""
                     />
                   )}
-                  {file.filetype === "pdf" && (
+                  {file?.filetype === "pdf" && (
                     <img
                       src={require("assets/images/pdfimg.png")}
                       alt=""
                       title=""
                     />
                   )}
-                  {(file.filetype === "doc" ||
-                    file.filetype === "docx" ||
-                    file.filetype === "xml" ||
-                    file.filetype === "txt") && (
+                  {(file?.filetype === "doc" ||
+                    file?.filetype === "docx" ||
+                    file?.filetype === "xml" ||
+                    file?.filetype === "txt") && (
                     <img
                       src={require("assets/images/txt1.png")}
                       alt=""
                       title=""
                     />
                   )}
-                  {(file.filetype === "xls" ||
-                    file.filetype === "xlsx" ||
-                    file.filetype === "xml") && (
+                  {(file?.filetype === "xls" ||
+                    file?.filetype === "xlsx" ||
+                    file?.filetype === "xml") && (
                     <img
                       src={require("assets/images/xls1.svg")}
                       alt=""
                       title=""
                     />
                   )}
-                  {file.filetype === "csv" && (
+                  {file?.filetype === "csv" && (
                     <img
                       src={require("assets/images/csv1.png")}
                       alt=""
                       title=""
                     />
                   )}
-                  {(file.filetype === "dcm" ||
-                    file.filetype === "DICOM" ||
-                    file.filetype === "dicom" ||
-                    file.filetype === "DCM") && (
+                  {(file?.filetype === "dcm" ||
+                    file?.filetype === "DICOM" ||
+                    file?.filetype === "dicom" ||
+                    file?.filetype === "DCM") && (
                     <img
                       src={require("assets/images/dcm1.png")}
                       alt=""
