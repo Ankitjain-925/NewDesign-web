@@ -82,7 +82,7 @@ export class ComponentToPrint2 extends React.Component {
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td><p>{data?.patient?.profile_id}</p></td>
+                                        <td><p>{data?.patient?.alies_id ? data?.patient?.alies_id : data?.patient?.profile_id} </p></td>
                                         <td></td>
                                     </tr>
                                     <tr>

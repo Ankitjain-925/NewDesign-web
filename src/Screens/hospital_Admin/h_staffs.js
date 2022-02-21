@@ -23,6 +23,7 @@ import { SearchUser } from "Screens/Components/Search";
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import Button from "@material-ui/core/Button";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import Modal from "@material-ui/core/Modal";
 import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 import "./style.css";
@@ -539,17 +540,8 @@ class Index extends Component {
                               <Td>
                                 {((this.state.currentPage - 1) * 20) + i + 1}
                               </Td>
-                              <Td>
-                                <img
-                                  className="doctor_pic"
-                                  src={
-                                    nurse && nurse.image
-                                      ? getImage(nurse.image, this.state.images)
-                                      : require("assets/images/dr1.jpg")
-                                  }
-                                  alt=""
-                                  title=""
-                                />
+                              <Td  className="patentPic">
+                              <S3Image imgUrl={nurse?.image} />
                                 {nurse.first_name && nurse.first_name}
                               </Td>
                               <Td>{nurse.last_name && nurse.last_name}</Td>

@@ -18,6 +18,7 @@ import { SearchUser } from 'Screens/Components/Search';
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index";
@@ -271,7 +272,7 @@ class Index extends Component {
                                                 {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((patient, i) => (
                                                     <Tr>
                                                         <Td>{((this.state.currentPage - 1) * 20) + i + 1}</Td>
-                                                        <Td><img className="doctor_pic" src={patient && patient.image ? getImage(patient.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
+                                                        <Td  className="patentPic"><S3Image imgUrl={patient?.image} />
                                                             {patient.first_name && patient.first_name}</Td>
                                                         <Td>{patient.last_name && patient.last_name}</Td>
                                                         <Td>{patient.email && patient.email}</Td>
