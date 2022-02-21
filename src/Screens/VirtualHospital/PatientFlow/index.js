@@ -82,9 +82,6 @@ class Index extends Component {
   };
   boardRef;
 
-
-
-
   handleError = err => {
     console.error(err)
   }
@@ -92,10 +89,6 @@ class Index extends Component {
   handleEnableEmail = (value) => {
     this.setState({ enableEmail: value, updateState: {} })
   }
-
-  // handleScanSubmit = () => {
-  //   console.log("result", this.state.result);
-  // }
 
   handleOpenPopup = () => {
     this.setState({ openPopup: true })
@@ -438,23 +431,19 @@ class Index extends Component {
       });
   }
 
-  handleScan = (data, a) => {
-
+  handleScan = (data, name) => {
+    const state = this.state.updateState;
     if (data) {
-      console.log("data", data, a)
+      state[name] = data;
       this.setState({
-        result: data
+        updateState: state
       })
     }
   }
 
   updateEntryState1 = (e, name) => {
     const state = this.state.updateState;
-    if (name === "scan") {
-      console.log("data", e, name)
-      state[name] = e
-    }
-    else if (name === "email") {
+    if (name === "email") {
       state[name] = e.target.value;
     } else {
       if (name === "birthday") {
@@ -464,17 +453,12 @@ class Index extends Component {
       }
     }
     this.setState({ updateState: state })
-    console.log("updateState",this.state.updateState)
   }
 
   //On Add case
   AddCase = () => {
-    console.log("this.state.srsfsd", this.state.result)
     this.setState({ errorMsg: '' })
-    var data = {};
-    if (this.state.result) {
-      data.patient_id = this.state.result
-    }
+    var data = this.state.updateState
     // if (this.state.updateState) {
     //   data = this.state.updateState
     // }
@@ -500,7 +484,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
-        console.log("responce", responce);
+        this.setState({ updateState: {} })
         //   if (responce.data.hassuccessed) {
         //     var case_data = {
         //       house_id: this.props?.House.value,
@@ -1172,10 +1156,10 @@ class Index extends Component {
                     <QrReader
                       delay={300}
                       onError={this.handleError}
-                      onScan={(data) => this.updateEntryState1(data, "scan")}
+                      onScan={(e) => this.handleScan(e, "patient_id")}
                       style={{ width: '100%' }}
                     />
-                    {/* <p>{this.state.updateState}</p> */}
+                    <p>{this.state.updateState?.patient_id}</p>
                     <ul>
                       <li onClick={() => this.handleEnableEmail("email")}>Don't have Qr Code then use email</li>
                       <li onClick={() => this.handleEnableEmail("other")}>Don't have both Qr Code and use email then use other details</li>
