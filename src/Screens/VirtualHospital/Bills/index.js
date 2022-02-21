@@ -13,6 +13,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import Pagination from "Screens/Components/Pagination/index";
 import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
 import { OptionList } from "Screens/Login/metadataaction";
@@ -702,7 +703,10 @@ class Index extends Component {
                                                     <Tbody>
                                                         <Tr>
                                                             <Td>{data?.invoice_id}</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
+                                                            <Td className="patentPic">
+                                                                {/* <img src={require('assets/virtual_images/james.jpg')} alt="" title="" /> */}
+                                                                <S3Image imgUrl={data?.patient?.image} />
+                                                                {data?.patient?.first_name} {data?.patient?.last_name}</Td>
                                                             <Td>{data.created_at ? getDate(data.created_at, this.props.settings.setting.date_format) : not_mentioned}</Td>
                                                             {/* <Td>{data.}</Td> */}
                                                             <Td className=""><span className={data?.status?.value === 'paid' ? "revwGren" : data?.status?.value === 'issued' ? "revwYelow" : data?.status?.value === 'draft' ? "revwGry" : "revwRed"}></span>{data?.status?.label}</Td>

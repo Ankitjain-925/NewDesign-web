@@ -6,7 +6,7 @@ import { getLanguage } from "translations/index"
 
 
 var ColorOption = [
-  { color: "#EE5253;", background_color: "#FBD4D4", className:"recodRed" },
+  { color: "#EE5253", background_color: "#FBD4D4", className:"recodRed" },
   { color: "#DB5600", background_color: "#F8DDCC", className:"recodLghtRed" },
   { color: "#DB9B00", background_color: "#F8EBCC", className:"recodYelow" },
   { color: "#BFDB00", background_color: "#F2F8CC", className:"recodGren" },

@@ -68,7 +68,7 @@ export class ComponentToPrint4 extends React.Component {
                                             this.props.settings?.setting &&
                                             this.props.settings?.setting?.date_format
                                         )}</p>
-                                        <p>ProfileID: &nbsp;{data?.patient?.profile_id}</p>
+                                        <p>ProfileID: &nbsp;{data?.patient?.alies_id ? data?.patient?.alies_id : data?.patient?.profile_id} </p>
                                     </strong>
                                 </td>
                                 <td className="txtalign tabL10Col2 TblPG2">

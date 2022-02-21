@@ -18,6 +18,7 @@ import Loader from 'Screens/Components/Loader/index';
 import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
 import DateFormat from 'Screens/Components/DateFormat/index'
 import { getLanguage } from "translations/index";
+import _ from 'lodash';
 import { updateFLAG, updateMOBILE } from './odapi';
 import { getUserData, contact_partnerState, getMetadata, handleChange_multi, saveUserData1, saveUserData, firstLoginUpdate, onChange, updateEntryState1, updateEntryState11, copyText, updateflags,
     updateEntryState, Upsaterhesus, EntryValueName , GetLanguageMetadata, filterCountry, filterCountry1, toggle, filterList, updatesinsurances, changeAlies, changePin, ChangeIDPIN, updatesinsurancesCountry ,removeInsurance,  } from './puapi';
@@ -107,6 +108,7 @@ class Index extends Component {
             rhesus: {},
             insu1: false,
             contact_partner: {},
+            UpDataDetails1: {}
         };
        
     }
@@ -159,8 +161,8 @@ class Index extends Component {
 
     //for open the Change profile Dialog
     handlePinOpen = () => {
-        this.setState({ chngPinOpen: true });
-    };
+        this.setState({ chngPinOpen: true, UpDataDetails1:  _.cloneDeep(this.state.UpDataDetails) });
+      };
     handlePinClose = (key) => {
         this.setState({ [key]: false });
     };
@@ -298,13 +300,13 @@ class Index extends Component {
                                 <Grid className="editPinform">
                                     <Grid className="editField">
                                         <label>{profile} {ID}</label>
-                                        <Grid><input type="text" name="alies_id" onChange={(e)=> changeAlies(e, this)} value={this.state.UpDataDetails.alies_id} /></Grid>
+                                        <Grid><input type="text" name="alies_id" onChange={(e)=> changeAlies(e, this)} value={this.state.UpDataDetails1.alies_id} /></Grid>
                                         {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
                                         {this.state.toSmall && <p>{profile_id_greater_then_5}</p>}
                                     </Grid>
                                     <Grid className="editField">
                                         <label>{pin}</label>
-                                        <Grid><input type="text" name="pin" onChange={(e)=> changePin(e, this)} value={this.state.UpDataDetails.pin} /></Grid>
+                                        <Grid><input type="text" name="pin" onChange={(e)=> changePin(e, this)} value={this.state.UpDataDetails1.pin} /></Grid>
                                         {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
                                     </Grid>
                                     <Grid>

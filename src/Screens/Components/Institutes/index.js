@@ -162,7 +162,7 @@ class Index extends Component {
   };
 
   handleClosePopUp = () => {
-    this.setState({ showPopup: false });
+    this.setState({ showPopup: false , showRename: false, txtName:  {}});
   };
 
   render() {
