@@ -41,7 +41,6 @@ import { ComponentToPrint4 } from "./ComponentToPrint4";
 import { ComponentToPrint5 } from "./ComponentToPrint5";
 import { filterPatient } from "Screens/Components/BasicMethod/index";
 import { Speciality } from "Screens/Login/speciality.js";
-import { S3Image } from "Screens/Components/GetS3Images/index";
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -500,8 +499,6 @@ class Index extends Component {
     };
 
     render() {
-
-
         const { stateLoginValueAim, House } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||

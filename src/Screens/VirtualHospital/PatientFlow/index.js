@@ -498,6 +498,7 @@ class Index extends Component {
         //         profile_id: responce.data.data.profile_id,
         //         alies_id: responce.data.data.alies_id,
         //       },
+        //       verifiedbyPatient: false,
         //     };
         //     if (responce.data.data?.type !== 'patient') {
         //       this.setState({ idpinerror: true, loaderImage: false });
@@ -526,7 +527,7 @@ class Index extends Component {
         //               }
         //             })
         //             state[indexData].case_numbers.push({ case_id: responce1.data.data });
-        //             this.setState({ SelectedStep: '' });
+        //             this./setState({ SelectedStep: '' });
         //             this.setDta(state);
         //             this.CallApi();
         //           } else {
@@ -1142,9 +1143,9 @@ class Index extends Component {
                       onChange={(e) => this.updateEntryState1(e, "email")}
                     // value={this.state.myQuestions[0]?.question}
                     />
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr scanner</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Use other details</li>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to use Qr scanner</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomrations</li>
                     </ul>
                     <Grid className="patentInfoBtn">
                       <Button onClick={this.AddCase}>Submit</Button>
@@ -1160,9 +1161,9 @@ class Index extends Component {
                       style={{ width: '100%' }}
                     />
                     <p>{this.state.updateState?.patient_id}</p>
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("email")}>Don't have Qr Code then use email</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Don't have both Qr Code and use email then use other details</li>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomrations</li>
                     </ul>
                     <Grid className="patentInfoBtn">
                       <Button onClick={this.AddCase}>Submit</Button>
@@ -1194,10 +1195,13 @@ class Index extends Component {
 
                       />
                     </Grid>
-                    <Grid className="patentInfoTxt">
+                    <Grid className="fillDia">
+                    <Grid className="rrSysto">
                       <Grid>
                         <label>Birthday</label>
                       </Grid>
+                      
+                
                       <DateFormat
                         name="birthday"
                         value={new Date()}
@@ -1209,6 +1213,8 @@ class Index extends Component {
                         }
                         onChange={(e) => this.updateEntryState1(e, "birthday")}
                       />
+                 
+                    </Grid>
                     </Grid>
 
                     <Grid className="patentInfoTxt">
@@ -1221,9 +1227,9 @@ class Index extends Component {
                         onChange={(e) => this.updateEntryState1(e, "mobile")}
                       />
                     </Grid>
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("email")}>Use email</li>
-                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr Scanner</li>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go back to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to Use Qr Scanner</li>
                     </ul>
                     <Grid className="patentInfoBtn">
                       <Button onClick={this.AddCase}>Submit</Button>
