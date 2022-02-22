@@ -13811,3 +13811,7 @@ border-style: solid;
     color: #0088a9;
 }
 
+.patentTnfoBtn1 button{
+    margin-left: 10px;
+    width:95%
+}
