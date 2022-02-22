@@ -277,10 +277,10 @@ class Index extends Component {
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
                                                                 {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((data) => (
-                                                                    <CreatedBySec
+                                                                   <CreatedBySec
                                                                         data={data}
                                                                         callFrom='assignedTo'
-                                                                        track_id={item.track_id} />
+                                                                        track_id={data.user_id} />
                                                                 ))}
                                                             </Grid>
                                                         </Grid>

@@ -10,6 +10,7 @@ class Index extends Component {
     super(props);
     this.state = {
       item: this.props.data || {},
+      track_id:this.props.track_id,
       new_image: '',
     };
   }
@@ -18,6 +19,7 @@ class Index extends Component {
     return (
       nextState.item !== this.state.item ||
       nextProps.data !== this.props.data ||
+      nextProps.track_id !== this.props.track_id ||
       nextState.new_image !== this.state.new_image
     );
   }
@@ -34,7 +36,10 @@ class Index extends Component {
       prevProps.data !== this.props.data
     ) {
       this.setState({
-        item: this.props.data
+        item: this.props.data,
+
+        track_id:this.props.track_id
+
       }, () => {
         this.GetAttachfiles();
       })
@@ -56,10 +61,11 @@ class Index extends Component {
   }
 
   render() {
-    var item = this.state.item;
+    var {item,track_id} = this.state;
+    console.log("track_id",track_id)
     return (
       <Grid className="bpJohnImg">
-        <a data-tip data-for={item.track_id + "created"}>
+        <a data-tip data-for={track_id + "created"}>
           <img
             src={this.state.new_image}
             alt=""
@@ -71,14 +77,14 @@ class Index extends Component {
         </a>
         <ReactTooltip
           className="timeIconClas_crested"
-          id={item.track_id + "created"}
+          id={track_id + "created"}
           place="top"
           effect="solid"
           backgroundColor="#ffffff"
         >
           {item && item?.first_name && (<p>{item.first_name} {item.last_name}</p>)}
           {item && item?.created_by_temp && (<p>{item.created_by_temp}</p>)}
-          {item && item?.created_by_profile && (<p>{item.created_by_profile}</p>)}
+          {item && item?.profile_id && (<p>{item.profile_id}</p>)}
           <p>
             <img
               src={this.state.new_image}
