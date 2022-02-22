@@ -105,7 +105,7 @@ class Index extends Component {
                                     <Grid><label>{profile_id}</label></Grid>
                                     <p>{patient_info && patient_info.alies_id && patient_info.alies_id}</p>
                                     <Grid><label>{add}</label></Grid>
-                                    <p>{patient_info && patient_info.address && patient_info.address}</p>
+                                    <p>{patient_info && patient_info.address && patient_info.address} {patient_info && patient_info.city && patient_info.city} {"-"} {patient_info.pastal_code}</p>
                                     <Grid><label>{customer_since}</label></Grid>
                                     <p>{patient_info && patient_info.createdate && patient_info.createdate}</p>
                                     <Grid><label>{type}</label></Grid>
