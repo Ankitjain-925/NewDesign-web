@@ -1228,9 +1228,9 @@ class Index extends Component {
                       onChange={(e) => this.updateEntryState1(e, "email")}
                       value={this.state.updateState?.email || ''}
                     />
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr scanner</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Use other details</li>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to use Qr scanner</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomrations</li>
                     </ul>
 
                   </Grid>
@@ -1244,9 +1244,9 @@ class Index extends Component {
                       style={{ width: '100%' }}
                     />
                     <p>{this.state.updateState?.patient_id}</p>
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("email")}>Don't have Qr Code then use email</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Don't have both Qr Code and use email then use other details</li>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomrations</li>
                     </ul>
                   </Grid>
                 }
@@ -1274,10 +1274,13 @@ class Index extends Component {
                         onChange={(e) => this.updateEntryState1(e, "last_name")}
                       />
                     </Grid>
-                    <Grid className="patentInfoTxt">
+                    <Grid className="fillDia">
+                    <Grid className="rrSysto">
                       <Grid>
                         <label>Birthday</label>
                       </Grid>
+                      
+                
                       <DateFormat
                         name="birthday"
                         value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
@@ -1290,6 +1293,8 @@ class Index extends Component {
                         onChange={(e) => this.updateEntryState1(e, "birthday")}
                         customStyles={{ dateInput: { borderWidth: 0 } }}
                       />
+                 
+                    </Grid>
                     </Grid>
                     <Grid className="profileInfoIner">
                       <Grid container direction="row" alignItems="center" spacing={2}>
@@ -1330,9 +1335,9 @@ class Index extends Component {
                         <Grid className="clear"></Grid>
                       </Grid>
                     </Grid>
-                    <ul>
-                      <li onClick={() => this.handleEnableEmail("email")}>Use email</li>
-                      <li onClick={() => this.handleEnableEmail("scan")}>Use Qr Scanner</li>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go back to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to Use Qr Scanner</li>
                     </ul>
                   </Grid>}
                 <Grid className="patentInfoTxt">

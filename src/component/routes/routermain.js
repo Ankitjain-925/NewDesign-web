@@ -101,6 +101,8 @@ import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
 
+import ApproveHospital from "Screens/Components/ApprovalHospital/index"
+
 class Routermain extends Component {
   render() {
     return (
@@ -553,6 +555,12 @@ class Routermain extends Component {
               path="/nurse/professional-task"
               exact={true}
               render={(props) => <NursePT {...props} />}
+            />
+
+            <Route
+              path="/approveHospital"
+              exact={true}
+              render={(props) => <ApproveHospital {...props} />}
             />
 
 

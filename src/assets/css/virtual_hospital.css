@@ -9924,6 +9924,18 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+ul.addpatientoption li {
+    cursor: pointer;
+    list-style: none;
+    color: #00abaf;
+    text-align: center;
+}
+ul.addpatientoption {
+    padding: 10px;
+}
+ul.addpatientoption li:hover {
+    text-decoration: underline;
+}
 .filterPatlistInner button {
     background: #00abaf;
     margin: 7px 7px 7px 0px;
