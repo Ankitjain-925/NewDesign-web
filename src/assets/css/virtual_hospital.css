@@ -7665,10 +7665,10 @@ a.horzSort2 {
     padding-left: 20px;
     padding-right: 20px;
 }
-.aplyLft, .aplyRght {
+.aplyLft, .aplyRght, .aplyRght1{
     width: 50%;
 }
-.aplyRght button {
+.aplyRght button, .aplyRght1 button {
     border-radius: 8px;
     background-color: #00ABAF;
     color: #FFFFFF;
@@ -7682,7 +7682,7 @@ a.horzSort2 {
     padding: 10px 14px;
 }
 .aplyRght {
-    /* text-align: right; */
+    text-align: right;
 }
 .pantNames li:hover {
     background-color: #E1F7F7 !important;

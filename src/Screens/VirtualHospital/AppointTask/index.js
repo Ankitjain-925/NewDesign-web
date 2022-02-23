@@ -1420,8 +1420,8 @@ class Index extends Component {
                       </Grid>
                       <Grid className="aplyFltr">
                         <Grid className="aplyLft"><label className="filterCursor" onClick={this.clearFilter}>{clear_all_filters}</label></Grid>
-                        <Grid className="aplyRght"><Button onClick={() => this.applyFilter(false)}>{justapply}</Button></Grid>
-                        <Grid className="aplyRght"><Button onClick={() => this.applyFilter(true)}>{applyFiltersandsave}</Button></Grid>
+                        <Grid className="aplyRght1"><Button onClick={() => this.applyFilter(false)}>{justapply}</Button></Grid>
+                        <Grid className="aplyRght1"><Button onClick={() => this.applyFilter(true)}>{applyFiltersandsave}</Button></Grid>
                       </Grid>
                     </Grid>
                   </Grid>
