@@ -29,7 +29,8 @@ import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 import ReactToPrint, { PrintContext } from 'react-to-print';
 import { ComponentToPrint } from "./ComponentTo";
-import { TextEditor } from "text-editor-react";
+import ReactQuill from "react-quill";
+
 
 
 
@@ -42,14 +43,14 @@ class Index extends Component {
     this.autocompleteInput = React.createRef();
     // this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
     this.state = {
-      header: "",
-      footer: "",
-      first_name: "",
-      last_name: "",
-      mobile: "",
-      DoB: "",
+      header: 0,
+      footer: 0,
+      first_name: "test",
+      last_name: "test",
+      mobile: "9999999999",
+      DoB: "02/12/1998",
       loaderImage: false,
-      editor:""
+      editor: ''
 
     };
   }
@@ -138,12 +139,16 @@ class Index extends Component {
         this.setState({ loaderImage: false });
       });
   }
-
+  handlelatestChange = (value) => {
+    // let state = this.state.editorText;
+    // state[name] = e;
+    // this.setState({ editorText: state });
+    this.setState({ editor: value })
+  };
 
   handleOnBeforeGetContent = () => {
 
-    this.setState({ loaderImage: true, first_name: this.state.first_name, last_name: this.state.last_name, mobile: this.state.mobile, DoB: this.state.DoB });
-    console.log("first", this.state.first_name)
+    this.setState({ loaderImage: true, first_name: this.state.first_name, last_name: this.state.last_name, mobile: this.state.mobile, DoB: this.state.DoB ,editor:this.state.editor});
     return new Promise((resolve) => {
       setTimeout(() => {
         this.setState(
@@ -210,84 +215,89 @@ class Index extends Component {
           <Grid item xs={11} md={10}>
             <Grid item xs={12} md={12}>
               <Grid className='headercont'>
-              <Grid>
-                <label>Header</label>
                 <Grid>
-                  <input
-                    name="header"
-                    type="text"
-                    onChange={(e) => { this.handleChange1("header", e.target.value) }}
-                    value={this.state.header}
+                  <label>Header</label>
+                  <Grid>
+                    <input
+                      name="header"
+                      type="text"
+                      onChange={(e) => { this.handleChange1("header", e.target.value) }}
+                      value={this.state.header}
 
-                  />
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <label>Footer</label>
-                <Grid>
-                  <input
-                    name="footer"
-                    type="text"
-                    onChange={(e) => { this.handleChange1("footer", e.target.value) }}
-                    value={this.state.footer}
-                  />
+                <Grid item xs={12} md={12}>
+                  <label>Footer</label>
+                  <Grid>
+                    <input
+                      name="footer"
+                      type="text"
+                      onChange={(e) => { this.handleChange1("footer", e.target.value) }}
+                      value={this.state.footer}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <label>first_name</label>
-                <Grid>
-                  <input
-                    name="first_name"
-                    type="text"
-                    onChange={(e) => { this.handleChange1("first_name", e.target.value) }}
-                    value={this.state.first_name}
-                  />
+                <Grid item xs={12} md={12}>
+                  <label>first_name</label>
+                  <Grid>
+                    <input
+                      name="first_name"
+                      type="text"
+                      onChange={(e) => { this.handleChange1("first_name", e.target.value) }}
+                      value={this.state.first_name}
+                      disabled
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <label>last_name</label>
-                <Grid>
-                  <input
-                    name="last_name"
-                    type="text"
-                    onChange={(e) => { this.handleChange1("last_name", e.target.value) }}
-                    value={this.state.last_name}
+                <Grid item xs={12} md={12}>
+                  <label>last_name</label>
+                  <Grid>
+                    <input
+                      name="last_name"
+                      type="text"
+                      onChange={(e) => { this.handleChange1("last_name", e.target.value) }}
+                      value={this.state.last_name}
+                      disabled
+                    />
 
-                  />
-                 
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <label>mobile</label>
-                <Grid>
-                  <input
-                    name="mobile"
-                    type="text"
-                    onChange={(e) => { this.handleChange1("mobile", e.target.value) }}
-                    value={this.state.mobile}
-
-                  />
+                <Grid item xs={12} md={12}>
+                  <label>mobile</label>
+                  <Grid>
+                    <input
+                      name="mobile"
+                      type="text"
+                      onChange={(e) => { this.handleChange1("mobile", e.target.value) }}
+                      value={this.state.mobile}
+                      disabled
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <label>DoB</label>
-                <Grid>
-                  <input
-                    name="DoB"
-                    type="Date"
-                    onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
-                    value={this.state.DoB}
-
-                  />
+                <Grid item xs={12} md={12}>
+                  <label>DoB</label>
+                  <Grid>
+                    <input
+                      name="DoB"
+                      type="text"
+                      onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
+                      value={this.state.DoB}
+                      disabled
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12} md={8}>
+                <Grid item xs={12} md={8}>
                   <Grid className="infoSubInp">
-                  <TextEditor name="editor" value={this.state.editor} onChange={(e) => { this.handleChange1("editor", e.target.editor) }}/>
+                    <ReactQuill
+                      name="editor"
+                      // value={this.state.editorText?.editor}
+                      onChange={(e) => this.handlelatestChange(e, "editor")}
+                    />
                   </Grid>
                 </Grid>
 
-              <Grid item xs={12} md={8}>
+                <Grid item xs={12} md={8}>
                   <Grid className="infoSubInp">
                     <input
                       type="submit"
@@ -296,9 +306,9 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid>
-                                <Grid item xs={12} md={8}>
+                <Grid item xs={12} md={8}>
                   <Grid className="infoSubInp">
-                    
+
                     <ReactToPrint
                       content={() => this.reactToPrintContent()}
                       documentTitle="Report.pdf"
@@ -313,17 +323,17 @@ class Index extends Component {
 
                     />
                     {this.state.first_name &&
-                    // this.state.last_name&& 
-                      <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.first_name} last_name={this.state.last_name} 
-                      DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor}/>
+                      // this.state.last_name&& 
+                      <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.first_name} last_name={this.state.last_name}
+                        DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
                     }
                   </Grid>
-               </Grid>
+                </Grid>
 
               </Grid>
             </Grid>
 
-           
+
 
           </Grid>
         </Grid>
