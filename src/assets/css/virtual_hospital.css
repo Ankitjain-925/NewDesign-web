@@ -13815,3 +13815,12 @@ border-style: solid;
     margin-left: 10px;
     width:95%
 }
+
+
+
+
+.dateFormateSec .ant-picker{
+    border:none;
+    padding-left:0px;
+    padding-right:0px;
+}
