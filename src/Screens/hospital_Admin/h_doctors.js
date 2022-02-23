@@ -214,20 +214,32 @@ class Index extends Component {
 
     submitDelete = (deletekey, profile_id, bucket) => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { DeleteUser, Yes, No, click_on_YES_user } = translate;
+        let { DeleteUser, Yes, No, click_on_YES_user, are_you_sure } = translate;
+
         confirmAlert({
-            title: DeleteUser,
-            message: click_on_YES_user,
-            buttons: [
-                {
-                    label: Yes,
-                    onClick: () => this.deleteClick(deletekey, profile_id, bucket)
-                },
-                {
-                    label: No,
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+                return (
+                    <Grid className={this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "dark-confirm deleteStep"
+                        : "deleteStep"}>
+                        <Grid className="deleteStepLbl">
+                            <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                            <label>{DeleteUser}</label>
+                        </Grid>
+                        <Grid className="deleteStepInfo">
+                            <p>{click_on_YES_user}</p>
+                            <Grid><label>{are_you_sure}</label></Grid>
+                            <Grid>
+                                <Button onClick={() => { this.deleteClick(deletekey, profile_id, bucket) }}>{Yes}</Button>
+                                <Button onClick={() => { onClose(); }}>{No}</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                );
+            },
+        });
 
     };
 

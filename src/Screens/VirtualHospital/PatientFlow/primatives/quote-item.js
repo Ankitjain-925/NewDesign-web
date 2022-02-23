@@ -152,14 +152,14 @@ export default class QuoteItem extends React.Component {
                     title=""
                   /> */}
                 </Grid>
-                <Grid className="flowProfilRght" onClick={() => this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id)}>
+                <Grid className="flowProfilRght" onClick={() => {quote?.verifiedbyPatient && this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id)}}>
                   <label>
                     {quote.patient.first_name} {quote.patient.last_name}
                   </label>
                   <p>{quote.patient.alies_id}</p>
                 </Grid>
                 <Grid className="checkDotsRght">
-                  <CasesMoreButton
+                 {quote?.verifiedbyPatient && <CasesMoreButton
                     setDta={(item) => this.props.setDta(item)}
                     currentStep={quote?.author?.step_name}
                     currentIndex={checkTheIndex(
@@ -173,7 +173,7 @@ export default class QuoteItem extends React.Component {
                     ordered={this.props.ordered}
                     professional_id_list={this.props.professional_id_list}
                     updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
-                  />
+                  />}
                 </Grid>
               </Grid>
             </Grid>
@@ -223,7 +223,7 @@ export default class QuoteItem extends React.Component {
                       />
                       {quote.done_task ? quote.done_task : 0}/{quote.total_task ? quote.total_task : 0}
                     </a>
-                    <a className="addSec taskHover" onClick={() => { this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                    <a className="addSec taskHover" onClick={() => {quote?.verifiedbyPatient && this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
                       <span>{AddTask}</span>
                       <img
                         src={require("assets/virtual_images/plusIcon.png")}
@@ -277,7 +277,7 @@ export default class QuoteItem extends React.Component {
                   <Grid item xs={12} md={4} lg={3}>
                     <Grid className="cardioArea" >
                       <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
-                      <Grid onClick={() => this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id)}>
+                      <Grid onClick={() => {quote?.verifiedbyPatient && this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id)}}>
                         <label>
                           {quote.patient.first_name} {quote.patient.last_name}
                         </label>
@@ -321,7 +321,7 @@ export default class QuoteItem extends React.Component {
                       />
                       {quote.done_task ? quote.done_task : 0}/{quote.total_task ? quote.total_task : 0}
                     </a>
-                    <a className="addSec taskHover" onClick={() => { this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                    <a className="addSec taskHover" onClick={() => {quote?.verifiedbyPatient &&  this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
                       <span>{AddTask}</span>
                       <img
                         src={require("assets/virtual_images/plusIcon.png")}
@@ -343,7 +343,7 @@ export default class QuoteItem extends React.Component {
                     <Assigned assigned_to={quote.assinged_to} />
                   </Grid>
                   <Grid>
-                    <CasesMoreButton
+                  {quote?.verifiedbyPatient && <CasesMoreButton
                       setDta={(item) => this.props.setDta(item)}
                       currentStep={quote?.author?.step_name}
                       currentIndex={checkTheIndex(
@@ -357,7 +357,7 @@ export default class QuoteItem extends React.Component {
                       ordered={this.props.ordered}
                       professional_id_list={this.props.professional_id_list}
                       updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
-                    />
+                    />}
                   </Grid>
                 </Grid>
               </Grid>

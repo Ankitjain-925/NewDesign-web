@@ -13,7 +13,8 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      linkexpire: false
+      linkexpire: false,
+      actiondone: false
     };
   }
 
@@ -25,7 +26,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios.put(
       sitedata.data.path + "/cases/verifiedbyPatient/" + this.props.match.params.id,
-      {  isverifiedbyPatient : status
+      {  verifiedbyPatient : status
       },
     )
       .then((responce1) => {
@@ -34,6 +35,14 @@ class Index extends Component {
           setTimeout(() => {
           this.setState({ linkexpire: false })
           },5000);
+        }
+        else{
+          if(status){
+            this.setState({actiondone : "Your are approved the hospital to share information successfully, Thanks for your co-operation"})
+          }
+          else{
+            this.setState({actiondone : "Your are not approved the hospital, Thanks for your co-operation"})
+          }
         }
         this.setState({ loaderImage: false });
       })
@@ -79,6 +88,10 @@ class Index extends Component {
                 <h1>Approve the hospital to access your information</h1>
               </div>
               <div className="NotFoundContent">
+               {this.state.actiondone && <>
+                <div className="OopsContent">{this.state.actiondone}</div>
+                </>}
+                {!this.state.actiondone && <>
                 <div className="OopsContent"></div>
                 <div>{"A hosptial wants the access to get your infomration for your treatment, If you approve the hospital then, you are able to admin in hospital for the futher treatment/ chechup."}</div>
                 <div className="err_message">{"Note : - If any condition you are not approve the hospital then hospital are not able to admit you in hospital. And this link is available only for 24hr for approve."}</div>
@@ -88,6 +101,7 @@ class Index extends Component {
                 <div onClick={()=>this.redirectPage(false)} className="BackHomeBtn">
                   {"Not Approve"}
                 </div>
+                </>}
               </div>
             </Grid>
           </Grid>
