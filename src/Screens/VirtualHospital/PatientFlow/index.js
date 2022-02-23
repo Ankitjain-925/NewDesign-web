@@ -83,6 +83,7 @@ class Index extends Component {
       mobile: "",
       phone: "",
       fax: "",
+      msgState: ""
     };
   }
   static defaultProps = {
@@ -95,7 +96,7 @@ class Index extends Component {
   }
 
   handleEnableEmail = (value) => {
-    this.setState({ enableEmail: value, updateState: {} })
+    this.setState({ enableEmail: value, updateState: {} , msgState: ""})
   }
 
   handleOpenPopup = () => {
@@ -324,7 +325,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "" });
+    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "", msgState: "" });
   };
 
   // Set patient and status data
@@ -512,7 +513,7 @@ class Index extends Component {
     if (data) {
       state[name] = data;
       this.setState({
-        updateState: state
+        updateState: state, msgState: "Scan successfully processed further"
       })
     }
   }
@@ -1243,7 +1244,7 @@ class Index extends Component {
                       onScan={(e) => this.handleScan(e, "patient_id")}
                       style={{ width: '100%' }}
                     />
-                    <p>{this.state.updateState?.patient_id}</p>
+                    <p>{this.state.msgState}</p>
                     <ul className="addpatientoption">
                       <li onClick={() => this.handleEnableEmail("email")}>Go to check with email</li>
                       <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomrations</li>
@@ -1275,26 +1276,26 @@ class Index extends Component {
                       />
                     </Grid>
                     <Grid className="fillDia">
-                    <Grid className="rrSysto">
-                      <Grid>
-                        <label>Birthday</label>
+                      <Grid className="rrSysto dateFormateSec">
+                        <Grid>
+                          <label>Birthday</label>
+                        </Grid>
+
+
+                        <DateFormat
+                          name="birthday"
+                          value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
+                          // notFullBorder
+                          date_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.date_format
+                          }
+                          onChange={(e) => this.updateEntryState1(e, "birthday")}
+                          customStyles={{ dateInput: { borderWidth: 0 } }}
+                        />
+
                       </Grid>
-                      
-                
-                      <DateFormat
-                        name="birthday"
-                        value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
-                        // notFullBorder
-                        date_format={
-                          this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.date_format
-                        }
-                        onChange={(e) => this.updateEntryState1(e, "birthday")}
-                        customStyles={{ dateInput: { borderWidth: 0 } }}
-                      />
-                 
-                    </Grid>
                     </Grid>
                     <Grid className="profileInfoIner">
                       <Grid container direction="row" alignItems="center" spacing={2}>
