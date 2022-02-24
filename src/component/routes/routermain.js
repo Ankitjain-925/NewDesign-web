@@ -92,6 +92,7 @@ import Questionnaire from "Screens/VirtualHospital/Questionnaire"
 import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
+import UploadApproval from "Screens/VirtualHospital/UploadApproval/index"
 // import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 import VHProfile from "Screens/VirtualHospital/Profile/index";
 import AddPatient from "Screens/VirtualHospital/AddPatient/index";
@@ -538,6 +539,11 @@ class Routermain extends Component {
               path="/virtualHospital/upload_documents"
               exact={true}
               render={(props) => <UplaodDocument {...props} />}
+            />
+            <Route
+              path="/virtualHospital/upload_approval_documents"
+              exact={true}
+              render={(props) => <UploadApproval {...props} />}
             />
             
             <Route

@@ -20,7 +20,7 @@ import { Speciality } from "Screens/Login/speciality.js";
 import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { filterPatient } from "Screens/Components/BasicMethod/index";
-import Info from "Screens/VirtualHospital/UploadDocument/info"
+import UploadDoc from "Screens/VirtualHospital/UploadApproval/uploaddoc"
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -139,7 +139,7 @@ class Index extends Component {
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
-                                    <Info/>
+                                    <UploadDoc/>
                                 </Grid>
                                                                 {/* End of Right Section */}
                             </Grid>
