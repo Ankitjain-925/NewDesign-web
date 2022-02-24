@@ -96,6 +96,7 @@ class Index extends Component {
     this.getDoctorData();
     this.specailityList();
     this.getSpecialities();
+    this.onChange(new Date())
   }
 
   getDoctorData = async ()=> {
@@ -352,7 +353,7 @@ componentDidUpdate = (prevProps) => {
       doc_select: i,
       appointType: type,
     });
-    // setTimeout(this.onChange, 5000)
+    setTimeout(()=>this.onChange(new Date()), 200)
     // this.onChange()
   };
 

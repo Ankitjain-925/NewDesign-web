@@ -558,7 +558,7 @@ class Routermain extends Component {
             />
 
             <Route
-              path="/approveHospital"
+              path="/approveHospital/:id"
               exact={true}
               render={(props) => <ApproveHospital {...props} />}
             />

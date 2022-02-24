@@ -9924,6 +9924,12 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.setPositionMob {
+    position: relative !important;
+}
+.setPositionMob .flag-select{
+    height: 44px;
+}
 ul.addpatientoption li {
     cursor: pointer;
     list-style: none;
@@ -13250,9 +13256,7 @@ input:-moz-autofill:active{
     align-items: center;
     justify-content: flex-start;
 }
-.patentInfoTxt .MuiFormControl-root{
-    width: 100%;
-}
+
 .allSpeces{
     width:100%!important;
 }
