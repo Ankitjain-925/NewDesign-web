@@ -45,107 +45,21 @@ class Index extends Component {
     this.state = {
       header: 0,
       footer: 0,
-      first_name: "test",
-      last_name: "test",
-      mobile: "9999999999",
-      DoB: "02/12/1998",
-      loaderImage: false,
+      patinfo: this.props.patinfo,
       editor: ''
 
     };
   }
-
-
-  saveUserData = () => {
-    window.print()
-  }
-
-  componentDidMount() {
-    this.getMetadata();
-    this.getUserData();
-  }
-  //For getting User Data
-  getUserData() {
-    this.setState({ loaderImage: true });
-    let user_token = this.props.stateLoginValueAim.token;
-    let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
-      .then((response) => {
-        var title = {},
-          titlefromD = response.data.data.title;
-        var language = [],
-          languagefromD = response.data.data.language;
-        if (languagefromD && languagefromD.length > 0) {
-          languagefromD.map((item) => {
-            language.push({ value: item, label: item.replace(/_/g, " ") });
-          });
-        }
-        if (titlefromD && titlefromD !== "") {
-          title = { label: titlefromD, value: titlefromD };
-        }
-        if (response.data.data.mobile && response.data.data.mobile !== "") {
-          let mob = response.data.data.mobile.split("-");
-          if (mob && mob.length > 0) {
-            this.setState({ flag_mobile: mob[0] });
-          }
-        }
-        if (response.data.data.phone && response.data.data.phone !== "") {
-          let pho = response.data.data.phone.split("-");
-          if (pho && pho.length > 0) {
-            this.setState({ flag_phone: pho[0] });
-          }
-        }
-        if (response.data.data.fax && response.data.data.fax !== "") {
-          let fx = response.data.data.fax.split("-");
-          if (fx && fx.length > 0) {
-            this.setState({ flag_fax: fx[0] });
-          }
-        }
-        if (
-          response.data.data.emergency_number &&
-          response.data.data.emergency_number !== ""
-        ) {
-          let fen = response.data.data.emergency_number.split("-");
-          if (fen && fen.length > 0) {
-            this.setState({ flag_emergency_number: fen[0] });
-          }
-        }
-        this.setState({
-          UpDataDetails: response.data.data,
-          city: response.data.data.city,
-          area: response.data.data.area,
-          profile_id: response.data.data.profile_id,
-        });
-        this.setState({
-          speciality_multi: this.state.UpDataDetails?.speciality,
-        });
-        this.setState({ name_multi: language, title: title });
-        this.setState({
-          insurancefull: this.state.UpDataDetails?.insurance,
-          insuranceDetails: {
-            insurance: "",
-            insurance_number: "",
-            insurance_type: "",
-          },
-        });
-        this.setState({ loaderImage: false });
-        datas = this.state.UpDataDetails?.insurance;
-        var find =
-          response.data && response.data.data && response.data.data.image;
-        this.SettingImage(find);
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
-  }
+  
   handlelatestChange = (value) => {
-    // let state = this.state.editorText;
-    // state[name] = e;
-    // this.setState({ editorText: state });
     this.setState({ editor: value })
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.patinfo !== this.props.patinfo){
+      this.setState({ patinfo: this.props.patinfo })
+    }
+  }
   handleOnBeforeGetContent = () => {
 
     this.setState({ loaderImage: true, first_name: this.state.first_name, last_name: this.state.last_name, mobile: this.state.mobile, DoB: this.state.DoB, editor: this.state.editor });
@@ -192,8 +106,10 @@ class Index extends Component {
   }
 
   upload = () => {
-    console.log("1")
-    this.props.history.push("/virtualHospital/upload_approval_documents");
+    this.props.history.push({
+      pathname: '/virtualHospital/approved_add',
+      state: { data: this.state.patinfo, needUpload: true }
+  })
   }
   GetLanguageMetadata = () => {
     var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
