@@ -83,7 +83,8 @@ class Index extends Component {
       mobile: "",
       phone: "",
       fax: "",
-      msgState: ""
+      msgState: "",
+      enableScan: true
     };
   }
   static defaultProps = {
@@ -96,7 +97,7 @@ class Index extends Component {
   }
 
   handleEnableEmail = (value) => {
-    this.setState({ enableEmail: value, updateState: {} , msgState: ""})
+    this.setState({ enableEmail: value, updateState: {}, msgState: "", enableScan: true })
   }
 
   handleOpenPopup = () => {
@@ -325,7 +326,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "", msgState: "" });
+    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "", msgState: "",enableScan: true });
   };
 
   // Set patient and status data
@@ -513,7 +514,7 @@ class Index extends Component {
     if (data) {
       state[name] = data;
       this.setState({
-        updateState: state, msgState: "Scan successfully processed further"
+        updateState: state, msgState: "Scan successfully processed further", enableScan: false
       })
     }
   }
@@ -1238,13 +1239,19 @@ class Index extends Component {
                 }
                 {this.state.enableEmail == "scan" &&
                   <Grid className="patentInfoBtn pateintInfoUser">
-                    <QrReader
-                      delay={300}
-                      onError={this.handleError}
-                      onScan={(e) => this.handleScan(e, "patient_id")}
-                      style={{ width: '100%' }}
-                    />
                     <p>{this.state.msgState}</p>
+                    {this.state.enableScan == true ?
+                      <QrReader
+                        delay={300}
+                        onError={this.handleError}
+                        onScan={(e) => this.handleScan(e, "patient_id")}
+                        style={{ width: '100%' }}
+                      />
+                      :
+                      <ul className="addpatientoption">
+                        <li onClick={() => this.setState({ enableScan: true, msgState: "" })}>Go to Scanner</li>
+                      </ul>
+                    }
                     <ul className="addpatientoption">
                       <li onClick={() => this.handleEnableEmail("email")}>Go to check with email</li>
                       <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomrations</li>
