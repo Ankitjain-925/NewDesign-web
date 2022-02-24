@@ -16,7 +16,6 @@ import {
   MoveAllCases,
   setAssignedTo,
   getProfessionalData,
-  PatientMoveFromHouse
 } from "./data";
 import Drags from "./drags.js";
 import sitedata from "sitedata";
@@ -37,6 +36,10 @@ import _ from "lodash";
 import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
+import QrReader from 'react-qr-reader'
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import DateFormat from "Screens/Components/DateFormat/index";
+import ReactFlagsSelect from "react-flags-select";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -69,13 +72,32 @@ class Index extends Component {
       assignedTo2: '',
       allWards: '',
       filteredData: '',
-
+      result: 'No result',
+      enableEmail: "scan",
+      updateState: {},
+      flag_fax: "DE",
+      flag_phone: "DE",
+      flag_mobile: "DE",
+      flag_emergency_number: "DE",
+      mobile: "",
+      phone: "",
+      fax: "",
+      msgState: "",
+      enableScan: true
     };
   }
   static defaultProps = {
     isCombineEnabled: false,
   };
   boardRef;
+
+  handleError = err => {
+    console.error(err)
+  }
+
+  handleEnableEmail = (value) => {
+    this.setState({ enableEmail: value, updateState: {}, msgState: "", enableScan: true })
+  }
 
   handleOpenPopup = () => {
     this.setState({ openPopup: true })
@@ -186,8 +208,8 @@ class Index extends Component {
         }
         return last;
       }, []);
-    
-    data  = data ? data : [];
+
+    data = data ? data : [];
     this.setState({ loaderImage: true });
     var response = setAssignedTo(
       data,
@@ -303,7 +325,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false, SelectedStep: '' });
+    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "", msgState: "",enableScan: true });
   };
 
   // Set patient and status data
@@ -321,7 +343,7 @@ class Index extends Component {
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
-  
+
     var index = index;
     if (state[index]?.case_numbers?.length > 0) {
       let translate = getLanguage(this.props.stateLanguageType);
@@ -394,39 +416,112 @@ class Index extends Component {
   };
 
   DeleteStepOk = (state, index) => {
-      var yt = state[index]?.case_numbers.map((item) => {
-        return item._id;
-      })
-      this.setState({loaderImage: true})
-      axios
+    var yt = state[index]?.case_numbers.map((item) => {
+      return item._id;
+    })
+    this.setState({ loaderImage: true })
+    axios
       .post(
         sitedata.data.path + "/vh/setCasenotInhospital",
-        {case_id: yt},
+        { case_id: yt },
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-          this.setState({loaderImage: false})
+          this.setState({ loaderImage: false })
           state.splice(index, 1);
           this.setDta(state);
           this.CallApi();
           this.GetStep();
         }
-        else{
-          this.setState({loaderImage: false})
+        else {
+          this.setState({ loaderImage: false })
         }
       });
+  }
+
+  //Update the states
+  updateEntryState8 = (e) => {
+    const state = this.state.updateState;
+    if (e.target.name === "mobile") {
+      state[e.target.name] = this.state.flag_mobile + "-" + e.target.value;
+      this.setState({ mobile: e.target.value });
+    }
+    this.setState({ updateState: state });
+  };
+
+  //For update the mobile number
+  updateMOBILE = (str) => {
+    if (!str || str === "undefined" || str === null || str === "") {
+      return str;
+    } else {
+      var mob = str && str.split("-");
+      console.log('mob', mob);
+      return mob.pop();
+    }
+  };
+
+  // fOR update the flag of mobile
+  updateFLAG = (str) => {
+    var mob = str && str.split("-");
+    if (mob && mob.length > 0) {
+      if (mob[0] && mob[0].length == 2) {
+        return mob[0];
+      } else {
+        return "DE";
+      }
+    }
+  };
+
+  //For update the flags
+  updateFlags = (e, name) => {
+    const state = this.state.updateState;
+    if (name === "flag_mobile") {
+      state["mobile"] = e + "-" + this.state.mobile;
+      this.setState({ flag_mobile: e });
+    }
+    this.setState({ updateState: state });
+  };
+
+  handleScan = (data, name) => {
+    const state = this.state.updateState;
+    if (data) {
+      state[name] = data;
+      this.setState({
+        updateState: state, msgState: "Scan successfully processed further", enableScan: false
+      })
+    }
+  }
+
+  updateEntryState1 = (e, name) => {
+    const state = this.state.updateState;
+    if (name === "email") {
+      state[name] = e.target.value;
+    } else {
+      if (name === "birthday") {
+        state[name] = e
+      } else {
+        state[name] = e.target.value;
+      }
+    }
+    this.setState({ updateState: state })
   }
 
   //On Add case
   AddCase = () => {
     this.setState({ errorMsg: '' })
-    var data = this.state.addp;
+    var data = this.state.updateState
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please enter case number' })
     }
     else if (data && !this.state.SelectedStep) {
       this.setState({ errorMsg: 'Please select step' })
+    }
+    else if(!data.email && this.state.enableEmail === 'email'){
+      this.setState({ errorMsg: 'Please add the email of patient' })
+    }
+    else if(!data.first_name && !data.last_name && !data.birthday && !data.mobile && this.state.enableEmail === 'other'){
+      this.setState({ errorMsg: 'Please enter the full information of patient' })
     }
     else {
       data.institute_id =
@@ -437,7 +532,7 @@ class Index extends Component {
       // this.setState({ loaderImage: true });
       axios
         .post(
-          sitedata.data.path + "/vh/checkPatient",
+          sitedata.data.path + "/vh/checkPatient1",
           data,
           commonHeader(this.props.stateLoginValueAim.token)
         )
@@ -455,6 +550,8 @@ class Index extends Component {
                 profile_id: responce.data.data.profile_id,
                 alies_id: responce.data.data.alies_id,
               },
+              added_at: new Date(),
+              verifiedbyPatient: false
             };
             if (responce.data.data?.type !== 'patient') {
               this.setState({ idpinerror: true, loaderImage: false });
@@ -469,7 +566,21 @@ class Index extends Component {
                 )
                 .then((responce1) => {
                   if (responce1.data.hassuccessed) {
+                    var senddata = {}
+                    if (this.state.updateState?.email) { senddata.email = this.state.updateState?.email }
+                    if (this.state.updateState?.mobile) { senddata.mobile = this.state.updateState?.mobile }
+                    senddata.case_id = responce1.data?.data
+                    senddata.patient = responce.data.data._id
+                    senddata.patient_name = responce.data.data.last_name ? responce.data.data.first_name + ' ' + responce.data.data.last_name : responce.data.data.first_name
+                    axios
+                      .post(
+                        sitedata.data.path + "/vh/linkforAccepthospital",
+                        senddata,
+                        commonHeader(this.props.stateLoginValueAim.token)
+                      )
+                      .then((responce1) => { })
                     this.setState({
+                      updateState: {},
                       idpinerror: false,
                       openAddP: false,
                       case: {},
@@ -503,7 +614,13 @@ class Index extends Component {
             }
             setTimeout(() => {
               this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
-            }, 3000);
+              if(this.state.enableEmail === 'other'){
+                this.closeAddP()
+              }
+              else{
+                this.handleEnableEmail(this.state.enableEmail ==='email' ? 'other' : 'email')
+              }
+            }, 2000);
           }
         });
     }
@@ -614,7 +731,7 @@ class Index extends Component {
   newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
-  
+
   filterResult = () => {
     let { selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData } = this.state
     var data = _.cloneDeep(actualData);
@@ -1089,46 +1206,148 @@ class Index extends Component {
                 <label>{AddPatienttoFlow}</label>
               </Grid>
               <Grid className="patentInfo">
-                {this.state.caseAlready && (
-                  <div className="err_message">
-                    {case_already_exists_in_hospital}
-                  </div>
-                )}
-                {this.state.inOtherAlready && (
-                  <div className="err_message">
-                    {case_already_exists_in_other_hospital} <b>{this.state.alreadyData?.house?.house_name}</b> {ofInstitution}<b>{this.state.alreadyData?.institute_groups?.group_name}</b>
-                  </div>
-                )}
+                {this.state.enableEmail == "email" &&
+                  <Grid className="patentInfoBtn pateintInfoUser">
+                    <VHfield
+                      label="Patient Email"
+                      name="email"
+                      onChange={(e) => this.updateEntryState1(e, "email")}
+                      value={this.state.updateState?.email || ''}
+                    />
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to use Qr scanner</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic informations</li>
+                    </ul>
 
-                {this.state.idpinerror && (
-                  <div className="err_message">{id_and_pin_not_correct}</div>
-                )}
-                <p className="err_message">{this.state.errorMsg}</p>
-                <Grid className="patentInfoTxt">
-                  <Grid>
-                    <label>{PatientID}</label>
                   </Grid>
-                  <TextField
-                    name="patient_id"
-                    value={this.state.addp.patient_id}
-                    onChange={this.changeAddp}
-                  />
-                </Grid>
-                <Grid className="patentInfoTxt">
-                  <Grid>
-                    <label>{PatientPIN}</label>
+                }
+                {this.state.enableEmail == "scan" &&
+                  <Grid className="patentInfoBtn pateintInfoUser">
+                    <p>{this.state.msgState}</p>
+                    {this.state.enableScan == true ?
+                      <QrReader
+                        delay={300}
+                        onError={this.handleError}
+                        onScan={(e) => this.handleScan(e, "patient_id")}
+                        style={{ width: '100%' }}
+                      />
+                      :
+                      <ul className="addpatientoption">
+                        <li onClick={() => this.setState({ enableScan: true, msgState: "" })}>Go to Scanner</li>
+                      </ul>
+                    }
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic informations</li>
+                    </ul>
                   </Grid>
-                  <TextField
-                    name="pin"
-                    value={this.state.addp.pin}
-                    onChange={this.changeAddp}
-                  />
-                </Grid>
-                <Grid className="patentInfoTxt">
+                }
+                {this.state.enableEmail == "other" &&
                   <Grid>
-                    <label>{CaseNumber}</label>
-                  </Grid>
-                  <TextField
+                    <Grid className="patentInfoTxt">
+                      <VHfield
+                        label="First name"
+                        name="first_name"
+                        onChange={(e) => this.updateEntryState1(e, "first_name")}
+                        value={this.state.updateState?.first_name || ''}
+                      />
+                    </Grid>
+                    <Grid className="patentInfoTxt">
+                      <VHfield
+                        label="Last name"
+                        name="last_name"
+                        value={this.state.updateState?.last_name || ''}
+                        onChange={(e) => this.updateEntryState1(e, "last_name")}
+                      />
+                    </Grid>
+                    
+                    <Grid className="profileInfoDate">
+                      <Grid className="dateFormateSec">
+                        <Grid>
+                          <label>Birthday</label>
+                        </Grid>
+                        <DateFormat
+                          name="birthday"
+                          value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
+                          // notFullBorder
+                          date_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.date_format
+                          }
+                          onChange={(e) => this.updateEntryState1(e, "birthday")}
+                          customStyles={{ dateInput: { borderWidth: 0 } }}
+                        />
+
+                      </Grid>
+                    </Grid>
+                    {/* <Grid className="fillDia">
+                      <Grid className="rrSysto dateFormateSec">
+                        <Grid>
+                          <label>Birthday</label>
+                        </Grid>
+
+
+                        <DateFormat
+                          name="birthday"
+                          value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
+                          // notFullBorder
+                          date_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.date_format
+                          }
+                          onChange={(e) => this.updateEntryState1(e, "birthday")}
+                          customStyles={{ dateInput: { borderWidth: 0 } }}
+                        />
+
+                      </Grid>
+                    </Grid> */}
+                    <Grid className="profileInfoIner">
+                      <Grid container direction="row" alignItems="center" spacing={2}>
+                        <Grid item xs={12} md={12}>
+                          <label>Mobile number</label>
+                          <Grid className="setPositionMob">
+                            {this.updateFLAG(this.state.updateState.mobile) &&
+                              this.updateFLAG(this.state.updateState.mobile) !==
+                              "" && (
+                                <ReactFlagsSelect
+                                  searchable={true}
+                                  onSelect={(e) => {
+                                    this.updateFlags(e, "flag_mobile");
+                                  }}
+                                  name="flag_mobile"
+                                  showSelectedLabel={false}
+                                  defaultCountry={this.updateFLAG(
+                                    this.state.updateState.mobile
+                                  )}
+                                />
+                              )}
+                            <input
+                              type="text"
+                              className="Mobile_extra"
+                              name="mobile"
+                              type="text"
+                              onChange={this.updateEntryState8}
+                              value={
+                                this.state.updateState.mobile &&
+                                this.updateMOBILE(this.state.updateState.mobile) || ''
+                              }
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} md={4}></Grid>
+                        <Grid className="clear"></Grid>
+                      </Grid>
+                    </Grid>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go back to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to Use Qr Scanner</li>
+                    </ul>
+                  </Grid>}
+                <Grid className="patentInfoTxt">
+                  <VHfield
+                    label={CaseNumber}
                     name="case_number"
                     value={this.state.case.case_number}
                     onChange={this.onChangeCase}
@@ -1144,10 +1363,25 @@ class Index extends Component {
                     className="allSpeces"
                     isSearchable={false}
                   />
+
                 </Grid>
-                <Grid className="patentInfoBtn">
-                  <Button onClick={this.AddCase}>{add_patient_to_flow}</Button>
-                </Grid>
+              </Grid>
+              <Grid className="patentInfoBtn patentTnfoBtn1">
+                {this.state.caseAlready && (
+                  <div className="err_message">
+                    {case_already_exists_in_hospital}
+                  </div>
+                )}
+                {this.state.inOtherAlready && (
+                  <div className="err_message">
+                    {case_already_exists_in_other_hospital} <b>{this.state.alreadyData?.house?.house_name}</b> {ofInstitution}<b>{this.state.alreadyData?.institute_groups?.group_name}</b>
+                  </div>
+                )}
+                {this.state.idpinerror && (
+                  <div className="err_message">{"Patient is not found on the basis of given information"}</div>
+                )}
+                <p className="err_message">{this.state.errorMsg}</p>
+                <Button onClick={this.AddCase}>Submit</Button>
               </Grid>
             </Grid>
           </Grid>
@@ -1181,15 +1415,15 @@ class Index extends Component {
                   </Grid>
                   <label>{add_step}</label>
                 </Grid>
-                </Grid>
-                <Grid className="enterWrnUpr">
-                  <Grid className="enterWrnMain">
-                <p className='err_message'>{this.state.stepError}</p>
-                <Grid className="buttonStyle fltrInput">
-                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
-                    onChange={this.handleName} type="text" />
-                  <a color="primary" onClick={this.OnAdd}>{Add}</a>
-                </Grid>
+              </Grid>
+              <Grid className="enterWrnUpr">
+                <Grid className="enterWrnMain">
+                  <p className='err_message'>{this.state.stepError}</p>
+                  <Grid className="buttonStyle fltrInput">
+                    <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
+                      onChange={this.handleName} type="text" />
+                    <a color="primary" onClick={this.OnAdd}>{Add}</a>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

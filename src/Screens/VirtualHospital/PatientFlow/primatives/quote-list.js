@@ -65,6 +65,7 @@ class InnerQuoteList extends React.Component {
         draggableId={quote.patient_id}
         index={index}
         shouldRespectForceTouch={false}
+        isDragDisabled={!quote?.verifiedbyPatient}
       >
         {(dragProvided, dragSnapshot) => (
           <QuoteItem

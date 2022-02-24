@@ -10,8 +10,6 @@ import {
 } from "Screens/Components/BasicMethod";
 import axios from "axios";
 import sitedata from "sitedata";
-
-
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";

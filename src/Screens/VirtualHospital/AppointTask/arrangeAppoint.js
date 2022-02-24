@@ -96,6 +96,7 @@ class Index extends Component {
     this.getDoctorData();
     this.specailityList();
     this.getSpecialities();
+    this.onChange(new Date())
   }
 
   getDoctorData = async ()=> {
@@ -352,7 +353,7 @@ componentDidUpdate = (prevProps) => {
       doc_select: i,
       appointType: type,
     });
-    // setTimeout(this.onChange, 5000)
+    setTimeout(()=>this.onChange(new Date()), 200)
     // this.onChange()
   };
 
@@ -567,11 +568,11 @@ componentDidUpdate = (prevProps) => {
           if (responce.data.hassuccessed === true) {
             this.setState({
               successfull: true,
-              openAllowAccess: false,
               openAllowLoc: false,
               openFancyVdo: false,
               currentSelected: {},
             });
+            this.props.handleCloseAllowAccess();
             this.props.getTaskData();
             this.getPatientData();
             setTimeout(
@@ -763,6 +764,7 @@ componentDidUpdate = (prevProps) => {
                                     value={this.state.selectWard}
                                     placeholder={FilterbyWard}
                                     isMulti={false}
+                                    className="addStafSelect"
                                     isSearchable={true} />
                                 </Grid>
                               </Grid>
@@ -1430,9 +1432,6 @@ export default withRouter(
     authy,
     houseSelect,
     Speciality,
-  })(
-    GoogleApiWrapper({
-      apiKey: "AIzaSyCNLBs_RtZoI4jdrZg_CjBp9hEM6SBIh-4",
-    })(Index)
+  })((Index)
   )
 );

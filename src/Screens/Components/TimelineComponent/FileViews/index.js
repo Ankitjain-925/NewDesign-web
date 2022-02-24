@@ -137,7 +137,7 @@ class Index extends Component {
           item.length > 0 &&
           item.map((file) => (
             <a>
-              {file.filetype === "mp4" && (
+              {file?.filetype === "mp4" && (
                 <video width="100%" className="VideoPlay" controls>
                   <source
                     src={getImage(file.filename, this.state.images)}
@@ -145,60 +145,60 @@ class Index extends Component {
                   />
                 </video>
               )}
-              {(file.filetype === "png" ||
-                file.filetype === "jpeg" ||
-                file.filetype === "jpg" ||
-                file.filetype === "svg") && (
+              {(file?.filetype === "png" ||
+                file?.filetype === "jpeg" ||
+                file?.filetype === "jpg" ||
+                file?.filetype === "svg") && (
                 <img
-                  onClick={() => this.OpenFile(file.filename, file.filetype)}
+                  onClick={() => this.OpenFile(file.filename, file?.filetype)}
                   src={getImage(file.filename, this.state.images)}
                   alt=""
                   title=""
                 />
               )}
-              {file.filetype === "pdf" && (
+              {file?.filetype === "pdf" && (
                 <img
-                  onClick={() => this.OpenFile(file.filename, file.filetype)}
+                  onClick={() => this.OpenFile(file.filename, file?.filetype)}
                   src={require("assets/images/pdfimg.png")}
                   alt=""
                   title=""
                 />
               )}
-              {(file.filetype === "doc" ||
-                file.filetype === "docx" ||
-                file.filetype === "xml" ||
-                file.filetype === "txt") && (
+              {(file?.filetype === "doc" ||
+                file?.filetype === "docx" ||
+                file?.filetype === "xml" ||
+                file?.filetype === "txt") && (
                 <img
-                  onClick={() => this.OpenFile(file.filename, file.filetype)}
+                  onClick={() => this.OpenFile(file.filename, file?.filetype)}
                   src={require("assets/images/txt1.png")}
                   alt=""
                   title=""
                 />
               )}
-              {(file.filetype === "xls" ||
-                file.filetype === "xlsx" ||
-                file.filetype === "xml") && (
+              {(file?.filetype === "xls" ||
+                file?.filetype === "xlsx" ||
+                file?.filetype === "xml") && (
                 <img
-                  onClick={() => this.OpenFile(file.filename, file.filetype)}
+                  onClick={() => this.OpenFile(file.filename, file?.filetype)}
                   src={require("assets/images/xls1.svg")}
                   alt=""
                   title=""
                 />
               )}
-              {file.filetype === "csv" && (
+              {file?.filetype === "csv" && (
                 <img
-                  onClick={() => this.OpenFile(file.filename, file.filetype)}
+                  onClick={() => this.OpenFile(file.filename, file?.filetype)}
                   src={require("assets/images/csv1.png")}
                   alt=""
                   title=""
                 />
               )}
-              {(file.filetype === "dcm" ||
-                file.filetype === "DICOM" ||
-                file.filetype === "dicom" ||
-                file.filetype === "DCM") && (
+              {(file?.filetype === "dcm" ||
+                file?.filetype === "DICOM" ||
+                file?.filetype === "dicom" ||
+                file?.filetype === "DCM") && (
                 <img
-                  onClick={() => this.OpenFile(file.filename, file.filetype)}
+                  onClick={() => this.OpenFile(file.filename, file?.filetype)}
                   src={require("assets/images/dcm1.png")}
                   alt=""
                   title=""

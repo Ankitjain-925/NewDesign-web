@@ -7665,10 +7665,10 @@ a.horzSort2 {
     padding-left: 20px;
     padding-right: 20px;
 }
-.aplyLft, .aplyRght {
+.aplyLft, .aplyRght, .aplyRght1{
     width: 50%;
 }
-.aplyRght button {
+.aplyRght button, .aplyRght1 button {
     border-radius: 8px;
     background-color: #00ABAF;
     color: #FFFFFF;
@@ -7682,7 +7682,7 @@ a.horzSort2 {
     padding: 10px 14px;
 }
 .aplyRght {
-    /* text-align: right; */
+    text-align: right;
 }
 .pantNames li:hover {
     background-color: #E1F7F7 !important;
@@ -9930,6 +9930,32 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.blood-sec{
+    line-height: 30px !important;
+}
+.setPositionMob {
+    position: relative !important;
+}
+.setPositionMob .flag-select{
+    height: 44px;
+}
+ul.addpatientoption li {
+    cursor: pointer;
+    list-style: none;
+    color: #00abaf;
+    text-align: center;
+}
+ul.addpatientoption {
+    padding: 10px;
+}
+ul.addpatientoption li:hover {
+    text-decoration: underline;
+}
+.filterPatlistInner button {
+    background: #00abaf;
+    margin: 7px 7px 7px 0px;
+    padding: 1px 15px;
+}
 .filterPatlist {
  position: relative;   
 }
@@ -10450,7 +10476,7 @@ a.newacademyul ul li img
     margin-right: 10px;
     margin-bottom: 8px;
 }
-.darkTheme .serchInput {
+.darkTheme .serchInput, .homeBgDrk .serchInput {
     color: #cfcfcf;
     background: #192020;
 }
@@ -12265,6 +12291,10 @@ ul.patientHint li {
 .darkTheme .staffGraphUpr {
     background-color: #404646;
 }
+.openScandhrf1 img{
+    margin-top: 20px;
+}
+
 .darkTheme .invoicHsptalIner.Mui-selected {
     background-color: transparent !important;
 }
@@ -12289,7 +12319,7 @@ ul.patientHint li {
 .darkTheme .srvcTable3 td p {
     color: #bfc1c1;
 }
-.darkTheme .settingInfo a {
+.darkTheme .settingInfo a, .homeBgDrk .settingInfo a {
     background-color: transparent;
     border: 1px solid #7f8383;
 }
@@ -13235,9 +13265,7 @@ input:-moz-autofill:active{
     align-items: center;
     justify-content: flex-start;
 }
-.patentInfoTxt .MuiFormControl-root{
-    width: 100%;
-}
+
 .allSpeces{
     width:100%!important;
 }

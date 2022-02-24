@@ -53,6 +53,22 @@ class Index extends Component {
     this.getMypatientsData();
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.searchValue !== this.props.searchValue) {
+        if(this.props.searchValue===''){
+          this.getMypatientsData();
+        }
+        else{
+          let FilterFromSearch1 = this.state.AllPres?.length>0 && this.state.AllPres.filter((obj) => {
+            return JSON.stringify(obj).toLowerCase().includes(this.props.searchValue?.toLowerCase());;
+          });
+          this.setState({
+            MypatientsData : FilterFromSearch1
+          });
+        }
+      }
+}
+
   getMypatientsData() {
     this.setState({ loaderImage: true });
     let user_token = this.props.stateLoginValueAim.token;
@@ -155,7 +171,7 @@ class Index extends Component {
               ? responce.data.message
               : responce.data.msg,
           });
-          if (responce.data.hassuccessed) this.setState({ saveAttach: true });
+          if (responce.data.hassuccessed) this.setState({ saveAttach: true, });
           setTimeout(
             function () {
               this.setState({ saveAttach: false, serverMsg: "" });

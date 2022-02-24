@@ -102,6 +102,8 @@ import DoctorInstitute from "Screens/Doctor/institites/index";
 import NurseInstitute from "Screens/Nurse/institutes/index";
 import NursePT from "Screens/Nurse/ProfessionalTask/index";
 
+import ApproveHospital from "Screens/Components/ApprovalHospital/index"
+
 class Routermain extends Component {
   render() {
     return (
@@ -158,7 +160,7 @@ class Routermain extends Component {
               path="/patient/documents"
               render={(props) => <PatientDocument {...props} />}
             />
-            <Route
+             <Route
               exact
               path="/patient/patient-journey"
               render={(props) => <Patientjourney {...props} />}
@@ -381,7 +383,7 @@ class Routermain extends Component {
               path="/doctor/journal"
               render={(props) => <DoctorJournal {...props} />}
             />
-            <Route
+             <Route
               exact
               path="/doctor/professional-task"
               render={(props) => <DoctorProfessionalTask {...props} />}
@@ -526,38 +528,45 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <AddPatient {...props} />}
             />
-            {/* Add By tanya*/}
-            <Route
+              {/* Add By tanya*/}
+              <Route
               path="/virtualHospital/invoice_pattern"
               exact={true}
               render={(props) => <InvoicePattern {...props} />}
+            />
+ 
+            <Route
+              path="/virtualHospital/upload_documents"
+              exact={true}
+              render={(props) => <UplaodDocument {...props} />}
             />
             <Route
               path="/virtualHospital/upload_approval_documents"
               exact={true}
               render={(props) => <UploadApproval {...props} />}
             />
-            <Route
-              path="/virtualHospital/upload_documents"
-              exact={true}
-              render={(props) => <UplaodDocument {...props} />}
-            />
-
+            
             <Route
               path="/doctor/institutes"
               exact={true}
               render={(props) => <DoctorInstitute {...props} />}
             />
 
-            <Route
+          <Route
               path="/nurse/institutes"
               exact={true}
               render={(props) => <NurseInstitute {...props} />}
             />
-            <Route
+               <Route
               path="/nurse/professional-task"
               exact={true}
               render={(props) => <NursePT {...props} />}
+            />
+
+            <Route
+              path="/approveHospital/:id"
+              exact={true}
+              render={(props) => <ApproveHospital {...props} />}
             />
 
 
@@ -566,14 +575,14 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <AssignModelTask {...props} />}
             /> */}
-            <Route
+           <Route
               path="*"
               exact={true}
               render={(props) => <NotFound {...props} />}
             />
 
-            {/* End By Ankita */}
-
+             {/* End By Ankita */}
+             
           </Switch>
         </Grid>
       </Router>

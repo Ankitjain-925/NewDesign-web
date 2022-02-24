@@ -86,6 +86,19 @@ class Index extends Component {
         if (prevProps.newItem !== this.props.newItem) {
             this.getSick();
         }
+        if (prevProps.searchValue !== this.props.searchValue) {
+            if(this.props.searchValue===''){
+              this.getSick();
+            }
+            else{
+              let FilterFromSearch1 = this.state.AllPres?.length>0 && this.state.AllPres.filter((obj) => {
+                return JSON.stringify(obj).toLowerCase().includes(this.props.searchValue?.toLowerCase());;
+              });
+              this.setState({
+                currentList : FilterFromSearch1
+              });
+            }
+          }
     }
     // Add the Sick Certificate State
     AddSickState = (e) => {

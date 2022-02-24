@@ -72,7 +72,7 @@ export class ComponentToPrint1 extends React.Component {
 
                                                 <p>For</p>
                                                 <strong>{data?.patient?.first_name} &nbsp; {data?.patient?.last_name}</strong>
-                                                <p>{data?.patient?.profile_id}</p>
+                                                <p>{data?.patient?.alies_id ? data?.patient?.alies_id : data?.patient?.profile_id} </p>
                                             </td>
                                         </tr>
                                     </table>

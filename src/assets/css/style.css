@@ -14380,7 +14380,8 @@ ul.insuranceHint1 li {
 }
 /*image Preview*/
 .ViewImage img{
-    width: 060px;
+    width: 60px;
+    height: auto !important;
     margin-top: 29px;
     margin-left:10px;
 }
@@ -14733,7 +14734,7 @@ a.activePageDocutmet {
     display: inline-block;
     padding: 13px 15px;
     cursor: pointer;
-    margin-top: 30px;
+    margin: 30px 4px 0px 4px;
 }
 /* Not Found Page End */
 

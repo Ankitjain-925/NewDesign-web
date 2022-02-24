@@ -36,6 +36,7 @@ import DateFormat from "Screens/Components/DateFormat/index";
 import Autocomplete from "Screens/Components/Autocomplete/index.js";
 import Modal from "@material-ui/core/Modal";
 import { subspeciality } from "subspeciality.js";
+import _ from 'lodash';
 import SPECIALITY from "speciality";
 import { OptionList } from "Screens/Login/metadataaction";
 import {
@@ -124,6 +125,7 @@ class Index extends Component {
       filteredCompany: [],
       editIndex: null,
       toSmall1: false,
+      UpDataDetails1: {}
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -382,7 +384,7 @@ class Index extends Component {
 
   //for open the Change profile Dialog
   handlePinOpen = () => {
-    this.setState({ chngPinOpen: true });
+    this.setState({ chngPinOpen: true, UpDataDetails1:  _.cloneDeep(this.state.UpDataDetails) });
   };
   handlePinClose = (key) => {
     this.setState({ [key]: false });
@@ -692,9 +694,9 @@ class Index extends Component {
 
   // Check the Alies is duplicate or not
   changePin = (e) => {
-    const state = this.state.UpDataDetails;
+    const state = this.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
-    this.setState({ UpDataDetails: state });
+    this.setState({ UpDataDetails1: state });
     if (e.target.value.length > 3 && e.target.value !== "") {
       this.setState({ toSmall1: false });
     } else {
@@ -715,14 +717,14 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/UserProfile/Users/update",
           {
-            pin: this.state.UpDataDetails.pin,
-            alies_id: this.state.UpDataDetails.alies_id,
+            pin: this.state.UpDataDetails1.pin,
+            alies_id: this.state.UpDataDetails1.alies_id,
           },
           commonHeader(user_token)
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            this.setState({ ChangedPIN: true });
+            this.setState({ ChangedPIN: true, UpDataDetails1: {} });
             setTimeout(() => {
               this.setState({ ChangedPIN: false });
             }, 5000);
@@ -736,9 +738,9 @@ class Index extends Component {
 
   // Check the Alies is duplicate or not
   changeAlies = (e) => {
-    const state = this.state.UpDataDetails;
+    const state = this.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
-    this.setState({ UpDataDetails: state });
+    this.setState({ UpDataDetails1: state });
     if (e.target.value.length > 5 && e.target.value !== "") {
       this.setState({ loaderImage: true, toSmall: false });
       const user_token = this.props.stateLoginValueAim.token;
@@ -1243,7 +1245,7 @@ class Index extends Component {
                       type="text"
                       name="alies_id"
                       onChange={this.changeAlies}
-                      value={UpDataDetails.alies_id}
+                      value={this.state.UpDataDetails1.alies_id}
                     />
                   </Grid>
                   {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
@@ -1256,7 +1258,7 @@ class Index extends Component {
                       type="text"
                       name="pin"
                       onChange={this.changePin}
-                      value={this.state.UpDataDetails.pin}
+                      value={this.state.UpDataDetails1.pin}
                     />
                   </Grid>
                   {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}

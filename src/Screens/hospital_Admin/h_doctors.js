@@ -20,6 +20,7 @@ import { SearchUser } from 'Screens/Components/Search';
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
 import SelectField from "Screens/Components/Select/index";
@@ -83,7 +84,6 @@ class Index extends Component {
                                     value: item.house_id
                                 })
                                 this.setState({ Housesoptions: Housesoptions });
-
                             })
                         })
                     }
@@ -134,7 +134,7 @@ class Index extends Component {
 
     }
 
-    getDoctors = () => {
+    getDoctors = (currentID) => {
         let {currentPage, type} = this.state
         var user_token = this.props.stateLoginValueAim.token;
         this.setState({loaderImage : true})
@@ -157,6 +157,10 @@ class Index extends Component {
                    })
                }
            })
+           if(currentID){
+            var current_user = AllPatient?.length>0 && AllPatient.filter((item)=> item._id === currentID)
+            this.setState({current_user : current_user?.[0]})
+           }
            this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
        })
         // var user_token = this.props.stateLoginValueAim.token;
@@ -210,20 +214,32 @@ class Index extends Component {
 
     submitDelete = (deletekey, profile_id, bucket) => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { DeleteUser, Yes, No, click_on_YES_user } = translate;
+        let { DeleteUser, Yes, No, click_on_YES_user, are_you_sure } = translate;
+
         confirmAlert({
-            title: DeleteUser,
-            message: click_on_YES_user,
-            buttons: [
-                {
-                    label: Yes,
-                    onClick: () => this.deleteClick(deletekey, profile_id, bucket)
-                },
-                {
-                    label: No,
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+                return (
+                    <Grid className={this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "dark-confirm deleteStep"
+                        : "deleteStep"}>
+                        <Grid className="deleteStepLbl">
+                            <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                            <label>{DeleteUser}</label>
+                        </Grid>
+                        <Grid className="deleteStepInfo">
+                            <p>{click_on_YES_user}</p>
+                            <Grid><label>{are_you_sure}</label></Grid>
+                            <Grid>
+                                <Button onClick={() => { this.deleteClick(deletekey, profile_id, bucket) }}>{Yes}</Button>
+                                <Button onClick={() => { onClose(); }}>{No}</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                );
+            },
+        });
 
     };
 
@@ -257,7 +273,7 @@ class Index extends Component {
 
     onChangePage = (pageNumber) => {
         this.setState({ currentPage: pageNumber },
-            ()=>{
+            () => {
                 this.getDoctors();
             })
     }
@@ -289,11 +305,13 @@ class Index extends Component {
                 .then((responce) => {
                     if (responce.data.hassuccessed) {
                         this.setState({ assignedhouse: true, blankerror: false, house: {} })
+                        this.getallGroups();
+                        this.getDoctors(true);
                         setTimeout(() => {
-                            this.setState({ assignedhouse: false, openHouse: false, house: {} })
+                            this.setState({ assignedhouse: false, house: {} })
                         }, 5000)
                         this.getallGroups();
-                        this.getDoctors();
+                        this.getDoctors(this.state.current_user._id);
                     }
                     // else {
                     //     this.setState({ alredyExist: true })
@@ -314,7 +332,7 @@ class Index extends Component {
         // /assignedHouse/:
     }
 
-    deleteHouse = (deleteId) => {
+    deleteHouse = (deleteId, items) => {
         var userid = this.state.current_user._id;
         this.setState({ loaderImage: true });
         axios
@@ -324,13 +342,14 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
+                console.log("response", responce)
                 if (responce.data.hassuccessed) {
                     this.setState({ deleteHouses: true })
                     setTimeout(() => {
-                        this.setState({ deleteHouses: false, openHouse: false })
+                        this.setState({ deleteHouses: false, })
                     }, 5000)
                     this.getallGroups();
-                    this.getDoctors();
+                    this.getDoctors(this.state.current_user._id);
                 }
                 this.setState({ loaderImage: false });
             });
@@ -407,7 +426,7 @@ class Index extends Component {
                                                 {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((doctor, i) => (
                                                     <Tr>
                                                         <Td>{((this.state.currentPage - 1) * 20) + i + 1}</Td>
-                                                        <Td><img className="doctor_pic" src={doctor && doctor.image ? getImage(doctor.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
+                                                        <Td className="patentPic"><S3Image imgUrl={doctor?.image} />
                                                             {doctor.first_name && doctor.first_name}</Td>
                                                         <Td>{doctor.last_name && doctor.last_name}</Td>
                                                         <Td>{doctor.email && doctor.email}</Td>
@@ -416,7 +435,7 @@ class Index extends Component {
                                                             <Td style={{ minWidth: "100px" }}><span className="revwRed"></span>{Blocked}</Td >
                                                             : <Td><span className="revwGren"></span>{Normal}</Td>
                                                         }
-                                                           <Td className="billDots">
+                                                        <Td className="billDots">
                                                             <a className="academy_ul">
                                                                 <InfoIcon className="infoIconCol" />
                                                                 <ul className="listBullets">
@@ -468,7 +487,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                    <Pagination from="userlist" totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                                        <Pagination from="userlist" totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                                                     </Grid>}
                                                 </Grid>
                                             </Grid>

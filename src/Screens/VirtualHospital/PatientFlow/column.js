@@ -146,7 +146,6 @@ export default class Column extends Component {
                             </div>
                           }
                         </ul>
-
                       </a>
                       {/* <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" /> */}
                     </Grid>

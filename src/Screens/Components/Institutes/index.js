@@ -15,6 +15,7 @@ import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseactio
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { getLanguage } from "translations/index";
 import { Button } from "@material-ui/core/index";
+import _ from "lodash";
 
 class Index extends Component {
   constructor(props) {
@@ -120,11 +121,15 @@ class Index extends Component {
 
   //for rename popup
   renamePopup = (item) => {
-    this.setState({ showRename: item.value, txtName: item });
+    this.setState({ showRename: item.value, txtName:  _.cloneDeep(item) });
   };
 
   renamePopup2 = (item) => {
     const user_token = this.props.stateLoginValueAim.token;
+    this.state.currentList.map((item)=>{
+      if(item.value === this.state.showRename)
+      item.label = this.state.txtName.label;
+    })
     this.setState({ showRename: false, loaderImage: true });
     axios
       .put(
@@ -157,7 +162,7 @@ class Index extends Component {
   };
 
   handleClosePopUp = () => {
-    this.setState({ showPopup: false });
+    this.setState({ showPopup: false , showRename: false, txtName:  {}});
   };
 
   render() {
@@ -275,7 +280,7 @@ class Index extends Component {
                                   >
                                     {this.state.showRename === item.value ?
                                       <div className="creatInfoIner" ><input type="text" name="label" onChange={(e) => this.handletxtName(e)} value={this.state.txtName?.label || ''} /> </div>
-                                      : <label> {item.group_name && item.label} </label>}
+                                      : <label> {item.label && item.label} </label>}
                                   </Grid>
                                   <Grid
                                     item

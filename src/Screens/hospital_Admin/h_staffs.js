@@ -23,6 +23,7 @@ import { SearchUser } from "Screens/Components/Search";
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import Button from "@material-ui/core/Button";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import Modal from "@material-ui/core/Modal";
 import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 import "./style.css";
@@ -221,7 +222,7 @@ class Index extends Component {
   //     .catch((error) => { });
   // }
 
-  getAdminstaff() {
+  getAdminstaff =(currentID) => {
     let {currentPage, type} = this.state
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({loaderImage : true})
@@ -244,6 +245,10 @@ class Index extends Component {
                })
            }
        })
+       if(currentID){
+        var current_user = AllPatient?.length>0 && AllPatient.filter((item)=> item._id === currentID)
+        this.setState({current_user : current_user?.[0]})
+       }
        this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
    })
     // var user_token = this.props.stateLoginValueAim.token;
@@ -283,20 +288,31 @@ class Index extends Component {
 
   submitDelete = (deletekey, profile_id, bucket) => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { DeleteUser, Yes, No, click_on_YES_user } = translate;
+    let { DeleteUser, Yes, No, click_on_YES_user, are_you_sure } = translate;
     confirmAlert({
-      title: DeleteUser,
-      message: click_on_YES_user,
-      buttons: [
-        {
-          label: Yes,
-          onClick: () => this.deleteClick(deletekey, profile_id, bucket),
-        },
-        {
-          label: No,
-        },
-      ],
-    });
+      customUI: ({ onClose }) => {
+          return (
+              <Grid className={this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "dark-confirm deleteStep"
+                  : "deleteStep"}>
+                  <Grid className="deleteStepLbl">
+                      <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                      <label>{DeleteUser}</label>
+                  </Grid>
+                  <Grid className="deleteStepInfo">
+                      <p>{click_on_YES_user}</p>
+                      <Grid><label>{are_you_sure}</label></Grid>
+                      <Grid>
+                          <Button onClick={() => { this.deleteClick(deletekey, profile_id, bucket); onClose(); }}>{Yes}</Button>
+                          <Button onClick={() => { onClose(); }}>{No}</Button>
+                      </Grid>
+                  </Grid>
+              </Grid>
+          );
+      },
+  });
   };
 
   deleteClick = (deletekey, profile_id, bucket) => {
@@ -378,7 +394,7 @@ class Index extends Component {
           if (responce.data.hassuccessed) {
             this.setState({ assignedhouse: true, blankerror: false, house: {} })
             setTimeout(() => {
-              this.setState({ assignedhouse: false, openHouse: false, house: {} })
+              this.setState({ assignedhouse: false, house: {} })
             }, 5000)
             this.getallGroups();
             this.getAdminstaff(this.state.current_user._id);
@@ -414,7 +430,7 @@ class Index extends Component {
         if (responce.data.hassuccessed) {
           this.setState({ deleteHouses: true })
           setTimeout(() => {
-            this.setState({ deleteHouses: false, openHouse: false })
+            this.setState({ deleteHouses: false, })
           }, 5000)
           this.getallGroups();
           this.getAdminstaff(this.state.current_user._id);
@@ -535,17 +551,8 @@ class Index extends Component {
                               <Td>
                                 {((this.state.currentPage - 1) * 20) + i + 1}
                               </Td>
-                              <Td>
-                                <img
-                                  className="doctor_pic"
-                                  src={
-                                    nurse && nurse.image
-                                      ? getImage(nurse.image, this.state.images)
-                                      : require("assets/images/dr1.jpg")
-                                  }
-                                  alt=""
-                                  title=""
-                                />
+                              <Td  className="patentPic">
+                              <S3Image imgUrl={nurse?.image} />
                                 {nurse.first_name && nurse.first_name}
                               </Td>
                               <Td>{nurse.last_name && nurse.last_name}</Td>
