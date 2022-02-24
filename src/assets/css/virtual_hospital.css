@@ -12285,6 +12285,10 @@ ul.patientHint li {
 .darkTheme .staffGraphUpr {
     background-color: #404646;
 }
+.openScandhrf1 img{
+    margin-top: 20px;
+}
+
 .darkTheme .invoicHsptalIner.Mui-selected {
     background-color: transparent !important;
 }
