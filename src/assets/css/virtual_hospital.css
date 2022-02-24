@@ -13825,7 +13825,9 @@ border-style: solid;
 }
 
 
-
+.switchBtn{
+    margin-top: 30px;
+}
 
 .dateFormateSec .ant-picker{
     border:none;
