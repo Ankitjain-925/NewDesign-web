@@ -778,9 +778,31 @@ class Index extends Component {
                                                         <Grid className="profileInfo">
                                                             <Grid className="profileInfoIner">
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
-                                                                    <Grid item xs={12} md={12}>
+                                                                    <Grid item xs={10} md={10}>
                                                                         <label>{email}</label>
                                                                         <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email || ''} /></Grid>
+
+                                                                    </Grid>
+                                                                    <Grid
+                                                                        item
+                                                                        xs={2} md={2}
+                                                                        className="spcMgntRght7 presEditDot scndOptionIner"
+                                                                    >
+                                                                        <a className="openScndhrf openScandhrf1">
+                                                                            <img
+                                                                                src={require("assets/images/three_dots_t.png")}
+                                                                                alt=""
+                                                                                title=""
+                                                                                className="openScnd specialuty-more"
+                                                                            />
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <a>
+                                                                                        This email is not created by patient it is created by admin staff
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -1062,7 +1084,7 @@ class Index extends Component {
                                                                     <Grid item xs={12} md={8}>
                                                                         <label>{city}</label>
                                                                         <Grid>
-                                                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        
+                                                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={4}>
