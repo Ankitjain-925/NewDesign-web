@@ -1,6 +1,7 @@
 /*global google*/
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Toggle from "react-toggle";
 import Select from 'react-select';
 import ReactFlagsSelect from 'react-flags-select';
 import sitedata from 'sitedata';
@@ -126,9 +127,15 @@ class Index extends Component {
             hidden: true,
             recaptcha: false,
             getIDPIN: false,
-            idpin: {}
+            idpin: {},
+            mode: false
         };
         // new Timer(this.logOutClick.bind(this)) 
+    }
+
+    SetMode = (e) => {
+        var mode = this.state.mode === false ? true : false;
+        this.setState({ mode: mode })
     }
 
     ScrolltoTop = () => {
@@ -786,23 +793,15 @@ class Index extends Component {
                                                                     <Grid
                                                                         item
                                                                         xs={2} md={2}
-                                                                        className="spcMgntRght7 presEditDot scndOptionIner"
                                                                     >
-                                                                        <a className="openScndhrf openScandhrf1">
-                                                                            <img
-                                                                                src={require("assets/images/three_dots_t.png")}
-                                                                                alt=""
-                                                                                title=""
-                                                                                className="openScnd specialuty-more"
-                                                                            />
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <a>
-                                                                                        This email is not created by patient it is created by admin staff
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </a>
+                                                                        <Toggle
+                                                                            className="switchBtn"
+                                                                            icons={false}
+                                                                            checked={this.state.mode === true}
+                                                                            // name="email"
+                                                                            onChange={(e) => this.SetMode(e)}
+                                                                        />
+
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
