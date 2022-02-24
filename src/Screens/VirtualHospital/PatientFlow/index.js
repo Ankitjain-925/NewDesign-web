@@ -16,7 +16,6 @@ import {
   MoveAllCases,
   setAssignedTo,
   getProfessionalData,
-  PatientMoveFromHouse
 } from "./data";
 import Drags from "./drags.js";
 import sitedata from "sitedata";
@@ -518,6 +517,12 @@ class Index extends Component {
     else if (data && !this.state.SelectedStep) {
       this.setState({ errorMsg: 'Please select step' })
     }
+    else if(!data.email && this.state.enableEmail === 'email'){
+      this.setState({ errorMsg: 'Please add the email of patient' })
+    }
+    else if(!data.first_name && !data.last_name && !data.birthday && !data.mobile && this.state.enableEmail === 'other'){
+      this.setState({ errorMsg: 'Please enter the full information of patient' })
+    }
     else {
       data.institute_id =
         this.props.stateLoginValueAim?.user?.institute_id?.length > 0
@@ -562,7 +567,6 @@ class Index extends Component {
                 .then((responce1) => {
                   if (responce1.data.hassuccessed) {
                     var senddata = {}
-                    console.log('responce1.data?.data', responce1.data?.data)
                     if (this.state.updateState?.email) { senddata.email = this.state.updateState?.email }
                     if (this.state.updateState?.mobile) { senddata.mobile = this.state.updateState?.mobile }
                     senddata.case_id = responce1.data?.data
@@ -610,7 +614,13 @@ class Index extends Component {
             }
             setTimeout(() => {
               this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
-            }, 3000);
+              if(this.state.enableEmail === 'other'){
+                this.closeAddP()
+              }
+              else{
+                this.handleEnableEmail(this.state.enableEmail ==='email' ? 'other' : 'email')
+              }
+            }, 2000);
           }
         });
     }
@@ -1206,7 +1216,7 @@ class Index extends Component {
                     />
                     <ul className="addpatientoption">
                       <li onClick={() => this.handleEnableEmail("scan")}>Go back to use Qr scanner</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomations</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic informations</li>
                     </ul>
 
                   </Grid>
@@ -1228,7 +1238,7 @@ class Index extends Component {
                     }
                     <ul className="addpatientoption">
                       <li onClick={() => this.handleEnableEmail("email")}>Go to check with email</li>
-                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic infomrations</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic informations</li>
                     </ul>
                   </Grid>
                 }
@@ -1250,7 +1260,28 @@ class Index extends Component {
                         onChange={(e) => this.updateEntryState1(e, "last_name")}
                       />
                     </Grid>
-                    <Grid className="fillDia">
+                    
+                    <Grid className="profileInfoDate">
+                      <Grid className="dateFormateSec">
+                        <Grid>
+                          <label>Birthday</label>
+                        </Grid>
+                        <DateFormat
+                          name="birthday"
+                          value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
+                          // notFullBorder
+                          date_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.date_format
+                          }
+                          onChange={(e) => this.updateEntryState1(e, "birthday")}
+                          customStyles={{ dateInput: { borderWidth: 0 } }}
+                        />
+
+                      </Grid>
+                    </Grid>
+                    {/* <Grid className="fillDia">
                       <Grid className="rrSysto dateFormateSec">
                         <Grid>
                           <label>Birthday</label>
@@ -1271,7 +1302,7 @@ class Index extends Component {
                         />
 
                       </Grid>
-                    </Grid>
+                    </Grid> */}
                     <Grid className="profileInfoIner">
                       <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={12} md={12}>
