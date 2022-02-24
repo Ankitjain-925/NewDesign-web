@@ -148,7 +148,7 @@ class Index extends Component {
 
   handleOnBeforeGetContent = () => {
 
-    this.setState({ loaderImage: true, first_name: this.state.first_name, last_name: this.state.last_name, mobile: this.state.mobile, DoB: this.state.DoB ,editor:this.state.editor});
+    this.setState({ loaderImage: true, first_name: this.state.first_name, last_name: this.state.last_name, mobile: this.state.mobile, DoB: this.state.DoB, editor: this.state.editor });
     return new Promise((resolve) => {
       setTimeout(() => {
         this.setState(
@@ -190,6 +190,11 @@ class Index extends Component {
         this.GetLanguageMetadata();
       })
   }
+
+  upload = () => {
+    console.log("1")
+    this.props.history.push("/virtualHospital/upload_approval_documents");
+  }
   GetLanguageMetadata = () => {
     var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
     var rhesusgroup = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.rhesus && this.state.allMetadata.rhesus.length > 0 && this.state.allMetadata.rhesus, this.props.stateLanguageType)
@@ -213,11 +218,13 @@ class Index extends Component {
 
         <Grid container direction="row" justifyContent="center" >
           <Grid item xs={11} md={10}>
-            <Grid item xs={12} md={12}>
-              <Grid className='headercont'>
-                <Grid>
-                  <label>Header</label>
-                  <Grid>
+            <Grid className='headercont headercontSec'>
+              <Grid className="allheadercont">
+                <Grid className="profileInfoSection">  <h1>Personal Information</h1></Grid>
+                <Grid item xs={12} md={8}>
+                  <Grid className="headerCountTxt">
+
+                    <label>Header(inches)</label>
                     <input
                       name="header"
                       type="text"
@@ -227,9 +234,9 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={12}>
-                  <label>Footer</label>
-                  <Grid>
+                <Grid item xs={12} md={8}>
+                  <Grid className="headerCountTxt">
+                    <label>Footer(inches)</label>
                     <input
                       name="footer"
                       type="text"
@@ -238,9 +245,9 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={12}>
-                  <label>first_name</label>
-                  <Grid>
+                <Grid item xs={12} md={8}>
+                  <Grid className="headerCountTxt">
+                    <label>First Name</label>
                     <input
                       name="first_name"
                       type="text"
@@ -250,9 +257,9 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={12}>
-                  <label>last_name</label>
-                  <Grid>
+                <Grid item xs={12} md={8}>
+                  <Grid className="headerCountTxt">
+                    <label>Last Name</label>
                     <input
                       name="last_name"
                       type="text"
@@ -260,12 +267,11 @@ class Index extends Component {
                       value={this.state.last_name}
                       disabled
                     />
-
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={12}>
-                  <label>mobile</label>
-                  <Grid>
+                <Grid item xs={12} md={8}>
+                  <Grid className="headerCountTxt">
+                    <label>Mobile</label>
                     <input
                       name="mobile"
                       type="text"
@@ -275,9 +281,9 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={12}>
-                  <label>DoB</label>
-                  <Grid>
+                <Grid item xs={12} md={8}>
+                  <Grid className="headerCountTxt">
+                    <label>Birthday</label>
                     <input
                       name="DoB"
                       type="text"
@@ -288,7 +294,8 @@ class Index extends Component {
                   </Grid>
                 </Grid>
                 <Grid item xs={12} md={8}>
-                  <Grid className="infoSubInp">
+                  <Grid className="headerCountTxt">
+                    <label>Free Content</label>
                     <ReactQuill
                       name="editor"
                       // value={this.state.editorText?.editor}
@@ -296,40 +303,63 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid>
+              </Grid>
 
-                <Grid item xs={12} md={8}>
-                  <Grid className="infoSubInp">
-                    <input
-                      type="submit"
-                      onClick={this.saveUserData}
-                      value={"Print"}
-                    />
+              <Grid container direction="row" justifyContent="center" >
+                <Grid item xs={12} md={8} lg={8}>
+                  <Grid className="allInfoSection">
+                    <Grid container direction="row" justifyContent="center" >
+                      <Grid item xs={12} md={4} lg={4}>
+                        <Grid className="headerCountTxt infoSubInpSection">
+                          <ReactToPrint
+                            content={() => this.reactToPrintContent()}
+                            documentTitle="Report.pdf"
+                            onBeforeGetContent={() => this.handleOnBeforeGetContent(this.state.first_name)}
+                            removeAfterPrint
+                            trigger={() => <input
+                              type="submit"
+
+                              value={"Print Preview"}
+                            />}
+
+                          />
+
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={4}>
+                        <Grid className="headerCountTxt infoSubInpSection">
+
+                          <ReactToPrint
+                            content={() => this.reactToPrintContent()}
+                            documentTitle="Report.pdf"
+                            onBeforeGetContent={() => this.handleOnBeforeGetContent(this.state.first_name)}
+                            removeAfterPrint
+                            trigger={() => <input
+                              type="submit"
+
+                              value={"Print"}
+                            />}
+
+                          />
+                          {/* {this.state.first_name &&
+                    // this.state.last_name&&  */}
+                          <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.first_name} last_name={this.state.last_name}
+                            DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
+                          {/* } */}
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={4}>
+                        <Grid className="headerCountTxt infoSubInpSection">
+                          <input
+                            type="submit"
+                            onClick={this.upload}
+                            value={"Next"}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={8}>
-                  <Grid className="infoSubInp">
-
-                    <ReactToPrint
-                      content={() => this.reactToPrintContent()}
-                      documentTitle="Report.pdf"
-                      onBeforeGetContent={() => this.handleOnBeforeGetContent(this.state.first_name)}
-                      removeAfterPrint
-                      // pageStyle={}
-                      trigger={() => <input
-                        type="submit"
-
-                        value={"Print Preview"}
-                      />}
-
-                    />
-                    {this.state.first_name &&
-                      // this.state.last_name&& 
-                      <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.first_name} last_name={this.state.last_name}
-                        DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
-                    }
-                  </Grid>
-                </Grid>
-
               </Grid>
             </Grid>
 

@@ -1,8 +1,5 @@
 import * as React from "react";
 import Grid from "@material-ui/core/Grid";
-import Typography from '@material-ui/core/Typography';
-import { AgGridReact } from 'ag-grid-react';
-// import BottomNavigation from '@mui/material/BottomNavigation';
 
 
 export class ComponentToPrint extends React.PureComponent {
@@ -47,30 +44,39 @@ export class ComponentToPrint extends React.PureComponent {
     };
 
     render() {
-        var { first_name, last_name, DoB, mobile, header, editor,footer } = this.state
+        var { first_name, last_name, DoB, mobile, header, editor, footer } = this.state
         const divStyle = {
-            height: (header*96)+'px',
+            height: (header * 96) + 'px',
         };
 
         const divStyle2 = {
-            height: (footer*96) + 'px',
+            height: (footer * 96) + 'px',
 
         }
         return (
             <div>
+
                 <Grid>
-                  
+
                     <div style={divStyle}>
                     </div>
 
-                    <Grid >
-                        <h3>Firstname:</h3>
+                    <Grid className="printSec">
+                        <p>Patient Name:</p>
                         <p>{first_name}</p>
+                        <p>{last_name}</p>
                     </Grid>
-                    <Grid><p>Lastname:</p><p>{last_name}</p></Grid>
-                    <Grid><p>DoB:</p><p>{DoB}</p></Grid>
-                    <Grid><p>Mobile:</p><p>{mobile}</p></Grid>
-                    <Grid><p>Editor:</p><p>{editor}</p></Grid>
+                    <Grid className="printSec">
+                        <p>DoB:</p>
+                        <p>{DoB}</p>
+                    </Grid>
+                    <Grid className="printSec">
+                        <p>Mobile:</p>
+                        <p>{mobile}</p>
+                    </Grid>
+                    <Grid className="editorSec">
+                        <p dangerouslySetInnerHTML={{ __html: editor }} />
+                        </Grid>
                     <div style={divStyle2}></div>
                 </Grid>
 

@@ -13784,3 +13784,94 @@ border-style: solid;
 .assiHospDet{
     margin-bottom: 5px;
 }
+
+
+
+
+
+.headerCountTxt label{
+    display:block;
+    margin-bottom: 0px;
+    color: #404646;
+    font-family: Muli;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+    /* line-height: 12px; */
+}
+.headerCountTxt input{
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+.headerCountTxt{
+    margin-bottom:20px;
+}
+
+.infoSubInpSection{
+    margin-top:20px;
+    margin-left:10px;
+    margin-right:10px;
+}
+.allheadercont{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.infoSubInpSection input{
+    background-color: #00ABAF !important;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+    padding:8px 10px;
+}
+
+.profileInfoSection h1{
+    color: #000808;
+    font-family: Muli;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 42px;
+    margin-bottom: 20px;
+}
+.printSec{
+    display:flex;
+}
+.printSec p{
+    font-size: 20px;
+    font-weight: 600;
+}
+.printSec p:last-child, .printSec p:nth-child(2){
+    margin-left:10px;
+}
+.editorSec{
+    font-size: 18px;
+    margin-top:20px;
+    font-weight: bold;
+}
+.allInfoSection{
+    display:flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.headercontSec{
+    margin-top:30px;
+}
+
+
+@media(max-width:959px){
+    .infoSubInpSection{
+        margin-top: 0px;
+    }
+}
