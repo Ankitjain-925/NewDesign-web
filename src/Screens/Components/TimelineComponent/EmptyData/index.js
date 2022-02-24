@@ -33,7 +33,7 @@ class Index extends Component {
       <div>
         <Grid container direction="row">
           <Grid item xs={11} md={11} className="descpCntntRght">
-            <Grid className="welAIS">
+            <Grid className="welAimedis">
               <Grid>
                 <h1>
                   {welcome} {to} AIS

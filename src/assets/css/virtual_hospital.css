@@ -9924,6 +9924,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.blood-sec{
+    line-height: 30px !important;
+}
 .setPositionMob {
     position: relative !important;
 }
@@ -13820,11 +13823,12 @@ border-style: solid;
     width:95%
 }
 
-
-
-
-.dateFormateSec .ant-picker{
-    border:none;
-    padding-left:0px;
-    padding-right:0px;
+.dateFormateSec .ant-picker , .dateFormateSec .ant-picker .ant-picker-focused {
+    padding: 0px !important;
 }
+.dateFormateSec input {
+    border: none !important;
+}
+.darkTheme .dateFormateSec .ant-picker {
+    background: #192020;
+}  
