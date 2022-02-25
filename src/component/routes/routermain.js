@@ -536,12 +536,12 @@ class Routermain extends Component {
             />
  
             <Route
-              path="/virtualHospital/upload_documents"
+              path="/virtualHospital/print_approval"
               exact={true}
               render={(props) => <UplaodDocument {...props} />}
             />
             <Route
-              path="/virtualHospital/upload_approval_documents"
+              path="/virtualHospital/approved_add"
               exact={true}
               render={(props) => <UploadApproval {...props} />}
             />

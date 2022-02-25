@@ -19,8 +19,7 @@ import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSec
 import { Speciality } from "Screens/Login/speciality.js";
 import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
-import { filterPatient } from "Screens/Components/BasicMethod/index";
-import UploadDoc from "Screens/VirtualHospital/UploadApproval/uploaddoc"
+import FileUploader from "Screens/Components/FileUploader/index";
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -35,70 +34,28 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ArchivedTasks: [],
-            loaderImage: false,
-            Open: 0,
-            doneToday: 0,
-            AllTasks: [],
-            DoneTask: [],
+            needUpload : false
         };
     }
 
+  
     componentDidMount() {
-        this.getAddTaskData();
+        if (this.props.history.location?.state?.data) {
+            this.setState({ needUpload: this.props.history.location?.state?.needUpload })
+        }
     }
 
-    //User list will be show/hide
-    toggle = () => {
-        this.setState({
-            shown: !this.state.shown
-        });
-    }
-
-    //Get Archived
-    getArchived = () => {
-        this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + "/vh/GetAllArchivedTask/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    this.setState({ ArchivedTasks: response.data.data, tabvalue2: 3 });
-                }
-                this.setState({ loaderImage: false });
-            });
-    }
-
-    //get Add task data
-    getAddTaskData = () => {
-        this.setState({ loaderImage: true });
-        axios
-        .get(
-            sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
-            commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((response) => {
-            this.setState({ AllTasks: response.data.data })
-            if (response.data.hassuccessed) {
-                if(response?.data?.data){
-                    var patientForFilterArr = filterPatient(response.data.data);
-                    this.setState({patientForFilter: patientForFilterArr});
-                }
-                var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
-                var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
-                var GetDate = response.data.data?.length > 0 && response.data.data.filter((item) => {
-                    var d1 = (new Date(item.done_on)).setHours(0, 0, 0, 0);
-                    var d2 = (new Date()).setHours(0, 0, 0, 0);
-                    return (d1 === d2);
-                })
-                this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open, Open: Open?.length, doneToday: GetDate?.length })
-            }
-            this.setState({ loaderImage: false });
-        });
-    };
-
+    handleTaskSubmit = () => {
+       
+        
+        this.setState({ errorMsg: "" })
+    
+        var data = this.state.newTask;
+          if (this.state.fileupods) {
+            data.attachments = this.state.fileattach;
+          }
+          this.setState({ loaderImage: true });
+      };
 
     render() {
         const { stateLoginValueAim, House } = this.props;
@@ -139,7 +96,74 @@ class Index extends Component {
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
-                                    <UploadDoc/>
+                                <Grid container direction="row" justifyContent="center" >
+                                <Grid item xs={11} md={10}>
+                                    <Grid className='headercont headercontSec'>
+                                    {this.state.needUpload &&  
+                                    <Grid className="profileInfoSection">  
+                                       
+                                        <h1>Upload Approval document of patient to the hospital</h1>
+                                        <Grid item xs={12} md={8}>
+                                            <Grid className="headerCountTxt">
+
+                                                <label>Attachments</label>
+                                                <FileUploader
+                                                    // cur_one={this.props.cur_one}
+                                                    attachfile={
+                                                        this.state.newTask &&
+                                                            this.state.newTask.attachments
+                                                            ? this.state.newTask.attachments
+                                                            : []
+                                                    }
+                                                    name="UploadTrackImageMulti"
+                                                    isMulti="true"
+                                                    fileUpload={(event) => {
+                                                        this.FileAttachMulti(event);
+                                                    }}
+                                                />
+
+
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>}
+
+                                    <Grid className="profileInfoSection">  
+                                       
+                                       <h1>Select Step of Patient flow and Add case number of Patient</h1>
+                                       <Grid item xs={12} md={8}>
+                                           <Grid className="headerCountTxt">
+
+                                               <label>Working</label>
+                                               
+
+
+                                           </Grid>
+                                       </Grid>
+                                   </Grid>
+
+                                        <Grid container direction="row" justifyContent="center" >
+                                            <Grid item xs={12} md={8} lg={8}>
+                                                <Grid className="aaa">
+
+
+                                                    <Grid className="headerCountTxt infoSubInpSection">
+                                                        <input
+                                                            type="submit"
+                                                            onClick={()=>this.handleTaskSubmit()}
+                                                            value={"Submit"}
+                                                        />
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+
+
+
+
+                                </Grid>
+                            </Grid>
+
                                 </Grid>
                                                                 {/* End of Right Section */}
                             </Grid>

@@ -10,8 +10,8 @@ class Index extends Component {
     super(props);
     this.state = {
       item: this.props.data || {},
-      track_id:this.props.track_id,
-      new_image: '',
+      track_id: this.props.track_id,
+      new_image: ''
     };
   }
 
@@ -38,7 +38,7 @@ class Index extends Component {
       this.setState({
         item: this.props.data,
 
-        track_id:this.props.track_id
+        track_id: this.props.track_id
 
       }, () => {
         this.GetAttachfiles();
@@ -61,39 +61,40 @@ class Index extends Component {
   }
 
   render() {
-    var {item,track_id} = this.state;
-    console.log("track_id",track_id)
+    var { item, track_id } = this.state;
     return (
-      <Grid className="bpJohnImg">
-        <a data-tip data-for={track_id + "created"}>
-          <img
-            src={this.state.new_image}
-            alt=""
-            title=""
-          />
-          {item && item?.first_name && (<span>{item.first_name} {item.last_name}</span>)}
-          {item && item?.created_by_temp && (<span>{item.created_by_temp}</span>)}
+     
+         <Grid className="bpJohnImg">
+         <a data-tip data-for={item.track_id || track_id  + "created"}>
+           <img
+             src={this.state.new_image}
+             alt=""
+             title=""
+           />
+           {item && item?.first_name && (<span>{item.first_name} {item.last_name}</span>)}
+           {item && item?.created_by_temp && (<span>{item.created_by_temp}</span>)}
 
-        </a>
-        <ReactTooltip
-          className="timeIconClas_crested"
-          id={track_id + "created"}
-          place="top"
-          effect="solid"
-          backgroundColor="#ffffff"
-        >
-          {item && item?.first_name && (<p>{item.first_name} {item.last_name}</p>)}
-          {item && item?.created_by_temp && (<p>{item.created_by_temp}</p>)}
-          {item && item?.profile_id && (<p>{item.profile_id}</p>)}
-          <p>
-            <img
-              src={this.state.new_image}
-              alt=""
-              title=""
-            />
-          </p>
-        </ReactTooltip>
-      </Grid>
+         </a>
+         <ReactTooltip
+           className="timeIconClas_crested"
+           id={item.track_id || track_id + "created"}
+           place="top"
+           effect="solid"
+           backgroundColor="#ffffff"
+         >
+           {item && item?.first_name && (<p>{item.first_name} {item.last_name}</p>)}
+           {item && item?.created_by_temp && (<p>{item.created_by_temp}</p>)}
+           {item && item?.created_by_profile && (<p>{item.created_by_profile}</p>)}
+           {item && item?.profile_id && (<p>{item.profile_id}</p>)}
+           <p>
+             <img
+               src={this.state.new_image}
+               alt=""
+               title=""
+             />
+           </p>
+         </ReactTooltip>
+       </Grid>
     );
   }
 }

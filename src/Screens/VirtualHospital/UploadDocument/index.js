@@ -35,70 +35,15 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ArchivedTasks: [],
-            loaderImage: false,
-            Open: 0,
-            doneToday: 0,
-            AllTasks: [],
-            DoneTask: [],
+         
         };
     }
 
     componentDidMount() {
-        this.getAddTaskData();
+        if (this.props.history.location?.state?.data) {
+            this.setState({ patinfo: this.props.history.location?.state?.data })
+        }
     }
-
-    //User list will be show/hide
-    toggle = () => {
-        this.setState({
-            shown: !this.state.shown
-        });
-    }
-
-    //Get Archived
-    getArchived = () => {
-        this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + "/vh/GetAllArchivedTask/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    this.setState({ ArchivedTasks: response.data.data, tabvalue2: 3 });
-                }
-                this.setState({ loaderImage: false });
-            });
-    }
-
-    //get Add task data
-    getAddTaskData = () => {
-        this.setState({ loaderImage: true });
-        axios
-        .get(
-            sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
-            commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((response) => {
-            this.setState({ AllTasks: response.data.data })
-            if (response.data.hassuccessed) {
-                if(response?.data?.data){
-                    var patientForFilterArr = filterPatient(response.data.data);
-                    this.setState({patientForFilter: patientForFilterArr});
-                }
-                var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
-                var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
-                var GetDate = response.data.data?.length > 0 && response.data.data.filter((item) => {
-                    var d1 = (new Date(item.done_on)).setHours(0, 0, 0, 0);
-                    var d2 = (new Date()).setHours(0, 0, 0, 0);
-                    return (d1 === d2);
-                })
-                this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open, Open: Open?.length, doneToday: GetDate?.length })
-            }
-            this.setState({ loaderImage: false });
-        });
-    };
-
 
     render() {
         const { stateLoginValueAim, House } = this.props;
@@ -139,7 +84,7 @@ class Index extends Component {
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
-                                    <Info/>
+                                    <Info patinfo={this.state.patinfo}/>
                                 </Grid>
                                                                 {/* End of Right Section */}
                             </Grid>

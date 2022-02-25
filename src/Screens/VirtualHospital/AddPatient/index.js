@@ -425,51 +425,59 @@ class Index extends Component {
                             savedata.emergency_number = this.state.contact_partner.number;
                             savedata.bucket = getBucket[0].bucket;
                             savedata.token = this.state.recaptcha;
-                            savedata.added_from = 'adminstaff';
-                            axios
-                                .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
-                                .then((responce) => {
+                            // axios
+                            //     .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
+                            //     .then((responce) => {
                                     this.setState({ loaderImage: false });
-                                    if (responce.data.hassuccessed === true) {
-                                        this.setState({
-                                            idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
-                                            UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
-                                        })
-                                        this.captcha.reset();
-                                        datas = [];
+                                    // if (responce.data.hassuccessed === true) {
+                                        // this.setState({
+                                        //     idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
+                                        //     UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
+                                        // })
+                                        // this.captcha.reset();
+                                        // datas = [];
                                         // this.openIdPin();
-                                        axios
-                                            .post(
-                                                "https://api-eu.cometchat.io/v2.0/users",
-                                                {
-                                                    uid: responce.data.data.profile_id,
-                                                    name:
-                                                        UpDataDetails.first_name + " " + UpDataDetails.last_name,
-                                                },
-                                                commonCometHeader()
-                                            )
-                                            .then((res) => { });
+                                        // axios
+                                        //     .post(
+                                        //         "https://api-eu.cometchat.io/v2.0/users",
+                                        //         {
+                                        //             uid: responce.data.data.profile_id,
+                                        //             name:
+                                        //                 UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                                        //         },
+                                        //         commonCometHeader()
+                                        //     )
+                                        //     .then((res) => { });
                                             console.log('savedata', savedata)
                                             if(this.state.newemail && !savedata.mobile){
-                                                    this.props.history.push('/')
+                                                this.props.history.push({
+                                                    pathname: '/virtualHospital/print_approval',
+                                                    state: { data: savedata, needUpload: false }
+                                                })
                                             }
-                                    } else if (responce.data.message === "Phone is not verified") {
-                                        this.ScrolltoTop();
-                                        this.setState({
-                                            successfull: false,
-                                            Mnotvalid: true,
-                                            alreadyerror: false,
-                                        });
-                                    } else {
-                                        this.ScrolltoTop();
-                                        this.setState({
-                                            successfull: false,
-                                            alreadyerror: true,
-                                            Mnotvalid: false,
-                                        });
-                                    }
-                                })
-                                .catch((err) => { });
+                                            else{
+                                                this.props.history.push({
+                                                    pathname: '/virtualHospital/approved_add',
+                                                    state: { data: savedata, needUpload: false }
+                                                })
+                                            }
+                                    // } else if (responce.data.message === "Phone is not verified") {
+                                    //     this.ScrolltoTop();
+                                    //     this.setState({
+                                    //         successfull: false,
+                                    //         Mnotvalid: true,
+                                    //         alreadyerror: false,
+                                    //     });
+                                    // } else {
+                                    //     this.ScrolltoTop();
+                                    //     this.setState({
+                                    //         successfull: false,
+                                    //         alreadyerror: true,
+                                    //         Mnotvalid: false,
+                                    //     });
+                                    // }
+                                // })
+                                // .catch((err) => { });
                         }
                         else {
                             this.setState({ regisError: Plz_fill_the_recaptcha });
