@@ -494,7 +494,7 @@ p.regOnlog {
 
 .err_message {
     text-align: center !important;
-    color: red;
+    color: red !important;;
     font-weight: 600;
 }
 .success_message

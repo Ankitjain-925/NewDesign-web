@@ -393,14 +393,13 @@ class Index extends Component {
                     UpDataDetails.password.match(number23) &&
                     UpDataDetails.password.match(specialchar)
                 ) {
-                    if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                    // if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
                         if (UpDataDetails?.mobile?.split('-')?.[0]) {
                             var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
                         } else {
                             var country_code = "de";
                         }
                         if (this.state.recaptcha) {
-
                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
                             var savedata = this.state.UpDataDetails;
                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
@@ -423,17 +422,17 @@ class Index extends Component {
                             savedata.emergency_number = this.state.contact_partner.number;
                             savedata.bucket = getBucket[0].bucket;
                             savedata.token = this.state.recaptcha;
-                            // axios
-                            //     .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
-                            //     .then((responce) => {
+                            axios
+                                .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
+                                .then((responce) => {
                                     this.setState({ loaderImage: false });
-                                    // if (responce.data.hassuccessed === true) {
-                                        // this.setState({
-                                        //     idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
-                                        //     UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
-                                        // })
-                                        // this.captcha.reset();
-                                        // datas = [];
+                                    if (responce.data.hassuccessed === true) {
+                                        this.setState({
+                                            idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
+                                            UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
+                                        })
+                                        this.captcha.reset();
+                                        datas = [];
                                         // this.openIdPin();
                                         // axios
                                         //     .post(
@@ -450,32 +449,32 @@ class Index extends Component {
                                             if(this.state.newemail && !savedata.mobile){
                                                 this.props.history.push({
                                                     pathname: '/virtualHospital/print_approval',
-                                                    state: { data: savedata, needUpload: false }
+                                                    state: { data: responce.data?.data, needUpload: true }
                                                 })
                                             }
                                             else{
                                                 this.props.history.push({
                                                     pathname: '/virtualHospital/approved_add',
-                                                    state: { data: savedata, needUpload: false }
+                                                    state: { data: responce.data?.data, needUpload: false }
                                                 })
                                             }
-                                    // } else if (responce.data.message === "Phone is not verified") {
-                                    //     this.ScrolltoTop();
-                                    //     this.setState({
-                                    //         successfull: false,
-                                    //         Mnotvalid: true,
-                                    //         alreadyerror: false,
-                                    //     });
-                                    // } else {
-                                    //     this.ScrolltoTop();
-                                    //     this.setState({
-                                    //         successfull: false,
-                                    //         alreadyerror: true,
-                                    //         Mnotvalid: false,
-                                    //     });
-                                    // }
-                                // })
-                                // .catch((err) => { });
+                                    } else if (responce.data.message === "Phone is not verified") {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            Mnotvalid: true,
+                                            alreadyerror: false,
+                                        });
+                                    } else {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            alreadyerror: true,
+                                            Mnotvalid: false,
+                                        });
+                                    }
+                                })
+                                .catch((err) => { });
                         }
                         else {
                             this.setState({ regisError: Plz_fill_the_recaptcha });
@@ -484,10 +483,10 @@ class Index extends Component {
                         // }else {
                         //     this.setState({ regisError: "Please fill the city "});
                         // }
-                    } else {
-                        this.setState({ regisError: plz_fill_mob_number });
-                        this.ScrolltoTop();
-                    }
+                    // } else {
+                    //     this.setState({ regisError: plz_fill_mob_number });
+                    //     this.ScrolltoTop();
+                    // }
                 } else {
                     this.setState({ regisError: pswd_not_valid });
                     this.ScrolltoTop();

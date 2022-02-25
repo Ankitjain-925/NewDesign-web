@@ -9924,6 +9924,13 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.darkTheme .dateFormateSec .ant-picker {
+    padding: 0px;
+    background: #404646;
+}
+.disabledCrd{
+    border: 2px solid #ff6f00 !important;
+}
 .darkTheme .headercont {
     background: #3f4646;
 }
@@ -10241,7 +10248,7 @@ ul.addpatientoption li:hover {
     color: #cfcfcf!important
 }
 .darkTheme .err_message, .homeBgDrk .err_message{
-    color: red!important;
+    color: red !important;
 }
 .darkTheme .success_message,  .homeBgDrk .success_message{
     color: #00abaf!important;
