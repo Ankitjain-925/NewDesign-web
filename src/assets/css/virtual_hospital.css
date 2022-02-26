@@ -8640,6 +8640,12 @@ img.sendDropImg {
     margin-top: 20px;
     margin-bottom: 25px;
 }
+.headercont{
+    background-color:white;
+    padding:15px 60px;
+    border-radius: 20px;
+    margin-left: 20px;
+}
 .dischargeInfo label {
     color: #000808;
     font-size: 16px;
@@ -10248,7 +10254,7 @@ ul.addpatientoption li:hover {
     color: #cfcfcf!important
 }
 .darkTheme .err_message, .homeBgDrk .err_message{
-    color: red !important;
+    color: red!important;
 }
 .darkTheme .success_message,  .homeBgDrk .success_message{
     color: #00abaf!important;
@@ -13837,6 +13843,84 @@ border-style: solid;
     width:95%
 }
 
+
+.headerCountTxt label{
+    display:block;
+    margin-bottom: 0px;
+    color: #404646;
+    font-family: Muli;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+    /* line-height: 12px; */
+}
+.headerCountTxt input{
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+.headerCountTxt{
+    margin-bottom:20px;
+}
+
+.infoSubInpSection{
+    margin-top:20px;
+    margin-left:10px;
+    margin-right:10px;
+}
+.allheadercont{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.infoSubInpSection input{
+    background-color: #00ABAF !important;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+    padding:8px 10px;
+}
+
+.profileInfoSection h1{
+    color: #000808;
+    font-family: Muli;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 42px;
+    margin-bottom: 20px;
+}
+.printSec{
+    display:flex;
+}
+
+.printSec p:last-child, .printSec p:nth-child(2){
+    margin-left:10px;
+}
+.editorSec{
+    font-size: 18px;
+    margin-top:20px;
+    font-weight: bold;
+}
+.allInfoSection{
+    display:flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.headercontSec{
+    margin-top:30px;
+}
+
 .profileInfoSection h1{
     color: #000808;
     font-family: Muli;
@@ -13875,4 +13959,9 @@ border-style: solid;
     border:none;
     padding-left:0px;
     padding-right:0px;
+}
+@media(max-width:959px){
+    .infoSubInpSection{
+        margin-top: 0px;
+    }
 }

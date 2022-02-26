@@ -31,12 +31,6 @@ import ReactToPrint, { PrintContext } from 'react-to-print';
 import { ComponentToPrint } from "./ComponentTo";
 import ReactQuill from "react-quill";
 
-
-
-
-
-var datas = [];
-
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -57,12 +51,14 @@ class Index extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.patinfo !== this.props.patinfo){
-      this.setState({ patinfo: this.props.patinfo })
+      this.setState({ patinfo: this.props.patinfo }, ()=>{
+        console.log('patinfo', this.state.patinfo)
+      })
     }
   }
-  handleOnBeforeGetContent = () => {
 
-    this.setState({ loaderImage: true, first_name: this.state.first_name, last_name: this.state.last_name, mobile: this.state.mobile, DoB: this.state.DoB, editor: this.state.editor });
+  handleOnBeforeGetContent = () => {
+    this.setState({ loaderImage: true, first_name:this.state.patinfo?.first_name, last_name: this.state.patinfo?.last_name, mobile:this.state.patinfo?.mobile, DoB: this.state.patinfo?.DoB, editor: this.state.editor });
     return new Promise((resolve) => {
       setTimeout(() => {
         this.setState(
@@ -108,7 +104,7 @@ class Index extends Component {
   upload = () => {
     this.props.history.push({
       pathname: '/virtualHospital/approved_add',
-      state: { data: this.state.patinfo, needUpload: true }
+      state: { data: this.state.patinfo._id, needUpload: true }
   })
   }
   GetLanguageMetadata = () => {
@@ -139,7 +135,7 @@ class Index extends Component {
                 <Grid className="profileInfoSection">  <h1>Personal Information</h1></Grid>
                 <Grid item xs={12} md={8}>
                   <Grid className="headerCountTxt">
-
+                    {console.log('sfsdfsdf', this.state.patinfo)}
                     <label>Header(inches)</label>
                     <input
                       name="header"
@@ -167,8 +163,8 @@ class Index extends Component {
                     <input
                       name="first_name"
                       type="text"
-                      onChange={(e) => { this.handleChange1("first_name", e.target.value) }}
-                      value={this.state.first_name}
+                      // onChange={(e) => { this.handleChange1("first_name", e.target.value) }}
+                      value={this.state.patinfo?.first_name}
                       disabled
                     />
                   </Grid>
@@ -179,32 +175,32 @@ class Index extends Component {
                     <input
                       name="last_name"
                       type="text"
-                      onChange={(e) => { this.handleChange1("last_name", e.target.value) }}
-                      value={this.state.last_name}
+                      // onChange={(e) => { this.handleChange1("last_name", e.target.value) }}
+                      value={this.state.patinfo?.last_name}
                       disabled
                     />
                   </Grid>
                 </Grid>
-                <Grid item xs={12} md={8}>
+                {/* <Grid item xs={12} md={8}>
                   <Grid className="headerCountTxt">
                     <label>Mobile</label>
                     <input
                       name="mobile"
                       type="text"
-                      onChange={(e) => { this.handleChange1("mobile", e.target.value) }}
+                      // onChange={(e) => { this.handleChange1("mobile", e.target.value) }}
                       value={this.state.mobile}
                       disabled
                     />
                   </Grid>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} md={8}>
                   <Grid className="headerCountTxt">
                     <label>Birthday</label>
                     <input
                       name="DoB"
                       type="text"
-                      onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
-                      value={this.state.DoB}
+                      // onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
+                      value={this.state.patinfo?.birthday}
                       disabled
                     />
                   </Grid>

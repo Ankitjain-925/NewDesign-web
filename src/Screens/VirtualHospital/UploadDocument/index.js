@@ -35,13 +35,22 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-         
+         patinfo: {},
         };
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         if (this.props.history.location?.state?.data) {
-            this.setState({ patinfo: this.props.history.location?.state?.data })
+            let user_token = this.props.stateLoginValueAim.token;
+            let user_id = this.props.history.location?.state?.data;
+            axios
+              .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+              .then((response) => {
+                  this.setState({patinfo: response.data.data})
+              })
+        }
+        else{
+            this.props.history.push("/VirtualHospital/space")
         }
     }
 

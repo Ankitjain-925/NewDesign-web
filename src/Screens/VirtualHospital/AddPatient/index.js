@@ -13,6 +13,7 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import npmCountryList from 'react-select-country-list'
 import { Table } from 'reactstrap';
+import _ from "lodash";
 import * as AustraliaC from 'Screens/Components/insuranceCompanies/australia.json';
 import * as AustriaC from 'Screens/Components/insuranceCompanies/austria.json';
 import * as NetherlandC from 'Screens/Components/insuranceCompanies/dutch.json';
@@ -128,14 +129,14 @@ class Index extends Component {
             recaptcha: false,
             getIDPIN: false,
             idpin: {},
-            mode: false
+            newemail: false
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
     SetMode = (e) => {
-        var mode = this.state.mode === false ? true : false;
-        this.setState({ mode: mode })
+        var newemail = this.state.newemail === false ? true : false;
+        this.setState({ newemail: newemail })
     }
 
     ScrolltoTop = () => {
@@ -393,7 +394,7 @@ class Index extends Component {
                     UpDataDetails.password.match(number23) &&
                     UpDataDetails.password.match(specialchar)
                 ) {
-                    // if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                    if (UpDataDetails.birthday && UpDataDetails.birthday !== "") {
                         if (UpDataDetails?.mobile?.split('-')?.[0]) {
                             var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
                         } else {
@@ -401,7 +402,7 @@ class Index extends Component {
                         }
                         if (this.state.recaptcha) {
                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
-                            var savedata = this.state.UpDataDetails;
+                            var savedata = _.cloneDeep(this.state.UpDataDetails);
                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
                             savedata.type = 'patient';
                             savedata.country_code = country_code;
@@ -433,29 +434,28 @@ class Index extends Component {
                                         })
                                         this.captcha.reset();
                                         datas = [];
-                                        // this.openIdPin();
-                                        // axios
-                                        //     .post(
-                                        //         "https://api-eu.cometchat.io/v2.0/users",
-                                        //         {
-                                        //             uid: responce.data.data.profile_id,
-                                        //             name:
-                                        //                 UpDataDetails.first_name + " " + UpDataDetails.last_name,
-                                        //         },
-                                        //         commonCometHeader()
-                                        //     )
-                                        //     .then((res) => { });
-                                            console.log('savedata', savedata)
-                                            if(this.state.newemail && !savedata.mobile){
+                                        this.openIdPin();
+                                        axios
+                                            .post(
+                                                "https://api-eu.cometchat.io/v2.0/users",
+                                                {
+                                                    uid: responce.data.data.profile_id,
+                                                    name:
+                                                        UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                                                },
+                                                commonCometHeader()
+                                            )
+                                            .then((res) => { });
+                                            if(this.state.newemail && !savedata.mobile) {
                                                 this.props.history.push({
                                                     pathname: '/virtualHospital/print_approval',
-                                                    state: { data: responce.data?.data, needUpload: true }
+                                                    state: { needUpload: true, data: responce.data.data._id }
                                                 })
                                             }
-                                            else{
+                                            else {
                                                 this.props.history.push({
                                                     pathname: '/virtualHospital/approved_add',
-                                                    state: { data: responce.data?.data, needUpload: false }
+                                                    state: { needUpload: false, data : responce.data.data._id }
                                                 })
                                             }
                                     } else if (responce.data.message === "Phone is not verified") {
@@ -483,10 +483,10 @@ class Index extends Component {
                         // }else {
                         //     this.setState({ regisError: "Please fill the city "});
                         // }
-                    // } else {
-                    //     this.setState({ regisError: plz_fill_mob_number });
-                    //     this.ScrolltoTop();
-                    // }
+                    } else {
+                        this.setState({ regisError: "Please fill the birthdate" });
+                        this.ScrolltoTop();
+                    }
                 } else {
                     this.setState({ regisError: pswd_not_valid });
                     this.ScrolltoTop();
@@ -796,20 +796,21 @@ class Index extends Component {
                                                         <Grid className="profileInfo">
                                                             <Grid className="profileInfoIner">
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
-                                                                    <Grid item xs={10} md={10}>
+                                                                    <Grid item xs={8} md={8}>
                                                                         <label>{email}</label>
                                                                         <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email || ''} /></Grid>
 
                                                                     </Grid>
                                                                     <Grid
                                                                         item
-                                                                        xs={2} md={2}
+                                                                        xs={4} md={4}
                                                                     >
+                                                                        <label>{"Patient do not have email, the email createdby Hospital"}</label>
                                                                         <Toggle
-                                                                            className="switchBtn"
+                                                                            // className="switchBtn"
                                                                             icons={false}
-                                                                            checked={this.state.mode === true}
-                                                                            // name="email"
+                                                                            checked={this.state.newemail === true}
+                                                                            //  name="email"
                                                                             onChange={(e) => this.SetMode(e)}
                                                                         />
 
