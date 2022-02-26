@@ -46,11 +46,13 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            needUpload: false,
+            needUpload: true,
             case: {},
             SelectedStep: {},
             errorMsg: "",
-            patinfo: {}
+            patinfo: {},
+            approveDocument: {},
+            Fileadd: ""
         };
     }
 
@@ -79,6 +81,84 @@ class Index extends Component {
             this.GetStep(stepData);
           });
     }
+
+    // FileAttachMulti = (Fileadd) => {
+    //     console.log("Fileadd", Fileadd)
+    //     this.setState({
+    //         isfileuploadmulti: true,
+    //         fileattach: Fileadd,
+    //         fileupods: true,
+    //     }); 
+    // };
+
+
+    //For upload File related the second Opinion
+    FileAttachMulti = (event) => {
+        if (
+            event &&
+            event[0] &&
+            (event[0].type === "application/pdf" ||
+                event[0].type === "image/jpeg" ||
+                event[0].type === "image/png")
+        ) {
+            this.setState({
+                isfileuploadmulti: true,
+                loaderImage: true,
+                err_pdf: false,
+            });
+            var fileattach = [];
+            for (var i = 0; i < event.length; i++) {
+                var file = event[i];
+                let fileParts = event[i].name.split(".");
+                let fileName = fileParts[0];
+                let fileType = fileParts[1];
+                axios
+                    .post(sitedata.data.path + "/aws/sign_s3", {
+                        fileName: fileName,
+                        fileType: fileType,
+                        folders:
+                            this.props.stateLoginValueAim.user.profile_id +
+                            "/second_opinion/",
+                        bucket: this.props.stateLoginValueAim.user.bucket,
+                    })
+                    .then((response) => {
+                        fileattach.push({
+                            filename:
+                                response.data.data.returnData.url +
+                                "&bucket=" +
+                                this.props.stateLoginValueAim.user.bucket,
+                            fileType: fileType
+                        });
+                        this.setState({ fileupods: true });
+                        setTimeout(() => {
+                            this.setState({ fileupods: false });
+                        }, 5000);
+                        var returnData = response.data.data.returnData;
+                        var signedRequest = returnData.signedRequest;
+                        var url = returnData.url;
+                        if (fileType === "pdf") {
+                            fileType = "application/pdf";
+                        }
+                        // Put the fileType in the headers for the upload
+                        var options = { headers: { "Content-Type": fileType } };
+                        axios
+                            .put(signedRequest, file, options)
+                            .then((result) => {
+                                this.setState({
+                                    success: true,
+                                    loaderImage: false,
+                                    approveDocument: fileattach,
+                                });
+                            })
+                            .catch((error) => { });
+                    })
+                    .catch((error) => { });
+            }
+        } else {
+            this.setState({ err_pdf: true });
+        }
+    };
+
 
     GetStep = (stepData) => {
         var state = stepData;
@@ -153,6 +233,9 @@ class Index extends Component {
         //         data.approveDocument = this.state.fileattach;
         //     }
         // }
+        var data = this.state.approveDocument;
+        console.log("approveDocument",data)
+
         if (!this.state.SelectedStep.label) {
             this.setState({ errorMsg: "Select Step name" })
         }
@@ -305,9 +388,9 @@ class Index extends Component {
                                                                 <FileUploader
                                                                     // cur_one={this.props.cur_one}
                                                                     attachfile={
-                                                                        this.state.newTask &&
-                                                                            this.state.newTask.attachments
-                                                                            ? this.state.newTask.attachments
+                                                                        this.state.approveDocument &&
+                                                                            this.state.approveDocument
+                                                                            ? this.state.approveDocument
                                                                             : []
                                                                     }
                                                                     name="UploadTrackImageMulti"
@@ -316,7 +399,6 @@ class Index extends Component {
                                                                         this.FileAttachMulti(event);
                                                                     }}
                                                                 />
-
 
                                                             </Grid>
                                                         </Grid>
