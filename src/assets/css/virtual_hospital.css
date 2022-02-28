@@ -9930,6 +9930,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.showOnPrint{
+    display: none;
+}
 .darkTheme .dateFormateSec .ant-picker {
     padding: 0px;
     background: #404646;
@@ -13253,6 +13256,10 @@ input:-moz-autofill:active{
     font-size: 25px !important;
     font-weight: 600;
     letter-spacing: 10;
+}
+.printPreviewlink .relativeCSS1 {
+    display: none !important;
+    padding: 15px;
 }
 .printPreviewlink .relativeCSS {
     display: none !important;

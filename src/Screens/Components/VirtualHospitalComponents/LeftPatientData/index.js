@@ -2372,13 +2372,13 @@ calculateAge = (date) => {
               </Grid>
               <Grid className="prfilHghtRght">
                 <label>{Blood}</label>
-                <p className="blood-sec">
-                  {this.state.loggedinUser &&
-                    this.state.loggedinUser?.blood_group &&
-                    this.state.loggedinUser?.rhesus
-                    ? typeof this.state.loggedinUser?.blood_group === 'object' ?
-                      this.state.loggedinUser?.blood_group.value + ' ' + this.state.loggedinUser?.rhesus.value
-                      : this.state.loggedinUser?.blood_group + ' ' + this.state.loggedinUser?.rhesus.value
+                <p>
+                  {(this.state.user &&
+                  this.state.user?.blood_group &&
+                  this.state.user?.rhesus && this.state.user.blood_group.value !== 'not_known' && this.state.user.rhesus.value !== 'not_known')
+                    ? typeof this.state.user.blood_group === 'object' ? 
+                     this.state.user.blood_group.value  +' '+ this.state.user.rhesus.value
+                    : this.state.user.blood_group +' '+ this.state.user.rhesus.value
                     : "--"}
                 </p>
               </Grid>

@@ -70,14 +70,16 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Tasks_overview, ShowArchivedTasks ,Open ,Donetoday } = translate;
         return (
-            <Grid className={
-                this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "homeBg darkTheme"
-                    : "homeBg"
-            }>
+            <Grid
+            className={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+                ? "homeBg homeBgDrk darkTheme"
+                : "homeBg"
+            }
+          >
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row">

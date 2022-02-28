@@ -47,13 +47,13 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            needUpload: true,
+            needUpload: false,
             case: {},
             SelectedStep: {},
             errorMsg: "",
             patinfo: {},
             approveDocument: {},
-            Fileadd: ""
+            isFile: false,
         };
     }
 
@@ -88,6 +88,7 @@ class Index extends Component {
             isfileuploadmulti: true,
             approveDocument: Fileadd,
             fileupods: true,
+            isFile: true
         });
     };
 
@@ -155,16 +156,18 @@ class Index extends Component {
     handleTaskSubmit = () => {
         this.setState({ errorMsg: "" })
         this.setState({ loaderImage: true });
-        if (!this.state.SelectedStep.label) {
-            this.setState({ errorMsg: "Select Step name" })
+        var data = this.state.newTask;
+
+        if (this.state.needUpload && !this.state.isFile) { 
+          this.setState({ errorMsg: "Please upload the document of approval from patient" })
+        }
+       else if (!this.state.SelectedStep.label) {
+            this.setState({ errorMsg: "Please select Step name" })
         }
         else if (!this.state.case.case_number) {
-            this.setState({ errorMsg: "Case number can't be empty" })
+            this.setState({ errorMsg: "Please enter case number" })
         }
-        else if (!this.state.approveDocument.length > 0) {
-            this.setState({ errorMsg: "Upload document needed" })
-        }
-        else {
+        else{
             var case_data = {
                 house_id: this.props?.House.value,
                 inhospital: true,
@@ -181,6 +184,7 @@ class Index extends Component {
                     //   alies_id: responce.data.data.alies_id,
                 },
                 added_at: new Date(),
+                approveDocument: this.state.approveDocument,
                 verifiedbyPatient: this.state.needUpload ? true : false,
             };
             axios
@@ -190,43 +194,44 @@ class Index extends Component {
                     commonHeader(this.props.stateLoginValueAim.token)
                 )
                 .then((responce1) => {
-                    if (responce1.data.hassuccessed) {
-                        var senddata = {}
-                        if (!this.state.needUpload) {
-                            if (this.state.patinfo?.email) { senddata.email = this.state.patinfo?.email }
-                            if (this.state.patinfo?.mobile) { senddata.mobile = this.state.patinfo?.mobile }
-                            senddata.case_id = responce1.data?.data
-                            senddata.patient = this.state.patinfo._id
-                            senddata.patient_name = this.state.patinfo.last_name ? this.state.patinfo.first_name + ' ' + this.state.patinfo.last_name : this.state.patinfo.first_name
-                            axios
-                                .post(
-                                    sitedata.data.path + "/vh/linkforAccepthospital",
-                                    senddata,
-                                    commonHeader(this.props.stateLoginValueAim.token)
-                                )
-                                .then((responce1) => { })
-                        }
-                        this.setState({
-                            updateState: {},
-
-                        });
-                        var state = this.state.actualData;
-                        let indexData = ''
-                        state && state.length > 0 && state.filter((item, index) => {
-                            if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
-                                indexData = index;
-                            }
-                        })
-                        state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                        this.setState({ SelectedStep: '' });
-                        this.setDta(state);
-                        this.CallApi();
-                    } else {
-                        this.setState({ caseAlready: true, loaderImage: false });
-                        setTimeout(() => {
-                            this.setState({ caseAlready: false });
-                        }, 3000);
-                    }
+                  if (responce1.data.hassuccessed) {
+                    var senddata = {}
+                    if(!this.state.needUpload) {
+                    if (this.state.patinfo?.email) { senddata.email = this.state.patinfo?.email }
+                    if (this.state.patinfo?.mobile) { senddata.mobile = this.state.patinfo?.mobile }
+                    senddata.case_id = responce1.data?.data
+                    senddata.patient = this.state.patinfo._id
+                    senddata.patient_name = this.state.patinfo.last_name ? this.state.patinfo.first_name + ' ' + this.state.patinfo.last_name : this.state.patinfo.first_name
+                    axios
+                      .post(
+                        sitedata.data.path + "/vh/linkforAccepthospital",
+                        senddata,
+                        commonHeader(this.props.stateLoginValueAim.token)
+                      )
+                      .then((responce1) => { })
+                    } 
+                    this.setState({
+                      updateState: {},
+                      
+                    });
+                    var state = this.state.actualData;
+                    let indexData = ''
+                    state && state.length > 0 && state.filter((item, index) => {
+                      if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+                        indexData = index;
+                      }
+                    })
+                    state[indexData].case_numbers.push({ case_id: responce1.data.data });
+                    this.setState({ SelectedStep: '' });
+                    this.setDta(state);
+                    this.CallApi();
+                    this.props.history.push('/virtualHospital/patient-flow')
+                  } else {
+                    this.setState({ isFile: false, caseAlready: true, loaderImage: false });
+                    setTimeout(() => {
+                      this.setState({ caseAlready: false });
+                    }, 3000);
+                  }
                 });
         }
 
@@ -329,7 +334,6 @@ class Index extends Component {
                                                     <h1>Select Step of Patient flow and Add case number of Patient</h1>
                                                     <Grid item xs={12} md={8}>
                                                         <Grid className="headerCountTxt">
-
                                                             <Grid className="patentInfoTxt">
                                                             <label>{CaseNumber}</label>
                                                                 <VHfield
@@ -370,9 +374,6 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-
-
-
 
                                         </Grid>
                                     </Grid>
