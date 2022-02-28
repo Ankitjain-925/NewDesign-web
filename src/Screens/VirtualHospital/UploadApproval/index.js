@@ -23,14 +23,15 @@ import {
     MoveAllCases,
     setAssignedTo,
     getProfessionalData,
-  } from "Screens/VirtualHospital/PatientFlow/data";
+} from "Screens/VirtualHospital/PatientFlow/data";
 import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
 import { Speciality } from "Screens/Login/speciality.js";
 import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
-import FileUploader from "Screens/Components/FileUploader/index";
+// import FileUploader from "Screens/Components/FileUploader/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Select from "react-select";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
 
 function TabContainer(props) {
     return (
@@ -64,105 +65,34 @@ class Index extends Component {
             let user_token = this.props.stateLoginValueAim.token;
             let user_id = this.props.history.location?.state?.data;
             axios
-              .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
-              .then((response) => {
-                  this.setState({patinfo: response.data.data})
-              })
+                .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+                .then((response) => {
+                    this.setState({ patinfo: response.data.data })
+                })
         }
-       
+
         var steps = getSteps(
             this.props?.House?.value,
             this.props.stateLoginValueAim.token
-          );
-          steps.then((data) => {
-              console.log('data', data);
+        );
+        steps.then((data) => {
             var stepData = data ? data : [];
             this.setDta(stepData);
             this.GetStep(stepData);
-          });
+        });
     }
 
-    // FileAttachMulti = (Fileadd) => {
-    //     console.log("Fileadd", Fileadd)
-    //     this.setState({
-    //         isfileuploadmulti: true,
-    //         fileattach: Fileadd,
-    //         fileupods: true,
-    //     }); 
-    // };
-
-
-    //For upload File related the second Opinion
-    FileAttachMulti = (event) => {
-        if (
-            event &&
-            event[0] &&
-            (event[0].type === "application/pdf" ||
-                event[0].type === "image/jpeg" ||
-                event[0].type === "image/png")
-        ) {
-            this.setState({
-                isfileuploadmulti: true,
-                loaderImage: true,
-                err_pdf: false,
-            });
-            var fileattach = [];
-            for (var i = 0; i < event.length; i++) {
-                var file = event[i];
-                let fileParts = event[i].name.split(".");
-                let fileName = fileParts[0];
-                let fileType = fileParts[1];
-                axios
-                    .post(sitedata.data.path + "/aws/sign_s3", {
-                        fileName: fileName,
-                        fileType: fileType,
-                        folders:
-                            this.props.stateLoginValueAim.user.profile_id +
-                            "/second_opinion/",
-                        bucket: this.props.stateLoginValueAim.user.bucket,
-                    })
-                    .then((response) => {
-                        fileattach.push({
-                            filename:
-                                response.data.data.returnData.url +
-                                "&bucket=" +
-                                this.props.stateLoginValueAim.user.bucket,
-                            fileType: fileType
-                        });
-                        this.setState({ fileupods: true });
-                        setTimeout(() => {
-                            this.setState({ fileupods: false });
-                        }, 5000);
-                        var returnData = response.data.data.returnData;
-                        var signedRequest = returnData.signedRequest;
-                        var url = returnData.url;
-                        if (fileType === "pdf") {
-                            fileType = "application/pdf";
-                        }
-                        // Put the fileType in the headers for the upload
-                        var options = { headers: { "Content-Type": fileType } };
-                        axios
-                            .put(signedRequest, file, options)
-                            .then((result) => {
-                                this.setState({
-                                    success: true,
-                                    loaderImage: false,
-                                    approveDocument: fileattach,
-                                });
-                            })
-                            .catch((error) => { });
-                    })
-                    .catch((error) => { });
-            }
-        } else {
-            this.setState({ err_pdf: true });
-        }
+    // for attach file
+    FileAttachMulti = (Fileadd) => {
+        this.setState({
+            isfileuploadmulti: true,
+            approveDocument: Fileadd,
+            fileupods: true,
+        });
     };
-
 
     GetStep = (stepData) => {
         var state = stepData;
-        console.log('state',state);
         let allSteps = state && state.length > 0 && state.map((item) => {
             return { label: item && item.step_name, value: item && item._id }
         })
@@ -181,69 +111,60 @@ class Index extends Component {
         this.setState({ case: state });
     };
 
-     //For calling the API
-  CallApi = () => {
-    var deep = _.cloneDeep(this.state.actualData);
-    deep.map((item) => {
-      item.case_numbers = item.case_numbers.map((element) => {
-        if (element._id) {
-          let case_id = element._id;
-          element = {};
-          element.case_id = case_id;
-          return element;
-        } else {
-          return element;
-        }
-      });
-    });
-    this.setState({ loaderImage: true });
-    axios
-      .post(
-        sitedata.data.path + "/step/AddStep",
-        {
-          house_id: this.props?.House?.value,
-          steps: deep,
-        },
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.setState({ loaderImage: false });
-          var steps = getSteps(
-            this.props?.House?.value,
-            this.props.stateLoginValueAim.token
-          );
-          steps.then((data) => {
-            var stepData = data ? data : [];
-            this.setDta(stepData);
-          });
-        }
-        this.setState({});
-      });
-  };
+    //For calling the API
+    CallApi = () => {
+        var deep = _.cloneDeep(this.state.actualData);
+        deep.map((item) => {
+            item.case_numbers = item.case_numbers.map((element) => {
+                if (element._id) {
+                    let case_id = element._id;
+                    element = {};
+                    element.case_id = case_id;
+                    return element;
+                } else {
+                    return element;
+                }
+            });
+        });
+        this.setState({ loaderImage: true });
+        axios
+            .post(
+                sitedata.data.path + "/step/AddStep",
+                {
+                    house_id: this.props?.House?.value,
+                    steps: deep,
+                },
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed) {
+                    this.setState({ loaderImage: false });
+                    var steps = getSteps(
+                        this.props?.House?.value,
+                        this.props.stateLoginValueAim.token
+                    );
+                    steps.then((data) => {
+                        var stepData = data ? data : [];
+                        this.setDta(stepData);
+                    });
+                }
+                this.setState({});
+            });
+    };
 
     handleTaskSubmit = () => {
         this.setState({ errorMsg: "" })
         this.setState({ loaderImage: true });
-        var data = this.state.newTask;
-        // if (this.state.needUpload && ) {
-        //     this.setState({ errorMsg: "Upload document needed" })
-        // } else {
-        //     if (this.state.fileupods) {
-        //         data.approveDocument = this.state.fileattach;
-        //     }
-        // }
-        var data = this.state.approveDocument;
-        console.log("approveDocument",data)
-
         if (!this.state.SelectedStep.label) {
             this.setState({ errorMsg: "Select Step name" })
         }
         else if (!this.state.case.case_number) {
             this.setState({ errorMsg: "Case number can't be empty" })
         }
-        else{
-            console.log('afsdfsdfsdf');
+        else if (!this.state.approveDocument.length > 0) {
+            this.setState({ errorMsg: "Upload document needed" })
+        }
+        else {
             var case_data = {
                 house_id: this.props?.House.value,
                 inhospital: true,
@@ -251,89 +172,89 @@ class Index extends Component {
                 patient_id: this.state.patinfo._id,
                 // patient_id: "4324424242343424234",
                 patient: {
-                  first_name: this.state.patinfo.first_name,
-                  last_name: this.state.patinfo.last_name,
-                  image: this.state.patinfo.image,
-                  profile_id: this.state.patinfo.profile_id, 
-                  alies_id: this.state.patinfo.profile_id
-                //   profile_id: responce.data.data.profile_id,
-                //   alies_id: responce.data.data.alies_id,
+                    first_name: this.state.patinfo.first_name,
+                    last_name: this.state.patinfo.last_name,
+                    image: this.state.patinfo.image,
+                    profile_id: this.state.patinfo.profile_id,
+                    alies_id: this.state.patinfo.profile_id
+                    //   profile_id: responce.data.data.profile_id,
+                    //   alies_id: responce.data.data.alies_id,
                 },
                 added_at: new Date(),
                 verifiedbyPatient: this.state.needUpload ? true : false,
-              };
+            };
             axios
                 .post(
-                  sitedata.data.path + "/cases/AddCase",
-                  case_data,
-                  commonHeader(this.props.stateLoginValueAim.token)
+                    sitedata.data.path + "/cases/AddCase",
+                    case_data,
+                    commonHeader(this.props.stateLoginValueAim.token)
                 )
                 .then((responce1) => {
-                  if (responce1.data.hassuccessed) {
-                    var senddata = {}
-                    if(!this.state.needUpload) {
-                    if (this.state.patinfo?.email) { senddata.email = this.state.patinfo?.email }
-                    if (this.state.patinfo?.mobile) { senddata.mobile = this.state.patinfo?.mobile }
-                    senddata.case_id = responce1.data?.data
-                    senddata.patient = this.state.patinfo._id
-                    senddata.patient_name = this.state.patinfo.last_name ? this.state.patinfo.first_name + ' ' + this.state.patinfo.last_name : this.state.patinfo.first_name
-                    axios
-                      .post(
-                        sitedata.data.path + "/vh/linkforAccepthospital",
-                        senddata,
-                        commonHeader(this.props.stateLoginValueAim.token)
-                      )
-                      .then((responce1) => { })
-                    } 
-                    this.setState({
-                      updateState: {},
-                      
-                    });
-                    var state = this.state.actualData;
-                    let indexData = ''
-                    state && state.length > 0 && state.filter((item, index) => {
-                      if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
-                        indexData = index;
-                      }
-                    })
-                    state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                    this.setState({ SelectedStep: '' });
-                    this.setDta(state);
-                    this.CallApi();
-                  } else {
-                    this.setState({ caseAlready: true, loaderImage: false });
-                    setTimeout(() => {
-                      this.setState({ caseAlready: false });
-                    }, 3000);
-                  }
+                    if (responce1.data.hassuccessed) {
+                        var senddata = {}
+                        if (!this.state.needUpload) {
+                            if (this.state.patinfo?.email) { senddata.email = this.state.patinfo?.email }
+                            if (this.state.patinfo?.mobile) { senddata.mobile = this.state.patinfo?.mobile }
+                            senddata.case_id = responce1.data?.data
+                            senddata.patient = this.state.patinfo._id
+                            senddata.patient_name = this.state.patinfo.last_name ? this.state.patinfo.first_name + ' ' + this.state.patinfo.last_name : this.state.patinfo.first_name
+                            axios
+                                .post(
+                                    sitedata.data.path + "/vh/linkforAccepthospital",
+                                    senddata,
+                                    commonHeader(this.props.stateLoginValueAim.token)
+                                )
+                                .then((responce1) => { })
+                        }
+                        this.setState({
+                            updateState: {},
+
+                        });
+                        var state = this.state.actualData;
+                        let indexData = ''
+                        state && state.length > 0 && state.filter((item, index) => {
+                            if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+                                indexData = index;
+                            }
+                        })
+                        state[indexData].case_numbers.push({ case_id: responce1.data.data });
+                        this.setState({ SelectedStep: '' });
+                        this.setDta(state);
+                        this.CallApi();
+                    } else {
+                        this.setState({ caseAlready: true, loaderImage: false });
+                        setTimeout(() => {
+                            this.setState({ caseAlready: false });
+                        }, 3000);
+                    }
                 });
         }
 
-        this.setState({ loaderImage: false});
+        this.setState({ loaderImage: false });
     };
 
-      //Set data according to package
-  setDta = (stepData) => {
-    var author = getAuthor(stepData);
-    stepData.map((item, index1) => {
-      item?.case_numbers?.length > 0 &&
-        item.case_numbers.map((data, index) => {
-          data["author"] = author[index1];
+    //Set data according to package
+    setDta = (stepData) => {
+        var author = getAuthor(stepData);
+        stepData.map((item, index1) => {
+            item?.case_numbers?.length > 0 &&
+                item.case_numbers.map((data, index) => {
+                    data["author"] = author[index1];
+                });
         });
-    });
-    this.setState({ actualData: stepData });
-    this.mapActualToFullData(stepData);
-  };
+        this.setState({ actualData: stepData });
+        this.mapActualToFullData(stepData);
+    };
 
-  mapActualToFullData = (result) => {
-    const authorQuoteMap = result && result?.length > 0 && result.reduce(
-      (previous, author) => {
-        if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
-        return previous;
-      }, {});
+    mapActualToFullData = (result) => {
+        const authorQuoteMap = result && result?.length > 0 && result.reduce(
+            (previous, author) => {
+                if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
+                return previous;
+            }, {});
 
-    this.setState({ fullData: authorQuoteMap });
-  }
+        this.setState({ fullData: authorQuoteMap });
+    }
 
     render() {
         const { stateLoginValueAim, House } = this.props;
@@ -389,8 +310,8 @@ class Index extends Component {
                                                                     // cur_one={this.props.cur_one}
                                                                     attachfile={
                                                                         this.state.approveDocument &&
-                                                                            this.state.approveDocument
-                                                                            ? this.state.approveDocument
+                                                                            this.state.approveDocument.attachments
+                                                                            ? this.state.approveDocument.attachments
                                                                             : []
                                                                     }
                                                                     name="UploadTrackImageMulti"
@@ -399,7 +320,6 @@ class Index extends Component {
                                                                         this.FileAttachMulti(event);
                                                                     }}
                                                                 />
-
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>}
@@ -411,8 +331,8 @@ class Index extends Component {
                                                         <Grid className="headerCountTxt">
 
                                                             <Grid className="patentInfoTxt">
+                                                            <label>{CaseNumber}</label>
                                                                 <VHfield
-                                                                    label={CaseNumber}
                                                                     name="case_number"
                                                                     value={this.state.case?.case_number || ''}
                                                                     onChange={this.onChangeCase}
@@ -439,8 +359,6 @@ class Index extends Component {
                                                 <Grid container direction="row" justifyContent="center" >
                                                     <Grid item xs={12} md={8} lg={8}>
                                                         <Grid className="aaa">
-
-                                                                    {console.log('patinfo', this.state.patinfo)}
                                                             <Grid className="headerCountTxt infoSubInpSection">
                                                                 <input
                                                                     type="submit"
