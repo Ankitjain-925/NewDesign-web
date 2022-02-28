@@ -193,16 +193,21 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid> */}
+                <Grid className="profileInfoDate">
                 <Grid item xs={12} md={8}>
                   <Grid className="headerCountTxt">
                     <label>Birthday</label>
-                    <input
+                    <Grid>
+                      <DateFormat name="birthday" value={new Date(this.state.patinfo?.birthday)} date_format={this.props.settings.setting && this.props.settings.setting.date_format}  />
+                  </Grid>
+                    {/* <input
                       name="DoB"
                       type="text"
                       // onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
                       value={this.state.patinfo?.birthday}
                       disabled
-                    />
+                    /> */}
+                  </Grid>
                   </Grid>
                 </Grid>
                 <Grid item xs={12} md={8}>
@@ -239,7 +244,8 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                       <Grid item xs={12} md={4} lg={4}>
-                        <Grid className="headerCountTxt infoSubInpSection">
+                      <div className="printPreviewlink">
+                        <Grid className="headerCountTxt infoSubInpSection ">
 
                           <ReactToPrint
                             content={() => this.reactToPrintContent()}
@@ -259,6 +265,7 @@ class Index extends Component {
                             DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
                           {/* } */}
                         </Grid>
+                      </div>
                       </Grid>
                       <Grid item xs={12} md={4} lg={4}>
                         <Grid className="headerCountTxt infoSubInpSection">

@@ -328,13 +328,13 @@ class PointPain extends Component {
               </Grid>
               <Grid className="prfilHghtRght">
                 <label>{blood}</label>
-                <p className="blood-sec">
-                  {this.state.user &&
+                <p>
+                  {(this.state.user &&
                   this.state.user?.blood_group &&
-                  this.state.user?.rhesus
+                  this.state.user?.rhesus && this.state.user.blood_group.value !== 'not_known' && this.state.user.rhesus.value !== 'not_known')
                     ? typeof this.state.user.blood_group === 'object' ? 
-                    this.state.user.blood_group.label +' '+ this.state.user.rhesus.label
-                    : this.state.user.blood_group +' '+ this.state.user.rhesus.label
+                     this.state.user.blood_group.value  +' '+ this.state.user.rhesus.value
+                    : this.state.user.blood_group +' '+ this.state.user.rhesus.value
                     : "--"}
                 </p>
               </Grid>

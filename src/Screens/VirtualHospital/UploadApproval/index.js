@@ -46,13 +46,13 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            needUpload: true,
+            needUpload: false,
             case: {},
             SelectedStep: {},
             errorMsg: "",
             patinfo: {},
             approveDocument: {},
-            Fileadd: ""
+            isFile: false,
         };
     }
 
@@ -81,16 +81,6 @@ class Index extends Component {
             this.GetStep(stepData);
           });
     }
-
-    // FileAttachMulti = (Fileadd) => {
-    //     console.log("Fileadd", Fileadd)
-    //     this.setState({
-    //         isfileuploadmulti: true,
-    //         fileattach: Fileadd,
-    //         fileupods: true,
-    //     }); 
-    // };
-
 
     //For upload File related the second Opinion
     FileAttachMulti = (event) => {
@@ -148,6 +138,7 @@ class Index extends Component {
                                     success: true,
                                     loaderImage: false,
                                     approveDocument: fileattach,
+                                    isFile: true
                                 });
                             })
                             .catch((error) => { });
@@ -226,24 +217,17 @@ class Index extends Component {
         this.setState({ errorMsg: "" })
         this.setState({ loaderImage: true });
         var data = this.state.newTask;
-        // if (this.state.needUpload && ) {
-        //     this.setState({ errorMsg: "Upload document needed" })
-        // } else {
-        //     if (this.state.fileupods) {
-        //         data.approveDocument = this.state.fileattach;
-        //     }
-        // }
-        var data = this.state.approveDocument;
-        console.log("approveDocument",data)
 
-        if (!this.state.SelectedStep.label) {
-            this.setState({ errorMsg: "Select Step name" })
+        if (this.state.needUpload && !this.state.isFile) { 
+          this.setState({ errorMsg: "Please upload the document of approval from patient" })
+        }
+       else if (!this.state.SelectedStep.label) {
+            this.setState({ errorMsg: "Please select Step name" })
         }
         else if (!this.state.case.case_number) {
-            this.setState({ errorMsg: "Case number can't be empty" })
+            this.setState({ errorMsg: "Please enter case number" })
         }
         else{
-            console.log('afsdfsdfsdf');
             var case_data = {
                 house_id: this.props?.House.value,
                 inhospital: true,
@@ -260,6 +244,7 @@ class Index extends Component {
                 //   alies_id: responce.data.data.alies_id,
                 },
                 added_at: new Date(),
+                approveDocument: this.state.approveDocument,
                 verifiedbyPatient: this.state.needUpload ? true : false,
               };
             axios
@@ -300,6 +285,7 @@ class Index extends Component {
                     this.setState({ SelectedStep: '' });
                     this.setDta(state);
                     this.CallApi();
+                    this.props.history.push('/virtualHospital/patient-flow')
                   } else {
                     this.setState({ caseAlready: true, loaderImage: false });
                     setTimeout(() => {
@@ -409,7 +395,6 @@ class Index extends Component {
                                                     <h1>Select Step of Patient flow and Add case number of Patient</h1>
                                                     <Grid item xs={12} md={8}>
                                                         <Grid className="headerCountTxt">
-
                                                             <Grid className="patentInfoTxt">
                                                                 <VHfield
                                                                     label={CaseNumber}
@@ -452,9 +437,6 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-
-
-
 
                                         </Grid>
                                     </Grid>
