@@ -56,25 +56,25 @@ export class ComponentToPrint extends React.PureComponent {
         return (
             <div>
 
-                <Grid>
+                <Grid className="allPrintPart">
 
                     <div style={divStyle}>
                     </div>
 
-                    <Grid className="printSec">
+                    <Grid className="printSec allPhrintSec">
                         <p>Patient Name:</p>
                         <p>{first_name}</p>
                         <p>{last_name}</p>
                     </Grid>
-                    <Grid className="printSec">
+                    <Grid className="printSec allPhrintSec">
                         <p>DoB:</p>
                         <p>{DoB}</p>
                     </Grid>
-                    <Grid className="printSec">
+                    <Grid className="printSec allPhrintSec">
                         <p>Mobile:</p>
                         <p>{mobile}</p>
                     </Grid>
-                    <Grid className="editorSec">
+                    <Grid className="editorSec editorPhrintSec allPhrintSec">
                         <p dangerouslySetInnerHTML={{ __html: editor }} />
                         </Grid>
                     <div style={divStyle2}></div>

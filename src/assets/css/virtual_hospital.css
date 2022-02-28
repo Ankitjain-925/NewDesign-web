@@ -13888,7 +13888,7 @@ border-style: solid;
 .editorSec{
     font-size: 18px;
     margin-top:20px;
-    font-weight: bold;
+    font-weight: 600;
 }
 .allInfoSection{
     display:flex;
@@ -13922,7 +13922,7 @@ border-style: solid;
 .editorSec{
     font-size: 18px;
     margin-top:20px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 .allInfoSection{
     display:flex;
@@ -13934,4 +13934,17 @@ border-style: solid;
     .infoSubInpSection{
         margin-top: 0px;
     }
+}
+
+.allPrintPart{
+    margin-top:50px;
+}
+.allPhrintSec p{
+    font-size: 45px;
+}
+.allPhrintSec{
+    margin-bottom:10px;
+}
+.editorPhrintSec{
+    margin-top:40px;
 }
