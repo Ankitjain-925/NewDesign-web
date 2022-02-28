@@ -9930,6 +9930,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.patienttoggle2 {
+    margin-top: 14px !important;
+}
 .showOnPrint{
     display: none;
 }
@@ -13916,7 +13919,7 @@ border-style: solid;
 .editorSec{
     font-size: 18px;
     margin-top:20px;
-    font-weight: bold;
+    font-weight: 600;
 }
 .allInfoSection{
     display:flex;
@@ -13947,11 +13950,7 @@ border-style: solid;
 .printSec p:last-child, .printSec p:nth-child(2){
     margin-left:10px;
 }
-.editorSec{
-    font-size: 18px;
-    margin-top:20px;
-    font-weight: bold;
-}
+
 .allInfoSection{
     display:flex;
     align-items: flex-start;
@@ -13971,4 +13970,16 @@ border-style: solid;
     .infoSubInpSection{
         margin-top: 0px;
     }
+}
+.allPrintPart{
+    margin-top:50px;
+}
+.allPhrintSec p{
+    font-size: 45px;
+}
+.allPhrintSec{
+    margin-bottom:10px;
+}
+.editorPhrintSec{
+    margin-top:40px;
 }

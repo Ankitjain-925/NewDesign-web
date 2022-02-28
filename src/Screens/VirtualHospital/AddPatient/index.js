@@ -426,6 +426,7 @@ class Index extends Component {
                             axios
                                 .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
                                 .then((responce) => {
+                                    this.captcha.reset();
                                     this.setState({ loaderImage: false });
                                     if (responce.data.hassuccessed === true) {
                                         this.setState({
@@ -464,13 +465,24 @@ class Index extends Component {
                                             successfull: false,
                                             Mnotvalid: true,
                                             alreadyerror: false,
+                                            alreadyerrorInfo: false
+                                        });
+                                    } 
+                                    else if (responce.data.message === "Email is Already exist") {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            Mnotvalid: false,
+                                            alreadyerror: true,
+                                            alreadyerrorInfo: false
                                         });
                                     } else {
                                         this.ScrolltoTop();
                                         this.setState({
                                             successfull: false,
-                                            alreadyerror: true,
+                                            alreadyerror: false,
                                             Mnotvalid: false,
+                                            alreadyerrorInfo: true
                                         });
                                     }
                                 })
@@ -792,6 +804,7 @@ class Index extends Component {
                                                             {this.state.regisError}
                                                             {this.state.Mnotvalid && Mnotvalids}
                                                             {this.state.alreadyerror && EmailExists}
+                                                            {this.state.alreadyerrorInfo && "User already exists with given Information"}
                                                         </div>
                                                         <Grid className="profileInfo">
                                                             <Grid className="profileInfoIner">
@@ -804,8 +817,9 @@ class Index extends Component {
                                                                     <Grid
                                                                         item
                                                                         xs={4} md={4}
-                                                                    >
-                                                                        <label>{"Patient do not have email, the email createdby Hospital"}</label>
+                                                                        className="patienttoggle2">
+                                                                    
+                                                                        <label>{"Patient does not have email, the email created by Hospital"}</label>
                                                                         <Toggle
                                                                             // className="switchBtn"
                                                                             icons={false}
@@ -813,7 +827,6 @@ class Index extends Component {
                                                                             //  name="email"
                                                                             onChange={(e) => this.SetMode(e)}
                                                                         />
-
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
