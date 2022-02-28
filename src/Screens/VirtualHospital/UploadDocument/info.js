@@ -44,21 +44,20 @@ class Index extends Component {
 
     };
   }
-  
+
   handlelatestChange = (value) => {
     this.setState({ editor: value })
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.patinfo !== this.props.patinfo){
-      this.setState({ patinfo: this.props.patinfo }, ()=>{
-        console.log('patinfo', this.state.patinfo)
+    if (prevProps.patinfo !== this.props.patinfo) {
+      this.setState({ patinfo: this.props.patinfo }, () => {
       })
     }
   }
 
   handleOnBeforeGetContent = () => {
-    this.setState({ loaderImage: true, first_name:this.state.patinfo?.first_name, last_name: this.state.patinfo?.last_name, mobile:this.state.patinfo?.mobile, DoB: this.state.patinfo?.DoB, editor: this.state.editor });
+    this.setState({ loaderImage: true, first_name: this.state.patinfo?.first_name, last_name: this.state.patinfo?.last_name, mobile: this.state.patinfo?.mobile, DoB: this.state.patinfo?.DoB, editor: this.state.editor });
     return new Promise((resolve) => {
       setTimeout(() => {
         this.setState(
@@ -90,7 +89,6 @@ class Index extends Component {
     }
   };
   handleChange1 = (input, value) => {
-    console.log("value", input)
     this.setState({ [input]: value });
 
   };
@@ -105,7 +103,7 @@ class Index extends Component {
     this.props.history.push({
       pathname: '/virtualHospital/approved_add',
       state: { data: this.state.patinfo._id, needUpload: true }
-  })
+    })
   }
   GetLanguageMetadata = () => {
     var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
@@ -126,62 +124,69 @@ class Index extends Component {
   render() {
     return (
       <div>
-        {this.state.loaderImage && <Loader />}
+        <Grid className={
+          this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
+            ? "homeBg darkTheme"
+            : "homeBg"
+        }>
+      
+          {this.state.loaderImage && <Loader />}
+          <Grid container direction="row" justifyContent="center" >
+            <Grid item xs={11} md={10}>
+              <Grid className='headercont headercontSec'>
+                <Grid className="allheadercont">
+                  <Grid className="profileInfoSection">  <h1>Personal Information</h1></Grid>
+                  <Grid item xs={12} md={8}>
+                    <Grid className="headerCountTxt">
+                      <label>Header(inches)</label>
+                      <input
+                        name="header"
+                        type="text"
+                        onChange={(e) => { this.handleChange1("header", e.target.value) }}
+                        value={this.state.header}
 
-        <Grid container direction="row" justifyContent="center" >
-          <Grid item xs={11} md={10}>
-            <Grid className='headercont headercontSec'>
-              <Grid className="allheadercont">
-                <Grid className="profileInfoSection">  <h1>Personal Information</h1></Grid>
-                <Grid item xs={12} md={8}>
-                  <Grid className="headerCountTxt">
-                    {console.log('sfsdfsdf', this.state.patinfo)}
-                    <label>Header(inches)</label>
-                    <input
-                      name="header"
-                      type="text"
-                      onChange={(e) => { this.handleChange1("header", e.target.value) }}
-                      value={this.state.header}
-
-                    />
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <Grid className="headerCountTxt">
-                    <label>Footer(inches)</label>
-                    <input
-                      name="footer"
-                      type="text"
-                      onChange={(e) => { this.handleChange1("footer", e.target.value) }}
-                      value={this.state.footer}
-                    />
+                  <Grid item xs={12} md={8}>
+                    <Grid className="headerCountTxt">
+                      <label>Footer(inches)</label>
+                      <input
+                        name="footer"
+                        type="text"
+                        onChange={(e) => { this.handleChange1("footer", e.target.value) }}
+                        value={this.state.footer}
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <Grid className="headerCountTxt">
-                    <label>First Name</label>
-                    <input
-                      name="first_name"
-                      type="text"
-                      // onChange={(e) => { this.handleChange1("first_name", e.target.value) }}
-                      value={this.state.patinfo?.first_name}
-                      disabled
-                    />
+                  <Grid item xs={12} md={8}>
+                    <Grid className="headerCountTxt">
+                      <label>First Name</label>
+                      <input
+                        name="first_name"
+                        type="text"
+                        // onChange={(e) => { this.handleChange1("first_name", e.target.value) }}
+                        value={this.state.patinfo?.first_name}
+                        disabled
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <Grid className="headerCountTxt">
-                    <label>Last Name</label>
-                    <input
-                      name="last_name"
-                      type="text"
-                      // onChange={(e) => { this.handleChange1("last_name", e.target.value) }}
-                      value={this.state.patinfo?.last_name}
-                      disabled
-                    />
+                  <Grid item xs={12} md={8}>
+                    <Grid className="headerCountTxt">
+                      <label>Last Name</label>
+                      <input
+                        name="last_name"
+                        type="text"
+                        // onChange={(e) => { this.handleChange1("last_name", e.target.value) }}
+                        value={this.state.patinfo?.last_name}
+                        disabled
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                {/* <Grid item xs={12} md={8}>
+                  {/* <Grid item xs={12} md={8}>
                   <Grid className="headerCountTxt">
                     <label>Mobile</label>
                     <input
@@ -193,100 +198,93 @@ class Index extends Component {
                     />
                   </Grid>
                 </Grid> */}
-                <Grid className="profileInfoDate">
-                <Grid item xs={12} md={8}>
-                  <Grid className="headerCountTxt">
-                    <label>Birthday</label>
-                    <Grid>
-                      <DateFormat name="birthday" value={new Date(this.state.patinfo?.birthday)} date_format={this.props.settings.setting && this.props.settings.setting.date_format}  />
+                  <Grid item xs={12} md={8}>
+                    <Grid className="headerCountTxt">
+                      <label>Birthday</label>
+                      <input
+                        name="DoB"
+                        type="text"
+                        // onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
+                        value={this.state.patinfo?.birthday}
+                        disabled
+                      />
+                    </Grid>
                   </Grid>
-                    {/* <input
-                      name="DoB"
-                      type="text"
-                      // onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
-                      value={this.state.patinfo?.birthday}
-                      disabled
-                    /> */}
-                  </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <Grid className="headerCountTxt">
-                    <label>Free Content</label>
-                    <ReactQuill
-                      name="editor"
-                      // value={this.state.editorText?.editor}
-                      onChange={(e) => this.handlelatestChange(e, "editor")}
-                    />
+                  <Grid item xs={12} md={8}>
+                    <Grid className="headerCountTxt">
+                      <label>Free Content</label>
+                      <ReactQuill
+                        name="editor"
+                        // value={this.state.editorText?.editor}
+                        onChange={(e) => this.handlelatestChange(e, "editor")}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
 
-              <Grid container direction="row" justifyContent="center" >
-                <Grid item xs={12} md={8} lg={8}>
-                  <Grid className="allInfoSection">
-                    <Grid container direction="row" justifyContent="center" >
-                      <Grid item xs={12} md={4} lg={4}>
-                        <Grid className="headerCountTxt infoSubInpSection">
-                          <ReactToPrint
-                            content={() => this.reactToPrintContent()}
-                            documentTitle="Report.pdf"
-                            onBeforeGetContent={() => this.handleOnBeforeGetContent(this.state.first_name)}
-                            removeAfterPrint
-                            trigger={() => <input
-                              type="submit"
+                <Grid container direction="row" justifyContent="center" >
+                  <Grid item xs={12} md={8} lg={8}>
+                    <Grid className="allInfoSection">
+                      <Grid container direction="row" justifyContent="center" >
+                        <Grid item xs={12} md={4} lg={4}>
+                          <Grid className="headerCountTxt infoSubInpSection">
+                            <ReactToPrint
+                              content={() => this.reactToPrintContent()}
+                              documentTitle="Report.pdf"
+                              onBeforeGetContent={() => this.handleOnBeforeGetContent(this.state.first_name)}
+                              removeAfterPrint
+                              trigger={() => <input
+                                type="submit"
 
-                              value={"Print Preview"}
-                            />}
+                                value={"Print Preview"}
+                              />}
 
-                          />
+                            />
 
+                          </Grid>
                         </Grid>
-                      </Grid>
-                      <Grid item xs={12} md={4} lg={4}>
-                      <div className="printPreviewlink">
-                        <Grid className="headerCountTxt infoSubInpSection ">
+                        <Grid item xs={12} md={4} lg={4}>
+                          <Grid className="headerCountTxt infoSubInpSection">
 
-                          <ReactToPrint
-                            content={() => this.reactToPrintContent()}
-                            documentTitle="Report.pdf"
-                            onBeforeGetContent={() => this.handleOnBeforeGetContent(this.state.first_name)}
-                            removeAfterPrint
-                            trigger={() => <input
-                              type="submit"
+                            <ReactToPrint
+                              content={() => this.reactToPrintContent()}
+                              documentTitle="Report.pdf"
+                              onBeforeGetContent={() => this.handleOnBeforeGetContent(this.state.first_name)}
+                              removeAfterPrint
+                              trigger={() => <input
+                                type="submit"
 
-                              value={"Print"}
-                            />}
+                                value={"Print"}
+                              />}
 
-                          />
-                          {/* {this.state.first_name &&
+                            />
+                            {/* {this.state.first_name &&
                     // this.state.last_name&&  */}
-                          <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.first_name} last_name={this.state.last_name}
-                            DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
-                          {/* } */}
+                            <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.first_name} last_name={this.state.last_name}
+                              DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
+                            {/* } */}
+                          </Grid>
                         </Grid>
-                      </div>
-                      </Grid>
-                      <Grid item xs={12} md={4} lg={4}>
-                        <Grid className="headerCountTxt infoSubInpSection">
-                          <input
-                            type="submit"
-                            onClick={this.upload}
-                            value={"Next"}
-                          />
+                        <Grid item xs={12} md={4} lg={4}>
+                          <Grid className="headerCountTxt infoSubInpSection">
+                            <input
+                              type="submit"
+                              onClick={this.upload}
+                              value={"Next"}
+                            />
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
+
+
+
             </Grid>
-
-
-
           </Grid>
         </Grid>
-
 
       </div >
     );
