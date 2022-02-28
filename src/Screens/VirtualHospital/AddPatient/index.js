@@ -707,7 +707,7 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Citizenship, created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
+        let { Patient_does_not_have_email_the_email_created_by_Hospital,Citizenship, created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, BacktoPatientFlow, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
@@ -805,7 +805,7 @@ class Index extends Component {
                                                                         item
                                                                         xs={4} md={4}
                                                                     >
-                                                                        <label>{"Patient do not have email, the email createdby Hospital"}</label>
+                                                                        <label>{Patient_does_not_have_email_the_email_created_by_Hospital}</label>
                                                                         <Toggle
                                                                             // className="switchBtn"
                                                                             icons={false}

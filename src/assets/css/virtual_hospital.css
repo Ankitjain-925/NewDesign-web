@@ -10091,7 +10091,7 @@ ul.addpatientoption li:hover {
 } 
 
 .darkTheme .allSpeces div{
- background-color: #192020;
+ background-color: #404646;
  color: #cfcfcf;
 }
 @media (max-width: 640px) {
@@ -13852,6 +13852,7 @@ border-style: solid;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0;
+    line-break: anywhere;
     /* line-height: 12px; */
 }
 .headerCountTxt input{
@@ -13964,4 +13965,13 @@ border-style: solid;
     .infoSubInpSection{
         margin-top: 0px;
     }
+}
+
+.darkTheme .headerCountTxt input{
+    background-color: #404646;
+    color:#D9DADA
+}
+
+.darkTheme .ql-toolbar.ql-snow{
+    background-color:#949494;
 }
