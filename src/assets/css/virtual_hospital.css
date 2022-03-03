@@ -13991,3 +13991,36 @@ border-style: solid;
 .darkTheme .ql-toolbar.ql-snow{
     background-color:#949494;
 }
+
+
+
+.menuCheckBox{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.menuCheckBox p{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+}
+.menuCheckBox .MuiSvgIcon-root{
+    width: 45px;
+    height: 45px;
+}
+.menuCheckBox .MuiCheckbox-colorSecondary.Mui-checked{
+    color:#00abaf!important;
+}
+.menuCheckBox .PrivateSwitchBase-root-110 {
+    padding: 5px;
+}
+.menuCheckBox .MuiButtonBase-root{
+    background-color: transparent!important;
+}
+
+@media screen and (min-width: 960px) and (max-width: 1092px){
+.menuCheckBox p {
+    font-size: 10px;
+   }
+}
