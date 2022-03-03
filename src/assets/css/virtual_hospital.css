@@ -13262,7 +13262,7 @@ input:-moz-autofill:active{
 }
 .printPreviewlink .relativeCSS1 {
     display: none !important;
-    padding: 15px;
+    margin-left: 15px !important;
 }
 .printPreviewlink .relativeCSS {
     display: none !important;
@@ -13976,7 +13976,7 @@ border-style: solid;
     margin-top:50px;
 }
 .allPhrintSec p{
-    font-size: 45px;
+    font-size: 35px;
 }
 .allPhrintSec{
     margin-bottom:10px;

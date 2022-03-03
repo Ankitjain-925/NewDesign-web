@@ -330,7 +330,6 @@ class Index extends Component {
                                                     </Grid>}
 
                                                 <Grid className="profileInfoSection">
-
                                                     <h1>Select Step of Patient flow and Add case number of Patient</h1>
                                                     <Grid item xs={12} md={8}>
                                                         <Grid className="headerCountTxt">

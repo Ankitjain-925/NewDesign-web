@@ -201,13 +201,16 @@ class Index extends Component {
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
                       <label>Birthday</label>
-                      <input
+                      <Grid>
+                          <DateFormat name="birthday" value={new Date(this.state.patinfo?.birthday)} date_format={this.props.settings.setting && this.props.settings.setting.date_format} disabled={true} />
+                      </Grid>
+                      {/* <input
                         name="DoB"
                         type="text"
                         // onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
                         value={this.state.patinfo?.birthday}
                         disabled
-                      />
+                      /> */}
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={8}>
@@ -227,6 +230,7 @@ class Index extends Component {
                     <Grid className="allInfoSection">
                       <Grid container direction="row" justifyContent="center" >
                         <Grid item xs={12} md={4} lg={4}>
+                      
                           <Grid className="headerCountTxt infoSubInpSection">
                             <ReactToPrint
                               content={() => this.reactToPrintContent()}
@@ -240,12 +244,13 @@ class Index extends Component {
                               />}
 
                             />
-
                           </Grid>
+                          
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
+                        <div className="printPreviewlink">
                           <Grid className="headerCountTxt infoSubInpSection">
-
+                         
                             <ReactToPrint
                               content={() => this.reactToPrintContent()}
                               documentTitle="Report.pdf"
@@ -260,10 +265,11 @@ class Index extends Component {
                             />
                             {/* {this.state.first_name &&
                     // this.state.last_name&&  */}
-                            <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.first_name} last_name={this.state.last_name}
-                              DoB={this.state.DoB} mobile={this.state.mobile} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
+                            <ComponentToPrint ref={el => (this.componentRef = el)} first_name={this.state.patinfo?.first_name} last_name={this.state.patinfo?.last_name}
+                              DoB={this.state.patinfo?.birthday} header={this.state.header} footer={this.state.footer} editor={this.state.editor} />
                             {/* } */}
                           </Grid>
+                          </div>
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
                           <Grid className="headerCountTxt infoSubInpSection">

@@ -13,12 +13,9 @@ export class ComponentToPrint extends React.PureComponent {
             DoB: this.props.DoB,
             mobile: this.props.mobile,
             editor: this.props.editor,
-
         }
     }
     componentDidUpdate = (prevProps) => {
-        console.log("prevProps", prevProps)
-        console.log("b", this.props.editor)
         if (prevProps.editor !== this.props.editor) {
             this.setState({ editor: this.props.editor });
         }
@@ -40,7 +37,6 @@ export class ComponentToPrint extends React.PureComponent {
         if (prevProps.DoB !== this.props.DoB) {
             this.setState({ DoB: this.props.DoB });
         }
-
     };
 
     render() {
@@ -69,18 +65,15 @@ export class ComponentToPrint extends React.PureComponent {
                         <p>Birthdate:</p>
                         <p>{DoB}</p>
                     </Grid>
-                    <Grid className="printSec allPhrintSec">
+                    {/* <Grid className="printSec allPhrintSec">
                         <p>Mobile:</p>
                         <p>{mobile}</p>
-                    </Grid>
+                    </Grid> */}
                     <Grid className="editorSec editorPhrintSec allPhrintSec">
-
                         <p dangerouslySetInnerHTML={{ __html: editor }} />
                     </Grid>
                     <div style={divStyle2}></div>
                 </Grid>
-
-
             </div>
         );
     }
