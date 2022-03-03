@@ -799,7 +799,7 @@ class Index extends Component {
     let { tabvalue2, DoneTask, OpenTask, ArchivedTasks } = this.state
     this.setState({
       userFilter: '', assignedTo2: '', selectSpec2: '', AllTasks: this.props.AllTasks, DoneTask: this.props.DoneTask, OpenTask: this.props.OpenTask,
-      ArchivedTasks: this.props.ArchivedTasks, wardList: '', roomList: '', allWards: '', noWards: false
+      ArchivedTasks: this.props.ArchivedTasks, wardList: '', roomList: '', allWards: '', noWards: false, AllTaskCss:''
     })
   }
 
