@@ -228,9 +228,27 @@ class Index extends Component {
   handleCloseFancy = () => {
     this.setState({ openFancy: false });
   };
-
+  isThisAvilabel = (object, text) => {
+    return JSON.stringify(object).toLowerCase().includes(text);
+  }
   //on getting filter and filter Accordingly
   componentDidUpdate = (prevProps) => {
+    if (prevProps.SearchValue !== this.props.SearchValue) {
+      if(this.props.SearchValue===''){
+        this.setState({
+          MyCourse: this.state.MyCourse1,
+        });
+      }
+      else{
+        let FilterFromSearch1 = this.state.MyCourse1?.length>0 && this.state.MyCourse1.filter((obj) => {
+          return this.isThisAvilabel(obj, this.props.SearchValue?.toLowerCase());
+        });
+    
+        this.setState({
+          MyCourse: this.state.MyCourse1,
+        });
+      }
+    }
     if (
       prevProps.SelectedLanguage !== this.props.SelectedLanguage ||
       prevProps.SelectedTopic !== this.props.SelectedTopic

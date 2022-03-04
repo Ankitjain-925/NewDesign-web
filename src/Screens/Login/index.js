@@ -495,7 +495,7 @@ class Index extends Component {
             >
               <Grid item xs={11} sm={7} md={7}>
                 <Grid className="logData">
-                  <h1>{Log_into} Aimedis</h1>
+                  <h1>{Log_into} AIS</h1>
                 </Grid>
                 <Grid className="logFormMain">
                   <Grid className="logForm">

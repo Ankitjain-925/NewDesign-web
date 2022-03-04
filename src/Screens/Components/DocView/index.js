@@ -10,7 +10,10 @@ import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import InnerImageZoom from "react-inner-image-zoom";
 import sitedata from "sitedata";
 import Loader from "Screens/Components/Loader/index";
-export const DocView = ({ attachedFile, documentName, dateAdded, added_by, settings }) => {
+import { getLanguage } from 'translations/index';
+export const DocView = ({ attachedFile, documentName, dateAdded, added_by, settings, language }) => {
+    let translate = getLanguage(language)
+    let {DocumentsFiles} = translate;
     const [filetype, setFiletype] = useState(false);
     const [filename, setFilename] = useState(false);
     const [zoomer, setZoomer] = useState({});
@@ -19,6 +22,10 @@ export const DocView = ({ attachedFile, documentName, dateAdded, added_by, setti
 
     const returnFilename = (file_name) => {
         let name = file_name.split("&bucket=")[0].split("/Trackrecord/")[1]
+        console.log("Length", name.length)
+        if (name.length > 36) {
+            name = name.slice(0, 15) + "..." + name.slice(name.length - 15, name.length)
+        }
         return name
     }
     const returnFiletype = (type) => {
@@ -33,43 +40,43 @@ export const DocView = ({ attachedFile, documentName, dateAdded, added_by, setti
             var find1 = image.split(".com/")[1];
             setloaderImage(true);
             axios
-              .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-              .then((response) => {
-                if (response.data.hassuccessed) {
-                  if (
-                    type === "DICOM" ||
-                    type === "dcm" ||
-                    type === "DCM" ||
-                    type === "dicom"
-                  ) {
-                    image = response.data.data;
-                    this.setState({ loaderImage: false });
-                    window.open(
-                      "/Dicom-file-view?input=" + encodeURIComponent(image),
-                      "_blank"
-                    );
-                  } else {
-                    image = response.data.data;
-                    setFilename(image)
-                    setFiletype(type)
-                    setZoomer({
-                        forZoom: {
-                          width: 400,
-                          height: 250,
-                          zoomPosition: "original",
-                          img: image,
+                .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                .then((response) => {
+                    if (response.data.hassuccessed) {
+                        if (
+                            type === "DICOM" ||
+                            type === "dcm" ||
+                            type === "DCM" ||
+                            type === "dicom"
+                        ) {
+                            image = response.data.data;
+                            this.setState({ loaderImage: false });
+                            window.open(
+                                "/Dicom-file-view?input=" + encodeURIComponent(image),
+                                "_blank"
+                            );
+                        } else {
+                            image = response.data.data;
+                            setFilename(image)
+                            setFiletype(type)
+                            setZoomer({
+                                forZoom: {
+                                    width: 400,
+                                    height: 250,
+                                    zoomPosition: "original",
+                                    img: image,
+                                }
+                            })
+                            setTimeout(() => {
+                                setloaderImage(false);
+                                setshow(true);
+                            }, 1000);
                         }
-                      })
-                    setTimeout(() => {
-                      setloaderImage(false);
-                    setshow(true);
-                    }, 1000);
-                  }
-                } else {
-                 setloaderImage(false);
-                }
-              });
-          }
+                    } else {
+                        setloaderImage(false);
+                    }
+                });
+        }
     }
 
     return (
@@ -80,7 +87,7 @@ export const DocView = ({ attachedFile, documentName, dateAdded, added_by, setti
             <Tbody>
                 {attachedFile?.length > 0 && attachedFile.map(attach => (
                     <Tr>
-                        <Td className="docsTitle"><img src={require(`assets/virtual_images/${returnFiletype(attach.filetype)}`)} alt="" title="" />{returnFilename(attach.filename)}</Td>
+                        <Td className="docsTitle"><img src={require(`assets/virtual_images/${returnFiletype(attach.filetype)}`)} alt="" title="" /><span>{returnFilename(attach.filename)}</span></Td>
                         <Td>{getDate(attach.created_on, "DD/MM/YYYY")}</Td>
                         {/* <Td className="presImg"><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />{attach.created_by}</Td> */}
                         {/* <Td className="presEditDot"><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Td> */}
@@ -121,43 +128,44 @@ export const DocView = ({ attachedFile, documentName, dateAdded, added_by, setti
             <Modal
                 open={show}
                 onClose={() => setshow(false)}
-                className={settings && settings.setting && settings.setting.mode === 'dark' ?"darkTheme":""}
+                className={settings && settings.setting && settings.setting.mode === 'dark' ? "darkTheme" : ""}
             >
                 <Grid
                     className={
-                    filetype === "png" ||
-                    filetype === "jpeg" ||
-                    filetype === "jpg" ||
-                    filetype === "svg"
-                        ? "entryBoxCntnt SetWidthPopup1"
-                        : "entryBoxCntnt SetWidthPopup"
+                        filetype === "png" ||
+                            filetype === "jpeg" ||
+                            filetype === "jpg" ||
+                            filetype === "svg"
+                            ? "entryBoxCntnt SetWidthPopup1"
+                            : "entryBoxCntnt SetWidthPopup"
                     }
                 >
-                <Grid className="nwDiaCourse">
-                    <Grid className="nwDiaCloseBtn">
-                        <a onClick={() => setshow(false)}>
-                            <img
-                                src={require("assets/images/close-search.svg")}
-                                alt=""
-                                title=""
-                            />
-                        </a>
+                    <Grid className="nwDiaCourse">
+                        <Grid className="nwDiaCloseBtn">
+                            <a onClick={() => setshow(false)}>
+                                <img
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
+                                />
+                            </a>
+                        </Grid>
+                        <p>{DocumentsFiles}</p>
                     </Grid>
-                </Grid>
                     {filetype === "png" ||
-                    filetype === "jpeg" ||
-                    filetype === "jpg" ||
-                    filetype === "svg" ? (
-                    <InnerImageZoom src={filename} />
+                        filetype === "jpeg" ||
+                        filetype === "jpg" ||
+                        filetype === "svg" ? (
+                        <InnerImageZoom src={filename} />
                     ) : (
-                    <Iframeview
-                        new_image={filename}
-                        type={filetype}
-                        comesFrom="LMS"
-                    />
+                        <Iframeview
+                            new_image={filename}
+                            type={filetype}
+                            comesFrom="LMS"
+                        />
                     )}
                 </Grid>
-                        
+
             </Modal>
         </Table>
 

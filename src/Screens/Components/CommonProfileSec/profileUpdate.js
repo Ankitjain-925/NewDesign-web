@@ -20,6 +20,7 @@ import DateFormat from "Screens/Components/DateFormat/index";
 import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import { OptionList } from "Screens/Login/metadataaction";
 import { getLanguage } from "translations/index"
+import _ from 'lodash';
 import {
   GetLanguageMetadata, handleChange_multi, changePin, changeAlies, ChangeIDPIN, fileUpload,
   saveUserData, onChange, onSelectDegree, updateFlags, updateEntryState1, getUserData, copyText
@@ -95,6 +96,7 @@ class Index extends Component {
       toSmall1: false,
       phonevalidate: false,
       image: false,
+      UpDataDetails1: {}
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -189,7 +191,7 @@ class Index extends Component {
 
   //for open the Change profile Dialog
   handlePinOpen = () => {
-    this.setState({ chngPinOpen: true });
+    this.setState({ chngPinOpen: true, UpDataDetails1:  _.cloneDeep(this.state.UpDataDetails) });
   };
   handlePinClose = (key) => {
     this.setState({ [key]: false });
@@ -268,7 +270,9 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
+      Chan_Prof_img,
       profile_info,
+      Citizenship,
       profile,
       information,
       ID,
@@ -498,7 +502,7 @@ class Index extends Component {
                         type="text"
                         name="alies_id"
                         onChange={(e) => changeAlies(e, this)}
-                        value={this.state.UpDataDetails.alies_id}
+                        value={this.state.UpDataDetails1.alies_id}
                       />
                     </Grid>
                     {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
@@ -511,7 +515,7 @@ class Index extends Component {
                         type="text"
                         name="pin"
                         onChange={(e) => changePin(e, this)}
-                        value={this.state.UpDataDetails.pin}
+                        value={this.state.UpDataDetails1.pin}
                       />
                     </Grid>
                     {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
@@ -731,6 +735,28 @@ class Index extends Component {
               </Grid>
 
               <Grid className="profileInfoIner">
+                  <Grid container direction="row" alignItems="center" spacing={2}>
+                      <Grid item xs={12} md={8}>
+                          <label>{Citizenship} {country}</label>
+                          <Grid className="cntryDropTop">
+                              <Select
+                                  value={this.state.UpDataDetails.citizen_country || ''}
+                                  onChange={(e) => this.EntryValueName(e, 'citizen_country')}
+                                  options={this.state.selectCountry}
+                                  placeholder=""
+                                  isSearchable={true}
+                                  name="country"
+                                  className="cntryDrop"
+                              />
+                          </Grid>
+                      </Grid>
+                      <Grid item xs={12} md={4}></Grid>
+                      <Grid className="clear"></Grid>
+                  </Grid>
+              </Grid>
+
+
+              <Grid className="profileInfoIner">
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={8}>
                     <label>{home_telephone}</label>
@@ -840,10 +866,12 @@ class Index extends Component {
               <Grid item xs={12} md={11}>
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={6}>
+                  <label>{Chan_Prof_img}</label>
                     <FileUploader
                       name="uploadImage"
                       fileUpload={(e)=>this.fileUpload(e)}
                       isMulti={false}
+                      comesFrom="profile"
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>

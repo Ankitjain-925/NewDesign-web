@@ -79,6 +79,8 @@ class Index extends Component {
             successfullsent3: false,
             AddSecond: {},
             err_pdf: false,
+            showinput: false,
+            searchValue: "",
         };
     }
     // Open and Close Prescription form
@@ -442,6 +444,10 @@ class Index extends Component {
         })
     }
 
+    SearchFilter = (e) => {
+        this.setState({ searchValue: e.target.value });
+    };
+
     render() {
         const { value } = this.state;
         const { stateLoginValueAim } = this.props;
@@ -514,9 +520,9 @@ class Index extends Component {
                                                         </Grid>}
                                                         <Grid className="stndrdQues">
                                                             <h3>{specilist_and_secnd_openion}</h3>
-                                                            <Grid className="splestQues">
+                                                            <Grid className="splestQues fillDia">
                                                                 <Grid><label>{specialist}</label></Grid>
-                                                                <Grid>
+                                                                <Grid className="rrSysto">
                                                                     <Select
                                                                         value={this.state.selectedPdoc}
                                                                         onChange={(e) => this.AddDoctorSS(e, 'doctor_id')}
@@ -605,9 +611,9 @@ class Index extends Component {
                                                         </Grid>}
                                                         <Grid className="drstndrdQues">
                                                             <h3>{doc_and_statnderd_ques}</h3>
-                                                            <Grid className="drsplestQues">
+                                                            <Grid className="drsplestQues fillDia">
                                                                 <Grid><label>{doc_aimedis_private}</label></Grid>
-                                                                <Grid>
+                                                                <Grid className="rrSysto">
                                                                     <Select
                                                                         value={this.state.selectedSdoc}
                                                                         onChange={(e) => this.AddDocotor(e, 'doctor_id')}
@@ -733,9 +739,9 @@ class Index extends Component {
                                                         </Grid>}
                                                         <Grid className="drstndrdQues">
                                                             <h3>{doc_and_statnderd_ques}</h3>
-                                                            <Grid className="drsplestQues">
+                                                            <Grid className="drsplestQues fillDia">
                                                                 <Grid><label>{doc_aimedis_private}</label></Grid>
-                                                                <Grid>
+                                                                <Grid className="rrSysto">
                                                                     <Select
                                                                         value={this.state.selectedPdoc}
                                                                         onChange={(e) => this.AddDoctor(e, 'doctor_id')}
@@ -816,8 +822,47 @@ class Index extends Component {
                                                             <Tab label={secnd_openion} className="presTabsIner" />
                                                         </Tabs>
                                                     </Grid>
-                                                    <Grid item xs={12} md={4} sm={4} className="presSrch">
-                                                        <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a>
+                                                    <Grid item xs={12} md={4} sm={4} >
+                                                    <Grid className="settingInfo">
+                                                    {this.state.showinput && (
+                                                    <input
+                                                        className="serchInput"
+                                                        name="Search"
+                                                        placeholder="Search"
+                                                        value={this.state.searchValue}
+                                                        onChange={this.SearchFilter}
+                                                    />
+                                                    )}
+                                                    <a>
+                                                    {!this.state.showinput ? (
+                                                        <img
+                                                        src={require("assets/virtual_images/search-entries.svg")}
+                                                        alt=""
+                                                        title=""
+                                                        onClick={() => {
+                                                            this.setState({
+                                                            showinput: !this.state.showinput,
+                                                            });
+                                                        }}
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                        src={require("assets/images/close-search.svg")}
+                                                        alt=""
+                                                        title=""
+                                                        onClick={() => {
+                                                            this.setState({
+                                                            showinput: !this.state.showinput,
+                                                            currentList: this.state.currentList2,
+                                                            searchValue: "",
+                                                            });
+                                                        }}
+                                                        />
+                                                    )}
+                                                    </a>
+                                                      
+                                                        {/* <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a> */}
+                                                    </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </AppBar>
@@ -825,15 +870,15 @@ class Index extends Component {
                                         <Grid className="presPkgIner2">
                                             {value === 0 && <TabContainer>
                                                 {this.state.successfullsent && <div className="success_message">{rqst_sent_succefully}</div>}
-                                                <PrecriptionList newItem={this.state.newItemp} />
+                                                <PrecriptionList newItem={this.state.newItemp} searchValue={this.state.searchValue}/>
                                             </TabContainer>}
                                             {value === 1 && <TabContainer>
                                                 {this.state.successfullsent1 && <div className="success_message">{rqst_sent_succefully}</div>}
-                                                <SickList newItem={this.state.newItems} />
+                                                <SickList newItem={this.state.newItems} searchValue={this.state.searchValue}/>
                                             </TabContainer>}
                                             {value === 2 && <TabContainer>
                                                 {this.state.successfullsent3 && <div className="success_message">{rqst_sent_succefully}</div>}
-                                                <ListingSecond newItem={this.state.newItemp2} />
+                                                <ListingSecond newItem={this.state.newItemp2} searchValue={this.state.searchValue}/>
                                             </TabContainer>}
                                         </Grid>
                                     </Grid>

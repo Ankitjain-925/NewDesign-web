@@ -9,8 +9,7 @@ import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Button from "@material-ui/core/Button";
-import * as translationEN from "./translations/en_json_proofread_13072020.json";
-import * as translationDE from "./translations/de.json";
+import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index";
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile";
 import "./style.css";
@@ -21,7 +20,6 @@ import Loader from "Screens/Components/Loader/index";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { getLanguage } from "translations/index"
 import { confirmAlert } from "react-confirm-alert"; // Import
 import { S3Image } from "Screens/Components/GetS3Images/index";
 
@@ -172,36 +170,36 @@ class Index extends Component {
 
   DeleteGroupOk = (id) => {
     this.setState({ loaderImage: true });
-    var allIDS1 =this.state.AllGroupList?.length>0 && this.state.AllGroupList.filter((item)=>item._id === id)
-    if(allIDS1 && allIDS1.length>0){
-        var allIDS = allIDS1?.[0]?.houses?.length>0 && allIDS1?.[0]?.houses.map((house)=>{
-          return  house.house_id;
-        })
+    var allIDS1 = this.state.AllGroupList?.length > 0 && this.state.AllGroupList.filter((item) => item._id === id)
+    if (allIDS1 && allIDS1.length > 0) {
+      var allIDS = allIDS1?.[0]?.houses?.length > 0 && allIDS1?.[0]?.houses.map((house) => {
+        return house.house_id;
+      })
     }
     axios
-    .post(
-      sitedata.data.path +
-      `/vh/deletehouse/`, {house_id: allIDS},
-      commonHeader(this.props.stateLoginValueAim.token)
-    )
-    .then((responce) => {
-      if (responce.data.hassuccessed) {
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
-   
-    axios
-      .delete(
+      .post(
         sitedata.data.path +
-        `/hospitaladmin/AddGroup/${institute_id}/${id}`,
+        `/vh/deletehouse/`, { house_id: allIDS },
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-          this.getallGroups();
+          var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+
+          axios
+            .delete(
+              sitedata.data.path +
+              `/hospitaladmin/AddGroup/${institute_id}/${id}`,
+              commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+              if (responce.data.hassuccessed) {
+                this.getallGroups();
+              }
+              this.setState({ loaderImage: false });
+            });
         }
-        this.setState({ loaderImage: false });
-      });
-    }
-  })
+      })
   }
 
   deleteHospital = (index) => {
@@ -277,21 +275,21 @@ class Index extends Component {
     if (data && data?.houses && data?.houses?.length > 0) {
       var house = data?.houses
       axios
-      .post(
-        sitedata.data.path +
-        `/vh/deletehouse/`, {house_id: [house[index].house_id]},
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          house.splice(index, 1);
-          var datas = this.state.institute_groups;
-          data['houses'] = house;
-          this.setState({ institute_groups: datas, openGroup: true });
-          this.getallGroups();
-        }
-      });
-       
+        .post(
+          sitedata.data.path +
+          `/vh/deletehouse/`, { house_id: [house[index].house_id] },
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            house.splice(index, 1);
+            var datas = this.state.institute_groups;
+            data['houses'] = house;
+            this.setState({ institute_groups: datas, openGroup: true });
+            this.getallGroups();
+          }
+        });
+
     }
   }
 
@@ -341,7 +339,7 @@ class Index extends Component {
               //     pages: pages,
               //   });
               // } else {
-                this.setState({ GroupList: this.state.AllGroupList });
+              this.setState({ GroupList: this.state.AllGroupList });
 
               // }
             })
@@ -351,31 +349,37 @@ class Index extends Component {
   }
 
   SaveGroup = () => {
+    let translate = getLanguage(this.props.stateLanguageType)
+    let {Inst_Name_is_already_exists,
+      Institution_Name_cant_be_empty,
+      Institution_Description_Note_cant_be_empty ,
+      Select_atleast_one_hospital ,
+      Something_went_wrong} = translate;
     this.setState({ errorMsg: "" })
     var data = this.state.institute_groups;
-    var a = this.state.AllGroupList && this.state.AllGroupList?.length > 0 &&this.state.AllGroupList.map((item) => { return item?.group_name })
+    var a = this.state.AllGroupList && this.state.AllGroupList?.length > 0 && this.state.AllGroupList.map((item) => { return item?.group_name })
     var count = 0;
     if (data._id) {
-      var reapGroup1 = a?.length > 0 && a.filter((data1)=> data1 === data?.group_name)
+      var reapGroup1 = a?.length > 0 && a.filter((data1) => data1 === data?.group_name)
       count = reapGroup1.length;
     }
     var reapGroup = a?.length > 0 && a.includes(data?.group_name)
-   
-    if (reapGroup == true && count > 1 && data._id) { 
-      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
+
+    if (reapGroup == true && count > 1 && data._id) {
+      this.setState({ errorMsg: Inst_Name_is_already_exists })
     }
     else if (reapGroup == true && count == 0 && !data._id) {
-      this.setState({ errorMsg: "Institution Name is already exist's select another name" })
+      this.setState({ errorMsg: Inst_Name_is_already_exists })
     }
     else {
       if (!data.group_name || (data && data.group_name && data.group_name.length < 1)) {
-        this.setState({ errorMsg: "Institution Name can't be empty" })
+        this.setState({ errorMsg: Institution_Name_cant_be_empty })
       }
       else if (!data.group_description || (data && data.group_description && data.group_description.length < 1)) {
-        this.setState({ errorMsg: "Institution Description Note can't be empty" })
+        this.setState({ errorMsg: Institution_Description_Note_cant_be_empty })
       }
       else if (!data.houses || (data && data.houses && data.houses.length < 1)) {
-        this.setState({ errorMsg: "Select atleast one hospital" })
+        this.setState({ errorMsg: Select_atleast_one_hospital })
       }
       else {
         var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
@@ -394,7 +398,7 @@ class Index extends Component {
                 this.setState({ institute_groups: {}, })
               }
               else {
-                this.setState({ errorMsg: "Somthing went wrong, Please try again" })
+                this.setState({ errorMsg: Something_went_wrong })
               }
               this.setState({ loaderImage: false, openGroup: false });
             });
@@ -440,6 +444,11 @@ class Index extends Component {
   };
 
   saveHospital = (e) => {
+    let translate = getLanguage(this.props.stateLanguageType)
+    let {Hospital_Name_is_already_exist ,
+      Hospital_Name_cant_be_empty,
+      Hospital_Description_Note_cant_be_empty
+    } = translate;
     this.setState({ errorHospMsg: "" })
     let date = new Date();
     let housesArray = this.state.houses;
@@ -457,18 +466,18 @@ class Index extends Component {
     var count = 0;
     var dataCComing = b && b.filter((data) => data === hospitalObject.house_name)
     count = dataCComing.length;
-    if (reapHouse == true && count > 2 && this.state.editId !=='') {
-      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
+    if (reapHouse == true && count > 2 && this.state.editId !== '') {
+      this.setState({ errorHospMsg: Hospital_Name_is_already_exist })
     }
-    else if (reapHouse == true && count > 0 && this.state.editId ==='') {
-      this.setState({ errorHospMsg: "Hospital Name is already exist please select another one" })
+    else if (reapHouse == true && count > 0 && this.state.editId === '') {
+      this.setState({ errorHospMsg: Hospital_Name_is_already_exist })
     }
     else {
       if (!hospitalObject.house_name || (hospitalObject && hospitalObject.house_name && hospitalObject.house_name.length < 1)) {
-        this.setState({ errorHospMsg: "Hospital Name can't be empty" })
+        this.setState({ errorHospMsg: Hospital_Name_cant_be_empty })
       }
       else if (!hospitalObject.house_description || (hospitalObject && hospitalObject.house_description && hospitalObject.house_description.length < 1)) {
-        this.setState({ errorHospMsg: "Hospital Description Note can't be empty" })
+        this.setState({ errorHospMsg: Hospital_Description_Note_cant_be_empty })
       } else {
         if (this.state.editId) {
           let objIndex = housesArray.findIndex((item => item.house_id == this.state.editId));
@@ -604,19 +613,9 @@ class Index extends Component {
     if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
       this.props.history.push("/");
     }
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType);
     let { InstituteGroups, EditGroup, Delete, Hospitals, AddInstituteGroup, AddInstitution, UploadInstitutionLogo,
-      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo } = translate;
+      CurrentLogo, save_and_close, hosp_name, DescriptionNote, EditHospital, EnterHospitals, AddHospital, Save, UploadHospitalLogo ,Enterinstitutegroupname ,Enterinstitutiondescriptionnote ,Enterhospitalname, Enterhospitaldescriptionnote ,HospitalName ,HospitalDescriptionNote,InstitutionName ,InstitutionDescriptionNote} = translate;
     return (
       <Grid
         className={
@@ -792,19 +791,19 @@ class Index extends Component {
                                   <Grid item xs={10} md={12} className="form-box">
 
                                     <VHfield
-                                      label="Institution Name"
+                                      label={InstitutionName}
                                       name="group_name"
                                       value={this.state?.institute_groups?.group_name || ''}
-                                      placeholder="Enter institute group name"
+                                      placeholder={Enterinstitutegroupname}
                                       onChange={(e) => this.updateEntryState(e)}
                                     />
                                   </Grid>
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label="Institution Description Note"
+                                      label={InstitutionDescriptionNote}
                                       name="group_description"
                                       value={this.state?.institute_groups?.group_description || ''}
-                                      placeholder="Enter institution description note"
+                                      placeholder={Enterinstitutiondescriptionnote}
                                       onChange={(e) => this.updateEntryState(e)}
                                     />
                                   </Grid>
@@ -951,19 +950,19 @@ class Index extends Component {
                                 <Grid container direction="row">
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label="Hospital Name"
+                                      label={HospitalName}
                                       name="house_name"
                                       value={this.state?.hospitalData?.house_name || ''}
-                                      placeholder="Enter hospital name"
+                                      placeholder={Enterhospitalname}
                                       onChange={(e) => this.updateHospitalState(e)}
                                     />
                                   </Grid>
                                   <Grid item xs={10} md={12} className="form-box">
                                     <VHfield
-                                      label="Hospital Description Note"
+                                      label={HospitalDescriptionNote}
                                       name="house_description"
                                       value={this.state?.hospitalData?.house_description || ''}
-                                      placeholder="Enter hospital description note"
+                                      placeholder={Enterhospitaldescriptionnote}
                                       onChange={(e) => this.updateHospitalState(e)}
                                     />
                                   </Grid>

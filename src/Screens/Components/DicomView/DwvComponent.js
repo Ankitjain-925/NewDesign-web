@@ -195,7 +195,7 @@ class DwvComponent extends React.Component {
         </div>
 
         <div className="legend Pwrdby">
-          Powered by Aimedis Dicom File Viewer
+          Powered by AIS Dicom File Viewer
         </div>
       </div>
     );

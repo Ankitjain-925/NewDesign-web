@@ -32,14 +32,14 @@ class Index extends React.Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
-        let { InvoiceID, Patient, Status } = translate;
+        let { InvoiceID, Patient, Status,Search_Select,Draft } = translate;
         return (
             <>
                 <Grid className="invoiceForm">
                     <Grid container direction="row" alignItems="center" spacing={3}>
                         <Grid item xs={12} md={3} className="invoiceID">
                             <label>{InvoiceID}</label>
-                            <TextField placeholder="Invoice ID" value="548756" />
+                            <TextField placeholder={InvoiceID} value="548756" />
                         </Grid>
 
                         <Grid item xs={12} md={4}>
@@ -50,7 +50,7 @@ class Index extends React.Component {
                                 //     this.updateEntryState3(e)}
                                 // value={this.state.assignedTo}
                                 options={this.state.options}
-                                placeholder="Search & Select"
+                                placeholder={Search_Select}
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true} />
@@ -71,7 +71,7 @@ class Index extends React.Component {
                                 value={this.state.selectedOption}
                                 onChange={this.handleChange}
                                 // options={option}
-                                placeholder="Draft"
+                                placeholder={Draft}
                                 className="cstmSelect"
                                 isSearchable={false}
                             // styles={customStyles}

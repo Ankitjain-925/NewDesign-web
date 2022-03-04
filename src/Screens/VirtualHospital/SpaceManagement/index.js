@@ -108,9 +108,10 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Specialities, Iunderstandthat, AddSpeciality,
+    let { Specialities, Iunderstandthat, AddSpeciality,EnterSpecialityname,Search,EnterWard,
       BacktoChangeHospital, addNewSpeciality,SpaceManagement,Color,speciality,All_Patients_removed_beds,All_Rooms_Beds_deleted,All_Wards_deleted, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
-      yesDeleteSpeciality, cancelKeepSpeciality, Room,Ward, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close} = translate;
+      yesDeleteSpeciality, cancelKeepSpeciality, Room,Ward, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close
+     } = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -187,7 +188,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                            {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
+                            {this.state.showinput && <input name="Search" placeholder={Search} value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
                             <a>
                               {!this.state.showinput ? <img
                                 src={require("assets/virtual_images/search-entries.svg")}
@@ -407,7 +408,7 @@ class Index extends Component {
                           label={speciality}
                           name="specialty_name"
                           value={this.state.speciality.specialty_name}
-                          placeholder="Enter Speciality name"
+                          placeholder={EnterSpecialityname}
                           onChange={(e) => updateEntryState(e, this)}
                         />
                       </Grid>
@@ -476,7 +477,7 @@ class Index extends Component {
                                       label={Ward}
                                       value={this.state.ward?.ward_name}
                                       name="ward_name"
-                                      placeholder="Enter Ward"
+                                      placeholder={EnterWard}
                                       onChange={(e) =>
                                         updateEntryState2(e, this)
                                       }
@@ -495,7 +496,7 @@ class Index extends Component {
                                     <Button
                                       onClick={(e) => {
                                         this.setState({
-                                          isEditWrd: false,
+                                          isEditWrd:false,
                                           openWard: false,
                                           ward: {},
                                         });
@@ -503,6 +504,7 @@ class Index extends Component {
                                     >
                                       {cancel}
                                     </Button>
+                                    
                                     {this.state.isEditWrd ? (
                                       <Button
                                         className="wrdsBtnActv"

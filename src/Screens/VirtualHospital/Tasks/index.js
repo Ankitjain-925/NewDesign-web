@@ -113,7 +113,7 @@ class Index extends Component {
             return <Redirect to={"/VirtualHospital/space"} />;
           }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Tasks_overview, ShowArchivedTasks } = translate;
+        let { Tasks_overview, ShowArchivedTasks ,Open ,Donetoday } = translate;
         return (
             <Grid className={
                 this.props.settings &&
@@ -143,11 +143,11 @@ class Index extends Component {
                                             <Grid className="tskOverView">
                                                 <h1>{Tasks_overview}</h1>
                                                 <Grid className="taskNum taskYelow">
-                                                    <label><span></span>{"Open"}</label>
+                                                    <label><span></span>{Open}</label>
                                                     <p>{this.state.Open}</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
-                                                    <label><span></span>{"Done today"}</label>
+                                                    <label><span></span>{Donetoday}</label>
                                                     <p>{this.state.doneToday}</p>
                                                 </Grid>
                                                 <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>{ShowArchivedTasks}</a></p></Grid>

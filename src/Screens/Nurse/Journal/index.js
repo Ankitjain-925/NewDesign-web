@@ -158,8 +158,8 @@ class Index extends Component {
   isThisAvilabel = (object, text) => {
     if (object && typeof object == "object") {
       if (
-        object.type.replace("_", " ") &&
-        object.type.replace("_", " ").includes(text)
+        object?.type?.replace("_", " ") &&
+        object?.type?.replace("_", " ")?.includes(text)
       ) {
         return true;
       } else if (

@@ -47,6 +47,7 @@ class Index extends Component {
       value: 0,
       MypatientsData: [],
       prescData: {},
+      searchValue: "",
     };
   }
 
@@ -106,6 +107,10 @@ class Index extends Component {
   handleCloseReject = () => {
     this.setState({ openReject: false });
   };
+
+  SearchFilter = (e) => {
+    this.setState({ searchValue: e.target.value });
+};
 
   render() {
     const { specialistOption, prescData } = this.state;
@@ -188,13 +193,46 @@ class Index extends Component {
                             </Tabs>
                           </Grid>
                           <Grid item xs={12} md={4} sm={4} className="presSrch">
-                            <a>
-                              <img
-                                src={require("assets/images/search-entries.svg")}
-                                alt=""
-                                title=""
-                              />
-                            </a>
+                          <Grid className="settingInfo">
+                                                    {this.state.showinput && (
+                                                    <input
+                                                        className="serchInput"
+                                                        name="Search"
+                                                        placeholder="Search"
+                                                        value={this.state.searchValue}
+                                                        onChange={this.SearchFilter}
+                                                    />
+                                                    )}
+                                                    <a>
+                                                    {!this.state.showinput ? (
+                                                        <img
+                                                        src={require("assets/virtual_images/search-entries.svg")}
+                                                        alt=""
+                                                        title=""
+                                                        onClick={() => {
+                                                            this.setState({
+                                                            showinput: !this.state.showinput,
+                                                            });
+                                                        }}
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                        src={require("assets/images/close-search.svg")}
+                                                        alt=""
+                                                        title=""
+                                                        onClick={() => {
+                                                            this.setState({
+                                                            showinput: !this.state.showinput,
+                                                            currentList: this.state.currentList2,
+                                                            searchValue: "",
+                                                            });
+                                                        }}
+                                                        />
+                                                    )}
+                                                    </a>
+                                                      
+                                                        {/* <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a> */}
+                                                    </Grid>
                           </Grid>
                         </Grid>
                       </AppBar>
@@ -211,6 +249,7 @@ class Index extends Component {
                           <PrecriptionList
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
+                            searchValue={this.state.searchValue}
                           />
                         </TabContainer>
                       )}
@@ -224,6 +263,7 @@ class Index extends Component {
                           <SickCertificateList
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
+                            searchValue={this.state.searchValue}
                           />
                         </TabContainer>
                       )}
@@ -237,6 +277,7 @@ class Index extends Component {
                           <SecondOpinion
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
+                            searchValue={this.state.searchValue}
                           />
                         </TabContainer>
                       )}
@@ -245,6 +286,7 @@ class Index extends Component {
                           <SentPrescriptionList
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
+                            searchValue={this.state.searchValue}
                           />
                         </TabContainer>
                       )}

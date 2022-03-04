@@ -18,8 +18,9 @@ import contry from '../countryBucket/countries.json';
 import Loader from '../Loader/index';
 import {updateCometUser} from "Screens/Components/CommonApi/index";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index"
-import * as translationEN from '../../hospital_Admin/translations/en_json_proofread_13072020.json';
-import * as translationDE from "../../hospital_Admin/translations/de.json"
+import { getLanguage } from "../../hospital_Admin/translations/index";
+// import * as translationEN from '../../hospital_Admin/translations/en_json.json';
+// import * as translationDE from "../../hospital_Admin/translations/de.json"
 
 const specialistOptions = [
     {label : 'Patient', value : 'patient'},
@@ -245,17 +246,7 @@ class Index extends Component {
     }
 
     render() {
-        let translate={}
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default :
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { mobile_number, New, entry, select, two_fac_auth_enable, recEmp_Email, create, user, type, email, current_pass, Register_characters,Register_Passwordshould, Register_letter,
              Register_number, Register_special, confirm_pass, recEmp_FirstName, recEmp_LastName, we_use_authy, two_fac_auth, cancel, Institute_name, hospital  }= translate
         return (

@@ -30,12 +30,13 @@ import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
 import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
 import { LanguageFetchReducer } from "Screens/actions";
 import { getLanguage } from "translations/index"
-import {update_CometUser} from "Screens/Components/CommonApi/index";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import Loader from "Screens/Components/Loader/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import Autocomplete from "Screens/Components/Autocomplete/index.js";
 import Modal from "@material-ui/core/Modal";
 import { subspeciality } from "subspeciality.js";
+import _ from 'lodash';
 import SPECIALITY from "speciality";
 import { OptionList } from "Screens/Login/metadataaction";
 import {
@@ -124,6 +125,7 @@ class Index extends Component {
       filteredCompany: [],
       editIndex: null,
       toSmall1: false,
+      UpDataDetails1: {}
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -273,8 +275,8 @@ class Index extends Component {
             commonCometHeader()
           )
           .then((res) => {
-            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
-           });
+            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
+          });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
       });
@@ -382,7 +384,7 @@ class Index extends Component {
 
   //for open the Change profile Dialog
   handlePinOpen = () => {
-    this.setState({ chngPinOpen: true });
+    this.setState({ chngPinOpen: true, UpDataDetails1:  _.cloneDeep(this.state.UpDataDetails) });
   };
   handlePinClose = (key) => {
     this.setState({ [key]: false });
@@ -643,6 +645,7 @@ class Index extends Component {
           area: this.state.area,
           address: UpDataDetails.address,
           country: UpDataDetails.country,
+          citizen_country: UpDataDetails.citizen_country,
           pastal_code: UpDataDetails.pastal_code,
         },
         commonHeader(user_token)
@@ -673,8 +676,8 @@ class Index extends Component {
               },
               commonCometHeader()
             )
-            .then((res) => { 
-              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+            .then((res) => {
+              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
             });
         } else {
           this.setState({ loaderImage: false });
@@ -691,9 +694,9 @@ class Index extends Component {
 
   // Check the Alies is duplicate or not
   changePin = (e) => {
-    const state = this.state.UpDataDetails;
+    const state = this.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
-    this.setState({ UpDataDetails: state });
+    this.setState({ UpDataDetails1: state });
     if (e.target.value.length > 3 && e.target.value !== "") {
       this.setState({ toSmall1: false });
     } else {
@@ -714,14 +717,14 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/UserProfile/Users/update",
           {
-            pin: this.state.UpDataDetails.pin,
-            alies_id: this.state.UpDataDetails.alies_id,
+            pin: this.state.UpDataDetails1.pin,
+            alies_id: this.state.UpDataDetails1.alies_id,
           },
           commonHeader(user_token)
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            this.setState({ ChangedPIN: true });
+            this.setState({ ChangedPIN: true, UpDataDetails1: {} });
             setTimeout(() => {
               this.setState({ ChangedPIN: false });
             }, 5000);
@@ -735,9 +738,9 @@ class Index extends Component {
 
   // Check the Alies is duplicate or not
   changeAlies = (e) => {
-    const state = this.state.UpDataDetails;
+    const state = this.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
-    this.setState({ UpDataDetails: state });
+    this.setState({ UpDataDetails1: state });
     if (e.target.value.length > 5 && e.target.value !== "") {
       this.setState({ loaderImage: true, toSmall: false });
       const user_token = this.props.stateLoginValueAim.token;
@@ -1059,6 +1062,7 @@ class Index extends Component {
       profile_info,
       profile,
       information,
+      Citizenship,
       ID,
       pin,
       pin_greater_then_4,
@@ -1117,6 +1121,7 @@ class Index extends Component {
       fax_nmbr,
       sub_specilaity,
       profile_qr_code,
+      Chan_Prof_img
     } = translate;
 
     return (
@@ -1240,7 +1245,7 @@ class Index extends Component {
                       type="text"
                       name="alies_id"
                       onChange={this.changeAlies}
-                      value={UpDataDetails.alies_id}
+                      value={this.state.UpDataDetails1.alies_id}
                     />
                   </Grid>
                   {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
@@ -1253,7 +1258,7 @@ class Index extends Component {
                       type="text"
                       name="pin"
                       onChange={this.changePin}
-                      value={this.state.UpDataDetails.pin}
+                      value={this.state.UpDataDetails1.pin}
                     />
                   </Grid>
                   {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
@@ -1301,7 +1306,7 @@ class Index extends Component {
                         value={this.state.title}
                         onChange={(e) => this.onSelectDegree(e)}
                         options={this.state.title_degreeData}
-                        placeholder="Mr."
+                        placeholder={"Mr."}
                         isSearchable={false}
                         className="mr_sel"
                       />
@@ -1467,6 +1472,26 @@ class Index extends Component {
                 </Grid>
               </Grid>
 
+              <Grid className="profileInfoIner">
+                <Grid container direction="row" alignItems="center" spacing={2}>
+                  <Grid item xs={12} md={8}>
+                    <label>{Citizenship} {country}</label>
+                    <Grid className="cntryDropTop">
+                      <Select
+                        isSearchable={true}
+                        value={UpDataDetails.citizen_country}
+                        onChange={(e) => this.EntryValueName(e, "citizen_country")}
+                        options={this.state.selectCountry}
+                        placeholder=""
+                        isSearchable={true}
+                        className="cntryDrop"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={4}></Grid>
+                  <Grid className="clear"></Grid>
+                </Grid>
+              </Grid>
               <Grid className="profileInfoIner">
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={8}>
@@ -1670,11 +1695,14 @@ class Index extends Component {
                     alignItems="center"
                     spacing={2}
                   >
+
                     <Grid item xs={12} md={6}>
+                      <label>{Chan_Prof_img}</label>
                       <FileUploader
                         name="uploadImage"
                         fileUpload={this.fileUpload}
                         isMulti={false}
+                        comesFrom="profile"
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>

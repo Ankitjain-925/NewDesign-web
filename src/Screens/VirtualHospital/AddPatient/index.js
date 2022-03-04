@@ -1,6 +1,7 @@
 /*global google*/
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Toggle from "react-toggle";
 import Select from 'react-select';
 import ReactFlagsSelect from 'react-flags-select';
 import sitedata from 'sitedata';
@@ -12,6 +13,7 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import npmCountryList from 'react-select-country-list'
 import { Table } from 'reactstrap';
+import _ from "lodash";
 import * as AustraliaC from 'Screens/Components/insuranceCompanies/australia.json';
 import * as AustriaC from 'Screens/Components/insuranceCompanies/austria.json';
 import * as NetherlandC from 'Screens/Components/insuranceCompanies/dutch.json';
@@ -21,6 +23,7 @@ import * as SwitzerlandC from 'Screens/Components/insuranceCompanies/switzerland
 import * as AmericaC from 'Screens/Components/insuranceCompanies/us.json';
 import * as ThailandC from 'Screens/Components/insuranceCompanies/thailand.json';
 import { LanguageFetchReducer } from 'Screens/actions';
+import Autocomplete from 'Screens/Components/Autocomplete/index';
 import Modal from '@material-ui/core/Modal';
 import Loader from 'Screens/Components/Loader/index';
 import contry from "Screens/Components/countryBucket/countries.json";
@@ -125,9 +128,15 @@ class Index extends Component {
             hidden: true,
             recaptcha: false,
             getIDPIN: false,
-            idpin: {}
+            idpin: {},
+            newemail: false
         };
         // new Timer(this.logOutClick.bind(this)) 
+    }
+
+    SetMode = (e) => {
+        var newemail = this.state.newemail === false ? true : false;
+        this.setState({ newemail: newemail })
     }
 
     ScrolltoTop = () => {
@@ -366,6 +375,7 @@ class Index extends Component {
             pswd_not_valid,
             email_not_valid,
             plz_fill_fullname_user,
+            Plz_fill_the_recaptcha
         } = translate;
 
         const { UpDataDetails } = this.state;
@@ -384,16 +394,15 @@ class Index extends Component {
                     UpDataDetails.password.match(number23) &&
                     UpDataDetails.password.match(specialchar)
                 ) {
-                    if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                    if (UpDataDetails.birthday && UpDataDetails.birthday !== "") {
                         if (UpDataDetails?.mobile?.split('-')?.[0]) {
                             var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
                         } else {
                             var country_code = "de";
                         }
                         if (this.state.recaptcha) {
-
                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
-                            var savedata = this.state.UpDataDetails;
+                            var savedata = _.cloneDeep(this.state.UpDataDetails);
                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
                             savedata.type = 'patient';
                             savedata.country_code = country_code;
@@ -415,8 +424,9 @@ class Index extends Component {
                             savedata.bucket = getBucket[0].bucket;
                             savedata.token = this.state.recaptcha;
                             axios
-                                .post(sitedata.data.path + "/UserProfile/AddUser/", savedata)
+                                .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
                                 .then((responce) => {
+                                    this.captcha.reset();
                                     this.setState({ loaderImage: false });
                                     if (responce.data.hassuccessed === true) {
                                         this.setState({
@@ -437,45 +447,71 @@ class Index extends Component {
                                                 commonCometHeader()
                                             )
                                             .then((res) => { });
-
+                                            if(this.state.newemail && !savedata.mobile) {
+                                                this.props.history.push({
+                                                    pathname: '/virtualHospital/print_approval',
+                                                    state: { needUpload: true, data: responce.data.data._id }
+                                                })
+                                            }
+                                            else {
+                                                this.props.history.push({
+                                                    pathname: '/virtualHospital/approved_add',
+                                                    state: { needUpload: false, data : responce.data.data._id }
+                                                })
+                                            }
                                     } else if (responce.data.message === "Phone is not verified") {
                                         this.ScrolltoTop();
                                         this.setState({
                                             successfull: false,
                                             Mnotvalid: true,
                                             alreadyerror: false,
+                                            alreadyerrorInfo: false
+                                        });
+                                    } 
+                                    else if (responce.data.message === "Email is Already exist") {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            Mnotvalid: false,
+                                            alreadyerror: true,
+                                            alreadyerrorInfo: false
                                         });
                                     } else {
                                         this.ScrolltoTop();
                                         this.setState({
                                             successfull: false,
-                                            alreadyerror: true,
+                                            alreadyerror: false,
                                             Mnotvalid: false,
+                                            alreadyerrorInfo: true
                                         });
                                     }
                                 })
                                 .catch((err) => { });
                         }
                         else {
-                            this.setState({ regisError: "Please fill the RECAPTCHA" });
+                            this.setState({ regisError: Plz_fill_the_recaptcha });
                             this.ScrolltoTop();
                         }
                         // }else {
                         //     this.setState({ regisError: "Please fill the city "});
                         // }
                     } else {
-                        this.setState({ regisError: plz_fill_mob_number });
+                        this.captcha.reset();
+                        this.setState({ regisError: "Please fill the birthdate" });
                         this.ScrolltoTop();
                     }
                 } else {
+                    this.captcha.reset();
                     this.setState({ regisError: pswd_not_valid });
                     this.ScrolltoTop();
                 }
             } else {
+                this.captcha.reset();
                 this.setState({ regisError: email_not_valid });
                 this.ScrolltoTop();
             }
         } else {
+            this.captcha.reset();
             this.setState({ regisError: plz_fill_fullname_user });
             this.ScrolltoTop();
         }
@@ -687,7 +723,7 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
+        let { Patient_does_not_have_email_the_email_created_by_Hospital,Citizenship, created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, BacktoPatientFlow, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
@@ -772,13 +808,29 @@ class Index extends Component {
                                                             {this.state.regisError}
                                                             {this.state.Mnotvalid && Mnotvalids}
                                                             {this.state.alreadyerror && EmailExists}
+                                                            {this.state.alreadyerrorInfo && "User already exists with given Information"}
                                                         </div>
                                                         <Grid className="profileInfo">
                                                             <Grid className="profileInfoIner">
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
-                                                                    <Grid item xs={12} md={12}>
+                                                                    <Grid item xs={8} md={8}>
                                                                         <label>{email}</label>
                                                                         <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email || ''} /></Grid>
+
+                                                                    </Grid>
+                                                                    <Grid
+                                                                        item
+                                                                        xs={4} md={4}
+                                                                        className="patienttoggle2"
+                                                                    >
+                                                                        <label>{Patient_does_not_have_email_the_email_created_by_Hospital}</label>
+                                                                        <Toggle
+                                                                            // className="switchBtn"
+                                                                            icons={false}
+                                                                            checked={this.state.newemail === true}
+                                                                            //  name="email"
+                                                                            onChange={(e) => this.SetMode(e)}
+                                                                        />
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -987,7 +1039,7 @@ class Index extends Component {
                                                                                 value={this.state.title}
                                                                                 onChange={(e) => this.onSelectDegree(e)}
                                                                                 options={this.state.title_degreeData || ''}
-                                                                                placeholder="Mr."
+                                                                                placeholder={"Mr."}
                                                                                 name="title"
                                                                                 isSearchable={false}
                                                                                 className="mr_sel"
@@ -1046,29 +1098,29 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
 
-                                                            {/* <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{street} {add}</label>
-                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid> */}
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{street} {add}</label>
+                                                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
-                                                            {/* <Grid className="profileInfoIner">
-                                <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={8}>
-                                        <label>{city}</label>
-                                        <Grid>
-                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <label>{postal_code}</label>
-                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid> */}
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{city}</label>
+                                                                        <Grid>
+                                                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}>
+                                                                        <label>{postal_code}</label>
+                                                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
 
                                                             <Grid className="profileInfoIner">
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
@@ -1078,6 +1130,27 @@ class Index extends Component {
                                                                             <Select
                                                                                 value={this.state.UpDataDetails.country || ''}
                                                                                 onChange={(e) => this.EntryValueName(e, 'country')}
+                                                                                options={this.state.selectCountry}
+                                                                                placeholder=""
+                                                                                isSearchable={true}
+                                                                                name="country"
+                                                                                className="cntryDrop"
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={4}></Grid>
+                                                                    <Grid className="clear"></Grid>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <Grid className="profileInfoIner">
+                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                    <Grid item xs={12} md={8}>
+                                                                        <label>{Citizenship} {country}</label>
+                                                                        <Grid className="cntryDropTop">
+                                                                            <Select
+                                                                                value={this.state.UpDataDetails.citizen_country || ''}
+                                                                                onChange={(e) => this.EntryValueName(e, 'citizen_country')}
                                                                                 options={this.state.selectCountry}
                                                                                 placeholder=""
                                                                                 isSearchable={true}
@@ -1118,7 +1191,7 @@ class Index extends Component {
                                                                         <label>{mobile_number}</label>
                                                                         <Grid>
                                                                             {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
-                                                                                <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
+                                                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
                                                                             <input type="text"
                                                                                 className="Mobile_extra"
                                                                                 placeholder={mobile}

@@ -16,7 +16,6 @@ import {
   MoveAllCases,
   setAssignedTo,
   getProfessionalData,
-  PatientMoveFromHouse
 } from "./data";
 import Drags from "./drags.js";
 import sitedata from "sitedata";
@@ -37,6 +36,10 @@ import _ from "lodash";
 import { Redirect, Route } from "react-router-dom";
 import { getLanguage } from "translations/index";
 import { Speciality } from "Screens/Login/speciality.js";
+import QrReader from 'react-qr-reader'
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import DateFormat from "Screens/Components/DateFormat/index";
+import ReactFlagsSelect from "react-flags-select";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -69,13 +72,32 @@ class Index extends Component {
       assignedTo2: '',
       allWards: '',
       filteredData: '',
-
+      result: 'No result',
+      enableEmail: "scan",
+      updateState: {},
+      flag_fax: "DE",
+      flag_phone: "DE",
+      flag_mobile: "DE",
+      flag_emergency_number: "DE",
+      mobile: "",
+      phone: "",
+      fax: "",
+      msgState: "",
+      enableScan: true
     };
   }
   static defaultProps = {
     isCombineEnabled: false,
   };
   boardRef;
+
+  handleError = err => {
+    console.error(err)
+  }
+
+  handleEnableEmail = (value) => {
+    this.setState({ enableEmail: value, updateState: {}, msgState: "", enableScan: true })
+  }
 
   handleOpenPopup = () => {
     this.setState({ openPopup: true })
@@ -186,6 +208,8 @@ class Index extends Component {
         }
         return last;
       }, []);
+
+    data = data ? data : [];
     this.setState({ loaderImage: true });
     var response = setAssignedTo(
       data,
@@ -193,7 +217,7 @@ class Index extends Component {
       this.props.stateLoginValueAim.token
     );
     response.then((responce1) => {
-      if (responce1.data.hassuccessed) {
+      if (responce1?.data?.hassuccessed) {
         var steps = getSteps(
           this.props?.House?.value,
           this.props.stateLoginValueAim.token
@@ -229,14 +253,16 @@ class Index extends Component {
   //Change the value of the step_name
   onChange = (e, index) => {
     var state = this.state.actualData;
-    var changes = state.filter((newa) => {
-      return newa.step_name?.toLowerCase() === e.target?.value?.toLowerCase();
-    })
-    if (!(changes?.length > 0)) {
-      state[index][e.target.name] = e.target.value;
-      this.setDta(state);
-      this.setState({ edit: false });
-      this.CallApi();
+    if (e.target.value !== "") {
+      var changes = state.filter((newa) => {
+        return newa.step_name?.toLowerCase() === e.target?.value?.toLowerCase();
+      })
+      if (!(changes?.length > 0)) {
+        state[index][e.target.name] = e.target.value;
+        this.setDta(state);
+        this.setState({ edit: false });
+        this.CallApi();
+      }
     }
   };
 
@@ -299,7 +325,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false, SelectedStep: '' });
+    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "", msgState: "",enableScan: true });
   };
 
   // Set patient and status data
@@ -317,6 +343,8 @@ class Index extends Component {
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
+
+    var index = index;
     if (state[index]?.case_numbers?.length > 0) {
       let translate = getLanguage(this.props.stateLanguageType);
       let { deleteStep, yes_deleteStep, all_patient_removed_cannot_be_reversed, are_you_sure, cancel_keepStep } = translate;
@@ -350,8 +378,9 @@ class Index extends Component {
     }
   };
 
-  removestep2 = (index) => {
+  removestep2 = (state, index) => {
     var state = this.state.actualData;
+    var index = index;
     let translate = getLanguage(this.props.stateLanguageType);
     let { removeStep, really_want_to_remove, No, Yes } = translate;
     confirmAlert({
@@ -387,26 +416,113 @@ class Index extends Component {
   };
 
   DeleteStepOk = (state, index) => {
-    if (state[index]?.case_numbers?.length > 0) {
-      var yt = state[index]?.case_numbers.map((item) => {
-        var response = PatientMoveFromHouse(item._id, this.props.stateLoginValueAim.token, 5, false)
+    var yt = state[index]?.case_numbers.map((item) => {
+      return item._id;
+    })
+    this.setState({ loaderImage: true })
+    axios
+      .post(
+        sitedata.data.path + "/vh/setCasenotInhospital",
+        { case_id: yt },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          this.setState({ loaderImage: false })
+          state.splice(index, 1);
+          this.setDta(state);
+          this.CallApi();
+          this.GetStep();
+        }
+        else {
+          this.setState({ loaderImage: false })
+        }
+      });
+  }
+
+  //Update the states
+  updateEntryState8 = (e) => {
+    const state = this.state.updateState;
+    if (e.target.name === "mobile") {
+      state[e.target.name] = this.state.flag_mobile + "-" + e.target.value;
+      this.setState({ mobile: e.target.value });
+    }
+    this.setState({ updateState: state });
+  };
+
+  //For update the mobile number
+  updateMOBILE = (str) => {
+    if (!str || str === "undefined" || str === null || str === "") {
+      return str;
+    } else {
+      var mob = str && str.split("-");
+      console.log('mob', mob);
+      return mob.pop();
+    }
+  };
+
+  // fOR update the flag of mobile
+  updateFLAG = (str) => {
+    var mob = str && str.split("-");
+    if (mob && mob.length > 0) {
+      if (mob[0] && mob[0].length == 2) {
+        return mob[0];
+      } else {
+        return "DE";
+      }
+    }
+  };
+
+  //For update the flags
+  updateFlags = (e, name) => {
+    const state = this.state.updateState;
+    if (name === "flag_mobile") {
+      state["mobile"] = e + "-" + this.state.mobile;
+      this.setState({ flag_mobile: e });
+    }
+    this.setState({ updateState: state });
+  };
+
+  handleScan = (data, name) => {
+    const state = this.state.updateState;
+    if (data) {
+      state[name] = data;
+      this.setState({
+        updateState: state, msgState: "Scan successfully processed further", enableScan: false
       })
     }
-    state.splice(index, 1);
-    this.setDta(state);
-    this.CallApi();
-    this.GetStep();
+  }
+
+  updateEntryState1 = (e, name) => {
+    const state = this.state.updateState;
+    if (name === "email") {
+      state[name] = e.target.value;
+    } else {
+      if (name === "birthday") {
+        state[name] = e
+      } else {
+        state[name] = e.target.value;
+      }
+    }
+    this.setState({ updateState: state })
   }
 
   //On Add case
   AddCase = () => {
     this.setState({ errorMsg: '' })
-    var data = this.state.addp;
+    var data = this.state.updateState
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: 'Please enter case number' })
     }
     else if (data && !this.state.SelectedStep) {
       this.setState({ errorMsg: 'Please select step' })
+    }
+    else if(!data.email && this.state.enableEmail === 'email'){
+      this.setState({ errorMsg: 'Please add the email of patient' })
+    }
+    else if((!data.first_name || !data.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
+      console.log('dasdasf')
+      this.setState({ errorMsg: 'Please enter the full information of patient' })
     }
     else {
       data.institute_id =
@@ -417,7 +533,7 @@ class Index extends Component {
       // this.setState({ loaderImage: true });
       axios
         .post(
-          sitedata.data.path + "/vh/checkPatient",
+          sitedata.data.path + "/vh/checkPatient1",
           data,
           commonHeader(this.props.stateLoginValueAim.token)
         )
@@ -435,44 +551,66 @@ class Index extends Component {
                 profile_id: responce.data.data.profile_id,
                 alies_id: responce.data.data.alies_id,
               },
+              added_at: new Date(),
+              verifiedbyPatient: false
             };
-            if(responce.data.data?.type !== 'patient'){
-              this.setState({ idpinerror: true, loaderImage: false});
+            if (responce.data.data?.type !== 'patient') {
+              this.setState({ idpinerror: true, loaderImage: false });
             }
-            else{
-              this.setState({ idpinerror: false});
+            else {
+              this.setState({ idpinerror: false });
               axios
-              .post(
-                sitedata.data.path + "/cases/AddCase",
-                case_data,
-                commonHeader(this.props.stateLoginValueAim.token)
-              )
-              .then((responce1) => {
-                if (responce1.data.hassuccessed) {
-                  this.setState({
-                    idpinerror: false,
-                    openAddP: false,
-                    case: {},
-                    addp: {},
-                  });
-                  var state = this.state.actualData;
-                  let indexData = ''
-                  state && state.length > 0 && state.filter((item, index) => {
-                    if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
-                      indexData = index;
+                .post(
+                  sitedata.data.path + "/cases/AddCase",
+                  case_data,
+                  commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce1) => {
+                  if (responce1.data.hassuccessed) {
+                    var senddata = {}
+                    if(this.state.enableEmail === 'scan'){
+                        senddata.email =  responce.data.data?.email 
+                        senddata.mobile =  responce.data.data?.mobile
                     }
-                  })
-                  state[indexData].case_numbers.push({ case_id: responce1.data.data });
-                  this.setState({ SelectedStep: '' });
-                  this.setDta(state);
-                  this.CallApi();
-                } else {
-                  this.setState({ caseAlready: true, loaderImage: false });
-                  setTimeout(() => {
-                    this.setState({ caseAlready: false });
-                  }, 3000);
-                }
-              });
+                    else{
+                      if (this.state.updateState?.email) { senddata.email = this.state.updateState?.email }
+                      if (this.state.updateState?.mobile) { senddata.mobile = this.state.updateState?.mobile }
+                    }
+                    senddata.case_id = responce1.data?.data
+                    senddata.patient = responce.data.data._id
+                    senddata.patient_name = responce.data.data.last_name ? responce.data.data.first_name + ' ' + responce.data.data.last_name : responce.data.data.first_name
+                    axios
+                      .post(
+                        sitedata.data.path + "/vh/linkforAccepthospital",
+                        senddata,
+                        commonHeader(this.props.stateLoginValueAim.token)
+                      )
+                      .then((responce1) => { })
+                    this.setState({
+                      updateState: {},
+                      idpinerror: false,
+                      openAddP: false,
+                      case: {},
+                      addp: {},
+                    });
+                    var state = this.state.actualData;
+                    let indexData = ''
+                    state && state.length > 0 && state.filter((item, index) => {
+                      if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
+                        indexData = index;
+                      }
+                    })
+                    state[indexData].case_numbers.push({ case_id: responce1.data.data });
+                    this.setState({ SelectedStep: '' });
+                    this.setDta(state);
+                    this.CallApi();
+                  } else {
+                    this.setState({ caseAlready: true, loaderImage: false });
+                    setTimeout(() => {
+                      this.setState({ caseAlready: false });
+                    }, 3000);
+                  }
+                });
             }
           } else {
             if (responce.data.data) {
@@ -483,7 +621,14 @@ class Index extends Component {
             }
             setTimeout(() => {
               this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
-            }, 3000);
+              if(this.state.enableEmail === 'other'){
+                this.closeAddP();
+                this.props.history.push('/virtualhospital/new-user');
+              }
+              else{
+                this.handleEnableEmail(this.state.enableEmail ==='email' ? 'other' : 'email')
+              }
+            }, 2000);
           }
         });
     }
@@ -594,6 +739,7 @@ class Index extends Component {
   newPatient = () => {
     this.props.history.push('/virtualHospital/new-user')
   }
+
   filterResult = () => {
     let { selectedPat, assignedTo2, selectSpec2, selectWard, selectRoom, actualData } = this.state
     var data = _.cloneDeep(actualData);
@@ -604,7 +750,7 @@ class Index extends Component {
   }
 
   clearFilter = () => {
-    this.setState({ filteredData : '', selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
+    this.setState({ selectedOption: null, filteredData: '', selectedPat: '', assignedTo2: '', selectSpec2: '', selectWard: '', wardList: [], roomList: [], selectRoom: '' })
     this.mapActualToFullData(this.state.actualData);
     this.handleCloseFil();
   }
@@ -620,9 +766,9 @@ class Index extends Component {
   mapActualToFullData = (result) => {
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => {
-      if (previous && !previous.hasOwnProperty(author.step_name)) previous =  {...previous,  [author.step_name]: author.case_numbers};
-      return previous;
-    }, {});
+        if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
+        return previous;
+      }, {});
 
     this.setState({ fullData: authorQuoteMap });
   }
@@ -767,9 +913,9 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality,
-      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters,
-      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient } =
+    let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality, FilterbyStaff, FilterbySpeciality, FilterbyWard, FilterbyRoom,
+      Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters, AllSpecialities, SelectStepName,
+      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient, Name, search_by_patient_id_name_doc, Search_Select } =
       translate;
 
     const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep, filteredData } = this.state;
@@ -809,7 +955,6 @@ class Index extends Component {
       >
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
-          { }
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
               <LeftMenuMobile isNotShow={true} currentPage="flow" />
@@ -844,13 +989,13 @@ class Index extends Component {
                     <Grid className="srchPatient">
                       <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={5} className="srchLft">
-                          <Input name="searchValue" value={searchValue} placeholder="Search by Patient ID, Patient name, Doctor..." onChange={this.handleSearch} />
+                          <Input name="searchValue" value={searchValue} placeholder={search_by_patient_id_name_doc} onChange={this.handleSearch} />
                           <a><img src={require("assets/virtual_images/InputField.svg")} alt="" title="" /></a>
                         </Grid>
                         <Grid item xs={12} md={7}>
                           <Grid className="srchRght"><label className="filtersec" onClick={this.clearFilter}>{clear_all_filters}</label>
-                            <a className={filteredData} onClick={this.handleOpenFil}>
-                              <img src={filteredData==='filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
+                            <a className={`${filteredData} flowfilter`} onClick={this.handleOpenFil}>
+                              <img src={filteredData === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" />
                             </a>
                             <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
                               <Grid className={
@@ -880,7 +1025,7 @@ class Index extends Component {
                                         <Select
                                           name="patient"
                                           options={this.state.users1}
-                                          placeholder="Search & Select"
+                                          placeholder={Search_Select}
                                           onChange={(e) => this.onFieldChange1(e, "patient")}
                                           value={this.state.selectedPat || ''}
                                           className="addStafSelect"
@@ -896,7 +1041,7 @@ class Index extends Component {
                                           name="professional"
                                           value={this.state.assignedTo2}
                                           options={this.state.professional_id_list}
-                                          placeholder="Filter by Staff"
+                                          placeholder={FilterbyStaff}
                                           isMulti={true}
                                           isSearchable={true}
                                           className="addStafSelect"
@@ -912,7 +1057,7 @@ class Index extends Component {
                                           options={this.state.specialitiesList}
                                           name="specialty_name"
                                           value={this.state.selectSpec2}
-                                          placeholder="Filter by Speciality"
+                                          placeholder={FilterbySpeciality}
                                           className="addStafSelect"
                                           isSearchable={true} />
                                       </Grid>
@@ -927,7 +1072,7 @@ class Index extends Component {
                                             options={this.state.wardList}
                                             name="specialty_name"
                                             value={this.state.selectWard}
-                                            placeholder="Filter by Ward"
+                                            placeholder={FilterbyWard}
                                             className="addStafSelect"
                                             isSearchable={true} />
                                         </Grid>
@@ -942,7 +1087,7 @@ class Index extends Component {
                                             options={this.state.roomList}
                                             name="specialty_name"
                                             value={this.state.selectRoom}
-                                            placeholder="Filter by Room"
+                                            placeholder={FilterbyRoom}
                                             className="addStafSelect"
                                             isSearchable={true} />
                                         </Grid>
@@ -966,7 +1111,7 @@ class Index extends Component {
                               value={selectedOption}
                               onChange={this.onChooseSpeciality}
                               options={specialitiesList}
-                              placeholder="All Specialities"
+                              placeholder={AllSpecialities}
                               className="allSpec"
                               isSearchable={false}
                             />
@@ -1014,33 +1159,34 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <div className="custom-d-n-d">
-                    <Drags
-                      moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
-                      DeleteStep={(index) => this.DeleteStep(index)}
-                      onKeyDownlogin={this.onKeyDownlogin}
-                      editName={this.editName}
-                      edit={this.state.edit}
-                      onChange={this.onChange}
-                      AddStep={this.AddStep}
-                      openAddPatient={this.openAddPatient}
-                      initial={this.state.fullData}
-                      dragDropFlow={this.dragDropFlow}
-                      moveAllPatient={(to, from, data) =>
-                        this.moveAllPatient(to, from, data)
-                      }
-                      view={this.state.view}
-                      moveStep={(to, from, item) => {
-                        this.moveStep(to, from, item);
-                      }}
-                      setDta={(item) => this.setDta(item)}
-                      professional_id_list={this.state.professional_id_list}
-                      updateEntryState3={(e, case_id) => {
-                        this.updateEntryState3(e, case_id);
-                      }}
-                      MovetoTask={(speciality, patient_id) => {
-                        this.MovetoTask(speciality, patient_id)
-                      }}
-                    />
+                      <Drags
+                        moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
+                        DeleteStep={(index) => this.DeleteStep(index)}
+                        onKeyDownlogin={this.onKeyDownlogin}
+                        editName={this.editName}
+                        edit={this.state.edit}
+                        onChange={this.onChange}
+                        AddStep={this.AddStep}
+                        openAddPatient={this.openAddPatient}
+                        initial={this.state.fullData}
+                        dragDropFlow={this.dragDropFlow}
+                        moveAllPatient={(to, from, data) =>
+                          this.moveAllPatient(to, from, data)
+                        }
+                        view={this.state.view}
+                        moveStep={(to, from, item) => {
+                          this.moveStep(to, from, item);
+                        }}
+                        setDta={(item) => this.setDta(item)}
+                        professional_id_list={this.state.professional_id_list}
+                        updateEntryState3={(e, case_id) => {
+                          this.updateEntryState3(e, case_id);
+                        }}
+                        MovetoTask={(speciality, patient_id) => {
+                          this.MovetoTask(speciality, patient_id)
+                        }}
+                        mode={this.props?.settings?.setting?.mode}
+                      />
                     </div>
                   </Grid>
                 </Grid>
@@ -1068,46 +1214,148 @@ class Index extends Component {
                 <label>{AddPatienttoFlow}</label>
               </Grid>
               <Grid className="patentInfo">
-                {this.state.caseAlready && (
-                  <div className="err_message">
-                    {case_already_exists_in_hospital}
-                  </div>
-                )}
-                {this.state.inOtherAlready && (
-                  <div className="err_message">
-                    {case_already_exists_in_other_hospital} <b>{this.state.alreadyData?.house?.house_name}</b> {ofInstitution}<b>{this.state.alreadyData?.institute_groups?.group_name}</b>
-                  </div>
-                )}
+                {this.state.enableEmail == "email" &&
+                  <Grid className="patentInfoBtn pateintInfoUser">
+                    <VHfield
+                      label="Patient Email"
+                      name="email"
+                      onChange={(e) => this.updateEntryState1(e, "email")}
+                      value={this.state.updateState?.email || ''}
+                    />
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to use Qr scanner</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic informations</li>
+                    </ul>
 
-                {this.state.idpinerror && (
-                  <div className="err_message">{id_and_pin_not_correct}</div>
-                )}
-                <p className="err_message">{this.state.errorMsg}</p>
-                <Grid className="patentInfoTxt">
-                  <Grid>
-                    <label>{PatientID}</label>
                   </Grid>
-                  <TextField
-                    name="patient_id"
-                    value={this.state.addp.patient_id}
-                    onChange={this.changeAddp}
-                  />
-                </Grid>
-                <Grid className="patentInfoTxt">
-                  <Grid>
-                    <label>{PatientPIN}</label>
+                }
+                {this.state.enableEmail == "scan" &&
+                  <Grid className="patentInfoBtn pateintInfoUser">
+                    <p>{this.state.msgState}</p>
+                    {this.state.enableScan == true ?
+                      <QrReader
+                        delay={300}
+                        onError={this.handleError}
+                        onScan={(e) => this.handleScan(e, "patient_id")}
+                        style={{ width: '100%' }}
+                      />
+                      :
+                      <ul className="addpatientoption">
+                        <li onClick={() => this.setState({ enableScan: true, msgState: "" })}>Go to Scanner</li>
+                      </ul>
+                    }
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("other")}>Go to check with basic informations</li>
+                    </ul>
                   </Grid>
-                  <TextField
-                    name="pin"
-                    value={this.state.addp.pin}
-                    onChange={this.changeAddp}
-                  />
-                </Grid>
-                <Grid className="patentInfoTxt">
+                }
+                {this.state.enableEmail == "other" &&
                   <Grid>
-                    <label>{CaseNumber}</label>
-                  </Grid>
-                  <TextField
+                    <Grid className="patentInfoTxt">
+                      <VHfield
+                        label="First name"
+                        name="first_name"
+                        onChange={(e) => this.updateEntryState1(e, "first_name")}
+                        value={this.state.updateState?.first_name || ''}
+                      />
+                    </Grid>
+                    <Grid className="patentInfoTxt">
+                      <VHfield
+                        label="Last name"
+                        name="last_name"
+                        value={this.state.updateState?.last_name || ''}
+                        onChange={(e) => this.updateEntryState1(e, "last_name")}
+                      />
+                    </Grid>
+                    
+                    <Grid className="profileInfoDate">
+                      <Grid className="dateFormateSec">
+                        <Grid>
+                          <label>Birthday</label>
+                        </Grid>
+                        <DateFormat
+                          name="birthday"
+                          value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
+                          // notFullBorder
+                          date_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.date_format
+                          }
+                          onChange={(e) => this.updateEntryState1(e, "birthday")}
+                          customStyles={{ dateInput: { borderWidth: 0 } }}
+                        />
+
+                      </Grid>
+                    </Grid>
+                    {/* <Grid className="fillDia">
+                      <Grid className="rrSysto dateFormateSec">
+                        <Grid>
+                          <label>Birthday</label>
+                        </Grid>
+
+
+                        <DateFormat
+                          name="birthday"
+                          value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
+                          // notFullBorder
+                          date_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.date_format
+                          }
+                          onChange={(e) => this.updateEntryState1(e, "birthday")}
+                          customStyles={{ dateInput: { borderWidth: 0 } }}
+                        />
+
+                      </Grid>
+                    </Grid> */}
+                    <Grid className="profileInfoIner">
+                      <Grid container direction="row" alignItems="center" spacing={2}>
+                        <Grid item xs={12} md={12}>
+                          <label>Mobile number</label>
+                          <Grid className="setPositionMob">
+                            {this.updateFLAG(this.state.updateState.mobile) &&
+                              this.updateFLAG(this.state.updateState.mobile) !==
+                              "" && (
+                                <ReactFlagsSelect
+                                  searchable={true}
+                                  onSelect={(e) => {
+                                    this.updateFlags(e, "flag_mobile");
+                                  }}
+                                  name="flag_mobile"
+                                  showSelectedLabel={false}
+                                  defaultCountry={this.updateFLAG(
+                                    this.state.updateState.mobile
+                                  )}
+                                />
+                              )}
+                            <input
+                              type="text"
+                              className="Mobile_extra"
+                              name="mobile"
+                              type="text"
+                              onChange={this.updateEntryState8}
+                              value={
+                                this.state.updateState.mobile &&
+                                this.updateMOBILE(this.state.updateState.mobile) || ''
+                              }
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} md={4}></Grid>
+                        <Grid className="clear"></Grid>
+                      </Grid>
+                    </Grid>
+                    <ul className="addpatientoption">
+                      <li onClick={() => this.handleEnableEmail("email")}>Go back to check with email</li>
+                      <li onClick={() => this.handleEnableEmail("scan")}>Go back to Use Qr Scanner</li>
+                    </ul>
+                  </Grid>}
+                <Grid className="patentInfoTxt">
+                  <VHfield
+                    label={CaseNumber}
                     name="case_number"
                     value={this.state.case.case_number}
                     onChange={this.onChangeCase}
@@ -1119,14 +1367,29 @@ class Index extends Component {
                     value={SelectedStep}
                     onChange={this.onSelectingStep}
                     options={StepNameList}
-                    placeholder="Select Step Name"
-                    className="allSpec allSpeces"
+                    placeholder={SelectStepName}
+                    className="allSpeces"
                     isSearchable={false}
                   />
+
                 </Grid>
-                <Grid className="patentInfoBtn">
-                  <Button onClick={this.AddCase}>{add_patient_to_flow}</Button>
-                </Grid>
+              </Grid>
+              <Grid className="patentInfoBtn patentTnfoBtn1">
+                {this.state.caseAlready && (
+                  <div className="err_message">
+                    {case_already_exists_in_hospital}
+                  </div>
+                )}
+                {this.state.inOtherAlready && (
+                  <div className="err_message">
+                    {case_already_exists_in_other_hospital} <b>{this.state.alreadyData?.house?.house_name}</b> {ofInstitution}<b>{this.state.alreadyData?.institute_groups?.group_name}</b>
+                  </div>
+                )}
+                {this.state.idpinerror && (
+                  <div className="err_message">{"Patient is not found on the basis of given information"}</div>
+                )}
+                <p className="err_message">{this.state.errorMsg}</p>
+                <Button onClick={this.AddCase}>Submit</Button>
               </Grid>
             </Grid>
           </Grid>
@@ -1160,11 +1423,15 @@ class Index extends Component {
                   </Grid>
                   <label>{add_step}</label>
                 </Grid>
-                <p className='err_message'>{this.state.stepError}</p>
-                <Grid className="buttonStyle fltrInput">
-                  <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder="Name" value={this.state.step_name}
-                    onChange={this.handleName} type="text" />
-                  <a color="primary" onClick={this.OnAdd}>{Add}</a>
+              </Grid>
+              <Grid className="enterWrnUpr">
+                <Grid className="enterWrnMain">
+                  <p className='err_message'>{this.state.stepError}</p>
+                  <Grid className="buttonStyle fltrInput">
+                    <input name={"Step" + (new Date()).getTime()} className="step_name" placeholder={Name} value={this.state.step_name}
+                      onChange={this.handleName} type="text" />
+                    <a color="primary" onClick={this.OnAdd}>{Add}</a>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

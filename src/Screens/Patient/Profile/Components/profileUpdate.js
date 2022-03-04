@@ -18,6 +18,7 @@ import Loader from 'Screens/Components/Loader/index';
 import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
 import DateFormat from 'Screens/Components/DateFormat/index'
 import { getLanguage } from "translations/index";
+import _ from 'lodash';
 import { updateFLAG, updateMOBILE } from './odapi';
 import { getUserData, contact_partnerState, getMetadata, handleChange_multi, saveUserData1, saveUserData, firstLoginUpdate, onChange, updateEntryState1, updateEntryState11, copyText, updateflags,
     updateEntryState, Upsaterhesus, EntryValueName , GetLanguageMetadata, filterCountry, filterCountry1, toggle, filterList, updatesinsurances, changeAlies, changePin, ChangeIDPIN, updatesinsurancesCountry ,removeInsurance,  } from './puapi';
@@ -107,6 +108,7 @@ class Index extends Component {
             rhesus: {},
             insu1: false,
             contact_partner: {},
+            UpDataDetails1: {}
         };
        
     }
@@ -159,8 +161,8 @@ class Index extends Component {
 
     //for open the Change profile Dialog
     handlePinOpen = () => {
-        this.setState({ chngPinOpen: true });
-    };
+        this.setState({ chngPinOpen: true, UpDataDetails1:  _.cloneDeep(this.state.UpDataDetails) });
+      };
     handlePinClose = (key) => {
         this.setState({ [key]: false });
     };
@@ -216,7 +218,7 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
+        let { Contact, Citizenship, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
@@ -298,13 +300,13 @@ class Index extends Component {
                                 <Grid className="editPinform">
                                     <Grid className="editField">
                                         <label>{profile} {ID}</label>
-                                        <Grid><input type="text" name="alies_id" onChange={(e)=> changeAlies(e, this)} value={this.state.UpDataDetails.alies_id} /></Grid>
+                                        <Grid><input type="text" name="alies_id" onChange={(e)=> changeAlies(e, this)} value={this.state.UpDataDetails1.alies_id} /></Grid>
                                         {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
                                         {this.state.toSmall && <p>{profile_id_greater_then_5}</p>}
                                     </Grid>
                                     <Grid className="editField">
                                         <label>{pin}</label>
-                                        <Grid><input type="text" name="pin" onChange={(e)=> changePin(e, this)} value={this.state.UpDataDetails.pin} /></Grid>
+                                        <Grid><input type="text" name="pin" onChange={(e)=> changePin(e, this)} value={this.state.UpDataDetails1.pin} /></Grid>
                                         {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
                                     </Grid>
                                     <Grid>
@@ -430,6 +432,27 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.UpDataDetails.country}
                                                 onChange={(e) => EntryValueName(e, 'country', this)}
+                                                options={this.state.selectCountry}
+                                                placeholder=""
+                                                isSearchable={true}
+                                                name="country"
+                                                className="cntryDrop"
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} md={4}></Grid>
+                                    <Grid className="clear"></Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid className="profileInfoIner">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={8}>
+                                        <label>{Citizenship} {country}</label>
+                                        <Grid className="cntryDropTop">
+                                            <Select
+                                                value={this.state.UpDataDetails.citizen_country || ''}
+                                                onChange={(e) => EntryValueName(e, 'citizen_country', this)}
                                                 options={this.state.selectCountry}
                                                 placeholder=""
                                                 isSearchable={true}

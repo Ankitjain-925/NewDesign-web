@@ -28,6 +28,8 @@ import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
+import { getProfessionalData } from 'Screens/VirtualHospital/PatientFlow/data'
+import ArrangeAppoint from "Screens/VirtualHospital/AppointTask/arrangeAppoint";
 
 function TabContainer(props) {
     return (
@@ -63,15 +65,22 @@ class Index extends Component {
             vaccinations: [],
             defaultValue: 20,
             loading: false,
-            LeftInfoPatient: {}
+            LeftInfoPatient: {},
+            openAllowAccess: false,
+            doctorsData: [],
+            doctorsData1: []
         };
     }
 
+    
+  handleCloseAllowAccess = () => {
+    this.setState({ openAllowAccess: false });
+  };
     componentDidMount = () => {
         if (this.props.location.search) {
-            var data = this.props.location.search === '?view=4' ? 3 : 0;
+            var data = this.props.location.search === '?view=4' ? 3 : this.props.location.search === '?view=5'? 4: 0;
             this.handleChangeTab('', data);
-            this.handleChangeTabMob('', data);
+            this.handleChangeTabMob('', data+1);
         }
         this.cur_one();
         this.getPesonalized();
@@ -98,14 +107,37 @@ class Index extends Component {
 
     handleCallback = (childData) => {
         this.handleChangeTab('', childData)
-        this.handleChangeTabMob('', childData)
+        this.handleChangeTabMob('', childData+1)
     }
 
+    handleAllowAccess = async () => {
+        // const professionals = await getProfessionalData(this.props.House.value, this.props.stateLoginValueAim.token)
+        // const doctorsData = [], doctorsData1 = [];
+        // // eslint-disable-next-line no-unused-expressions
+        // await professionals?.professionalArray?.length > 0 && professionals?.professionalArray?.map(function (data) {
+        //   if (data.type === 'doctor') {
+        //     doctorsData.push({ label: `${data.first_name} ${data.last_name}`, value: `${data.user_id}` })
+        //     doctorsData1.push(data)
+        //   }
+        // });
+        this.setState({ openAllowAccess: true, });
+    };
+
     handleChangeTab = (event, value) => {
-        this.setState({ value });
+        if(value === 4){
+            this.handleAllowAccess();
+        }
+        else{
+            this.setState({ value });
+        }
     };
     handleChangeTabMob = (event, valueMob) => {
-        this.setState({ valueMob });
+        if(valueMob === 5){
+            this.handleAllowAccess();
+        }
+        else{
+            this.setState({ valueMob });
+        }
     };
 
     getUpcomingAppointment() {
@@ -201,7 +233,11 @@ class Index extends Component {
             .get(sitedata.data.path + "/rightinfo/patient/" + this.props.match.params.id,
                 commonHeader(user_token))
             .then((response) => {
-                this.setState({ personalinfo: response.data.data });
+                this.setState({ personalinfo: response.data.data, selectedPatient: {
+                    label: response.data.data?.first_name && response.data.data?.last_name ? response.data.data?.first_name +' '+response.data.data?.last_name : response.data.data?.first_name,
+                    profile_id: response.data.data?.profile_id,
+                    value: response.data.data?._id
+                } });
             });
     }
 
@@ -293,7 +329,6 @@ class Index extends Component {
                     <Grid container direction="row" justify="center">
                         {!this.state.isGraph && (
                             <Grid item xs={12} md={12}>
-
                                 <LeftMenuMobile isNotShow={true} currentPage="chat" />
                                 <Grid className="tskTabsMob">
                                     <AppBar position="static" className="tskTabs">
@@ -304,13 +339,13 @@ class Index extends Component {
                                             <Tab label={DocumentsFiles} className="tsktabIner" />
                                             {/* <Tab label={Room} className="tsktabIner" /> */}
                                             <Tab label={personal_info} className="tsktabIner" />
+                                            <Tab label={"Appointments"} className="tsktabIner" />
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
+                                <ArrangeAppoint getTaskData={()=> this.MoveAppoint()} handleCloseAllowAccess={()=>{this.handleCloseAllowAccess()}} openAllowAccess={this.state.openAllowAccess} selectedPatient={this.state.selectedPatient} />
                                 <Grid container direction="row" className="mainMenuAllSec">
                                     {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
-
-
                                     {/* Start of Menu */}
                                     <Grid item xs={12} md={1} className="MenuLeftUpr">
                                         <LeftMenu isNotShow={true} currentPage="chat" />
@@ -356,6 +391,7 @@ class Index extends Component {
                                                     <Tab label={Tasks} className="tsktabIner" />
                                                     <Tab label={DocumentsFiles} className="tsktabIner" />
                                                     <Tab label={personal_info} className="tsktabIner" />
+                                                    <Tab label={"Appointments"} className="tsktabIner" />
                                                 </Tabs>
                                             </AppBar>
                                         </Grid>
@@ -379,29 +415,29 @@ class Index extends Component {
                                         <div className="TabContainerMob">
                                             {valueMob === 0 && <TabContainer>{
                                                 <LeftPatientData
-                                                currenttab={this.state.value}
-                                                LeftInfoPatient={this.state.LeftInfoPatient}
-                                                parentCallback={this.handleCallback}
-                                                upcoming_appointment={this.state.upcoming_appointment}
-                                                OpenGraph={this.OpenGraph}
-                                                date_format={
-                                                    this.props.settings &&
-                                                    this.props.settings.setting &&
-                                                    this.props.settings.setting.date_format
-                                                }
-                                                time_format={
-                                                    this.props.settings &&
-                                                    this.props.settings.setting &&
-                                                    this.props.settings.setting.time_format
-                                                }
-                                                from="patient"
-                                                added_data={this.state.added_data}
-                                                MoveAppoint={this.MoveAppoint}
-                                                SelectOption={this.SelectOption}
-                                                personalinfo={this.state.personalinfo}
-                                                loggedinUser={this.state.cur_one}
-                                                downloadTrack={(data) => this.downloadTrack(data)}
-                                                DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
+                                                    currenttab={this.state.value}
+                                                    LeftInfoPatient={this.state.LeftInfoPatient}
+                                                    parentCallback={this.handleCallback}
+                                                    upcoming_appointment={this.state.upcoming_appointment}
+                                                    OpenGraph={this.OpenGraph}
+                                                    date_format={
+                                                        this.props.settings &&
+                                                        this.props.settings.setting &&
+                                                        this.props.settings.setting.date_format
+                                                    }
+                                                    time_format={
+                                                        this.props.settings &&
+                                                        this.props.settings.setting &&
+                                                        this.props.settings.setting.time_format
+                                                    }
+                                                    from="patient"
+                                                    added_data={this.state.added_data}
+                                                    MoveAppoint={this.MoveAppoint}
+                                                    SelectOption={this.SelectOption}
+                                                    personalinfo={this.state.personalinfo}
+                                                    loggedinUser={this.state.cur_one}
+                                                    downloadTrack={(data) => this.downloadTrack(data)}
+                                                    DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
                                             }</TabContainer>}
                                             {valueMob === 1 && <TabContainer>
                                                 <PatientJournal rightInfo={this.rightInfo} OpenGraph={this.OpenGraph} />

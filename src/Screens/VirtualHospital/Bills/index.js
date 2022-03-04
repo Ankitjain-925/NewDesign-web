@@ -13,6 +13,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import Pagination from "Screens/Components/Pagination/index";
 import { GetLanguageDropdown, } from "Screens/Components/GetMetaData/index.js";
 import { OptionList } from "Screens/Login/metadataaction";
@@ -129,7 +130,7 @@ class Index extends Component {
     // };
 
     reactToPrintContent = (data) => {
-        return this.componentRef 
+        return this.componentRef
     };
 
     // handleBeforeGetContent = (data) => {
@@ -349,6 +350,8 @@ class Index extends Component {
 
     //Delete the perticular Bill with confirmation box
     removeBills = (data) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { Remove_the_Bill, Are_you_sure_to_remove_this_Bill, No, Yes } = translate;
         // this.setState({ message: null, openTask: false });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -363,17 +366,17 @@ class Index extends Component {
                                 : "react-confirm-alert-body"
                         }
                     >
-                        <h1>Remove the Bill?</h1>
-                        <p>Are you sure to remove this Bill?</p>
+                        <h1>{Remove_the_Bill}</h1>
+                        <p>{Are_you_sure_to_remove_this_Bill} </p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
+                            <button onClick={onClose}>{No}</button>
                             <button
                                 onClick={() => {
                                     this.removeBills2(data);
                                     // onClose();
                                 }}
                             >
-                                Yes
+                                {Yes}
                             </button>
                         </div>
                     </div>
@@ -382,6 +385,8 @@ class Index extends Component {
         });
     };
     removeBills2 = (data) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { Remove_Bill, Are_you_really_want_to_remove_this_Bill, Yes, No } = translate;
         // this.setState({ message: null, openTask: false });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -396,17 +401,17 @@ class Index extends Component {
                                 : "react-confirm-alert-body"
                         }
                     >
-                        <h1 class="alert-btn">Remove Bill?</h1>
-                        <p>Are you really want to remove this Bill?</p>
+                        <h1 class="alert-btn">{Remove_Bill}</h1>
+                        <p>{Are_you_really_want_to_remove_this_Bill}</p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
+                            <button onClick={onClose}>{No}</button>
                             <button
                                 onClick={() => {
                                     this.deleteClickBill(data);
                                     onClose();
                                 }}
                             >
-                                Yes
+                                {Yes}
                             </button>
                         </div>
                     </div>
@@ -442,18 +447,18 @@ class Index extends Component {
 
     searchFilter = (e) => {
         this.setState({ SearchValue: e.target.value })
-        if(e.target.value !==''){
-        let track1 = this.state.AllBills;
-        let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
-          var name = (obj?.patient?.first_name && obj?.patient?.last_name) ? obj?.patient?.first_name + " " + obj?.patient?.last_name : obj?.patient?.first_name;
-          return (JSON.stringify(obj?.invoice_id).toLowerCase().includes(e.target?.value?.toLowerCase()) || 
-          JSON.stringify(name).toLowerCase().includes(e.target?.value?.toLowerCase()));
+        if (e.target.value !== '') {
+            let track1 = this.state.AllBills;
+            let FilterFromSearch1 = track1 && track1.length > 0 && track1.filter((obj) => {
+                var name = (obj?.patient?.first_name && obj?.patient?.last_name) ? obj?.patient?.first_name + " " + obj?.patient?.last_name : obj?.patient?.first_name;
+                return (JSON.stringify(obj?.invoice_id).toLowerCase().includes(e.target?.value?.toLowerCase()) ||
+                    JSON.stringify(name).toLowerCase().includes(e.target?.value?.toLowerCase()));
 
-        });
-        this.setState({ bills_data: FilterFromSearch1 })
+            });
+            this.setState({ bills_data: FilterFromSearch1 })
         }
-        else{
-            this.setState({ bills_data:  this.state.AllBills}) 
+        else {
+            this.setState({ bills_data: this.state.AllBills })
         }
     }
 
@@ -494,8 +499,6 @@ class Index extends Component {
     };
 
     render() {
-
-
         const { stateLoginValueAim, House } = this.props;
         if (
             stateLoginValueAim.user === "undefined" ||
@@ -510,7 +513,7 @@ class Index extends Component {
         }
         let translate = getLanguage(this.props.stateLanguageType);
         let { Billing, filters, Patient, speciality, Status, not_mentioned, ID, date, total, NewInvoice, applyFilters, Paid, Draft, Overdue, Issued, DeleteInvoice,
-            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus } = translate;
+            clear_all_filters, DuplicateInvoice, PrintInvoice, DownloadPDF, Setstatus, Search, FilterbyPatient, FilterbySpeciality, FilterbyStatus } = translate;
         const { value, DraftBills, IssuedBills, OverDueBills, PaidBills, bills_data, PatientList, PatientStatus, SpecialityData, allBillsCSS, issuedCSS, overdueCSS, paidCSS } = this.state;
         return (
             <Grid className={
@@ -521,7 +524,7 @@ class Index extends Component {
                     ? "homeBg darkTheme"
                     : "homeBg"
             }>
-                <Grid className="homeBgIner">
+                <Grid className="homeBgIner vh-section">
                     {this.state.loaderImage && <Loader />}
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -562,22 +565,22 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} sm={5} md={5}>
                                                     <Grid className="billSeting">
-                                                        {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
+                                                        {this.state.showinput && <input name="Search" placeholder={Search} value={this.state.SearchValue} className="serchInput" onChange={(e) => this.searchFilter(e)} />}
                                                         <a>
-                                                        {!this.state.showinput ? <img
-                                                            src={require("assets/virtual_images/search-entries.svg")}
-                                                            alt=""
-                                                            title=""
-                                                            onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
-                                                        /> :
-                                                            <img
-                                                            src={require("assets/images/close-search.svg")}
-                                                            alt=""
-                                                            title=""
-                                                            onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: ''}); this.handleChangeTab('', value) }}
-                                                            />}
+                                                            {!this.state.showinput ? <img
+                                                                src={require("assets/virtual_images/search-entries.svg")}
+                                                                alt=""
+                                                                title=""
+                                                                onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
+                                                            /> :
+                                                                <img
+                                                                    src={require("assets/images/close-search.svg")}
+                                                                    alt=""
+                                                                    title=""
+                                                                    onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: '' }); this.handleChangeTab('', value) }}
+                                                                />}
                                                         </a>
-                                                        
+
                                                         {value === 0 &&
                                                             <a className={allBillsCSS}><img src={allBillsCSS === 'filterApply' ? require("assets/virtual_images/sort-active.png") : require("assets/virtual_images/sort.png")} alt="" title="" onClick={this.handleOpenPopUp} />  </a>
                                                         }
@@ -628,7 +631,7 @@ class Index extends Component {
                                                                                         onChange={this.updateUserFilter}
                                                                                         value={this.state.userFilter}
                                                                                         options={this.state.patientForFilter}
-                                                                                        placeholder="Filter by Patient"
+                                                                                        placeholder={FilterbyPatient}
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
                                                                                         isSearchable={true}
@@ -643,7 +646,7 @@ class Index extends Component {
                                                                                         onChange={this.updateEntryState4}
                                                                                         value={this.state.specFilter}
                                                                                         options={SpecialityData}
-                                                                                        placeholder="Filter by Speciality"
+                                                                                        placeholder={FilterbySpeciality}
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}
                                                                                         isSearchable={true}
@@ -659,7 +662,7 @@ class Index extends Component {
                                                                                             options={PatientStatus}
                                                                                             name="specialty_name"
                                                                                             value={this.state.statusFilter}
-                                                                                            placeholder="Filter by Status"
+                                                                                            placeholder={FilterbyStatus}
                                                                                             className="addStafSelect"
                                                                                             isMulti={true}
                                                                                             isSearchable={true} />
@@ -698,7 +701,10 @@ class Index extends Component {
                                                     <Tbody>
                                                         <Tr>
                                                             <Td>{data?.invoice_id}</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />{data?.patient?.first_name} {data?.patient?.last_name}</Td>
+                                                            <Td className="patentPic">
+                                                                {/* <img src={require('assets/virtual_images/james.jpg')} alt="" title="" /> */}
+                                                                <S3Image imgUrl={data?.patient?.image} />
+                                                                {data?.patient?.first_name} {data?.patient?.last_name}</Td>
                                                             <Td>{data.created_at ? getDate(data.created_at, this.props.settings.setting.date_format) : not_mentioned}</Td>
                                                             {/* <Td>{data.}</Td> */}
                                                             <Td className=""><span className={data?.status?.value === 'paid' ? "revwGren" : data?.status?.value === 'issued' ? "revwYelow" : data?.status?.value === 'draft' ? "revwGry" : "revwRed"}></span>{data?.status?.label}</Td>
@@ -713,7 +719,7 @@ class Index extends Component {
                                                                             <ReactToPrint
                                                                                 content={() => this.reactToPrintContent()}
                                                                                 documentTitle="Report.pdf"
-                                                                                onBeforeGetContent={()=>this.handleOnBeforeGetContent(data)}
+                                                                                onBeforeGetContent={() => this.handleOnBeforeGetContent(data)}
                                                                                 removeAfterPrint
                                                                                 trigger={() => <a><li><img src={require('assets/virtual_images/PrintInvoice.png')} alt="" title="" /><span>{PrintInvoice}</span></li></a>}
                                                                                 _id={data._id}

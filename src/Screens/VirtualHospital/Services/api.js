@@ -1,6 +1,8 @@
 import axios from "axios";
 import sitedata from "sitedata";
-import { commonHeader } from "component/CommonHeader/index"
+import { commonHeader } from "component/CommonHeader/index";
+import { getLanguage } from "translations/index";
+import _ from 'lodash';
 
 export const getSpecialty = (current) => {
   current.setState({ loaderImage: true });
@@ -67,13 +69,15 @@ export const searchFilter = (e, current) => {
 }
 //For adding the New Service and Update Service
 export const handleSubmit = (current) => {
+  let translate = getLanguage(current.props.stateLanguageType);
+  let { Plz_enter_Service_Name, Plz_enter_a_valid_price, Something_went_wrong } = translate;
   current.setState({ errorMsg: '' })
   var data = current.state.updateTrack;
   if (!data.title || (data && data?.title && data?.title.length < 1)) {
-    current.setState({ errorMsg: "Please enter Service Name" })
+    current.setState({ errorMsg: Plz_enter_Service_Name })
   }
-   else if (!data.price || (data && data?.price && data?.price < 1)) {
-    current.setState({ errorMsg: "Please enter a valid price" })
+  else if (!data.price || (data && data?.price && data?.price < 1)) {
+    current.setState({ errorMsg: Plz_enter_a_valid_price })
   }
   else {
     if (current.state.updateTrack._id) {
@@ -100,11 +104,11 @@ export const handleSubmit = (current) => {
         })
         .catch(function (error) {
           console.log(error);
-          current.setState({ errorMsg: "Somthing went wrong, Please try again" })
+          current.setState({ errorMsg: Something_went_wrong })
 
         });
     }
-  } 
+  }
 };
 
 export const getSpecialtyData = (id, current) => {
@@ -115,11 +119,10 @@ export const getSpecialtyData = (id, current) => {
     }
     else {
       var filterData = current.state.AllServices?.length > 0 && current.state.AllServices.filter((data) => (data?.specialty_id && data?.specialty_id.includes(id)))
-
     }
   }
   else {
-    current.setState({ specialty_id: false })
+    current.setState({ speciality_id: false })
     var filterData = current.state.AllServices;
   }
   var totalPage = Math.ceil(filterData.length / 10);
@@ -176,12 +179,18 @@ export const onFieldChange = (e, current) => {
 
 //Modal Open
 export const handleOpenServ = (current) => {
-  current.setState({ openServ: true, updateTrack: {} });
+  if (current.state.speciality_id && current.state.speciality_id !== 'general') {
+    current.setState({ openServ: true, updateTrack: { specialty_id: [current.state.speciality_id] } });
+  }
+  else {
+    current.setState({ openServ: true, updateTrack: {} });
+  }
+
 };
 
 //Modal Close
 export const handleCloseServ = (current) => {
-  current.setState({ openServ: false });
+  current.setState({ openServ: false, updateTrack: {} });
 };
 export const updateEntryState1 = (e, current) => {
   const state = current.state.updateTrack;
@@ -191,7 +200,6 @@ export const updateEntryState1 = (e, current) => {
 
 // Open Edit Model
 export const EditService = (data, current) => {
-  current.setState({ updateTrack: data, openServ: true });
-};
-
-
+  var deep = _.cloneDeep(data);
+  current.setState({ updateTrack: deep, openServ: true });
+};  

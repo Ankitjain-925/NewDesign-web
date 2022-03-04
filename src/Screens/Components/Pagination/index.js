@@ -4,7 +4,7 @@ import { LanguageFetchReducer } from '../../actions';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getLanguage } from "translations/index"
-
+import {DebounceInput} from 'react-debounce-input';
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -12,10 +12,13 @@ class Index extends Component {
         totalPage: this.props.totalPage,
         pages: this.props.pages,
         currentPage: this.props.currentPage,
+        forError: false
       };
   }
 
   writePage = (event) =>{
+    const re = /^[0-9\b]+$/;
+    if(re.test(event.target.value)){
       if((event.target.value>0 && event.target.value<=this.state.totalPage)) {
         this.setState({currentPage: event.target.value})
         this.props.onChangePage(event.target.value)
@@ -23,6 +26,11 @@ class Index extends Component {
       else if(event.target.value ==''){
         this.setState({currentPage: event.target.value})
       }
+      else{
+        this.setState({currentPage: this.state.currentPage})
+      }
+    }
+    this.setState({forError: (event.target.value<=0 || event.target.value>this.state.totalPage) ? true: false})
   }
 
   componentDidUpdate = (prevProps) => {
@@ -44,7 +52,21 @@ class Index extends Component {
             {this.state.totalPage > 1 && <Grid className="prevNxtpag">
                 <div className="movetoPage">
                   {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.props.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
-                  <input type="number" onChange={(event) => this.writePage(event)} value={this.state.currentPage}/> / {this.state.totalPage} 
+                  {this.props.from && this.props.from === 'userlist' ? 
+                  <><DebounceInput
+                      name="currentPage"
+                      type="number"
+                      className={this.state.forError ? "setRedColor" : ""}
+                      forceNotifyByEnter={true}
+                      forceNotifyOnBlur={true}
+                      debounceTimeout={1000}
+                      value={this.state.currentPage}
+                      minLength={1}
+                      onChange={(event) => this.writePage(event)}
+                    />
+                     / {this.state.totalPage}</>
+                     :
+                  <> <input type="number" className={this.state.forError ? "setRedColor" : ""} onChange={(event) => this.writePage(event)} value={this.state.currentPage}/> / {this.state.totalPage}</>}
                   {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.props.onChangePage(this.state.currentPage + 1) }}>{next}</a>}
                 </div>
                 

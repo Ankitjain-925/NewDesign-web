@@ -2136,7 +2136,6 @@ calculateAge = (date) => {
       otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
       years--;
     }
-    console.log("years", years);
     return years;
   }
   return '-';
@@ -2178,7 +2177,7 @@ calculateAge = (date) => {
           <Grid className="newStaffUpr">
             <Grid className="newStaffInfo">
               <Grid className="newStaff">
-                <p>{this.state.personalinfo?.info?.profile_id}</p>
+                <p>{this.state.personalinfo?.info?.alies_id ? this.state.personalinfo?.info?.alies_id : this.state.personalinfo?.info?.profile_id}</p>
                 {/* <Grid><a><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></a></Grid> */}
                 <Grid><a><S3Image imgUrl={this.state.personalinfo?.info?.image} /></a></Grid>
                 <Grid><label>
@@ -2231,7 +2230,7 @@ calculateAge = (date) => {
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask">
                       <Grid><label>{CompletedTasks}</label></Grid>
-                      <p><span>{this.state.LeftInfoPatient?.done_task}</span>/ {this.state.LeftInfoPatient?.total_task}</p>
+                      <p><span>{this.state.LeftInfoPatient?.done_task ? this.state.LeftInfoPatient?.done_task: 0}</span>/ {this.state.LeftInfoPatient?.total_task ? this.state.LeftInfoPatient?.total_task : 0}</p>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
@@ -2374,12 +2373,12 @@ calculateAge = (date) => {
               <Grid className="prfilHghtRght">
                 <label>{Blood}</label>
                 <p>
-                  {this.state.loggedinUser &&
-                    this.state.loggedinUser?.blood_group &&
-                    this.state.loggedinUser?.rhesus
-                    ? typeof this.state.loggedinUser?.blood_group === 'object' ?
-                      this.state.loggedinUser?.blood_group.value + ' ' + this.state.loggedinUser?.rhesus.value
-                      : this.state.loggedinUser?.blood_group + ' ' + this.state.loggedinUser?.rhesus.value
+                  {(this.state.user &&
+                  this.state.user?.blood_group &&
+                  this.state.user?.rhesus && this.state.user.blood_group.value !== 'not_known' && this.state.user.rhesus.value !== 'not_known')
+                    ? typeof this.state.user.blood_group === 'object' ? 
+                     this.state.user.blood_group.value  +' '+ this.state.user.rhesus.value
+                    : this.state.user.blood_group +' '+ this.state.user.rhesus.value
                     : "--"}
                 </p>
               </Grid>

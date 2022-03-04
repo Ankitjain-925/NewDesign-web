@@ -122,6 +122,7 @@ class Index extends Component {
   }
   // Copy the Profile id and PIN
   copyText = (copyT) => {
+    console.log('copyT', copyT)
     this.setState({ copied: false });
     var copyText = document.getElementById(copyT);
     var textArea = document.createElement("textarea");
@@ -620,6 +621,7 @@ class Index extends Component {
       company,
       of, PersonalInformation,
       insurance_added,
+      Country_Code
     } = translate;
 
     return (
@@ -797,7 +799,7 @@ class Index extends Component {
                               value={this.state.title}
                               options={this.state.title_degreeData}
                               isDisabled={true}
-                              placeholder="Mr."
+                              placeholder={"Mr."}
                               name="title"
                               isSearchable={false}
                               className="mr_sel"
@@ -1083,7 +1085,7 @@ class Index extends Component {
                                 <ReactFlagsSelect
                                   disabled
                                   searchable={true}
-                                  placeholder="Country Code"
+                                  placeholder={Country_Code}
                                   name="flag_mobile"
                                   showSelectedLabel={false}
                                   defaultCountry={this.updateFLAG(

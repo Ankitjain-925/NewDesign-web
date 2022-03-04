@@ -1249,6 +1249,12 @@ class Index extends Component {
                             ? this.props.settings.setting.dateFormat
                             : dateFormat
                         }
+                        dropdownClassName = {this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "dropdown-class-name-3"
+                          : ""}
                        
                       />
                       {/* <span>27/06/2020 - 15/07/2020
@@ -1276,7 +1282,7 @@ class Index extends Component {
                     <Grid>
                       <label>{appointment_system}</label>
                     </Grid>
-                    <p>{offer_practice_online_appointment} Aimedis</p>
+                    <p>{offer_practice_online_appointment} AIS</p>
                   </Grid>
                 </Grid>
                 <Grid className="onlinSickVdo">

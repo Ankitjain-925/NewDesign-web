@@ -2,9 +2,28 @@ import React, { Component } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import QuoteList from "./primatives/quote-list";
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import styled from "@emotion/styled";
 import { DebounceInput } from 'react-debounce-input';
-import { getLanguage } from "translations/index"
+import { getLanguage } from "translations/index";
+import { grid, borderRadius } from "./constants";
+import Button from '@material-ui/core/Button';
+import Title from "./primatives/title";
+
+const Container = styled.div`
+  margin: ${grid}px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: ${borderRadius}px;
+  border-top-right-radius: ${borderRadius}px;
+  background-color: ${({ isDragging }) =>
+    isDragging && "#00abaf"};
+`;
 
 export default class Column extends Component {
 
@@ -13,6 +32,7 @@ export default class Column extends Component {
 
     // Creating a reference
     this.box = React.createRef();
+    this.list = React.createRef();
   }
   state = {
     title: this.props.title,
@@ -36,7 +56,7 @@ export default class Column extends Component {
   }
 
   handleOutsideClick = (event) => {
-    if (this?.box && !this.box?.current?.contains(event.target)) {
+    if (this?.box && !this.box?.current?.contains(event.target) && this?.list && !this.list?.current?.contains(event.target)) {
       this.setState({ edit: false })
     }
   }
@@ -50,16 +70,21 @@ export default class Column extends Component {
     const quotes = this.props.quotes;
     const index = this.props.index;
     let translate = getLanguage(this.props.stateLanguageType);
-    let { AddPatientStep, MoveAll, move_all_patients, move_step, AddNewPatient, deleteStep } = translate;
+    let { AddPatientStep, renameStep, MoveAll, move_all_patients, move_step, AddNewPatient, deleteStep } = translate;
 
     return (
+      <div className="detailInfo">
       <Draggable draggableId={title} index={index}>
         {(provided, snapshot) => (
-          <div ref={provided.innerRef} {...provided.draggableProps}>
-            <div isDragging={snapshot.isDragging}>
-              <Grid isDragging={snapshot.isDragging}
-                {...provided.dragHandleProps}>
+          <Container ref={provided.innerRef} {...provided.draggableProps} className="innerdivfordrag">
+            <Header isDragging={snapshot.isDragging}>
+              <Title
+                isDragging={snapshot.isDragging}
+                {...provided.dragHandleProps}
+              >
                 {this.props.view === 'vertical' ?
+
+
                   <div className="checkDots" >
                     <Grid>
                       {this.state.edit === index ?
@@ -69,9 +94,10 @@ export default class Column extends Component {
                             forceNotifyByEnter={true}
                             forceNotifyOnBlur={true}
                             minLength={0}
-                            debounceTimeout={2000}
+                            debounceTimeout={4000}
                             onChange={e => this.onChange(e)}
                             value={title}
+                            className="stepchange-input"
                           />
                         </div>
                         : <label onDoubleClick={() => { this.setState({ edit: index }) }}>{title?.substr(0, 12)} {title.length > 12 && <>...</>}</label>}
@@ -81,6 +107,7 @@ export default class Column extends Component {
                         <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                         <ul>
                           {!this.state.inneerSec && <Grid>
+                            <li ref={this.list}><a onClick={() => { this.setState({ edit: index }) }}><span></span>{renameStep}</a></li>
                             <li><a onClick={() => { this.props.openAddPatient(title) }}><span><img src={require('assets/virtual_images/plusIcon.png')} alt="" title="" /></span>{AddPatientStep}</a></li>
                             <li><a onClick={() => { this.setState({ inneerSec: "step_move" }) }}><span>
                               {/* <img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /> */}
@@ -119,24 +146,25 @@ export default class Column extends Component {
                             </div>
                           }
                         </ul>
-
                       </a>
                       {/* <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" /> */}
                     </Grid>
-                  </div> :
+                  </div>
+                  :
                   <Grid className="receLbl">
                     <Grid container direction="row" justify="center" alignItems="center">
                       <Grid item xs={12} sm={6} md={6}><label>
-                        <Grid>{this.props.edit === index ?
+                        <Grid>{this.state.edit === index ?
                           <div ref={this.box}>
                             <DebounceInput
                               name="step_name"
                               forceNotifyByEnter={true}
                               forceNotifyOnBlur={true}
                               minLength={0}
-                              debounceTimeout={2000}
+                              debounceTimeout={4000}
                               onChange={e => this.onChange(e)}
                               value={title}
+                              className="stepchange-input"
                             />
                           </div>
                           : <label onDoubleClick={() => { this.setState({ edit: index }) }}>{title?.substr(0, 12)} {title.length > 12 && <>...</>}</label>}
@@ -148,6 +176,7 @@ export default class Column extends Component {
                             <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="academyDots stepTdot" />
                             <ul>
                               {!this.state.inneerSec && <Grid>
+                                <li ref={this.list}><a onClick={() => { this.setState({ edit: index }) }}><span></span>{renameStep}</a></li>
                                 <li><a onClick={() => { this.props.openAddPatient(title) }}><span><img src={require('assets/virtual_images/plusIcon.png')} alt="" title="" /></span>{AddPatientStep}</a></li>
                                 <li><a onClick={() => { this.setState({ inneerSec: "step_move" }) }}><span>
                                   {/* <img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /> */}
@@ -191,17 +220,17 @@ export default class Column extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                }
-              </Grid>
-            </div>
+                  </Grid>}
+              </Title>
+            </Header>
+
             <QuoteList
               ordered={this.props.ordered}
               listId={title}
               listType="QUOTE"
               style={{
                 backgroundColor: snapshot.isDragging ?
-                  "#baf" : null
+                  "#00abaf" : null
               }}
               moveDetial={(id, case_id) => this.props.moveDetial(id, case_id)}
               view={this.props.view}
@@ -214,11 +243,13 @@ export default class Column extends Component {
               professional_id_list={this.props.professional_id_list}
               updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
               MovetoTask={(speciality, patient_id) => { this.props.MovetoTask(speciality, patient_id) }}
+              mode={this.props?.mode}
             />
             {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</Button></Grid>}
-          </div>
+          </Container>
         )}
       </Draggable>
+      </div>
     );
   }
 }

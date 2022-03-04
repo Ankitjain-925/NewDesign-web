@@ -3801,7 +3801,7 @@ span.css-1okebmr-indicatorSeparator {
 }
 .infoSub input {
     border-radius: 8px;
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     border: none;
     color: #FFFFFF;
     font-family: Muli;
@@ -5340,6 +5340,7 @@ span.revwRed{
 }
 .docInfoName img {
     width: 16px;
+    height: 16px;
     border-radius: 28px;
     position: absolute;
     left: 0px;
@@ -5352,6 +5353,7 @@ span.revwRed{
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    padding-left:25px;
 }
 .docInfo img {
     margin-right: 6px;
@@ -6525,9 +6527,6 @@ a.archvDel:hover ul {
 .checkHelthLbl a:hover{
     color: #00ABAF;
 }
-
-/* -------------- */
-
 .nwDiaCntnt {
     padding: 1px;
     padding-top: 10px;
@@ -12015,8 +12014,7 @@ span.srchMobIcon img {
     margin-top: 0px !important;
   }
   .profilMenuList {
-    min-width: 130px !important;
-    padding: 8px 10px !important;
+    padding: 14px 10px !important;
   }
   .descpInerRght2 {
     margin-left: 0px !important;
@@ -12054,6 +12052,9 @@ span.srchMobIcon img {
     padding-left: 12px;
     padding-right: 12px;
    }
+  .menuItems ul li ul li span {
+    display: block !important;
+  }
 }
 @media (max-width: 599px){ 
  .descpInerRght {
@@ -12300,6 +12301,12 @@ a.srtDiaTim {
 }
 img.MenuImg {
     margin-left: 17px;
+}
+
+.error_message{
+    justify-content: center;
+    display: flex;
+    color: #e23f3f;
 }
 .slotBoxMain {
     width: 673px;
@@ -14373,7 +14380,8 @@ ul.insuranceHint1 li {
 }
 /*image Preview*/
 .ViewImage img{
-    width: 060px;
+    width: 60px;
+    height: auto !important;
     margin-top: 29px;
     margin-left:10px;
 }
@@ -14726,7 +14734,7 @@ a.activePageDocutmet {
     display: inline-block;
     padding: 13px 15px;
     cursor: pointer;
-    margin-top: 30px;
+    margin: 30px 4px 0px 4px;
 }
 /* Not Found Page End */
 
@@ -15626,16 +15634,19 @@ a.SelectedGender{
     background: #404646 !important;
     color: #BFC1C1 !important;
 }
-.homeBgDrk .timeIconClas_crested{
+.homeBgDrk .timeIconClas_crested, .darkTheme .timeIconClas_crested{
     background-color: #192020 !important;
     opacity: initial !important;
 }
 .homeBgDrk .timeIconClas_crested::after, 
-.homeBgDrk .timeIconClas_crested::before{
+.homeBgDrk .timeIconClas_crested::before, 
+.darkTheme .timeIconClas_crested::after, 
+.darkTheme .timeIconClas_crested::before{
     border-top-color: #192020 !important;
     border-bottom-color: #192020 !important;
 }
-.homeBgDrk .timeIconClas_crested p{
+.homeBgDrk .timeIconClas_crested p,
+.darkTheme .timeIconClas_crested p{
     color: #D9DADA !important;
     margin-bottom: 5px !important;
 }
@@ -15784,7 +15795,7 @@ a.SelectedGender{
 .homeBgDrk .wrkHour a.seleted-days{
     background-color: #00abaf !important;
 }
-.homeBgDrk a.prevpag{
+.darkTheme a.prevpag, .homeBgDrk a.prevpag{
     color: #00ABAF !important;
 }
 .homeBgDrk .sortBySec label{
@@ -16381,6 +16392,13 @@ select:-webkit-autofill:focus {
         padding-right: 12px;
     }
 }
+@media screen and (min-width: 1280px){
+    .pat_flow_sec {
+        margin-left: 11px !important;
+    }
+}
+
+
 .homeBgDrk .MuiInputBase-root {
     color: #b9bfbd !important;
 }
@@ -17323,7 +17341,6 @@ ul.duringCovid li:last-child {
     padding: 10px !important;
     background: #E1F7F7 !important;
 }
-
 .timeTask {
     display: flex !important;
     justify-content: space-between !important;
@@ -17428,7 +17445,27 @@ ul.duringCovid li:last-child {
     flex-direction: row;
     overflow-x: scroll;
 } */
-
 .profileInfoDate .ant-picker-clear {
     right: 5px !important;
+}
+@media (max-width: 959px){
+ .menuItems ul li ul li a {
+    margin-bottom: 24px !important;
+    font-size: 14px;
+    display: block;
+  }
+  .room-img-move img {
+    margin-left: 10px;
+  }
+  .drListRght2 label {
+    font-size: 12px;
+  }
+}
+.drListLft2 {
+    width: 20%;
+    display: flex;
+    margin-top: 10px;
+}
+.OnExistBed{
+    margin-top: 18px;
 }

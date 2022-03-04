@@ -297,7 +297,7 @@ class Index extends Component {
                 <div className="success_message">{Invitationsuccessfully}</div>
               )}
               <Grid>
-                <label>{invite_doc_to} Aimedis</label>
+                <label>{invite_doc_to} AIS</label>
               </Grid>
               <p>{u_can_enter_mul_email}</p>
             </Grid>

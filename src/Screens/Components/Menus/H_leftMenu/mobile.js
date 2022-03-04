@@ -10,8 +10,7 @@ import Timer from "Screens/Components/TimeLogOut/index";
 import Loader from "Screens/Components/Loader/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import * as translationEN from "../../../hospital_Admin/translations/en_json_proofread_13072020.json";
-import * as translationDE from "../../../hospital_Admin/translations/de.json";
+import { getLanguage } from "Screens/hospital_Admin/translations/index";
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
 import LogOut from "Screens/Components/LogOut/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
@@ -83,17 +82,7 @@ class Index extends Component {
   };
 
   render() {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
       capab_Patients,
       capab_Doctors,
@@ -107,7 +96,7 @@ class Index extends Component {
       Language,
       logout,
       DarkMode,
-    
+      InstituteGroups
     } = translate;
 
     return (
@@ -249,7 +238,7 @@ class Index extends Component {
                           title=""
                         />
                       )}
-                      <span>{"Institute Groups"}</span>
+                      <span>{InstituteGroups}</span>
                     </a>
                   </li>
                  

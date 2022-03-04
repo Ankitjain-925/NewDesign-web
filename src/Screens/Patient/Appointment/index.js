@@ -253,7 +253,7 @@ class Index extends Component {
       doc_select: i,
       appointType: type,
     });
-    // setTimeout(this.onChange, 5000)
+    setTimeout(()=>this.onChange(new Date()), 200)
     // this.onChange()
   };
   handleCloseFancyVdo = () => {

@@ -61,7 +61,9 @@ class Index extends Component {
       removeTrue: false,
       amount: 0,
       cartAlready: false,
-      someIssue: false
+      someIssue: false,
+      SearchValue: '',
+      forSearch: false
     };
   }
   handleChange = (event, value) => {
@@ -128,6 +130,10 @@ class Index extends Component {
       });
   };
 
+  //for searching 
+  searchFilter = (e)=>{
+    this.setState({ SearchValue: e.target.value })
+  }  
   //for getting the All wishlists
   getAllwishlist = () => {
     this.setState({ loaderImage: true });
@@ -401,6 +407,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       all_course,
+      Search,
       ok,
       pay_with_stripe,
       my_course,
@@ -515,7 +522,7 @@ class Index extends Component {
 
     //For checkout Button
     const Checkout = ({
-      name = "Aimedis",
+      name = "AIS",
       description = "Stripe Payment",
       amount = this.state.amount,
     }) => (
@@ -524,7 +531,7 @@ class Index extends Component {
           this.StripeClick = ref;
         }}
         name={name}
-        image="https://sys.aimedis.io/static/media/LogoPNG.03ac2d92.png"
+        image="https://sys.AIS.io/static/media/LogoPNG.03ac2d92.png"
         billingAddress
         description={description}
         amount={this.fromDollarToCent(amount)}
@@ -543,7 +550,7 @@ class Index extends Component {
             <Grid className="onlinCours">
               <Grid container direction="row">
                 <Grid item xs={12} md={6} className="onlinLft">
-                  <h4>Aimedis {online_course}</h4>
+                  <h4>AIS {online_course}</h4>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Grid className="onlinRght">
@@ -775,6 +782,12 @@ class Index extends Component {
                   <Grid container direction="row"
                     justify="center" alignItems="center" spacing={2} className="topicLang">
                     <Grid item xs={12} lg={4}></Grid>
+                    {this.state.forSearch ? <>
+                    <Grid item xs={12} md={5} lg={7}>
+                       <input name="Search" className="searchonLMS" placeholder={Search} value={this.state.SearchValue} onChange={(e) => this.searchFilter(e)} />
+                    </Grid>
+                    </>
+                    :<>
                     <Grid item xs={12} md={5} lg={3}>
                       <Select
                         // value={this.state.SelectedTopic}
@@ -795,11 +808,19 @@ class Index extends Component {
                         isSearchable={true}
                       />
                     </Grid>
+                    </>}
+                    {this.state.forSearch ? 
                     <Grid item xs={12} md={2} lg={1}>
-                      <Grid className="topicSrch">
-                        <img src={require("assets/images/search-entries.svg")} alt="" title="" />
+                      <Grid className="topicSrch" onClick={()=>{this.setState({forSearch: false})}}>
+                        <img src={require("assets/images/close-search.svg")} alt="" title="" />
                       </Grid>
                     </Grid>
+                    :
+                    <Grid item xs={12} md={2} lg={1}>
+                      <Grid className="topicSrch" onClick={()=>{this.setState({forSearch: true})}}>
+                        <img src={require("assets/images/search-entries.svg")} alt="" title="" />
+                      </Grid>
+                    </Grid>}
                   </Grid>
                 </Grid>
               </Grid>
@@ -816,6 +837,7 @@ class Index extends Component {
                   getAllwishlist={this.getAllwishlist}
                   SelectedLanguage={this.state.SelectedLanguage}
                   SelectedTopic={this.state.SelectedTopic}
+                  SearchValue={this.state.SearchValue}
                 />
               </TabContainer>
             )}
@@ -826,6 +848,7 @@ class Index extends Component {
                   AllCart={this.state.AllCart}
                   SelectedLanguage={this.state.SelectedLanguage}
                   SelectedTopic={this.state.SelectedTopic}
+                  SearchValue={this.state.SearchValue}
                 />
               </TabContainer>
             )}

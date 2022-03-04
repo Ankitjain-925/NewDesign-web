@@ -133,7 +133,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let { Addnewservice, Services, speciality, newService,
-      save_and_close, all, General, srvc, Price, editService, deleteService } = translate;
+      save_and_close, all, General, srvc, Price, editService, deleteService ,EnterServicename,Enterserviceshortdescription ,Enterserviceprice ,Search ,Serviceshortdescription ,Servicename} = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -160,7 +160,7 @@ class Index extends Component {
             : "homeBg"
         }
       >
-        <Grid className="homeBgIner">
+        <Grid className="homeBgIner vh-section">
           {this.state.loaderImage && <Loader />}
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
@@ -232,9 +232,9 @@ class Index extends Component {
                                 <Grid className="enterSpcl">
                                   <Grid>
                                     <VHfield
-                                      label="Service name"
+                                      label={Servicename}
                                       name="title"
-                                      placeholder="Enter Service name"
+                                      placeholder={EnterServicename}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
@@ -244,9 +244,9 @@ class Index extends Component {
 
                                   <Grid>
                                     <VHfield
-                                      label="Service short description"
+                                      label={Serviceshortdescription}
                                       name="description"
-                                      placeholder="Enter service short description"
+                                      placeholder={Enterserviceshortdescription}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
@@ -270,16 +270,17 @@ class Index extends Component {
                                     />
                                   </Grid>
 
-                                  <Grid>
+                                  <Grid item xs={12} md={12} className="enterPricePart1">
                                     <VHfield
-                                      label="Price"
+                                      label={Price}
                                       name="price"
-                                      placeholder="Enter service price"
+                                      placeholder={Enterserviceprice}
                                       onChange={(e) =>
                                         updateEntryState1(e, this)
                                       }
-                                      value={this.state.updateTrack.price}
+                                      value={this.state.updateTrack.price || 0}
                                     />
+                                      <p className="enterPricePart3">€</p>
                                   </Grid>
                                 </Grid>
                                 
@@ -317,7 +318,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                          {this.state.showinput && <input name="Search" placeholder="Search" value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
+                          {this.state.showinput && <input name="Search" placeholder={Search} value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
                             <a>
                             {!this.state.showinput ? <img
                                 src={require("assets/virtual_images/search-entries.svg")}
@@ -367,7 +368,7 @@ class Index extends Component {
                                     <label>{data.title}</label>
                                     <p>{data.description}</p>
                                   </Td>
-                                  <Td>{data.price}</Td>
+                                  <Td>{data.price} €</Td>
                                   {/* <Td className="srvcDots"> */}
                                   <Td>
                                     <Grid

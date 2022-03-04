@@ -351,6 +351,14 @@ export const blobToFile = (theBlob, fileName) => {
   return new File([theBlob], fileName);
 }
 
+export const isLessThanToday = (someDate) => {
+  const today = new Date()
+  someDate = new Date(someDate)
+  return someDate.getDate() >= today.getDate() &&
+    someDate.getMonth() >=  today.getMonth() &&
+    someDate.getFullYear() >= today.getFullYear()
+}
+
 export const isToday = (someDate) => {
   const today = new Date()
   someDate = new Date(someDate)
@@ -372,3 +380,16 @@ export const filterPatient = (taskForSelectedHouse) => {
   })
   return patientForFilterArr1;
 };
+
+export function allusers(currentPage,user_token,type,institute_id){
+  let data1 = axios.get(`${sitedata.data.path}/admin/allHospitalusers/${institute_id}/${type}/${currentPage}`,
+      {
+          headers: {
+              'token': user_token,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          }
+      }
+  )
+  return data1;
+}

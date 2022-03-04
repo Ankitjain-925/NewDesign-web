@@ -10,15 +10,16 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import { getDate, getImage, blockClick } from 'Screens/Components/BasicMethod/index'
-import * as translationEN from './translations/en_json_proofread_13072020.json';
-import * as translationDE from "./translations/de.json"
+import { getDate, getImage, blockClick, allusers } from 'Screens/Components/BasicMethod/index'
+import Button from "@material-ui/core/Button";
+import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import { SearchUser } from 'Screens/Components/Search';
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index";
@@ -45,7 +46,7 @@ class Index extends Component {
             addCreate: false,
             current_user: {},
             openDetial: false,
-
+            type:"patient"
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
@@ -80,31 +81,32 @@ class Index extends Component {
         this.setState({ addCreate: false })
     }
     submitDelete = (deletekey, profile_id, bucket) => {
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
-        let { DeleteUser, Yes, No, click_on_YES_user } = translate;
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { DeleteUser, Yes, No, click_on_YES_user, are_you_sure } = translate;
         confirmAlert({
-            title: DeleteUser,
-            message: click_on_YES_user,
-            buttons: [
-                {
-                    label: Yes,
-                    onClick: () => this.deleteClick(deletekey, profile_id, bucket)
-                },
-                {
-                    label: No,
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+                return (
+                    <Grid className={this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "dark-confirm deleteStep"
+                        : "deleteStep"}>
+                        <Grid className="deleteStepLbl">
+                            <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                            <label>{DeleteUser}</label>
+                        </Grid>
+                        <Grid className="deleteStepInfo">
+                            <p>{click_on_YES_user}</p>
+                            <Grid><label>{are_you_sure}</label></Grid>
+                            <Grid>
+                                <Button onClick={() => { this.deleteClick(deletekey, profile_id, bucket); onClose(); }}>{Yes}</Button>
+                                <Button onClick={() => { onClose(); }}>{No}</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                );
+            },
+        });
 
     };
     deleteClick = (deletekey, profile_id, bucket) => {
@@ -146,77 +148,87 @@ class Index extends Component {
     }
 
     getPatient() {
+        let {currentPage, type} = this.state
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
-            + '/patient/1' 
-            , commonHeader(user_token)
-        )
-            .then((response) => {
-                console.log("Response Patient", response);
-                if (response.data.data) {
-                    var images = [];
-                    this.setState({ AllUsers: response.data.data });
-                    const AllPatient = this.state.AllUsers;
-                    this.setState({ AllPatient: AllPatient })
-                    var totalPage = Math.ceil(AllPatient.length / 20);
-                    this.setState({ totalPage: totalPage, currentPage: 1 },
-                        () => {
-                            if (totalPage > 1) {
-                                var pages = [];
-                                for (var i = 1; i <= this.state.totalPage; i++) {
-                                    pages.push(i)
-                                }
-                                this.setState({ MypatientsData: AllPatient.slice(0, 20), pages: pages })
-                            }
-                            else {
-                                this.setState({ MypatientsData: AllPatient })
-                            }
-                        })
-                    this.setState({ forSearch: AllPatient })
-                    AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
-                        var find = item && item.image && item.image
-                        if (find) {
-                            var find1 = find.split('.com/')[1]
-                            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                                .then((response2) => {
-                                    if (response2.data.hassuccessed) {
-                                        item.new_image = response2.data.data
-                                        images.push({ image: find, new_image: response2.data.data })
-                                        this.setState({ images: images })
-                                    }
-                                })
-                        }
-                    })
-                }
-                else {
-                    this.setState({ AllPatient: [] });
-                }
-            }).catch((error) => { });
+        this.setState({loaderImage : true})
+         let res= allusers(currentPage,user_token,type, this.props.stateLoginValueAim.user.institute_id)
+         res.then((res) => {
+           var images = [];
+           const AllPatient = res.data && res.data.data && res.data.data;
+           this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
+           AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+               var find = item && item.image && item.image
+               if (find) {
+                   var find1 = find.split('.com/')[1]
+                   axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                   .then((response2) => {
+                       if (response2.data.hassuccessed) {
+                           item.new_image = response2.data.data
+                           images.push({ image: find, new_image: response2.data.data })
+                           this.setState({ images: images })
+                       }
+                   })
+               }
+           })
+           this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
+       })
+        // var user_token = this.props.stateLoginValueAim.token;
+        // axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
+        //     + '/patient/1' 
+        //     , commonHeader(user_token)
+        // )
+        //     .then((response) => {
+        //         if (response.data.data) {
+        //             var images = [];
+        //             this.setState({ AllUsers: response.data.data });
+        //             const AllPatient = this.state.AllUsers;
+        //             this.setState({ AllPatient: AllPatient })
+        //             var totalPage = Math.ceil(AllPatient.length / 20);
+        //             this.setState({ totalPage: totalPage, currentPage: 1 },
+        //                 () => {
+        //                     if (totalPage > 1) {
+        //                         var pages = [];
+        //                         for (var i = 1; i <= this.state.totalPage; i++) {
+        //                             pages.push(i)
+        //                         }
+        //                         this.setState({ MypatientsData: AllPatient.slice(0, 20), pages: pages })
+        //                     }
+        //                     else {
+        //                         this.setState({ MypatientsData: AllPatient })
+        //                     }
+        //                 })
+        //             this.setState({ forSearch: AllPatient })
+        //             AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+        //                 var find = item && item.image && item.image
+        //                 if (find) {
+        //                     var find1 = find.split('.com/')[1]
+        //                     axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+        //                         .then((response2) => {
+        //                             if (response2.data.hassuccessed) {
+        //                                 item.new_image = response2.data.data
+        //                                 images.push({ image: find, new_image: response2.data.data })
+        //                                 this.setState({ images: images })
+        //                             }
+        //                         })
+        //                 }
+        //             })
+        //         }
+        //         else {
+        //             this.setState({ AllPatient: [] });
+        //         }
+        //     }).catch((error) => { });
     }
-    onChangePage = (pagenumber) => {
-        this.getPatient(pagenumber)
-        this.setState({
-            MypatientsData: this.state.AllPatient.slice(
-                (pagenumber - 1) * 20,
-                pagenumber * 20
-            ),
-            currentPage: pagenumber
-        })
+    
+    onChangePage = (pageNumber) => {
+        this.setState({ currentPage: pageNumber },
+            ()=>{
+                this.getPatient();
+            })
     }
 
     render() {
 
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { capab_Patients, add_new, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
             previous, next, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 
@@ -265,14 +277,14 @@ class Index extends Component {
                                                     <Th>{recEmp_LastName}</Th>
                                                     <Th>{imprint_Email}</Th>
                                                     <Th>{ID}</Th>
-                                                    <Th>{Status}</Th>
+                                                    <Th></Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
                                                 {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((patient, i) => (
                                                     <Tr>
                                                         <Td>{((this.state.currentPage - 1) * 20) + i + 1}</Td>
-                                                        <Td><img className="doctor_pic" src={patient && patient.image ? getImage(patient.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
+                                                        <Td  className="patentPic"><S3Image imgUrl={patient?.image} />
                                                             {patient.first_name && patient.first_name}</Td>
                                                         <Td>{patient.last_name && patient.last_name}</Td>
                                                         <Td>{patient.email && patient.email}</Td>
@@ -305,13 +317,16 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                                        <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
+                                                        <Pagination from="userlist" totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
                                                     </Grid>}
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user} />
+                                    <ViewDetail
+                                     openDetial={this.state.openDetial} 
+                                     CloseDetail={this.CloseDetail} 
+                                     patient_info={this.state.current_user} />
                                 </Grid>
                             </Grid>
                         </Grid>

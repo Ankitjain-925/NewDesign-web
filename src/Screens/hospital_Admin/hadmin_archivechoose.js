@@ -13,12 +13,12 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import sitedata from 'sitedata';
+import Button from "@material-ui/core/Button";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Loader from 'Screens/Components/Loader/index';
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index'
-import * as translationEN from './translations/en_json_proofread_13072020.json';
-import * as translationDE from "./translations/de.json"
+import { getLanguage } from "./translations/index";
 import { commonHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
 
@@ -195,31 +195,47 @@ class Index extends Component {
     };
 
     submitDeleteDocument = (deletekey) => {
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
-        let { DeleteDocument, Yes, No, click_on_YES_document } = translate;
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { DeleteDocument, are_you_sure, YesDelete, cancel, click_on_YES_document } = translate;
         confirmAlert({
-            title: DeleteDocument,
-            message: click_on_YES_document,
-            buttons: [
-                {
-                    label: Yes,
-                    onClick: () => this.deleteClickDocument(deletekey)
-                },
-                {
-                    label: No,
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+                return (
+                    <Grid className={this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode === "dark"
+                        ? "dark-confirm deleteStep"
+                        : "deleteStep"}>
+                        <Grid className="deleteStepLbl">
+                            <Grid><a onClick={() => { onClose(); }}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a></Grid>
+                            <label>{DeleteDocument}</label>
+                        </Grid>
+                        <Grid className="deleteStepInfo">
+                            <p>{click_on_YES_document}</p>
+                            <Grid><label>{are_you_sure}</label></Grid>
+                            <Grid>
+                                <Button onClick={() => { this.deleteClickDocument(deletekey); onClose(); }}>{YesDelete}</Button>
+                                <Button onClick={() => { onClose(); }}>{cancel}</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                );
+            },
+        });
+
+    
+        // confirmAlert({
+        //     title: DeleteDocument,
+        //     message: click_on_YES_document,
+        //     buttons: [
+        //         {
+        //             label: Yes,
+        //             onClick: () => this.deleteClickDocument(deletekey)
+        //         },
+        //         {
+        //             label: No,
+        //         }
+        //     ]
+        // })
     };
 
     deleteClickDocument = (deletekey) => {
@@ -237,19 +253,9 @@ class Index extends Component {
         if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
         }
-        let translate = {};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { documents, document, DocumentMovedToDocuments, add_new, date_last_opened, find_document, ID, Status, no_, file_name, Normal, Blocked,
-            type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents } = translate
+            type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents ,Archives } = translate
         return (
             <Grid className={
                 this.props.settings &&
@@ -275,7 +281,7 @@ class Index extends Component {
 
                                 <Grid item xs={12} md={10} className="adminMenuRghtUpr">
                                     <Grid container direction="row" justifyContent="center" className="archvOpinLbl">
-                                        <Grid item xs={12} md={6}><label>Archives</label></Grid>
+                                        <Grid item xs={12} md={6}><label>{Archives}</label></Grid>
                                         <Grid item xs={12} md={6} className="archvOpinRght">
                                             {/* <a onClick={this.openDocUpload.bind(this)}>+ {add_new} {document}</a> */}
                                         </Grid>

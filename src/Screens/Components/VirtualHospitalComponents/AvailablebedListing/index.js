@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
+import React from "react";
 import { pure } from "recompose";
 import { withRouter } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
@@ -23,14 +22,14 @@ class Index extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.speciality_id !== this.props.speciality_id || prevProps.ward_id !== this.props.ward_id) {
+    if (prevProps.speciality_id !== this.props.speciality_id && prevProps.ward_id !== this.props.ward_id) {
       this.setState({ speciality_id: this.props.speciality_id, ward_id: this.props.ward_id });
     }
   };
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
-      nextProps.speciality_id !== this.props.speciality_id || nextProps.ward_id !== this.props.ward_id ||
+      (nextProps.speciality_id !== this.props.speciality_id && nextProps.ward_id !== this.props.ward_id) ||
       nextState.AllBeds !== this.state.AllBeds
     );
   }
@@ -40,7 +39,7 @@ class Index extends React.Component {
       var response = await AllBedOnWard(this.props.speciality_id, this.props.ward_id, this.props?.House?.value, this.props.stateLoginValueAim.token);
       if (response.data.hassuccessed) {
         this.setState({ AllBeds: response?.data?.data })
-      }
+        }
     }
   }
 

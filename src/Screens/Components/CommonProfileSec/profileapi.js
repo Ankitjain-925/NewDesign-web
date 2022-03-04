@@ -281,6 +281,7 @@ export const saveUserData = (current, datas) => {
                 insurance: datas,
                 is2fa: current.state.UpDataDetails.is2fa,
                 country: current.state.UpDataDetails.country,
+                citizen_country: current.state.UpDataDetails.citizen_country,
                 pastal_code: current.state.UpDataDetails.pastal_code,
             },
             commonHeader(user_token)
@@ -393,9 +394,9 @@ export const SettingImage = (find, current) => {
 
 // Check the Alies is duplicate or not
 export const changePin = (e, current) => {
-    const state = current.state.UpDataDetails;
+    const state = current.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
-    current.setState({ UpDataDetails: state });
+    current.setState({ UpDataDetails1: state });
     if (e.target.value.length > 3 && e.target.value !== "") {
         current.setState({ toSmall1: false });
     } else {
@@ -404,9 +405,9 @@ export const changePin = (e, current) => {
 };
 
 export const changeAlies = (e, current) => {
-    const state = current.state.UpDataDetails;
+    const state = current.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
-    current.setState({ UpDataDetails: state });
+    current.setState({ UpDataDetails1: state });
     if (e.target.value.length > 5 && e.target.value !== "") {
         current.setState({ loaderImage: true, toSmall: false });
         const user_token = current.props.stateLoginValueAim.token;
@@ -443,14 +444,14 @@ export const ChangeIDPIN = (current) => {
         .put(
           sitedata.data.path + "/UserProfile/Users/update",
           {
-            pin: current.state.UpDataDetails.pin,
-            alies_id: current.state.UpDataDetails.alies_id,
+            pin: current.state.UpDataDetails1.pin,
+            alies_id: current.state.UpDataDetails1.alies_id,
           },
           commonHeader(user_token)
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            current.setState({ ChangedPIN: true });
+            current.setState({ ChangedPIN: true ,  UpDataDetails1: {}});
             setTimeout(() => {
               current.setState({ ChangedPIN: false });
             }, 5000);

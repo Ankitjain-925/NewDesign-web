@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
-import ReactTooltip from "react-tooltip";
 import FileViews from "./../FileViews/index";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
-import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens//actions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
@@ -54,18 +51,10 @@ class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
         let {
-            show,
-            hide,
-            until,
-            archive,
-            visibility,
-            edit,
-            Delete,
-            always,
             details,
-            Change,
-            de_archive,
-            Download,
+            Task,
+            Dueon,
+            Dueon_time
         } = translate;
         var item = this.state.item;
         return (
@@ -87,7 +76,7 @@ class Index extends Component {
                                             alt=""
                                             title=""
                                         />
-                                        <span>Task</span>
+                                        <span>{Task}</span>
                                     </a>
                                 </Grid>
                             </Grid>
@@ -287,11 +276,12 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
-                                                                {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((data) => (
+                                                                {item && item.assinged_to && item.assinged_to.length > 0 && item.assinged_to.map((data, index) => (
                                                                     <CreatedBySec
                                                                         data={data}
                                                                         callFrom='assignedTo'
-                                                                        track_id={item.track_id} />
+                                                                        track_id={item._id}
+                                                                        index={index} />
                                                                 ))}
                                                             </Grid>
                                                         </Grid>
@@ -307,12 +297,12 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
-                                                                <label>Due on</label>
+                                                                <label>{Dueon}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
-                                                                {item && item?.due_on && item?.due_on?.time &&
+                                                                {item && item?.due_on && item?.due_on?.date &&
                                                                     <span>
-                                                                        {getDate(item?.due_on?.time, this.state.date_format)}
+                                                                        {getDate(item?.due_on?.date, this.state.date_format)}
                                                                     </span>
                                                                 }
                                                             </Grid>
@@ -322,7 +312,7 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6} lg={6} className="bloodPreBy">
                                                         <Grid container direction="row">
                                                             <Grid item xs={5} md={5} >
-                                                                <label>Due on (time)</label>
+                                                                <label>{Dueon_time}</label>
                                                             </Grid>
                                                             <Grid item xs={7} md={7}>
                                                                 {item && item?.due_on && item?.due_on?.time &&

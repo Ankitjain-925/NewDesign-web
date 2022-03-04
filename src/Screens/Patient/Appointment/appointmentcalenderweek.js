@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import Modal from '@material-ui/core/Modal';
 import DatePicker from 'react-date-picker';
 import Select from 'react-select';
+import { getLanguage } from "translations/index";
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -32,6 +33,13 @@ class Index extends Component {
     };
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {DetailsQuestions,
+            dob,
+            slct_a_time,
+            today
+        
+        } = translate;
         const { selectedOption } = this.state;
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
@@ -98,7 +106,7 @@ class Index extends Component {
                                                             <ul>
                                                                 <li><a href="/secondopinion"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
                                                                 <li><a href="emergencypatientdata"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                                                <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                                                <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />AIS Online Courses</a></li>
                                                                 <li><a href="/extraservices"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
                                                                 <li><a href="/journalarchive"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
                                                                 <li><a href="/blockchainaccesslog"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
@@ -201,7 +209,7 @@ class Index extends Component {
                                                         <p><label>August 17, 2020</label> <span>09:30 - 10:00</span></p>
                                                     </Grid>
                                                     <Grid className="detailQues">
-                                                        <label>Details / Questions</label>
+                                                        <label>{DetailsQuestions}</label>
                                                         <p>I am feeling a stabbing pain in my left arm. And it’s not getting any better..</p>
                                                     </Grid>
                                                 </Grid>
@@ -212,7 +220,7 @@ class Index extends Component {
                                                 <Grid className="slotTimDat">
                                                     <Grid container direction="row" className="addBirthSlot">
                                                         <Grid item xs={6} md={6}>
-                                                            <Grid><label>Date of birth</label></Grid>
+                                                            <Grid><label>{dob}</label></Grid>
                                                             <Grid>
                                                                 <DatePicker
                                                                     onChange={this.onChange}
@@ -221,7 +229,7 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
-                                                            <Grid><label>Select a time</label></Grid>
+                                                            <Grid><label>{slct_a_time}</label></Grid>
                                                             <Grid container direction="row" className="addTimesSlot">
                                                                 <Grid item xs={5} md={5}><input type="text" value="08:45" /></Grid>
                                                                 <Grid item xs={2} md={2} className="addTimesHypnSlot"><span>-</span></Grid>
@@ -242,7 +250,7 @@ class Index extends Component {
                                                 <Grid item xs={12} md={12} alignItems="center" justify="center">
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} className="todayMnth">
-                                                            <Grid className="todaySrchLft"><label>Today</label></Grid>
+                                                            <Grid className="todaySrchLft"><label>{today}</label></Grid>
                                                             <Grid className="movMnth">
                                                                 <a><img src={require('assets/images/leftArow.jpg')} alt="" title="" /></a>
                                                                 <a><img src={require('assets/images/rightArow.jpg')} alt="" title="" /></a>

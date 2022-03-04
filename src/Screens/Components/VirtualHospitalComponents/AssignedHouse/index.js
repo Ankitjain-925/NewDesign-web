@@ -75,7 +75,7 @@ class PointPain extends Component {
   componentDidMount = () => { };
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
-    let { AssignHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
+    let { ManageHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
     return (
       <Modal
         open={this.state.openHouse}
@@ -102,7 +102,7 @@ class PointPain extends Component {
               </a>
             </Grid>
             <Grid>
-              <label>{AssignHouse}</label>
+              <label>{ManageHouse}</label>
             </Grid>
           </Grid>
           <Grid className="enterSpclUpr">
@@ -142,7 +142,6 @@ class PointPain extends Component {
                   <Grid item xs={10} md={12}>
                     <b>{AssignedHouses}</b>
                     <Grid container direction="row">
-
                       {this.state.current_user?.houses?.length > 0 && this.state.current_user?.houses.map((item) => (
                         <>
                           <Grid item xs={10} md={10}>
@@ -152,11 +151,9 @@ class PointPain extends Component {
                             <a className="delet-house" onClick={() => { this.props.deleteHouse(item.value) }}>{Delete}</a>
                           </Grid>
                         </>
-                      ))}
+                     ))}
                     </Grid>
                   </Grid>
-
-
                   <Grid className="spclSaveBtn saveNclose">
                     {this.state.alredyExist === false && (<Button onClick={() => this.props.SaveAssignHouse()}>{Save}</Button>)}
                   </Grid>

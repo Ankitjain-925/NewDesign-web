@@ -59,6 +59,7 @@ class Loader extends Component {
     let {
       browse,
       suported_file_type_jpg_png,
+      suported_file_type_jpg,
       BodySchemeNotes,
       or_drag_here,
     } = translate;
@@ -86,7 +87,8 @@ class Loader extends Component {
                 </a>{" "}
                 {or_drag_here}
               </Grid>
-              <p>{suported_file_type_jpg_png}</p>
+              {this.props.comesFrom === 'profile' ? <p>{suported_file_type_jpg}</p> :
+              <p>{suported_file_type_jpg_png}</p>}
             </div>
           )}
         </Dropzone>

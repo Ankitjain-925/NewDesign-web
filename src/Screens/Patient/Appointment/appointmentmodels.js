@@ -7,6 +7,7 @@ import Select from 'react-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import DatePicker from 'react-date-picker';
+import { getLanguage } from "translations/index";
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -82,6 +83,24 @@ class Index extends Component {
     onChange = date => this.setState({ date })
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Newappointment,
+            Findpatient,
+            Appointmentreason,
+            dob,
+            slct_a_time,
+            cancel_apointmnt,
+            short_msg,
+            today,
+            Specialty,
+            location_of_srvc,
+            search_within,
+            appoint_type,
+            Selectspecialty,
+            EnterpatientnameorID,
+            Searchforcity
+        
+        } = translate;
         const { selectedOption } = this.state;
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
@@ -136,7 +155,7 @@ class Index extends Component {
                                                         <ul>
                                                             <li><a href="/secondopinion"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
                                                             <li><a href="emergencypatientdata"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                                            <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                                            <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />AIS Online Courses</a></li>
                                                             <li><a href="/extraservices"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
                                                             <li><a href="/journalarchive"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
                                                             <li><a href="/blockchainaccesslog"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
@@ -253,22 +272,22 @@ class Index extends Component {
                                                             <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    <Grid><label>New appointment</label></Grid>
+                                                    <Grid><label>{Newappointment}</label></Grid>
                                                 </Grid>
                                                 <Grid className="apointReason">
                                                     <Grid className="reasonInput">
-                                                        <Grid><label>Find patient</label></Grid>
-                                                        <Grid className="reasonInputImg"><input type="text" placeholder="Enter patient name or ID" />
+                                                        <Grid><label>{Findpatient}</label></Grid>
+                                                        <Grid className="reasonInputImg"><input type="text" placeholder={EnterpatientnameorID} />
                                                             <img src={require('assets/images/search-entries.svg')} alt="" title="" />
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="reasonInput">
-                                                        <Grid><label>Appointment reason</label></Grid>
+                                                        <Grid><label>{Appointmentreason}</label></Grid>
                                                         <Grid className="reasonInputImg"><input type="text" /></Grid>
                                                     </Grid>
                                                     <Grid container direction="row" className="addBirth">
                                                         <Grid item xs={6} md={6}>
-                                                            <Grid><label>Date of birth</label></Grid>
+                                                            <Grid><label>{dob}</label></Grid>
                                                             <Grid>
                                                                 <DatePicker
                                                                     onChange={this.onChange}
@@ -277,7 +296,7 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
-                                                            <Grid><label>Select a time</label></Grid>
+                                                            <Grid><label>{slct_a_time}</label></Grid>
                                                             <Grid container direction="row" className="addTimes">
                                                                 <Grid item xs={5} md={5}><input type="text" value="08:45" /></Grid>
                                                                 <Grid item xs={2} md={2} className="addTimesHypn"><span>-</span></Grid>
@@ -341,12 +360,12 @@ class Index extends Component {
                                                             <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    <Grid><label>Cancel appointment</label></Grid>
+                                                    <Grid><label>{cancel_apointmnt}</label></Grid>
                                                     <p>Please write a short explanation of why you have to cancel the appointment. Thank you.</p>
                                                 </Grid>
                                                 <Grid className="apontDragCntnt">
                                                     <Grid>
-                                                        <Grid><label>Short message</label></Grid>
+                                                        <Grid><label>{short_msg}</label></Grid>
                                                         <Grid><textarea></textarea></Grid>
                                                         <Grid><input type="submit" value="Cancel appointment" /></Grid>
                                                     </Grid>
@@ -415,12 +434,12 @@ class Index extends Component {
                                                                                 <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                                             </a>
                                                                         </div>
-                                                                        <div><label>Cancel appointment</label></div>
+                                                                        <div><label>{cancel_apointmnt}</label></div>
                                                                         <p>Please write a short explanation of why you have to cancel
                                                                            the appointment. Thank you.</p>
                                                                     </div>
                                                                     <div className="apointMsg">
-                                                                        <div><label>Short message</label></div>
+                                                                        <div><label>{short_msg}</label></div>
                                                                         <div><textarea></textarea></div>
                                                                         <div><input type="submit" value="Cancel appointment" /></div>
                                                                     </div>
@@ -438,7 +457,7 @@ class Index extends Component {
                                                 <Grid item xs={12} md={12} alignItems="center" justify="center">
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} className="todayMnth">
-                                                            <Grid className="todaySrchLft"><label>Today</label></Grid>
+                                                            <Grid className="todaySrchLft"><label>{today}</label></Grid>
                                                             <Grid className="movMnth">
                                                                 <a><img src={require('assets/images/leftArow.jpg')} alt="" title="" /></a>
                                                                 <a><img src={require('assets/images/rightArow.jpg')} alt="" title="" /></a>
@@ -461,26 +480,26 @@ class Index extends Component {
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <Grid><label>Specialty</label></Grid>
+                                                                                    <Grid><label>{Specialty}</label></Grid>
                                                                                     <Select
                                                                                         value={selectedOption}
                                                                                         onChange={this.handleChangeSelect}
                                                                                         options={options}
-                                                                                        placeholder="Select specialty"
+                                                                                        placeholder={Selectspecialty}
                                                                                         className="sel_specialty"
                                                                                     />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
-                                                                                    <Grid><label>Location of service</label></Grid>
-                                                                                    <input type="text" placeholder="Search for city" />
+                                                                                    <Grid><label>{location_of_srvc}</label></Grid>
+                                                                                    <input type="text" placeholder={Searchforcity }/>
                                                                                     <img src={require('assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
-                                                                                    <Grid><label>Search within</label></Grid>
+                                                                                    <Grid><label>{search_within}</label></Grid>
                                                                                     <input type="text" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
-                                                                                    <Grid><label>Appointment type</label></Grid>
+                                                                                    <Grid><label>{appoint_type}</label></Grid>
                                                                                     <FormControlLabel control={<Checkbox name="Video" />} label="Video" />
                                                                                     <FormControlLabel control={<Checkbox name="Office" />} label="Office" />
                                                                                 </Grid>
@@ -786,26 +805,26 @@ class Index extends Component {
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <Grid><label>Specialty</label></Grid>
+                                                                                    <Grid><label>{Specialty}</label></Grid>
                                                                                     <Select
                                                                                         value={selectedOption}
                                                                                         onChange={this.handleChangeSelect}
                                                                                         options={options}
-                                                                                        placeholder="Select specialty"
+                                                                                        placeholder={Selectspecialty}
                                                                                         className="sel_specialty"
                                                                                     />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
-                                                                                    <Grid><label>Location of service</label></Grid>
-                                                                                    <input type="text" placeholder="Search for city" />
+                                                                                    <Grid><label>{location_of_srvc}</label></Grid>
+                                                                                    <input type="text" placeholder={Searchforcity} />
                                                                                     <img src={require('assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
-                                                                                    <Grid><label>Search within</label></Grid>
+                                                                                    <Grid><label>{search_within}</label></Grid>
                                                                                     <input type="text" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
-                                                                                    <Grid><label>Appointment type</label></Grid>
+                                                                                    <Grid><label>{appoint_type}</label></Grid>
                                                                                     <FormControlLabel control={<Checkbox name="Video" />} label="Video" />
                                                                                     <FormControlLabel control={<Checkbox name="Office" />} label="Office" />
                                                                                 </Grid>

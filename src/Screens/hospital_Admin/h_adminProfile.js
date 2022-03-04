@@ -10,8 +10,7 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import Loader from 'Screens/Components/Loader/index';
-import translationEN from "./translations/en_json_proofread_13072020.json"
-import translationDE from "./translations/de.json"
+import { getLanguage } from "./translations/index";
 import "./style.css";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader,commonCometHeader } from 'component/CommonHeader/index';
@@ -166,17 +165,18 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
 
-        let translate={};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            default :
-                translate = translationEN.text
-        }
+        // let translate={};
+        // switch (this.props.stateLanguageType) {
+        //     case "en":
+        //         translate = translationEN.text
+        //         break;
+        //     case "de":
+        //         translate = translationDE.text
+        //         break;
+        //     default :
+        //         translate = translationEN.text
+        // }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { profile_information, this_is_h_admin, save_change, entry, email, recEmp_FirstName, recEmp_LastName, profile_updated} = translate
         return (
             <Grid className={
