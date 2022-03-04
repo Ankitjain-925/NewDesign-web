@@ -568,8 +568,14 @@ class Index extends Component {
                 .then((responce1) => {
                   if (responce1.data.hassuccessed) {
                     var senddata = {}
-                    if (this.state.updateState?.email) { senddata.email = this.state.updateState?.email }
-                    if (this.state.updateState?.mobile) { senddata.mobile = this.state.updateState?.mobile }
+                    if(this.state.enableEmail === 'scan'){
+                        senddata.email =  responce.data.data?.email 
+                        senddata.mobile =  responce.data.data?.mobile
+                    }
+                    else{
+                      if (this.state.updateState?.email) { senddata.email = this.state.updateState?.email }
+                      if (this.state.updateState?.mobile) { senddata.mobile = this.state.updateState?.mobile }
+                    }
                     senddata.case_id = responce1.data?.data
                     senddata.patient = responce.data.data._id
                     senddata.patient_name = responce.data.data.last_name ? responce.data.data.first_name + ' ' + responce.data.data.last_name : responce.data.data.first_name

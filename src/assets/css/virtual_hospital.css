@@ -679,6 +679,7 @@ a.hideDots img {
     font-weight: bold;
     letter-spacing: 0;
     margin-bottom: 0px !important;
+    line-break: anywhere !important;
 }
 .vh-section .prfilHghtLft p span, .vh-section .prfilHghtRght p span {
     font-size: 14px;
