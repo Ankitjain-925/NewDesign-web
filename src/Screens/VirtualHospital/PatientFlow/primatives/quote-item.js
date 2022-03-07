@@ -131,8 +131,9 @@ export default class QuoteItem extends React.Component {
         {...provided.dragHandleProps}
       >
         {this.props.view === "vertical" ? (
-          <Grid className="flowInfo">
+          <Grid className={!quote?.verifiedbyPatient ? "flowInfo disabledCrd" : "flowInfo"}>
             <Grid className="flowInfoInr">
+            {!quote?.verifiedbyPatient && <span className="err_message">For processing need approval from patient</span>}
               <SpecialityButton
                 label={quote?.speciality?.specialty_name}
                 backgroundColor={quote?.speciality?.background_color}

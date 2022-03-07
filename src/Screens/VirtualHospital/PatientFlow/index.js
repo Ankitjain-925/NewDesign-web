@@ -520,7 +520,8 @@ class Index extends Component {
     else if(!data.email && this.state.enableEmail === 'email'){
       this.setState({ errorMsg: 'Please add the email of patient' })
     }
-    else if(!data.first_name && !data.last_name && !data.birthday && !data.mobile && this.state.enableEmail === 'other'){
+    else if((!data.first_name || !data.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
+      console.log('dasdasf')
       this.setState({ errorMsg: 'Please enter the full information of patient' })
     }
     else {
@@ -615,7 +616,8 @@ class Index extends Component {
             setTimeout(() => {
               this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
               if(this.state.enableEmail === 'other'){
-                this.closeAddP()
+                this.closeAddP();
+                this.props.history.push('/virtualhospital/new-user');
               }
               else{
                 this.handleEnableEmail(this.state.enableEmail ==='email' ? 'other' : 'email')

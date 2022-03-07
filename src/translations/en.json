@@ -1597,6 +1597,7 @@
 		"Enterhospitalname":"Enter hospital name",
 		"Enterhospitaldescriptionnote":"Enter hospital description note",
 		"Findaadminstaff":"Find a admin staff",
+		"Patient_does_not_have_email_the_email_created_by_Hospital":"Patient does not have email, the email created by Hospital",
 		"Country_Code":"Country Code",
 		"EditComment":"Edit Comment",
 		"EnterComment":"Enter Comment",

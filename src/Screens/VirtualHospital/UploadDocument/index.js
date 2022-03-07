@@ -35,13 +35,22 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-         
+         patinfo: {},
         };
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         if (this.props.history.location?.state?.data) {
-            this.setState({ patinfo: this.props.history.location?.state?.data })
+            let user_token = this.props.stateLoginValueAim.token;
+            let user_id = this.props.history.location?.state?.data;
+            axios
+              .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+              .then((response) => {
+                  this.setState({patinfo: response.data.data})
+              })
+        }
+        else{
+            this.props.history.push("/VirtualHospital/space")
         }
     }
 
@@ -61,14 +70,16 @@ class Index extends Component {
         let translate = getLanguage(this.props.stateLanguageType);
         let { Tasks_overview, ShowArchivedTasks ,Open ,Donetoday } = translate;
         return (
-            <Grid className={
-                this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "homeBg darkTheme"
-                    : "homeBg"
-            }>
+            <Grid
+            className={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+                ? "homeBg homeBgDrk darkTheme"
+                : "homeBg"
+            }
+          >
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row">

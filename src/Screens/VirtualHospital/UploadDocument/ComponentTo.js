@@ -54,8 +54,7 @@ export class ComponentToPrint extends React.PureComponent {
 
         }
         return (
-            <div>
-
+            <div className="relativeCSS1">
                 <Grid className="allPrintPart">
 
                     <div style={divStyle}>
@@ -67,7 +66,7 @@ export class ComponentToPrint extends React.PureComponent {
                         <p>{last_name}</p>
                     </Grid>
                     <Grid className="printSec allPhrintSec">
-                        <p>DoB:</p>
+                        <p>Birthdate:</p>
                         <p>{DoB}</p>
                     </Grid>
                     <Grid className="printSec allPhrintSec">
@@ -76,7 +75,7 @@ export class ComponentToPrint extends React.PureComponent {
                     </Grid>
                     <Grid className="editorSec editorPhrintSec allPhrintSec">
                         <p dangerouslySetInnerHTML={{ __html: editor }} />
-                        </Grid>
+                    </Grid>
                     <div style={divStyle2}></div>
                 </Grid>
 

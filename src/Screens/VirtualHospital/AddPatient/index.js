@@ -13,6 +13,7 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import npmCountryList from 'react-select-country-list'
 import { Table } from 'reactstrap';
+import _ from "lodash";
 import * as AustraliaC from 'Screens/Components/insuranceCompanies/australia.json';
 import * as AustriaC from 'Screens/Components/insuranceCompanies/austria.json';
 import * as NetherlandC from 'Screens/Components/insuranceCompanies/dutch.json';
@@ -33,7 +34,6 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from 'Screens/Components/GetMetaData/index.js';
 import DateFormat from 'Screens/Components/DateFormat/index'
 import { getLanguage } from "translations/index"
-import _ from "lodash";
 import { commonHeader, commonCometHeader } from 'component/CommonHeader/index';
 import { Redirect, Route } from "react-router-dom";
 var datas = [];
@@ -130,14 +130,13 @@ class Index extends Component {
             getIDPIN: false,
             idpin: {},
             newemail: false
-
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
     SetMode = (e) => {
-        var mode = this.state.newemail === false ? true : false;
-        this.setState({ newemail: mode })
+        var newemail = this.state.newemail === false ? true : false;
+        this.setState({ newemail: newemail })
     }
 
     ScrolltoTop = () => {
@@ -395,14 +394,13 @@ class Index extends Component {
                     UpDataDetails.password.match(number23) &&
                     UpDataDetails.password.match(specialchar)
                 ) {
-                    // if (UpDataDetails.mobile && UpDataDetails.mobile !== "") {
+                    if (UpDataDetails.birthday && UpDataDetails.birthday !== "") {
                         if (UpDataDetails?.mobile?.split('-')?.[0]) {
                             var country_code = UpDataDetails?.mobile?.split('-')?.[0].toLowerCase();
                         } else {
                             var country_code = "de";
                         }
                         if (this.state.recaptcha) {
-
                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
                             var savedata = _.cloneDeep(this.state.UpDataDetails);
                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
@@ -425,59 +423,70 @@ class Index extends Component {
                             savedata.emergency_number = this.state.contact_partner.number;
                             savedata.bucket = getBucket[0].bucket;
                             savedata.token = this.state.recaptcha;
-                            // axios
-                            //     .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
-                            //     .then((responce) => {
+                            axios
+                                .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
+                                .then((responce) => {
+                                    this.captcha.reset();
                                     this.setState({ loaderImage: false });
-                                    // if (responce.data.hassuccessed === true) {
-                                        // this.setState({
-                                        //     idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
-                                        //     UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
-                                        // })
-                                        // this.captcha.reset();
-                                        // datas = [];
-                                        // this.openIdPin();
-                                        // axios
-                                        //     .post(
-                                        //         "https://api-eu.cometchat.io/v2.0/users",
-                                        //         {
-                                        //             uid: responce.data.data.profile_id,
-                                        //             name:
-                                        //                 UpDataDetails.first_name + " " + UpDataDetails.last_name,
-                                        //         },
-                                        //         commonCometHeader()
-                                        //     )
-                                        //     .then((res) => { });
-                                            console.log('savedata', savedata)
-                                            if(this.state.newemail && !savedata.mobile){
+                                    if (responce.data.hassuccessed === true) {
+                                        this.setState({
+                                            idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
+                                            UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
+                                        })
+                                        this.captcha.reset();
+                                        datas = [];
+                                        this.openIdPin();
+                                        axios
+                                            .post(
+                                                "https://api-eu.cometchat.io/v2.0/users",
+                                                {
+                                                    uid: responce.data.data.profile_id,
+                                                    name:
+                                                        UpDataDetails.first_name + " " + UpDataDetails.last_name,
+                                                },
+                                                commonCometHeader()
+                                            )
+                                            .then((res) => { });
+                                            if(this.state.newemail && !savedata.mobile) {
                                                 this.props.history.push({
                                                     pathname: '/virtualHospital/print_approval',
-                                                    state: { data: savedata, needUpload: false }
+                                                    state: { needUpload: true, data: responce.data.data._id }
                                                 })
                                             }
-                                            else{
+                                            else {
                                                 this.props.history.push({
                                                     pathname: '/virtualHospital/approved_add',
-                                                    state: { data: savedata, needUpload: false }
+                                                    state: { needUpload: false, data : responce.data.data._id }
                                                 })
                                             }
-                                    // } else if (responce.data.message === "Phone is not verified") {
-                                    //     this.ScrolltoTop();
-                                    //     this.setState({
-                                    //         successfull: false,
-                                    //         Mnotvalid: true,
-                                    //         alreadyerror: false,
-                                    //     });
-                                    // } else {
-                                    //     this.ScrolltoTop();
-                                    //     this.setState({
-                                    //         successfull: false,
-                                    //         alreadyerror: true,
-                                    //         Mnotvalid: false,
-                                    //     });
-                                    // }
-                                // })
-                                // .catch((err) => { });
+                                    } else if (responce.data.message === "Phone is not verified") {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            Mnotvalid: true,
+                                            alreadyerror: false,
+                                            alreadyerrorInfo: false
+                                        });
+                                    } 
+                                    else if (responce.data.message === "Email is Already exist") {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            Mnotvalid: false,
+                                            alreadyerror: true,
+                                            alreadyerrorInfo: false
+                                        });
+                                    } else {
+                                        this.ScrolltoTop();
+                                        this.setState({
+                                            successfull: false,
+                                            alreadyerror: false,
+                                            Mnotvalid: false,
+                                            alreadyerrorInfo: true
+                                        });
+                                    }
+                                })
+                                .catch((err) => { });
                         }
                         else {
                             this.setState({ regisError: Plz_fill_the_recaptcha });
@@ -486,10 +495,10 @@ class Index extends Component {
                         // }else {
                         //     this.setState({ regisError: "Please fill the city "});
                         // }
-                    // } else {
-                    //     this.setState({ regisError: plz_fill_mob_number });
-                    //     this.ScrolltoTop();
-                    // }
+                    } else {
+                        this.setState({ regisError: "Please fill the birthdate" });
+                        this.ScrolltoTop();
+                    }
                 } else {
                     this.setState({ regisError: pswd_not_valid });
                     this.ScrolltoTop();
@@ -710,7 +719,7 @@ class Index extends Component {
         });
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Citizenship, created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
+        let { Patient_does_not_have_email_the_email_created_by_Hospital,Citizenship, created_user_id_and_pin, Register_characters, Register_Passwordshould, Register_letter, Register_number, Register_special, Register_Password,
             Mnotvalids, EmailExists, Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, BacktoPatientFlow, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
@@ -795,28 +804,29 @@ class Index extends Component {
                                                             {this.state.regisError}
                                                             {this.state.Mnotvalid && Mnotvalids}
                                                             {this.state.alreadyerror && EmailExists}
+                                                            {this.state.alreadyerrorInfo && "User already exists with given Information"}
                                                         </div>
                                                         <Grid className="profileInfo">
                                                             <Grid className="profileInfoIner">
                                                                 <Grid container direction="row" alignItems="center" spacing={2}>
-                                                                    <Grid item xs={10} md={10}>
+                                                                    <Grid item xs={8} md={8}>
                                                                         <label>{email}</label>
                                                                         <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email || ''} /></Grid>
 
                                                                     </Grid>
                                                                     <Grid
                                                                         item
-                                                                        xs={2} md={2}
+                                                                        xs={4} md={4}
+                                                                        className="patienttoggle2"
                                                                     >
-                                                                        <label>{"Patient do not have email, first created by hospital"}</label>
+                                                                        <label>{Patient_does_not_have_email_the_email_created_by_Hospital}</label>
                                                                         <Toggle
-                                                                            className="switchBtn"
+                                                                            // className="switchBtn"
                                                                             icons={false}
-                                                                            checked={this.state.newemail}
-                                                                            // name="email"
+                                                                            checked={this.state.newemail === true}
+                                                                            //  name="email"
                                                                             onChange={(e) => this.SetMode(e)}
                                                                         />
-
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>

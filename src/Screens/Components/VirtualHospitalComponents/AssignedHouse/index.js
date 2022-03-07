@@ -9,6 +9,7 @@ import SelectField from "Screens/Components/Select/index";
 import Button from "@material-ui/core/Button";
 import { Settings } from 'Screens/Login/setting';
 import { getLanguage } from "translations/index"
+import NewRole  from "Screens/VirtualHospital/New Role/index";
 
 class PointPain extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class PointPain extends Component {
       deleteHouses: this.props.deleteHouses,
       assignedhouse: this.props.assignedhouse,
       blankerror: this.props.blankerror,
-      alredyExist: false
+      alredyExist: false,
+      openHouse1:false
     };
   }
 
@@ -72,11 +74,18 @@ class PointPain extends Component {
 
   //     );
   //   }
+  newrole=()=>{
+    this.setState({ openHouse1: true})
+  }
+  closeHouse1 = () => {
+    this.setState({ openHouse1: false})
+  };
   componentDidMount = () => { };
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let { ManageHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
     return (
+      <Grid>
       <Modal
         open={this.state.openHouse}
         onClose={this.props.closeHouse}
@@ -145,7 +154,7 @@ class PointPain extends Component {
                       {this.state.current_user?.houses?.length > 0 && this.state.current_user?.houses.map((item) => (
                         <>
                           <Grid item xs={10} md={10}>
-                            {item.group_name} - {item.label} ({item.value})
+                            {item.group_name} - {item.label} ({item.value})<Button onClick={()=>{this.newrole()}} >Next</Button>
                           </Grid>
                           <Grid item xs={2} md={2}>
                             <a className="delet-house" onClick={() => { this.props.deleteHouse(item.value) }}>{Delete}</a>
@@ -165,7 +174,14 @@ class PointPain extends Component {
           </Grid>
         </Grid>
         </Grid>
+        
       </Modal>
+      {console.log("open",this.state.openHouse1)}
+      <NewRole
+        openHouse1={this.state.openHouse1}
+        closeHouse1={this.closeHouse1}
+      ></NewRole>
+      </Grid>
     );
   }
 }

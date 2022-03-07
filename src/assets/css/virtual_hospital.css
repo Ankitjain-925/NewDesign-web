@@ -9930,6 +9930,19 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.patienttoggle2 {
+    margin-top: 14px !important;
+}
+.showOnPrint{
+    display: none;
+}
+.darkTheme .dateFormateSec .ant-picker {
+    padding: 0px;
+    background: #404646;
+}
+.disabledCrd{
+    border: 2px solid #ff6f00 !important;
+}
 .darkTheme .headercont {
     background: #3f4646;
 }
@@ -13247,6 +13260,10 @@ input:-moz-autofill:active{
     font-weight: 600;
     letter-spacing: 10;
 }
+.printPreviewlink .relativeCSS1 {
+    display: none !important;
+    padding: 15px;
+}
 .printPreviewlink .relativeCSS {
     display: none !important;
 }
@@ -13900,6 +13917,85 @@ border-style: solid;
     margin-top:30px;
 }
 
+
+.headerCountTxt label{
+    display:block;
+    margin-bottom: 0px;
+    color: #404646;
+    font-family: Muli;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-break: anywhere;
+    /* line-height: 12px; */
+}
+.headerCountTxt input{
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+.headerCountTxt{
+    margin-bottom:20px;
+}
+
+.infoSubInpSection{
+    margin-top:20px;
+    margin-left:10px;
+    margin-right:10px;
+}
+.allheadercont{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.infoSubInpSection input{
+    background-color: #00ABAF !important;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+    padding:8px 10px;
+}
+
+.profileInfoSection h1{
+    color: #000808;
+    font-family: Muli;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 42px;
+    margin-bottom: 20px;
+}
+.printSec{
+    display:flex;
+}
+
+.printSec p:last-child, .printSec p:nth-child(2){
+    margin-left:10px;
+}
+.editorSec{
+    font-size: 18px;
+    margin-top:20px;
+    font-weight: 600;
+}
+.allInfoSection{
+    display:flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.headercontSec{
+    margin-top:30px;
+}
+
 .profileInfoSection h1{
     color: #000808;
     font-family: Muli;
@@ -13919,11 +14015,6 @@ border-style: solid;
 .printSec p:last-child, .printSec p:nth-child(2){
     margin-left:10px;
 }
-.editorSec{
-    font-size: 18px;
-    margin-top:20px;
-    /* font-weight: bold; */
-}
 .allInfoSection{
     display:flex;
     align-items: flex-start;
@@ -13939,6 +14030,14 @@ border-style: solid;
 .allPrintPart{
     margin-top:50px;
 }
+@media(max-width:959px){
+    .infoSubInpSection{
+        margin-top: 0px;
+    }
+}
+.allPrintPart{
+    margin-top:50px;
+}
 .allPhrintSec p{
     font-size: 45px;
 }
@@ -13947,4 +14046,54 @@ border-style: solid;
 }
 .editorPhrintSec{
     margin-top:40px;
+}
+.darkTheme .headerCountTxt input{
+    background-color: #404646;
+    color:#D9DADA
+}
+.darkTheme .ql-toolbar.ql-snow{
+    background-color:#949494;
+}
+.newrole{
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+}
+/* .newrole1 label{
+    display: block;
+} */
+label.newrole{
+display: block;}
+.newrole p{
+    margin-left: 100px;
+}
+.newrole input{
+    margin: 10px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 40%;
+    padding: 6px 12px;
+    outline: none;
+    margin-right:30px ;
+}
+
+.newrole label{
+    font-size:18px;
+}
+
+.headsize{
+    font-size:20px;
+}
+.heading p{
+    font-size:30px ;
+}
+
+.selectEntry{
+    margin: 10px;
+    width: 30%;
+}
+
+.line{
+    flex-flow: column nowrap;
 }
