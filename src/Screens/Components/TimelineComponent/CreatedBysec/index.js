@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
 import ReactTooltip from "react-tooltip";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
-import sitedata from "sitedata";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 
 class Index extends Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class Index extends Component {
   componentDidMount() {
     this.setState({ item: this.props.data },
       () => {
-        this.GetAttachfiles();
+        // this.GetAttachfiles();
       })
   }
 
@@ -36,42 +35,33 @@ class Index extends Component {
       this.setState({
         item: this.props.data
       }, () => {
-        this.GetAttachfiles();
+        // this.GetAttachfiles();
       })
     }
   }
 
-  GetAttachfiles = () => {
-    var find = this.state?.item?.created_by_image;
-    if (find) {
-      var find1 = find.split(".com/")[1];
-      axios
-        .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-        .then((response2) => {
-          if (response2.data.hassuccessed) {
-            this.setState({ new_image: response2.data.data });
-          }
-        });
-    }
-  }
+  // GetAttachfiles = () => {
+  //   var find = this.state?.item?.created_by_image;
+  //   if (find) {
+  //     var find1 = find.split(".com/")[1];
+  //     axios
+  //       .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+  //       .then((response2) => {
+  //         if (response2.data.hassuccessed) {
+  //           this.setState({ new_image: response2.data.data });
+  //         }
+  //       });
+  //   }
+  // }
   render() {
     var item = this.state.item;
     return (
       <Grid className="bpJohnImg">
         <a data-tip data-for={this.props.callFrom === 'assignedTo' ? this.props.track_id+ this.props.index + "assinged" : item.track_id + "created"}>
           {this.props.callFrom === 'assignedTo' ?
-            <img
-              src={item.image}
-              alt=""
-              title=""
-            />
-            :
-            <img
-              src={this.state.new_image}
-              alt=""
-              title=""
-            />
-          }
+           <S3Image imgUrl={item.image} />
+          :
+          <S3Image imgUrl={item.created_by_image} />}
           {this.props.callFrom === 'assignedTo' ? <span>{item.first_name} {item.last_name} {item.title}({item.type})</span> : <span>{item.created_by_temp}</span>}
         </a>
         <ReactTooltip
@@ -92,19 +82,10 @@ class Index extends Component {
             <p>{item.created_by_profile}</p>
           }
           <p>
-            {this.props.callFrom == 'assignedTo' ?
-              <img
-                src={item.image}
-                alt=""
-                title=""
-              />
-              :
-              <img
-                src={this.state.new_image}
-                alt=""
-                title=""
-              />
-            }
+          {this.props.callFrom === 'assignedTo' ?
+           <S3Image imgUrl={item.image} />
+          :
+          <S3Image imgUrl={item.created_by_image} />}
           </p>
         </ReactTooltip>
       </Grid>

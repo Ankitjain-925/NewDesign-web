@@ -496,18 +496,22 @@ class Index extends Component {
                         //     this.setState({ regisError: "Please fill the city "});
                         // }
                     } else {
+                        this.captcha.reset();
                         this.setState({ regisError: "Please fill the birthdate" });
                         this.ScrolltoTop();
                     }
                 } else {
+                    this.captcha.reset();
                     this.setState({ regisError: pswd_not_valid });
                     this.ScrolltoTop();
                 }
             } else {
+                this.captcha.reset();
                 this.setState({ regisError: email_not_valid });
                 this.ScrolltoTop();
             }
         } else {
+            this.captcha.reset();
             this.setState({ regisError: plz_fill_fullname_user });
             this.ScrolltoTop();
         }

@@ -15634,16 +15634,19 @@ a.SelectedGender{
     background: #404646 !important;
     color: #BFC1C1 !important;
 }
-.homeBgDrk .timeIconClas_crested{
+.homeBgDrk .timeIconClas_crested, .darkTheme .timeIconClas_crested{
     background-color: #192020 !important;
     opacity: initial !important;
 }
 .homeBgDrk .timeIconClas_crested::after, 
-.homeBgDrk .timeIconClas_crested::before{
+.homeBgDrk .timeIconClas_crested::before, 
+.darkTheme .timeIconClas_crested::after, 
+.darkTheme .timeIconClas_crested::before{
     border-top-color: #192020 !important;
     border-bottom-color: #192020 !important;
 }
-.homeBgDrk .timeIconClas_crested p{
+.homeBgDrk .timeIconClas_crested p,
+.darkTheme .timeIconClas_crested p{
     color: #D9DADA !important;
     margin-bottom: 5px !important;
 }

@@ -154,8 +154,6 @@ class PointPain extends Component {
                      ))}
                     </Grid>
                   </Grid>
-
-
                   <Grid className="spclSaveBtn saveNclose">
                     {this.state.alredyExist === false && (<Button onClick={() => this.props.SaveAssignHouse()}>{Save}</Button>)}
                   </Grid>
