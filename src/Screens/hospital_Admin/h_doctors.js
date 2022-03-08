@@ -135,34 +135,34 @@ class Index extends Component {
     }
 
     getDoctors = (currentID) => {
-        let {currentPage, type} = this.state
+        let { currentPage, type } = this.state
         var user_token = this.props.stateLoginValueAim.token;
-        this.setState({loaderImage : true})
-         let res= allusers(currentPage,user_token,type, this.props.stateLoginValueAim.user.institute_id)
-         res.then((res) => {
-           var images = [];
-           const AllPatient = res.data && res.data.data && res.data.data;
-           this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
-           AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
-               var find = item && item.image && item.image
-               if (find) {
-                   var find1 = find.split('.com/')[1]
-                   axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                   .then((response2) => {
-                       if (response2.data.hassuccessed) {
-                           item.new_image = response2.data.data
-                           images.push({ image: find, new_image: response2.data.data })
-                           this.setState({ images: images })
-                       }
-                   })
-               }
-           })
-           if(currentID){
-            var current_user = AllPatient?.length>0 && AllPatient.filter((item)=> item._id === currentID)
-            this.setState({current_user : current_user?.[0]})
-           }
-           this.setState({ loaderImage : false, totalPage: Math.ceil(res.data.Total_count/20), MypatientsData: this.state.AllPatient, TotalCount:res.data.Total_count })
-       })
+        this.setState({ loaderImage: true })
+        let res = allusers(currentPage, user_token, type, this.props.stateLoginValueAim.user.institute_id)
+        res.then((res) => {
+            var images = [];
+            const AllPatient = res.data && res.data.data && res.data.data;
+            this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
+            AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+                var find = item && item.image && item.image
+                if (find) {
+                    var find1 = find.split('.com/')[1]
+                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                        .then((response2) => {
+                            if (response2.data.hassuccessed) {
+                                item.new_image = response2.data.data
+                                images.push({ image: find, new_image: response2.data.data })
+                                this.setState({ images: images })
+                            }
+                        })
+                }
+            })
+            if (currentID) {
+                var current_user = AllPatient?.length > 0 && AllPatient.filter((item) => item._id === currentID)
+                this.setState({ current_user: current_user?.[0] })
+            }
+            this.setState({ loaderImage: false, totalPage: Math.ceil(res.data.Total_count / 20), MypatientsData: this.state.AllPatient, TotalCount: res.data.Total_count })
+        })
         // var user_token = this.props.stateLoginValueAim.token;
         // axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id
         //     + '/doctor/1'
@@ -342,7 +342,6 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
-                console.log("response", responce)
                 if (responce.data.hassuccessed) {
                     this.setState({ deleteHouses: true })
                     setTimeout(() => {
@@ -363,7 +362,7 @@ class Index extends Component {
         }
         let translate = getLanguage(this.props.stateLanguageType);
         let { ManageHouse, capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
-            recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next } = translate
+            recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next, Yes, No } = translate
         return (
             <Grid className={
                 this.props.settings &&
@@ -418,6 +417,7 @@ class Index extends Component {
                                                     <Th>{recEmp_LastName}</Th>
                                                     <Th>{imprint_Email}</Th>
                                                     <Th>{ID}</Th>
+                                                    <Th>Currently available</Th>
                                                     <Th></Th>
                                                     <Th></Th>
                                                 </Tr>
@@ -431,6 +431,9 @@ class Index extends Component {
                                                         <Td>{doctor.last_name && doctor.last_name}</Td>
                                                         <Td>{doctor.email && doctor.email}</Td>
                                                         <Td>{doctor.alies_id && doctor.alies_id}</Td>
+                                                        {doctor?.data && doctor?.data?.current_available && doctor?.data?.current_available === true ?
+                                                            <Td style={{ minWidth: "100px" }} ><span className="revwGren"></span>{Yes}</Td> :
+                                                            <Td style={{ minWidth: "100px" }}><span className="revwRed"></span>{No}</Td>}
                                                         {doctor.isblock && doctor.isblock == true ?
                                                             <Td style={{ minWidth: "100px" }}><span className="revwRed"></span>{Blocked}</Td >
                                                             : <Td><span className="revwGren"></span>{Normal}</Td>

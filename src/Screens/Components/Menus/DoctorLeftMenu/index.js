@@ -19,6 +19,7 @@ import sitedata from "sitedata";
 import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import { commonHeader } from "component/CommonHeader/index"
+import Loader from "Screens/Components/Loader/index";
 
 class Index extends Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class Index extends Component {
       this.logOutClick.bind(this)
     );
     getSetting(this)
+    this.getavailableUpdate();
   }
 
   //For logout the User
@@ -62,10 +64,10 @@ class Index extends Component {
       this.props.houseSelect({ value: null });
       let languageType = "en";
       this.props.LanguageFetchReducer(languageType);
+      this.setState({ CheckCurrent: { current_available: false } })
+      this.availableUpdate();
     }
   };
-
-
 
   handleOpenInvt = () => {
     this.setState({ openInvt: true });
@@ -150,13 +152,33 @@ class Index extends Component {
   }
 
   availableUpdate = () => {
+    this.setState({ loaderImage: true })
     var data = this.state.CheckCurrent
     const user_token = this.props.stateLoginValueAim.token;
     axios.put(sitedata.data.path + '/UserProfile/Users/update', {
       data
     }, commonHeader(user_token))
       .then((responce) => {
-      })
+        this.getavailableUpdate();
+        this.setState({ loaderImage: false })
+      }).catch((error) => {
+        this.setState({ loaderImage: false })
+      });
+  }
+
+
+  getavailableUpdate = () => {
+    this.setState({ loaderImage: true })
+    const user_token = this.props.stateLoginValueAim.token;
+    let user_id = this.props.stateLoginValueAim.user._id;
+    axios.get(sitedata.data.path + "/UserProfile/Users/" + user_id,
+      commonHeader(user_token))
+      .then((responce) => {
+        let value = responce?.data?.data?.data?.current_available
+        this.setState({ CheckCurrent: { current_available: value }, loaderImage: false })
+      }).catch((error) => {
+        this.setState({ loaderImage: false })
+      });
   }
 
   render() {
@@ -180,7 +202,7 @@ class Index extends Component {
       Doctor_view,
       VHS_view
     } = translate;
-    const { inputValue, value } = this.state;
+    const { inputValue, value, CheckCurrent } = this.state;
     const { selectedOption } = this.state;
     return (
       <Grid
@@ -196,6 +218,7 @@ class Index extends Component {
             : "MenuLeftUpr"
         }
       >
+        {this.state.loaderImage && <Loader />}
         {/* <Notification /> */}
         <Grid className="webLogo">
           <a>
@@ -211,7 +234,7 @@ class Index extends Component {
           <Checkbox
             name="current_available"
             value={this.state.CheckCurrent && this.state.CheckCurrent.current_available && this.state.CheckCurrent.current_available == true ? false : true}
-            checked={this.state.CheckCurrent.current_available}
+            checked={this.state.CheckCurrent.current_available == true ? true : false}
             onChange={(e) =>
               this.handleChange(e)
             }
