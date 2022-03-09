@@ -14029,3 +14029,61 @@ border-style: solid;
 .darkTheme .stepchange-input{
 background-color: #404646;
 } 
+
+.darkTheme .forBackgroundClr{
+    background-color: #00ABAF;
+    border-radius: 8px;
+}
+
+.questionNew{
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+
+}
+
+.fatiqueQues1{
+    margin-top: 20px;
+    background-color: white;
+    margin-left: 20px;
+}
+
+.attchForms1 label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    line-break: anywhere!important;
+}
+
+.dateSet label{
+    margin-right: 70px;
+}
+
+.textFieldArea{
+    outline: none;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #BFC1C1;
+    margin-top: 10px;
+}
+
+.textFieldArea1 input{
+    margin-bottom: 5px;
+    height: 35px;
+    outline: none;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #BFC1C1;
+    margin-top: 10px;
+}
+
+.fatiqueQuess1{
+    margin-top: 10px;
+}
+
+.fillDia .attchImg {
+  text-align: center!important;
+}

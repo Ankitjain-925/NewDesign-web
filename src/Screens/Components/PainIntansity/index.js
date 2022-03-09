@@ -52,9 +52,10 @@ class Pain extends Component {
     return (
       <div>
         <Grid className="painIntencty">
-          <Grid>
-            <label>{pain_intensity}</label>
-          </Grid>
+          {this.props.comesFrom === "Evalute" ? null :
+            <Grid>
+              <label>{pain_intensity}</label>
+            </Grid>}
           {this.state.Forview && (
             <Grid>
               {this.state.value >= 0 && this.state.value <= 1 && (
@@ -149,7 +150,7 @@ class Pain extends Component {
               />
             </Grid>
           )}
-          {!this.state.Forview && (
+          {!this.state.Forview && this.props.comesFrom === "Evalute" ? null : (
             <Grid className="painPointer">
               <a>{no_pain}</a> <a>{Mild}</a> <a>{Moderate}</a> <a>{Servere}</a>
               <a>{very_severy}</a> <a>{warst_p_p}</a>
