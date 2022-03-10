@@ -30,6 +30,7 @@ export const SaveSpeciality = (current) => {
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
+            current.setState({ action: "editing" });
             getSpeciality(current);
           }
           current.setState({
@@ -51,6 +52,7 @@ export const SaveSpeciality = (current) => {
         .then((responce) => {
           console.log("response",responce)
           if (responce.data.hassuccessed) {
+            current.setState({ action: "adding" });
             getSpeciality(current);
           }
           current.setState({
@@ -98,7 +100,7 @@ export const SaveSpeciality = (current) => {
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            current.setState({ deleteId: false });
+            current.setState({ deleteId: false, action: "delete" });
             getSpeciality(current);
           }
           current.setState({ loaderImage: false, openWarn: false });

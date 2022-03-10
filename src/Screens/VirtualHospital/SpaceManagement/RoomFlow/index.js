@@ -447,7 +447,7 @@ class Index extends Component {
                                                       </Grid>
                                                       <Grid>
                                                         <Grid>
-                                                          <label>
+                                                          <label className="spec-bed-profile">
                                                             {bed?.cases?.patient
                                                               ?.first_name &&
                                                               bed?.cases
@@ -461,7 +461,7 @@ class Index extends Component {
                                                           </label>
                                                         </Grid>
                                                         <Grid>
-                                                          <p>
+                                                          <p className="spec-bed-profile">
                                                             {bed?.cases?.patient
                                                               ?.alies_id
                                                               ? bed?.cases

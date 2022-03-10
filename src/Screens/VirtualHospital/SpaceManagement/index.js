@@ -27,7 +27,7 @@ import { getLanguage } from "translations/index"
 import {
   manageBeds, updateEntryState3, removeWard, handleCloseWarn, handleOpenWarn, updateEntryState2, updateEntryState1,
   updateEntryState, editWard, handleCloseWard, handleOpenWard, onEditspec, MoveInstitute, searchFilter, handleOpenRoom,
-  selectedID, bednumbers, deleteClick, getSpeciality, SaveSpeciality,
+  selectedID, bednumbers, deleteClick, getSpeciality, SaveSpeciality, 
 } from "./api";
 
 class Index extends Component {
@@ -51,7 +51,8 @@ class Index extends Component {
       SearchValue: '',
       errorMsg2: '',
       errorMsg: '',
-      errorStatus: false
+      errorStatus: false,
+      action: "constuctor"
     };
   }
   handleOpenSpecl = () => {
@@ -65,6 +66,7 @@ class Index extends Component {
   };
 
   componentDidMount() {
+    this.setState({ action: "loading" });
     getSpeciality(this);
   }
 
@@ -349,6 +351,7 @@ class Index extends Component {
                                           <AvailablebedListing
                                             speciality_id={data._id}
                                             ward_id={item._id}
+                                            action={this.state.action}
                                           />
                                         </li>
                                       </ul>

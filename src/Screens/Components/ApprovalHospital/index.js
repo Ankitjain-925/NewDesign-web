@@ -71,7 +71,7 @@ class Index extends Component {
          {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
-            <Grid item xs={6} md={6}>
+            <Grid item xs={10} md={10}>
               <Grid className="webLogo">
                 <a href="/">
                   <img

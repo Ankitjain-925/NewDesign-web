@@ -28,7 +28,7 @@ import Modal from '@material-ui/core/Modal';
 import Loader from 'Screens/Components/Loader/index';
 import contry from "Screens/Components/countryBucket/countries.json";
 import SPECIALITY from 'speciality';
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from 'Screens/Components/GetMetaData/index.js';
@@ -400,7 +400,7 @@ class Index extends Component {
                         } else {
                             var country_code = "de";
                         }
-                        if (this.state.recaptcha) {
+                        // if (this.state.recaptcha) {
                             var getBucket = contry?.length > 0 && contry.filter((value, key) => value.code === country_code.toUpperCase());
                             var savedata = _.cloneDeep(this.state.UpDataDetails);
                             var parent_id = this.props.stateLoginValueAim?.user?.parent_id ? this.props.stateLoginValueAim?.user?.parent_id : '0';
@@ -487,11 +487,11 @@ class Index extends Component {
                                     }
                                 })
                                 .catch((err) => { });
-                        }
-                        else {
-                            this.setState({ regisError: Plz_fill_the_recaptcha });
-                            this.ScrolltoTop();
-                        }
+                        // }
+                        // else {
+                        //     this.setState({ regisError: Plz_fill_the_recaptcha });
+                        //     this.ScrolltoTop();
+                        // }
                         // }else {
                         //     this.setState({ regisError: "Please fill the city "});
                         // }
@@ -1439,13 +1439,13 @@ class Index extends Component {
                                                 <Grid className="infoSub">
                                                     <Grid container direction="row" alignItems="center" spacing={2}>
                                                         <Grid item xs={12} md={5}>
-                                                            <Grid className="recaptchaMargin">
+                                                            {/* <Grid className="recaptchaMargin">
                                                                 <ReCAPTCHA
                                                                     sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
                                                                     onChange={this.onChangeRec}
                                                                     ref={(r) => this.captcha = r}
                                                                 />
-                                                            </Grid>
+                                                            </Grid> */}
                                                             <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={7}></Grid>

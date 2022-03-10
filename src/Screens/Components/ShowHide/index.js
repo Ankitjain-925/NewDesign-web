@@ -141,6 +141,7 @@ class ShowHide extends Component {
                     <Grid>
                       <label>{Date_of_event}</label>
                     </Grid>
+                    <Grid className="afterDate">
                     <DateFormat
                       name="date"
                       value={
@@ -153,6 +154,7 @@ class ShowHide extends Component {
                         this.updateEntryState1(value, "event_date")
                       }
                     />
+                    </Grid>
                   </Grid>
                 </Grid>
               )}
