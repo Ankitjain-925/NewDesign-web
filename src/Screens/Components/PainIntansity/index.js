@@ -138,7 +138,16 @@ class Pain extends Component {
               <a>{this.state.value}</a>
             </Grid>
           )}
-          {!this.state.Forview && (
+          {!this.state.Forview && this.props.comesFrom === "Evalute" ? (<Grid>
+            {" "}
+            <input
+              name={this.props.name}
+              value={this.state.value}
+              type="range"
+              onChange={this.onPainChange}
+              max="5"
+            />
+          </Grid>) : (
             <Grid>
               {" "}
               <input
