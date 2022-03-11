@@ -679,7 +679,6 @@ a.hideDots img {
     font-weight: bold;
     letter-spacing: 0;
     margin-bottom: 0px !important;
-    line-break: anywhere !important;
 }
 .vh-section .prfilHghtLft p span, .vh-section .prfilHghtRght p span {
     font-size: 14px;
@@ -9931,6 +9930,14 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+@media (max-width: 959px){
+    .vh-section .prfilHghtLft p span, .vh-section .prfilHghtRght p span{
+        display: block;
+    }
+}
+.spec-bed-profile{
+    word-break: break-word;
+}
 .patienttoggle2 {
     margin-top: 14px !important;
 }
@@ -13381,7 +13388,7 @@ input:-moz-autofill:active{
         justify-content:center;
     }
     .prfilHghtLft, .prfilHghtRght{
-        padding-left: 18%!important;
+        padding-left: 9%!important;
     }
     .specialitybutton{
         margin:10px 0px;
