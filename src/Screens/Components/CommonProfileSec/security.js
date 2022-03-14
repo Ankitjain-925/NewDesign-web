@@ -321,7 +321,7 @@ class Index extends Component {
                   )}{" "}
                   {two_fac_auth} {is} {this.state.is2fa ? enabled : disabled}
                 </h4>
-                <Grid className="genPass">
+                <Grid className="forBackgroundClr">
                   <input
                     type="submit"
                     onClick={()=>Change2fa(this)}
