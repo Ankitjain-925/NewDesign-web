@@ -422,18 +422,15 @@ class Index extends Component {
                             savedata.emergency_email = this.state.contact_partner.email;
                             savedata.emergency_number = this.state.contact_partner.number;
                             savedata.bucket = getBucket[0].bucket;
-                            savedata.token = this.state.recaptcha;
                             axios
                                 .post(sitedata.data.path + "/UserProfile/AddNewUseradiitional/", savedata)
                                 .then((responce) => {
-                                    this.captcha.reset();
                                     this.setState({ loaderImage: false });
                                     if (responce.data.hassuccessed === true) {
                                         this.setState({
                                             idpin: { profile_id: responce.data?.data?.profile_id, pin: responce.data?.data?.pin }, contact_partner: {},
                                             UpDataDetails: {}, first_name: '', last_name: '', bloods: {}, rhesus: {}, speciality_multi: [], name_multi: [], area: '', city: '', recaptcha: false
                                         })
-                                        this.captcha.reset();
                                         datas = [];
                                         this.openIdPin();
                                         axios
@@ -496,22 +493,18 @@ class Index extends Component {
                         //     this.setState({ regisError: "Please fill the city "});
                         // }
                     } else {
-                        this.captcha.reset();
                         this.setState({ regisError: "Please fill the birthdate" });
                         this.ScrolltoTop();
                     }
                 } else {
-                    this.captcha.reset();
                     this.setState({ regisError: pswd_not_valid });
                     this.ScrolltoTop();
                 }
             } else {
-                this.captcha.reset();
                 this.setState({ regisError: email_not_valid });
                 this.ScrolltoTop();
             }
         } else {
-            this.captcha.reset();
             this.setState({ regisError: plz_fill_fullname_user });
             this.ScrolltoTop();
         }
@@ -1063,7 +1056,7 @@ class Index extends Component {
                                                                     <Grid item xs={12} md={4}>
                                                                         <label>{dob}</label>
                                                                         <Grid>
-                                                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
+                                                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} />
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={8}>
@@ -1196,7 +1189,6 @@ class Index extends Component {
                                                                                 className="Mobile_extra"
                                                                                 placeholder={mobile}
                                                                                 name="mobile"
-                                                                                type="text"
                                                                                 onChange={this.updateEntryState1}
                                                                                 value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile) || ''}
                                                                             />

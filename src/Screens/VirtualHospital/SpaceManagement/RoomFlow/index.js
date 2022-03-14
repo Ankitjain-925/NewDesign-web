@@ -351,7 +351,7 @@ class Index extends Component {
                         <Grid container direction="row" spacing={3}>
                           {this.state.Rooms?.length > 0 &&
                             this.state.Rooms.map((item, index) => (
-                              <Grid item xs={12} md={6} lg={3}>
+                              <Grid item xs={12} md={6} lg={4}>
                                 <Grid className="drList2">
                                   <Grid className="roomNum2">
                                     <Grid container direction="row">
