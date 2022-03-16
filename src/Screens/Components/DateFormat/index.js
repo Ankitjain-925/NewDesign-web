@@ -62,7 +62,8 @@ class Date extends Component {
                     : ""}
           />
         )}
-        {this.state.is24 === "DD/MM/YYYY" && (
+        {console.log('this.state.is24', this.state.is24)}
+        {(this.state.is24 === "DD/MM/YYYY" || this.state.is24 === "dd/mm/yyyy") &&  (
           <DatePicker
             name={this.props.name}
             onChange={this.onDateChange}
@@ -81,7 +82,7 @@ class Date extends Component {
                     : ""}
           />
         )}
-        {this.state.is24 === "YYYY/DD/MM" && (
+        {(this.state.is24 === "YYYY/DD/MM" || this.state.is24 === "yyyy/dd/mm") && (
           <DatePicker
             name={this.props.name}
             onChange={this.onDateChange}
@@ -100,7 +101,7 @@ class Date extends Component {
                     : ""}
           />
         )}
-        {this.state.is24 === "MM/DD/YYYY" && (
+        {(this.state.is24 === "MM/DD/YYYY" || this.state.is24 === "mm/dd/yyyy") && (
           <DatePicker
             name={this.props.name}
             onChange={this.onDateChange}

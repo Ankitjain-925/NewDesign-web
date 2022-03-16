@@ -287,6 +287,7 @@ class Index extends Component {
     };
 
     updateEntryState1 = (value, name) => {
+        console.log('sdsadasd', value)
         this.setState({ house: value });
     }
 

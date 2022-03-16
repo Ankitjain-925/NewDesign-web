@@ -33,9 +33,9 @@ export function getDate(date, dateFormat) {
     day = d.getDate(),
     year = d.getFullYear();
   if (day.length < 2) day = "0" + day;
-  if (dateFormat === "YYYY/DD/MM") {
+  if (dateFormat === "YYYY/DD/MM" || dateFormat === "yyyy/dd/mm") {
     return year + " / " + day + " / " + month;
-  } else if (dateFormat === "DD/MM/YYYY") {
+  } else if (dateFormat === "DD/MM/YYYY" || dateFormat === "dd/mm/yyyy") {
     return day + " / " + month + " / " + year;
   } else {
     return month + " / " + day + " / " + year;

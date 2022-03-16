@@ -145,7 +145,7 @@ class PointPain extends Component {
                       option={this.state.Housesoptions}
                       onChange={(e) => this.updateEntryState1(e, "houses")}
                       value={this.state.currentHouses}
-                      isMulti={true}
+                      // isMulti={true}
                     />
                   </Grid>
                   <Grid item xs={10} md={12}>
@@ -154,7 +154,8 @@ class PointPain extends Component {
                       {this.state.current_user?.houses?.length > 0 && this.state.current_user?.houses.map((item) => (
                         <>
                           <Grid item xs={10} md={10}>
-                            {item.group_name} - {item.label} ({item.value})<Button onClick={()=>{this.newrole()}} >Next</Button>
+                            {item.group_name} - {item.label} ({item.value})
+                            {/* <Button onClick={()=>{this.newrole()}} >Next</Button> */}
                           </Grid>
                           <Grid item xs={2} md={2}>
                             <a className="delet-house" onClick={() => { this.props.deleteHouse(item.value) }}>{Delete}</a>
