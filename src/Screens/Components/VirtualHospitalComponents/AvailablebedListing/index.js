@@ -17,20 +17,21 @@ class Index extends React.Component {
     this.state = {
       speciality_id: this.props.speciality_id,
       ward_id: this.props.ward_id,
-      AllBeds: 0
+      AllBeds: 0,
+      action: this.props.action
     }
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.speciality_id !== this.props.speciality_id && prevProps.ward_id !== this.props.ward_id) {
-      this.setState({ speciality_id: this.props.speciality_id, ward_id: this.props.ward_id });
+    if (prevProps.speciality_id !== this.props.speciality_id && prevProps.ward_id !== this.props.ward_id || prevProps.action !== this.props.action) {
+      this.setState({ speciality_id: this.props.speciality_id, ward_id: this.props.ward_id, action: this.props.action });
     }
   };
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
       (nextProps.speciality_id !== this.props.speciality_id && nextProps.ward_id !== this.props.ward_id) ||
-      nextState.AllBeds !== this.state.AllBeds
+      nextState.AllBeds !== this.state.AllBeds || nextProps.action !== this.props.action 
     );
   }
 

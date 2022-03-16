@@ -112,7 +112,6 @@ class Index extends Component {
                 <Modal
                     open={this.state.openHouse1}
                     onClose={this.props.closeHouse1}
-
                     className={
                         this.props.settings &&
                             this.props.settings.setting &&
@@ -122,7 +121,6 @@ class Index extends Component {
                             : "addSpeclModel"
                     }
                 >
-
                     <Grid className="addSpeclContnt">
                         <Grid className="addSpeclContntIner">
                             <Grid className="addSpeclLbl">
@@ -137,77 +135,60 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="heading"><p >New Role</p></Grid>
                                 <Grid className="line">
-                                    <Grid item xs={12} md={8}>
+                                    <Grid item xs={12} md={12} sm={12}>
                                         <Grid className="newrole">
                                             <label>Name</label>
-                                            <input
-                                                name="Name"
-                                                type="text"
-                                                onChange={(e) => { this.handleChange("Name", e.target.value) }}
-                                                value={this.state.Name}
-
-                                            />
                                         </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={8}>
-                                        <Grid className="newrole" >
-                                            <label>Global Role</label>
-                                            {/* <input
-                                            name="GlobalRole"
-                                            type="Checkbox"
-                                            onChange={(e) => { this.handleChange1("GlobalRole", e.target.value) }}
-                                            value={this.state.GlobalRole}
-                                        /> */}
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox
-                                                        name="GlobalRole"
-                                                        value={this.state.GlobalRole == true ? false : true}
-                                                        checked={this.state.GlobalRole}
-                                                        onChange={(e) => {
-                                                            this.setState({
-                                                                GlobalRole: e.target.checked,
-                                                            });
-                                                        }}
-                                                    />
-                                                }
+                                        <Grid className="inputBorField"><input
+                                            name="Name"
+                                            type="text"
+                                            onChange={(e) => { this.handleChange("Name", e.target.value) }}
+                                            value={this.state.Name}
 
-                                            />
+                                        /></Grid>
+                                        <Grid item xs={12} md={8}>
+                                            <Grid className="newrole" >
+                                                <label>Global Role</label>
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            name="GlobalRole"
+                                                            value={this.state.GlobalRole == true ? false : true}
+                                                            checked={this.state.GlobalRole}
+                                                            onChange={(e) => {
+                                                                this.setState({
+                                                                    GlobalRole: e.target.checked,
+                                                                });
+                                                            }}
+                                                        />
+                                                    }
 
+                                                />
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={8}>
-                                        <Grid className="newrole">
-                                            <label>Work Package can be<br/> assigned to user and groups<br /> in possion role in<br/> reprensentative</label>
-                                            {/* <label>Work Package can be</label><label> assigned to user and groups</label><label> in possion role in</label><label> reprensentative</label> */}
-
-                                            {/* <input
-                                            name="footer"
-                                            type="Checkbox"
-                                            onChange={(e) => { this.handleChange1("footer", e.target.value) }}
-                                            value={this.state.footer}
-                                        /> */}
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox
-                                                        name="Work"
-                                                        value={this.state.Work == true ? false : true}
-                                                        checked={this.state.Work}
-                                                        onChange={(e) => {
-                                                            this.setState({
-                                                                Work: e.target.checked,
-                                                            });
-                                                        }}
-                                                    />
-                                                }
-
-                                            />
+                                        <Grid item xs={12} md={8}>
+                                            <Grid className="newrole">
+                                                <label>Work Package can be<br /> assigned to user and groups<br /> in possion role in<br /> reprensentative</label>
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            name="Work"
+                                                            value={this.state.Work == true ? false : true}
+                                                            checked={this.state.Work}
+                                                            onChange={(e) => {
+                                                                this.setState({
+                                                                    Work: e.target.checked,
+                                                                });
+                                                            }}
+                                                        />
+                                                    }
+                                                />
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={8}>
-                                        <Grid className="newrole" >
-                                            <label>Copy Work </label>
-
+                                        <Grid item xs={12} md={8}>
+                                            <Grid className="newrole" >
+                                                <label>Copy Work </label>
+                                            </Grid>
                                             <Grid className="selectEntry">
                                                 <Select
                                                     options={this.state.option}
@@ -216,205 +197,137 @@ class Index extends Component {
                                                     isSearchable="true"
                                                 />
                                             </Grid>
+
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid item xs={12} md={8}>
-                                    <Grid className="newrole">
-                                        <Grid className="headsize">
-                                            <Collapsible
-                                                trigger="Project"
-                                                open="true"
-                                            >
-                                                {/* <Grid >
-                                                <input
-                                                    type="Checkbox"
-                                                    checked={
-                                                        weoffer && weoffer.EditProject
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    onChange={() => { this.handleweoffer("EditProject") }}
-                                                />
-                                                <label>Edit Project</label>
-
-                                            </Grid> */}
-                                                <Grid>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                name="EditProject"
-                                                                value={this.state.weoffer && this.state.weoffer.EditProject && this.state.weoffer.EditProject == true ? false : true}
-                                                                checked={this.state.weoffer.EditProject}
-                                                                onChange={() =>
-                                                                    this.handleweoffer("EditProject")
-                                                                }
-                                                            />
-                                                        }
-                                                        label="Edit Project"
-                                                    />
-                                                </Grid>
-                                                {/* <Grid >
-                                                <input
-                                                    type="Checkbox"
-                                                    checked={
-                                                        weoffer && weoffer.SelectProduct
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    onChange={() => { this.handleweoffer("SelectProduct") }}
-                                                />
-                                                <label>Select Product Modules</label>
-
-                                            </Grid> */}
-                                                <Grid>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                name="SelectProduct"
-                                                                value={this.state.weoffer && this.state.weoffer.SelectProduct && this.state.weoffer.SelectProduct == true ? false : true}
-                                                                checked={this.state.weoffer.SelectProduct}
-                                                                onChange={(e) =>
-                                                                    this.handleweoffer("SelectProduct")
-                                                                }
-                                                            />
-                                                        }
-                                                        label="Select Product Modules"
-                                                    />
-                                                </Grid>
-                                                <Grid >
-                                                    {/* <input
-                                                    type="Checkbox"
-                                                    checked={
-                                                        weoffer && weoffer.ManagerMember
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    onChange={() => { this.handleweoffer("ManagerMember") }}
-                                                />
-                                                <label>Manager Member</label> */}
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                name="ManagerMember"
-                                                                value={this.state.weoffer && this.state.weoffer.ManagerMember && this.state.weoffer.ManagerMember == true ? false : true}
-                                                                checked={this.state.weoffer.ManagerMember}
-                                                                onChange={() =>
-                                                                    this.handleweoffer("ManagerMember")
-                                                                }
-                                                            />
-                                                        }
-                                                        label="Manager Member"
-                                                    />
-
-                                                </Grid>
-                                            </Collapsible>
-                                        </Grid>
-                                        <Grid>
-                                            {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer4("check") }}>Check All / UnCheck All</p> :
-                                                <p onClick={() => { this.handleweoffer4("uncheck") }}> Check All / UnCheck All</p>}
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid item xs={12} md={8}>
-                                    <Grid className="newrole">
-                                        <Grid className="headsize">
-                                            <Collapsible
-                                                trigger="Work Package Tracking"
-                                                open="true"
-                                            >
-                                                <Grid>
-                                                    <Grid >
-                                                        {/* <input
-                                                    type="Checkbox"
-                                                    checked={
-                                                        weoffer1 && weoffer1.View
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    onChange={() => { this.handleweoffer1("View") }}
-                                                />
-                                                <label>View Work Package</label> */}
+                                    <Grid item xs={12} md={8}>
+                                        <Grid className="newrole">
+                                            <Grid className="headsize">
+                                                <Collapsible
+                                                    trigger="Project"
+                                                    open="true"
+                                                >
+                                                    <Grid>
                                                         <FormControlLabel
                                                             control={
                                                                 <Checkbox
-                                                                    name="View"
-                                                                    value={this.state.weoffer1 && this.state.weoffer1.View && this.state.weoffer1.View == true ? false : true}
-                                                                    checked={this.state.weoffer1.View}
-                                                                    onChange={(e) =>
-                                                                        this.handleweoffer1(e)
+                                                                    name="EditProject"
+                                                                    value={this.state.weoffer && this.state.weoffer.EditProject && this.state.weoffer.EditProject == true ? false : true}
+                                                                    checked={this.state.weoffer.EditProject}
+                                                                    onChange={() =>
+                                                                        this.handleweoffer("EditProject")
                                                                     }
                                                                 />
                                                             }
-                                                            label="View Work Package"
+                                                            label="Edit Project"
                                                         />
-
                                                     </Grid>
-                                                    <Grid >
-                                                        {/* <input
-                                                    type="Checkbox"
-                                                    checked={
-                                                        weoffer1 && weoffer1.Add
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    onChange={(e) => { this.handleweoffer1("Add") }}
-                                                />
-                                                <label>Add work Package</label> */}
+                                                    <Grid>
                                                         <FormControlLabel
                                                             control={
                                                                 <Checkbox
-                                                                    name="Add"
-                                                                    value={this.state.weoffer1 && this.state.weoffer1.Add && this.state.weoffer1.Add == true ? false : true}
-                                                                    checked={this.state.weoffer1.Add}
+                                                                    name="SelectProduct"
+                                                                    value={this.state.weoffer && this.state.weoffer.SelectProduct && this.state.weoffer.SelectProduct == true ? false : true}
+                                                                    checked={this.state.weoffer.SelectProduct}
                                                                     onChange={(e) =>
-                                                                        this.handleweoffer1(e)
+                                                                        this.handleweoffer("SelectProduct")
                                                                     }
                                                                 />
                                                             }
-                                                            label="View Work Package"
+                                                            label="Select Product Modules"
                                                         />
-
                                                     </Grid>
                                                     <Grid >
-                                                        {/* <input
-                                                    type="Checkbox"
-                                                    checked={
-                                                        weoffer1 && weoffer1.Edit
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    onChange={(e) => { this.handleweoffer1("Edit") }}
-                                                />
-                                                <label>Edit Work Package</label> */}
                                                         <FormControlLabel
                                                             control={
                                                                 <Checkbox
-                                                                    name="Edit"
-                                                                    value={this.state.weoffer1 && this.state.weoffer1.Edit && this.state.weoffer1.Edit == true ? false : true}
-                                                                    checked={this.state.weoffer1.Edit}
-                                                                    onChange={(e) =>
-                                                                        this.handleweoffer1(e)
+                                                                    name="ManagerMember"
+                                                                    value={this.state.weoffer && this.state.weoffer.ManagerMember && this.state.weoffer.ManagerMember == true ? false : true}
+                                                                    checked={this.state.weoffer.ManagerMember}
+                                                                    onChange={() =>
+                                                                        this.handleweoffer("ManagerMember")
                                                                     }
                                                                 />
                                                             }
-                                                            label="Edit Work Package"
+                                                            label="Manager Member"
                                                         />
-
                                                     </Grid>
-                                                </Grid>
-                                            </Collapsible>
-                                        </Grid>
-                                        <Grid>
-                                            {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer3("check") }}>Check All/UnCheck All</p> :
-                                                <p onClick={() => { this.handleweoffer3("uncheck") }}>Check All / UnCheck All</p>}
+                                                </Collapsible>
+                                            </Grid>
+                                            <Grid>
+                                                {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer4("check") }}>Check All / UnCheck All</p> :
+                                                    <p onClick={() => { this.handleweoffer4("uncheck") }}> Check All / UnCheck All</p>}
+                                            </Grid>
                                         </Grid>
                                     </Grid>
 
+                                    <Grid item xs={12} md={8}>
+                                        <Grid className="newrole">
+                                            <Grid className="headsize">
+                                                <Collapsible
+                                                    trigger="Work Package Tracking"
+                                                    open="true"
+                                                >
+                                                    <Grid>
+                                                        <Grid >
+                                                            <FormControlLabel
+                                                                control={
+                                                                    <Checkbox
+                                                                        name="View"
+                                                                        value={this.state.weoffer1 && this.state.weoffer1.View && this.state.weoffer1.View == true ? false : true}
+                                                                        checked={this.state.weoffer1.View}
+                                                                        onChange={(e) =>
+                                                                            this.handleweoffer1(e)
+                                                                        }
+                                                                    />
+                                                                }
+                                                                label="View Work Package"
+                                                            />
+                                                        </Grid>
+                                                        <Grid >
+                                                            <FormControlLabel
+                                                                control={
+                                                                    <Checkbox
+                                                                        name="Add"
+                                                                        value={this.state.weoffer1 && this.state.weoffer1.Add && this.state.weoffer1.Add == true ? false : true}
+                                                                        checked={this.state.weoffer1.Add}
+                                                                        onChange={(e) =>
+                                                                            this.handleweoffer1(e)
+                                                                        }
+                                                                    />
+                                                                }
+                                                                label="View Work Package"
+                                                            />
+                                                        </Grid>
+                                                        <Grid >
+
+                                                            <FormControlLabel
+                                                                control={
+                                                                    <Checkbox
+                                                                        name="Edit"
+                                                                        value={this.state.weoffer1 && this.state.weoffer1.Edit && this.state.weoffer1.Edit == true ? false : true}
+                                                                        checked={this.state.weoffer1.Edit}
+                                                                        onChange={(e) =>
+                                                                            this.handleweoffer1(e)
+                                                                        }
+                                                                    />
+                                                                }
+                                                                label="Edit Work Package"
+                                                            />
+
+                                                        </Grid>
+                                                    </Grid>
+                                                </Collapsible>
+                                            </Grid>
+                                            <Grid>
+                                                {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer3("check") }}>Check All/UnCheck All</p> :
+                                                    <p onClick={() => { this.handleweoffer3("uncheck") }}>Check All / UnCheck All</p>}
+                                            </Grid>
+                                        </Grid>
+
+                                    </Grid>
                                 </Grid>
                             </Grid>
-
                         </Grid>
 
                     </Grid>

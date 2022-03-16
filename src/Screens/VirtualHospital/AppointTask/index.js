@@ -544,8 +544,6 @@ class Index extends Component {
     });
   };
 
-
-
   //to get the speciality list
   specailityList = () => {
     var spec =

@@ -169,13 +169,15 @@ class FilterSec extends Component {
       blood_sugar,
       condition_pain,
       respiration,
-      long_covid
+      long_covid,
+      Admin_staff
     } = translate;
 
     const Useroptions = [
       { value: "Doctor", label: capab_Doctors1 },
       { value: "Patient", label: capab_Patients1 },
       { value: "Nurse", label: Nurse1 },
+      { value: "Adminstaff", label: Admin_staff },
     ];
    
     const Typeoptions = [

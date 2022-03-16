@@ -90,7 +90,7 @@ class Index extends React.Component {
                                                         <Grid item xs={12} md={12}>
                                                             {this.props.assigned_to?.length > 0 && this.props.assigned_to.map((data, index) => (
                                                                 <div className="showAllAssignedInner">
-                                                                    <Grid className="allInfo tasklistName">
+                                                                    <Grid className="allInfo allInfo2 tasklistName">
                                                                         <Grid><S3Image imgUrl={data?.image} /></Grid>
                                                                         <Grid className="allInfoRght">
                                                                             <Grid><label>{data?.first_name} {data?.last_name}</label></Grid>

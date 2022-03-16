@@ -9613,6 +9613,9 @@ button.crdoLghtBlu2 {
     margin: 12px 0px;
     padding-left: 45px;
   }
+  .allInfo2 {
+    padding-left: 5px !important;
+  }
   .attchNoteMain {
     justify-content: flex-start;
     padding-left: 48px;
@@ -9930,6 +9933,30 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+@media (max-width: 959px){
+    .vh-section .prfilHghtLft p span, .vh-section .prfilHghtRght p span{
+        display: block;
+    }
+    .srchLft input::-webkit-input-placeholder {
+        overflow: hidden;
+        width:87%;
+      }
+    .srchLft input::-moz-placeholder {
+        overflow: hidden;
+        width:87%;
+      }
+    .srchLft input:-ms-input-placeholder {
+        overflow: hidden;
+        width:87%;
+      }
+    .srchLft input:-moz-placeholder { 
+        overflow: hidden;
+        width:87%;
+      }
+}
+.spec-bed-profile{
+    word-break: break-word;
+}
 .patienttoggle2 {
     margin-top: 14px !important;
 }
@@ -13262,7 +13289,7 @@ input:-moz-autofill:active{
 }
 .printPreviewlink .relativeCSS1 {
     display: none !important;
-    padding: 15px;
+    margin-left: 15px !important;
 }
 .printPreviewlink .relativeCSS {
     display: none !important;
@@ -13380,7 +13407,7 @@ input:-moz-autofill:active{
         justify-content:center;
     }
     .prfilHghtLft, .prfilHghtRght{
-        padding-left: 18%!important;
+        padding-left: 9%!important;
     }
     .specialitybutton{
         margin:10px 0px;
@@ -14039,7 +14066,7 @@ border-style: solid;
     margin-top:50px;
 }
 .allPhrintSec p{
-    font-size: 45px;
+    font-size: 35px;
 }
 .allPhrintSec{
     margin-bottom:10px;
@@ -14054,6 +14081,102 @@ border-style: solid;
 .darkTheme .ql-toolbar.ql-snow{
     background-color:#949494;
 }
+
+
+
+.menuCheckBox{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.menuCheckBox p{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+}
+.menuCheckBox .MuiSvgIcon-root{
+    width: 45px;
+    height: 45px;
+}
+.menuCheckBox .MuiCheckbox-colorSecondary.Mui-checked{
+    color:#00abaf!important;
+}
+.menuCheckBox .PrivateSwitchBase-root-110 {
+    padding: 5px;
+}
+.menuCheckBox .MuiButtonBase-root{
+    background-color: transparent!important;
+}
+
+@media screen and (min-width: 960px) and (max-width: 1092px){
+.menuCheckBox p {
+    font-size: 10px;
+   }
+}
+
+.darkTheme .stepchange-input{
+background-color: #404646;
+} 
+
+.darkTheme .forBackgroundClr{
+    background-color: #00ABAF;
+    border-radius: 8px;
+}
+
+.questionNew{
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+
+}
+
+.fatiqueQues1{
+    margin-top: 20px;
+    background-color: white;
+    margin-left: 20px;
+}
+
+.attchForms1 label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    line-break: anywhere!important;
+}
+
+.dateSet label{
+    margin-right: 70px;
+}
+
+.textFieldArea{
+    outline: none;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #BFC1C1;
+    margin-top: 10px;
+}
+
+.textFieldArea1 input{
+    margin-bottom: 5px;
+    height: 35px;
+    outline: none;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #BFC1C1;
+    margin-top: 10px;
+}
+
+.fatiqueQuess1{
+    margin-top: 10px;
+}
+
+.fillDia .attchImg {
+  text-align: center!important;
+}
+
 .newrole{
     display:flex;
     align-items: center;
@@ -14086,14 +14209,33 @@ display: block;}
     font-size:20px;
 }
 .heading p{
-    font-size:30px ;
+    font-size:15px ;
 }
 
 .selectEntry{
     margin: 10px;
-    width: 30%;
+    width: 100%;
 }
 
 .line{
     flex-flow: column nowrap;
+}
+
+.inputBorField input{
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    /* width: 96.5%; */
+    width: 100%;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    padding: 12px 12px;
+    box-sizing: border-box !important;
+    min-height: 44px;
+}
+
+.cnfrmDiaMain .fillDia .errChrMsg{
+color: #FF0000!important;
 }
