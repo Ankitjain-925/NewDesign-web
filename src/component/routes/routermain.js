@@ -76,7 +76,6 @@ import H_profile from "Screens/hospital_Admin/h_adminProfile";
 import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
 import H_Group from "Screens/hospital_Admin/h_add_group"
 import H_Staff from "Screens/hospital_Admin/h_staffs";
-import H_PE_request from "Screens/hospital_Admin/evaluation_request";
 
 //virtualhospital
 import VHStatistics from "Screens/VirtualHospital/Statistics/index";
@@ -436,11 +435,6 @@ class Routermain extends Component {
               exact={true}
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
-            />
-            <Route
-              exact={true}
-              path="/h-picture-evaluation"
-              render={(props) => <H_PE_request {...props} />}
             />
             
             <Route

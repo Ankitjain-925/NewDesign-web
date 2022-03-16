@@ -876,6 +876,7 @@ class Index extends Component {
       }
     );
   };
+  
 
   handleCloseAllowLoc = () => {
     this.setState({ openAllowLoc: false });
@@ -1158,7 +1159,6 @@ class Index extends Component {
                                   endAccessor="end"
                                   style={{ minHeight: 900 }}
                                   popup
-                                  style={{ minHeight: 900 }}
                                   onShowMore={(events, date) => { }}
                                   messages={{
                                     showMore: (total) => (
@@ -1203,7 +1203,6 @@ class Index extends Component {
                                 endAccessor="end"
                                 style={{ minHeight: 900 }}
                                 popup
-                                style={{ minHeight: 900 }}
                                 onShowMore={(events, date) => { }}
                                 messages={{
                                   showMore: (total) => (
@@ -1248,7 +1247,6 @@ class Index extends Component {
                                 endAccessor="end"
                                 style={{ minHeight: 900 }}
                                 popup
-                                style={{ minHeight: 900 }}
                                 onShowMore={(events, date) => { }}
                                 messages={{
                                   showMore: (total) => (
