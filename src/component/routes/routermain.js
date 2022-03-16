@@ -65,7 +65,6 @@ import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
 import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
 import DicomView from "Screens/Components/DicomView/ImageViewer";
-import Form from "Screens/Doctor/Form/index.js";
 
 //for hospital admin user
 import H_patient from "Screens/hospital_Admin/h_patient";
@@ -77,6 +76,7 @@ import H_profile from "Screens/hospital_Admin/h_adminProfile";
 import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
 import H_Group from "Screens/hospital_Admin/h_add_group"
 import H_Staff from "Screens/hospital_Admin/h_staffs";
+import H_PE_request from "Screens/hospital_Admin/evaluation_request";
 
 //virtualhospital
 import VHStatistics from "Screens/VirtualHospital/Statistics/index";
@@ -389,12 +389,7 @@ class Routermain extends Component {
               path="/doctor/professional-task"
               render={(props) => <DoctorProfessionalTask {...props} />}
             />
-             <Route
-              exact
-              path="/doctor/picture-evaluation-form"
-              render={(props) => <Form {...props} />}
-            />
-
+            
             {/* Doctor Router End*/}
             <Route
               exact
@@ -442,6 +437,12 @@ class Routermain extends Component {
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
             />
+            <Route
+              exact={true}
+              path="/h-picture-evaluation"
+              render={(props) => <H_PE_request {...props} />}
+            />
+            
             <Route
               exact={true}
               path="/h-groups"

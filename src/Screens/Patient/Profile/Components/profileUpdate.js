@@ -498,7 +498,6 @@ class Index extends Component {
                                                 className="Mobile_extra"
                                                 placeholder={mobile}
                                                 name="mobile"
-                                                type="text"
                                                 onChange={(e)=> updateEntryState1(e, this)}
                                                 value={this.state.UpDataDetails.mobile && updateMOBILE(this.state.UpDataDetails.mobile)}
                                             />

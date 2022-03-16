@@ -1275,18 +1275,22 @@ class Index extends Component {
                           <label>Birthday</label>
                         </Grid>
                         <DateFormat
-                          name="birthday"
-                          value={this.state.updateState.birthday ? new Date(this.state.updateState?.birthday) : new Date()}
-                          // notFullBorder
+                          name="date"
+                          value={
+                            this.state.updateState?.birthday
+                              ? new Date(this.state.updateState?.birthday)
+                              : new Date()
+                          }
                           date_format={
                             this.props.settings &&
                             this.props.settings.setting &&
                             this.props.settings.setting.date_format
                           }
-                          onChange={(e) => this.updateEntryState1(e, "birthday")}
-                          customStyles={{ dateInput: { borderWidth: 0 } }}
+                          onChange={(value) =>
+                            this.updateEntryState1(value, "birthday")
+                          }
                         />
-
+                        
                       </Grid>
                     </Grid>
                     {/* <Grid className="fillDia">
