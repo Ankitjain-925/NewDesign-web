@@ -14236,6 +14236,9 @@ display: block;}
     min-height: 44px;
 }
 
+.checkarr{
+    display: flex;
+}
 .cnfrmDiaMain .fillDia .errChrMsg{
 color: #FF0000!important;
 }

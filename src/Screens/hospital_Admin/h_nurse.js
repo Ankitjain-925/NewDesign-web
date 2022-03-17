@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
+import { OptionList } from "Screens/Login/metadataaction";
 import InfoIcon from "@material-ui/icons/Info";
 import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
@@ -55,7 +56,8 @@ class Index extends Component {
             currentHouses: [],
             openHouse: false,
             house: {},
-            type: 'nurse'
+            type: 'nurse',
+            checkboxdata:""
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
@@ -81,6 +83,10 @@ class Index extends Component {
                                     value: item.house_id
                                 })
                                 this.setState({ Housesoptions: Housesoptions });
+
+                                // let localdata=localStorage.getItem("redux_localstorage_simple")
+                                console.log("localdata",this.props.metadata.authority.nurse_roles)
+                                this.setState({checkboxdata:this.props.metadata.authority.nurse_roles})
                             })
                         })
                     }
@@ -104,6 +110,11 @@ class Index extends Component {
             this.setState({ MypatientsData: serach_value })
         }
     }
+    // checkassign=()=>{
+    //     // if(this.props.history.push("/h-nurses")){
+    //       this.setState({checkboxdata:localStorage.getItem("OptionList.metadata.authority.nurse_roles")})
+    //     // }
+    //   }
     handleOpenCreate = () => {
         this.setState({ addCreate: true })
     }
@@ -506,6 +517,7 @@ class Index extends Component {
                                         SaveAssignHouse={this.SaveAssignHouse}
                                         deleteHouse={this.deleteHouse}
                                         updateEntryState1={this.updateEntryState1}
+                                        checkboxdata={this.state.checkboxdata}
                                     />
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user} />
                                 </Grid>
@@ -521,6 +533,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { metadata } = state.OptionList;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -528,8 +541,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        metadata
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,OptionList  })(Index));

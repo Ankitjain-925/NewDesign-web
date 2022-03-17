@@ -52,36 +52,44 @@ class Index extends Component {
             errorMsg: '',
             errorStatus: false,
             openHouse1: this.props.openHouse1,
-            weoffer: {},
+            weoffer: this.props.data,
             weoffer1: {},
             buttonCall: true,
-            option: [{ value: "ten", label: "Ten" }, { value: "twenty", label: "Twenty" }, { value: "thirty", label: "Thirty" }]
+            heading: this.props.label,
+            value1: this.props.value
         };
+        this.handleweoffer = this.handleweoffer.bind(this);
+
     }
 
 
     componentDidUpdate = (prevProps) => {
-        if (prevProps.openHouse1 !== this.props.openHouse1) {
+        if (prevProps.openHouse1 !== this.props.openHouse1 || prevProps.weoffer !== this.props.data || prevProps.heading !== this.props.label
+            || prevProps.value1 !== this.props.value) {
             this.setState({
                 openHouse1: this.props.openHouse1,
-
-
+                weoffer: this.props.data,
+                heading: this.props.label,
+                value1: this.props.value
             });
         }
     };
     handleOpenSpecl = () => {
         this.setState({ openSpecl: true });
     };
-    handleweoffer = (value) => {
+    handleweoffer = (e) => {
+        console.log("",e.target.value)
         const state = this.state.weoffer;
-        state[value] = !state[value];
+        console.log("state1",state)
+
+        state[e.target.name] = e.target.value == "true" ? false : true;
         this.setState({ weoffer: state });
     };
-    handleweoffer1 = (value) => {
-        const state = this.state.weoffer1;
-        state[value] = !state[value];
-        this.setState({ weoffer1: state });
-    };
+    // handleweoffer1 = (value) => {
+    //     const state = this.state.weoffer1;
+    //     state[value] = !state[value];
+    //     this.setState({ weoffer1: state });
+    // };
     handleweoffer4 = (value) => {
         if (value === "check") {
             this.setState({ weoffer: { EditProject: true, SelectProduct: true, ManagerMember: true }, buttonCall: false });
@@ -106,10 +114,9 @@ class Index extends Component {
 
     render() {
         var { openHouse1, weoffer, weoffer1 } = this.state
-        console.log("1234567", openHouse1)
         return (
             <Grid>
-                <Modal
+                {/* <Modal
                     open={this.state.openHouse1}
                     onClose={this.props.closeHouse1}
                     className={
@@ -120,8 +127,8 @@ class Index extends Component {
                             ? "darkTheme addSpeclModel"
                             : "addSpeclModel"
                     }
-                >
-                    <Grid className="addSpeclContnt">
+                > */}
+                {/* <Grid className="addSpeclContnt">
                         <Grid className="addSpeclContntIner">
                             <Grid className="addSpeclLbl">
                                 <Grid className="addSpeclClose">
@@ -132,10 +139,10 @@ class Index extends Component {
                                             title=""
                                         />
                                     </a>
-                                </Grid>
-                                <Grid className="heading"><p >New Role</p></Grid>
-                                <Grid className="line">
-                                    <Grid item xs={12} md={12} sm={12}>
+                                </Grid> */}
+                {/* <Grid className="heading"><p >New Role</p></Grid> */}
+                <Grid className="line">
+                    {/* <Grid item xs={12} md={12} sm={12}>
                                         <Grid className="newrole">
                                             <label>Name</label>
                                         </Grid>
@@ -199,30 +206,36 @@ class Index extends Component {
                                             </Grid>
 
                                         </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={8}>
-                                        <Grid className="newrole">
-                                            <Grid className="headsize">
-                                                <Collapsible
-                                                    trigger="Project"
-                                                    open="true"
-                                                >
-                                                    <Grid>
-                                                        <FormControlLabel
-                                                            control={
-                                                                <Checkbox
-                                                                    name="EditProject"
-                                                                    value={this.state.weoffer && this.state.weoffer.EditProject && this.state.weoffer.EditProject == true ? false : true}
-                                                                    checked={this.state.weoffer.EditProject}
-                                                                    onChange={() =>
-                                                                        this.handleweoffer("EditProject")
-                                                                    }
-                                                                />
+                                    </Grid> */}
+                    <Grid item xs={12} md={8}>
+                        <Grid className="newrole">
+                            <Grid className="headsize">
+                                <Collapsible
+                                    trigger={this.state.heading}
+                                    open="true"
+                                >
+                                    {
+                                        this.state.weoffer && this.state.weoffer.map((item, index) => (
+                                            <Grid >
+                                                {console.log("item", item.value)}
+                                                <FormControlLabel
+                                                    control={
+                                                        <Checkbox
+                                                            key={index}
+                                                            name={item.label}
+                                                            value={item.value ==true ? false : true}
+                                                            checked={item.value}
+                                                            onChange={(e) =>
+                                                                this.handleweoffer(e)
                                                             }
-                                                            label="Edit Project"
                                                         />
-                                                    </Grid>
-                                                    <Grid>
+                                                    }
+                                                    label={item.label}
+                                                />
+                                            </Grid>
+                                        ))
+                                    }
+                                    {/* <Grid>
                                                         <FormControlLabel
                                                             control={
                                                                 <Checkbox
@@ -236,8 +249,8 @@ class Index extends Component {
                                                             }
                                                             label="Select Product Modules"
                                                         />
-                                                    </Grid>
-                                                    <Grid >
+                                                    </Grid> */}
+                                    {/* <Grid >
                                                         <FormControlLabel
                                                             control={
                                                                 <Checkbox
@@ -251,16 +264,16 @@ class Index extends Component {
                                                             }
                                                             label="Manager Member"
                                                         />
-                                                    </Grid>
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid>
+                                                    </Grid> */}
+                                </Collapsible>
+                            </Grid>
+                            {/* <Grid>
                                                 {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer4("check") }}>Check All / UnCheck All</p> :
                                                     <p onClick={() => { this.handleweoffer4("uncheck") }}> Check All / UnCheck All</p>}
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-
+                                            </Grid> */}
+                        </Grid>
+                    </Grid>
+                    {/* 
                                     <Grid item xs={12} md={8}>
                                         <Grid className="newrole">
                                             <Grid className="headsize">
@@ -325,13 +338,13 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
 
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                                    </Grid> */}
+                </Grid>
+                {/* </Grid>
                         </Grid>
 
-                    </Grid>
-                </Modal>
+                    </Grid>  */}
+                {/* </Modal> */}
             </Grid>
         )
     }
