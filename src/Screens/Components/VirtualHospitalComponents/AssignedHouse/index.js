@@ -31,10 +31,8 @@ class PointPain extends Component {
   }
 
   updateEntryState1 = (value, name) => {
-
     this.setState({ alredyExist: false, assignedhouse: false, values: true })
     let data = this.state.current_user
-    console.log("data", data)
 
     let id1 = value
     let current = data.houses.map((element) => {
@@ -45,7 +43,6 @@ class PointPain extends Component {
       this.setState({ alredyExist: true })
     }
 
-    console.log("value", value)
     this.props.updateEntryState1(value, name);
   }
   //on adding new data
@@ -75,11 +72,11 @@ class PointPain extends Component {
   }
   closeHouse1 = () => {
     this.setState({ openHouse1: false })
+
   };
   componentDidMount = () => { };
   render() {
     var { checkboxdata } = this.state
-    console.log("checkboxdata", checkboxdata)
     let translate = getLanguage(this.props.stateLanguageType)
     let { ManageHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
     return (
@@ -147,13 +144,13 @@ class PointPain extends Component {
                         />
                       </Grid>
                       {this.state.values && <>
-                        {this.state.checkboxdata && this.state.checkboxdata[0] &&
+                        {this.state.checkboxdata && this.state.checkboxdata &&
                           <>
                             <Grid>
                              <NewRole
-                              label={this.state.checkboxdata[0].label}
-                              value={this.state.checkboxdata[0].value}
-                             data={this.state.checkboxdata[0].data}
+                              // label={this.state.checkboxdata[0].label}
+                              // value={this.state.checkboxdata[0].value}
+                             data={this.state.checkboxdata}
                              />
                             </Grid>
                           </>
@@ -161,6 +158,22 @@ class PointPain extends Component {
                         }
                         </>
                       }
+
+                       {/* {this.state.values && <>
+                        {this.state.checkboxdata && this.state.checkboxdata.length>1 &&
+                          <>
+                            <Grid>
+                             <NewRole
+                              label={this.state.checkboxdata}
+                              value={this.state.checkboxdata}
+                             data={this.state.checkboxdata}
+                             />
+                            </Grid>
+                          </>
+
+                        }
+                        </>
+                      } */}
                       <Grid item xs={10} md={12}>
                         <b>{AssignedHouses}</b>
                         <Grid container direction="row">
@@ -190,7 +203,6 @@ class PointPain extends Component {
           </Grid>
 
         </Modal>
-        {console.log("open", this.state.openHouse1)}
         <NewRole
           openHouse1={this.state.openHouse1}
           closeHouse1={this.closeHouse1}

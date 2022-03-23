@@ -28,6 +28,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
 import { getLanguage } from "translations/index"
 import Select from "react-select";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
 class Index extends Component {
     constructor(props) {
@@ -56,10 +58,10 @@ class Index extends Component {
             weoffer1: {},
             buttonCall: true,
             heading: this.props.label,
-            value1: this.props.value
+            value1: this.props.value,
+            demo: [],
+            newTsk: []
         };
-        this.handleweoffer = this.handleweoffer.bind(this);
-
     }
 
 
@@ -74,42 +76,38 @@ class Index extends Component {
             });
         }
     };
+    
     handleOpenSpecl = () => {
         this.setState({ openSpecl: true });
     };
-    handleweoffer = (e) => {
-        console.log("",e.target.value)
-        const state = this.state.weoffer;
-        console.log("state1",state)
+    handleweoffer = (e, index) => {
+        var {weoffer}=this.state
+        var state = this.state.newTsk
+        var data = state ? state : []
 
-        state[e.target.name] = e.target.value == "true" ? false : true;
-        this.setState({ weoffer: state });
-    };
-    // handleweoffer1 = (value) => {
-    //     const state = this.state.weoffer1;
-    //     state[value] = !state[value];
-    //     this.setState({ weoffer1: state });
-    // };
-    handleweoffer4 = (value) => {
-        if (value === "check") {
-            this.setState({ weoffer: { EditProject: true, SelectProduct: true, ManagerMember: true }, buttonCall: false });
-        } else {
-            this.setState({ weoffer: { EditProject: false, SelectProduct: false, ManagerMember: false }, buttonCall: true });
+        if (e.target.checked) {
+            data.push(e.target.value);
+            if(data.length==weoffer.length){
+            this.handleChange(data)
+            }
 
         }
-    };
-    handleweoffer3 = (value) => {
-
-        if (value === "check") {
-            this.setState({ weoffer1: { View: true, Add: true, Edit: true }, buttonCall: false });
-        } else {
-            this.setState({ weoffer1: { View: false, Add: false, Edit: false }, buttonCall: true });
-
+        else {
+            var index = data.indexOf(e.target.value)
+            data.splice(index, 1);
         }
     };
-    handleChange = (input, value) => {
-        this.setState({ [input]: value });
 
+
+    handleChange = (e, values) => {
+
+        var state = this.state.demo
+        // var data = state ? state : []
+        state[e.target.name]=e.target.value ==true;
+        // if (e.target.checked) {
+        //     data.push(e.target.value);
+        //     console.log("data", data)
+        // }
     };
 
     render() {
@@ -207,30 +205,40 @@ class Index extends Component {
 
                                         </Grid>
                                     </Grid> */}
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={12}>
                         <Grid className="newrole">
                             <Grid className="headsize">
+                            {weoffer && weoffer.map((item)=>(  
                                 <Collapsible
-                                    trigger={this.state.heading}
+                                    trigger={<><span><Checkbox name={item.label}
+                                        value={item.value} checked={this.state.demo.options ==true} onChange={(e) => this.handleChange(e)
+
+                                        } /></span>{item.label} <span className="hosFstSec"><ExpandMoreIcon /></span></>}
+
+                                    triggerWhenOpen={<><span> <Checkbox name={item.label}
+                                        value={item.value} checked={this.state.demo.options ==true} onChange={(e) => this.handleChange(e)} />
+                                    </span>{item.label} <span className="hosFstSec"><ExpandLessIcon /></span></>}
                                     open="true"
                                 >
                                     {
-                                        this.state.weoffer && this.state.weoffer.map((item, index) => (
+                                          item.data.map((item2, index) => (
                                             <Grid >
-                                                {console.log("item", item.value)}
+                                              
                                                 <FormControlLabel
                                                     control={
                                                         <Checkbox
                                                             key={index}
-                                                            name={item.label}
-                                                            value={item.value ==true ? false : true}
-                                                            checked={item.value}
+                                                            name={item2.label}
+                                                            value={item2.value}
+                                                            // checked={this.state.demo?.includes(item.value)}
+                                                            checked={this.state.newTsk.options ? this.state.newTsk.options : null}
                                                             onChange={(e) =>
-                                                                this.handleweoffer(e)
+                                                                this.handleweoffer(e, index)
                                                             }
                                                         />
                                                     }
-                                                    label={item.label}
+
+                                                    label={item2.label}
                                                 />
                                             </Grid>
                                         ))
@@ -266,6 +274,8 @@ class Index extends Component {
                                                         />
                                                     </Grid> */}
                                 </Collapsible>
+                                ))
+                            }
                             </Grid>
                             {/* <Grid>
                                                 {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer4("check") }}>Check All / UnCheck All</p> :

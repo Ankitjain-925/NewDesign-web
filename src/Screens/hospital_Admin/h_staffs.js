@@ -18,6 +18,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SelectField from "Screens/Components/Select/index";
 import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index";
+import { OptionList } from "Screens/Login/metadataaction";
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile";
 import { SearchUser } from "Screens/Components/Search";
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
@@ -91,6 +92,7 @@ class Index extends Component {
                   value: item.house_id
                 })
                 this.setState({ Housesoptions: Housesoptions });
+                this.setState({checkboxdata:this.props.metadata.authority.adminstaff_roles})
               })
             })
           }
@@ -371,6 +373,7 @@ class Index extends Component {
   };
 
   closeHouse = () => {
+    this.setState({value:false})
     this.setState({ openHouse: false })
   };
 
@@ -698,6 +701,8 @@ class Index extends Component {
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
+                    checkboxdata={this.state.checkboxdata}
+
                   />
                   {/* <Modal
                     open={this.state.openHouse}
@@ -793,15 +798,18 @@ const mapStateToProps = (state) => {
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
+  const { metadata } = state.OptionList;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    metadata
+
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,OptionList })(
     Index
   )
 );
