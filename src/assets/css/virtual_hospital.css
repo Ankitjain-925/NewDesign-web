@@ -14176,3 +14176,14 @@ display: block;}
 .cnfrmDiaMain .fillDia .errChrMsg{
 color: #FF0000!important;
 }
+
+.stndQues1 h2 {
+    font-weight: 800;
+    margin-top: 10px;
+  }
+  .imageEvalSize img {
+    height: 90px;
+    width: 50%;
+    /* border-radius: 32px; */
+    margin-right: 8px;
+  }
