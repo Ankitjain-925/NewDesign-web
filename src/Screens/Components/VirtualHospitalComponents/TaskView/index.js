@@ -30,7 +30,13 @@ class PointPain extends Component {
   componentDidMount = () => {};
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { EditTask, DeleteTask, assign_to_doctor } = translate;
+    let {
+      EditTask,
+      DeleteTask,
+      assign_to_doctor,
+      edit_picture_evaluation,
+      delete_picture_evaluation,
+    } = translate;
     var data = this.state.data;
     return (
       <Grid className="allTabCntnt">
@@ -157,10 +163,14 @@ class PointPain extends Component {
                           alt=""
                           title=""
                         />
-                        {console.log('adminstaff', this.props.comesFrom)}
-                        {(data &&
+                        {data &&
                         data.task_type &&
-                        data.task_type === 'picture_evaluation' && this.props.comesFrom==="adminstaff") ? (
+                        data.task_type === 'picture_evaluation' &&
+                        this.props.comesFrom === 'Professional' ? (
+                          <>{edit_picture_evaluation}</>
+                        ) : data.task_type &&
+                          data.task_type === 'picture_evaluation' &&
+                          this.props.comesFrom === 'adminstaff' ? (
                           <>{assign_to_doctor}</>
                         ) : (
                           <>{EditTask}</>
@@ -179,7 +189,13 @@ class PointPain extends Component {
                           alt=""
                           title=""
                         />
-                        {DeleteTask}
+                        {data &&
+                        data.task_type &&
+                        data.task_type === 'picture_evaluation' ? (
+                          <>{delete_picture_evaluation}</>
+                        ) : (
+                          <>{DeleteTask}</>
+                        )}
                       </a>
                     </li>
                   </ul>

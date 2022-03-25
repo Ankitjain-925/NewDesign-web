@@ -200,6 +200,7 @@ class Index extends Component {
       assignedTo: [],
       q: '',
       selectSpec: {},
+      selectedPat: {},
     });
     if (this.props.patient) {
       let user = { value: this.props.patient?.patient_id };
@@ -278,7 +279,7 @@ class Index extends Component {
     this.setState({ taskFilter: state });
   };
   // submit Task model
-  handleTaskSubmit = () => {
+  handleTaskSubmit = (type) => {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       Task_title_cant_be_empty,
@@ -329,7 +330,9 @@ class Index extends Component {
               });
               this.props.getAddTaskData();
               this.handleCloseTask();
-              this.props.getArchived();
+              if (type === 'picture_evaluation') {
+                this.props.getArchived();
+              }
             } else {
               this.setState({ errorMsg: Something_went_wrong });
             }
@@ -805,6 +808,7 @@ class Index extends Component {
       openTask: true,
       // assignedTo: assignedTo,
       q: pat1name,
+      selectedPat: { label: pat1name, value: data?.patient?._id },
       selectSpec: {
         label: data?.speciality?.specialty_name,
         value: data?.speciality?._id,
@@ -1179,12 +1183,12 @@ class Index extends Component {
         <Grid container direction="row">
           <Grid item xs={12} md={6}></Grid>
           <Grid item xs={12} md={6}>
-            {this.props.comesFrom !== 'Professional' && (
-              <Grid className="addTaskBtn">
-                <Button onClick={this.handleOpenTask}>{add_task}</Button>
-                {/* <label>{filterbedge}</label> */}
-              </Grid>
-            )}
+            {/* {this.props.comesFrom !== 'Professional' && ( */}
+            <Grid className="addTaskBtn">
+              <Button onClick={this.handleOpenTask}>{add_task}</Button>
+              {/* <label>{filterbedge}</label> */}
+            </Grid>
+            {/* )} */}
           </Grid>
           {/* Model setup */}
           <Modal
@@ -1238,11 +1242,8 @@ class Index extends Component {
                               }
                               value={this.state.newTask.task_name || ''}
                               disabled={
-                                this.props.comesFrom === 'Professional'
-                                  ? true
-                                  : false ||
-                                    this.state.newTask?.task_type ===
-                                      'picture_evaluation'
+                                this.state.newTask?.task_type ===
+                                'picture_evaluation'
                               }
                             />
                           </Grid>
@@ -1253,7 +1254,8 @@ class Index extends Component {
                                 {this.props.patient?.first_name}{' '}
                                 {this.props.patient?.last_name}
                               </h2>
-                            ) : this.props.comesFrom === 'Professional' ? (
+                            ) : this.props.comesFrom === 'Professional' &&
+                              this.state.newTask?.patient?._id ? (
                               <h2>
                                 {this.state.newTask?.patient?.first_name}{' '}
                                 {this.state.newTask?.patient?.last_name}
@@ -1304,11 +1306,11 @@ class Index extends Component {
                                           'hidePatient'
                                         )
                                       }
-                                      disabled={
-                                        this.props.comesFrom === 'Professional'
-                                          ? true
-                                          : false
-                                      }
+                                      // disabled={
+                                      //   this.props.comesFrom === 'Professional'
+                                      //     ? true
+                                      //     : false
+                                      // }
                                     />
                                   }
                                   label={Hide_task_from_patient}
@@ -1332,11 +1334,6 @@ class Index extends Component {
                                     )
                                   }
                                   value={this.state.newTask.description || ''}
-                                  disabled={
-                                    this.props.comesFrom === 'Professional'
-                                      ? true
-                                      : false
-                                  }
                                 ></textarea>
                               </Grid>
                             </Grid>
@@ -1704,11 +1701,6 @@ class Index extends Component {
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true}
-                                isDisabled={
-                                  this.props.comesFrom === 'Professional'
-                                    ? true
-                                    : false
-                                }
                               />
                             </Grid>
                           </Grid>
@@ -1725,11 +1717,11 @@ class Index extends Component {
                                   isSearchable={true}
                                   className="addStafSelect"
                                   value={this.state.selectSpec}
-                                  isDisabled={
-                                    this.props.comesFrom === 'Professional'
-                                      ? true
-                                      : false
-                                  }
+                                  // isDisabled={
+                                  //   this.props.comesFrom === 'Professional'
+                                  //     ? true
+                                  //     : false
+                                  // }
                                 />
                               </Grid>
                             </Grid>
@@ -1942,25 +1934,25 @@ class Index extends Component {
                             </Grid>
                           </Grid>
 
-                          {this.props.comesFrom !== 'Professional' && (
-                            <Grid item xs={12} md={12}>
-                              <label>{Attachments}</label>
-                              <FileUploader
-                                // cur_one={this.props.cur_one}
-                                attachfile={
-                                  this.state.newTask &&
-                                  this.state.newTask.attachments
-                                    ? this.state.newTask.attachments
-                                    : []
-                                }
-                                name="UploadTrackImageMulti"
-                                isMulti="true"
-                                fileUpload={(event) => {
-                                  this.FileAttachMulti(event);
-                                }}
-                              />
-                            </Grid>
-                          )}
+                          {/* {this.props.comesFrom !== 'Professional' && ( */}
+                          <Grid item xs={12} md={12}>
+                            <label>{Attachments}</label>
+                            <FileUploader
+                              // cur_one={this.props.cur_one}
+                              attachfile={
+                                this.state.newTask &&
+                                this.state.newTask?.attachments
+                                  ? this.state.newTask?.attachments
+                                  : []
+                              }
+                              name="UploadTrackImageMulti"
+                              isMulti="true"
+                              fileUpload={(event) => {
+                                this.FileAttachMulti(event);
+                              }}
+                            />
+                          </Grid>
+                          {/* )} */}
                           {this.props.comesFrom === 'Professional' && (
                             <Grid item xs={12} md={12}>
                               <Grid>
@@ -2071,7 +2063,13 @@ class Index extends Component {
                               <div className="err_message">
                                 {this.state.errorMsg}
                               </div>
-                              <Button onClick={() => this.handleTaskSubmit()}>
+                              <Button
+                                onClick={() =>
+                                  this.handleTaskSubmit(
+                                    this.state.newTask?.task_type
+                                  )
+                                }
+                              >
                                 {save_task_and_close}
                               </Button>
                             </a>

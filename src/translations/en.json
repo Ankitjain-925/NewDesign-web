@@ -1709,6 +1709,8 @@
     "sun_before": "Sun before",
     "sexual_active": "Sexual Activities",
     "payment_done": "Payment done",
-    "assign_to_doctor": "Assign to doctor"
+    "assign_to_doctor": "Assign to doctor",
+    "edit_picture_evaluation": "Edit Picture Evaluation",
+    "delete_picture_evaluation": "Delete Picture Evaluation"
   }
 }
