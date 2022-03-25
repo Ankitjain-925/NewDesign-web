@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import Collapsible from "react-collapsible";
-import FileViews from "./../FileViews/index";
-import ReactTooltip from "react-tooltip";
-import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Collapsible from 'react-collapsible';
+import FileViews from './../FileViews/index';
+import ReactTooltip from 'react-tooltip';
+import DownloadFullTrack from 'Screens/Components/DownloadFullTrack/index.js';
 import {
   getDate,
   newdate,
   getImage,
-} from "Screens/Components/BasicMethod/index";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { LanguageFetchReducer } from "Screens/actions";
-import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import { getLanguage } from "translations/index"
-import { pure } from "recompose";
+} from 'Screens/Components/BasicMethod/index';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LanguageFetchReducer } from 'Screens/actions';
+import CreatedBySec from 'Screens/Components/TimelineComponent/CreatedBysec';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import { getLanguage } from 'translations/index';
+import { pure } from 'recompose';
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +55,7 @@ class Index extends Component {
 
   render() {
     var item = this.state.item;
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
       secnd_openion,
       visibility,
@@ -89,7 +89,7 @@ class Index extends Component {
                 <Grid className="blodPrsurImg purpleSpan">
                   <a className="diryNote">
                     <img
-                      src={require("assets/images/doctor-appointments.svg")}
+                      src={require('assets/images/doctor-appointments.svg')}
                       alt=""
                       title=""
                     />
@@ -104,37 +104,37 @@ class Index extends Component {
                     className="bp_vsblEye"
                   >
                     <img
-                      src={require("assets/images/eye2.png")}
+                      src={require('assets/images/eye2.png')}
                       alt=""
                       title=""
-                    />{" "}
-                    {item.visible === "show" ? (
+                    />{' '}
+                    {item.visible === 'show' ? (
                       <span>{visible}</span>
-                    ) : item.visible === "hide" ? (
+                    ) : item.visible === 'hide' ? (
                       <span>Hide</span>
                     ) : (
                       <span>{not_mentioned}</span>
-                    )}{" "}
+                    )}{' '}
                   </a>
                   <a
                     className="vsblTime"
                     data-tip
-                    data-for={item.track_id + "visibility"}
+                    data-for={item.track_id + 'visibility'}
                   >
                     <img
-                      src={require("assets/images/clock.svg")}
+                      src={require('assets/images/clock.svg')}
                       alt=""
                       title=""
                     />
                   </a>
                   <ReactTooltip
                     className="timeIconClas"
-                    id={item.track_id + "visibility"}
+                    id={item.track_id + 'visibility'}
                     place="top"
                     effect="solid"
                     backgroundColor="#ffffff"
                   >
-                    {item.visible === "show" ? (
+                    {item.visible === 'show' ? (
                       <label>
                         {show} {until}
                       </label>
@@ -143,7 +143,7 @@ class Index extends Component {
                         {hide} {until}
                       </label>
                     )}
-                    {item.public === "always" ? (
+                    {item.public === 'always' ? (
                       <p> {always} </p>
                     ) : item.public ? (
                       <p>{getDate(item.public, this.state.date_format)}</p>
@@ -154,7 +154,7 @@ class Index extends Component {
                   <a className="openScndhrf1">
                     <a className="vsblDots">
                       <img
-                        src={require("assets/images/nav-more.svg")}
+                        src={require('assets/images/nav-more.svg')}
                         alt=""
                         title=""
                       />
@@ -164,24 +164,24 @@ class Index extends Component {
                         <li>
                           <a onClick={(data) => this.props.ArchiveTrack(item)}>
                             <img
-                              src={require("assets/images/archive-1.svg")}
+                              src={require('assets/images/archive-1.svg')}
                               alt=""
                               title=""
                             />
                             {archive}
                           </a>
                         </li>
-                        {this.props.comesfrom === "patient" && (
+                        {this.props.comesfrom === 'patient' && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                            (!item.updated_by || item.updated_by === '') ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
                                 }
                               >
                                 <img
-                                  src={require("assets/images/edit-1.svg")}
+                                  src={require('assets/images/edit-1.svg')}
                                   alt=""
                                   title=""
                                 />
@@ -194,7 +194,7 @@ class Index extends Component {
                                 }
                               >
                                 <img
-                                  src={require("assets/images/edit.svg")}
+                                  src={require('assets/images/edit.svg')}
                                   alt=""
                                   title=""
                                 />
@@ -203,7 +203,7 @@ class Index extends Component {
                             )}
                           </li>
                         )}
-                        {this.props.comesfrom !== "patient" && (
+                        {this.props.comesfrom !== 'patient' && (
                           <li>
                             <a
                               onClick={() =>
@@ -211,7 +211,7 @@ class Index extends Component {
                               }
                             >
                               <img
-                                src={require("assets/images/edit-1.svg")}
+                                src={require('assets/images/edit-1.svg')}
                                 alt=""
                                 title=""
                               />
@@ -222,7 +222,7 @@ class Index extends Component {
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
-                              src={require("assets/images/download.svg")}
+                              src={require('assets/images/download.svg')}
                               alt=""
                               title=""
                             />
@@ -241,7 +241,7 @@ class Index extends Component {
                             }
                           >
                             <img
-                              src={require("assets/images/cancel-request.svg")}
+                              src={require('assets/images/cancel-request.svg')}
                               alt=""
                               title=""
                             />
@@ -254,7 +254,7 @@ class Index extends Component {
                         <li>
                           <a onClick={(data) => this.props.ArchiveTrack(item)}>
                             <img
-                              src={require("assets/images/archive-1.svg")}
+                              src={require('assets/images/archive-1.svg')}
                               alt=""
                               title=""
                             />
@@ -268,7 +268,7 @@ class Index extends Component {
                             }
                           >
                             <img
-                              src={require("assets/images/cancel-request.svg")}
+                              src={require('assets/images/cancel-request.svg')}
                               alt=""
                               title=""
                             />
@@ -300,7 +300,7 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                    <CreatedBySec data={item} />
+                      <CreatedBySec data={item} />
                       {/* <Grid className="bpJohnImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
