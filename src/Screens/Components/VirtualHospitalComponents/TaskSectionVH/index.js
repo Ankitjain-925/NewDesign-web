@@ -2220,6 +2220,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        comesFrom={this.props.comesFrom}
                       />
                     </Grid>
                   ))}
@@ -2236,6 +2237,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        comesFrom={this.props.comesFrom}
                       />
                     </Grid>
                   ))}
@@ -2252,6 +2254,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        comesFrom={this.props.comesFrom}
                       />
                     </Grid>
                   ))}
@@ -2268,6 +2271,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        comesFrom={this.props.comesFrom}
                       />
                     </Grid>
                   ))}

@@ -157,9 +157,10 @@ class PointPain extends Component {
                           alt=""
                           title=""
                         />
-                        {data &&
+                        {console.log('adminstaff', this.props.comesFrom)}
+                        {(data &&
                         data.task_type &&
-                        data.task_type === 'picture_evaluation' ? (
+                        data.task_type === 'picture_evaluation' && this.props.comesFrom==="adminstaff") ? (
                           <>{assign_to_doctor}</>
                         ) : (
                           <>{EditTask}</>

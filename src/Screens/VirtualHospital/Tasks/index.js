@@ -154,7 +154,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={10}>
-                                            <TaskSectiuonVH patientForFilter={this.state.patientForFilter} getArchived={() => this.getArchived()} getAddTaskData={() => { this.getAddTaskData() }} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={this.state.ArchivedTasks} tabvalue2={this.state.tabvalue2} />
+                                            <TaskSectiuonVH comesFrom="adminstaff" patientForFilter={this.state.patientForFilter} getArchived={() => this.getArchived()} getAddTaskData={() => { this.getAddTaskData() }} AllTasks={this.state.AllTasks} DoneTask={this.state.DoneTask} OpenTask={this.state.OpenTask} ArchivedTasks={this.state.ArchivedTasks} tabvalue2={this.state.tabvalue2} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
