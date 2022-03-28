@@ -298,8 +298,8 @@ class Index extends Component {
     var data = this.state.newTask;
     var user_id = data?.patient?.user_id;
     if (
-      (data?.attachments?.length > ComLength && ComLength?.attach_Length) ||
-      (data?.comments?.length > ComLength && ComLength?.comments_Length)
+      data?.attachments?.length > ComLength?.attach_Length ||
+      data?.comments?.length > ComLength?.comments_Length
     ) {
       axios
         .post(
