@@ -331,7 +331,7 @@ class Index extends Component {
               this.props.getAddTaskData();
               this.handleCloseTask();
               if (type === 'picture_evaluation') {
-                this.props.getArchived();
+                // this.props.getArchived();
               }
             } else {
               this.setState({ errorMsg: Something_went_wrong });
@@ -647,6 +647,29 @@ class Index extends Component {
     }
   };
 
+  declineTask = (id, patient_id)=>{
+    console.log('patient_id',patient_id)
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {
+      Something_went_wrong,
+    } = translate;
+    this.setState({ loaderImage: true });
+      axios
+        .put(
+          sitedata.data.path + '/vh/AddTask/' + id,
+          {is_decline: true,
+            patient_id: patient_id},
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          if (responce.data.hassuccessed) {
+            this.props.getAddTaskData();
+          } else {
+            this.setState({ errorMsg: Something_went_wrong });
+          }
+        }); 
+  }
   //{Delete} the perticular service confirmation box
   removeTask = (id) => {
     this.setState({ message: null, openTask: false });
@@ -2218,6 +2241,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2234,7 +2258,8 @@ class Index extends Component {
                       <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        editTask={(data) => this.editTask(data)} 
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2252,6 +2277,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2269,6 +2295,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>

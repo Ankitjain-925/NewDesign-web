@@ -177,8 +177,25 @@ class PointPain extends Component {
                         )}
                       </a>
                     </li>
-
-                    <li
+                    {data &&
+                        data.task_type &&
+                        data.task_type === 'picture_evaluation' ?
+                     this.props.comesFrom !== 'Professional' && data?.assinged_to?.length==0 && (
+                     <li
+                      onClick={() => {
+                        this.props.declineTask(data._id, data.patient_id);
+                      }}
+                    >
+                      <a>
+                        <img
+                          src={require('assets/images/cancel-request.svg')}
+                          alt=""
+                          title=""
+                        />
+                          <>{delete_picture_evaluation}</>
+                      </a>
+                    </li>) : 
+                      <li
                       onClick={() => {
                         this.props.removeTask(data._id);
                       }}
@@ -189,15 +206,9 @@ class PointPain extends Component {
                           alt=""
                           title=""
                         />
-                        {data &&
-                        data.task_type &&
-                        data.task_type === 'picture_evaluation' ? (
-                          <>{delete_picture_evaluation}</>
-                        ) : (
                           <>{DeleteTask}</>
-                        )}
                       </a>
-                    </li>
+                    </li>}
                   </ul>
                 </a>
               </Grid>
