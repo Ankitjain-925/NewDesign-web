@@ -1236,7 +1236,7 @@ class Index extends Component {
                       }
                     >
                       <Grid className="nwDiaCntnt">
-                        <Grid className=""
+                        <Grid 
                          className={
                           this.props.settings &&
                             this.props.settings.setting &&

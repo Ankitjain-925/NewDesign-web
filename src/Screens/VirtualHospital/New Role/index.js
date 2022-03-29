@@ -29,6 +29,7 @@ import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/Av
 import { getLanguage } from "translations/index"
 import Select from "react-select";
 
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -105,6 +106,23 @@ class Index extends Component {
     };
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType)
+    let {
+        Name,
+        Global_Role,
+        Work_Package_can_be,
+        assigned_to_user_and_groups,
+        in_possion_role_in,
+        reprensentative,
+        Copy_Work,
+        Select,
+        Edit_Project,
+        Select_Product_Modules,
+        Manager_Member,
+        View_Work_Package,
+        Edit_Work_Package
+
+    } = translate;
         var { openHouse1, weoffer, weoffer1 } = this.state
         console.log("1234567", openHouse1)
         return (
@@ -137,7 +155,7 @@ class Index extends Component {
                                 <Grid className="line">
                                     <Grid item xs={12} md={12} sm={12}>
                                         <Grid className="newrole">
-                                            <label>Name</label>
+                                            <label>{Name}</label>
                                         </Grid>
                                         <Grid className="inputBorField"><input
                                             name="Name"
@@ -148,7 +166,7 @@ class Index extends Component {
                                         /></Grid>
                                         <Grid item xs={12} md={8}>
                                             <Grid className="newrole" >
-                                                <label>Global Role</label>
+                                                <label>{Global_Role}</label>
                                                 <FormControlLabel
                                                     control={
                                                         <Checkbox
@@ -168,7 +186,7 @@ class Index extends Component {
                                         </Grid>
                                         <Grid item xs={12} md={8}>
                                             <Grid className="newrole">
-                                                <label>Work Package can be<br /> assigned to user and groups<br /> in possion role in<br /> reprensentative</label>
+                                                <label>{Work_Package_can_be}<br /> {assigned_to_user_and_groups}<br /> {in_possion_role_in}<br /> {reprensentative}</label>
                                                 <FormControlLabel
                                                     control={
                                                         <Checkbox
@@ -187,12 +205,12 @@ class Index extends Component {
                                         </Grid>
                                         <Grid item xs={12} md={8}>
                                             <Grid className="newrole" >
-                                                <label>Copy Work </label>
+                                                <label>{Copy_Work} </label>
                                             </Grid>
                                             <Grid className="selectEntry">
                                                 <Select
                                                     options={this.state.option}
-                                                    placeholder="Select"
+                                                    placeholder={Select}
                                                     name="title"
                                                     isSearchable="true"
                                                 />
@@ -219,7 +237,7 @@ class Index extends Component {
                                                                     }
                                                                 />
                                                             }
-                                                            label="Edit Project"
+                                                            label={Edit_Project}
                                                         />
                                                     </Grid>
                                                     <Grid>
@@ -234,7 +252,7 @@ class Index extends Component {
                                                                     }
                                                                 />
                                                             }
-                                                            label="Select Product Modules"
+                                                            label={Select_Product_Modules}
                                                         />
                                                     </Grid>
                                                     <Grid >
@@ -249,7 +267,7 @@ class Index extends Component {
                                                                     }
                                                                 />
                                                             }
-                                                            label="Manager Member"
+                                                            label={Manager_Member}
                                                         />
                                                     </Grid>
                                                 </Collapsible>
@@ -281,7 +299,7 @@ class Index extends Component {
                                                                         }
                                                                     />
                                                                 }
-                                                                label="View Work Package"
+                                                                label={View_Work_Package}
                                                             />
                                                         </Grid>
                                                         <Grid >
@@ -296,7 +314,7 @@ class Index extends Component {
                                                                         }
                                                                     />
                                                                 }
-                                                                label="View Work Package"
+                                                                label={View_Work_Package}
                                                             />
                                                         </Grid>
                                                         <Grid >
@@ -312,7 +330,7 @@ class Index extends Component {
                                                                         }
                                                                     />
                                                                 }
-                                                                label="Edit Work Package"
+                                                                label={Edit_Work_Package}
                                                             />
 
                                                         </Grid>

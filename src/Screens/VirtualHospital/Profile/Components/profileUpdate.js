@@ -1165,7 +1165,7 @@ class Index extends Component {
                           this.props.settings.setting &&
                           this.props.settings.setting.date_format
                         }
-                        onChange={this.onChange}
+                      
                       />
                     </Grid>
                   </Grid>
@@ -1367,8 +1367,7 @@ class Index extends Component {
                         className="Mobile_extra"
                         placeholder={mobile}
                         name="mobile"
-                        type="text"
-                        onChange={this.updateEntryState1}
+                       onChange={this.updateEntryState1}
                         value={
                           this.state.UpDataDetails.mobile &&
                           this.updateMOBILE(this.state.UpDataDetails.mobile)

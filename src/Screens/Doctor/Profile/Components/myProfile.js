@@ -1358,7 +1358,7 @@ class Index extends Component {
                           this.props.settings.setting &&
                           this.props.settings.setting.date_format
                         }
-                        onChange={this.onChange}
+                       
                       />
                     </Grid>
                   </Grid>
@@ -1462,8 +1462,7 @@ class Index extends Component {
                         onChange={(e) => this.EntryValueName(e, "country")}
                         options={this.state.selectCountry}
                         placeholder=""
-                        isSearchable={true}
-                        className="cntryDrop"
+                       className="cntryDrop"
                       />
                     </Grid>
                   </Grid>
@@ -1483,8 +1482,7 @@ class Index extends Component {
                         onChange={(e) => this.EntryValueName(e, "citizen_country")}
                         options={this.state.selectCountry}
                         placeholder=""
-                        isSearchable={true}
-                        className="cntryDrop"
+                       className="cntryDrop"
                       />
                     </Grid>
                   </Grid>
@@ -1555,7 +1553,6 @@ class Index extends Component {
                         className="Mobile_extra"
                         placeholder={mobile}
                         name="mobile"
-                        type="text"
                         onChange={this.updateEntryState1}
                         value={
                           UpDataDetails.mobile &&
@@ -1592,7 +1589,6 @@ class Index extends Component {
                         className="Mobile_extra"
                         placeholder={fax_nmbr}
                         name="fax"
-                        type="text"
                         onChange={this.updateEntryState1}
                         value={
                           UpDataDetails.fax &&

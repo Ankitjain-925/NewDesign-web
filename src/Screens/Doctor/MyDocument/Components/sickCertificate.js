@@ -280,7 +280,7 @@ class Index extends Component {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let translate = getLanguage(this.props.stateLanguageType)
-        let { prescription, see_details, accept, capab_Doctors, upload_scanned, scanned, status, sent, reject, approve, Case, sent_on, Patient, snd_patient_timeline_email, on, what_ur_profession, suported_file_type_jpg_png, Pending, not_mentioned, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,
+        let { prescription, see_details, accept, capab_Doctors, upload_scanned, scanned, status, sent, reject, approve, Case, sent_on, Patient, snd_patient_timeline_email, on, what_ur_profession, suported_file_type_jpg_png, Pending, not_mentioned, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New,  back, inquiry, short_msg, next, previous,
             doc_and_statnderd_ques, remove, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 
         return (

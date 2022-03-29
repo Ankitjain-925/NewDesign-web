@@ -915,7 +915,8 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality, FilterbyStaff, FilterbySpeciality, FilterbyWard, FilterbyRoom,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters, AllSpecialities, SelectStepName,
-      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient, Name, search_by_patient_id_name_doc, Search_Select } =
+      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient, Name, search_by_patient_id_name_doc, Search_Select,First_name 
+      ,Birthday,Mobile_number,Last_name,Patient_Email} =
       translate;
 
     const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep, filteredData } = this.state;
@@ -1217,7 +1218,7 @@ class Index extends Component {
                 {this.state.enableEmail == "email" &&
                   <Grid className="patentInfoBtn pateintInfoUser">
                     <VHfield
-                      label="Patient Email"
+                      label={Patient_Email}
                       name="email"
                       onChange={(e) => this.updateEntryState1(e, "email")}
                       value={this.state.updateState?.email || ''}
@@ -1254,7 +1255,7 @@ class Index extends Component {
                   <Grid>
                     <Grid className="patentInfoTxt">
                       <VHfield
-                        label="First name"
+                        label={First_name}
                         name="first_name"
                         onChange={(e) => this.updateEntryState1(e, "first_name")}
                         value={this.state.updateState?.first_name || ''}
@@ -1262,7 +1263,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="patentInfoTxt">
                       <VHfield
-                        label="Last name"
+                        label={Last_name}
                         name="last_name"
                         value={this.state.updateState?.last_name || ''}
                         onChange={(e) => this.updateEntryState1(e, "last_name")}
@@ -1272,7 +1273,7 @@ class Index extends Component {
                     <Grid className="profileInfoDate">
                       <Grid className="dateFormateSec">
                         <Grid>
-                          <label>Birthday</label>
+                          <label>{Birthday}</label>
                         </Grid>
                         <DateFormat
                           name="date"
@@ -1318,7 +1319,7 @@ class Index extends Component {
                     <Grid className="profileInfoIner">
                       <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={12} md={12}>
-                          <label>Mobile number</label>
+                          <label>{Mobile_number}</label>
                           <Grid className="setPositionMob">
                             {this.updateFLAG(this.state.updateState.mobile) &&
                               this.updateFLAG(this.state.updateState.mobile) !==

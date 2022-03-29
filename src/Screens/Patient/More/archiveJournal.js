@@ -442,7 +442,7 @@ class Index extends Component {
                           OpenGraph={this.OpenGraph}
                           comesfrom="patient"
                           downloadTrack={(data) => this.downloadTrack(data)}
-                          from="patient"
+                        
                           images={this.state.images}
                           DeleteTrack={(deleteKey) =>
                             this.DeleteTrack(deleteKey)

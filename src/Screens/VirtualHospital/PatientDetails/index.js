@@ -315,7 +315,7 @@ class Index extends Component {
         const { value } = this.state;
         const { valueMob } = this.state;
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Overview, journal, Tasks, DocumentsFiles, Room, personal_info } = translate;
+        let { Overview, journal, Tasks, DocumentsFiles, Room, personal_info ,Appointments } = translate;
         return (
             <Grid className={
                 this.props.settings &&
@@ -391,7 +391,7 @@ class Index extends Component {
                                                     <Tab label={Tasks} className="tsktabIner" />
                                                     <Tab label={DocumentsFiles} className="tsktabIner" />
                                                     <Tab label={personal_info} className="tsktabIner" />
-                                                    <Tab label={"Appointments"} className="tsktabIner" />
+                                                    <Tab label={Appointments} className="tsktabIner" />
                                                 </Tabs>
                                             </AppBar>
                                         </Grid>

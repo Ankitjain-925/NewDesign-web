@@ -1547,7 +1547,7 @@ class Index extends Component {
                                   defaultCountry="DE"
                                 />
                                 <input
-                                  type="text"
+                                  
                                   className="mobileReg"
                                   type="number"
                                   name="mobile"

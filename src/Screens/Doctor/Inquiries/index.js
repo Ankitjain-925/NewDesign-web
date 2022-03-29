@@ -122,7 +122,8 @@ class Index extends Component {
       ScndOpinion,
       sickcsrtificates,
       rqst_sent_succefully,
-      SentPrescriptions
+      SentPrescriptions,
+      Search
     } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
@@ -198,7 +199,7 @@ class Index extends Component {
                                                     <input
                                                         className="serchInput"
                                                         name="Search"
-                                                        placeholder="Search"
+                                                        placeholder={Search}
                                                         value={this.state.searchValue}
                                                         onChange={this.SearchFilter}
                                                     />

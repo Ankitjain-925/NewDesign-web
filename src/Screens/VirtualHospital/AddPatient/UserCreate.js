@@ -1065,7 +1065,7 @@ class Index extends Component {
                                                 value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
                                                 onChange={this.onChange}
                                             /> */}
-                                                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
+                                                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format}  />
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={8}>
@@ -1172,7 +1172,7 @@ class Index extends Component {
                                                                         <Grid>
                                                                             {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
                                                                                 <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
-                                                                            <input type="text"
+                                                                            <input 
                                                                                 className="Mobile_extra"
                                                                                 placeholder={mobile}
                                                                                 name="mobile"

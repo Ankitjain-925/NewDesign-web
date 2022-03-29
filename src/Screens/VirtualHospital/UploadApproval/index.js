@@ -275,7 +275,7 @@ class Index extends Component {
         //     return <Redirect to={"/VirtualHospital/space"} />;
         //   }
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Tasks_overview, ShowArchivedTasks, Open, Donetoday, CaseNumber, step_name, SelectStepName } = translate;
+        let { Tasks_overview, ShowArchivedTasks, Open, Donetoday, CaseNumber, step_name, SelectStepName ,Attachments} = translate;
         return (
             <Grid className={
                 this.props.settings &&
@@ -310,7 +310,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={8}>
                                                             <Grid className="headerCountTxt">
 
-                                                                <label>Attachments</label>
+                                                                <label>{Attachments}</label>
                                                                 <FileUploader
                                                                     // cur_one={this.props.cur_one}
                                                                     attachfile={

@@ -31,6 +31,7 @@ import ReactToPrint, { PrintContext } from 'react-to-print';
 import { ComponentToPrint } from "./ComponentTo";
 import ReactQuill from "react-quill";
 
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -122,6 +123,8 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+        let {Header_inches ,Footer_inches,First_Name,Last_Name,Birthday,Free_Content} = translate;
     return (
       <div>
         <Grid className={
@@ -141,7 +144,7 @@ class Index extends Component {
                   <Grid className="profileInfoSection">  <h1>Personal Information</h1></Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Header(inches)</label>
+                      <label>{Header_inches}</label>
                       <input
                         name="header"
                         type="text"
@@ -153,7 +156,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Footer(inches)</label>
+                      <label>{Footer_inches}</label>
                       <input
                         name="footer"
                         type="text"
@@ -164,7 +167,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>First Name</label>
+                      <label>{First_Name}</label>
                       <input
                         name="first_name"
                         type="text"
@@ -176,7 +179,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Last Name</label>
+                      <label>{Last_Name}</label>
                       <input
                         name="last_name"
                         type="text"
@@ -200,7 +203,7 @@ class Index extends Component {
                 </Grid> */}
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Birthday</label>
+                      <label>{Birthday}</label>
                       <Grid>
                           <DateFormat name="birthday" value={new Date(this.state.patinfo?.birthday)} date_format={this.props.settings.setting && this.props.settings.setting.date_format} disabled={true} />
                       </Grid>
@@ -215,7 +218,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Free Content</label>
+                      <label>{Free_Content}</label>
                       <ReactQuill
                         name="editor"
                         // value={this.state.editorText?.editor}
