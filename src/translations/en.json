@@ -1286,7 +1286,7 @@
     "CreateaTask": "Create a Task",
     "ForPatient": "For Patient",
     "House_assigned_to_user": "House is assigned to User",
-    "House_alread_exist_to_user": "House is already exist to User",
+    "House_alread_exist_to_user": "House is already exist to User Please select another",
     "Select_atleast_one_house": "Select atleast one house",
     "AssignedHouses": "Assigned Houses -",
     "Taskdescription": "Task description",

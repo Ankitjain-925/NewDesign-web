@@ -106,6 +106,8 @@ class Index extends Component {
       selectedPat: {},
       professional_id_list1: [],
       images: [],
+      Assigned_already: [],
+      calculate_Length: {},
     };
   }
 
@@ -278,6 +280,11 @@ class Index extends Component {
     state[e.target.name] = e.target.value == 'true' ? true : false;
     this.setState({ taskFilter: state });
   };
+  handleTaskSubmit1 = (type) => {
+    this.handleTaskSubmit(type);
+    this.handleDoctorMail();
+  };
+
   // submit Task model
   handleTaskSubmit = (type) => {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -287,8 +294,24 @@ class Index extends Component {
       Something_went_wrong,
     } = translate;
     this.setState({ errorMsg: '' });
-
+    let ComLength = this.state.calculate_Length;
     var data = this.state.newTask;
+    var user_id = data?.patient?.user_id;
+    if (
+      data?.attachments?.length > ComLength?.attach_Length ||
+      data?.comments?.length > ComLength?.comments_Length
+    ) {
+      axios
+        .post(
+          sitedata.data.path + '/UserProfile/MailSendToPatient',
+          { user_id: user_id },
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {})
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     if (
       !data.task_name ||
       (data && data.task_name && data.task_name.length < 1)
@@ -331,7 +354,7 @@ class Index extends Component {
               this.props.getAddTaskData();
               this.handleCloseTask();
               if (type === 'picture_evaluation') {
-                this.props.getArchived();
+                // this.props.getArchived();
               }
             } else {
               this.setState({ errorMsg: Something_went_wrong });
@@ -379,6 +402,49 @@ class Index extends Component {
           });
       }
     }
+  };
+
+  handleDoctorMail = () => {
+    var data = this.state.assignedTo;
+    var email = [];
+    data &&
+      data.length > 0 &&
+      data.map((a) => {
+        if (!this.state.Assigned_already.includes(a?.value)) {
+          return email.push(a?.email);
+        } else {
+          return;
+        }
+      });
+    let first_name =
+      this.props.patient?.first_name || this.state.newTask?.patient?.first_name;
+    let last_name =
+      this.props.patient?.first_name || this.state.newTask?.patient?.last_name;
+    let patient_id =
+      this.props.patient?._id || this.state.newTask?.patient?.profile_id;
+    axios
+      .post(
+        sitedata.data.path + '/UserProfile/MailSendToDr',
+        {
+          email: email,
+          patient_infos: {
+            first_name: first_name,
+            last_name: last_name,
+            patient_id: patient_id,
+          },
+        },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          // this.setState({
+          //   updateEvaluate: responce.data.data,
+          // });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   updateCommemtState = (e) => {
@@ -647,6 +713,29 @@ class Index extends Component {
     }
   };
 
+  declineTask = (id, patient_id)=>{
+    console.log('patient_id',patient_id)
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {
+      Something_went_wrong,
+    } = translate;
+    this.setState({ loaderImage: true });
+      axios
+        .put(
+          sitedata.data.path + '/vh/AddTask/' + id,
+          {is_decline: true,
+            patient_id: patient_id},
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          if (responce.data.hassuccessed) {
+            this.props.getAddTaskData();
+          } else {
+            this.setState({ errorMsg: Something_went_wrong });
+          }
+        }); 
+  }
   //{Delete} the perticular service confirmation box
   removeTask = (id) => {
     this.setState({ message: null, openTask: false });
@@ -802,10 +891,21 @@ class Index extends Component {
     } else if (data?.first_name) {
       pat1name = data?.patient?.first_name;
     }
+    // var cal_Length = data?.attachments?.length;
+    var Assigned_Aready =
+      data?.assinged_to?.length > 0 &&
+      data?.assinged_to.map((item) => {
+        return item?.user_id;
+      });
     var deep = _.cloneDeep(data);
     this.setState({
       newTask: deep,
       openTask: true,
+      Assigned_already: Assigned_Aready,
+      calculate_Length: {
+        attach_Length: data?.attachments?.length,
+        comments_Length: data?.comments?.length,
+      },
       // assignedTo: assignedTo,
       q: pat1name,
       selectedPat: { label: pat1name, value: data?.patient?._id },
@@ -2065,7 +2165,7 @@ class Index extends Component {
                               </div>
                               <Button
                                 onClick={() =>
-                                  this.handleTaskSubmit(
+                                  this.handleTaskSubmit1(
                                     this.state.newTask?.task_type
                                   )
                                 }
@@ -2218,6 +2318,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2234,7 +2335,8 @@ class Index extends Component {
                       <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
+                        editTask={(data) => this.editTask(data)} 
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2252,6 +2354,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2269,6 +2372,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>

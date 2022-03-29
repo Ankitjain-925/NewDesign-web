@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { pure } from "recompose";
-import { LanguageFetchReducer } from "Screens/actions";
-import SelectField from "Screens/Components/Select/index";
-import Button from "@material-ui/core/Button";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { pure } from 'recompose';
+import { LanguageFetchReducer } from 'Screens/actions';
+import SelectField from 'Screens/Components/Select/index';
+import Button from '@material-ui/core/Button';
 import { Settings } from 'Screens/Login/setting';
-import { getLanguage } from "translations/index"
-import NewRole  from "Screens/VirtualHospital/New Role/index";
+import { getLanguage } from 'translations/index';
+import NewRole from 'Screens/VirtualHospital/New Role/index';
 
 class PointPain extends Component {
   constructor(props) {
@@ -24,42 +24,78 @@ class PointPain extends Component {
       assignedhouse: this.props.assignedhouse,
       blankerror: this.props.blankerror,
       alredyExist: false,
-      openHouse1:false
+      openHouse1: false,
     };
   }
 
+  // updateEntryState1 = (value, name) => {
+  //   this.setState({ alredyExist: false, assignedhouse: false });
+  //   let data = this.state.current_user?.houses;
+  //   let id1 =
+  //     data &&
+  //     data.length > 0 &&
+  //     data.map((item) => {
+  //       return item && item.value;
+  //     });
+  //   let id2 =
+  //     value &&
+  //     value.length > 0 &&
+  //     value.map((item) => {
+  //       return item && item.value;
+  //     });
+  //   let length1 = id1 && id1.length;
+  //   let length2 = id2 && id2.length;
+  //   for (var i = 0; i < length1; i++) {
+  //     for (var j = 0; j < length2; j++) {
+  //       let status = id1[i] == id2[j];
+  //       if (status == true) {
+  //         this.setState({ alredyExist: true });
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   this.props.updateEntryState1(value);
+  // };
+
   updateEntryState1 = (value, name) => {
-    this.setState({ alredyExist: false, assignedhouse: false })
-
-    let data = this.state.current_user?.houses
-    let id1 = data && data.length > 0 && data.map((item) => {
-      return item && item.value
-    })
-    let id2 = value && value.length > 0 && value.map((item) => {
-      return item && item.value;
-    })
-    let length1 = id1 && id1.length
-    let length2 = id2 && id2.length
-
-    for (var i = 0; i < length1; i++) {
-      for (var j = 0; j < length2; j++) {
-
-        let status = id1[i] == id2[j]
-        if (status == true) {
-          this.setState({ alredyExist: true })
-          break;
-        }
-      }
+    this.setState({
+      alredyExist: false,
+      assignedhouse: false,
+      blankerror: false,
+    });
+    let data = this.state.current_user?.houses;
+    let id1 =
+      data &&
+      data.length > 0 &&
+      data.filter((item) => {
+        return item && item?.value === value?.value;
+      });
+    if (id1 && id1?.length > 0) {
+      this.setState({ alredyExist: true });
     }
     this.props.updateEntryState1(value);
-  }
+  };
+
   //on adding new data
   componentDidUpdate = (prevProps) => {
-    if (prevProps.openHouse !== this.props.openHouse || prevProps.alredyExist !== this.props.alredyExist || prevProps.current_user !== this.props.current_user ||
-      prevProps.Housesoptions !== this.props.Housesoptions || prevProps.deleteHouses !== this.props.deleteHouses || prevProps.assignedhouse !== this.props.assignedhouse || prevProps.blankerror !== this.props.blankerror) {
+    if (
+      prevProps.openHouse !== this.props.openHouse ||
+      prevProps.alredyExist !== this.props.alredyExist ||
+      prevProps.current_user !== this.props.current_user ||
+      prevProps.Housesoptions !== this.props.Housesoptions ||
+      prevProps.deleteHouses !== this.props.deleteHouses ||
+      prevProps.assignedhouse !== this.props.assignedhouse ||
+      prevProps.blankerror !== this.props.blankerror
+    ) {
       this.setState({
-        openHouse: this.props.openHouse, alreadyExist: this.props.alredyExist, currentHouses: this.props.currentHouses,
-        current_user: this.props.current_user, Housesoptions: this.props.Housesoptions, deleteHouses: this.props.deleteHouses, assignedhouse: this.props.assignedhouse, blankerror: this.props.blankerror
+        openHouse: this.props.openHouse,
+        alreadyExist: this.props.alredyExist,
+        currentHouses: this.props.currentHouses,
+        current_user: this.props.current_user,
+        Housesoptions: this.props.Housesoptions,
+        deleteHouses: this.props.deleteHouses,
+        assignedhouse: this.props.assignedhouse,
+        blankerror: this.props.blankerror,
       });
     }
   };
@@ -74,114 +110,132 @@ class PointPain extends Component {
 
   //     );
   //   }
-  newrole=()=>{
-    this.setState({ openHouse1: true})
-  }
-  closeHouse1 = () => {
-    this.setState({ openHouse1: false})
+  newrole = () => {
+    this.setState({ openHouse1: true });
   };
-  componentDidMount = () => { };
+  closeHouse1 = () => {
+    this.setState({ openHouse1: false });
+  };
+  componentDidMount = () => {};
   render() {
-    let translate = getLanguage(this.props.stateLanguageType)
-    let { ManageHouse, House_assigned_to_user, House_alread_exist_to_user, Select_atleast_one_house, AssignedHouses, Delete, Save } = translate;
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {
+      ManageHouse,
+      House_assigned_to_user,
+      House_alread_exist_to_user,
+      Select_atleast_one_house,
+      AssignedHouses,
+      Delete,
+      Save,
+    } = translate;
     return (
       <Grid>
-      <Modal
-        open={this.state.openHouse}
-        onClose={this.props.closeHouse}
-        className={
-          this.props.settings &&
+        <Modal
+          open={this.state.openHouse}
+          onClose={this.props.closeHouse}
+          className={
+            this.props.settings &&
             this.props.settings.setting &&
             this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
-            ? "addSpeclModel darkTheme"
-            : "addSpeclModel"
-        }
-      >
-        <Grid className="addSpeclContnt">
-        <Grid className="addSpeclContntIner">
-          <Grid className="addSpeclLbl">
-            <Grid className="addSpeclClose">
-              <a onClick={this.props.closeHouse}>
-                <img
-                  src={require("assets/images/close-search.svg")}
-                  alt=""
-                  title=""
-                />
-              </a>
-            </Grid>
-            <Grid>
-              <label>{ManageHouse}</label>
-            </Grid>
-          </Grid>
-          <Grid className="enterSpclUpr">
-            <Grid className="enterSpclMain">
-              <Grid className="enterSpcl">
-                <Grid container direction="row">
-                  {this.state.assignedhouse && (
-                    <div className="success_message">
-                      {House_assigned_to_user}
-                    </div>
-                  )}
-                  {/* {this.state.deleteHouses && (
+            this.props.settings.setting.mode === 'dark'
+              ? 'addSpeclModel darkTheme'
+              : 'addSpeclModel'
+          }
+        >
+          <Grid className="addSpeclContnt">
+            <Grid className="addSpeclContntIner">
+              <Grid className="addSpeclLbl">
+                <Grid className="addSpeclClose">
+                  <a onClick={this.props.closeHouse}>
+                    <img
+                      src={require('assets/images/close-search.svg')}
+                      alt=""
+                      title=""
+                    />
+                  </a>
+                </Grid>
+                <Grid>
+                  <label>{ManageHouse}</label>
+                </Grid>
+              </Grid>
+              <Grid className="enterSpclUpr">
+                <Grid className="enterSpclMain">
+                  <Grid className="enterSpcl">
+                    <Grid container direction="row">
+                      {this.state.assignedhouse && (
+                        <div className="success_message">
+                          {House_assigned_to_user}
+                        </div>
+                      )}
+                      {/* {this.state.deleteHouses && (
                     <div className="success_message">
                       House id deleted from the User
                     </div>
                   )} */}
-                  {this.state.alredyExist && (
-                    <div className="err_message">
-                      {House_alread_exist_to_user}
-                    </div>
-                  )}
-                  {this.state.blankerror && (
-                    <div className="err_message">
-                      {Select_atleast_one_house}
-                    </div>
-                  )}
-                  <Grid item xs={10} md={12}>
-                    <SelectField
-                      isSearchable={true}
-                      name="houses"
-                      option={this.state.Housesoptions}
-                      onChange={(e) => this.updateEntryState1(e, "houses")}
-                      value={this.state.currentHouses}
-                      // isMulti={true}
-                    />
-                  </Grid>
-                  <Grid item xs={10} md={12}>
-                    <b>{AssignedHouses}</b>
-                    <Grid container direction="row">
-                      {this.state.current_user?.houses?.length > 0 && this.state.current_user?.houses.map((item) => (
-                        <>
-                          <Grid item xs={10} md={10}>
-                            {item.group_name} - {item.label} ({item.value})
-                            {/* <Button onClick={()=>{this.newrole()}} >Next</Button> */}
-                          </Grid>
-                          <Grid item xs={2} md={2}>
-                            <a className="delet-house" onClick={() => { this.props.deleteHouse(item.value) }}>{Delete}</a>
-                          </Grid>
-                        </>
-                     ))}
+                      {this.state.alredyExist && (
+                        <div className="err_message">
+                          {House_alread_exist_to_user}
+                        </div>
+                      )}
+                      {this.state.blankerror && (
+                        <div className="err_message">
+                          {Select_atleast_one_house}
+                        </div>
+                      )}
+                      <Grid item xs={10} md={12}>
+                        <SelectField
+                          isSearchable={true}
+                          name="houses"
+                          option={this.state.Housesoptions}
+                          onChange={(e) => this.updateEntryState1(e, 'houses')}
+                          value={this.state.currentHouses}
+                          // isMulti={true}
+                        />
+                      </Grid>
+                      <Grid item xs={10} md={12}>
+                        <b>{AssignedHouses}</b>
+                        <Grid container direction="row">
+                          {this.state.current_user?.houses?.length > 0 &&
+                            this.state.current_user?.houses.map((item) => (
+                              <>
+                                <Grid item xs={10} md={10}>
+                                  {item.group_name} - {item.label} ({item.value}
+                                  )
+                                  {/* <Button onClick={()=>{this.newrole()}} >Next</Button> */}
+                                </Grid>
+                                <Grid item xs={2} md={2}>
+                                  <a
+                                    className="delet-house"
+                                    onClick={() => {
+                                      this.props.deleteHouse(item.value);
+                                    }}
+                                  >
+                                    {Delete}
+                                  </a>
+                                </Grid>
+                              </>
+                            ))}
+                        </Grid>
+                      </Grid>
+
+                      <Grid className="spclSaveBtn saveNclose">
+                        {this.state.alredyExist === false && (
+                          <Button onClick={() => this.props.SaveAssignHouse()}>
+                            {Save}
+                          </Button>
+                        )}
+                      </Grid>
                     </Grid>
-                  </Grid>
-
-
-                  <Grid className="spclSaveBtn saveNclose">
-                    {this.state.alredyExist === false && (<Button onClick={() => this.props.SaveAssignHouse()}>{Save}</Button>)}
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        </Grid>
-        
-      </Modal>
-      {console.log("open",this.state.openHouse1)}
-      <NewRole
-        openHouse1={this.state.openHouse1}
-        closeHouse1={this.closeHouse1}
-      ></NewRole>
+        </Modal>
+        <NewRole
+          openHouse1={this.state.openHouse1}
+          closeHouse1={this.closeHouse1}
+        ></NewRole>
       </Grid>
     );
   }
@@ -196,5 +250,7 @@ const mapStateToProps = (state) => {
   };
 };
 export default pure(
-  withRouter(connect(mapStateToProps, { LanguageFetchReducer, Settings })(PointPain))
+  withRouter(
+    connect(mapStateToProps, { LanguageFetchReducer, Settings })(PointPain)
+  )
 );

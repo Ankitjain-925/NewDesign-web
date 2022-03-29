@@ -10009,6 +10009,9 @@ button.crdoLghtBlu2 {
   border-bottom: none;
 }
 /* Added by Ankita */
+.taskViewMob{
+  padding-bottom: 70px;
+}
 @media (max-width: 959px) {
   .vh-section .prfilHghtLft p span,
   .vh-section .prfilHghtRght p span {
