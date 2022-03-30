@@ -713,29 +713,25 @@ class Index extends Component {
     }
   };
 
-  declineTask = (id, patient_id)=>{
-    console.log('patient_id',patient_id)
+  declineTask = (id, patient_id) => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {
-      Something_went_wrong,
-    } = translate;
+    let { Something_went_wrong } = translate;
     this.setState({ loaderImage: true });
-      axios
-        .put(
-          sitedata.data.path + '/vh/AddTask/' + id,
-          {is_decline: true,
-            patient_id: patient_id},
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({ loaderImage: false });
-          if (responce.data.hassuccessed) {
-            this.props.getAddTaskData();
-          } else {
-            this.setState({ errorMsg: Something_went_wrong });
-          }
-        }); 
-  }
+    axios
+      .put(
+        sitedata.data.path + '/vh/AddTask/' + id,
+        { is_decline: true, patient_id: patient_id },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed) {
+          this.props.getAddTaskData();
+        } else {
+          this.setState({ errorMsg: Something_went_wrong });
+        }
+      });
+  };
   //{Delete} the perticular service confirmation box
   removeTask = (id) => {
     this.setState({ message: null, openTask: false });
@@ -1157,6 +1153,23 @@ class Index extends Component {
     this.setState({ openDate: !this.state.openDate });
   };
 
+  calculateAge = (date) => {
+    if (date) {
+      var birthDate = new Date(date);
+      var otherDate = new Date();
+      var years = otherDate.getFullYear() - birthDate.getFullYear();
+      if (
+        otherDate.getMonth() < birthDate.getMonth() ||
+        (otherDate.getMonth() == birthDate.getMonth() &&
+          otherDate.getDate() < birthDate.getDate())
+      ) {
+        years--;
+      }
+      return years;
+    }
+    return '-';
+  };
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -1465,7 +1478,13 @@ class Index extends Component {
                                     this.props.settings &&
                                       this.props.settings?.setting &&
                                       this.props.settings?.setting?.date_format
-                                  )}
+                                  )}{' '}
+                                  (
+                                  {this.calculateAge(
+                                    this.state.newTask &&
+                                      this.state.newTask?.dob
+                                  )}{' '}
+                                  years)
                                 </p>
                                 <Grid>
                                   <label>{gender}</label>
@@ -1701,7 +1720,7 @@ class Index extends Component {
                                   <Grid xs={3} md={3}>
                                     <label>{warm}</label>
                                     {this.state.newTask &&
-                                    this.state.newTask?.warm === true ? (
+                                    this.state.newTask?.warm === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -1712,7 +1731,7 @@ class Index extends Component {
 
                                     {this.state.newTask &&
                                     this.state.newTask?.size_progress ===
-                                      true ? (
+                                      'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -1722,7 +1741,7 @@ class Index extends Component {
                                     <label>{itch}</label>
 
                                     {this.state.newTask &&
-                                    this.state.newTask?.itch === true ? (
+                                    this.state.newTask?.itch === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -1732,7 +1751,7 @@ class Index extends Component {
                                     <label>{pain}</label>
 
                                     {this.state.newTask &&
-                                    this.state.newTask?.pain === true ? (
+                                    this.state.newTask?.pain === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -2318,7 +2337,9 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2335,8 +2356,10 @@ class Index extends Component {
                       <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)} 
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        editTask={(data) => this.editTask(data)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2354,7 +2377,9 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2372,7 +2397,9 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
