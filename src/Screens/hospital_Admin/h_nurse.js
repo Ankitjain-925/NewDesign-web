@@ -57,7 +57,7 @@ class Index extends Component {
             openHouse: false,
             house: {},
             type: 'nurse',
-            checkboxdata:""
+            // checkboxdata:""
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
@@ -86,7 +86,7 @@ class Index extends Component {
 
                                 // let localdata=localStorage.getItem("redux_localstorage_simple")
                              
-                                this.setState({checkboxdata:this.props.metadata.authority.nurse_roles})
+                                // this.setState({checkboxdata:this.props.metadata.authority.nurse_roles})
                             })
                         })
                     }
@@ -517,7 +517,7 @@ class Index extends Component {
                                         SaveAssignHouse={this.SaveAssignHouse}
                                         deleteHouse={this.deleteHouse}
                                         updateEntryState1={this.updateEntryState1}
-                                        checkboxdata={this.state.checkboxdata}
+                                        // checkboxdata={this.state.checkboxdata}
                                     />
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user} />
                                 </Grid>

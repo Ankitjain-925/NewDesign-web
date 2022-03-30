@@ -71,7 +71,7 @@ export default class Column extends Component {
     const index = this.props.index;
     let translate = getLanguage(this.props.stateLanguageType);
     let { AddPatientStep, renameStep, MoveAll, move_all_patients, move_step, AddNewPatient, deleteStep } = translate;
-
+    {console.log('this.props.quotes;', this.props.quotes)}
     return (
       <div className="detailInfo">
       <Draggable draggableId={title} index={index}>

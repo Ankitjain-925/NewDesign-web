@@ -79,6 +79,7 @@
     "redux-localstorage-simple": "^2.1.6",
     "redux-state-sync": "^3.1.1",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.4.1",
     "start": "^5.1.0",
     "styled-components": "^5.3.3",
     "swiper": "^6.7.5",

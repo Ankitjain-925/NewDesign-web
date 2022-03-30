@@ -28,12 +28,13 @@ import SelectField from "Screens/Components/Select/index";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
+import io from "socket.io-client";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
     { value: 'Specialist2', label: 'Specialist2' },
 ];
-
+var socket;
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -59,10 +60,12 @@ class Index extends Component {
             UpDataDetails: {},
             deleteHouses: {},
             type: 'doctor',
-            checkboxdata:""
+            // checkboxdata:""
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
+        socket = io("http://localhost:5000");
+
     }
 
     getallGroups = () => {
@@ -86,7 +89,7 @@ class Index extends Component {
                                     value: item.house_id
                                 })
                                 this.setState({ Housesoptions: Housesoptions });
-                                this.setState({checkboxdata:this.props.metadata.authority.doctor_roles})
+                                // this.setState({checkboxdata:this.props.metadata.authority.doctor_roles})
                             })
                         })
                     }
@@ -96,9 +99,14 @@ class Index extends Component {
     };
 
     componentDidMount = () => {
+        socket.on('connection', () => {
+          })
+          
         this.getAllkyc()
         this.getDoctors();
         this.getallGroups();
+
+      
     }
 
     handleOpenCreate = () => {
@@ -137,6 +145,7 @@ class Index extends Component {
 
     }
 
+   
     getDoctors = (currentID) => {
         let { currentPage, type } = this.state
         var user_token = this.props.stateLoginValueAim.token;
@@ -145,6 +154,13 @@ class Index extends Component {
         res.then((res) => {
             var images = [];
             const AllPatient = res.data && res.data.data && res.data.data;
+            socket.on("data_shown",(data)=>{
+                var elementPos = AllPatient?.length>0 && AllPatient.map(function(x) {return x._id; }).indexOf(data?.data?.data?._id);
+                if(elementPos> -1){
+                    AllPatient[elementPos] = data?.data?.data;
+                    this.setState({MypatientsData: AllPatient})
+                } 
+            })   
             this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
             AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
                 var find = item && item.image && item.image
@@ -512,7 +528,7 @@ class Index extends Component {
                                         SaveAssignHouse={this.SaveAssignHouse}
                                         deleteHouse={this.deleteHouse}
                                         updateEntryState1={this.updateEntryState1}
-                                        checkboxdata={this.state.checkboxdata}
+                                        // checkboxdata={this.state.checkboxdata}
                                     />
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user} />
                                 </Grid>

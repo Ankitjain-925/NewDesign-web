@@ -92,7 +92,7 @@ class Index extends Component {
                   value: item.house_id
                 })
                 this.setState({ Housesoptions: Housesoptions });
-                this.setState({checkboxdata:this.props.metadata.authority.adminstaff_roles})
+                // this.setState({checkboxdata:this.props.metadata.authority.adminstaff_roles})
               })
             })
           }
@@ -701,7 +701,7 @@ class Index extends Component {
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
-                    checkboxdata={this.state.checkboxdata}
+                    // checkboxdata={this.state.checkboxdata}
 
                   />
                   {/* <Modal

@@ -109,6 +109,7 @@ class Index extends Component {
     let { AddStep } = translate;
     const board = (
       <div className={this.props.view === 'vertical' ? "dragdrop-vertical":"dragdrop-horizontal"}>
+        {console.log('this.state.columns', this.state.columns)}
         <Droppable
         droppableId="board"
         type={"COLUMN"}

@@ -59,6 +59,8 @@ class InnerQuoteList extends React.Component {
   }
 
   render() {
+
+console.log("verifiedbyPatient1",this.props.quotes)
     return this.props.quotes.map((quote, index) => (
       <Draggable
         key={quote.patient_id}
@@ -94,6 +96,7 @@ class InnerQuoteList extends React.Component {
 class InnerList extends React.Component {
   render() {
     const { quotes, dropProvided } = this.props;
+    console.log("quotes_1",quotes)
     return (
       <div>
         <div ref={dropProvided.innerRef}  className="quote-list">

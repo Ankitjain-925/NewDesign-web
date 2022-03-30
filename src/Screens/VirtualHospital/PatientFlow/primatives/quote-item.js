@@ -111,9 +111,24 @@ const QuoteId = styled.small`
   text-align: right;
 `;
 export default class QuoteItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quote : this.props.quote
+    };
+  }
   setSpeciality = () => { };
 
-  
+  componentDidUpdate=(prevProps)=>{
+    console.log("prevProps",prevProps)
+    if (prevProps.quote !== this.props.quote){
+      this.setState({
+        quote: this.props.quote,
+       
+    });
+    }
+
+  }
 
   render() {
     const { quote, isDragging, isGroupedOver, provided, onDragEnd } =
@@ -130,6 +145,7 @@ export default class QuoteItem extends React.Component {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
+        {console.log('verifiedbyPatient', quote?.verifiedbyPatient)}
         {this.props.view === "vertical" ? (
           <Grid className={!quote?.verifiedbyPatient ? "flowInfo disabledCrd" : "flowInfo"}>
             <Grid className="flowInfoInr">
@@ -155,9 +171,9 @@ export default class QuoteItem extends React.Component {
                 </Grid>
                 <Grid className="flowProfilRght" onClick={() => {quote?.verifiedbyPatient && this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id)}}>
                   <label>
-                    {quote.patient.first_name} {quote.patient.last_name}
+                    {quote.patient?.first_name} {quote.patient?.last_name}
                   </label>
-                  <p>{quote.patient.alies_id}</p>
+                  <p>{quote.patient?.alies_id}</p>
                 </Grid>
                 <Grid className="checkDotsRght">
                  {quote?.verifiedbyPatient && <CasesMoreButton
@@ -280,9 +296,9 @@ export default class QuoteItem extends React.Component {
                       <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
                       <Grid onClick={() => {quote?.verifiedbyPatient && this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id)}}>
                         <label>
-                          {quote.patient.first_name} {quote.patient.last_name}
+                          {quote.patient?.first_name} {quote.patient?.last_name}
                         </label>
-                        <p>{quote.patient.alies_id}</p>
+                        <p>{quote.patient?.alies_id}</p>
                       </Grid>
                     </Grid>
                   </Grid>

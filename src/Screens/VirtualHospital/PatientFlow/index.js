@@ -40,6 +40,10 @@ import QrReader from 'react-qr-reader'
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import ReactFlagsSelect from "react-flags-select";
+import io from "socket.io-client";
+
+var socket;
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -85,6 +89,8 @@ class Index extends Component {
       msgState: "",
       enableScan: true
     };
+    socket = io("http://localhost:5000");
+
   }
   static defaultProps = {
     isCombineEnabled: false,
@@ -108,6 +114,9 @@ class Index extends Component {
   }
 
   componentDidMount() {
+    socket.on('connection', () => {
+      console.log('connected to server');
+    })
     this.getPatientData();
     this.getProfessionalData();
     var steps = getSteps(
@@ -302,6 +311,7 @@ class Index extends Component {
   //Set data according to package
   setDta = (stepData) => {
     var author = getAuthor(stepData);
+    console.log("stepData",stepData)
     stepData.map((item, index1) => {
       item?.case_numbers?.length > 0 &&
         item.case_numbers.map((data, index) => {
@@ -427,6 +437,7 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        console.log("responce",responce)
         if (responce.data.hassuccessed) {
           this.setState({ loaderImage: false })
           state.splice(index, 1);
@@ -520,7 +531,7 @@ class Index extends Component {
     else if(!data.email && this.state.enableEmail === 'email'){
       this.setState({ errorMsg: 'Please add the email of patient' })
     }
-    else if((!data.first_name || !data.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
+    else if((!data?.first_name || !data?.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
       console.log('dasdasf')
       this.setState({ errorMsg: 'Please enter the full information of patient' })
     }
@@ -545,8 +556,8 @@ class Index extends Component {
               case_number: this.state.case.case_number,
               patient_id: responce.data.data._id,
               patient: {
-                first_name: responce.data.data.first_name,
-                last_name: responce.data.data.last_name,
+                first_name: responce.data.data?.first_name,
+                last_name: responce.data.data?.last_name,
                 image: responce.data.data.image,
                 profile_id: responce.data.data.profile_id,
                 alies_id: responce.data.data.alies_id,
@@ -578,7 +589,7 @@ class Index extends Component {
                     }
                     senddata.case_id = responce1.data?.data
                     senddata.patient = responce.data.data._id
-                    senddata.patient_name = responce.data.data.last_name ? responce.data.data.first_name + ' ' + responce.data.data.last_name : responce.data.data.first_name
+                    senddata.patient_name = responce.data.data?.last_name ? responce.data.data?.first_name + ' ' + responce.data.data?.last_name : responce.data.data?.first_name
                     axios
                       .post(
                         sitedata.data.path + "/vh/linkforAccepthospital",
@@ -594,6 +605,7 @@ class Index extends Component {
                       addp: {},
                     });
                     var state = this.state.actualData;
+                    console.log("state",state)
                     let indexData = ''
                     state && state.length > 0 && state.filter((item, index) => {
                       if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
@@ -614,6 +626,7 @@ class Index extends Component {
             }
           } else {
             if (responce.data.data) {
+              console.log("1")
               this.setState({ inOtherAlready: true, loaderImage: false, alreadyData: responce.data.data });
             }
             else {
@@ -720,10 +733,10 @@ class Index extends Component {
     });
     let result = actualData && actualData.length > 0 && actualData.map((item) => {
       var getdata = item && item.case_numbers && item.case_numbers.length > 0 && item.case_numbers.filter((value) => {
-        const patientFirstName = value.patient.first_name.toLowerCase();
-        const patientLastName = value.patient.last_name.toLowerCase();
+        const patientFirstName = value.patient?.first_name.toLowerCase();
+        const patientLastName = value.patient?.last_name.toLowerCase();
         const patientId = value.patient.alies_id.toLowerCase();
-        const patientFullName = `${value.patient.first_name.toLowerCase()} ${value.patient.last_name.toLowerCase()}`;
+        const patientFullName = `${value.patient?.first_name.toLowerCase()} ${value.patient?.last_name.toLowerCase()}`;
         let testCondition = (patientFirstName.includes(searchQuery)
           || patientLastName.includes(searchQuery)
           || patientId.includes(searchQuery)
@@ -764,6 +777,33 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
+    console.log("result",result)
+    socket.on("email_accept",(data)=>{
+      console.log("it is socket function to check its calling or Notification", data)
+      result && result?.length>0 && result.map(function(x) { 
+        if(x?.case_numbers?.length>0) {
+          x.case_numbers.map((item)=>{
+            if(item._id === data.case_id){
+              console.log('inside sondition maqtch')
+            item.verifiedbyPatient = true;
+
+            }
+            else{
+              console.log('not matching')
+            }
+        })
+      }
+      })
+      console.log("result1",result)
+      const authorQuoteMap = result && result?.length > 0 && result.reduce(
+        (previous, author) => {
+          if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
+          return previous;
+        }, {});
+  
+      this.setState({ fullData: authorQuoteMap });
+    })
+    console.log("result2",result)
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => {
         if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
@@ -786,6 +826,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response?.isdata) {
+      
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
@@ -863,6 +904,7 @@ class Index extends Component {
       state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
       this.setState({ newTask: state });
+      console.log("newtask",this.state.newTask)
     }
   };
 
@@ -1159,6 +1201,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <div className="custom-d-n-d">
+                      {console.log('fullData', this.state.fullData)}
                       <Drags
                         moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                         DeleteStep={(index) => this.DeleteStep(index)}

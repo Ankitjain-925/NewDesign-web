@@ -143,7 +143,7 @@ class PointPain extends Component {
                         // isMulti={true}
                         />
                       </Grid>
-                      {this.state.values && <>
+                      {/* {this.state.values && <>
                         {this.state.checkboxdata && this.state.checkboxdata &&
                           <>
                             <Grid>
@@ -157,7 +157,7 @@ class PointPain extends Component {
 
                         }
                         </>
-                      }
+                      } */}
 
                        {/* {this.state.values && <>
                         {this.state.checkboxdata && this.state.checkboxdata.length>1 &&
