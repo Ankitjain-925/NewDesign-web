@@ -10009,7 +10009,7 @@ button.crdoLghtBlu2 {
   border-bottom: none;
 }
 /* Added by Ankita */
-.taskViewMob{
+.taskViewMob {
   padding-bottom: 70px;
 }
 @media (max-width: 959px) {
@@ -10158,6 +10158,7 @@ ul.addpatientoption li:hover {
 @media (max-width: 768px) {
   .attchOpen,
   .attchDone,
+  .attchDecline,
   .date-secTask,
   .allInfo1 {
     margin: 5px 0px !important;
@@ -14397,4 +14398,48 @@ label.newrole {
   width: 50%;
   border-radius: 15px;
   margin-right: 8px;
+}
+
+.imageEvalSize img {
+  width: 50%;
+  border-radius: 15px;
+  margin-right: 8px;
+}
+.dataCommentBor {
+  padding: 10px;
+  background: #ddd;
+  margin: 10px 0px;
+  border-radius: 5px;
+  color: #000 !important;
+}
+
+.attchDecline button {
+  border-radius: 4px;
+  background-color: #ffdab99e;
+  color: #ff0000;
+  font-family: Muli;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 12px;
+  text-transform: capitalize;
+  padding: 7px 8px;
+}
+
+.attchDecline button label {
+  height: 8px;
+  width: 8px;
+  background-color: #ff0000;
+  border-radius: 12px;
+  margin-right: 7px;
+  margin-bottom: 0px;
+  font-family: Muli;
+}
+
+.attchDecline {
+  margin: 0px 38px;
+}
+
+.darkTheme .attchDecline button span {
+  color: #028b66 !important;
 }

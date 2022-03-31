@@ -90,8 +90,10 @@ class Index extends Component {
       selectWard: '',
       selectRoom: '',
       DoneTask: this.props.DoneTask,
+      DeclinedTask: this.props.DeclinedTask,
       noWards: false,
       AllTaskCss: '',
+      DeclinedTaskCss: '',
       DoneTaskCss: '',
       OpenTaskCss: '',
       ArchivedTasksCss: '',
@@ -108,6 +110,7 @@ class Index extends Component {
       images: [],
       Assigned_already: [],
       calculate_Length: {},
+      FileAttachValid: {},
     };
   }
 
@@ -118,6 +121,7 @@ class Index extends Component {
       prevProps.ArchivedTasks !== this.props.ArchivedTasks ||
       prevProps.DoneTask !== this.props.DoneTask ||
       prevProps.OpenTask !== this.props.OpenTask ||
+      prevProps.DeclinedTask !== this.props.DeclinedTask ||
       prevProps.patientForFilter !== this.props.patientForFilter
     ) {
       this.setState({
@@ -126,6 +130,7 @@ class Index extends Component {
         ArchivedTasks: this.props.ArchivedTasks,
         DoneTask: this.props.DoneTask,
         OpenTask: this.props.OpenTask,
+        DeclinedTask: this.props.DeclinedTask,
         patientForFilter: this.props.patientForFilter,
       });
     }
@@ -217,7 +222,7 @@ class Index extends Component {
     this.setState({ tabvalue });
   };
   handleChangeTab2 = (event, tabvalue2) => {
-    if (tabvalue2 == 3) {
+    if (tabvalue2 == 4) {
       this.props.getArchived();
     }
     this.setState({ tabvalue2 });
@@ -239,7 +244,6 @@ class Index extends Component {
       isfileuploadmulti: true,
       fileattach: Fileadd,
       fileupods: true,
-      // newTask : Fileadd
     });
   };
 
@@ -297,6 +301,7 @@ class Index extends Component {
     let ComLength = this.state.calculate_Length;
     var data = this.state.newTask;
     var user_id = data?.patient?.user_id;
+
     if (
       data?.attachments?.length > ComLength?.attach_Length ||
       data?.comments?.length > ComLength?.comments_Length
@@ -329,6 +334,12 @@ class Index extends Component {
       delete data?.patient?.speciality;
       if (this.state.fileupods) {
         data.attachments = this.state.fileattach;
+      }
+      if (
+        data?.attachments?.length > ComLength?.attach_Length ||
+        data?.comments?.length > ComLength?.comments_Length
+      ) {
+        data.isviewed = false;
       }
       data.house_id = this.props?.House?.value;
       this.setState({ loaderImage: true });
@@ -964,6 +975,7 @@ class Index extends Component {
       allWards: '',
       noWards: false,
       AllTaskCss: '',
+      DeclinedTaskCss: '',
     });
   };
 
@@ -1062,6 +1074,8 @@ class Index extends Component {
     } else if (tabvalue2 === 2) {
       tasks = this.props.OpenTask;
     } else if (tabvalue2 === 3) {
+      tasks = this.props.DeclinedTask;
+    } else if (tabvalue2 === 4) {
       tasks = this.props.ArchivedTasks;
     }
     let data2 = this.findData();
@@ -1072,6 +1086,8 @@ class Index extends Component {
         this.setState({ DoneTask: resp, DoneTaskCss: 'filterApply' });
       } else if (tabvalue2 === 2) {
         this.setState({ OpenTask: resp, OpenTaskCss: 'filterApply' });
+      } else if (tabvalue2 === 3) {
+        this.setState({ DeclinedTask: resp, DeclinedTaskCss: 'filterApply' });
       }
     });
     this.handleCloseRvw();
@@ -1199,6 +1215,7 @@ class Index extends Component {
       Markasdone,
       remove_time,
       Attachments,
+      Reply,
       add_task,
       Addtime,
       Entertitle,
@@ -1215,6 +1232,7 @@ class Index extends Component {
       Tasktitle,
       ALL,
       Done,
+      Declined,
       Open,
       Archived,
       Hide_task_from_patient,
@@ -1264,6 +1282,7 @@ class Index extends Component {
       AllTasks,
       AllTaskCss,
       DoneTaskCss,
+      DeclinedTaskCss,
       OpenTaskCss,
       ArchivedTasksCss,
     } = this.state;
@@ -1805,6 +1824,46 @@ class Index extends Component {
                                 ) : (
                                   <p>{no}</p>
                                 )}
+                                <Grid>
+                                  <h2>{Reply}</h2>
+                                  <label>{Attachments}</label>
+                                </Grid>
+                                <Grid className="imageEvalSize">
+                                  {this.state.newTask &&
+                                  this.state.newTask?.attachments &&
+                                  this.state.newTask?.attachments?.length >
+                                    0 ? (
+                                    <FileViews
+                                      comesFrom="Picture_Task"
+                                      images={this.state.images}
+                                      attachfile={
+                                        this.state.newTask?.attachments
+                                      }
+                                    />
+                                  ) : (
+                                    <p>No attachments!</p>
+                                  )}
+                                </Grid>
+                                <Grid class="addStnd1">
+                                  <Grid>
+                                    <label>{Comments}</label>
+                                  </Grid>
+                                  <p>
+                                    {this.state.newTask &&
+                                    this.state.newTask?.comments &&
+                                    this.state.newTask?.comments?.length > 0 ? (
+                                      this.state.newTask?.comments.map(
+                                        (data, index) => (
+                                          <div className="dataCommentBor">
+                                            {data?.comment}
+                                          </div>
+                                        )
+                                      )
+                                    ) : (
+                                      <p>No comments!</p>
+                                    )}
+                                  </p>
+                                </Grid>
                               </Grid>
                             </Grid>
                           )}
@@ -2016,36 +2075,39 @@ class Index extends Component {
                                             </Grid>
                                           </>
                                         ))}
-                                      <Grid
-                                        onClick={() => {
-                                          this.switchStatus();
-                                        }}
-                                        className="markDone"
-                                      >
-                                        {this.state.newTask.status ===
-                                        'done' ? (
-                                          <Grid className="revwFiles ">
-                                            <Grid className="activeOntask">
-                                              <img
-                                                src={require('assets/virtual_images/greyImg.png')}
-                                                alt=""
-                                                title=""
-                                              />
+                                      {this.state.fileupods ||
+                                      this.state.newTask.comments.length > 0 ? (
+                                        <Grid
+                                          onClick={() => {
+                                            this.switchStatus();
+                                          }}
+                                          className="markDone"
+                                        >
+                                          {this.state.newTask.status ===
+                                          'done' ? (
+                                            <Grid className="revwFiles ">
+                                              <Grid className="activeOntask">
+                                                <img
+                                                  src={require('assets/virtual_images/greyImg.png')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                              </Grid>
                                             </Grid>
-                                          </Grid>
-                                        ) : (
-                                          <Grid className="revwFiles">
-                                            <Grid>
-                                              <img
-                                                src={require('assets/virtual_images/greyImg.png')}
-                                                alt=""
-                                                title=""
-                                              />
+                                          ) : (
+                                            <Grid className="revwFiles">
+                                              <Grid>
+                                                <img
+                                                  src={require('assets/virtual_images/greyImg.png')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                              </Grid>
                                             </Grid>
-                                          </Grid>
-                                        )}
-                                        <label>{Markasdone}</label>
-                                      </Grid>
+                                          )}
+                                          <label>{Markasdone}</label>
+                                        </Grid>
+                                      ) : null}
                                     </>
                                   )}
                                 </Grid>
@@ -2213,6 +2275,9 @@ class Index extends Component {
                     <Tab label={ALL} className="billtabIner" />
                     <Tab label={Done} className="billtabIner" />
                     <Tab label={Open} className="billtabIner" />
+                    {this.props.comesFrom !== 'Professional' && (
+                      <Tab label={Declined} className="billtabIner" />
+                    )}
                     {this.props.comesFrom !== 'Professional' &&
                       this.props.comesFrom !== 'detailTask' && (
                         <Tab label={Archived} className="billtabIner" />
@@ -2272,12 +2337,11 @@ class Index extends Component {
                               alt=""
                               title=""
                               onClick={this.handleOpenRvw}
-                            />{' '}
+                            />
                           </a>
                         )}
                         {tabvalue2 === 1 && (
                           <a className={DoneTaskCss}>
-                            {' '}
                             <img
                               src={
                                 AllTaskCss === 'filterApply'
@@ -2287,12 +2351,11 @@ class Index extends Component {
                               alt=""
                               title=""
                               onClick={this.handleOpenRvw}
-                            />{' '}
+                            />
                           </a>
                         )}
                         {tabvalue2 === 2 && (
                           <a className={OpenTaskCss}>
-                            {' '}
                             <img
                               src={
                                 AllTaskCss === 'filterApply'
@@ -2302,13 +2365,26 @@ class Index extends Component {
                               alt=""
                               title=""
                               onClick={this.handleOpenRvw}
-                            />{' '}
+                            />
+                          </a>
+                        )}
+                        {tabvalue2 === 3 && (
+                          <a className={DeclinedTaskCss}>
+                            <img
+                              src={
+                                DeclinedTaskCss === 'filterApply'
+                                  ? require('assets/virtual_images/sort-active.png')
+                                  : require('assets/virtual_images/sort.png')
+                              }
+                              alt=""
+                              title=""
+                              onClick={this.handleOpenRvw}
+                            />
                           </a>
                         )}
                       </>
                     )}
-
-                  {tabvalue2 === 3 && (
+                  {tabvalue2 === 4 && (
                     <a className={ArchivedTasksCss}>
                       {' '}
                       <img
@@ -2388,6 +2464,26 @@ class Index extends Component {
             </TabContainer>
           )}
           {tabvalue2 === 3 && (
+            <TabContainer>
+              <Grid className="allInerTabs">
+                {this.state.DeclinedTask?.length > 0 &&
+                  this.state.DeclinedTask.map((data) => (
+                    <Grid>
+                      <TaskView
+                        data={data}
+                        removeTask={(id) => this.removeTask(id)}
+                        editTask={(data) => this.editTask(data)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
+                        comesFrom={this.props.comesFrom}
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+            </TabContainer>
+          )}
+          {tabvalue2 === 4 && (
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.ArchivedTasks?.length > 0 &&

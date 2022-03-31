@@ -35,7 +35,8 @@ class PointPain extends Component {
       DeleteTask,
       assign_to_doctor,
       edit_picture_evaluation,
-      delete_picture_evaluation,
+      decline_picture_evaluation,
+      Declined,
     } = translate;
     var data = this.state.data;
     return (
@@ -62,14 +63,13 @@ class PointPain extends Component {
               )}
               <Grid className="revwFilesRght">
                 <Grid>
-                  {' '}
                   <SpecialityButton
                     label={data?.speciality?.specialty_name}
                     backgroundColor={data?.speciality?.background_color}
                     viewImage={false}
                     color={data?.speciality?.color}
                     showActive={false}
-                  />{' '}
+                  />
                 </Grid>
                 <Grid>
                   <label>{data.task_name}</label>
@@ -113,11 +113,22 @@ class PointPain extends Component {
                   </Grid>
                 </Grid>
                 <Grid
-                  className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
+                  // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
+                  className={
+                    data?.is_decline === true
+                      ? 'attchDecline'
+                      : data.status === 'done'
+                      ? 'attchDone'
+                      : 'attchOpen'
+                  }
                 >
                   <Button>
                     <label></label>
-                    {data.status}
+                    {data?.is_decline === true ? (
+                      <> {Declined}</>
+                    ) : (
+                      <>{data.status}</>
+                    )}
                   </Button>
                 </Grid>
                 <Grid>
@@ -178,37 +189,41 @@ class PointPain extends Component {
                       </a>
                     </li>
                     {data &&
-                        data.task_type &&
-                        data.task_type === 'picture_evaluation' ?
-                     this.props.comesFrom !== 'Professional' && data?.assinged_to?.length==0 && (
-                     <li
-                      onClick={() => {
-                        this.props.declineTask(data._id, data.patient_id);
-                      }}
-                    >
-                      <a>
-                        <img
-                          src={require('assets/images/cancel-request.svg')}
-                          alt=""
-                          title=""
-                        />
-                          <>{delete_picture_evaluation}</>
-                      </a>
-                    </li>) : 
+                    data.task_type &&
+                    data.task_type === 'picture_evaluation' ? (
+                      this.props.comesFrom !== 'Professional' &&
+                      data?.assinged_to?.length == 0 && (
+                        <li
+                          onClick={() => {
+                            this.props.declineTask(data._id, data.patient_id);
+                          }}
+                        >
+                          <a>
+                            <img
+                              src={require('assets/images/cancel-request.svg')}
+                              alt=""
+                              title=""
+                            />
+                            <>{decline_picture_evaluation}</>
+                          </a>
+                        </li>
+                      )
+                    ) : (
                       <li
-                      onClick={() => {
-                        this.props.removeTask(data._id);
-                      }}
-                    >
-                      <a>
-                        <img
-                          src={require('assets/images/cancel-request.svg')}
-                          alt=""
-                          title=""
-                        />
+                        onClick={() => {
+                          this.props.removeTask(data._id);
+                        }}
+                      >
+                        <a>
+                          <img
+                            src={require('assets/images/cancel-request.svg')}
+                            alt=""
+                            title=""
+                          />
                           <>{DeleteTask}</>
-                      </a>
-                    </li>}
+                        </a>
+                      </li>
+                    )}
                   </ul>
                 </a>
               </Grid>
