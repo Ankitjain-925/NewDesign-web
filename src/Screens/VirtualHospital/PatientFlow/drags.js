@@ -25,7 +25,6 @@ class Index extends Component {
   };
 
   onDragEnd = result => {
-    // console.log('this is on end', result)
     if(result.destination){
       this.props.dragDropFlow(result);
     }
@@ -89,7 +88,6 @@ class Index extends Component {
     this.setState({
       columns: data.quoteMap
     }, ()=>{
-      // console.log('columns state', this.state.columns)
     });
   };
 
@@ -109,7 +107,8 @@ class Index extends Component {
     let { AddStep } = translate;
     const board = (
       <div className={this.props.view === 'vertical' ? "dragdrop-vertical":"dragdrop-horizontal"}>
-        {console.log('this.state.columns', this.state.columns)}
+      
+
         <Droppable
         droppableId="board"
         type={"COLUMN"}
@@ -143,6 +142,7 @@ class Index extends Component {
                         updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                         MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
                         mode={this.props?.mode}
+                        socket={this.props.socket}
                       />
                 ))}
                 <Grid className="newAddStepBtn"><Button onClick={this.AddMoreStep}>{AddStep}</Button></Grid>

@@ -71,7 +71,7 @@ export default class Column extends Component {
     const index = this.props.index;
     let translate = getLanguage(this.props.stateLanguageType);
     let { AddPatientStep, renameStep, MoveAll, move_all_patients, move_step, AddNewPatient, deleteStep } = translate;
-    {console.log('this.props.quotes;', this.props.quotes)}
+
     return (
       <div className="detailInfo">
       <Draggable draggableId={title} index={index}>
@@ -244,6 +244,7 @@ export default class Column extends Component {
               updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
               MovetoTask={(speciality, patient_id) => { this.props.MovetoTask(speciality, patient_id) }}
               mode={this.props?.mode}
+              socket={this.props.socket}
             />
             {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</Button></Grid>}
           </Container>

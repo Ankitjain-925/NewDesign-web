@@ -110,26 +110,39 @@ const QuoteId = styled.small`
   text-overflow: ellipsis;
   text-align: right;
 `;
+var socket;
+
 export default class QuoteItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quote : this.props.quote
+     update : false
     };
+    
   }
   setSpeciality = () => { };
 
-  componentDidUpdate=(prevProps)=>{
-    console.log("prevProps",prevProps)
-    if (prevProps.quote !== this.props.quote){
-      this.setState({
-        quote: this.props.quote,
-       
-    });
-    }
 
+  // shouldComponentUpdate(nextProps, nexState) {
+  //   return (
+      
+  //   );
+  // }
+
+  componentDidMount(){
+  this.props.socket.on("email_accept",(data)=>{
+   
+          if(this.props.quote._id === data.case_id){
+        
+            this.props.quote.verifiedbyPatient = true;  
+            this.setState({update : !this.state.update})
+
+          }
+         
+      
+    })
   }
-
+  
   render() {
     const { quote, isDragging, isGroupedOver, provided, onDragEnd } =
       this.props;
@@ -145,7 +158,6 @@ export default class QuoteItem extends React.Component {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-        {console.log('verifiedbyPatient', quote?.verifiedbyPatient)}
         {this.props.view === "vertical" ? (
           <Grid className={!quote?.verifiedbyPatient ? "flowInfo disabledCrd" : "flowInfo"}>
             <Grid className="flowInfoInr">

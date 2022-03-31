@@ -60,7 +60,6 @@ class InnerQuoteList extends React.Component {
 
   render() {
 
-console.log("verifiedbyPatient1",this.props.quotes)
     return this.props.quotes.map((quote, index) => (
       <Draggable
         key={quote.patient_id}
@@ -85,6 +84,7 @@ console.log("verifiedbyPatient1",this.props.quotes)
             professional_id_list={this.props.professional_id_list}
             updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
             MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
+            socket={this.props.socket}
           />
 
         )}
@@ -96,11 +96,10 @@ console.log("verifiedbyPatient1",this.props.quotes)
 class InnerList extends React.Component {
   render() {
     const { quotes, dropProvided } = this.props;
-    console.log("quotes_1",quotes)
     return (
       <div>
         <div ref={dropProvided.innerRef}  className="quote-list">
-          <InnerQuoteList  MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }} updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}} professional_id_list={this.props.professional_id_list} moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)} setDta={(item)=>this.props.setDta(item)} columns={this.props.columns} onDragEnd={(data)=>{this.props.onDragEnd(data)}} ordered={this.props.ordered} quotes={quotes}  view={this.props.view}/>
+          <InnerQuoteList  socket={this.props.socket} MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }} updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}} professional_id_list={this.props.professional_id_list} moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)} setDta={(item)=>this.props.setDta(item)} columns={this.props.columns} onDragEnd={(data)=>{this.props.onDragEnd(data)}} ordered={this.props.ordered} quotes={quotes}  view={this.props.view}/>
         </div>
       </div>
     );
@@ -124,7 +123,6 @@ export default class QuoteList extends React.Component {
       quotes,
       title
     } = this.props;
-
     return (
       <Droppable
         className="list-z-index"
@@ -158,7 +156,7 @@ export default class QuoteList extends React.Component {
                   professional_id_list={this.props.professional_id_list}
                   updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                   MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
-                  
+                  socket={this.props.socket}
                 />
               </ScrollContainer>
             ) : (
@@ -175,6 +173,7 @@ export default class QuoteList extends React.Component {
                 professional_id_list={this.props.professional_id_list}
                 updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                 MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
+                socket={this.props.socket}
               />
             )}
           </Wrapper>

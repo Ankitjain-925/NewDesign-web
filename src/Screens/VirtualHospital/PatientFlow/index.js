@@ -98,7 +98,6 @@ class Index extends Component {
   boardRef;
 
   handleError = err => {
-    console.error(err)
   }
 
   handleEnableEmail = (value) => {
@@ -115,7 +114,6 @@ class Index extends Component {
 
   componentDidMount() {
     socket.on('connection', () => {
-      console.log('connected to server');
     })
     this.getPatientData();
     this.getProfessionalData();
@@ -311,7 +309,6 @@ class Index extends Component {
   //Set data according to package
   setDta = (stepData) => {
     var author = getAuthor(stepData);
-    console.log("stepData",stepData)
     stepData.map((item, index1) => {
       item?.case_numbers?.length > 0 &&
         item.case_numbers.map((data, index) => {
@@ -437,7 +434,6 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
-        console.log("responce",responce)
         if (responce.data.hassuccessed) {
           this.setState({ loaderImage: false })
           state.splice(index, 1);
@@ -467,7 +463,6 @@ class Index extends Component {
       return str;
     } else {
       var mob = str && str.split("-");
-      console.log('mob', mob);
       return mob.pop();
     }
   };
@@ -532,7 +527,6 @@ class Index extends Component {
       this.setState({ errorMsg: 'Please add the email of patient' })
     }
     else if((!data?.first_name || !data?.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
-      console.log('dasdasf')
       this.setState({ errorMsg: 'Please enter the full information of patient' })
     }
     else {
@@ -605,7 +599,6 @@ class Index extends Component {
                       addp: {},
                     });
                     var state = this.state.actualData;
-                    console.log("state",state)
                     let indexData = ''
                     state && state.length > 0 && state.filter((item, index) => {
                       if (item.step_name.toLowerCase() == this.state.SelectedStep.label.toLowerCase()) {
@@ -626,7 +619,6 @@ class Index extends Component {
             }
           } else {
             if (responce.data.data) {
-              console.log("1")
               this.setState({ inOtherAlready: true, loaderImage: false, alreadyData: responce.data.data });
             }
             else {
@@ -777,33 +769,7 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
-    console.log("result",result)
-    socket.on("email_accept",(data)=>{
-      console.log("it is socket function to check its calling or Notification", data)
-      result && result?.length>0 && result.map(function(x) { 
-        if(x?.case_numbers?.length>0) {
-          x.case_numbers.map((item)=>{
-            if(item._id === data.case_id){
-              console.log('inside sondition maqtch')
-            item.verifiedbyPatient = true;
-
-            }
-            else{
-              console.log('not matching')
-            }
-        })
-      }
-      })
-      console.log("result1",result)
-      const authorQuoteMap = result && result?.length > 0 && result.reduce(
-        (previous, author) => {
-          if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
-          return previous;
-        }, {});
-  
-      this.setState({ fullData: authorQuoteMap });
-    })
-    console.log("result2",result)
+    
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => {
         if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
@@ -904,7 +870,6 @@ class Index extends Component {
       state["patient_id"] = user1[0].patient_id;
       state["case_id"] = user1[0].case_id;
       this.setState({ newTask: state });
-      console.log("newtask",this.state.newTask)
     }
   };
 
@@ -1201,7 +1166,6 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <div className="custom-d-n-d">
-                      {console.log('fullData', this.state.fullData)}
                       <Drags
                         moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                         DeleteStep={(index) => this.DeleteStep(index)}
@@ -1229,6 +1193,7 @@ class Index extends Component {
                           this.MovetoTask(speciality, patient_id)
                         }}
                         mode={this.props?.settings?.setting?.mode}
+                        socket={socket}
                       />
                     </div>
                   </Grid>
