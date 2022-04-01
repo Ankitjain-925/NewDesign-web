@@ -40,6 +40,12 @@ import QrReader from 'react-qr-reader'
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import ReactFlagsSelect from "react-flags-select";
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
+
+var socket;
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -85,6 +91,8 @@ class Index extends Component {
       msgState: "",
       enableScan: true
     };
+    socket = io(SOCKET_URL);
+
   }
   static defaultProps = {
     isCombineEnabled: false,
@@ -92,7 +100,6 @@ class Index extends Component {
   boardRef;
 
   handleError = err => {
-    console.error(err)
   }
 
   handleEnableEmail = (value) => {
@@ -108,6 +115,8 @@ class Index extends Component {
   }
 
   componentDidMount() {
+    socket.on('connection', () => {
+    })
     this.getPatientData();
     this.getProfessionalData();
     var steps = getSteps(
@@ -456,7 +465,6 @@ class Index extends Component {
       return str;
     } else {
       var mob = str && str.split("-");
-      console.log('mob', mob);
       return mob.pop();
     }
   };
@@ -520,8 +528,7 @@ class Index extends Component {
     else if(!data.email && this.state.enableEmail === 'email'){
       this.setState({ errorMsg: 'Please add the email of patient' })
     }
-    else if((!data.first_name || !data.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
-      console.log('dasdasf')
+    else if((!data?.first_name || !data?.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
       this.setState({ errorMsg: 'Please enter the full information of patient' })
     }
     else {
@@ -545,8 +552,8 @@ class Index extends Component {
               case_number: this.state.case.case_number,
               patient_id: responce.data.data._id,
               patient: {
-                first_name: responce.data.data.first_name,
-                last_name: responce.data.data.last_name,
+                first_name: responce.data.data?.first_name,
+                last_name: responce.data.data?.last_name,
                 image: responce.data.data.image,
                 profile_id: responce.data.data.profile_id,
                 alies_id: responce.data.data.alies_id,
@@ -578,7 +585,7 @@ class Index extends Component {
                     }
                     senddata.case_id = responce1.data?.data
                     senddata.patient = responce.data.data._id
-                    senddata.patient_name = responce.data.data.last_name ? responce.data.data.first_name + ' ' + responce.data.data.last_name : responce.data.data.first_name
+                    senddata.patient_name = responce.data.data?.last_name ? responce.data.data?.first_name + ' ' + responce.data.data?.last_name : responce.data.data?.first_name
                     axios
                       .post(
                         sitedata.data.path + "/vh/linkforAccepthospital",
@@ -720,10 +727,10 @@ class Index extends Component {
     });
     let result = actualData && actualData.length > 0 && actualData.map((item) => {
       var getdata = item && item.case_numbers && item.case_numbers.length > 0 && item.case_numbers.filter((value) => {
-        const patientFirstName = value.patient.first_name.toLowerCase();
-        const patientLastName = value.patient.last_name.toLowerCase();
+        const patientFirstName = value.patient?.first_name.toLowerCase();
+        const patientLastName = value.patient?.last_name.toLowerCase();
         const patientId = value.patient.alies_id.toLowerCase();
-        const patientFullName = `${value.patient.first_name.toLowerCase()} ${value.patient.last_name.toLowerCase()}`;
+        const patientFullName = `${value.patient?.first_name.toLowerCase()} ${value.patient?.last_name.toLowerCase()}`;
         let testCondition = (patientFirstName.includes(searchQuery)
           || patientLastName.includes(searchQuery)
           || patientId.includes(searchQuery)
@@ -764,6 +771,7 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
+    
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => {
         if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
@@ -786,6 +794,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response?.isdata) {
+      
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
@@ -1187,6 +1196,7 @@ class Index extends Component {
                           this.MovetoTask(speciality, patient_id)
                         }}
                         mode={this.props?.settings?.setting?.mode}
+                        socket={socket}
                       />
                     </div>
                   </Grid>

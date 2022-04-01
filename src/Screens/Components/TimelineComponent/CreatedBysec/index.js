@@ -9,7 +9,8 @@ class Index extends Component {
     super(props);
     this.state = {
       item: this.props.data || {},
-      new_image: '',
+      track_id: this.props.track_id,
+      new_image: ''
     };
   }
 
@@ -17,6 +18,7 @@ class Index extends Component {
     return (
       nextState.item !== this.state.item ||
       nextProps.data !== this.props.data ||
+      nextProps.track_id !== this.props.track_id ||
       nextState.new_image !== this.state.new_image
     );
   }
@@ -33,7 +35,10 @@ class Index extends Component {
       prevProps.data !== this.props.data
     ) {
       this.setState({
-        item: this.props.data
+        item: this.props.data,
+
+        track_id: this.props.track_id
+
       }, () => {
         // this.GetAttachfiles();
       })
@@ -54,7 +59,7 @@ class Index extends Component {
   //   }
   // }
   render() {
-    var item = this.state.item;
+    var { item, track_id } = this.state;
     return (
       <Grid className="bpJohnImg">
         <a data-tip data-for={this.props.callFrom === 'assignedTo' ? this.props.track_id+ this.props.index + "assinged" : item.track_id + "created"}>

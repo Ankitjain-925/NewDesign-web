@@ -8,8 +8,8 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import SelectField from 'Screens/Components/Select/index';
 import Button from '@material-ui/core/Button';
 import { Settings } from 'Screens/Login/setting';
-import { getLanguage } from 'translations/index';
-import NewRole from 'Screens/VirtualHospital/New Role/index';
+import { getLanguage } from "translations/index"
+import NewRole from "Screens/VirtualHospital/New Role/index";
 
 class PointPain extends Component {
   constructor(props) {

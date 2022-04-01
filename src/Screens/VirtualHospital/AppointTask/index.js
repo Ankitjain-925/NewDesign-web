@@ -110,7 +110,7 @@ class Index extends Component {
     if (tabvalue == 0) {
       this.setState({ showField: true, setFilter: "All", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
     } else if (tabvalue == 1) {
-      this.setState({ showField: true, setFilter: "Appointment", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
+      this.setState({ showField:false, setFilter: "Appointment", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
     } else if (tabvalue == 2) {
       this.setState({ showField: true, setFilter: "Task", userFilter: '', selectSpec2: '', selectWard: '', selectRoom: '' })
     }

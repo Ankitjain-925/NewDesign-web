@@ -9,6 +9,12 @@ import axios from "axios";
 import sitedata from "sitedata";
 import "react-calendar/dist/Calendar.css";
 import { getLanguage } from "translations/index"
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
+
+var socket;
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +22,8 @@ class Index extends Component {
       linkexpire: false,
       actiondone: false
     };
+    socket = io(SOCKET_URL);
+
   }
 
   notApprove = () => {
@@ -30,6 +38,7 @@ class Index extends Component {
       },
     )
       .then((responce1) => {
+        console.log("rep",responce1)
         if(!responce1.data.hassuccessed){
           this.setState({ linkexpire: true });
           setTimeout(() => {
@@ -38,9 +47,11 @@ class Index extends Component {
         }
         else{
           if(status){
+            socket.emit("addpatient",{verifiedbyPatient:status,case_id:this.props.match.params.id})
             this.setState({actiondone : "Your are approved the hospital to share information successfully, Thanks for your co-operation"})
           }
           else{
+            socket.emit("addpatient",{verifiedbyPatient:status,case_id:this.props.match.params.id})
             this.setState({actiondone : "Your are not approved the hospital, Thanks for your co-operation"})
           }
         }

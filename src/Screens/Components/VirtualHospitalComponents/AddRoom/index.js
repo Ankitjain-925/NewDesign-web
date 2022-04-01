@@ -41,7 +41,7 @@ class Index extends React.Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Roomname, Bedsinroom, AddRoom } = translate;
+        let { Roomname, Bedsinroom, AddRoom,Enter_room_name } = translate;
         return (
             <Grid className="roomName">
                 <Grid container direction="row" alignItems="center" spacing={2}>
@@ -81,7 +81,7 @@ class Index extends React.Component {
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={7} md={7}>
                             <input
-                                type="text" placeholder={"Enter room name"}
+                                type="text" placeholder={Enter_room_name}
                                 name="room_name"
                                 onChange={(e) => this.onDataChange(e, index)}
                                 value={data.room_name}

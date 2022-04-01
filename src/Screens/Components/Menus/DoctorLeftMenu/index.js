@@ -20,7 +20,11 @@ import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import { commonHeader } from "component/CommonHeader/index"
 import Loader from "Screens/Components/Loader/index";
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
+var socket;
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -41,14 +45,18 @@ class Index extends Component {
       mode: "normal",
     };
     new Timer(this.logOutClick.bind(this));
-  }
+    socket = io(SOCKET_URL);
 
+  }
   //For loggedout if logged in user is deleted
   componentDidMount() {
+    socket.on('connection', () => {
+    })
     new LogOut(
       this.props.stateLoginValueAim.token,
       this.props.stateLoginValueAim.user._id,
       this.logOutClick.bind(this)
+      
     );
     getSetting(this)
     this.getavailableUpdate();
@@ -174,6 +182,7 @@ class Index extends Component {
     axios.get(sitedata.data.path + "/UserProfile/Users/" + user_id,
       commonHeader(user_token))
       .then((responce) => {
+        socket.emit("update",responce)
         let value = responce?.data?.data?.data?.current_available
         this.setState({ CheckCurrent: { current_available: value }, loaderImage: false })
       }).catch((error) => {
