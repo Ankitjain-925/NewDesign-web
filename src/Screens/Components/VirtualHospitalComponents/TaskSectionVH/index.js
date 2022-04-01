@@ -110,7 +110,6 @@ class Index extends Component {
       images: [],
       Assigned_already: [],
       calculate_Length: {},
-      FileAttachValid: {},
     };
   }
 
@@ -2019,41 +2018,45 @@ class Index extends Component {
                                               />
                                               <label>{Duplicate}</label>
                                             </Grid>
-
-                                            {this.state.newTask.archived ==
-                                            true ? (
-                                              <Grid
-                                                onClick={() => {
-                                                  this.updateEntryState1(
-                                                    false,
-                                                    'archived'
-                                                  );
-                                                }}
-                                                className="activeOntask"
-                                              >
-                                                <img
-                                                  src={require('assets/images/archive-white.svg')}
-                                                  alt=""
-                                                  title=""
-                                                />
-                                                <label>{Archive}</label>
-                                              </Grid>
-                                            ) : (
-                                              <Grid
-                                                onClick={() => {
-                                                  this.updateEntryState1(
-                                                    true,
-                                                    'archived'
-                                                  );
-                                                }}
-                                              >
-                                                <img
-                                                  src={require('assets/images/archive.svg')}
-                                                  alt=""
-                                                  title=""
-                                                />
-                                                <label>{Archive}</label>
-                                              </Grid>
+                                            {this.state.newTask.status ===
+                                              'done' && (
+                                              <>
+                                                {this.state.newTask.archived ==
+                                                true ? (
+                                                  <Grid
+                                                    onClick={() => {
+                                                      this.updateEntryState1(
+                                                        false,
+                                                        'archived'
+                                                      );
+                                                    }}
+                                                    className="activeOntask"
+                                                  >
+                                                    <img
+                                                      src={require('assets/images/archive-white.svg')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                    <label>{Archive}</label>
+                                                  </Grid>
+                                                ) : (
+                                                  <Grid
+                                                    onClick={() => {
+                                                      this.updateEntryState1(
+                                                        true,
+                                                        'archived'
+                                                      );
+                                                    }}
+                                                  >
+                                                    <img
+                                                      src={require('assets/images/archive.svg')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                    <label>{Archive}</label>
+                                                  </Grid>
+                                                )}
+                                              </>
                                             )}
                                             <Grid>
                                               <img
@@ -2075,8 +2078,12 @@ class Index extends Component {
                                             </Grid>
                                           </>
                                         ))}
-                                      {this.state.fileupods ||
-                                      this.state.newTask.comments.length > 0 ? (
+                                      {this.state.fileattach?.length > 0 ||
+                                      this.state.newTask?.attachments?.length >
+                                        0 ||
+                                      this.state.newTask?.comments?.length >
+                                        0 ||
+                                      this.state.fileupods == true ? (
                                         <Grid
                                           onClick={() => {
                                             this.switchStatus();
