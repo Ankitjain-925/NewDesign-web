@@ -41,6 +41,8 @@ import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index"
 import DateFormat from "Screens/Components/DateFormat/index";
 import ReactFlagsSelect from "react-flags-select";
 import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
 var socket;
 
@@ -89,7 +91,7 @@ class Index extends Component {
       msgState: "",
       enableScan: true
     };
-    socket = io("http://localhost:5000");
+    socket = io(SOCKET_URL);
 
   }
   static defaultProps = {

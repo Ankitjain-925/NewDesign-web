@@ -10,6 +10,8 @@ import sitedata from "sitedata";
 import "react-calendar/dist/Calendar.css";
 import { getLanguage } from "translations/index"
 import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
 var socket;
 
@@ -20,7 +22,7 @@ class Index extends Component {
       linkexpire: false,
       actiondone: false
     };
-    socket = io("http://localhost:5000");
+    socket = io(SOCKET_URL);
 
   }
 

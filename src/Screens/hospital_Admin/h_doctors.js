@@ -33,6 +33,8 @@ import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
@@ -68,7 +70,7 @@ class Index extends Component {
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
-        socket = io("http://localhost:5000");
+        socket = io(SOCKET_URL);
 
     }
 

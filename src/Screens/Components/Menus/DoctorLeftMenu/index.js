@@ -21,6 +21,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { commonHeader } from "component/CommonHeader/index"
 import Loader from "Screens/Components/Loader/index";
 import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
 
 var socket;
 class Index extends Component {
@@ -43,7 +45,7 @@ class Index extends Component {
       mode: "normal",
     };
     new Timer(this.logOutClick.bind(this));
-    socket = io("http://localhost:5000");
+    socket = io(SOCKET_URL);
 
   }
   //For loggedout if logged in user is deleted
