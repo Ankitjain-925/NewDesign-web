@@ -180,21 +180,22 @@ class Index extends Component {
                             }
                         })
                 }
+                if (currentID) {
+                  var current_user =
+                    AllPatient?.length > 0 &&
+                    AllPatient.filter((item) => item._id === currentID);
+                  this.setState({ current_user: current_user?.[0] });
+                }
+                this.setState({
+                  loaderImage: false,
+                  totalPage: Math.ceil(res.data.Total_count / 20),
+                  MypatientsData: this.state.AllPatient,
+                  TotalCount: res.data.Total_count,
+                });
               });
           
         });
-      if (currentID) {
-        var current_user =
-          AllPatient?.length > 0 &&
-          AllPatient.filter((item) => item._id === currentID);
-        this.setState({ current_user: current_user?.[0] });
-      }
-      this.setState({
-        loaderImage: false,
-        totalPage: Math.ceil(res.data.Total_count / 20),
-        MypatientsData: this.state.AllPatient,
-        TotalCount: res.data.Total_count,
-      });
+
     
   };
 
