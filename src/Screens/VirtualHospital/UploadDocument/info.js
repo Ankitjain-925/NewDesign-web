@@ -46,6 +46,35 @@ class Index extends Component {
     };
   }
 
+  getDate(date, dateFormat) {
+    var d = new Date(date);
+    var monthNames = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+    ],
+      month = monthNames[d.getMonth()],
+      day = d.getDate(),
+      year = d.getFullYear();
+    if (day.length < 2) day = "0" + day;
+    if (dateFormat === "YYYY/DD/MM") {
+      return year + " / " + day + " / " + month;
+    } else if (dateFormat === "DD/MM/YYYY") {
+      return day + " / " + month + " / " + year;
+    } else {
+      return month + " / " + day + " / " + year;
+    }
+  }
+
   handlelatestChange = (value) => {
     this.setState({ editor: value })
   };
@@ -211,7 +240,7 @@ class Index extends Component {
                         name="DoB"
                         type="text"
                         // onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
-                        value={this.state.patinfo?.birthday}
+                        value={this.getDate(this.state.patinfo?.birthday)}
                         disabled
                       /> */}
                     </Grid>

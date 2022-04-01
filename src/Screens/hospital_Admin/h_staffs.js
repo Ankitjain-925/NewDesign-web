@@ -768,6 +768,8 @@ class Index extends Component {
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
+                    // checkboxdata={this.state.checkboxdata}
+
                   />
                   {/* <Modal
                     open={this.state.openHouse}
@@ -863,15 +865,18 @@ const mapStateToProps = (state) => {
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
+  const { metadata } = state.OptionList;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    metadata
+
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,OptionList })(
     Index
   )
 );

@@ -244,6 +244,7 @@ export default class Column extends Component {
               updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
               MovetoTask={(speciality, patient_id) => { this.props.MovetoTask(speciality, patient_id) }}
               mode={this.props?.mode}
+              socket={this.props.socket}
             />
             {this.props.view === 'vertical' && <Grid className="nwPatentAdd"><Button onClick={() => { this.props.openAddPatient(title) }}>{AddNewPatient}</Button></Grid>}
           </Container>
