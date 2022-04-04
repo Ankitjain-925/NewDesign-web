@@ -403,7 +403,6 @@ export function GetSocketUrl() {
     target.match(/aimedix.com/) ? "Aimedix" 
     : target.match(/virtualhospital.aimedis.io/) ? "Virtualhospital" : "Sysaimedis";
   }
-  console.log('ENV', env)
   let SOCKET_URL;
   if (env === "Local") {
     SOCKET_URL = "http://localhost:5000/";
@@ -416,6 +415,5 @@ export function GetSocketUrl() {
   } else {
     SOCKET_URL = "https://sys.aimedis.io/";
   }
-  console.log('SOCKET_URL', SOCKET_URL)
   return SOCKET_URL;
 }

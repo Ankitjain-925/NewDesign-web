@@ -6463,6 +6463,7 @@ button.downloadPDF:hover {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 16px;
+  word-break: break-word;
   font-family: Muli;
   margin-bottom: 0px;
 }

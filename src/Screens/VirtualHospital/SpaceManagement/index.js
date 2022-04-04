@@ -347,11 +347,11 @@ class Index extends Component {
                                             title=""
                                           />
                                           {bednumbers(item.rooms)} beds
-
                                           <AvailablebedListing
                                             speciality_id={data._id}
                                             ward_id={item._id}
                                             action={this.state.action}
+                                            available={item.available}
                                           />
                                         </li>
                                       </ul>

@@ -84,6 +84,7 @@ class ImageUploderView extends Component {
       this.state.attachfile.length > 0 &&
       this.state.attachfile.filter((item) => item.filename !== file);
     this.setState({ attachfile: data });
+    console.log('data', data)
     this.props.fileUpload(data, this.props.name);
   };
   //For upload and image previews

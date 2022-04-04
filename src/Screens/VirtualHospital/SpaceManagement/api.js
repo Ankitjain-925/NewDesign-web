@@ -2,6 +2,7 @@ import axios from "axios";
 import sitedata from "sitedata";
 import { commonHeader } from "component/CommonHeader/index"
 import { getLanguage } from "translations/index";
+import { AllBedOnWard } from "Screens/VirtualHospital/PatientFlow/data";
  //to save and edit the speciality
 export const SaveSpeciality = (current) => {
   let translate = getLanguage(current.props.stateLanguageType);
@@ -68,23 +69,39 @@ export const SaveSpeciality = (current) => {
 };
 
 //for getting all speciality
-  export const getSpeciality = (current) => {
+  export const getSpeciality = async (current) => {
     current.setState({ loaderImage: true });
     axios
       .get(
         sitedata.data.path + "/vh/AddSpecialty/" + current.props?.House?.value,
         commonHeader(current.props.stateLoginValueAim.token)
       )
-      .then((responce) => {
+      .then(async (responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
           current.props.Speciality(true, current.props?.House?.value, current.props.stateLoginValueAim.token);
-          current.setState({
-            specialityData: responce.data.data,
-            specialityData2: responce.data.data
+          var NewData = await responce?.data?.data?.length>0 &&  responce.data.data.map( 
+            async (item) => {
+              item?.wards?.length>0 && item.wards.map(async (item1) => {
+                var response = await AllBedOnWard(item._id, item1._id, current.props?.House?.value, current.props.stateLoginValueAim.token);
+                if (response.data.hassuccessed) {
+                  item1['available']= response?.data?.data 
+                }
+              })
+              return item;
+          })
+          NewData =  Promise.all(NewData).then((values) =>{
+            return values;
           });
-
+          NewData.then((values1)=> {
+           setTimeout(()=>{
+            current.setState({ loaderImage: false, openSpecl: false,specialityData: values1,
+              specialityData2: values1 })
+           }, 3000)
+        })
         }
-        current.setState({ loaderImage: false, openSpecl: false });
+        else{
+          current.setState({ loaderImage: false, openSpecl: false });
+        }
       });
   };
 

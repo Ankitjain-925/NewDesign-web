@@ -1,5 +1,4 @@
 import React from "react";
-import { pure } from "recompose";
 import { withRouter } from "react-router-dom";
 import { authy } from "Screens/Login/authy.js";
 import { connect } from "react-redux";
@@ -17,41 +16,38 @@ class Index extends React.Component {
     this.state = {
       speciality_id: this.props.speciality_id,
       ward_id: this.props.ward_id,
-      AllBeds: 0,
+      available: this.props.available,
       action: this.props.action
     }
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.speciality_id !== this.props.speciality_id && prevProps.ward_id !== this.props.ward_id || prevProps.action !== this.props.action) {
-      this.setState({ speciality_id: this.props.speciality_id, ward_id: this.props.ward_id, action: this.props.action });
+    if (prevProps.available !== this.props.available || prevProps.speciality_id !== this.props.speciality_id && prevProps.ward_id !== this.props.ward_id || prevProps.action !== this.props.action) {
+      this.setState({ available : this.props.available, speciality_id: this.props.speciality_id, ward_id: this.props.ward_id, action: this.props.action });
     }
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      (nextProps.speciality_id !== this.props.speciality_id && nextProps.ward_id !== this.props.ward_id) ||
-      nextState.AllBeds !== this.state.AllBeds || nextProps.action !== this.props.action 
-    );
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return (
+  //     (nextProps.speciality_id !== this.props.speciality_id && nextProps.ward_id !== this.props.ward_id) ||
+  //     nextState.available !== this.state.available || nextProps.available !== this.props.available || nextProps.action !== this.props.action 
+  //   );
+  // }
 
-  GetBedAvailability = async () => {
-    if (this.props.speciality_id && this.props.ward_id && this.props?.House?.value) {
-      var response = await AllBedOnWard(this.props.speciality_id, this.props.ward_id, this.props?.House?.value, this.props.stateLoginValueAim.token);
-      if (response.data.hassuccessed) {
-        this.setState({ AllBeds: response?.data?.data })
-        }
-    }
-  }
-
-
+  // GetBedAvailability = async () => {
+  //   if (this.props.speciality_id && this.props.ward_id && this.props?.House?.value) {
+  //     var response = await AllBedOnWard(this.props.speciality_id, this.props.ward_id, this.props?.House?.value, this.props.stateLoginValueAim.token);
+  //     if (response.data.hassuccessed) {
+  //       this.setState({ AllBeds: response?.data?.data })
+  //       }
+  //   }
+  // }
 
   render() {
-    this.GetBedAvailability();
     let translate = getLanguage(this.props.stateLanguageType);
     let { available } = translate;
     return (
-      <span>{this.state.AllBeds} {available}</span>
+      <span>{this.props.available} {available}</span>
     );
   }
 }
@@ -73,7 +69,7 @@ const mapStateToProps = (state) => {
     speciality
   };
 };
-export default pure(withRouter(
+export default withRouter(
   connect(mapStateToProps, {
     LoginReducerAim,
     LanguageFetchReducer,
@@ -82,6 +78,6 @@ export default pure(withRouter(
     houseSelect,
     Speciality
   })(Index)
-));
+);
 
 
