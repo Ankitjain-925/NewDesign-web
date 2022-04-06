@@ -14442,5 +14442,8 @@ label.newrole {
 }
 
 .darkTheme .attchDecline button span {
-  color: #028b66 !important;
+  color: #ff0000 !important;
+}
+.darkTheme .attchDecline button {
+  background-color: #ffdab9;
 }

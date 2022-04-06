@@ -155,7 +155,7 @@ class PointPain extends Component {
                 <Assigned assigned_to={data.assinged_to} />
               </Grid>
               <Grid className="spcMgntRght7 presEditDot scndOptionIner">
-                <a className="openScndhrf">
+              {!data?.is_decline && <a className="openScndhrf">
                   <img
                     src={require('assets/images/three_dots_t.png')}
                     alt=""
@@ -225,7 +225,7 @@ class PointPain extends Component {
                       </li>
                     )}
                   </ul>
-                </a>
+                </a>}
               </Grid>
             </Grid>
           </Grid>
