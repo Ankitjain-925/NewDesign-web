@@ -8,7 +8,7 @@ import { Settings } from 'Screens/Login/setting';
 import InfoIcon from '@material-ui/icons/Info';
 import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
-import { OptionList } from "Screens/Login/metadataaction";
+import { OptionList } from 'Screens/Login/metadataaction';
 import sitedata from 'sitedata';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
@@ -22,19 +22,22 @@ import { getLanguage } from './translations/index';
 import H_LeftMenu from 'Screens/Components/Menus/H_leftMenu/index';
 import H_LeftMenuMobile from 'Screens/Components/Menus/H_leftMenu/mobile';
 import { SearchUser } from 'Screens/Components/Search';
-import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
-import ViewDetail from "Screens/Components/ViewInformation/index";
-import "./style.css";
-import { S3Image } from "Screens/Components/GetS3Images/index";
-import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
-import Pagination from "Screens/Components/Pagination/index";
-import SelectField from "Screens/Components/Select/index";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
-import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
-import io from "socket.io-client";
-import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
-const SOCKET_URL = GetSocketUrl()
+import CreateAdminUser from 'Screens/Components/CreateHospitalUser/index';
+import ViewDetail from 'Screens/Components/ViewInformation/index';
+import './style.css';
+import { S3Image } from 'Screens/Components/GetS3Images/index';
+import {
+  commonHeader,
+  commonCometDelHeader,
+} from 'component/CommonHeader/index';
+import Pagination from 'Screens/Components/Pagination/index';
+import SelectField from 'Screens/Components/Select/index';
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+import AssignedHouse from 'Screens/Components/VirtualHospitalComponents/AssignedHouse/index';
+import io from 'socket.io-client';
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
@@ -42,88 +45,90 @@ const specialistOptions = [
 ];
 var socket;
 class Index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentList: [],
-            currentPage: 1,
-            totalPage: 1,
-            AllPres: [],
-            pages: [1],
-            images: [],
-            addInqry: false,
-            showInquiry: false,
-            AddPrescription: {},
-            successfullsent: false,
-            addCreate: false,
-            current_user: {},
-            Housesoptions: [],
-            currentHouses: [],
-            openHouse: false,
-            house: {},
-            openDetial: false,
-            MypatientsData: [],
-            UpDataDetails: {},
-            deleteHouses: {},
-            type: 'doctor',
-            // checkboxdata:""
-        };
-        // new Timer(this.logOutClick.bind(this)) 
-        this.search_user = this.search_user.bind(this)
-        socket = io(SOCKET_URL);
-
-    }
-
-    getallGroups = () => {
-        var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
-        this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path +
-                `/hospitaladmin/institute/${institute_id}`,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                if (responce.data.hassuccessed && responce.data.data) {
-                    var Housesoptions = [];
-                    if (responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length > 0) {
-                        responce.data.data.institute_groups.map((data) => {
-                            data?.houses && data.houses.length > 0 && data.houses.map((item) => {
-                                Housesoptions.push({
-                                    group_name: data.group_name,
-                                    label: item.house_name,
-                                    value: item.house_id
-                                })
-                                this.setState({ Housesoptions: Housesoptions });
-                                // this.setState({checkboxdata:this.props.metadata.authority.doctor_roles})
-                            })
-                        })
-                    }
-                }
-                this.setState({ loaderImage: false });
-            });
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentList: [],
+      currentPage: 1,
+      totalPage: 1,
+      AllPres: [],
+      pages: [1],
+      images: [],
+      addInqry: false,
+      showInquiry: false,
+      AddPrescription: {},
+      successfullsent: false,
+      addCreate: false,
+      current_user: {},
+      Housesoptions: [],
+      currentHouses: [],
+      openHouse: false,
+      house: {},
+      openDetial: false,
+      MypatientsData: [],
+      UpDataDetails: {},
+      deleteHouses: {},
+      type: 'doctor',
+      // checkboxdata:""
     };
+    // new Timer(this.logOutClick.bind(this))
+    this.search_user = this.search_user.bind(this);
+    socket = io(SOCKET_URL);
+  }
 
-    componentDidMount = () => {
-        socket.on('connection', () => {
-          })
-          
-        this.getAllkyc()
-        this.getDoctors();
-        this.getallGroups();
+  getallGroups = () => {
+    var institute_id =
+      this.props.stateLoginValueAim?.user?.institute_id?.length > 0
+        ? this.props.stateLoginValueAim?.user?.institute_id[0]
+        : '';
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path + `/hospitaladmin/institute/${institute_id}`,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed && responce.data.data) {
+          var Housesoptions = [];
+          if (
+            responce.data?.data?.institute_groups &&
+            responce.data?.data?.institute_groups.length > 0
+          ) {
+            responce.data.data.institute_groups.map((data) => {
+              data?.houses &&
+                data.houses.length > 0 &&
+                data.houses.map((item) => {
+                  Housesoptions.push({
+                    group_name: data.group_name,
+                    label: item.house_name,
+                    value: item.house_id,
+                  });
+                  this.setState({ Housesoptions: Housesoptions });
+                  // this.setState({checkboxdata:this.props.metadata.authority.doctor_roles})
+                });
+            });
+          }
+        }
+        this.setState({ loaderImage: false });
+      });
+  };
 
-      
-    }
+  componentDidMount = () => {
+    socket.on('connection', () => {});
 
-    handleOpenCreate = () => {
-        this.setState({ addCreate: true })
-    }
-    handleCloseCreate = () => {
-        this.getDoctors()
-        this.setState({ addCreate: false })
-    }
+    this.getAllkyc();
+    this.getDoctors();
+    this.getallGroups();
+  };
 
- 
+  handleOpenCreate = () => {
+    this.setState({ addCreate: true });
+  };
+  handleCloseCreate = () => {
+    this.getDoctors();
+    this.setState({ addCreate: false });
+  };
+
   search_user = (event) => {
     if (event.target.value == '') {
       this.setState({ MypatientsData: this.state.forSearch });
@@ -134,71 +139,78 @@ class Index extends Component {
     }
   };
 
-    openDetail = (patient) => {
-        this.setState({ openDetial: true, current_user: patient })
-    }
-    CloseDetail = () => {
-        this.setState({ openDetial: false })
-    }
+  openDetail = (patient) => {
+    this.setState({ openDetial: true, current_user: patient });
+  };
+  CloseDetail = () => {
+    this.setState({ openDetial: false });
+  };
 
-    getAllkyc() {
-        var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/User/getAllKyc',
-            commonHeader(user_token)
-        )
-            .then((response) => {
-                this.setState({ getAllkyc: response.data.data });
-            }).catch((error) => { });
+  getAllkyc() {
+    var user_token = this.props.stateLoginValueAim.token;
+    axios
+      .get(sitedata.data.path + '/User/getAllKyc', commonHeader(user_token))
+      .then((response) => {
+        this.setState({ getAllkyc: response.data.data });
+      })
+      .catch((error) => {});
+  }
 
-    }
-
-   
-    getDoctors = (currentID) => {
-        let { currentPage, type } = this.state
-        var user_token = this.props.stateLoginValueAim.token;
-        this.setState({ loaderImage: true })
-        let res = allusers(currentPage, user_token, type, this.props.stateLoginValueAim.user.institute_id)
-        res.then((res) => {
-            var images = [];
-            const AllPatient = res.data && res.data.data && res.data.data;
-            socket.on("data_shown",(data)=>{
-                var elementPos = AllPatient?.length>0 && AllPatient.map(function(x) {return x._id; }).indexOf(data?.data?.data?._id);
-                if(elementPos> -1){
-                    AllPatient[elementPos] = data?.data?.data;
-                    this.setState({MypatientsData: AllPatient})
-                } 
-            })   
-            this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
-            AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
-                var find = item && item.image && item.image
-                if (find) {
-                    var find1 = find.split('.com/')[1]
-                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                        .then((response2) => {
-                            if (response2.data.hassuccessed) {
-                                item.new_image = response2.data.data
-                                images.push({ image: find, new_image: response2.data.data })
-                                this.setState({ images: images })
-                            }
-                        })
+  getDoctors = (currentID) => {
+    let { currentPage, type } = this.state;
+    var user_token = this.props.stateLoginValueAim.token;
+    this.setState({ loaderImage: true });
+    let res = allusers(
+      currentPage,
+      user_token,
+      type,
+      this.props.stateLoginValueAim.user.institute_id
+    );
+    res.then((res) => {
+      var images = [];
+      const AllPatient = res.data && res.data.data && res.data.data;
+      socket.on('data_shown', (data) => {
+        var elementPos =
+          AllPatient?.length > 0 &&
+          AllPatient.map(function (x) {
+            return x._id;
+          }).indexOf(data?.data?.data?._id);
+        if (elementPos > -1) {
+          AllPatient[elementPos] = data?.data?.data;
+          this.setState({ MypatientsData: AllPatient });
+        }
+      });
+      this.setState({ AllPatient: AllPatient, forSearch: AllPatient });
+      AllPatient &&
+        AllPatient.length > 0 &&
+        AllPatient.map((item) => {
+          var find = item && item.image && item.image;
+          if (find) {
+            var find1 = find.split('.com/')[1];
+            axios
+              .get(sitedata.data.path + '/aws/sign_s3?find=' + find1)
+              .then((response2) => {
+                if (response2.data.hassuccessed) {
+                  item.new_image = response2.data.data;
+                  images.push({ image: find, new_image: response2.data.data });
+                  this.setState({ images: images });
                 }
-                if (currentID) {
-                  var current_user =
-                    AllPatient?.length > 0 &&
-                    AllPatient.filter((item) => item._id === currentID);
-                  this.setState({ current_user: current_user?.[0] });
-                }
-                this.setState({
-                  loaderImage: false,
-                  totalPage: Math.ceil(res.data.Total_count / 20),
-                  MypatientsData: this.state.AllPatient,
-                  TotalCount: res.data.Total_count,
-                });
               });
-          
+          }
+          if (currentID) {
+            var current_user =
+              AllPatient?.length > 0 &&
+              AllPatient.filter((item) => item._id === currentID);
+            this.setState({ current_user: current_user?.[0] });
+          }
+          this.setState({
+            loaderImage: false,
+            totalPage: Math.ceil(res.data.Total_count / 20),
+            MypatientsData: this.state.AllPatient,
+            TotalCount: res.data.Total_count,
+          });
         });
-
-    
+    });
   };
 
   submitDelete = (deletekey, profile_id, bucket) => {
@@ -290,60 +302,61 @@ class Index extends Component {
           .then(function (response) {})
           .catch(function (error) {});
         this.getDoctors();
-    })
-  }
+      });
+  };
 
-    onChangePage = (pageNumber) => {
-        this.setState({ currentPage: pageNumber },
-            () => {
-                this.getDoctors();
-            })
-    }
+  onChangePage = (pageNumber) => {
+    this.setState({ currentPage: pageNumber }, () => {
+      this.getDoctors();
+    });
+  };
 
-    assignHouse = (patient) => {
-        this.setState({ openHouse: true, current_user: patient })
-    };
+  assignHouse = (patient) => {
+    this.setState({ openHouse: true, current_user: patient });
+  };
 
-    closeHouse = () => {
-        this.setState({ openHouse: false })
-    };
+  closeHouse = () => {
+    this.setState({ openHouse: false });
+  };
 
-    updateEntryState1 = (value, name) => {
-        this.setState({ house: value });
-    }
+  updateEntryState1 = (value, name) => {
+    this.setState({ house: value });
+  };
 
-    SaveAssignHouse = () => {
-        var userid = this.state.current_user._id;
-        var housevalue = this.state.house;
-        this.setState({ loaderImage: true });
-        if (housevalue) {
-            axios
-                .put(
-                    sitedata.data.path +
-                    `/hospitaladmin/assignedHouse/${userid}`,
-                    this.state.house,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    if (responce.data.hassuccessed) {
-                        this.setState({ assignedhouse: true, blankerror: false, house: {} })
-                        this.getallGroups();
-                        this.getDoctors(true);
-                        setTimeout(() => {
-                            this.setState({ assignedhouse: false, house: {} })
-                        }, 5000)
-                        this.getallGroups();
-                        this.getDoctors(this.state.current_user._id);
-                    }
-                    // else {
-                    //     this.setState({ alredyExist: true })
-                    //     setTimeout(() => {
-                    //         this.setState({ alredyExist: false })
-                    //     }, 5000)
-                    // }
-                    this.setState({ loaderImage: false });
-                });
-       
+  SaveAssignHouse = () => {
+    var userid = this.state.current_user._id;
+    var housevalue = this.state.house;
+    this.setState({ loaderImage: true });
+    if (housevalue) {
+      axios
+        .put(
+          sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
+          this.state.house,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            this.setState({
+              assignedhouse: true,
+              blankerror: false,
+              house: {},
+            });
+            this.getallGroups();
+            this.getDoctors(true);
+            setTimeout(() => {
+              this.setState({ assignedhouse: false, house: {} });
+            }, 5000);
+            this.getallGroups();
+            this.getDoctors(this.state.current_user._id);
+          }
+          // else {
+          //     this.setState({ alredyExist: true })
+          //     setTimeout(() => {
+          //         this.setState({ alredyExist: false })
+          //     }, 5000)
+          // }
+          this.setState({ loaderImage: false });
+        });
     } else {
       this.setState({
         assignedhouse: false,
@@ -700,20 +713,28 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
-    const { stateLanguageType } = state.LanguageReducer;
-    const { settings } = state.Settings;
-    const { metadata } = state.OptionList;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
-    return {
-        stateLanguageType,
-        stateLoginValueAim,
-        loadingaIndicatoranswerdetail,
-        settings,
-        metadata
-        //   Doctorsetget,
-        //   catfil
-    }
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
+  const { metadata } = state.OptionList;
+  // const { Doctorsetget } = state.Doctorset;
+  // const { catfil } = state.filterate;
+  return {
+    stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    settings,
+    metadata,
+    //   Doctorsetget,
+    //   catfil
+  };
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,OptionList})(Index));
+export default withRouter(
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+    Settings,
+    OptionList,
+  })(Index)
+);
