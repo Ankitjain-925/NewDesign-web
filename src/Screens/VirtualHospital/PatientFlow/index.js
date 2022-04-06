@@ -332,7 +332,7 @@ class Index extends Component {
 
   //Close case model
   closeAddP = () => {
-    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "", msgState: "",enableScan: true });
+    this.setState({ openAddP: false, SelectedStep: '', result: 'No result', enableEmail: "scan", updateState: {}, errorMsg: "", msgState: "", enableScan: true });
   };
 
   // Set patient and status data
@@ -523,10 +523,10 @@ class Index extends Component {
     else if (data && !this.state.SelectedStep) {
       this.setState({ errorMsg: 'Please select step' })
     }
-    else if(!data.email && this.state.enableEmail === 'email'){
+    else if (!data.email && this.state.enableEmail === 'email') {
       this.setState({ errorMsg: 'Please add the email of patient' })
     }
-    else if((!data?.first_name || !data?.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other'){
+    else if ((!data?.first_name || !data?.last_name && !data.birthday || !data.mobile) && this.state.enableEmail === 'other') {
       this.setState({ errorMsg: 'Please enter the full information of patient' })
     }
     else {
@@ -573,11 +573,11 @@ class Index extends Component {
                 .then((responce1) => {
                   if (responce1.data.hassuccessed) {
                     var senddata = {}
-                    if(this.state.enableEmail === 'scan'){
-                        senddata.email =  responce.data.data?.email 
-                        senddata.mobile =  responce.data.data?.mobile
+                    if (this.state.enableEmail === 'scan') {
+                      senddata.email = responce.data.data?.email
+                      senddata.mobile = responce.data.data?.mobile
                     }
-                    else{
+                    else {
                       if (this.state.updateState?.email) { senddata.email = this.state.updateState?.email }
                       if (this.state.updateState?.mobile) { senddata.mobile = this.state.updateState?.mobile }
                     }
@@ -626,12 +626,12 @@ class Index extends Component {
             }
             setTimeout(() => {
               this.setState({ idpinerror: false, inOtherAlready: false, alreadyData: {} });
-              if(this.state.enableEmail === 'other'){
+              if (this.state.enableEmail === 'other') {
                 this.closeAddP();
                 this.props.history.push('/virtualhospital/new-user');
               }
-              else{
-                this.handleEnableEmail(this.state.enableEmail ==='email' ? 'other' : 'email')
+              else {
+                this.handleEnableEmail(this.state.enableEmail === 'email' ? 'other' : 'email')
               }
             }, 2000);
           }
@@ -769,7 +769,22 @@ class Index extends Component {
   // }
 
   mapActualToFullData = (result) => {
-    
+    socket.on("email_decline", (data) => {
+      let result1 = result.map((element) => {
+        var finalData = element?.case_numbers?.length>0 &&  element.case_numbers.filter((
+          element2
+        ) => element2._id !== data.case_id)
+        element.case_numbers = finalData?finalData:[];
+        return element;
+      })
+      const authorQuoteMap = result1 && result1?.length > 0 && result1.reduce(
+        (previous, author) => {
+          if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
+          return previous;
+        }, {});
+
+      this.setState({ fullData: authorQuoteMap });
+    })
     const authorQuoteMap = result && result?.length > 0 && result.reduce(
       (previous, author) => {
         if (previous && !previous.hasOwnProperty(author.step_name)) previous = { ...previous, [author.step_name]: author.case_numbers };
@@ -792,7 +807,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let response = await getPatientData(this.props.stateLoginValueAim.token, this.props?.House?.value)
     if (response?.isdata) {
-      
+     
       this.setState({ users1: response.PatientList1, users: response.patientArray }, () => {
         if (this.props.location?.state?.user) {
           let user =
@@ -922,8 +937,8 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber, StepNumber, filters, Patient, Staff, speciality, FilterbyStaff, FilterbySpeciality, FilterbyWard, FilterbyRoom,
       Ward, Room, id_and_pin_not_correct, step_name, add_patient_to_flow, add_step, Add, AddPatient, AddStep, clear_all_filters, applyFilters, AllSpecialities, SelectStepName,
-      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient, Name, search_by_patient_id_name_doc, Search_Select,First_name 
-      ,Birthday,Mobile_number,Last_name,Patient_Email} =
+      case_already_exists_in_hospital, case_already_exists_in_other_hospital, ofInstitution, CreateNewPatient, Name, search_by_patient_id_name_doc, Search_Select, First_name
+      , Birthday, Mobile_number, Last_name, Patient_Email } =
       translate;
 
     const { searchValue, specialitiesList, selectedOption, StepNameList, SelectedStep, filteredData } = this.state;
@@ -1277,7 +1292,7 @@ class Index extends Component {
                         onChange={(e) => this.updateEntryState1(e, "last_name")}
                       />
                     </Grid>
-                    
+
                     <Grid className="profileInfoDate">
                       <Grid className="dateFormateSec">
                         <Grid>
@@ -1299,7 +1314,7 @@ class Index extends Component {
                             this.updateEntryState1(value, "birthday")
                           }
                         />
-                        
+
                       </Grid>
                     </Grid>
                     {/* <Grid className="fillDia">
