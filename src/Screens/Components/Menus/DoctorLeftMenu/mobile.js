@@ -19,6 +19,13 @@ import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { commonHeader } from "component/CommonHeader/index"
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 import { getSetting } from "../api";
+import Checkbox from "@material-ui/core/Checkbox";
+import Loader from "Screens/Components/Loader/index";
+import io from "socket.io-client";
+import { GetSocketUrl } from "Screens/Components/BasicMethod/index";
+const SOCKET_URL = GetSocketUrl()
+
+var socket;
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -31,18 +38,23 @@ class Index extends Component {
       contact_partner: {},
       loaderImage: false,
       mode: "normal",
+      CheckCurrent: {},
     };
     new Timer(this.logOutClick.bind(this));
+    socket = io(SOCKET_URL);
   }
 
   //For loggedout if logged in user is deleted
   componentDidMount() {
+    socket.on('connection', () => {
+    })
     new LogOut(
       this.props.stateLoginValueAim.token,
       this.props.stateLoginValueAim.user._id,
       this.logOutClick.bind(this)
     );
    getSetting(this)
+   this.getavailableUpdate();
   }
 
   //For change Institutes
@@ -131,8 +143,47 @@ class Index extends Component {
       this.props.LoginReducerAim(email, password);
       let languageType = "en";
       this.props.LanguageFetchReducer(languageType);
+      this.availableUpdate();
     } 
   };
+
+  handleChange = (e) => {
+    const state = this.state.CheckCurrent;
+    state[e.target.name] = e.target.value == "true" ? true : false;
+    this.setState({ CheckCurrent: state });
+    this.availableUpdate();
+  }
+
+  getavailableUpdate = () => {
+    this.setState({ loaderImage: true })
+    const user_token = this.props.stateLoginValueAim.token;
+    let user_id = this.props.stateLoginValueAim.user._id;
+    axios.get(sitedata.data.path + "/UserProfile/Users/" + user_id,
+      commonHeader(user_token))
+      .then((responce) => {
+        socket.emit("update",responce)
+        let value = responce?.data?.data?.data?.current_available
+        this.setState({ CheckCurrent: { current_available: value }, loaderImage: false })
+      }).catch((error) => {
+        this.setState({ loaderImage: false })
+      });
+  }
+
+  availableUpdate = () => {
+    this.setState({ loaderImage: true })
+    var data = this.state.CheckCurrent
+    const user_token = this.props.stateLoginValueAim.token;
+    axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+      data
+    }, commonHeader(user_token))
+      .then((responce) => {
+        this.getavailableUpdate();
+        this.setState({ loaderImage: false })
+      }).catch((error) => {
+        this.setState({ loaderImage: false })
+      });
+  }
+
 
   //For Patient
   Service = () => {
@@ -205,6 +256,7 @@ class Index extends Component {
         }
       >
         {/* <Notification /> */}
+        {this.state.loaderImage && <Loader />}
         <Grid container direction="row" alignItems="center">
           <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
             <a>
@@ -217,6 +269,19 @@ class Index extends Component {
             </a>
             <Menu className="addCstmMenu">
               <Grid className="menuItems">
+              <Grid className="">
+              <Checkbox
+                name="current_available"
+                value={this.state.CheckCurrent && this.state.CheckCurrent?.current_available && this.state.CheckCurrent?.current_available == true ? false : true}
+                checked={this.state.CheckCurrent?.current_available == true ? true : false}
+                onChange={(e) =>
+                  this.handleChange(e)
+                }
+              />
+              {this.state.CheckCurrent?.current_available == true ? (
+                <p>Currently available</p>
+              ) : <p>Not available</p>}
+            </Grid>
               <ul>
           <li
               className={
@@ -649,7 +714,6 @@ class Index extends Component {
           openFancyLanguage={this.state.openFancyLanguage}
           languageValue={this.state.languageValue}
           handleCloseFancyLanguage={this.handleCloseFancyLanguage}
-          getSetting={()=>getSetting(this)}
           openLanguageModel={this.openLanguageModel}
         />
       </Grid>

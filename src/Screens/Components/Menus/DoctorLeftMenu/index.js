@@ -240,15 +240,15 @@ class Index extends Component {
         </Grid>
 
         <Grid className="menuCheckBox">
-          <Checkbox
-            name="current_available"
-            value={this.state.CheckCurrent && this.state.CheckCurrent.current_available && this.state.CheckCurrent.current_available == true ? false : true}
-            checked={this.state.CheckCurrent.current_available == true ? true : false}
-            onChange={(e) =>
-              this.handleChange(e)
-            }
-          />
-          {this.state.CheckCurrent.current_available == true ? (
+        <Checkbox
+                name="current_available"
+                value={this.state.CheckCurrent && this.state.CheckCurrent?.current_available && this.state.CheckCurrent?.current_available == true ? false : true}
+                checked={this.state.CheckCurrent?.current_available == true ? true : false}
+                onChange={(e) =>
+                  this.handleChange(e)
+                }
+              />
+              {this.state.CheckCurrent?.current_available == true ? (
             <p>Currently available</p>
           ) : <p>Not available</p>}
         </Grid>
