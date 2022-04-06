@@ -399,7 +399,7 @@ export function GetSocketUrl() {
   if (typeof window !== "undefined") {
     let target = window.location.href;
     env = target.match(/aidoc.io/)? "Aidoc" 
-    : target.match(/localhost/) ? "Local" :
+    : target.match(/localhost/) ? "Virtualhospital" :
     target.match(/aimedix.com/) ? "Aimedix" 
     : target.match(/virtualhospital.aimedis.io/) ? "Virtualhospital" : "Sysaimedis";
   }
