@@ -110,6 +110,7 @@ class Index extends Component {
       images: [],
       Assigned_already: [],
       calculate_Length: {},
+      checkingsec: false
     };
   }
 
@@ -240,11 +241,13 @@ class Index extends Component {
   };
 
   FileAttachMulti = (Fileadd) => {
-    console.log('fileAdd', Fileadd)
     this.setState({
       isfileuploadmulti: true,
       fileattach: Fileadd,
       fileupods: true,
+    },
+    ()=>{
+      setTimeout(()=>this.setState({checkingsec: !this.state.checkingsec}), 1000)
     });
   };
 
@@ -303,21 +306,21 @@ class Index extends Component {
     var data = this.state.newTask;
     var user_id = data?.patient?.user_id;
 
-    if (
-      data?.attachments?.length > ComLength?.attach_Length ||
-      data?.comments?.length > ComLength?.comments_Length
-    ) {
-      axios
-        .post(
-          sitedata.data.path + '/UserProfile/MailSendToPatient',
-          { user_id: user_id },
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => { })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    // if (
+    //   data?.attachments?.length > ComLength?.attach_Length ||
+    //   data?.comments?.length > ComLength?.comments_Length
+    // ) {
+    //   axios
+    //     .post(
+    //       sitedata.data.path + '/UserProfile/MailSendToPatient',
+    //       { user_id: user_id },
+    //       commonHeader(this.props.stateLoginValueAim.token)
+    //     )
+    //     .then((responce) => { })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
     if (
       !data.task_name ||
       (data && data.task_name && data.task_name.length < 1)
@@ -343,76 +346,76 @@ class Index extends Component {
         data.isviewed = false;
       }
       data.house_id = this.props?.House?.value;
-      this.setState({ loaderImage: true });
-      if (this.state.newTask._id) {
-        axios
-          .put(
-            sitedata.data.path + '/vh/AddTask/' + this.state.newTask._id,
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            this.setState({ loaderImage: false });
-            if (responce.data.hassuccessed) {
-              this.setState({
-                newTask: {},
-                fileattach: {},
-                professional_data: [],
-                fileupods: false,
-                assignedTo: [],
-                q: '',
-                selectSpec: {},
-              });
-              this.props.getAddTaskData();
-              this.handleCloseTask();
-              if (type === 'picture_evaluation') {
-                // this.props.getArchived();
-              }
-            } else {
-              this.setState({ errorMsg: Something_went_wrong });
-            }
-          });
-      } else {
-        data.done_on = '';
-        data.priority = 0;
-        data.archived = false;
-        data.status = 'open';
-        data.created_at = new Date();
-        if (!data?.due_on?.date) {
-          let due_on = data?.due_on || {};
-          due_on['date'] = new Date();
-          data.due_on = due_on;
-        }
-        if (!data?.due_on?.time) {
-          let due_on = data?.due_on || {};
-          due_on['time'] = new Date();
-          data.due_on = due_on;
-        }
-        axios
-          .post(
-            sitedata.data.path + '/vh/AddTask',
-            data,
-            commonHeader(this.props.stateLoginValueAim.token)
-          )
-          .then((responce) => {
-            this.setState({
-              newTask: {},
-              fileattach: {},
-              professional_data: [],
-              fileupods: false,
-              assignedTo: [],
-              q: '',
-              selectSpec: {},
-              newComment: '',
-            });
-            this.props.getAddTaskData();
-            this.handleCloseTask();
-          })
-          .catch(function (error) {
-            console.log(error);
-            this.setState({ errorMsg: Something_went_wrong });
-          });
-      }
+      // this.setState({ loaderImage: true });
+      // if (this.state.newTask._id) {
+      //   axios
+      //     .put(
+      //       sitedata.data.path + '/vh/AddTask/' + this.state.newTask._id,
+      //       data,
+      //       commonHeader(this.props.stateLoginValueAim.token)
+      //     )
+      //     .then((responce) => {
+      //       this.setState({ loaderImage: false });
+      //       if (responce.data.hassuccessed) {
+      //         this.setState({
+      //           newTask: {},
+      //           fileattach: {},
+      //           professional_data: [],
+      //           fileupods: false,
+      //           assignedTo: [],
+      //           q: '',
+      //           selectSpec: {},
+      //         });
+      //         this.props.getAddTaskData();
+      //         this.handleCloseTask();
+      //         if (type === 'picture_evaluation') {
+      //           // this.props.getArchived();
+      //         }
+      //       } else {
+      //         this.setState({ errorMsg: Something_went_wrong });
+      //       }
+      //     });
+      // } else {
+      //   data.done_on = '';
+      //   data.priority = 0;
+      //   data.archived = false;
+      //   data.status = 'open';
+      //   data.created_at = new Date();
+      //   if (!data?.due_on?.date) {
+      //     let due_on = data?.due_on || {};
+      //     due_on['date'] = new Date();
+      //     data.due_on = due_on;
+      //   }
+      //   if (!data?.due_on?.time) {
+      //     let due_on = data?.due_on || {};
+      //     due_on['time'] = new Date();
+      //     data.due_on = due_on;
+      //   }
+      //   axios
+      //     .post(
+      //       sitedata.data.path + '/vh/AddTask',
+      //       data,
+      //       commonHeader(this.props.stateLoginValueAim.token)
+      //     )
+      //     .then((responce) => {
+      //       this.setState({
+      //         newTask: {},
+      //         fileattach: {},
+      //         professional_data: [],
+      //         fileupods: false,
+      //         assignedTo: [],
+      //         q: '',
+      //         selectSpec: {},
+      //         newComment: '',
+      //       });
+      //       this.props.getAddTaskData();
+      //       this.handleCloseTask();
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //       this.setState({ errorMsg: Something_went_wrong });
+      //     });
+      // }
     }
   };
 
@@ -594,13 +597,15 @@ class Index extends Component {
   };
 
   //Switch status done / open
-  switchStatus = () => {
-    const state = this.state.newTask;
-    state['status'] = state.status === 'done' ? 'open' : 'done';
-    if (state.status === 'done') {
-      state['done_on'] = new Date();
+  switchStatus = (alrady) => {
+    if (!alrady) {
+      const state = this.state.newTask;
+      state['status'] = state.status === 'done' ? 'open' : 'done';
+      if (state.status === 'done') {
+        state['done_on'] = new Date();
+      }
+      this.setState({ newTask: state });
     }
-    this.setState({ newTask: state });
   };
 
   //Select the patient name
@@ -2001,121 +2006,252 @@ class Index extends Component {
                             <Grid container direction="row" alignItems="center">
                               <Grid item xs={12} sm={12} md={12}>
                                 <Grid className="assignSec">
-                                  {this.state.newTask._id && (
+                                  {this.state.newTask?._id && (
                                     <>
-                                      {this.state.newTask.task_type ===
-                                        'picture_evaluation' ||
-                                        (this.props.comesFrom !==
-                                          'Professional' && (
-                                            <>
+                                      {this.props.comesFrom !== 'Professional' ? (
+                                        this.state.newTask?.task_type === 'picture_evaluation' ? (
+                                          <>
+                                            {this.state.newTask?.status ===
+                                              'done' && <> {this.state.newTask.archived ==
+                                                true ? (
+                                                <Grid
+                                                  onClick={() => {
+                                                    this.updateEntryState1(
+                                                      false,
+                                                      'archived'
+                                                    );
+                                                  }}
+                                                  className="activeOntask"
+                                                >
+                                                  <img
+                                                    src={require('assets/images/archive-white.svg')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                  <label>{Archive}</label>
+                                                </Grid>
+                                              ) : (
+                                                <Grid
+                                                  onClick={() => {
+                                                    this.updateEntryState1(
+                                                      true,
+                                                      'archived'
+                                                    );
+                                                  }}
+                                                >
+                                                  <img
+                                                    src={require('assets/images/archive.svg')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                  <label>{Archive}</label>
+                                                </Grid>
+                                              )}
+                                              </>}
+                                          </>) : (<>
+                                            <Grid
+                                              onClick={() => {
+                                                this.createDuplicate(
+                                                  this.state.newTask
+                                                );
+                                              }}
+                                            >
+                                              <img
+                                                src={require('assets/virtual_images/assign-to.svg')}
+                                                alt=""
+                                                title=""
+                                              />
+                                              <label>{Duplicate}</label>
+                                            </Grid>
+                                            <Grid
+                                              onClick={() => { this.switchStatus() }}
+                                              className="markDone"
+                                            >
+                                              {this.state.newTask.status ===
+                                                'done' ? (
+                                                <Grid className="revwFiles ">
+                                                  <Grid className="activeOntask">
+                                                    <img
+                                                      src={require('assets/virtual_images/greyImg.png')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                  </Grid>
+                                                </Grid>
+                                              ) : (
+                                                <Grid className="revwFiles">
+                                                  <Grid>
+                                                    <img
+                                                      src={require('assets/virtual_images/greyImg.png')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                  </Grid>
+                                                </Grid>
+                                              )}
+                                              <label>{Markasdone}</label>
+                                            </Grid>
+                                            {this.state.newTask.archived ==
+                                              true ? (
                                               <Grid
                                                 onClick={() => {
-                                                  this.createDuplicate(
-                                                    this.state.newTask
+                                                  this.updateEntryState1(
+                                                    false,
+                                                    'archived'
+                                                  );
+                                                }}
+                                                className="activeOntask"
+                                              >
+                                                <img
+                                                  src={require('assets/images/archive-white.svg')}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                                <label>{Archive}</label>
+                                              </Grid>
+                                            ) : (
+                                              <Grid
+                                                onClick={() => {
+                                                  this.updateEntryState1(
+                                                    true,
+                                                    'archived'
                                                   );
                                                 }}
                                               >
                                                 <img
-                                                  src={require('assets/virtual_images/assign-to.svg')}
+                                                  src={require('assets/images/archive.svg')}
                                                   alt=""
                                                   title=""
                                                 />
-                                                <label>{Duplicate}</label>
+                                                <label>{Archive}</label>
                                               </Grid>
-                                              {this.state.newTask.status ===
-                                                'done' && (
-                                                  <>
-                                                    {this.state.newTask.archived ==
-                                                      true ? (
-                                                      <Grid
-                                                        onClick={() => {
-                                                          this.updateEntryState1(
-                                                            false,
-                                                            'archived'
-                                                          );
-                                                        }}
-                                                        className="activeOntask"
-                                                      >
-                                                        <img
-                                                          src={require('assets/images/archive-white.svg')}
-                                                          alt=""
-                                                          title=""
-                                                        />
-                                                        <label>{Archive}</label>
-                                                      </Grid>
-                                                    ) : (
-                                                      <Grid
-                                                        onClick={() => {
-                                                          this.updateEntryState1(
-                                                            true,
-                                                            'archived'
-                                                          );
-                                                        }}
-                                                      >
-                                                        <img
-                                                          src={require('assets/images/archive.svg')}
-                                                          alt=""
-                                                          title=""
-                                                        />
-                                                        <label>{Archive}</label>
-                                                      </Grid>
-                                                    )}
-                                                  </>
+                                            )}
+                                            <Grid>
+                                              <img
+                                                onClick={(id) => {
+                                                  this.removeTask(id);
+                                                }}
+                                                src={require('assets/virtual_images/deleteNew.png')}
+                                                alt=""
+                                                title=""
+                                                className="manage-size"
+                                              />
+                                              <label
+                                                onclick={(id) => {
+                                                  this.removeTask(id);
+                                                }}
+                                              >
+                                                {Delete}
+                                              </label>
+                                            </Grid>
+                                          </>)
+                                      ) : (
+                                        this.state.newTask?.task_type === 'picture_evaluation' ? (<>
+                                          <>
+                                            {(this.state.newTask?.comments?.length > 0 || this.state.fileattach?.length > 0) &&
+                                              <Grid
+                                                onClick={() => {
+                                                  this.state.newTask.status ===
+                                                    'done' ? this.switchStatus('already') : this.switchStatus()
+                                                }}
+                                                className="markDone"
+                                              >
+                                                {this.state.newTask.status ===
+                                                  'done' ? (
+                                                  <Grid className="revwFiles ">
+                                                    <Grid className="activeOntask">
+                                                      <img
+                                                        src={require('assets/virtual_images/greyImg.png')}
+                                                        alt=""
+                                                        title=""
+                                                      />
+                                                    </Grid>
+                                                  </Grid>
+                                                ) : (
+                                                  <Grid className="revwFiles">
+                                                    <Grid>
+                                                      <img
+                                                        src={require('assets/virtual_images/greyImg.png')}
+                                                        alt=""
+                                                        title=""
+                                                      />
+                                                    </Grid>
+                                                  </Grid>
                                                 )}
-                                              <Grid>
-                                                <img
-                                                  onClick={(id) => {
-                                                    this.removeTask(id);
+                                                <label>{Markasdone}</label>
+                                              </Grid>
+                                            }
+                                            {this.state.newTask?.status ===
+                                              'done' && <> {this.state.newTask.archived ==
+                                                true ? (
+                                                <Grid
+                                                  onClick={() => {
+                                                    this.updateEntryState1(
+                                                      false,
+                                                      'archived'
+                                                    );
                                                   }}
-                                                  src={require('assets/virtual_images/deleteNew.png')}
-                                                  alt=""
-                                                  title=""
-                                                  className="manage-size"
-                                                />
-                                                <label
-                                                  onclick={(id) => {
-                                                    this.removeTask(id);
+                                                  className="activeOntask"
+                                                >
+                                                  <img
+                                                    src={require('assets/images/archive-white.svg')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                  <label>{Archive}</label>
+                                                </Grid>
+                                              ) : (
+                                                <Grid
+                                                  onClick={() => {
+                                                    this.updateEntryState1(
+                                                      true,
+                                                      'archived'
+                                                    );
                                                   }}
                                                 >
-                                                  {Delete}
-                                                </label>
+                                                  <img
+                                                    src={require('assets/images/archive.svg')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                  <label>{Archive}</label>
+                                                </Grid>
+                                              )}
+                                              </>}
+                                          </>
+                                        </>) : (<>
+                                          <Grid
+                                            onClick={() => {
+                                              this.switchStatus();
+                                            }}
+                                            className="markDone"
+                                          >
+                                            {this.state.newTask.status ===
+                                              'done' ? (
+                                              <Grid className="revwFiles ">
+                                                <Grid className="activeOntask">
+                                                  <img
+                                                    src={require('assets/virtual_images/greyImg.png')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                </Grid>
                                               </Grid>
-                                            </>
-                                          ))}
-                                      {this.state.fileattach?.length > 0 ||
-                                        this.state.newTask?.comments?.length >
-                                        0 ? (
-                                        <Grid
-                                          onClick={() => {
-                                            this.switchStatus();
-                                          }}
-                                          className="markDone"
-                                        >
-                                          {this.state.newTask.status ===
-                                            'done' ? (
-                                            <Grid className="revwFiles ">
-                                              <Grid className="activeOntask">
-                                                <img
-                                                  src={require('assets/virtual_images/greyImg.png')}
-                                                  alt=""
-                                                  title=""
-                                                />
+                                            ) : (
+                                              <Grid className="revwFiles">
+                                                <Grid>
+                                                  <img
+                                                    src={require('assets/virtual_images/greyImg.png')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                </Grid>
                                               </Grid>
-                                            </Grid>
-                                          ) : (
-                                            <Grid className="revwFiles">
-                                              <Grid>
-                                                <img
-                                                  src={require('assets/virtual_images/greyImg.png')}
-                                                  alt=""
-                                                  title=""
-                                                />
-                                              </Grid>
-                                            </Grid>
-                                          )}
-                                          <label>{Markasdone}</label>
-                                        </Grid>
-                                      ) : null}
+                                            )}
+                                            <label>{Markasdone}</label>
+                                          </Grid>
+                                        </>)
+                                      )}
                                     </>
                                   )}
                                 </Grid>

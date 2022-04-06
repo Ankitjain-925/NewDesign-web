@@ -144,6 +144,7 @@ class Index extends Component {
       let languageType = "en";
       this.props.LanguageFetchReducer(languageType);
       this.availableUpdate();
+      
     } 
   };
 

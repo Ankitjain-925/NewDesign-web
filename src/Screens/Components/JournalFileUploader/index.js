@@ -184,6 +184,7 @@ class ImageUploderView extends Component {
               .catch((error) => {});
 
             this.setState({ loaderImage: false, attachfile: Fileadd });
+            console.log('inside Props', Fileadd)
             this.props.fileUpload(Fileadd, this.props.name);
           }
         }
