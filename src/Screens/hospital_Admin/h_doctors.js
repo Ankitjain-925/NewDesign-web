@@ -313,49 +313,39 @@ class Index extends Component {
     }
 
     SaveAssignHouse = () => {
-        var userid = this.state.current_user._id;
-        var housevalue = this.state.house;
-        this.setState({ loaderImage: true });
-        if (housevalue) {
-            axios
-                .put(
-                    sitedata.data.path +
-                    `/hospitaladmin/assignedHouse/${userid}`,
-                    this.state.house,
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    if (responce.data.hassuccessed) {
-                        this.setState({ assignedhouse: true, blankerror: false, house: {} })
-                        this.getallGroups();
-                        this.getDoctors(true);
-                        setTimeout(() => {
-                            this.setState({ assignedhouse: false, house: {} })
-                        }, 5000)
-                        this.getallGroups();
-                        this.getDoctors(this.state.current_user._id);
-                    }
-                    // else {
-                    //     this.setState({ alredyExist: true })
-                    //     setTimeout(() => {
-                    //         this.setState({ alredyExist: false })
-                    //     }, 5000)
-                    // }
-                    this.setState({ loaderImage: false });
-                });
-       
-    } else {
-      this.setState({
-        assignedhouse: false,
-        alredyExist: false,
-        blankerror: true,
-        loaderImage: false,
-      });
-      setTimeout(() => {
-        this.setState({ blankerror: false });
-      }, 5000);
-    }
-  };
+      var userid = this.state.current_user._id;
+      var housevalue = this.state.house;
+      this.setState({ loaderImage: true });
+      if (housevalue && housevalue?.value) {
+        axios
+          .put(
+            sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
+            this.state.house,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.setState({ assignedhouse: true, house: {} });
+              setTimeout(() => {
+                this.setState({ assignedhouse: false });
+              }, 5000);
+              this.getallGroups();
+              this.getDoctors(this.state.current_user._id);
+            }
+            this.setState({ loaderImage: false });
+          });
+      } else {
+        this.setState({
+          assignedhouse: false,
+          alredyExist: false,
+          blankerror: true,
+          loaderImage: false,
+        });
+        setTimeout(() => {
+          this.setState({ blankerror: false });
+        }, 5000);
+      }
+    };
 
   deleteHouse = (deleteId, items) => {
     var userid = this.state.current_user._id;
