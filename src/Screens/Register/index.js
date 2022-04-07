@@ -890,7 +890,7 @@ class Index extends Component {
                         defaultCountry="DE"
                       />
                       <input
-                        type="text"
+                        // type="text"
                         className="mobileReg"
                         type="number"
                         name="mobile"

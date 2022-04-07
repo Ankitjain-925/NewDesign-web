@@ -14351,6 +14351,7 @@ label.newrole {
 
 .headsize {
   font-size: 20px;
+ 
 }
 .heading p {
   font-size: 15px;
@@ -14398,3 +14399,25 @@ label.newrole {
   border-radius: 15px;
   margin-right: 8px;
 }
+.BookingCont3 .BookingCont{
+  font-family: Muli;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform:inherit ;
+  color:#FFFFFF;
+  background-color: #00ABAF;
+  height: 48px;
+  width:100%; 
+  margin-top: 20px;
+  border-radius: 8px;
+ 
+
+
+
+}
+.BookingCont3 .BookingCont:hover{
+  background-color: #00ABAF!important;  
+}
+

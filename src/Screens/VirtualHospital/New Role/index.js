@@ -28,6 +28,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
 import { getLanguage } from "translations/index"
 import Select from "react-select";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
 class Index extends Component {
     constructor(props) {
@@ -52,286 +54,177 @@ class Index extends Component {
             errorMsg: '',
             errorStatus: false,
             openHouse1: this.props.openHouse1,
-            weoffer: {},
+            weoffer: this.props.data,
             weoffer1: {},
             buttonCall: true,
-            option: [{ value: "ten", label: "Ten" }, { value: "twenty", label: "Twenty" }, { value: "thirty", label: "Thirty" }]
+            heading: this.props.label,
+            value1: this.props.value,
+            demo: [],
+            newTsk: {},
+            mainOptions:false
         };
     }
 
 
     componentDidUpdate = (prevProps) => {
-        if (prevProps.openHouse1 !== this.props.openHouse1) {
+        if (prevProps.openHouse1 !== this.props.openHouse1 || prevProps.weoffer !== this.props.data || prevProps.heading !== this.props.label
+            || prevProps.value1 !== this.props.value) {
             this.setState({
                 openHouse1: this.props.openHouse1,
-
-
+                weoffer: this.props.data,
+                heading: this.props.label,
+                value1: this.props.value
             });
         }
     };
+
     handleOpenSpecl = () => {
         this.setState({ openSpecl: true });
     };
-    handleweoffer = (value) => {
-        const state = this.state.weoffer;
-        state[value] = !state[value];
-        this.setState({ weoffer: state });
-    };
-    handleweoffer1 = (value) => {
-        const state = this.state.weoffer1;
-        state[value] = !state[value];
-        this.setState({ weoffer1: state });
-    };
-    handleweoffer4 = (value) => {
-        if (value === "check") {
-            this.setState({ weoffer: { EditProject: true, SelectProduct: true, ManagerMember: true }, buttonCall: false });
-        } else {
-            this.setState({ weoffer: { EditProject: false, SelectProduct: false, ManagerMember: false }, buttonCall: true });
+
+
+
+    handleweoffer = (e, index) => {
+        // console.log('on change', e);
+        var { weoffer } = this.state
+        var state = this.state.demo
+        // console.log('hii',this.state.newTsk)
+        var data = state ? state : []
+
+        if (e.target.checked) {
+            data.push(e.target.value);
+            console.log("data", data)
+            if (data.length === weoffer.length) {
+                this.handleChange(data)
+            }
 
         }
-    };
-    handleweoffer3 = (value) => {
-
-        if (value === "check") {
-            this.setState({ weoffer1: { View: true, Add: true, Edit: true }, buttonCall: false });
-        } else {
-            this.setState({ weoffer1: { View: false, Add: false, Edit: false }, buttonCall: true });
-
+        else {
+            var index = data.indexOf(e.target.value)
+            data.splice(index, 1);
         }
     };
-    handleChange = (input, value) => {
-        this.setState({ [input]: value });
+
+
+    handleChange = (e ,name,data) => {
+        // console.log('e',e.target.value,e.target.name)
+        var state = this.state.newTsk;
+        if(e.target.value==true){
+            state[name] = e.target.value == "true" ? true : false;
+        }else{
+        state[name] = e.target.value == "false" ? false : true;
+        }
+console.log("state",state)
+            // this.setState({newTsk:state})
+        // }
+        // var data = state ? state : {}
+
+     
+        // var data2=[]
+        // data2.push(data)
+        // state[name] = e.target?.value;
+        // if (e.target.checked) {
+        //     data.value = e.target.value
+        //     console.log("data_forapp", data)
+        // }
+        // else {
+        //    var index= data.findIndex(obj => obj.e.target.value === e.target.value);
+        //     // var index = data.indexOf(e.target.value)
+        //     data.splice(index, 1);
+        // }
 
     };
+
+
 
     render() {
         var { openHouse1, weoffer, weoffer1 } = this.state
-        console.log("1234567", openHouse1)
         return (
             <Grid>
-                <Modal
-                    open={this.state.openHouse1}
-                    onClose={this.props.closeHouse1}
-                    className={
-                        this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === "dark"
-                            ? "darkTheme addSpeclModel"
-                            : "addSpeclModel"
-                    }
-                >
-                    <Grid className="addSpeclContnt">
-                        <Grid className="addSpeclContntIner">
-                            <Grid className="addSpeclLbl">
-                                <Grid className="addSpeclClose">
-                                    <a onClick={this.props.closeHouse1}>
-                                        <img
-                                            src={require("assets/images/close-search.svg")}
-                                            alt=""
-                                            title=""
-                                        />
-                                    </a>
-                                </Grid>
-                                <Grid className="heading"><p >New Role</p></Grid>
-                                <Grid className="line">
-                                    <Grid item xs={12} md={12} sm={12}>
-                                        <Grid className="newrole">
-                                            <label>Name</label>
-                                        </Grid>
-                                        <Grid className="inputBorField"><input
-                                            name="Name"
-                                            type="text"
-                                            onChange={(e) => { this.handleChange("Name", e.target.value) }}
-                                            value={this.state.Name}
 
-                                        /></Grid>
-                                        <Grid item xs={12} md={8}>
-                                            <Grid className="newrole" >
-                                                <label>Global Role</label>
-                                                <FormControlLabel
-                                                    control={
-                                                        <Checkbox
-                                                            name="GlobalRole"
-                                                            value={this.state.GlobalRole == true ? false : true}
-                                                            checked={this.state.GlobalRole}
-                                                            onChange={(e) => {
-                                                                this.setState({
-                                                                    GlobalRole: e.target.checked,
-                                                                });
-                                                            }}
-                                                        />
-                                                    }
+                <Grid className="line">
 
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item xs={12} md={8}>
-                                            <Grid className="newrole">
-                                                <label>Work Package can be<br /> assigned to user and groups<br /> in possion role in<br /> reprensentative</label>
-                                                <FormControlLabel
-                                                    control={
-                                                        <Checkbox
-                                                            name="Work"
-                                                            value={this.state.Work == true ? false : true}
-                                                            checked={this.state.Work}
-                                                            onChange={(e) => {
-                                                                this.setState({
-                                                                    Work: e.target.checked,
-                                                                });
-                                                            }}
-                                                        />
-                                                    }
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item xs={12} md={8}>
-                                            <Grid className="newrole" >
-                                                <label>Copy Work </label>
-                                            </Grid>
-                                            <Grid className="selectEntry">
-                                                <Select
-                                                    options={this.state.option}
-                                                    placeholder="Select"
-                                                    name="title"
-                                                    isSearchable="true"
-                                                />
-                                            </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Grid className="newrole">
+                            <Grid className="headsize">
+                                {weoffer && weoffer.map((item) => (
+                                    <Collapsible
+                                        trigger={
+                                            <>
+                                                {/* {console.log("item.value", item.value, "item.name", item.name)} */}
+                                                <span>
+                                                    <Checkbox
+                                                        value={this.state.newTsk.mainOptions && this.state.newTsk.mainOptions== true ? false : true}
+                                                        name={item.label}
+                                                        checked={this.state.newTsk.mainOptions} 
+                                                        onChange={(e) => this.handleChange(e,"mainOption")}
 
-                                        </Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={8}>
-                                        <Grid className="newrole">
-                                            <Grid className="headsize">
-                                                <Collapsible
-                                                    trigger="Project"
-                                                    open="true"
-                                                >
-                                                    <Grid>
-                                                        <FormControlLabel
-                                                            control={
-                                                                <Checkbox
-                                                                    name="EditProject"
-                                                                    value={this.state.weoffer && this.state.weoffer.EditProject && this.state.weoffer.EditProject == true ? false : true}
-                                                                    checked={this.state.weoffer.EditProject}
-                                                                    onChange={() =>
-                                                                        this.handleweoffer("EditProject")
-                                                                    }
-                                                                />
+
+
+                                                    />
+                                                </span>
+                                                {item.label}<span className="hosFstSec"><ExpandMoreIcon /></span>
+
+
+
+
+                                            </>}
+
+                                        triggerWhenOpen={
+                                            <>
+                                                <span>
+                                                    <Checkbox
+                                                        value={this.state.newTsk.mainOptions&&this.state.newTsk.mainOptions  == false ? true : false}
+                                                        name={item.label}
+                                                        checked={this.state.newTsk.mainOptions}
+                                                        onChange={(e) => this.handleChange(e, "mainOption")}
+
+                                                    />
+                                                </span>
+                                                {item.label}  <span className="hosFstSec"><ExpandLessIcon /></span>
+
+
+                                            </>}
+                                    >
+                                        {
+                                            item.data.map((item) => (
+                                                <Grid >
+
+                                                    <FormControlLabel
+                                                        control={<Checkbox
+                                                            value={item.value}
+                                                            checked={this.state.demo.options}
+                                                            onChange={(e) => this.handleweoffer(e)
+
                                                             }
-                                                            label="Edit Project"
-                                                        />
-                                                    </Grid>
-                                                    <Grid>
-                                                        <FormControlLabel
-                                                            control={
-                                                                <Checkbox
-                                                                    name="SelectProduct"
-                                                                    value={this.state.weoffer && this.state.weoffer.SelectProduct && this.state.weoffer.SelectProduct == true ? false : true}
-                                                                    checked={this.state.weoffer.SelectProduct}
-                                                                    onChange={(e) =>
-                                                                        this.handleweoffer("SelectProduct")
-                                                                    }
-                                                                />
-                                                            }
-                                                            label="Select Product Modules"
-                                                        />
-                                                    </Grid>
-                                                    <Grid >
-                                                        <FormControlLabel
-                                                            control={
-                                                                <Checkbox
-                                                                    name="ManagerMember"
-                                                                    value={this.state.weoffer && this.state.weoffer.ManagerMember && this.state.weoffer.ManagerMember == true ? false : true}
-                                                                    checked={this.state.weoffer.ManagerMember}
-                                                                    onChange={() =>
-                                                                        this.handleweoffer("ManagerMember")
-                                                                    }
-                                                                />
-                                                            }
-                                                            label="Manager Member"
-                                                        />
-                                                    </Grid>
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid>
+
+                                                        />}
+                                                        label={item.label}
+                                                    />
+                                                </Grid>
+                                            ))
+                                        }
+
+                                    </Collapsible>
+                                ))
+                                }
+
+
+
+                            </Grid>
+                            {/* <Grid>
                                                 {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer4("check") }}>Check All / UnCheck All</p> :
                                                     <p onClick={() => { this.handleweoffer4("uncheck") }}> Check All / UnCheck All</p>}
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
+                                            </Grid> */}
+                        </Grid>
+                    </Grid>
 
-                                    <Grid item xs={12} md={8}>
-                                        <Grid className="newrole">
-                                            <Grid className="headsize">
-                                                <Collapsible
-                                                    trigger="Work Package Tracking"
-                                                    open="true"
-                                                >
-                                                    <Grid>
-                                                        <Grid >
-                                                            <FormControlLabel
-                                                                control={
-                                                                    <Checkbox
-                                                                        name="View"
-                                                                        value={this.state.weoffer1 && this.state.weoffer1.View && this.state.weoffer1.View == true ? false : true}
-                                                                        checked={this.state.weoffer1.View}
-                                                                        onChange={(e) =>
-                                                                            this.handleweoffer1(e)
-                                                                        }
-                                                                    />
-                                                                }
-                                                                label="View Work Package"
-                                                            />
-                                                        </Grid>
-                                                        <Grid >
-                                                            <FormControlLabel
-                                                                control={
-                                                                    <Checkbox
-                                                                        name="Add"
-                                                                        value={this.state.weoffer1 && this.state.weoffer1.Add && this.state.weoffer1.Add == true ? false : true}
-                                                                        checked={this.state.weoffer1.Add}
-                                                                        onChange={(e) =>
-                                                                            this.handleweoffer1(e)
-                                                                        }
-                                                                    />
-                                                                }
-                                                                label="View Work Package"
-                                                            />
-                                                        </Grid>
-                                                        <Grid >
-
-                                                            <FormControlLabel
-                                                                control={
-                                                                    <Checkbox
-                                                                        name="Edit"
-                                                                        value={this.state.weoffer1 && this.state.weoffer1.Edit && this.state.weoffer1.Edit == true ? false : true}
-                                                                        checked={this.state.weoffer1.Edit}
-                                                                        onChange={(e) =>
-                                                                            this.handleweoffer1(e)
-                                                                        }
-                                                                    />
-                                                                }
-                                                                label="Edit Work Package"
-                                                            />
-
-                                                        </Grid>
-                                                    </Grid>
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid>
-                                                {this.state.buttonCall == true ? <p onClick={() => { this.handleweoffer3("check") }}>Check All/UnCheck All</p> :
-                                                    <p onClick={() => { this.handleweoffer3("uncheck") }}>Check All / UnCheck All</p>}
-                                            </Grid>
-                                        </Grid>
-
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                </Grid>
+                {/* </Grid>
                         </Grid>
 
-                    </Grid>
-                </Modal>
+                    </Grid>  */}
+                {/* </Modal> */}
             </Grid>
         )
     }
@@ -344,15 +237,14 @@ const mapStateToProps = (state) => {
         state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect;
-    const { settings } = state.Settings;
-    const { verifyCode } = state.authy;
+    const { settings } = state.authy;
     const { speciality } = state.Speciality;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        verifyCode,
+        // verifyCode,
         House,
         speciality
     };
