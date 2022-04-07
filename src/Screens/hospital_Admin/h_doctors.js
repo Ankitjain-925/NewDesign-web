@@ -327,7 +327,7 @@ class Index extends Component {
     var userid = this.state.current_user._id;
     var housevalue = this.state.house;
     this.setState({ loaderImage: true });
-    if (housevalue) {
+    if (housevalue && housevalue?.value) {
       axios
         .put(
           sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
@@ -336,25 +336,13 @@ class Index extends Component {
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            this.setState({
-              assignedhouse: true,
-              blankerror: false,
-              house: {},
-            });
-            this.getallGroups();
-            this.getDoctors(true);
+            this.setState({ assignedhouse: true, house: {} });
             setTimeout(() => {
-              this.setState({ assignedhouse: false, house: {} });
+              this.setState({ assignedhouse: false });
             }, 5000);
             this.getallGroups();
             this.getDoctors(this.state.current_user._id);
           }
-          // else {
-          //     this.setState({ alredyExist: true })
-          //     setTimeout(() => {
-          //         this.setState({ alredyExist: false })
-          //     }, 5000)
-          // }
           this.setState({ loaderImage: false });
         });
     } else {

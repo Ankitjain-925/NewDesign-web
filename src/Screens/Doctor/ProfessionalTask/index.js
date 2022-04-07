@@ -85,7 +85,7 @@ class Index extends Component {
     });
   };
   //get Add task data
-  getAddTaskData = () => {
+  getAddTaskData = (goArchive) => {
     this.setState({ loaderImage: true });
     axios
       .get(
@@ -102,20 +102,26 @@ class Index extends Component {
           }
           var Done =
             response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.status === 'done');
+            response.data.data.filter(
+              (item) => item?.status === 'done' && item?.archived === false
+            );
           var Archived =
             response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.archived === 'true');
+            response.data.data.filter((item) => item?.archived === true);
           var Open =
             response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.status === 'open');
-          console.log('response.data.data', response.data.data);
+            response.data.data.filter(
+              (item) => item?.status === 'open' && item?.archived === false
+            );
           this.setState({
             AllTasks: response.data.data,
             DoneTask: Done,
             OpenTask: Open,
             ArchivedTasks: Archived,
           });
+          if (goArchive) {
+            this.setState({ tabvalue2: 3 });
+          }
         }
         this.setState({ loaderImage: false });
       });
@@ -162,14 +168,15 @@ class Index extends Component {
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
-                        getAddTaskData={() => {
-                          this.getAddTaskData();
+                        getAddTaskData={(goArchive) => {
+                          this.getAddTaskData(goArchive);
                         }}
                         AllTasks={this.state.AllTasks}
                         DoneTask={this.state.DoneTask}
                         OpenTask={this.state.OpenTask}
                         ArchivedTasks={this.state.ArchivedTasks}
                         comesFrom={'Professional'}
+                        tabvalue2={this.state.tabvalue2}
                       />
                       {/* End of Model setup */}
                     </Grid>

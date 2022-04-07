@@ -51,7 +51,7 @@ class Index extends Component {
             this.setState({actiondone : "Your are approved the hospital to share information successfully, Thanks for your co-operation"})
           }
           else{
-            socket.emit("addpatient",{verifiedbyPatient:status,case_id:this.props.match.params.id})
+            socket.emit("decline",{verifiedbyPatient:status,case_id:this.props.match.params.id})
             this.setState({actiondone : "Your are not approved the hospital, Thanks for your co-operation"})
           }
         }
