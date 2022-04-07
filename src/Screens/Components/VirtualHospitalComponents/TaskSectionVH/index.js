@@ -241,9 +241,11 @@ class Index extends Component {
     this.setState({ tabvalue });
   };
   handleChangeTab2 = (event, tabvalue2) => {
-    if (tabvalue2 == 4) {
+    if (tabvalue2 == 3 && this.props.comesFrom === 'Professional')
       this.props.getArchived();
-    }
+    // if (tabvalue2 == 4) {
+    //   this.props.getArchived();
+    // }
     this.setState({ tabvalue2 });
   };
 
@@ -2488,23 +2490,29 @@ class Index extends Component {
               </Grid>
             </TabContainer>
           )}
+          {console.log('tabvalue2', tabvalue2)}
           {tabvalue2 === 3 && (
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.DeclinedTask?.length > 0 &&
-                  this.state.DeclinedTask.map((data) => (
-                    <Grid>
-                      <TaskView
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
+                  this.state.DeclinedTask.map(
+                    (data) => (
+                      console.log('data', data),
+                      (
+                        <Grid>
+                          <TaskView
+                            data={data}
+                            removeTask={(id) => this.removeTask(id)}
+                            editTask={(data) => this.editTask(data)}
+                            declineTask={(id, patient_id) =>
+                              this.declineTask(id, patient_id)
+                            }
+                            comesFrom={this.props.comesFrom}
+                          />
+                        </Grid>
+                      )
+                    )
+                  )}
               </Grid>
             </TabContainer>
           )}
