@@ -247,7 +247,7 @@ class Index extends Component {
       fileupods: true,
     },
     ()=>{
-      setTimeout(()=>this.setState({checkingsec: !this.state.checkingsec}), 1000)
+      setTimeout(()=>this.setState({checkingsec: !this.state.checkingsec}), 2000)
     });
   };
 
@@ -306,21 +306,21 @@ class Index extends Component {
     var data = this.state.newTask;
     var user_id = data?.patient?.user_id;
 
-    // if (
-    //   data?.attachments?.length > ComLength?.attach_Length ||
-    //   data?.comments?.length > ComLength?.comments_Length
-    // ) {
-    //   axios
-    //     .post(
-    //       sitedata.data.path + '/UserProfile/MailSendToPatient',
-    //       { user_id: user_id },
-    //       commonHeader(this.props.stateLoginValueAim.token)
-    //     )
-    //     .then((responce) => { })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
+    if (
+      data?.attachments?.length > ComLength?.attach_Length ||
+      data?.comments?.length > ComLength?.comments_Length
+    ) {
+      axios
+        .post(
+          sitedata.data.path + '/UserProfile/MailSendToPatient',
+          { user_id: user_id },
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => { })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     if (
       !data.task_name ||
       (data && data.task_name && data.task_name.length < 1)
@@ -346,76 +346,76 @@ class Index extends Component {
         data.isviewed = false;
       }
       data.house_id = this.props?.House?.value;
-      // this.setState({ loaderImage: true });
-      // if (this.state.newTask._id) {
-      //   axios
-      //     .put(
-      //       sitedata.data.path + '/vh/AddTask/' + this.state.newTask._id,
-      //       data,
-      //       commonHeader(this.props.stateLoginValueAim.token)
-      //     )
-      //     .then((responce) => {
-      //       this.setState({ loaderImage: false });
-      //       if (responce.data.hassuccessed) {
-      //         this.setState({
-      //           newTask: {},
-      //           fileattach: {},
-      //           professional_data: [],
-      //           fileupods: false,
-      //           assignedTo: [],
-      //           q: '',
-      //           selectSpec: {},
-      //         });
-      //         this.props.getAddTaskData();
-      //         this.handleCloseTask();
-      //         if (type === 'picture_evaluation') {
-      //           // this.props.getArchived();
-      //         }
-      //       } else {
-      //         this.setState({ errorMsg: Something_went_wrong });
-      //       }
-      //     });
-      // } else {
-      //   data.done_on = '';
-      //   data.priority = 0;
-      //   data.archived = false;
-      //   data.status = 'open';
-      //   data.created_at = new Date();
-      //   if (!data?.due_on?.date) {
-      //     let due_on = data?.due_on || {};
-      //     due_on['date'] = new Date();
-      //     data.due_on = due_on;
-      //   }
-      //   if (!data?.due_on?.time) {
-      //     let due_on = data?.due_on || {};
-      //     due_on['time'] = new Date();
-      //     data.due_on = due_on;
-      //   }
-      //   axios
-      //     .post(
-      //       sitedata.data.path + '/vh/AddTask',
-      //       data,
-      //       commonHeader(this.props.stateLoginValueAim.token)
-      //     )
-      //     .then((responce) => {
-      //       this.setState({
-      //         newTask: {},
-      //         fileattach: {},
-      //         professional_data: [],
-      //         fileupods: false,
-      //         assignedTo: [],
-      //         q: '',
-      //         selectSpec: {},
-      //         newComment: '',
-      //       });
-      //       this.props.getAddTaskData();
-      //       this.handleCloseTask();
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //       this.setState({ errorMsg: Something_went_wrong });
-      //     });
-      // }
+      this.setState({ loaderImage: true });
+      if (this.state.newTask._id) {
+        axios
+          .put(
+            sitedata.data.path + '/vh/AddTask/' + this.state.newTask._id,
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            this.setState({ loaderImage: false });
+            if (responce.data.hassuccessed) {
+              this.setState({
+                newTask: {},
+                fileattach: {},
+                professional_data: [],
+                fileupods: false,
+                assignedTo: [],
+                q: '',
+                selectSpec: {},
+              });
+              this.props.getAddTaskData();
+              this.handleCloseTask();
+              if (type === 'picture_evaluation') {
+                // this.props.getArchived();
+              }
+            } else {
+              this.setState({ errorMsg: Something_went_wrong });
+            }
+          });
+      } else {
+        data.done_on = '';
+        data.priority = 0;
+        data.archived = false;
+        data.status = 'open';
+        data.created_at = new Date();
+        if (!data?.due_on?.date) {
+          let due_on = data?.due_on || {};
+          due_on['date'] = new Date();
+          data.due_on = due_on;
+        }
+        if (!data?.due_on?.time) {
+          let due_on = data?.due_on || {};
+          due_on['time'] = new Date();
+          data.due_on = due_on;
+        }
+        axios
+          .post(
+            sitedata.data.path + '/vh/AddTask',
+            data,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            this.setState({
+              newTask: {},
+              fileattach: {},
+              professional_data: [],
+              fileupods: false,
+              assignedTo: [],
+              q: '',
+              selectSpec: {},
+              newComment: '',
+            });
+            this.props.getAddTaskData();
+            this.handleCloseTask();
+          })
+          .catch(function (error) {
+            console.log(error);
+            this.setState({ errorMsg: Something_went_wrong });
+          });
+      }
     }
   };
 
