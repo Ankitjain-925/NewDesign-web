@@ -14447,3 +14447,7 @@ label.newrole {
 .darkTheme .attchDecline button {
   background-color: #ffdab9;
 }
+
+.menuCheckBox1  {
+  text-align: left !important;
+}

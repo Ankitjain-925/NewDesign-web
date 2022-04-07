@@ -96,7 +96,6 @@ class Index extends Component {
             response.data.data.filter(
               (item) => item.is_decline && item.is_decline === true
             );
-          console.log('Decline', Decline);
           var GetDate =
             response.data.data?.length > 0 &&
             response.data.data.filter((item) => {
