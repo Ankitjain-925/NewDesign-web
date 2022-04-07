@@ -2305,10 +2305,9 @@ class Index extends Component {
                     {this.props.comesFrom !== 'Professional' && (
                       <Tab label={Declined} className="billtabIner" />
                     )}
-                    {this.props.comesFrom !== 'Professional' &&
-                      this.props.comesFrom !== 'detailTask' && (
-                        <Tab label={Archived} className="billtabIner" />
-                      )}
+                    {this.props.comesFrom !== 'detailTask' && (
+                      <Tab label={Archived} className="billtabIner" />
+                    )}
                   </Tabs>
                 </AppBar>
               </Grid>
@@ -2413,7 +2412,6 @@ class Index extends Component {
                     )}
                   {tabvalue2 === 4 && (
                     <a className={ArchivedTasksCss}>
-                      {' '}
                       <img
                         src={
                           ArchivedTasksCss === 'filterApply'
@@ -2514,19 +2512,24 @@ class Index extends Component {
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.ArchivedTasks?.length > 0 &&
-                  this.state.ArchivedTasks.map((data) => (
-                    <Grid>
-                      <TaskView
-                        data={data}
-                        removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)}
-                        declineTask={(id, patient_id) =>
-                          this.declineTask(id, patient_id)
-                        }
-                        comesFrom={this.props.comesFrom}
-                      />
-                    </Grid>
-                  ))}
+                  this.state.ArchivedTasks.map(
+                    (data) => (
+                      console.log('data', data),
+                      (
+                        <Grid>
+                          <TaskView
+                            data={data}
+                            removeTask={(id) => this.removeTask(id)}
+                            editTask={(data) => this.editTask(data)}
+                            declineTask={(id, patient_id) =>
+                              this.declineTask(id, patient_id)
+                            }
+                            comesFrom={this.props.comesFrom}
+                          />
+                        </Grid>
+                      )
+                    )
+                  )}
               </Grid>
             </TabContainer>
           )}
