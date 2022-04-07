@@ -4736,6 +4736,7 @@ button.aboutTabsIner {
     left: 0;
     top: 45px;
     z-index: 999;
+    width: 100%;
 }
 .browsInput {
     position: relative;
