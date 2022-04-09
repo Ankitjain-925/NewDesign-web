@@ -21,6 +21,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { commonHeader } from 'component/CommonHeader/index';
 import Loader from 'Screens/Components/Loader/index';
 import io from 'socket.io-client';
+import { currentAvaliable } from "./current.js";
 import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
 const SOCKET_URL = GetSocketUrl();
 
@@ -39,10 +40,11 @@ class Index extends Component {
       loaderImage: false,
       openInvt: false,
       openPharma: false,
-      CheckCurrent: {},
+      CheckCurrent: false,
       UpDataDetails: [],
       invitation: {},
       mode: 'normal',
+      update: false
     };
     new Timer(this.logOutClick.bind(this));
     socket = io(SOCKET_URL);
@@ -58,7 +60,14 @@ class Index extends Component {
     getSetting(this);
     this.getavailableUpdate();
     this.availableUpdate();
+   
   }
+
+  // componentDidUpdate(PrevProps, PrevState) {
+  //   if (PrevState.CheckCurrent !== JSON.parse(localStorage.getItem('CheckCurrent'))) {
+  //       this.setState({CheckCurrent: JSON.parse(localStorage.getItem('CheckCurrent'))});
+  //   }
+  //  }
 
   //For logout the User
   logOutClick = async () => {
@@ -73,10 +82,11 @@ class Index extends Component {
       this.props.houseSelect({ value: null });
       let languageType = 'en';
       this.props.LanguageFetchReducer(languageType);
-      var data = { current_available: false };
-      localStorage.setItem('CheckCurrent', JSON.stringify(data));
+      // var data = { current_available: false };
+      // localStorage.setItem('CheckCurrent', JSON.stringify(data));
       // this.setState({ CheckCurrent: { current_available: false } });
       this.availableUpdate();
+      this.props.currentAvaliable({current_available: false});
     }
   };
 
@@ -156,17 +166,17 @@ class Index extends Component {
   };
 
   handleChange = (e) => {
-    const state = this.state.CheckCurrent;
-    state[e.target.name] = e.target.value == 'true' ? true : false;
+  const state = this.state.CheckCurrent;
+    state[e.target.name] = e.target.checked
     localStorage.setItem('CheckCurrent', JSON.stringify(state));
-    // this.setState({ CheckCurrent: state });
+    this.setState({ CheckCurrent: state , update: !this.state.update});
+    console.log('CheckCurrent',state, 'update',this.state.update);
     this.availableUpdate();
   };
 
   availableUpdate = () => {
     this.setState({ loaderImage: true });
-    var data = JSON.parse(localStorage.getItem('CheckCurrent'));
-    // var data = this.state.CheckCurrent
+    var data = this.state.CheckCurrent
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .put(
@@ -179,6 +189,7 @@ class Index extends Component {
       .then((responce) => {
         this.getavailableUpdate();
         this.setState({ loaderImage: false });
+      
       })
       .catch((error) => {
         this.setState({ loaderImage: false });
@@ -201,6 +212,7 @@ class Index extends Component {
           CheckCurrent: { current_available: value },
           loaderImage: false,
         });
+        this.props.currentAvaliable({current_available: value});  
       })
       .catch((error) => {
         this.setState({ loaderImage: false });
@@ -256,18 +268,17 @@ class Index extends Component {
           <Checkbox
             name="current_available"
             value={
-              this.state.CheckCurrent &&
-              this.state.CheckCurrent?.current_available &&
-              this.state.CheckCurrent?.current_available == true
+              this.props.CheckCurrent &&
+              this.props.CheckCurrent?.current_available &&
+              this.props.CheckCurrent?.current_available === true
                 ? false
                 : true
             }
-            checked={
-              this.state.CheckCurrent?.current_available == true ? true : false
+            checked={this.props.CheckCurrent?.current_available ===true ? true : false
             }
             onChange={(e) => this.handleChange(e)}
           />
-          {this.state.CheckCurrent?.current_available == true ? (
+          {this.props.CheckCurrent?.current_available ===true ? (
             <p>Currently available</p>
           ) : (
             <p>Not available</p>
@@ -736,12 +747,14 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
+  const { CheckCurrent } = state.currentAvailable;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
     House,
+    CheckCurrent
   };
 };
 export default withRouter(
@@ -750,5 +763,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     houseSelect,
+    currentAvaliable
   })(Index)
 );

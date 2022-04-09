@@ -29,7 +29,7 @@ class Index extends React.Component {
     let { Assignedto } = translate;
     var viewImage =
       this.props.assigned_to?.length > 0 &&
-      this.props.assigned_to.filter((data, index) => index <= 1);
+      this.props.assigned_to.filter((data, index) => index <= 1 && data);
     var count =
       this.props.assigned_to?.length - 2 > 0
         ? this.props.assigned_to?.length - 2

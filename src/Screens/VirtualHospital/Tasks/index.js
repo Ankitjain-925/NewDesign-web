@@ -36,6 +36,7 @@ class Index extends Component {
       doneToday: 0,
       AllTasks: [],
       DoneTask: [],
+      tabvalue2: 0
     };
   }
 
@@ -69,7 +70,7 @@ class Index extends Component {
   };
 
   //get Add task data
-  getAddTaskData = () => {
+  getAddTaskData = (tabvalue2) => {
     this.setState({ loaderImage: true });
     axios
       .get(
@@ -110,8 +111,10 @@ class Index extends Component {
             OpenTask: Open,
             Open: Open?.length,
             doneToday: GetDate?.length,
+            tabvalue2:  tabvalue2 ? tabvalue2: 0
           });
         }
+        
         this.setState({ loaderImage: false });
       });
   };
@@ -191,8 +194,8 @@ class Index extends Component {
                         comesFrom="adminstaff"
                         patientForFilter={this.state.patientForFilter}
                         getArchived={() => this.getArchived()}
-                        getAddTaskData={() => {
-                          this.getAddTaskData();
+                        getAddTaskData={(tabvalue2) => {
+                          this.getAddTaskData(tabvalue2);
                         }}
                         AllTasks={this.state.AllTasks}
                         DoneTask={this.state.DoneTask}

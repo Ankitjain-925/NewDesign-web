@@ -163,7 +163,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     this.getFamilyDoc(user_token, user_id).then((result) => {
     axios
-    .post(sitedata.data.path + "/UserProfile/downloadfullPdf", {
+    .post(sitedata.data.dowload_link + "/UserProfile/downloadfullPdf", {
           Dieseases: TrackRecord,
           patientData: {
             name:
