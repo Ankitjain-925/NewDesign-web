@@ -68,7 +68,6 @@ export const getPatientData = async (user_token, house_id, comesFrom) => {
     let response = await axios.get(sitedata.data.path + "/vh/getPatientFromVH/" + house_id,
         commonHeader(user_token))
     if (response.data.hassuccessed) {
-        console.log("ress",response)
         var patientArray = [], PatientList1 = [];
         for (let i = 0; i < response.data?.data?.length; i++) {
             var find = response.data?.data[i].patient?.image;
@@ -221,7 +220,7 @@ export const download_track = async (data, stateLoginValueAim) => {
     }
     axios
         .post(
-            sitedata.data.path + "/UserProfile/downloadPdf",
+            sitedata.data.dowload_link + "/UserProfile/downloadPdf",
             {
                 Dieseases: data,
                 patientData: {

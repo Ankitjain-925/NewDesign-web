@@ -85,7 +85,7 @@ class Index extends Component {
     });
   };
   //get Add task data
-  getAddTaskData = () => {
+  getAddTaskData = (tabvalue2, goArchive) => {
     this.setState({ loaderImage: true });
     axios
       .get(
@@ -111,6 +111,12 @@ class Index extends Component {
             DoneTask: Done,
             OpenTask: Open,
           });
+          if (goArchive) {
+            this.setState({ tabvalue2: 3 });
+          }
+          else{
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2: 0 });
+          }
         }
         this.setState({ loaderImage: false });
       });
@@ -166,8 +172,8 @@ class Index extends Component {
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
-                        getAddTaskData={() => {
-                          this.getAddTaskData();
+                        getAddTaskData={(tabvalue2 ,goArchive) => {
+                          this.getAddTaskData(tabvalue2, goArchive);
                         }}
                         AllTasks={this.state.AllTasks}
                         DoneTask={this.state.DoneTask}

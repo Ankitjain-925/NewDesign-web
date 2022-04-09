@@ -469,7 +469,7 @@ class Index extends Component {
             this.props.settings.setting.invoice_pattern ? this.props.settings.setting.invoice_pattern : 5;
         this.setState({ loaderImage: true })
         axios
-            .post(sitedata.data.path + "/vh/downloadInvoicePdf", invoice,
+            .post(sitedata.data.dowload_link + "/vh/downloadInvoicePdf", invoice,
                 { responseType: "blob" }
             )
             .then((res) => {

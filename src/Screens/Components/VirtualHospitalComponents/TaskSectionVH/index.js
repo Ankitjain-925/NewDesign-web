@@ -200,7 +200,7 @@ class Index extends Component {
     this.setState({ specilaityList: spec });
   };
   // open model Add Task
-  handleOpenTask = () => {
+handleOpenTask = () => {
     var pat1name = '';
     if (
       this.props.stateLoginValueAim?.user?.first_name &&
@@ -213,6 +213,13 @@ class Index extends Component {
     } else if (this.props.stateLoginValueAim?.user?.first_name) {
       pat1name = this.props.stateLoginValueAim?.user?.first_name;
     }
+    var fullData = [
+      {
+        label: pat1name,
+        value: this.props.stateLoginValueAim?.user?._id,
+        email: this.props.stateLoginValueAim?.user?.email,
+      },
+    ];
     this.setState({
       openTask: true,
       newTask: {},
@@ -222,12 +229,7 @@ class Index extends Component {
       selectedPat: {},
     });
     if (this.props.stateLoginValueAim?.user?.type === 'doctor') {
-      this.setState({
-        assignedTo: {
-          label: pat1name,
-          value: this.props.stateLoginValueAim?.user?._id,
-        },
-      });
+      this.updateEntryState3(fullData);
     }
     if (this.props.patient) {
       let user = { value: this.props.patient?.patient_id };
@@ -374,6 +376,7 @@ class Index extends Component {
       if (data.archived === true) {
         isGOingArchive = true;
       }
+      // console.log('this.state.tabValue22', this.state.tabvalue2)
       data.house_id = this.props?.House?.value;
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
@@ -395,7 +398,7 @@ class Index extends Component {
                 q: '',
                 selectSpec: {},
               });
-              this.props.getAddTaskData(isGOingArchive);
+              this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
               this.handleCloseTask();
               if (type === 'picture_evaluation') {
                 // this.props.getArchived();
