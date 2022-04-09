@@ -213,6 +213,13 @@ class Index extends Component {
     } else if (this.props.stateLoginValueAim?.user?.first_name) {
       pat1name = this.props.stateLoginValueAim?.user?.first_name;
     }
+    var fullData = [
+      {
+        label: pat1name,
+        value: this.props.stateLoginValueAim?.user?._id,
+        email: this.props.stateLoginValueAim?.user?.email,
+      },
+    ];
     this.setState({
       openTask: true,
       newTask: {},
@@ -222,12 +229,7 @@ class Index extends Component {
       selectedPat: {},
     });
     if (this.props.stateLoginValueAim?.user?.type === 'doctor') {
-      this.setState({
-        assignedTo: {
-          label: pat1name,
-          value: this.props.stateLoginValueAim?.user?._id,
-        },
-      });
+      this.updateEntryState3(fullData);
     }
     if (this.props.patient) {
       let user = { value: this.props.patient?.patient_id };
