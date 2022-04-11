@@ -129,90 +129,86 @@ class Index extends Component {
             {/* <div className="languageHead"></div> */}
             <Grid className="languageBox">
               <Grid className="row">
-                {this.props.comesFrom !== 'adminstaff' && (
-                  <Grid className="col-xl-6">
-                    <Grid>
-                      <input
-                        value="ar"
-                        onChange={this.changeLanguage}
-                        name="language"
-                        type="radio"
-                        checked={
-                          this.state.languageValue == 'ar' ? 'checked' : ''
-                        }
-                      />
-                      <label>
-                        <img
-                          src={require('assets/images/Arabic.jpg')}
-                          alt="Arabic"
-                          title="Arabic"
+                {this.props.comesFrom !== 'adminstaff' &&
+                  this.props.comesFrom !== 'Hospital' && (
+                    <Grid className="col-xl-6">
+                      <Grid>
+                        <input
+                          value="ar"
+                          onChange={this.changeLanguage}
+                          name="language"
+                          type="radio"
+                          checked={
+                            this.state.languageValue == 'ar' ? 'checked' : ''
+                          }
                         />
-                        Arabian (عربى)
-                      </label>
-                    </Grid>
-                    <Grid>
-                      <input
-                        value="ch"
-                        onChange={this.changeLanguage}
-                        name="language"
-                        type="radio"
-                        checked={
-                          this.state.languageValue == 'ch' ? 'checked' : ''
-                        }
-                      />
-                      <label>
-                        <img
-                          src={require('assets/images/Chinese.png')}
-                          alt="Chinese"
-                          title="Chinese"
+                        <label>
+                          <img
+                            src={require('assets/images/Arabic.jpg')}
+                            alt="Arabic"
+                            title="Arabic"
+                          />
+                          Arabian (عربى)
+                        </label>
+                      </Grid>
+                      <Grid>
+                        <input
+                          value="ch"
+                          onChange={this.changeLanguage}
+                          name="language"
+                          type="radio"
+                          checked={
+                            this.state.languageValue == 'ch' ? 'checked' : ''
+                          }
                         />
-                        Chinese (中文)
-                      </label>
-                    </Grid>
-                    <Grid>
-                      <input
-                        value="nl"
-                        onChange={this.changeLanguage}
-                        name="language"
-                        type="radio"
-                        checked={
-                          this.state.languageValue == 'nl' ? 'checked' : ''
-                        }
-                      />
-                      <label>
-                        <img
-                          src={require('assets/images/Dutch.jpg')}
-                          alt="Dutch"
-                          title="Dutch"
+                        <label>
+                          <img
+                            src={require('assets/images/Chinese.png')}
+                            alt="Chinese"
+                            title="Chinese"
+                          />
+                          Chinese (中文)
+                        </label>
+                      </Grid>
+                      <Grid>
+                        <input
+                          value="nl"
+                          onChange={this.changeLanguage}
+                          name="language"
+                          type="radio"
+                          checked={
+                            this.state.languageValue == 'nl' ? 'checked' : ''
+                          }
                         />
-                        Dutch (Nederlands)
-                      </label>
-                    </Grid>
+                        <label>
+                          <img
+                            src={require('assets/images/Dutch.jpg')}
+                            alt="Dutch"
+                            title="Dutch"
+                          />
+                          Dutch (Nederlands)
+                        </label>
+                      </Grid>
 
-                    <Grid>
-                      <input
-                        value="fr"
-                        onChange={this.changeLanguage}
-                        name="language"
-                        type="radio"
-                        checked={
-                          this.state.languageValue == 'fr' ? 'checked' : ''
-                        }
-                      />
-                      <label>
-                        <img
-                          src={require('assets/images/France.png')}
-                          alt="French"
-                          title="French"
+                      <Grid>
+                        <input
+                          value="fr"
+                          onChange={this.changeLanguage}
+                          name="language"
+                          type="radio"
+                          checked={
+                            this.state.languageValue == 'fr' ? 'checked' : ''
+                          }
                         />
-                        French (Francais)
-                      </label>
-                    </Grid>
-                  </Grid>
-                )}
-                <Grid className="col-xl-6">
-                  {this.props.comesFrom !== 'adminstaff' && (
-                    <>
+                        <label>
+                          <img
+                            src={require('assets/images/France.png')}
+                            alt="French"
+                            title="French"
+                          />
+                          French (Francais)
+                        </label>
+                      </Grid>
                       <Grid>
                         <input
                           value="pt"
@@ -251,65 +247,71 @@ class Index extends Component {
                           Russian (русский)
                         </label>
                       </Grid>
-                      <Grid>
-                        <input
-                          value="sp"
-                          onChange={this.changeLanguage}
-                          name="language"
-                          type="radio"
-                          checked={
-                            this.state.languageValue == 'sp' ? 'checked' : ''
-                          }
-                        />
-                        <label>
-                          <img
-                            src={require('assets/images/Spanish.png')}
-                            alt="Spanish"
-                            title="Spanish"
-                          />
-                          Spanish (Español)
-                        </label>
-                      </Grid>
-                      <Grid>
-                        <input
-                          value="sw"
-                          onChange={this.changeLanguage}
-                          name="language"
-                          type="radio"
-                          checked={
-                            this.state.languageValue == 'sw' ? 'checked' : ''
-                          }
-                        />
-                        <label>
-                          <img
-                            src={require('assets/images/Swahili.jpg')}
-                            alt="Swahili"
-                            title="Swahili"
-                          />
-                          Swahili (Kiswahili)
-                        </label>
-                      </Grid>
-                      <Grid>
-                        <input
-                          value="tr"
-                          onChange={this.changeLanguage}
-                          name="language"
-                          type="radio"
-                          checked={
-                            this.state.languageValue == 'tr' ? 'checked' : ''
-                          }
-                        />
-                        <label>
-                          <img
-                            src={require('assets/images/Turkish.png')}
-                            alt="Turkish"
-                            title="Turkish"
-                          />
-                          Turkish (Türk)
-                        </label>
-                      </Grid>
-                    </>
+                    </Grid>
                   )}
+                <Grid className="col-xl-6">
+                  {this.props.comesFrom !== 'adminstaff' &&
+                    this.props.comesFrom !== 'Hospital' && (
+                      <>
+                        <Grid>
+                          <input
+                            value="sp"
+                            onChange={this.changeLanguage}
+                            name="language"
+                            type="radio"
+                            checked={
+                              this.state.languageValue == 'sp' ? 'checked' : ''
+                            }
+                          />
+                          <label>
+                            <img
+                              src={require('assets/images/Spanish.png')}
+                              alt="Spanish"
+                              title="Spanish"
+                            />
+                            Spanish (Español)
+                          </label>
+                        </Grid>
+                        <Grid>
+                          <input
+                            value="sw"
+                            onChange={this.changeLanguage}
+                            name="language"
+                            type="radio"
+                            checked={
+                              this.state.languageValue == 'sw' ? 'checked' : ''
+                            }
+                          />
+                          <label>
+                            <img
+                              src={require('assets/images/Swahili.jpg')}
+                              alt="Swahili"
+                              title="Swahili"
+                            />
+                            Swahili (Kiswahili)
+                          </label>
+                        </Grid>
+                        <Grid>
+                          <input
+                            value="tr"
+                            onChange={this.changeLanguage}
+                            name="language"
+                            type="radio"
+                            checked={
+                              this.state.languageValue == 'tr' ? 'checked' : ''
+                            }
+                          />
+                          <label>
+                            <img
+                              src={require('assets/images/Turkish.png')}
+                              alt="Turkish"
+                              title="Turkish"
+                            />
+                            Turkish (Türk)
+                          </label>
+                        </Grid>
+                      </>
+                    )}
                   <Grid>
                     <input
                       value="en"
