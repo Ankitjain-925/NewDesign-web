@@ -31,6 +31,7 @@ class PointPain extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      see_details,
       EditTask,
       DeleteTask,
       assign_to_doctor,
@@ -155,47 +156,69 @@ class PointPain extends Component {
                 <Assigned assigned_to={data.assinged_to} />
               </Grid>
               <Grid className="spcMgntRght7 presEditDot scndOptionIner">
-              {!data?.is_decline && <a className="openScndhrf">
-                  <img
-                    src={require('assets/images/three_dots_t.png')}
-                    alt=""
-                    title=""
-                    className="openScnd specialuty-more"
-                  />
-                  <ul>
-                    <li>
-                      <a
-                        onClick={() => {
-                          this.props.editTask(data);
-                        }}
-                      >
-                        <img
-                          src={require('assets/images/details.svg')}
-                          alt=""
-                          title=""
-                        />
-                        {data &&
-                        data.task_type &&
-                        data.task_type === 'picture_evaluation' &&
-                        this.props.comesFrom === 'Professional' ? (
-                          <>{edit_picture_evaluation}</>
-                        ) : data.task_type &&
+                {!data?.is_decline && (
+                  <a className="openScndhrf">
+                    <img
+                      src={require('assets/images/three_dots_t.png')}
+                      alt=""
+                      title=""
+                      className="openScnd specialuty-more"
+                    />
+                    <ul>
+                      <li>
+                        <a
+                          onClick={() => {
+                            this.props.editTask(data);
+                          }}
+                        >
+                          <img
+                            src={require('assets/virtual_images/pencil-1.svg')}
+                            alt=""
+                            title=""
+                          />
+                          {data &&
+                          data.task_type &&
                           data.task_type === 'picture_evaluation' &&
-                          this.props.comesFrom === 'adminstaff' ? (
-                          <>{assign_to_doctor}</>
-                        ) : (
-                          <>{EditTask}</>
-                        )}
-                      </a>
-                    </li>
-                    {data &&
-                    data.task_type &&
-                    data.task_type === 'picture_evaluation' ? (
-                      this.props.comesFrom !== 'Professional' &&
-                      data?.assinged_to?.length == 0 && (
+                          this.props.comesFrom === 'Professional' ? (
+                            <>{edit_picture_evaluation}</>
+                          ) : data.task_type &&
+                            data.task_type === 'picture_evaluation' &&
+                            this.props.comesFrom === 'adminstaff' &&
+                            data.status === 'done' ? (
+                            <>{see_details}</>
+                          ) : data.task_type &&
+                            data.task_type === 'picture_evaluation' &&
+                            this.props.comesFrom === 'adminstaff' ? (
+                            <>{assign_to_doctor}</>
+                          ) : (
+                            <>{EditTask}</>
+                          )}
+                        </a>
+                      </li>
+                      {data &&
+                      data.task_type &&
+                      data.task_type === 'picture_evaluation' ? (
+                        this.props.comesFrom !== 'Professional' &&
+                        data?.assinged_to?.length == 0 && (
+                          <li
+                            onClick={() => {
+                              this.props.declineTask(data._id, data.patient_id);
+                            }}
+                          >
+                            <a>
+                              <img
+                                src={require('assets/images/cancel-request.svg')}
+                                alt=""
+                                title=""
+                              />
+                              <>{decline_picture_evaluation}</>
+                            </a>
+                          </li>
+                        )
+                      ) : (
                         <li
                           onClick={() => {
-                            this.props.declineTask(data._id, data.patient_id);
+                            this.props.removeTask(data._id);
                           }}
                         >
                           <a>
@@ -204,28 +227,13 @@ class PointPain extends Component {
                               alt=""
                               title=""
                             />
-                            <>{decline_picture_evaluation}</>
+                            <>{DeleteTask}</>
                           </a>
                         </li>
-                      )
-                    ) : (
-                      <li
-                        onClick={() => {
-                          this.props.removeTask(data._id);
-                        }}
-                      >
-                        <a>
-                          <img
-                            src={require('assets/images/cancel-request.svg')}
-                            alt=""
-                            title=""
-                          />
-                          <>{DeleteTask}</>
-                        </a>
-                      </li>
-                    )}
-                  </ul>
-                </a>}
+                      )}
+                    </ul>
+                  </a>
+                )}
               </Grid>
             </Grid>
           </Grid>
