@@ -200,7 +200,7 @@ class Index extends Component {
     this.setState({ specilaityList: spec });
   };
   // open model Add Task
-handleOpenTask = () => {
+  handleOpenTask = () => {
     var pat1name = '';
     if (
       this.props.stateLoginValueAim?.user?.first_name &&
@@ -376,7 +376,6 @@ handleOpenTask = () => {
       if (data.archived === true) {
         isGOingArchive = true;
       }
-      // console.log('this.state.tabValue22', this.state.tabvalue2)
       data.house_id = this.props?.House?.value;
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
@@ -645,7 +644,7 @@ handleOpenTask = () => {
     var user1 =
       this.state.users?.length > 0 &&
       this.state.users.filter((data) => data.patient_id === user.value);
-    if (user1 && user1.length > 0) {
+    if (user1 && user1?.length > 0) {
       const state = this.state.newTask;
       state['patient'] = user1[0];
       state['patient_id'] = user1[0].patient_id;
@@ -1919,6 +1918,13 @@ handleOpenTask = () => {
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true}
+                                isDisabled={
+                                  this.state.newTask &&
+                                  this.state.newTask?.status &&
+                                  this.state.newTask?.status === 'done'
+                                    ? true
+                                    : false
+                                }
                               />
                             </Grid>
                           </Grid>
@@ -1935,11 +1941,11 @@ handleOpenTask = () => {
                                   isSearchable={true}
                                   className="addStafSelect"
                                   value={this.state.selectSpec}
-                                  // isDisabled={
-                                  //   this.props.comesFrom === 'Professional'
-                                  //     ? true
-                                  //     : false
-                                  // }
+                                  isDisabled={
+                                    this.props.comesFrom === 'Professional'
+                                      ? true
+                                      : false
+                                  }
                                 />
                               </Grid>
                             </Grid>
@@ -2315,25 +2321,29 @@ handleOpenTask = () => {
                               </Grid>
                             </Grid>
                           </Grid>
-
-                          {/* {this.props.comesFrom !== 'Professional' && ( */}
-                          <Grid item xs={12} md={12}>
-                            <label>{Attachments}</label>
-                            <FileUploader
-                              // cur_one={this.props.cur_one}
-                              attachfile={
-                                this.state.newTask &&
-                                this.state.newTask?.attachments
-                                  ? this.state.newTask?.attachments
-                                  : []
-                              }
-                              name="UploadTrackImageMulti"
-                              isMulti="true"
-                              fileUpload={(event) => {
-                                this.FileAttachMulti(event);
-                              }}
-                            />
-                          </Grid>
+                          {this.state.newTask &&
+                          this.state.newTask.task_type ===
+                            'picture_evaluation' &&
+                          this.state.newTask?.status &&
+                          this.state.newTask?.status === 'done' ? null : (
+                            <Grid item xs={12} md={12}>
+                              <label>{Attachments}</label>
+                              <FileUploader
+                                // cur_one={this.props.cur_one}
+                                attachfile={
+                                  this.state.newTask &&
+                                  this.state.newTask?.attachments
+                                    ? this.state.newTask?.attachments
+                                    : []
+                                }
+                                name="UploadTrackImageMulti"
+                                isMulti="true"
+                                fileUpload={(event) => {
+                                  this.FileAttachMulti(event);
+                                }}
+                              />
+                            </Grid>
+                          )}
                           {this.props.comesFrom === 'Professional' && (
                             <Grid item xs={12} md={12}>
                               <Grid>
@@ -2661,7 +2671,7 @@ handleOpenTask = () => {
               </Grid>
             </TabContainer>
           )}
-          {tabvalue2 === 3 && (
+          {tabvalue2 === 3 && this.props.comesFrom === 'adminstaff' && (
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.DeclinedTask?.length > 0 &&
