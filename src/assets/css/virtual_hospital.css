@@ -14448,6 +14448,10 @@ label.newrole {
   background-color: #ffdab9;
 }
 
-.menuCheckBox1  {
+.menuCheckBox1 {
   text-align: left !important;
+}
+
+.menuCheckBox1 p {
+display:inline
 }
