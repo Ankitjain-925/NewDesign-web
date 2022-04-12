@@ -14455,3 +14455,11 @@ label.newrole {
 .menuCheckBox1 p {
   display: inline;
 }
+.min_section .css-yk16xz-control {
+  min-height: 30px !important;
+  min-height: initial !important;
+}
+.min_section .css-b8ldur-Input {
+  margin: 0px !important;
+  padding: 0px !important;
+}
