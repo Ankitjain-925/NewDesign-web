@@ -31,6 +31,8 @@ class PointPain extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      Open,
+      Done,
       see_details,
       EditTask,
       DeleteTask,
@@ -127,8 +129,10 @@ class PointPain extends Component {
                     <label></label>
                     {data?.is_decline === true ? (
                       <> {Declined}</>
+                    ) : data?.status === 'open' ? (
+                      <>{Open}</>
                     ) : (
-                      <>{data.status}</>
+                      <>{Done}</>
                     )}
                   </Button>
                 </Grid>

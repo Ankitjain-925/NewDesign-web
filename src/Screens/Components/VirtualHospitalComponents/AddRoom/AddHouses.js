@@ -1,6 +1,10 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import { getLanguage } from "translations/index";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import { getLanguage } from 'translations/index';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LanguageFetchReducer } from 'Screens/actions';
+import { LoginReducerAim } from 'Screens/Login/actions';
 
 class Index extends React.Component {
   constructor(props) {
@@ -15,7 +19,7 @@ class Index extends React.Component {
 
   onDataChange = (e, index) => {
     var RoomAy = this.state.roomArray;
-    if (this.props.comesFrom === "admin") {
+    if (this.props.comesFrom === 'admin') {
       RoomAy[index][e.target.name] = e.target.value;
     } else {
       RoomAy[index] = e.target.value;
@@ -43,13 +47,13 @@ class Index extends React.Component {
   onAddFiled = () => {
     let RoomAy = this.state.roomArray;
     var date = new Date();
-    if (this.props.comesFrom === "admin") {
+    if (this.props.comesFrom === 'admin') {
       RoomAy.push({
-        house_name: "",
+        house_name: '',
         house_id: `${this.props.institute_id}-${date.getTime()}`,
       });
     } else {
-      RoomAy.push("");
+      RoomAy.push('');
     }
     this.setState({ roomArray: RoomAy });
   };
@@ -65,7 +69,7 @@ class Index extends React.Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Choice } = translate;
+    let { Choice, Enterchoice } = translate;
     return (
       <Grid className="roomName-h">
         {this.state.timeArr && this.state.timeArr.length == 0 && (
@@ -75,35 +79,33 @@ class Index extends React.Component {
                 <label>{this.state.label}</label>
               </Grid>
               <Grid className="enterSpcl">
-              
-                  {this.props.comesFrom === "admin" ? (
-                    <input
-                      type="text"
-                      placeholder={this.state.placeholder}
-                      onChange={(e) => {
-                        this.onDataChange(e, 0);
-                      }}
-                      name={this.state.name}
-                      value={this.state.roomArray[0]?.house_name}
-                    />
-                  ) : (
-                    <input
-                      type="text"
-                      placeholder={this.state.placeholder}
-                      onChange={(e) => {
-                        this.onDataChange(e, 0);
-                      }}
-                      name={this.state.name}
-                      value={this.state.roomArray[0]}
-                    />
-                  )}
-              
+                {this.props.comesFrom === 'admin' ? (
+                  <input
+                    type="text"
+                    placeholder={this.state.placeholder}
+                    onChange={(e) => {
+                      this.onDataChange(e, 0);
+                    }}
+                    name={this.state.name}
+                    value={this.state.roomArray[0]?.house_name}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    placeholder={this.state.placeholder}
+                    onChange={(e) => {
+                      this.onDataChange(e, 0);
+                    }}
+                    name={this.state.name}
+                    value={this.state.roomArray[0]}
+                  />
+                )}
               </Grid>
             </Grid>
             <Grid item xs={2} md={2} className="roomRmv">
               <a onClick={() => this.deleteRooms(0)}>
                 <img
-                  src={require("assets/virtual_images/bin.svg")}
+                  src={require('assets/virtual_images/bin.svg')}
                   alt=""
                   title=""
                 />
@@ -116,7 +118,7 @@ class Index extends React.Component {
           this.state.roomArray.map((data, index) => (
             <Grid container direction="row" alignItems="center" spacing={2}>
               <Grid item xs={10} md={10}>
-                {this.props.comesFrom === "questionaire" && (
+                {this.props.comesFrom === 'questionaire' && (
                   <Grid className="labelChoice">
                     <label>
                       {Choice} {index + 1}
@@ -124,42 +126,40 @@ class Index extends React.Component {
                   </Grid>
                 )}
                 <Grid className="enterSpcl">
-                 
-                    {this.props.comesFrom === "admin" ? (
-                      <input
-                        type="text"
-                        placeholder={
-                          this.props.comesFrom === "questionaire"
-                            ? `Enter choice ${index + 1}`
-                            : this.state.placeholder
-                        }
-                        name={this.state.name}
-                        onChange={(e) => this.onDataChange(e, index)}
-                        value={data.house_name}
-                      />
-                    ) : (
-                      <input
-                        type="text"
-                        placeholder={
-                          this.props.comesFrom === "questionaire"
-                            ? `Enter choice ${index + 1}`
-                            : this.state.placeholder
-                        }
-                        onChange={(e) => {
-                          this.onDataChange(e, index);
-                        }}
-                        name={this.state.name}
-                        value={this.state.roomArray[index]}
-                      />
-                    )}
-                  </Grid>
-                
+                  {this.props.comesFrom === 'admin' ? (
+                    <input
+                      type="text"
+                      placeholder={
+                        this.props.comesFrom === 'questionaire'
+                          ? `${Enterchoice} ${index + 1}`
+                          : this.state.placeholder
+                      }
+                      name={this.state.name}
+                      onChange={(e) => this.onDataChange(e, index)}
+                      value={data.house_name}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      placeholder={
+                        this.props.comesFrom === 'questionaire'
+                          ? `${Enterchoice} ${index + 1}`
+                          : this.state.placeholder
+                      }
+                      onChange={(e) => {
+                        this.onDataChange(e, index);
+                      }}
+                      name={this.state.name}
+                      value={this.state.roomArray[index]}
+                    />
+                  )}
+                </Grid>
               </Grid>
 
               <Grid item xs={2} md={2} className="roomRmv">
                 <a onClick={() => this.deleteRooms(index)}>
                   <img
-                    src={require("assets/virtual_images/bin.svg")}
+                    src={require('assets/virtual_images/bin.svg')}
                     alt=""
                     title=""
                   />
@@ -174,4 +174,16 @@ class Index extends React.Component {
     );
   }
 }
-export default Index;
+
+const mapStateToProps = (state) => {
+  const { stateLanguageType } = state.LanguageReducer;
+  return {
+    stateLanguageType,
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+  })(Index)
+);

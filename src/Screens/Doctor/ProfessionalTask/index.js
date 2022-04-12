@@ -121,9 +121,8 @@ class Index extends Component {
           });
           if (goArchive) {
             this.setState({ tabvalue2: 3 });
-          }
-          else{
-            this.setState({ tabvalue2: tabvalue2 ? tabvalue2: 0 });
+          } else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
           }
         }
         this.setState({ loaderImage: false });
@@ -171,7 +170,7 @@ class Index extends Component {
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
-                        getAddTaskData={(tabvalue2 ,goArchive) => {
+                        getAddTaskData={(tabvalue2, goArchive) => {
                           this.getAddTaskData(tabvalue2, goArchive);
                         }}
                         AllTasks={this.state.AllTasks}
