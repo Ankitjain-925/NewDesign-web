@@ -867,7 +867,6 @@ class Index extends Component {
                                               onChange={this.onStatusChange}
                                               options={this.state.AllStatus}
                                               name="specialty_name"
-                                              //   value={this.state.statusFilter}
                                               value={GetShowLabel1(
                                                 this.state.AllStatus,
                                                 this.state.statusFilter?.value,

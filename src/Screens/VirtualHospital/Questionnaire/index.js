@@ -22,14 +22,44 @@ import Loader from 'Screens/Components/Loader/index';
 import Pagination from 'Screens/Components/Pagination/index';
 import AddHouses from 'Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js';
 import { getLanguage } from 'translations/index';
+import { GetLanguageDropdown } from 'Screens/Components/GetMetaData/index.js';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SelectByTwo from 'Screens/Components/SelectbyTwo/index';
 import _ from 'lodash';
+import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
 
-const options = [
-  { label: 'Classic', value: 'classic' },
-  { label: 'Rating scale', value: 'rating_scale' },
+var options = [
+  {
+    label: 'Classic',
+    label_ar: 'كلاسيك',
+    label_ch: '经典的',
+    label_de: 'Klassisch',
+    label_en: 'Classic',
+    label_fr: 'Classique',
+    label_nl: 'Klassiek',
+    label_pt: 'Clásica',
+    label_rs: 'Классический',
+    label_sp: 'Clásica',
+    label_sw: 'Classic',
+    label_tr: 'Klasik',
+    value: 'classic',
+  },
+  {
+    label: 'Rating scale',
+    label_ar: 'مقياس التصنيف',
+    label_ch: '评分量表',
+    label_de: 'ewertungsskala',
+    label_en: 'Rating scale',
+    label_fr: 'Échelle de notation',
+    label_nl: 'Schaal',
+    label_pt: 'Escala de valoración',
+    label_rs: 'Шкала оценок',
+    label_sp: 'Escala de valoración',
+    label_sw: 'Kiwango cha ukadiriaji',
+    label_tr: 'Değerlendirme ölçeği',
+    value: 'rating_scale',
+  },
 ];
 class Index extends Component {
   constructor(props) {
@@ -58,8 +88,19 @@ class Index extends Component {
 
   componentDidMount() {
     this.getAllQuestions();
+    this.convertLanguage();
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+      this.convertLanguage();
+    }
+  };
+
+  convertLanguage = () => {
+    options = GetLanguageDropdown(options, this.props.stateLanguageType);
+    // this.setState({ options: options });
+  };
   //Modal Open
   handleOpenQues = () => {
     this.setState({
@@ -525,8 +566,17 @@ class Index extends Component {
                                               )
                                             }
                                             value={this.SelectedValue(
-                                              this.state.myQuestions[0]?.type
+                                              GetShowLabel1(
+                                                options,
+                                                this.state.myQuestions[0]?.type,
+                                                this.props.stateLanguageType,
+                                                true,
+                                                'anamnesis'
+                                              )
                                             )}
+                                            // value={this.SelectedValue(
+                                            //   this.state.myQuestions[0]?.type
+                                            // )}
                                           />
                                         </Grid>
                                         {this.state.openOpti ? (

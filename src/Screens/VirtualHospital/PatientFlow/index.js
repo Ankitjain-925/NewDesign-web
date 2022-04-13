@@ -1498,6 +1498,7 @@ class Index extends Component {
                         }}
                         mode={this.props?.settings?.setting?.mode}
                         socket={socket}
+                        stateLanguageType={this.props.stateLanguageType}
                       />
                     </div>
                   </Grid>

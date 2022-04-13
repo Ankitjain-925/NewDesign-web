@@ -413,6 +413,9 @@ class Index extends Component {
                                   onClick={() => {
                                     onEditspec(data, this);
                                   }}
+                                  stateLanguageType={
+                                    this.props.stateLanguageType
+                                  }
                                 />
                                 {data.wards?.length > 0 &&
                                   data.wards.map((item) => (

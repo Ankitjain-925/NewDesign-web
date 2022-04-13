@@ -1,14 +1,14 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import CasesMoreButton from "Screens/Components/VirtualHospitalComponents/CasesMoreButton/index";
-import { checkTheIndex } from "../data";
-import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
-import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
-import { S3Image } from "Screens/Components/GetS3Images/index";
-import { getLanguage } from "translations/index"
-import { borderRadius, grid } from "../constants";
-import styled from "@emotion/styled";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import CasesMoreButton from 'Screens/Components/VirtualHospitalComponents/CasesMoreButton/index';
+import { checkTheIndex } from '../data';
+import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
+import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
+import { S3Image } from 'Screens/Components/GetS3Images/index';
+import { getLanguage } from 'translations/index';
+import { borderRadius, grid } from '../constants';
+import styled from '@emotion/styled';
 
 const getBackgroundColor = (isDragging, isGroupedOver, authorColors) => {
   if (isDragging) {
@@ -16,23 +16,23 @@ const getBackgroundColor = (isDragging, isGroupedOver, authorColors) => {
   }
 
   if (isGroupedOver) {
-    return "#00abaf";
+    return '#00abaf';
   }
 
-  return "transparent";
+  return 'transparent';
 };
 
 const getBorderColor = (isDragging, authorColors) =>
-  isDragging ? '#000000' : "transparent";
+  isDragging ? '#000000' : 'transparent';
 
 const Container = styled.a`
   border-radius: ${borderRadius}px;
   border: 2px solid transparent;
-  border-color: ${props => getBorderColor(props.isDragging, props.colors)};
-  background-color: ${props =>
+  border-color: ${(props) => getBorderColor(props.isDragging, props.colors)};
+  background-color: ${(props) =>
     getBackgroundColor(props.isDragging, props.isGroupedOver, props.colors)};
   box-shadow: ${({ isDragging }) =>
-    isDragging ? `2px 2px 1px #00abaf` : "none"};
+    isDragging ? `2px 2px 1px #00abaf` : 'none'};
   padding: ${grid}px;
   min-height: 40px;
   margin-bottom: ${grid}px;
@@ -96,7 +96,7 @@ const Footer = styled.div`
 const Author = styled.small`
   flex-grow: 0;
   margin: 0;
-  background-color: ${props => props.colors.soft};
+  background-color: ${(props) => props.colors.soft};
   border-radius: ${borderRadius}px;
   font-weight: normal;
   padding: ${grid / 2}px;
@@ -116,12 +116,10 @@ export default class QuoteItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      update: false
+      update: false,
     };
-
   }
-  setSpeciality = () => { };
-
+  setSpeciality = () => {};
 
   // shouldComponentUpdate(nextProps, nexState) {
   //   return (
@@ -130,24 +128,20 @@ export default class QuoteItem extends React.Component {
   // }
 
   componentDidMount() {
-    this.props.socket.on("email_accept", (data) => {
-
+    this.props.socket.on('email_accept', (data) => {
       if (this.props.quote._id === data.case_id) {
-
         this.props.quote.verifiedbyPatient = true;
-        this.setState({ update: !this.state.update })
-
+        this.setState({ update: !this.state.update });
       }
-
-
-    })
+    });
   }
 
   render() {
     const { quote, isDragging, isGroupedOver, provided, onDragEnd } =
       this.props;
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Ward, Room, Bed, Tasks, AddTask, Comments, PatientInInvoice } = translate;
+    let { Ward, Room, Bed, Tasks, AddTask, Comments, PatientInInvoice } =
+      translate;
     return (
       <div
         href={quote.author.url}
@@ -158,10 +152,18 @@ export default class QuoteItem extends React.Component {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-        {this.props.view === "vertical" ? (
-          <Grid className={!quote?.verifiedbyPatient ? "flowInfo disabledCrd" : "flowInfo"}>
+        {this.props.view === 'vertical' ? (
+          <Grid
+            className={
+              !quote?.verifiedbyPatient ? 'flowInfo disabledCrd' : 'flowInfo'
+            }
+          >
             <Grid className="flowInfoInr">
-              {!quote?.verifiedbyPatient && <span className="err_message">For processing need approval from patient</span>}
+              {!quote?.verifiedbyPatient && (
+                <span className="err_message">
+                  For processing need approval from patient
+                </span>
+              )}
               <SpecialityButton
                 label={quote?.speciality?.specialty_name}
                 backgroundColor={quote?.speciality?.background_color}
@@ -170,10 +172,14 @@ export default class QuoteItem extends React.Component {
                 onClick={() => this.setSpeciality()}
                 showActive={false}
               />
-              {this.props.quote?.status === 1 && <span className="err_message">{PatientInInvoice}</span>}
+              {this.props.quote?.status === 1 && (
+                <span className="err_message">{PatientInInvoice}</span>
+              )}
               <Grid className="flowProfil">
                 <Grid>
-                  <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
+                  <Grid className="tasklistName">
+                    <S3Image imgUrl={this.props.quote?.patient?.image} />
+                  </Grid>
                   {/* <img
                     className="imgProfile"
                     src={require("assets/virtual_images/102.png")}
@@ -181,28 +187,41 @@ export default class QuoteItem extends React.Component {
                     title=""
                   /> */}
                 </Grid>
-                <Grid className="flowProfilRght" onClick={() => { quote?.verifiedbyPatient && this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id) }}>
+                <Grid
+                  className="flowProfilRght"
+                  onClick={() => {
+                    quote?.verifiedbyPatient &&
+                      this.props.moveDetial(
+                        this.props.quote.patient_id,
+                        this.props.quote._id
+                      );
+                  }}
+                >
                   <label>
                     {quote.patient?.first_name} {quote.patient?.last_name}
                   </label>
                   <p>{quote.patient?.alies_id}</p>
                 </Grid>
                 <Grid className="checkDotsRght">
-                  {quote?.verifiedbyPatient && <CasesMoreButton
-                    setDta={(item) => this.props.setDta(item)}
-                    currentStep={quote?.author?.step_name}
-                    currentIndex={checkTheIndex(
-                      this.props.columns[quote?.author?.step_name],
-                      "patient_id",
-                      quote.patient_id
-                    )}
-                    columns={this.props.columns}
-                    quote={quote}
-                    onDragEnd={(data) => onDragEnd(data)}
-                    ordered={this.props.ordered}
-                    professional_id_list={this.props.professional_id_list}
-                    updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
-                  />}
+                  {quote?.verifiedbyPatient && (
+                    <CasesMoreButton
+                      setDta={(item) => this.props.setDta(item)}
+                      currentStep={quote?.author?.step_name}
+                      currentIndex={checkTheIndex(
+                        this.props.columns[quote?.author?.step_name],
+                        'patient_id',
+                        quote.patient_id
+                      )}
+                      columns={this.props.columns}
+                      quote={quote}
+                      onDragEnd={(data) => onDragEnd(data)}
+                      ordered={this.props.ordered}
+                      professional_id_list={this.props.professional_id_list}
+                      updateEntryState3={(e, case_id) => {
+                        this.props.updateEntryState3(e, case_id);
+                      }}
+                    />
+                  )}
                 </Grid>
               </Grid>
             </Grid>
@@ -213,7 +232,7 @@ export default class QuoteItem extends React.Component {
                     <a className="taskHover">
                       <span>{Ward}</span>
                       <img
-                        src={require("assets/virtual_images/square.png")}
+                        src={require('assets/virtual_images/square.png')}
                         alt=""
                         title=""
                       />
@@ -222,7 +241,7 @@ export default class QuoteItem extends React.Component {
                     <a className="taskHover">
                       <span>{Room}</span>
                       <img
-                        src={require("assets/virtual_images/room.svg")}
+                        src={require('assets/virtual_images/room.svg')}
                         alt=""
                         title=""
                       />
@@ -231,7 +250,7 @@ export default class QuoteItem extends React.Component {
                     <a className="taskHover">
                       <span>{Bed}</span>
                       <img
-                        src={require("assets/virtual_images/bed2.png")}
+                        src={require('assets/virtual_images/bed2.png')}
                         alt=""
                         title=""
                       />
@@ -246,16 +265,26 @@ export default class QuoteItem extends React.Component {
                     <a className="taskHover">
                       <span>{Tasks}</span>
                       <img
-                        src={require("assets/virtual_images/rightIcon.png")}
+                        src={require('assets/virtual_images/rightIcon.png')}
                         alt=""
                         title=""
                       />
-                      {quote.done_task ? quote.done_task : 0}/{quote.total_task ? quote.total_task : 0}
+                      {quote.done_task ? quote.done_task : 0}/
+                      {quote.total_task ? quote.total_task : 0}
                     </a>
-                    <a className="addSec taskHover" onClick={() => { quote?.verifiedbyPatient && this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                    <a
+                      className="addSec taskHover"
+                      onClick={() => {
+                        quote?.verifiedbyPatient &&
+                          this.props.MovetoTask(
+                            quote.speciality,
+                            quote?.patient_id
+                          );
+                      }}
+                    >
                       <span>{AddTask}</span>
                       <img
-                        src={require("assets/virtual_images/plusIcon.png")}
+                        src={require('assets/virtual_images/plusIcon.png')}
                         alt=""
                         title=""
                       />
@@ -263,7 +292,7 @@ export default class QuoteItem extends React.Component {
                     <a className="taskHover">
                       <span>{Comments}</span>
                       <img
-                        src={require("assets/virtual_images/note1.png")}
+                        src={require('assets/virtual_images/note1.png')}
                         alt=""
                         title=""
                       />
@@ -301,12 +330,24 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
-                    {this.props.quote?.status === 1 && <span className="err_message">{PatientInInvoice}</span>}
+                    {this.props.quote?.status === 1 && (
+                      <span className="err_message">{PatientInInvoice}</span>
+                    )}
                   </Grid>
                   <Grid item xs={12} md={4} lg={3}>
-                    <Grid className="cardioArea" >
-                      <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
-                      <Grid onClick={() => { quote?.verifiedbyPatient && this.props.moveDetial(this.props.quote.patient_id, this.props.quote._id) }}>
+                    <Grid className="cardioArea">
+                      <Grid className="tasklistName">
+                        <S3Image imgUrl={this.props.quote?.patient?.image} />
+                      </Grid>
+                      <Grid
+                        onClick={() => {
+                          quote?.verifiedbyPatient &&
+                            this.props.moveDetial(
+                              this.props.quote.patient_id,
+                              this.props.quote._id
+                            );
+                        }}
+                      >
                         <label>
                           {quote.patient?.first_name} {quote.patient?.last_name}
                         </label>
@@ -324,18 +365,48 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
-                    {this.props.quote?.status === 1 && <span className="err_message">{PatientInInvoice}</span>}
+                    {this.props.quote?.status === 1 && (
+                      <span className="err_message">{PatientInInvoice}</span>
+                    )}
                   </Grid>
                   <Grid item xs={12} md={4} lg={6}>
                     <Grid className="wardInfo">
-                      <a className="wardNum taskHover"><span>{Ward}</span><img src={require('assets/virtual_images/square.png')} alt="" title="" /><label>{quote.wards?.ward_name}</label></a>
-                      <a className="roomNum taskHover"><span>{Room}</span><img src={require('assets/virtual_images/room.svg')} alt="" title="" /><label>{quote.rooms?.room_name}</label></a>
-                      <a className="bedNum taskHover"><span>{Bed}</span><img src={require('assets/virtual_images/bed2.png')} alt="" title="" /><label>{quote.bed}</label></a>
+                      <a className="wardNum taskHover">
+                        <span>{Ward}</span>
+                        <img
+                          src={require('assets/virtual_images/square.png')}
+                          alt=""
+                          title=""
+                        />
+                        <label>{quote.wards?.ward_name}</label>
+                      </a>
+                      <a className="roomNum taskHover">
+                        <span>{Room}</span>
+                        <img
+                          src={require('assets/virtual_images/room.svg')}
+                          alt=""
+                          title=""
+                        />
+                        <label>{quote.rooms?.room_name}</label>
+                      </a>
+                      <a className="bedNum taskHover">
+                        <span>{Bed}</span>
+                        <img
+                          src={require('assets/virtual_images/bed2.png')}
+                          alt=""
+                          title=""
+                        />
+                        <label>{quote.bed}</label>
+                      </a>
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
-
-                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    md={3}
+                    lg={2}
+                    className="cardoLblWeb"
+                  ></Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12} md={5}>
@@ -344,16 +415,26 @@ export default class QuoteItem extends React.Component {
                     <a className="rghtHalf taskHover">
                       <span>{Tasks}</span>
                       <img
-                        src={require("assets/virtual_images/rightIcon.png")}
+                        src={require('assets/virtual_images/rightIcon.png')}
                         alt=""
                         title=""
                       />
-                      {quote.done_task ? quote.done_task : 0}/{quote.total_task ? quote.total_task : 0}
+                      {quote.done_task ? quote.done_task : 0}/
+                      {quote.total_task ? quote.total_task : 0}
                     </a>
-                    <a className="addSec taskHover" onClick={() => { quote?.verifiedbyPatient && this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                    <a
+                      className="addSec taskHover"
+                      onClick={() => {
+                        quote?.verifiedbyPatient &&
+                          this.props.MovetoTask(
+                            quote.speciality,
+                            quote?.patient_id
+                          );
+                      }}
+                    >
                       <span>{AddTask}</span>
                       <img
-                        src={require("assets/virtual_images/plusIcon.png")}
+                        src={require('assets/virtual_images/plusIcon.png')}
                         alt=""
                         title=""
                       />
@@ -361,7 +442,7 @@ export default class QuoteItem extends React.Component {
                     <a className="notePoint taskHover">
                       <span>{Comments}</span>
                       <img
-                        src={require("assets/virtual_images/note.png")}
+                        src={require('assets/virtual_images/note.png')}
                         alt=""
                         title=""
                       />
@@ -372,21 +453,25 @@ export default class QuoteItem extends React.Component {
                     <Assigned assigned_to={quote.assinged_to} />
                   </Grid>
                   <Grid>
-                    {quote?.verifiedbyPatient && <CasesMoreButton
-                      setDta={(item) => this.props.setDta(item)}
-                      currentStep={quote?.author?.step_name}
-                      currentIndex={checkTheIndex(
-                        this.props.columns[quote?.author?.step_name],
-                        "patient_id",
-                        quote.patient_id
-                      )}
-                      columns={this.props.columns}
-                      quote={quote}
-                      onDragEnd={(data) => onDragEnd(data)}
-                      ordered={this.props.ordered}
-                      professional_id_list={this.props.professional_id_list}
-                      updateEntryState3={(e, case_id) => { this.props.updateEntryState3(e, case_id) }}
-                    />}
+                    {quote?.verifiedbyPatient && (
+                      <CasesMoreButton
+                        setDta={(item) => this.props.setDta(item)}
+                        currentStep={quote?.author?.step_name}
+                        currentIndex={checkTheIndex(
+                          this.props.columns[quote?.author?.step_name],
+                          'patient_id',
+                          quote.patient_id
+                        )}
+                        columns={this.props.columns}
+                        quote={quote}
+                        onDragEnd={(data) => onDragEnd(data)}
+                        ordered={this.props.ordered}
+                        professional_id_list={this.props.professional_id_list}
+                        updateEntryState3={(e, case_id) => {
+                          this.props.updateEntryState3(e, case_id);
+                        }}
+                      />
+                    )}
                   </Grid>
                 </Grid>
               </Grid>
