@@ -1280,7 +1280,8 @@ class Index extends Component {
       Hba1c,
       situation,
       smoking_status,
-      status,
+      Status,
+      added_on,
       from,
       when,
       until,
@@ -1304,7 +1305,7 @@ class Index extends Component {
       pain,
       size_progress,
       warm,
-
+      start_from,
       yes,
       no,
       cold,
@@ -1515,7 +1516,7 @@ class Index extends Component {
                             <Grid item xs={12} md={12} className="taskDescp">
                               <Grid className="stndQues stndQues1">
                                 <Grid>
-                                  <label>Added On</label>
+                                  <label>{added_on}</label>
                                 </Grid>
                                 <p>
                                   {getDate(
@@ -1602,7 +1603,7 @@ class Index extends Component {
                                 </Grid>
                                 <Grid container xs={12} md={12}>
                                   <Grid xs={4} md={4}>
-                                    <label>{status}</label>
+                                    <label>{Status}</label>
                                     <p>
                                       {this.state.newTask &&
                                         this.state.newTask?.smoking_status &&
@@ -1763,7 +1764,7 @@ class Index extends Component {
                                   />
                                 </div>
                                 <Grid>
-                                  <label>Start From</label>
+                                  <label>{start_from}</label>
                                 </Grid>
                                 <p>
                                   {getDate(
@@ -1880,7 +1881,9 @@ class Index extends Component {
                                       }
                                     />
                                   ) : (
-                                    <p>No attachments!</p>
+                                    <p>
+                                      {no} {Attachments}!
+                                    </p>
                                   )}
                                 </Grid>
                                 <Grid class="addStnd1">
@@ -1899,7 +1902,9 @@ class Index extends Component {
                                         )
                                       )
                                     ) : (
-                                      <p>No comments!</p>
+                                      <p>
+                                        {no} {Comments}!
+                                      </p>
                                     )}
                                   </p>
                                 </Grid>

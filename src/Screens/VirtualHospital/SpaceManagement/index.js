@@ -151,6 +151,7 @@ class Index extends Component {
       Room,
       Ward,
       edit,
+      beds,
       DeleteSpeciality,
       AddWard,
       cancel,
@@ -456,7 +457,7 @@ class Index extends Component {
                                             alt=""
                                             title=""
                                           />
-                                          {bednumbers(item.rooms)} beds
+                                          {bednumbers(item.rooms)} {beds}
                                           <AvailablebedListing
                                             speciality_id={data._id}
                                             ward_id={item._id}
