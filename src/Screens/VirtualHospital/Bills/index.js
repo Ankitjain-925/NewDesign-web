@@ -548,7 +548,7 @@ class Index extends Component {
         this.props.settings.setting.invoice_pattern ? this.props.settings.setting.invoice_pattern : 5;
     this.setState({ loaderImage: true })
     axios
-    .get(sitedata.data.dowload_link + "/vh/Getinstitutename/"+this.props?.House?.value,
+    .get(sitedata.data.data + "/vh/Getinstitutename/"+this.props?.House?.value,
     commonHeader(this.props.stateLoginValueAim.token)).then((response)=>{
         if(response.data.hassuccessed){
             console.log('response.data', response.data)
