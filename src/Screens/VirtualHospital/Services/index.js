@@ -283,13 +283,13 @@ class Index extends Component {
                                     <label className="specbutton1">
                                       {speciality}
                                     </label>
-                                    <Grid className="sevicessection">
+                                    <Grid className="sevicessection serviceallSec">
                                       <Select
                                         onChange={(e) => onFieldChange(e, this)}
                                         options={this.state.AllSpeciality}
                                         name="specialty_name"
                                         isSearchable={true}
-                                        className="mr_sel"
+                                        className="min_section minall_sec"
                                         isMulti={true}
                                         value={selectedID(
                                           this.state.updateTrack.specialty_id,

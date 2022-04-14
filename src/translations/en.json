@@ -1313,6 +1313,7 @@
     "CaseID": "Case ID",
     "Status": "Status",
     "BacktoPatientFlow": "Back to PatientFlow",
+    "add_document": "Add Document",
     "NewEntry": "Entry",
     "NewTask": "Task",
     "Editinfo": "Edit info",
@@ -1733,6 +1734,12 @@
     "Free_Content": "Free Content",
     "NEUROLOGY": "NEUROLOGY",
     "Reply": "Reply",
-    "Declined": "Declined"
+    "Declined": "Declined",
+    "go_back": "Go back to use Qr scanner",
+    "go_to_check": "Go to check with basic informations",
+    "go_to_scanner": "Go to scanner",
+    "go_to_check_with_email": "Go to check with email",
+    "Go_to_check_with_basic": "Go to check with basic informations",
+    "go_back_to_check_with_email": "Go back to check with email"
   }
 }

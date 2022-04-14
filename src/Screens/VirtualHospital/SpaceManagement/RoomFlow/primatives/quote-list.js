@@ -1,11 +1,13 @@
-import React from "react";
-import { Droppable, Draggable } from "react-beautiful-dnd";
-import QuoteItem from "./quote-item";
-
+import React from 'react';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import QuoteItem from './quote-item';
 
 class InnerQuoteList extends React.Component {
   shouldComponentUpdate(nextProps) {
-    if (nextProps.quotes !== this.props.quotes || nextProps.view !== this.props.view) {
+    if (
+      nextProps.quotes !== this.props.quotes ||
+      nextProps.view !== this.props.view
+    ) {
       return true;
     }
 
@@ -13,6 +15,7 @@ class InnerQuoteList extends React.Component {
   }
 
   render() {
+    console.log('7', this.props.stateLanguageType);
     return this.props.quotes.map((quote, index) => (
       <Draggable
         key={quote.profile_id}
@@ -41,7 +44,11 @@ class InnerList extends React.Component {
     return (
       <div>
         <div ref={dropProvided.innerRef}>
-          <InnerQuoteList quotes={quotes}  view={this.props.view}/>
+          <InnerQuoteList
+            quotes={quotes}
+            view={this.props.view}
+            stateLanguageType={this.props.stateLanguageType}
+          />
         </div>
       </div>
     );
@@ -50,9 +57,10 @@ class InnerList extends React.Component {
 
 export default class QuoteList extends React.Component {
   static defaultProps = {
-    listId: "LIST"
+    listId: 'LIST',
   };
   render() {
+    console.log('9', this.props.stateLanguageType);
     const {
       ignoreContainerClipping,
       internalScroll,
@@ -63,7 +71,7 @@ export default class QuoteList extends React.Component {
       listType,
       style,
       quotes,
-      title
+      title,
     } = this.props;
 
     return (
@@ -90,7 +98,7 @@ export default class QuoteList extends React.Component {
                   title={title}
                   dropProvided={dropProvided}
                   view={this.props.view}
-                  
+                  stateLanguageType={this.props.stateLanguageType}
                 />
               </div>
             ) : (
@@ -99,6 +107,7 @@ export default class QuoteList extends React.Component {
                 title={title}
                 dropProvided={dropProvided}
                 view={this.props.view}
+                stateLanguageType={this.props.stateLanguageType}
               />
             )}
           </div>

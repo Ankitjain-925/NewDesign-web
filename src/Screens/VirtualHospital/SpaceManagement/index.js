@@ -1,34 +1,51 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
-import Modal from "@material-ui/core/Modal";
-import Button from "@material-ui/core/Button";
-import ColorSelection from "Screens/Components/VirtualHospitalComponents/ColorSelection/index";
-import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
-import AddRoom from "Screens/Components/VirtualHospitalComponents/AddRoom/index";
-import RoomView from "Screens/Components/VirtualHospitalComponents/RoomView/index";
-import Loader from "Screens/Components/Loader/index";
-import { confirmAlert } from "react-confirm-alert";
-import { withRouter } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { authy } from "Screens/Login/authy.js";
-import { connect } from "react-redux";
-import { LanguageFetchReducer } from "Screens/actions";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import { houseSelect } from "../Institutes/selecthouseaction";
-import { Speciality } from "Screens/Login/speciality.js";
-import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import LeftMenu from 'Screens/Components/Menus/VirtualHospitalMenu/index';
+import LeftMenuMobile from 'Screens/Components/Menus/VirtualHospitalMenu/mobile';
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
+import ColorSelection from 'Screens/Components/VirtualHospitalComponents/ColorSelection/index';
+import VHfield from 'Screens/Components/VirtualHospitalComponents/VHfield/index';
+import AddRoom from 'Screens/Components/VirtualHospitalComponents/AddRoom/index';
+import RoomView from 'Screens/Components/VirtualHospitalComponents/RoomView/index';
+import Loader from 'Screens/Components/Loader/index';
+import { confirmAlert } from 'react-confirm-alert';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { authy } from 'Screens/Login/authy.js';
+import { connect } from 'react-redux';
+import { LanguageFetchReducer } from 'Screens/actions';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { houseSelect } from '../Institutes/selecthouseaction';
+import { Speciality } from 'Screens/Login/speciality.js';
+import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import AvailablebedListing from "Screens/Components/VirtualHospitalComponents/AvailablebedListing"
-import { getLanguage } from "translations/index"
+import AvailablebedListing from 'Screens/Components/VirtualHospitalComponents/AvailablebedListing';
+import { getLanguage } from 'translations/index';
 import {
-  manageBeds, updateEntryState3, removeWard, handleCloseWarn, handleOpenWarn, updateEntryState2, updateEntryState1,
-  updateEntryState, editWard, handleCloseWard, handleOpenWard, onEditspec, MoveInstitute, searchFilter, handleOpenRoom,
-  selectedID, bednumbers, deleteClick, getSpeciality, SaveSpeciality, 
-} from "./api";
+  manageBeds,
+  updateEntryState3,
+  removeWard,
+  handleCloseWarn,
+  handleOpenWarn,
+  updateEntryState2,
+  updateEntryState1,
+  updateEntryState,
+  editWard,
+  handleCloseWard,
+  handleOpenWard,
+  onEditspec,
+  MoveInstitute,
+  searchFilter,
+  handleOpenRoom,
+  selectedID,
+  bednumbers,
+  deleteClick,
+  getSpeciality,
+  SaveSpeciality,
+} from './api';
 
 class Index extends Component {
   constructor(props) {
@@ -52,7 +69,7 @@ class Index extends Component {
       errorMsg2: '',
       errorMsg: '',
       errorStatus: false,
-      action: "constuctor"
+      action: 'constuctor',
     };
   }
   handleOpenSpecl = () => {
@@ -60,34 +77,35 @@ class Index extends Component {
   };
   handleCloseSpecl = () => {
     this.setState({
-      openSpecl: false, ward: {},
+      openSpecl: false,
+      ward: {},
       speciality: {},
     });
   };
 
   componentDidMount() {
-    this.setState({ action: "loading" });
+    this.setState({ action: 'loading' });
     getSpeciality(this);
   }
 
   removeSpeciality = () => {
     handleCloseWarn(this);
     let translate = getLanguage(this.props.stateLanguageType);
-    let { deleteSpeciality, really_want_to_delete_speciality, No, Yes } = translate;
+    let { deleteSpeciality, really_want_to_delete_speciality, No, Yes } =
+      translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
           <div
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                ? "dark-confirm react-confirm-alert-body"
-                : "react-confirm-alert-body"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'dark-confirm react-confirm-alert-body'
+                : 'react-confirm-alert-body'
             }
           >
-
             <h1 class="alert-btn">{deleteSpeciality}</h1>
 
             <p>{really_want_to_delete_speciality}</p>
@@ -110,34 +128,61 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Specialities, Iunderstandthat, AddSpeciality,EnterSpecialityname,Search,EnterWard,
-      BacktoChangeHospital, addNewSpeciality,SpaceManagement,Color,speciality,All_Patients_removed_beds,All_Rooms_Beds_deleted,All_Wards_deleted, Institution, select_all_conditions_to_delete_speciality, PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
-      yesDeleteSpeciality, cancelKeepSpeciality, Room,Ward, edit, DeleteSpeciality, AddWard, cancel, UpdateWard, SaveWard, save_and_close
-     } = translate;
+    let {
+      Specialities,
+      Iunderstandthat,
+      AddSpeciality,
+      EnterSpecialityname,
+      Search,
+      EnterWard,
+      BacktoChangeHospital,
+      addNewSpeciality,
+      SpaceManagement,
+      Color,
+      speciality,
+      All_Patients_removed_beds,
+      All_Rooms_Beds_deleted,
+      All_Wards_deleted,
+      Institution,
+      select_all_conditions_to_delete_speciality,
+      PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction,
+      yesDeleteSpeciality,
+      cancelKeepSpeciality,
+      Room,
+      Ward,
+      edit,
+      DeleteSpeciality,
+      AddWard,
+      cancel,
+      UpdateWard,
+      SaveWard,
+      save_and_close,
+    } = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
-      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.user === 'undefined' ||
       stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "adminstaff" ||
+      stateLoginValueAim.token === 'undefined' ||
+      stateLoginValueAim.user.type !== 'adminstaff' ||
       !this.props.verifyCode ||
       !this.props.verifyCode.code
     ) {
-      return <Redirect to={"/"} />;
+      return <Redirect to={'/'} />;
     }
     if (House && House?.value === null) {
-      return <Redirect to={"/VirtualHospital/institutes"} />;
+      return <Redirect to={'/VirtualHospital/institutes'} />;
     }
 
     return (
-      <Grid className={
-        this.props.settings &&
+      <Grid
+        className={
+          this.props.settings &&
           this.props.settings.setting &&
           this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
-          ? "homeBg darkTheme"
-          : "homeBg"
-      }
+          this.props.settings.setting.mode === 'dark'
+            ? 'homeBg darkTheme'
+            : 'homeBg'
+        }
       >
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
@@ -155,17 +200,22 @@ class Index extends Component {
                   <Grid className="topLeftSpc">
                     <Grid className="extSetting">
                       <a onClick={() => MoveInstitute(this)}>
-                        <img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
-                        {BacktoChangeHospital}</a>
+                        <img
+                          src={require('assets/virtual_images/rightArrow.png')}
+                          alt=""
+                          title=""
+                        />
+                        {BacktoChangeHospital}
+                      </a>
                     </Grid>
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={12} sm={6} md={6}>
-                        <Grid className="spcMgntH1"><h1>{SpaceManagement}</h1></Grid>
+                        <Grid className="spcMgntH1">
+                          <h1>{SpaceManagement}</h1>
+                        </Grid>
                       </Grid>
                       <Grid item xs={12} sm={6} md={6} className="addFlowRght">
-                        <a onClick={this.handleOpenSpecl}>
-                          {addNewSpeciality}
-                        </a>
+                        <a onClick={this.handleOpenSpecl}>{addNewSpeciality}</a>
                       </Grid>
                     </Grid>
                     {/* Start of Bread Crumb */}
@@ -190,20 +240,42 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={3}>
                           <Grid className="settingInfo">
-                            {this.state.showinput && <input name="Search" placeholder={Search} value={this.state.SearchValue} className="serchInput" onChange={(e) => searchFilter(e, this)} />}
+                            {this.state.showinput && (
+                              <input
+                                name="Search"
+                                placeholder={Search}
+                                value={this.state.SearchValue}
+                                className="serchInput"
+                                onChange={(e) => searchFilter(e, this)}
+                              />
+                            )}
                             <a>
-                              {!this.state.showinput ? <img
-                                src={require("assets/virtual_images/search-entries.svg")}
-                                alt=""
-                                title=""
-                                onClick={() => { this.setState({ showinput: !this.state.showinput }) }}
-                              /> :
+                              {!this.state.showinput ? (
                                 <img
-                                  src={require("assets/images/close-search.svg")}
+                                  src={require('assets/virtual_images/search-entries.svg')}
                                   alt=""
                                   title=""
-                                  onClick={() => { this.setState({ showinput: !this.state.showinput, SearchValue: '', specialityData: this.state.specialityData2, }) }}
-                                />}
+                                  onClick={() => {
+                                    this.setState({
+                                      showinput: !this.state.showinput,
+                                    });
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src={require('assets/images/close-search.svg')}
+                                  alt=""
+                                  title=""
+                                  onClick={() => {
+                                    this.setState({
+                                      showinput: !this.state.showinput,
+                                      SearchValue: '',
+                                      specialityData:
+                                        this.state.specialityData2,
+                                    });
+                                  }}
+                                />
+                              )}
                             </a>
                             {/* <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                           </Grid>
@@ -216,13 +288,12 @@ class Index extends Component {
                       onClose={() => handleCloseWarn(this)}
                       className={
                         this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
-                          ? "darkTheme addWrnModel"
-                          : "addWrnModel"
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === 'dark'
+                          ? 'darkTheme addWrnModel'
+                          : 'addWrnModel'
                       }
-
                     >
                       <Grid className="addWrnContnt">
                         <Grid className="addWrnIner">
@@ -230,7 +301,7 @@ class Index extends Component {
                             <Grid className="addWrnClose">
                               <a onClick={() => handleCloseWarn(this)}>
                                 <img
-                                  src={require("assets/images/close-search.svg")}
+                                  src={require('assets/images/close-search.svg')}
                                   alt=""
                                   title=""
                                 />
@@ -249,7 +320,7 @@ class Index extends Component {
                               <Grid className="wrnUndr">
                                 <span className="warnImg">
                                   <img
-                                    src={require("assets/virtual_images/important-notice.svg")}
+                                    src={require('assets/virtual_images/important-notice.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -258,32 +329,65 @@ class Index extends Component {
                               </Grid>
                               <Grid className="wardLine">
                                 <FormControlLabel
-                                  control={<Checkbox onChange={(e) => { this.setState({ wardDel: e.target.checked }) }} />}
+                                  control={
+                                    <Checkbox
+                                      onChange={(e) => {
+                                        this.setState({
+                                          wardDel: e.target.checked,
+                                        });
+                                      }}
+                                    />
+                                  }
                                   label={All_Wards_deleted}
                                 />
                               </Grid>
                               <Grid className="wardLine">
                                 <FormControlLabel
-                                  control={<Checkbox onChange={(e) => { this.setState({ roomDel: e.target.checked }) }} />}
+                                  control={
+                                    <Checkbox
+                                      onChange={(e) => {
+                                        this.setState({
+                                          roomDel: e.target.checked,
+                                        });
+                                      }}
+                                    />
+                                  }
                                   label={All_Rooms_Beds_deleted}
                                 />
                               </Grid>
                               <Grid className="wardLine">
                                 <FormControlLabel
-                                  control={<Checkbox onChange={(e) => { this.setState({ patDel: e.target.checked }) }} />}
+                                  control={
+                                    <Checkbox
+                                      onChange={(e) => {
+                                        this.setState({
+                                          patDel: e.target.checked,
+                                        });
+                                      }}
+                                    />
+                                  }
                                   label={All_Patients_removed_beds}
                                 />
                               </Grid>
                               <Grid className="confirmActn">
                                 <p>
-                                  {PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction}
+                                  {
+                                    PleaseConfirmThatYouUnderstandTheConsequencesOfYourAction
+                                  }
                                 </p>
                               </Grid>
                               <Grid className="selectWarn">
-                                <Button className="selWarnBtn" onClick={() => { this.removeSpeciality() }}>
+                                <Button
+                                  className="selWarnBtn"
+                                  onClick={() => {
+                                    this.removeSpeciality();
+                                  }}
+                                >
                                   {yesDeleteSpeciality}
                                 </Button>
-                                <Button onClick={() => handleCloseWarn(this)}>{cancelKeepSpeciality}</Button>
+                                <Button onClick={() => handleCloseWarn(this)}>
+                                  {cancelKeepSpeciality}
+                                </Button>
                               </Grid>
                             </Grid>
                           </Grid>
@@ -300,13 +404,18 @@ class Index extends Component {
                               <Grid className="wardsGrup3">
                                 <SpecialityButton
                                   viewImage={true}
-                                  deleteClick={() => handleOpenWarn(data._id, this)}
+                                  deleteClick={() =>
+                                    handleOpenWarn(data._id, this)
+                                  }
                                   label={data.specialty_name}
                                   backgroundColor={data.background_color}
                                   color={data.color}
                                   onClick={() => {
                                     onEditspec(data, this);
                                   }}
+                                  stateLanguageType={
+                                    this.props.stateLanguageType
+                                  }
                                 />
                                 {data.wards?.length > 0 &&
                                   data.wards.map((item) => (
@@ -318,12 +427,13 @@ class Index extends Component {
                                             manageBeds(
                                               this.state.specialityData,
                                               data,
-                                              item, this
+                                              item,
+                                              this
                                             );
                                           }}
                                         >
                                           <img
-                                            src={require("assets/virtual_images/square.png")}
+                                            src={require('assets/virtual_images/square.png')}
                                             alt=""
                                             title=""
                                           />
@@ -331,18 +441,18 @@ class Index extends Component {
                                         </li>
                                         <li>
                                           <img
-                                            src={require("assets/virtual_images/room.svg")}
+                                            src={require('assets/virtual_images/room.svg')}
                                             alt=""
                                             title=""
                                           />
                                           {item?.rooms?.length
                                             ? item?.rooms?.length
-                                            : 0}{" "}
+                                            : 0}{' '}
                                           {Room}
                                         </li>
                                         <li>
                                           <img
-                                            src={require("assets/virtual_images/bedNumber.png")}
+                                            src={require('assets/virtual_images/bedNumber.png')}
                                             alt=""
                                             title=""
                                           />
@@ -365,7 +475,6 @@ class Index extends Component {
                   </Grid>
                 </Grid>
                 {/* End of Right Section */}
-
               </Grid>
             </Grid>
           </Grid>
@@ -376,11 +485,11 @@ class Index extends Component {
           onClose={this.handleCloseSpecl}
           className={
             this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
-              ? "darkTheme addSpeclModel"
-              : "addSpeclModel"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
+              ? 'darkTheme addSpeclModel'
+              : 'addSpeclModel'
           }
         >
           <Grid className="addSpeclContnt">
@@ -389,167 +498,172 @@ class Index extends Component {
                 <Grid className="addSpeclClose">
                   <a onClick={this.handleCloseSpecl}>
                     <img
-                      src={require("assets/images/close-search.svg")}
+                      src={require('assets/images/close-search.svg')}
                       alt=""
                       title=""
                     />
                   </a>
                 </Grid>
                 <Grid>
-                  {this.state.speciality._id ? <label>{edit} <span className="spacemanageDel" onClick={() => handleOpenWarn(this.state.speciality._id, this) }><span className="deleteimg"></span> {DeleteSpeciality}</span></label> :
-                    <label>{AddSpeciality}</label>}
+                  {this.state.speciality._id ? (
+                    <label>
+                      {edit}{' '}
+                      <span
+                        className="spacemanageDel"
+                        onClick={() =>
+                          handleOpenWarn(this.state.speciality._id, this)
+                        }
+                      >
+                        <span className="deleteimg"></span> {DeleteSpeciality}
+                      </span>
+                    </label>
+                  ) : (
+                    <label>{AddSpeciality}</label>
+                  )}
                 </Grid>
               </Grid>
               {/* <Grid className="enterSpclUpr"> */}
-                <Grid className="enterSpclMain">
-                  <Grid className="enterSpcl">
-                    <Grid container direction="row">
-                      <Grid item xs={10} md={11}>
-                        {/* <Grid><label>Speciality</label></Grid> */}
-                        {/* <TextField placeholder="Enter Speciality name" /> */}
-                        <VHfield
-                          label={speciality}
-                          name="specialty_name"
-                          value={this.state.speciality.specialty_name}
-                          placeholder={EnterSpecialityname}
-                          onChange={(e) => updateEntryState(e, this)}
-                        />
-                      </Grid>
-                      <Grid item xs={2} md={1}>
-                        <Grid className="colorBtnUpr">
-                          <Grid>
-                            <ColorSelection
-                              label={Color}
-                              updateEntryState1={(name, value) =>
-                                updateEntryState1(name, value, this)
-                              }
-                              background_color={this.state.speciality.background_color}
-                              color={this.state.speciality.color}
-                            />
-                          </Grid>
+              <Grid className="enterSpclMain">
+                <Grid className="enterSpcl">
+                  <Grid container direction="row">
+                    <Grid item xs={10} md={11}>
+                      {/* <Grid><label>Speciality</label></Grid> */}
+                      {/* <TextField placeholder="Enter Speciality name" /> */}
+                      <VHfield
+                        label={speciality}
+                        name="specialty_name"
+                        value={this.state.speciality.specialty_name}
+                        placeholder={EnterSpecialityname}
+                        onChange={(e) => updateEntryState(e, this)}
+                      />
+                    </Grid>
+                    <Grid item xs={2} md={1}>
+                      <Grid className="colorBtnUpr">
+                        <Grid>
+                          <ColorSelection
+                            label={Color}
+                            updateEntryState1={(name, value) =>
+                              updateEntryState1(name, value, this)
+                            }
+                            background_color={
+                              this.state.speciality.background_color
+                            }
+                            color={this.state.speciality.color}
+                          />
                         </Grid>
                       </Grid>
-                      <Grid className="addWardsRoom">
-                        {!this.state.openWard && (
-                          <>
-                            {this.state.speciality?.wards?.length > 0 &&
-                              this.state.speciality?.wards?.map(
-                                (data, index) => (
-                                  <RoomView
-                                    label={data.ward_name}
-                                    room_number={
-                                      data.rooms?.length > 0
-                                        ? data.rooms?.length
-                                        : 0
-                                    }
-                                    no_of_bed={bednumbers(
-                                      data.rooms
-                                    )}
-                                    index={index}
-                                    removeWard={() =>
-                                      removeWard(index, this)
-                                    }
-                                    onEdit={() => {
-                                      editWard(data, this);
-                                    }}
+                    </Grid>
+                    <Grid className="addWardsRoom">
+                      {!this.state.openWard && (
+                        <>
+                          {this.state.speciality?.wards?.length > 0 &&
+                            this.state.speciality?.wards?.map((data, index) => (
+                              <RoomView
+                                label={data.ward_name}
+                                room_number={
+                                  data.rooms?.length > 0
+                                    ? data.rooms?.length
+                                    : 0
+                                }
+                                no_of_bed={bednumbers(data.rooms)}
+                                index={index}
+                                removeWard={() => removeWard(index, this)}
+                                onEdit={() => {
+                                  editWard(data, this);
+                                }}
+                              />
+                            ))}
+                        </>
+                      )}
+                      <Grid className="">
+                        {!this.state.openWard ? (
+                          <Grid
+                            className={
+                              this.state.speciality?.wards?.length > 0
+                                ? 'addNwWard'
+                                : ' plusWards'
+                            }
+                          >
+                            <p onClick={() => handleOpenWard(this)}>
+                              {AddWard}
+                            </p>
+                          </Grid>
+                        ) : (
+                          <Grid className="">
+                            <Grid className="addWardsUpr">
+                              <Grid className="addWardsIner">
+                                <p className="err_message">
+                                  {this.state.errorMsg2}
+                                </p>
+                                <Grid item xs={12} md={12}>
+                                  <VHfield
+                                    label={Ward}
+                                    value={this.state.ward?.ward_name}
+                                    name="ward_name"
+                                    placeholder={EnterWard}
+                                    onChange={(e) => updateEntryState2(e, this)}
                                   />
-                                )
-                              )}
-                          </>
-                        )}
-                        <Grid className="">
-                          {!this.state.openWard ? (
-                            <Grid
-                              className={
-                                this.state.speciality?.wards?.length > 0
-                                  ? "addNwWard"
-                                  : " plusWards"
-                              }
-                            >
-                              <p onClick={()=>handleOpenWard(this)}>
-                                {AddWard}
-                              </p>
-                            </Grid>
-                          ) : (
-                            <Grid className="">
-                              <Grid className="addWardsUpr">
-                                <Grid className="addWardsIner">
-                                  <p className='err_message'>{this.state.errorMsg2}</p>
-                                  <Grid item xs={12} md={12}>
-                                    <VHfield
-                                      label={Ward}
-                                      value={this.state.ward?.ward_name}
-                                      name="ward_name"
-                                      placeholder={EnterWard}
-                                      onChange={(e) =>
-                                        updateEntryState2(e, this)
-                                      }
-                                    />
 
-                                    <AddRoom
-                                      label={Room}
-                                      name="roomname"
-                                      roomArray={this.state.ward?.rooms}
-                                      onChange={(e) =>
-                                        updateEntryState3(e, this)
-                                      }
-                                    />
-                                  </Grid>
-                                  <Grid className="wrdsBtn">
+                                  <AddRoom
+                                    label={Room}
+                                    name="roomname"
+                                    roomArray={this.state.ward?.rooms}
+                                    onChange={(e) => updateEntryState3(e, this)}
+                                  />
+                                </Grid>
+                                <Grid className="wrdsBtn">
+                                  <Button
+                                    onClick={(e) => {
+                                      this.setState({
+                                        isEditWrd: false,
+                                        openWard: false,
+                                        ward: {},
+                                      });
+                                    }}
+                                  >
+                                    {cancel}
+                                  </Button>
+
+                                  {this.state.isEditWrd ? (
                                     <Button
-                                      onClick={(e) => {
-                                        this.setState({
-                                          isEditWrd:false,
-                                          openWard: false,
-                                          ward: {},
-                                        });
+                                      className="wrdsBtnActv"
+                                      onClick={() => {
+                                        handleOpenRoom(this);
                                       }}
                                     >
-                                      {cancel}
+                                      {UpdateWard}
                                     </Button>
-                                    
-                                    {this.state.isEditWrd ? (
-                                      <Button
-                                        className="wrdsBtnActv"
-                                        onClick={() => {
-                                          handleOpenRoom(this)
-                                        }}
-                                      >
-                                        {UpdateWard}
-                                      </Button>
-                                    ) : (
-                                      <Button
-                                        className="wrdsBtnActv"
-                                        onClick={() => {
-                                          handleOpenRoom(this)
-                                        }}
-                                      >
-                                        {SaveWard}
-                                      </Button>
-                                    )}
-                                  </Grid>
+                                  ) : (
+                                    <Button
+                                      className="wrdsBtnActv"
+                                      onClick={() => {
+                                        handleOpenRoom(this);
+                                      }}
+                                    >
+                                      {SaveWard}
+                                    </Button>
+                                  )}
                                 </Grid>
                               </Grid>
                             </Grid>
-                          )}
-                        </Grid>
+                          </Grid>
+                        )}
                       </Grid>
                     </Grid>
-                    <Grid className="spclSaveBtn saveNclose">
-                    <p className='err_message'>{this.state.errorMsg}</p>
-                      <Button onClick={()=>SaveSpeciality(this)}>
-                        {save_and_close}
-                      </Button>
-                    </Grid>
                   </Grid>
-                 
+                  <Grid className="spclSaveBtn saveNclose">
+                    <p className="err_message">{this.state.errorMsg}</p>
+                    <Button onClick={() => SaveSpeciality(this)}>
+                      {save_and_close}
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
+            </Grid>
             {/* </Grid> */}
           </Grid>
         </Modal>
         {/* End of Model setup */}
-
       </Grid>
     );
   }
@@ -569,7 +683,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     House,
-    speciality
+    speciality,
   };
 };
 export default withRouter(
@@ -579,6 +693,6 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
-    Speciality
+    Speciality,
   })(Index)
 );

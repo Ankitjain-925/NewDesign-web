@@ -14453,5 +14453,20 @@ label.newrole {
 }
 
 .menuCheckBox1 p {
-display:inline
+  display: inline;
+}
+.min_section .css-yk16xz-control {
+  min-height: 30px !important;
+  min-height: initial !important;
+}
+.min_section .css-b8ldur-Input {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.darkTheme .minall_sec .css-12jo7m5 {
+  color: #d9dada;
+}
+.darkTheme .serviceallSec {
+  color: #d9dada;
 }
