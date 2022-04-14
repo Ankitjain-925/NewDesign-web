@@ -552,13 +552,12 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .get(
-        sitedata.data.dowload_link +
-          '/vh/Getinstitutename/' +
-          this.props?.House?.value,
+        sitedata.data.path + '/vh/Getinstitutename/' + this.props?.House?.value,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
         if (response.data.hassuccessed) {
+          console.log('response.data', response.data);
           invoice.house_name = response.data.data;
           axios
             .post(
