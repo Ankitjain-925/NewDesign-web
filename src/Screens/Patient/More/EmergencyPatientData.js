@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
   const { verifyCode } = state.authy;
   return {
     stateLanguageType,
-    stateLoginValueAim,
+    stateLoginValueAim, 
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,

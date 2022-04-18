@@ -1,58 +1,65 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import {
-    getLanguage
-} from "translations/index"
-
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import { getLanguage } from 'translations/index';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LanguageFetchReducer } from 'Screens/actions';
+import { LoginReducerAim } from 'Screens/Login/actions';
 class Index extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            roomArray: this.props.roomArray || [],
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      roomArray: this.props.roomArray || [],
+    };
+  }
+
+  onDataChange = (e, index) => {
+    var RoomAy = this.state.roomArray;
+    RoomAy[index][e.target.name] = e.target.value;
+    this.setState({ roomArray: RoomAy }, () =>
+      this.props.onChange(this.state.roomArray)
+    );
+  };
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.roomArray !== this.props.roomArray) {
+      this.setState({ roomArray: this.props.roomArray });
     }
+  };
 
-    onDataChange = (e, index) => {
-        var RoomAy = this.state.roomArray;
-        RoomAy[index][e.target.name] = e.target.value;
-        this.setState({ roomArray: RoomAy },
-            () => this.props.onChange(this.state.roomArray))
-    }
+  onAddFiled = () => {
+    let RoomAy = this.state.roomArray;
+    RoomAy.push({ room_name: '', no_of_bed: false });
+    this.setState({ roomArray: RoomAy });
+  };
 
-    componentDidUpdate = (prevProps) => {
-        if (prevProps.roomArray !== this.props.roomArray) {
-            this.setState({ roomArray: this.props.roomArray });
-        }
-    };
+  deleteRooms = (index) => {
+    var RoomAy =
+      this.state.roomArray?.length > 0 &&
+      this.state.roomArray.filter((data, index1) => index1 !== index);
+    this.setState({ roomArray: RoomAy }, () => {
+      this.props.onChange(this.state.roomArray);
+    });
+  };
 
-    onAddFiled = () => {
-        let RoomAy = this.state.roomArray;
-        RoomAy.push({ room_name: "", no_of_bed: false });
-        this.setState({ roomArray: RoomAy });
-    };
-
-    deleteRooms = (index) => {
-        var RoomAy = this.state.roomArray?.length > 0 && this.state.roomArray.filter((data, index1) => index1 !== index);
-        this.setState({ roomArray: RoomAy },
-            () => {
-                this.props.onChange(this.state.roomArray)
-            });
-    };
-
-    render() {
-        let translate = getLanguage(this.props.stateLanguageType);
-        let { Roomname, Bedsinroom, AddRoom } = translate;
-        return (
-            <Grid className="roomName">
-                <Grid container direction="row" alignItems="center" spacing={2}>
-                    <Grid item xs={7} md={7}>
-                        <Grid><label>{Roomname}</label></Grid>
-                    </Grid>
-                    <Grid item xs={3} md={3}>
-                        <Grid><label>{Bedsinroom}</label></Grid>
-                    </Grid>
-                </Grid>
-                {/* {this.state.roomArray && this.state.roomArray.length == 0 && (
+  render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { Roomname, Bedsinroom, AddRoom, Enter_room_name } = translate;
+    return (
+      <Grid className="roomName">
+        <Grid container direction="row" alignItems="center" spacing={2}>
+          <Grid item xs={7} md={7}>
+            <Grid>
+              <label>{Roomname}</label>
+            </Grid>
+          </Grid>
+          <Grid item xs={3} md={3}>
+            <Grid>
+              <label>{Bedsinroom}</label>
+            </Grid>
+          </Grid>
+        </Grid>
+        {/* {this.state.roomArray && this.state.roomArray.length == 0 && (
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={7} md={7}>
                             <input
@@ -77,33 +84,60 @@ class Index extends React.Component {
                         </Grid>
                     </Grid>
                 )} */}
-                {this.state.roomArray && this.state.roomArray.length > 0 && this.state.roomArray.map((data, index) => (
-                    <Grid container direction="row" alignItems="center" spacing={2}>
-                        <Grid item xs={7} md={7}>
-                            <input
-                                type="text" placeholder={"Enter room name"}
-                                name="room_name"
-                                onChange={(e) => this.onDataChange(e, index)}
-                                value={data.room_name}
-                            />
-                        </Grid>
-                        <Grid item xs={3} md={3}>
-                            <input
-                                type="number" placeholder={0}
-                                name="no_of_bed"
-                                value={data.no_of_bed}
-                                onChange={(e) => this.onDataChange(e, index)}
-                            />
-                        </Grid>
-                        <Grid item xs={2} md={2} className="roomRmv">
-                            <a onClick={() => this.deleteRooms(index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
-                        </Grid>
-                    </Grid>))}
-                <Grid className="add_a_room"><a onClick={this.onAddFiled}>{AddRoom}</a></Grid>
+        {this.state.roomArray &&
+          this.state.roomArray.length > 0 &&
+          this.state.roomArray.map((data, index) => (
+            <Grid container direction="row" alignItems="center" spacing={2}>
+              <Grid item xs={7} md={7}>
+                <input
+                  type="text"
+                  placeholder={Enter_room_name}
+                  name="room_name"
+                  onChange={(e) => this.onDataChange(e, index)}
+                  value={data.room_name}
+                />
+              </Grid>
+              <Grid item xs={3} md={3}>
+                <input
+                  type="number"
+                  placeholder={0}
+                  name="no_of_bed"
+                  value={data.no_of_bed}
+                  onChange={(e) => this.onDataChange(e, index)}
+                />
+              </Grid>
+              <Grid item xs={2} md={2} className="roomRmv">
+                <a onClick={() => this.deleteRooms(index)}>
+                  <img
+                    src={require('assets/virtual_images/bin.svg')}
+                    alt=""
+                    title=""
+                  />
+                </a>
+              </Grid>
             </Grid>
-        );
-    }
+          ))}
+        <Grid className="add_a_room">
+          <a onClick={this.onAddFiled}>{AddRoom}</a>
+        </Grid>
+      </Grid>
+    );
+  }
 }
-export default Index;
 
+const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
 
+  return {
+    stateLanguageType,
+    stateLoginValueAim,
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+  })(Index)
+);

@@ -6463,6 +6463,7 @@ button.downloadPDF:hover {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 16px;
+  word-break: break-word;
   font-family: Muli;
   margin-bottom: 0px;
 }
@@ -10009,7 +10010,7 @@ button.crdoLghtBlu2 {
   border-bottom: none;
 }
 /* Added by Ankita */
-.taskViewMob{
+.taskViewMob {
   padding-bottom: 70px;
 }
 @media (max-width: 959px) {
@@ -10158,6 +10159,7 @@ ul.addpatientoption li:hover {
 @media (max-width: 768px) {
   .attchOpen,
   .attchDone,
+  .attchDecline,
   .date-secTask,
   .allInfo1 {
     margin: 5px 0px !important;
@@ -14399,6 +14401,7 @@ label.newrole {
   border-radius: 15px;
   margin-right: 8px;
 }
+<<<<<<< HEAD
 .BookingCont3 .BookingCont{
   font-family: Muli;
   font-weight: 700;
@@ -14421,3 +14424,75 @@ label.newrole {
   background-color: #00ABAF!important;  
 }
 
+=======
+
+.imageEvalSize img {
+  width: 50%;
+  border-radius: 15px;
+  margin-right: 8px;
+}
+.dataCommentBor {
+  padding: 10px;
+  background: #ddd;
+  margin: 10px 0px;
+  border-radius: 5px;
+  color: #000 !important;
+}
+
+.attchDecline button {
+  border-radius: 4px;
+  background-color: #ffdab99e;
+  color: #ff0000;
+  font-family: Muli;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 12px;
+  text-transform: capitalize;
+  padding: 7px 8px;
+}
+
+.attchDecline button label {
+  height: 8px;
+  width: 8px;
+  background-color: #ff0000;
+  border-radius: 12px;
+  margin-right: 7px;
+  margin-bottom: 0px;
+  font-family: Muli;
+}
+
+.attchDecline {
+  margin: 0px 38px;
+}
+
+.darkTheme .attchDecline button span {
+  color: #ff0000 !important;
+}
+.darkTheme .attchDecline button {
+  background-color: #ffdab9;
+}
+
+.menuCheckBox1 {
+  text-align: left !important;
+}
+
+.menuCheckBox1 p {
+  display: inline;
+}
+.min_section .css-yk16xz-control {
+  min-height: 30px !important;
+  min-height: initial !important;
+}
+.min_section .css-b8ldur-Input {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.darkTheme .minall_sec .css-12jo7m5 {
+  color: #d9dada;
+}
+.darkTheme .serviceallSec {
+  color: #d9dada;
+}
+>>>>>>> 0969ee1e8eff84b68c1a416fc5de04c645f2a50b

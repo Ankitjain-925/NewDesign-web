@@ -98,7 +98,11 @@ class Index extends Component {
             appoint_type,
             Selectspecialty,
             EnterpatientnameorID,
-            Searchforcity
+            Searchforcity,
+            NEUROLOGY,
+            Office,
+            Video
+            
         
         } = translate;
         const { selectedOption } = this.state;
@@ -519,56 +523,11 @@ class Index extends Component {
                                                                                       </a>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} md={5}>
-                                                                                        <Grid className="srvcTagsCntnt">
-                                                                                            <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
-                                                                                            <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('assets/images/location-pin.svg')} alt="" title="" />
-                                                                                                    Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('assets/images/phone.svg')} alt="" title="" />
-                                                                                                    01731508000</a>
-                                                                                                <a><img src={require('assets/images/email.svg')} alt="" title="" />
-                                                                                                    doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('assets/images/language.svg')} alt="" title="" />
-                                                                                                    English, Dutch, French, German, Arabic</a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} md={4}>
-                                                                                        <Grid className="avlablDates">
-                                                                                            <h3>SEE AVAILABLE DATES FOR:</h3>
-                                                                                            <Grid>
-                                                                                                <a><img src={require('assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                            </div>
-
-                                                                            <div className="allowAvailListIner">
-                                                                                <Grid container direction="row" spacing={1}>
-                                                                                    <Grid item xs={12} md={3}>
-                                                                                        <Grid className="spclistDr">
-                                                                                            <a><img src={require('assets/images/dr1.jpg')} alt="" title="" />
-                                                                                                Mark Anderson M.D.
-                                                                                      </a>
-                                                                                        </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
-                                                                                        </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -609,56 +568,11 @@ class Index extends Component {
                                                                                       </a>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} md={5}>
-                                                                                        <Grid className="srvcTagsCntnt">
-                                                                                            <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
-                                                                                            <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('assets/images/location-pin.svg')} alt="" title="" />
-                                                                                                    Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('assets/images/phone.svg')} alt="" title="" />
-                                                                                                    01731508000</a>
-                                                                                                <a><img src={require('assets/images/email.svg')} alt="" title="" />
-                                                                                                    doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('assets/images/language.svg')} alt="" title="" />
-                                                                                                    English, Dutch, French, German, Arabic</a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} md={4}>
-                                                                                        <Grid className="avlablDates">
-                                                                                            <h3>SEE AVAILABLE DATES FOR:</h3>
-                                                                                            <Grid>
-                                                                                                <a><img src={require('assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                            </div>
-
-                                                                            <div className="allowAvailListIner">
-                                                                                <Grid container direction="row" spacing={1}>
-                                                                                    <Grid item xs={12} md={3}>
-                                                                                        <Grid className="spclistDr">
-                                                                                            <a><img src={require('assets/images/dr1.jpg')} alt="" title="" />
-                                                                                                Mark Anderson M.D.
-                                                                                      </a>
-                                                                                        </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
-                                                                                        </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -699,11 +613,11 @@ class Index extends Component {
                                                                                       </a>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -744,11 +658,101 @@ class Index extends Component {
                                                                                       </a>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                         <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
+                                                                                            <label>{NEUROLOGY}</label>
+                                                                                            <p>Neurodegerenative diseases</p>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={5}>
+                                                                                        <Grid className="srvcTagsCntnt">
+                                                                                            <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
+                                                                                            <Grid className="srvcTagsLoc">
+                                                                                                <a><img src={require('assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                    Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
+                                                                                                <a><img src={require('assets/images/phone.svg')} alt="" title="" />
+                                                                                                    01731508000</a>
+                                                                                                <a><img src={require('assets/images/email.svg')} alt="" title="" />
+                                                                                                    doctor1@aimedis.com</a>
+                                                                                                <a><img src={require('assets/images/language.svg')} alt="" title="" />
+                                                                                                    English, Dutch, French, German, Arabic</a>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={4}>
+                                                                                        <Grid className="avlablDates">
+                                                                                            <h3>SEE AVAILABLE DATES FOR:</h3>
+                                                                                            <Grid>
+                                                                                                <a><img src={require('assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </div>
+
+                                                                            <div className="allowAvailListIner">
+                                                                                <Grid container direction="row" spacing={1}>
+                                                                                    <Grid item xs={12} md={3}>
+                                                                                        <Grid className="spclistDr">
+                                                                                            <a><img src={require('assets/images/dr1.jpg')} alt="" title="" />
+                                                                                                Mark Anderson M.D.
+                                                                                      </a>
+                                                                                        </Grid>
+                                                                                        <Grid className="nuroDr">
+                                                                                            <label>{NEUROLOGY}</label>
+                                                                                            <p>Neurodegerenative diseases</p>
+                                                                                        </Grid>
+                                                                                        <Grid className="nuroDr">
+                                                                                            <label>{NEUROLOGY}</label>
+                                                                                            <p>Neurodegerenative diseases</p>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={5}>
+                                                                                        <Grid className="srvcTagsCntnt">
+                                                                                            <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
+                                                                                            <Grid className="srvcTagsLoc">
+                                                                                                <a><img src={require('assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                    Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
+                                                                                                <a><img src={require('assets/images/phone.svg')} alt="" title="" />
+                                                                                                    01731508000</a>
+                                                                                                <a><img src={require('assets/images/email.svg')} alt="" title="" />
+                                                                                                    doctor1@aimedis.com</a>
+                                                                                                <a><img src={require('assets/images/language.svg')} alt="" title="" />
+                                                                                                    English, Dutch, French, German, Arabic</a>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={4}>
+                                                                                        <Grid className="avlablDates">
+                                                                                            <h3>SEE AVAILABLE DATES FOR:</h3>
+                                                                                            <Grid>
+                                                                                                <a><img src={require('assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </div>
+
+                                                                            <div className="allowAvailListIner">
+                                                                                <Grid container direction="row" spacing={1}>
+                                                                                    <Grid item xs={12} md={3}>
+                                                                                        <Grid className="spclistDr">
+                                                                                            <a><img src={require('assets/images/dr1.jpg')} alt="" title="" />
+                                                                                                Mark Anderson M.D.
+                                                                                      </a>
+                                                                                        </Grid>
+                                                                                        <Grid className="nuroDr">
+                                                                                            <label>{NEUROLOGY}</label>
+                                                                                            <p>Neurodegerenative diseases</p>
+                                                                                        </Grid>
+                                                                                        <Grid className="nuroDr">
+                                                                                            <label>{NEUROLOGY}</label>
                                                                                             <p>Neurodegerenative diseases</p>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -825,8 +829,8 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>{appoint_type}</label></Grid>
-                                                                                    <FormControlLabel control={<Checkbox name="Video" />} label="Video" />
-                                                                                    <FormControlLabel control={<Checkbox name="Office" />} label="Office" />
+                                                                                    <FormControlLabel control={<Checkbox name="Video" />} label={Video} />
+                                                                                    <FormControlLabel control={<Checkbox name="Office" />} label={Office} />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </div>

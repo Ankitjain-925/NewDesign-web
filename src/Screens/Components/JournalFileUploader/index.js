@@ -84,6 +84,7 @@ class ImageUploderView extends Component {
       this.state.attachfile.length > 0 &&
       this.state.attachfile.filter((item) => item.filename !== file);
     this.setState({ attachfile: data });
+    console.log('data', data)
     this.props.fileUpload(data, this.props.name);
   };
   //For upload and image previews
@@ -183,6 +184,7 @@ class ImageUploderView extends Component {
               .catch((error) => {});
 
             this.setState({ loaderImage: false, attachfile: Fileadd });
+            console.log('inside Props', Fileadd)
             this.props.fileUpload(Fileadd, this.props.name);
           }
         }

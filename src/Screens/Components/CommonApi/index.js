@@ -220,7 +220,7 @@ export const download_track = async (data, stateLoginValueAim) => {
     }
     axios
         .post(
-            sitedata.data.path + "/UserProfile/downloadPdf",
+            sitedata.data.dowload_link + "/UserProfile/downloadPdf",
             {
                 Dieseases: data,
                 patientData: {

@@ -600,7 +600,7 @@ class Index extends Component {
                       onChange={(e) => {
                         this.setState({ addtopatientlist: e.target.checked });
                       }}
-                      value={this.state.newEntry.pharmacy_id}
+                      // value={this.state.newEntry.pharmacy_id}
                     />
                   }
                   label={add_this_patient_journal}

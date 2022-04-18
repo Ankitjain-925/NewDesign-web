@@ -31,6 +31,7 @@ import ReactToPrint, { PrintContext } from 'react-to-print';
 import { ComponentToPrint } from "./ComponentTo";
 import ReactQuill from "react-quill";
 
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +44,35 @@ class Index extends Component {
       editor: ''
 
     };
+  }
+
+  getDate(date, dateFormat) {
+    var d = new Date(date);
+    var monthNames = [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+    ],
+      month = monthNames[d.getMonth()],
+      day = d.getDate(),
+      year = d.getFullYear();
+    if (day.length < 2) day = "0" + day;
+    if (dateFormat === "YYYY/DD/MM") {
+      return year + " / " + day + " / " + month;
+    } else if (dateFormat === "DD/MM/YYYY") {
+      return day + " / " + month + " / " + year;
+    } else {
+      return month + " / " + day + " / " + year;
+    }
   }
 
   handlelatestChange = (value) => {
@@ -122,6 +152,8 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+        let {Header_inches ,Footer_inches,First_Name,Last_Name,Birthday,Free_Content} = translate;
     return (
       <div>
         <Grid className={
@@ -141,7 +173,7 @@ class Index extends Component {
                   <Grid className="profileInfoSection">  <h1>Personal Information</h1></Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Header(inches)</label>
+                      <label>{Header_inches}</label>
                       <input
                         name="header"
                         type="text"
@@ -153,7 +185,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Footer(inches)</label>
+                      <label>{Footer_inches}</label>
                       <input
                         name="footer"
                         type="text"
@@ -164,7 +196,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>First Name</label>
+                      <label>{First_Name}</label>
                       <input
                         name="first_name"
                         type="text"
@@ -176,7 +208,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Last Name</label>
+                      <label>{Last_Name}</label>
                       <input
                         name="last_name"
                         type="text"
@@ -200,7 +232,7 @@ class Index extends Component {
                 </Grid> */}
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Birthday</label>
+                      <label>{Birthday}</label>
                       <Grid>
                           <DateFormat name="birthday" value={new Date(this.state.patinfo?.birthday)} date_format={this.props.settings.setting && this.props.settings.setting.date_format} disabled={true} />
                       </Grid>
@@ -208,14 +240,14 @@ class Index extends Component {
                         name="DoB"
                         type="text"
                         // onChange={(e) => { this.handleChange1("DoB", e.target.value) }}
-                        value={this.state.patinfo?.birthday}
+                        value={this.getDate(this.state.patinfo?.birthday)}
                         disabled
                       /> */}
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={8}>
                     <Grid className="headerCountTxt">
-                      <label>Free Content</label>
+                      <label>{Free_Content}</label>
                       <ReactQuill
                         name="editor"
                         // value={this.state.editorText?.editor}

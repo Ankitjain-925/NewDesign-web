@@ -43,7 +43,7 @@ class Index extends Component {
 
     getKyc = () => {
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/User/getKyc/' + this.props.patient_info._id,
+        axios.get(sitedata.data.path + '/User/getKyc/' + this.props.patient_info?._id,
             commonHeader(user_token)).then((response) => {
                 if (response.data.data) {
                     this.setState({ kycs: response.data.fulldata, loaderImage: false }, () => {
@@ -96,22 +96,22 @@ class Index extends Component {
                                 </a>
                             </Grid>
                             <p>{user_info}</p>
-                            <Grid><label>{patient_info && patient_info.first_name && patient_info.first_name} {patient_info && patient_info.last_name && patient_info.last_name}</label></Grid>
+                            <Grid><label>{patient_info && patient_info?.first_name && patient_info?.first_name} {patient_info && patient_info?.last_name && patient_info?.last_name}</label></Grid>
                         </Grid>
                         <Grid className="detailPrescp">
                             <Grid className="stndQues">
                                 <Grid><span>{personal_info}</span></Grid>
                                 <Grid>
                                     <Grid><label>{profile_id}</label></Grid>
-                                    <p>{patient_info && patient_info.alies_id && patient_info.alies_id}</p>
+                                    <p>{patient_info && patient_info?.alies_id && patient_info?.alies_id}</p>
                                     <Grid><label>{add}</label></Grid>
-                                    <p>{patient_info && patient_info.address && patient_info.address} {patient_info && patient_info.city && patient_info.city} {"-"} {patient_info.pastal_code}</p>
+                                    <p>{patient_info && patient_info?.address && patient_info?.address} {patient_info && patient_info?.city && patient_info?.city} {"-"} {patient_info?.pastal_code}</p>
                                     <Grid><label>{customer_since}</label></Grid>
-                                    <p>{patient_info && patient_info.createdate && patient_info.createdate}</p>
+                                    <p>{patient_info && patient_info?.createdate && patient_info?.createdate}</p>
                                     <Grid><label>{type}</label></Grid>
-                                    <p>{patient_info && patient_info.type && patient_info.type}</p>
+                                    <p>{patient_info && patient_info?.type && patient_info?.type}</p>
                                     <Grid><label>{email}</label></Grid>
-                                    <p>{patient_info && patient_info.email && patient_info.email}</p>
+                                    <p>{patient_info && patient_info?.email && patient_info?.email}</p>
                                     {patient_info && patient_info?.type === "patient" ? null : <><Grid><label>Assigned hospital</label></Grid>
                                         <p>{patient_info &&
                                             patient_info?.houses &&
@@ -121,9 +121,9 @@ class Index extends Component {
                                     </>}
                                 </Grid>
                             </Grid>
-                            {patient_info && patient_info.type && patient_info.type === 'doctor' && <Grid className="stndQues">
+                            {patient_info && patient_info?.type && patient_info?.type === 'doctor' && <Grid className="stndQues">
                                 <Grid><span>{Liscence}</span></Grid>
-                                <Grid className="pointThis" onClick={() => GetUrlImage(patient_info.licence && patient_info.licence && patient_info.licence.length > 0 && patient_info.licence[0].url && patient_info.licence[0].url)}>{patient_info.licence && patient_info.licence.length > 0 && patient_info.licence[0].url && (patient_info.licence[0].url.split('registration/')[1]).split("&bucket=")[0]}</Grid>
+                                <Grid className="pointThis" onClick={() => GetUrlImage(patient_info?.licence && patient_info?.licence && patient_info?.licence.length > 0 && patient_info?.licence[0].url && patient_info?.licence[0].url)}>{patient_info?.licence && patient_info?.licence.length > 0 && patient_info?.licence[0].url && (patient_info?.licence[0].url.split('registration/')[1]).split("&bucket=")[0]}</Grid>
                             </Grid>}
                             <Grid className="stndQues">
                                 <Grid><span>{kyc}</span></Grid>

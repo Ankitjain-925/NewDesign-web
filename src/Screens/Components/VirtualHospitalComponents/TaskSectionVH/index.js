@@ -39,6 +39,12 @@ import {
 } from 'Screens/Components/BasicMethod/index';
 import _ from 'lodash';
 import FileViews from '../../../Components/TimelineComponent/FileViews/index';
+import {
+  GetShowLabel1,
+  GetShowLabel,
+  GetLanguageDropdown,
+} from 'Screens/Components/GetMetaData/index.js';
+import { OptionList } from 'Screens/Login/metadataaction';
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -90,8 +96,10 @@ class Index extends Component {
       selectWard: '',
       selectRoom: '',
       DoneTask: this.props.DoneTask,
+      DeclinedTask: this.props.DeclinedTask,
       noWards: false,
       AllTaskCss: '',
+      DeclinedTaskCss: '',
       DoneTaskCss: '',
       OpenTaskCss: '',
       ArchivedTasksCss: '',
@@ -108,6 +116,10 @@ class Index extends Component {
       images: [],
       Assigned_already: [],
       calculate_Length: {},
+      checkingsec: false,
+      AllSmokingStatus: [],
+      AllSituation: [],
+      AllGender: [],
     };
   }
 
@@ -118,6 +130,7 @@ class Index extends Component {
       prevProps.ArchivedTasks !== this.props.ArchivedTasks ||
       prevProps.DoneTask !== this.props.DoneTask ||
       prevProps.OpenTask !== this.props.OpenTask ||
+      prevProps.DeclinedTask !== this.props.DeclinedTask ||
       prevProps.patientForFilter !== this.props.patientForFilter
     ) {
       this.setState({
@@ -126,6 +139,7 @@ class Index extends Component {
         ArchivedTasks: this.props.ArchivedTasks,
         DoneTask: this.props.DoneTask,
         OpenTask: this.props.OpenTask,
+        DeclinedTask: this.props.DeclinedTask,
         patientForFilter: this.props.patientForFilter,
       });
     }
@@ -133,9 +147,45 @@ class Index extends Component {
       let user = { value: this.props.patient?.patient_id };
       this.updateEntryState2(user);
     }
+    if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+      this.getMetadata();
+    }
+  };
+
+  //get list of list
+  getMetadata = () => {
+    this.setState({ allMetadata: this.props.metadata }, () => {
+      var AllSmokingStatus = GetLanguageDropdown(
+        this.state.allMetadata &&
+          this.state.allMetadata.smoking_status &&
+          this.state.allMetadata.smoking_status?.length > 0 &&
+          this.state.allMetadata.smoking_status,
+        this.props.stateLanguageType
+      );
+      var AllSituation = GetLanguageDropdown(
+        this.state.allMetadata &&
+          this.state.allMetadata.situation &&
+          this.state.allMetadata.situation?.length > 0 &&
+          this.state.allMetadata.situation,
+        this.props.stateLanguageType
+      );
+      var AllGender = GetLanguageDropdown(
+        this.state.allMetadata &&
+          this.state.allMetadata.gender &&
+          this.state.allMetadata.gender?.length > 0 &&
+          this.state.allMetadata.gender,
+        this.props.stateLanguageType
+      );
+      this.setState({
+        AllSmokingStatus: AllSmokingStatus,
+        AllSituation: AllSituation,
+        AllGender: AllGender,
+      });
+    });
   };
 
   componentDidMount() {
+    this.getMetadata();
     this.getPatientData();
     this.getProfessionalData();
     this.specailityList();
@@ -196,6 +246,25 @@ class Index extends Component {
   };
   // open model Add Task
   handleOpenTask = () => {
+    var pat1name = '';
+    if (
+      this.props.stateLoginValueAim?.user?.first_name &&
+      this.props.stateLoginValueAim?.user?.last_name
+    ) {
+      pat1name =
+        this.props.stateLoginValueAim?.user?.first_name +
+        ' ' +
+        this.props.stateLoginValueAim?.user?.last_name;
+    } else if (this.props.stateLoginValueAim?.user?.first_name) {
+      pat1name = this.props.stateLoginValueAim?.user?.first_name;
+    }
+    var fullData = [
+      {
+        label: pat1name,
+        value: this.props.stateLoginValueAim?.user?._id,
+        email: this.props.stateLoginValueAim?.user?.email,
+      },
+    ];
     this.setState({
       openTask: true,
       newTask: {},
@@ -204,6 +273,9 @@ class Index extends Component {
       selectSpec: {},
       selectedPat: {},
     });
+    if (this.props.stateLoginValueAim?.user?.type === 'doctor') {
+      this.updateEntryState3(fullData);
+    }
     if (this.props.patient) {
       let user = { value: this.props.patient?.patient_id };
       this.updateEntryState2(user);
@@ -217,7 +289,7 @@ class Index extends Component {
     this.setState({ tabvalue });
   };
   handleChangeTab2 = (event, tabvalue2) => {
-    if (tabvalue2 == 3) {
+    if (tabvalue2 == 4) {
       this.props.getArchived();
     }
     this.setState({ tabvalue2 });
@@ -234,13 +306,21 @@ class Index extends Component {
   handleOpenRvw = () => {
     this.setState({ noWards: true });
   };
+
   FileAttachMulti = (Fileadd) => {
-    this.setState({
-      isfileuploadmulti: true,
-      fileattach: Fileadd,
-      fileupods: true,
-      // newTask : Fileadd
-    });
+    this.setState(
+      {
+        isfileuploadmulti: true,
+        fileattach: Fileadd,
+        fileupods: true,
+      },
+      () => {
+        setTimeout(
+          () => this.setState({ checkingsec: !this.state.checkingsec }),
+          2000
+        );
+      }
+    );
   };
 
   //User list will be show/hide
@@ -297,6 +377,7 @@ class Index extends Component {
     let ComLength = this.state.calculate_Length;
     var data = this.state.newTask;
     var user_id = data?.patient?.user_id;
+
     if (
       data?.attachments?.length > ComLength?.attach_Length ||
       data?.comments?.length > ComLength?.comments_Length
@@ -330,6 +411,16 @@ class Index extends Component {
       if (this.state.fileupods) {
         data.attachments = this.state.fileattach;
       }
+      if (
+        data?.attachments?.length > ComLength?.attach_Length ||
+        data?.comments?.length > ComLength?.comments_Length
+      ) {
+        data.isviewed = false;
+      }
+      var isGOingArchive = false;
+      if (data.archived === true) {
+        isGOingArchive = true;
+      }
       data.house_id = this.props?.House?.value;
       this.setState({ loaderImage: true });
       if (this.state.newTask._id) {
@@ -351,7 +442,7 @@ class Index extends Component {
                 q: '',
                 selectSpec: {},
               });
-              this.props.getAddTaskData();
+              this.props.getAddTaskData(this.state.tabvalue2, isGOingArchive);
               this.handleCloseTask();
               if (type === 'picture_evaluation') {
                 // this.props.getArchived();
@@ -393,7 +484,7 @@ class Index extends Component {
               selectSpec: {},
               newComment: '',
             });
-            this.props.getAddTaskData();
+            this.props.getAddTaskData(isGOingArchive);
             this.handleCloseTask();
           })
           .catch(function (error) {
@@ -582,13 +673,15 @@ class Index extends Component {
   };
 
   //Switch status done / open
-  switchStatus = () => {
-    const state = this.state.newTask;
-    state['status'] = state.status === 'done' ? 'open' : 'done';
-    if (state.status === 'done') {
-      state['done_on'] = new Date();
+  switchStatus = (alrady) => {
+    if (!alrady) {
+      const state = this.state.newTask;
+      state['status'] = state.status === 'done' ? 'open' : 'done';
+      if (state.status === 'done') {
+        state['done_on'] = new Date();
+      }
+      this.setState({ newTask: state });
     }
-    this.setState({ newTask: state });
   };
 
   //Select the patient name
@@ -596,7 +689,7 @@ class Index extends Component {
     var user1 =
       this.state.users?.length > 0 &&
       this.state.users.filter((data) => data.patient_id === user.value);
-    if (user1 && user1.length > 0) {
+    if (user1 && user1?.length > 0) {
       const state = this.state.newTask;
       state['patient'] = user1[0];
       state['patient_id'] = user1[0].patient_id;
@@ -713,29 +806,25 @@ class Index extends Component {
     }
   };
 
-  declineTask = (id, patient_id)=>{
-    console.log('patient_id',patient_id)
+  declineTask = (id, patient_id) => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {
-      Something_went_wrong,
-    } = translate;
+    let { Something_went_wrong } = translate;
     this.setState({ loaderImage: true });
-      axios
-        .put(
-          sitedata.data.path + '/vh/AddTask/' + id,
-          {is_decline: true,
-            patient_id: patient_id},
-          commonHeader(this.props.stateLoginValueAim.token)
-        )
-        .then((responce) => {
-          this.setState({ loaderImage: false });
-          if (responce.data.hassuccessed) {
-            this.props.getAddTaskData();
-          } else {
-            this.setState({ errorMsg: Something_went_wrong });
-          }
-        }); 
-  }
+    axios
+      .put(
+        sitedata.data.path + '/vh/AddTask/' + id,
+        { is_decline: true, patient_id: patient_id },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed) {
+          this.props.getAddTaskData();
+        } else {
+          this.setState({ errorMsg: Something_went_wrong });
+        }
+      });
+  };
   //{Delete} the perticular service confirmation box
   removeTask = (id) => {
     this.setState({ message: null, openTask: false });
@@ -900,6 +989,7 @@ class Index extends Component {
     var deep = _.cloneDeep(data);
     this.setState({
       newTask: deep,
+      fileattach: data.attachments,
       openTask: true,
       Assigned_already: Assigned_Aready,
       calculate_Length: {
@@ -928,6 +1018,7 @@ class Index extends Component {
         loaderImage: false,
         professionalArray: data.professionalArray,
         professional_id_list: data.professionalList,
+        professional_id_list1: data.professionalList,
       });
     } else {
       this.setState({ loaderImage: false });
@@ -968,6 +1059,7 @@ class Index extends Component {
       allWards: '',
       noWards: false,
       AllTaskCss: '',
+      DeclinedTaskCss: '',
     });
   };
 
@@ -1066,6 +1158,8 @@ class Index extends Component {
     } else if (tabvalue2 === 2) {
       tasks = this.props.OpenTask;
     } else if (tabvalue2 === 3) {
+      tasks = this.props.DeclinedTask;
+    } else if (tabvalue2 === 4) {
       tasks = this.props.ArchivedTasks;
     }
     let data2 = this.findData();
@@ -1076,6 +1170,8 @@ class Index extends Component {
         this.setState({ DoneTask: resp, DoneTaskCss: 'filterApply' });
       } else if (tabvalue2 === 2) {
         this.setState({ OpenTask: resp, OpenTaskCss: 'filterApply' });
+      } else if (tabvalue2 === 3) {
+        this.setState({ DeclinedTask: resp, DeclinedTaskCss: 'filterApply' });
       }
     });
     this.handleCloseRvw();
@@ -1157,6 +1253,23 @@ class Index extends Component {
     this.setState({ openDate: !this.state.openDate });
   };
 
+  calculateAge = (date) => {
+    if (date) {
+      var birthDate = new Date(date);
+      var otherDate = new Date();
+      var years = otherDate.getFullYear() - birthDate.getFullYear();
+      if (
+        otherDate.getMonth() < birthDate.getMonth() ||
+        (otherDate.getMonth() == birthDate.getMonth() &&
+          otherDate.getDate() < birthDate.getDate())
+      ) {
+        years--;
+      }
+      return years;
+    }
+    return '-';
+  };
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -1186,6 +1299,7 @@ class Index extends Component {
       Markasdone,
       remove_time,
       Attachments,
+      Reply,
       add_task,
       Addtime,
       Entertitle,
@@ -1202,6 +1316,7 @@ class Index extends Component {
       Tasktitle,
       ALL,
       Done,
+      Declined,
       Open,
       Archived,
       Hide_task_from_patient,
@@ -1210,7 +1325,8 @@ class Index extends Component {
       Hba1c,
       situation,
       smoking_status,
-      status,
+      Status,
+      added_on,
       from,
       when,
       until,
@@ -1234,7 +1350,7 @@ class Index extends Component {
       pain,
       size_progress,
       warm,
-
+      start_from,
       yes,
       no,
       cold,
@@ -1251,6 +1367,7 @@ class Index extends Component {
       AllTasks,
       AllTaskCss,
       DoneTaskCss,
+      DeclinedTaskCss,
       OpenTaskCss,
       ArchivedTasksCss,
     } = this.state;
@@ -1444,7 +1561,7 @@ class Index extends Component {
                             <Grid item xs={12} md={12} className="taskDescp">
                               <Grid className="stndQues stndQues1">
                                 <Grid>
-                                  <label>Added On</label>
+                                  <label>{added_on}</label>
                                 </Grid>
                                 <p>
                                   {getDate(
@@ -1465,14 +1582,27 @@ class Index extends Component {
                                     this.props.settings &&
                                       this.props.settings?.setting &&
                                       this.props.settings?.setting?.date_format
-                                  )}
+                                  )}{' '}
+                                  (
+                                  {this.calculateAge(
+                                    this.state.newTask &&
+                                      this.state.newTask?.dob
+                                  )}{' '}
+                                  years)
                                 </p>
                                 <Grid>
                                   <label>{gender}</label>
                                 </Grid>
                                 <p>
                                   {this.state.newTask &&
-                                    this.state.newTask?.sex}
+                                    this.state.newTask?.sex &&
+                                    GetShowLabel1(
+                                      this.state.AllGender,
+                                      this.state.newTask?.sex,
+                                      this.props.stateLanguageType,
+                                      true,
+                                      'anamnesis'
+                                    )}
                                 </p>
                                 <Grid>
                                   <h2>{blood_pressure}</h2>
@@ -1516,7 +1646,14 @@ class Index extends Component {
                                     <p>
                                       {this.state.newTask &&
                                         this.state.newTask?.situation &&
-                                        this.state.newTask?.situation?.label}
+                                        this.state.newTask?.situation?.value &&
+                                        GetShowLabel1(
+                                          this.state.AllSituation,
+                                          this.state.newTask?.situation?.value,
+                                          this.props.stateLanguageType,
+                                          true,
+                                          'anamnesis'
+                                        )}
                                     </p>
                                   </Grid>
                                 </Grid>
@@ -1525,12 +1662,20 @@ class Index extends Component {
                                 </Grid>
                                 <Grid container xs={12} md={12}>
                                   <Grid xs={4} md={4}>
-                                    <label>{status}</label>
+                                    <label>{Status}</label>
                                     <p>
                                       {this.state.newTask &&
                                         this.state.newTask?.smoking_status &&
                                         this.state.newTask?.smoking_status
-                                          ?.label}
+                                          ?.value &&
+                                        GetShowLabel1(
+                                          this.state.AllSmokingStatus,
+                                          this.state.newTask?.smoking_status
+                                            ?.value,
+                                          this.props.stateLanguageType,
+                                          true,
+                                          'anamnesis'
+                                        )}
                                     </p>
                                   </Grid>
                                   {!this.state.newTask?.smoking_status ||
@@ -1686,7 +1831,7 @@ class Index extends Component {
                                   />
                                 </div>
                                 <Grid>
-                                  <label>Start From</label>
+                                  <label>{start_from}</label>
                                 </Grid>
                                 <p>
                                   {getDate(
@@ -1701,7 +1846,7 @@ class Index extends Component {
                                   <Grid xs={3} md={3}>
                                     <label>{warm}</label>
                                     {this.state.newTask &&
-                                    this.state.newTask?.warm === true ? (
+                                    this.state.newTask?.warm === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -1712,7 +1857,7 @@ class Index extends Component {
 
                                     {this.state.newTask &&
                                     this.state.newTask?.size_progress ===
-                                      true ? (
+                                      'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -1722,7 +1867,7 @@ class Index extends Component {
                                     <label>{itch}</label>
 
                                     {this.state.newTask &&
-                                    this.state.newTask?.itch === true ? (
+                                    this.state.newTask?.itch === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -1732,7 +1877,7 @@ class Index extends Component {
                                     <label>{pain}</label>
 
                                     {this.state.newTask &&
-                                    this.state.newTask?.pain === true ? (
+                                    this.state.newTask?.pain === 'yes' ? (
                                       <p>{yes}</p>
                                     ) : (
                                       <p>{no}</p>
@@ -1786,6 +1931,50 @@ class Index extends Component {
                                 ) : (
                                   <p>{no}</p>
                                 )}
+                                <Grid>
+                                  <h2>{Reply}</h2>
+                                  <label>{Attachments}</label>
+                                </Grid>
+                                <Grid className="imageEvalSize">
+                                  {this.state.newTask &&
+                                  this.state.newTask?.attachments &&
+                                  this.state.newTask?.attachments?.length >
+                                    0 ? (
+                                    <FileViews
+                                      comesFrom="Picture_Task"
+                                      images={this.state.images}
+                                      attachfile={
+                                        this.state.newTask?.attachments
+                                      }
+                                    />
+                                  ) : (
+                                    <p>
+                                      {no} {Attachments}!
+                                    </p>
+                                  )}
+                                </Grid>
+                                <Grid class="addStnd1">
+                                  <Grid>
+                                    <label>{Comments}</label>
+                                  </Grid>
+                                  <p>
+                                    {this.state.newTask &&
+                                    this.state.newTask?.comments &&
+                                    this.state.newTask?.comments?.length > 0 ? (
+                                      this.state.newTask?.comments.map(
+                                        (data, index) => (
+                                          <div className="dataCommentBor">
+                                            {data?.comment}
+                                          </div>
+                                        )
+                                      )
+                                    ) : (
+                                      <p>
+                                        {no} {Comments}!
+                                      </p>
+                                    )}
+                                  </p>
+                                </Grid>
                               </Grid>
                             </Grid>
                           )}
@@ -1801,6 +1990,13 @@ class Index extends Component {
                                 className="addStafSelect"
                                 isMulti={true}
                                 isSearchable={true}
+                                isDisabled={
+                                  this.state.newTask &&
+                                  this.state.newTask?.status &&
+                                  this.state.newTask?.status === 'done'
+                                    ? true
+                                    : false
+                                }
                               />
                             </Grid>
                           </Grid>
@@ -1817,11 +2013,11 @@ class Index extends Component {
                                   isSearchable={true}
                                   className="addStafSelect"
                                   value={this.state.selectSpec}
-                                  // isDisabled={
-                                  //   this.props.comesFrom === 'Professional'
-                                  //     ? true
-                                  //     : false
-                                  // }
+                                  isDisabled={
+                                    this.props.comesFrom === 'Professional'
+                                      ? true
+                                      : false
+                                  }
                                 />
                               </Grid>
                             </Grid>
@@ -1920,12 +2116,56 @@ class Index extends Component {
                             <Grid container direction="row" alignItems="center">
                               <Grid item xs={12} sm={12} md={12}>
                                 <Grid className="assignSec">
-                                  {this.state.newTask._id && (
+                                  {this.state.newTask?._id && (
                                     <>
-                                      {this.state.newTask.task_type ===
-                                        'picture_evaluation' ||
-                                        (this.props.comesFrom !==
-                                          'Professional' && (
+                                      {this.props.comesFrom !==
+                                      'Professional' ? (
+                                        this.state.newTask?.task_type ===
+                                        'picture_evaluation' ? (
+                                          <>
+                                            {this.state.newTask?.status ===
+                                              'done' && (
+                                              <>
+                                                {' '}
+                                                {this.state.newTask.archived ==
+                                                true ? (
+                                                  <Grid
+                                                    onClick={() => {
+                                                      this.updateEntryState1(
+                                                        false,
+                                                        'archived'
+                                                      );
+                                                    }}
+                                                    className="activeOntask"
+                                                  >
+                                                    <img
+                                                      src={require('assets/images/archive-white.svg')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                    <label>{Archive}</label>
+                                                  </Grid>
+                                                ) : (
+                                                  <Grid
+                                                    onClick={() => {
+                                                      this.updateEntryState1(
+                                                        true,
+                                                        'archived'
+                                                      );
+                                                    }}
+                                                  >
+                                                    <img
+                                                      src={require('assets/images/archive.svg')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                    <label>{Archive}</label>
+                                                  </Grid>
+                                                )}
+                                              </>
+                                            )}
+                                          </>
+                                        ) : (
                                           <>
                                             <Grid
                                               onClick={() => {
@@ -1941,7 +2181,36 @@ class Index extends Component {
                                               />
                                               <label>{Duplicate}</label>
                                             </Grid>
-
+                                            <Grid
+                                              onClick={() => {
+                                                this.switchStatus();
+                                              }}
+                                              className="markDone"
+                                            >
+                                              {this.state.newTask.status ===
+                                              'done' ? (
+                                                <Grid className="revwFiles ">
+                                                  <Grid className="activeOntask">
+                                                    <img
+                                                      src={require('assets/virtual_images/greyImg.png')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                  </Grid>
+                                                </Grid>
+                                              ) : (
+                                                <Grid className="revwFiles">
+                                                  <Grid>
+                                                    <img
+                                                      src={require('assets/virtual_images/greyImg.png')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                  </Grid>
+                                                </Grid>
+                                              )}
+                                              <label>{Markasdone}</label>
+                                            </Grid>
                                             {this.state.newTask.archived ==
                                             true ? (
                                               <Grid
@@ -1996,63 +2265,157 @@ class Index extends Component {
                                               </label>
                                             </Grid>
                                           </>
-                                        ))}
-                                      <Grid
-                                        onClick={() => {
-                                          this.switchStatus();
-                                        }}
-                                        className="markDone"
-                                      >
-                                        {this.state.newTask.status ===
-                                        'done' ? (
-                                          <Grid className="revwFiles ">
-                                            <Grid className="activeOntask">
-                                              <img
-                                                src={require('assets/virtual_images/greyImg.png')}
-                                                alt=""
-                                                title=""
-                                              />
-                                            </Grid>
+                                        )
+                                      ) : this.state.newTask?.task_type ===
+                                        'picture_evaluation' ? (
+                                        <>
+                                          <>
+                                            {(this.state.newTask?.comments
+                                              ?.length > 0 ||
+                                              this.state.fileattach?.length >
+                                                0) && (
+                                              <Grid
+                                                onClick={() => {
+                                                  this.state.newTask.status ===
+                                                  'done'
+                                                    ? this.switchStatus(
+                                                        'already'
+                                                      )
+                                                    : this.switchStatus();
+                                                }}
+                                                className="markDone"
+                                              >
+                                                {this.state.newTask.status ===
+                                                'done' ? (
+                                                  <Grid className="revwFiles ">
+                                                    <Grid className="activeOntask">
+                                                      <img
+                                                        src={require('assets/virtual_images/greyImg.png')}
+                                                        alt=""
+                                                        title=""
+                                                      />
+                                                    </Grid>
+                                                  </Grid>
+                                                ) : (
+                                                  <Grid className="revwFiles">
+                                                    <Grid>
+                                                      <img
+                                                        src={require('assets/virtual_images/greyImg.png')}
+                                                        alt=""
+                                                        title=""
+                                                      />
+                                                    </Grid>
+                                                  </Grid>
+                                                )}
+                                                <label>{Markasdone}</label>
+                                              </Grid>
+                                            )}
+                                            {this.state.newTask?.status ===
+                                              'done' && (
+                                              <>
+                                                {' '}
+                                                {this.state.newTask.archived ==
+                                                true ? (
+                                                  <Grid
+                                                    onClick={() => {
+                                                      this.updateEntryState1(
+                                                        false,
+                                                        'archived'
+                                                      );
+                                                    }}
+                                                    className="activeOntask"
+                                                  >
+                                                    <img
+                                                      src={require('assets/images/archive-white.svg')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                    <label>{Archive}</label>
+                                                  </Grid>
+                                                ) : (
+                                                  <Grid
+                                                    onClick={() => {
+                                                      this.updateEntryState1(
+                                                        true,
+                                                        'archived'
+                                                      );
+                                                    }}
+                                                  >
+                                                    <img
+                                                      src={require('assets/images/archive.svg')}
+                                                      alt=""
+                                                      title=""
+                                                    />
+                                                    <label>{Archive}</label>
+                                                  </Grid>
+                                                )}
+                                              </>
+                                            )}
+                                          </>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <Grid
+                                            onClick={() => {
+                                              this.switchStatus();
+                                            }}
+                                            className="markDone"
+                                          >
+                                            {this.state.newTask.status ===
+                                            'done' ? (
+                                              <Grid className="revwFiles ">
+                                                <Grid className="activeOntask">
+                                                  <img
+                                                    src={require('assets/virtual_images/greyImg.png')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                </Grid>
+                                              </Grid>
+                                            ) : (
+                                              <Grid className="revwFiles">
+                                                <Grid>
+                                                  <img
+                                                    src={require('assets/virtual_images/greyImg.png')}
+                                                    alt=""
+                                                    title=""
+                                                  />
+                                                </Grid>
+                                              </Grid>
+                                            )}
+                                            <label>{Markasdone}</label>
                                           </Grid>
-                                        ) : (
-                                          <Grid className="revwFiles">
-                                            <Grid>
-                                              <img
-                                                src={require('assets/virtual_images/greyImg.png')}
-                                                alt=""
-                                                title=""
-                                              />
-                                            </Grid>
-                                          </Grid>
-                                        )}
-                                        <label>{Markasdone}</label>
-                                      </Grid>
+                                        </>
+                                      )}
                                     </>
                                   )}
                                 </Grid>
                               </Grid>
                             </Grid>
                           </Grid>
-
-                          {/* {this.props.comesFrom !== 'Professional' && ( */}
-                          <Grid item xs={12} md={12}>
-                            <label>{Attachments}</label>
-                            <FileUploader
-                              // cur_one={this.props.cur_one}
-                              attachfile={
-                                this.state.newTask &&
-                                this.state.newTask?.attachments
-                                  ? this.state.newTask?.attachments
-                                  : []
-                              }
-                              name="UploadTrackImageMulti"
-                              isMulti="true"
-                              fileUpload={(event) => {
-                                this.FileAttachMulti(event);
-                              }}
-                            />
-                          </Grid>
-                          {/* )} */}
+                          {this.state.newTask &&
+                          this.state.newTask.task_type ===
+                            'picture_evaluation' &&
+                          this.state.newTask?.status &&
+                          this.state.newTask?.status === 'done' ? null : (
+                            <Grid item xs={12} md={12}>
+                              <label>{Attachments}</label>
+                              <FileUploader
+                                // cur_one={this.props.cur_one}
+                                attachfile={
+                                  this.state.newTask &&
+                                  this.state.newTask?.attachments
+                                    ? this.state.newTask?.attachments
+                                    : []
+                                }
+                                name="UploadTrackImageMulti"
+                                isMulti="true"
+                                fileUpload={(event) => {
+                                  this.FileAttachMulti(event);
+                                }}
+                              />
+                            </Grid>
+                          )}
                           {this.props.comesFrom === 'Professional' && (
                             <Grid item xs={12} md={12}>
                               <Grid>
@@ -2194,10 +2557,12 @@ class Index extends Component {
                     <Tab label={ALL} className="billtabIner" />
                     <Tab label={Done} className="billtabIner" />
                     <Tab label={Open} className="billtabIner" />
-                    {this.props.comesFrom !== 'Professional' &&
-                      this.props.comesFrom !== 'detailTask' && (
-                        <Tab label={Archived} className="billtabIner" />
-                      )}
+                    {this.props.comesFrom !== 'Professional' && (
+                      <Tab label={Declined} className="billtabIner" />
+                    )}
+                    {this.props.comesFrom !== 'detailTask' && (
+                      <Tab label={Archived} className="billtabIner" />
+                    )}
                   </Tabs>
                 </AppBar>
               </Grid>
@@ -2253,12 +2618,11 @@ class Index extends Component {
                               alt=""
                               title=""
                               onClick={this.handleOpenRvw}
-                            />{' '}
+                            />
                           </a>
                         )}
                         {tabvalue2 === 1 && (
                           <a className={DoneTaskCss}>
-                            {' '}
                             <img
                               src={
                                 AllTaskCss === 'filterApply'
@@ -2268,12 +2632,11 @@ class Index extends Component {
                               alt=""
                               title=""
                               onClick={this.handleOpenRvw}
-                            />{' '}
+                            />
                           </a>
                         )}
                         {tabvalue2 === 2 && (
                           <a className={OpenTaskCss}>
-                            {' '}
                             <img
                               src={
                                 AllTaskCss === 'filterApply'
@@ -2283,15 +2646,27 @@ class Index extends Component {
                               alt=""
                               title=""
                               onClick={this.handleOpenRvw}
-                            />{' '}
+                            />
+                          </a>
+                        )}
+                        {tabvalue2 === 3 && (
+                          <a className={DeclinedTaskCss}>
+                            <img
+                              src={
+                                DeclinedTaskCss === 'filterApply'
+                                  ? require('assets/virtual_images/sort-active.png')
+                                  : require('assets/virtual_images/sort.png')
+                              }
+                              alt=""
+                              title=""
+                              onClick={this.handleOpenRvw}
+                            />
                           </a>
                         )}
                       </>
                     )}
-
-                  {tabvalue2 === 3 && (
+                  {tabvalue2 === 4 && (
                     <a className={ArchivedTasksCss}>
-                      {' '}
                       <img
                         src={
                           ArchivedTasksCss === 'filterApply'
@@ -2318,7 +2693,9 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2335,8 +2712,10 @@ class Index extends Component {
                       <TaskView
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
-                        editTask={(data) => this.editTask(data)} 
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        editTask={(data) => this.editTask(data)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2354,7 +2733,9 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2362,7 +2743,27 @@ class Index extends Component {
               </Grid>
             </TabContainer>
           )}
-          {tabvalue2 === 3 && (
+          {tabvalue2 === 3 && this.props.comesFrom === 'adminstaff' && (
+            <TabContainer>
+              <Grid className="allInerTabs">
+                {this.state.DeclinedTask?.length > 0 &&
+                  this.state.DeclinedTask.map((data) => (
+                    <Grid>
+                      <TaskView
+                        data={data}
+                        removeTask={(id) => this.removeTask(id)}
+                        editTask={(data) => this.editTask(data)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
+                        comesFrom={this.props.comesFrom}
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+            </TabContainer>
+          )}
+          {tabvalue2 === 3 && this.props.comesFrom === 'Professional' && (
             <TabContainer>
               <Grid className="allInerTabs">
                 {this.state.ArchivedTasks?.length > 0 &&
@@ -2372,7 +2773,29 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        declineTask = {(id, patient_id)=> this.declineTask(id, patient_id)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
+                        comesFrom={this.props.comesFrom}
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+            </TabContainer>
+          )}
+          {tabvalue2 === 4 && (
+            <TabContainer>
+              <Grid className="allInerTabs">
+                {this.state.ArchivedTasks?.length > 0 &&
+                  this.state.ArchivedTasks.map((data) => (
+                    <Grid>
+                      <TaskView
+                        data={data}
+                        removeTask={(id) => this.removeTask(id)}
+                        editTask={(data) => this.editTask(data)}
+                        declineTask={(id, patient_id) =>
+                          this.declineTask(id, patient_id)
+                        }
                         comesFrom={this.props.comesFrom}
                       />
                     </Grid>
@@ -2558,6 +2981,7 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { speciality } = state.Speciality;
+  const { metadata } = state.OptionList;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -2566,6 +2990,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     speciality,
+    metadata,
   };
 };
 export default withRouter(
@@ -2575,6 +3000,7 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
+    OptionList,
     Speciality,
   })(Index)
 );

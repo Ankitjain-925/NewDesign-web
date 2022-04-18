@@ -393,3 +393,27 @@ export function allusers(currentPage,user_token,type,institute_id){
   )
   return data1;
 }
+
+export function GetSocketUrl() {
+  let env ="Sysaimedis";
+  if (typeof window !== "undefined") {
+    let target = window.location.href;
+    env = target.match(/aidoc.io/)? "Aidoc" 
+    : target.match(/localhost/) ? "Virtualhospital" :
+    target.match(/aimedix.com/) ? "Aimedix" 
+    : target.match(/virtualhospital.aimedis.io/) ? "Virtualhospital" : "Sysaimedis";
+  }
+  let SOCKET_URL;
+  if (env === "Local") {
+    SOCKET_URL = "http://localhost:5000/";
+  } else if (env === "Virtualhospital") {
+    SOCKET_URL = "https://virtualhospital.aimedis.io/";
+  } else if (env === "Aimedix") {
+    SOCKET_URL = "https://aimedix.com/";
+  } else if(env === "Aidoc") {
+    SOCKET_URL = "https://aidoc.io/";
+  } else {
+    SOCKET_URL = "https://sys.aimedis.io/";
+  }
+  return SOCKET_URL;
+}

@@ -1,37 +1,38 @@
-import React, { Component } from "react";
-import Column from "./column";
-import reorder, { reorderQuoteMap } from "./reorder";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import React, { Component } from 'react';
+import Column from './column';
+import reorder, { reorderQuoteMap } from './reorder';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Grid from '@material-ui/core/Grid';
-import Button from "@material-ui/core/Button";
-import { getLanguage } from "translations/index";
+import Button from '@material-ui/core/Button';
+import { getLanguage } from 'translations/index';
 class Index extends Component {
   static defaultProps = {
-    isCombineEnabled: false
+    isCombineEnabled: false,
   };
 
   state = {
     columns: this.props.initial,
-    ordered: Object.keys(this.props.initial)
+    ordered: Object.keys(this.props.initial),
   };
 
   boardRef;
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.initial !== this.props.initial) {
-      this.setState({columns: this.props.initial,
-        ordered: Object.keys(this.props.initial)});
+      this.setState({
+        columns: this.props.initial,
+        ordered: Object.keys(this.props.initial),
+      });
     }
   };
 
-  onDragEnd = result => {
-    // console.log('this is on end', result)
-    if(result.destination){
+  onDragEnd = (result) => {
+    if (result.destination) {
       this.props.dragDropFlow(result);
     }
-    
+
     if (result.combine) {
-      if (result.type === "COLUMN") {
+      if (result.type === 'COLUMN') {
         const shallow = [...this.state.ordered];
         shallow.splice(result.source.index, 1);
         this.setState({ ordered: shallow });
@@ -43,7 +44,7 @@ class Index extends Component {
       withQuoteRemoved.splice(result.source.index, 1);
       const columns = {
         ...this.state.columns,
-        [result.source.droppableId]: withQuoteRemoved
+        [result.source.droppableId]: withQuoteRemoved,
       };
       this.setState({ columns });
       return;
@@ -66,7 +67,7 @@ class Index extends Component {
     }
 
     // reordering column
-    if (result.type === "COLUMN") {
+    if (result.type === 'COLUMN') {
       const ordered = reorder(
         this.state.ordered,
         source.index,
@@ -74,7 +75,7 @@ class Index extends Component {
       );
 
       this.setState({
-        ordered
+        ordered,
       });
 
       return;
@@ -83,24 +84,24 @@ class Index extends Component {
     const data = reorderQuoteMap({
       quoteMap: this.state.columns,
       source,
-      destination
+      destination,
     });
 
-    this.setState({
-      columns: data.quoteMap
-    }, ()=>{
-      // console.log('columns state', this.state.columns)
-    });
+    this.setState(
+      {
+        columns: data.quoteMap,
+      },
+      () => {}
+    );
   };
 
-  onChange=(e, index)=>{
-    this.props.onChange(e, index)
-  }
+  onChange = (e, index) => {
+    this.props.onChange(e, index);
+  };
 
-  AddMoreStep = ()=>{
+  AddMoreStep = () => {
     this.props.AddStep();
-  }
-
+  };
 
   render() {
     const columns = this.state.columns;
@@ -108,55 +109,85 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let { AddStep } = translate;
     const board = (
-      <div className={this.props.view === 'vertical' ? "dragdrop-vertical":"dragdrop-horizontal"}>
+      <div
+        className={
+          this.props.view === 'vertical'
+            ? 'dragdrop-vertical'
+            : 'dragdrop-horizontal'
+        }
+      >
         <Droppable
-        droppableId="board"
-        type={"COLUMN"}
-        direction={this.props.view === 'vertical' ? "horizontal" : "vertical"}
-        isCombineEnabled={this.props.isCombineEnabled}
+          droppableId="board"
+          type={'COLUMN'}
+          direction={this.props.view === 'vertical' ? 'horizontal' : 'vertical'}
+          isCombineEnabled={this.props.isCombineEnabled}
         >
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={this.props.view === 'vertical' ? "maindivfordrag manageDragDrop": "manageDragDrop"}>
-                {ordered.map((key, index) => (
-                    <Column
-                        moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
-                        key={key}
-                        onDragEnd={(data)=>{this.onDragEnd(data)}}
-                        index={index}
-                        edit={this.props.edit}
-                        editName={this.props.editName}
-                        onKeyDownlogin={this.props.onKeyDownlogin}
-                        onChange={(e)=>{this.onChange(e, index)}}
-                        DeleteStep={(index)=> this.props.DeleteStep(index)}
-                        openAddPatient={this.props.openAddPatient}
-                        title={key}
-                        quotes={columns[key]}
-                        isCombineEnabled={this.props.isCombineEnabled}
-                        view={this.props.view}
-                        ordered={ordered}
-                        moveAllPatient={(to, from, data)=>{this.props.moveAllPatient(to, from, data)}}
-                        moveStep={(to, from, item)=>{this.props.moveStep(to, from, item)}}
-                        columns={this.state.columns}
-                        setDta={(item)=>this.props.setDta(item)}
-                        professional_id_list={this.props.professional_id_list}
-                        updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
-                        MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
-                        mode={this.props?.mode}
-                      />
-                ))}
-                <Grid className="newAddStepBtn"><Button onClick={this.AddMoreStep}>{AddStep}</Button></Grid>
+          {(provided) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              className={
+                this.props.view === 'vertical'
+                  ? 'maindivfordrag manageDragDrop'
+                  : 'manageDragDrop'
+              }
+            >
+              {ordered.map((key, index) => (
+                <Column
+                  moveDetial={(id, case_id) =>
+                    this.props.moveDetial(id, case_id)
+                  }
+                  key={key}
+                  onDragEnd={(data) => {
+                    this.onDragEnd(data);
+                  }}
+                  index={index}
+                  edit={this.props.edit}
+                  editName={this.props.editName}
+                  onKeyDownlogin={this.props.onKeyDownlogin}
+                  onChange={(e) => {
+                    this.onChange(e, index);
+                  }}
+                  DeleteStep={(index) => this.props.DeleteStep(index)}
+                  openAddPatient={this.props.openAddPatient}
+                  title={key}
+                  quotes={columns[key]}
+                  isCombineEnabled={this.props.isCombineEnabled}
+                  view={this.props.view}
+                  ordered={ordered}
+                  moveAllPatient={(to, from, data) => {
+                    this.props.moveAllPatient(to, from, data);
+                  }}
+                  moveStep={(to, from, item) => {
+                    this.props.moveStep(to, from, item);
+                  }}
+                  columns={this.state.columns}
+                  setDta={(item) => this.props.setDta(item)}
+                  professional_id_list={this.props.professional_id_list}
+                  updateEntryState3={(e, case_id) => {
+                    this.props.updateEntryState3(e, case_id);
+                  }}
+                  MovetoTask={(speciality, patient_id) => {
+                    this.props.MovetoTask(speciality, patient_id);
+                  }}
+                  mode={this.props?.mode}
+                  socket={this.props.socket}
+                  stateLanguageType={this.props.stateLanguageType}
+                />
+              ))}
+              <Grid className="newAddStepBtn">
+                <Button onClick={this.AddMoreStep}>{AddStep}</Button>
+              </Grid>
               {provided.placeholder}
             </div>
           )}
         </Droppable>
-        </div>
+      </div>
     );
 
     return (
       <React.Fragment>
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          {board}
-        </DragDropContext>
+        <DragDropContext onDragEnd={this.onDragEnd}>{board}</DragDropContext>
       </React.Fragment>
     );
   }

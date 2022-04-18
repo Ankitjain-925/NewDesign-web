@@ -257,12 +257,14 @@ class Index extends Component {
                                 MypatientsData.map((data, index) => (
                                     <Tr>
                                         <Td className="presImg">
+                                          <div className="presImgInr">  
                                             <img
                                                 src={data.image ? getImage(data.image, this.state.image1) : require("assets/images/useru.jpg")}
                                                 alt=""
                                                 title=""
                                             />
-                                            {data.pharmacist && data.pharmacist}
+                                            <span>{data.pharmacist && data.pharmacist}</span>
+                                          </div>  
                                         </Td>
                                         <Td>
                                             {data.created_on
@@ -275,6 +277,7 @@ class Index extends Component {
                                                 : "Not mentioned"}
                                         </Td>
                                         <Td className="presImg">
+                                          <div className="presImgInr">  
                                             <img
                                                 src={
                                                     data.patient_image
@@ -284,20 +287,23 @@ class Index extends Component {
                                                         )
                                                         : require("assets/images/dr1.jpg")
                                                 }
-                                                alt=""
-                                                title=""
+                                                alt="" title=""
                                             />
-                                            {data.patient_name && data.patient_name} {data.patient_alies_id && data.patient_alies_id}
-
+                                            <span>{data.patient_name && data.patient_name} {data.patient_alies_id && data.patient_alies_id}</span>
+                                           </div>
                                         </Td>
                                         <Td>{data.remark && data.remark}</Td>
                                         {data.status === "handled" ? (
                                             <Td>
-                                                <span className="revwGren"></span> {handled}
+                                                <div className="presImgInr">  
+                                                  <span className="revwGren"></span> <span>{handled}</span>
+                                                </div> 
                                             </Td>
                                         ) : (
                                             <Td>
-                                                <span className="revwGry"></span> {RBPharmacy}
+                                                <div className="presImgInr">  
+                                                  <span className="revwGry"></span> <span>{RBPharmacy}</span>
+                                                </div>
                                             </Td>
                                         )}
                                         <Td className="presEditDot scndOptionIner">

@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import axios from "axios";
-import { LanguageFetchReducer } from "Screens/actions";
-import { Speciality } from "Screens/Login/speciality.js";
-import sitedata from "sitedata";
-import { commonHeader } from "component/CommonHeader/index";
-import { authy } from "Screens/Login/authy.js";
-import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction.js";
-import Loader from "Screens/Components/Loader/index";
-import { Redirect, Route } from "react-router-dom";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import TaskSectiuonVH from "Screens/Components/VirtualHospitalComponents/TaskSectionVH";
-import { getLanguage } from "translations/index"
-import { filterPatient } from "Screens/Components/BasicMethod/index";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import LeftMenu from 'Screens/Components/Menus/DoctorLeftMenu/index';
+import LeftMenuMobile from 'Screens/Components/Menus/DoctorLeftMenu/mobile';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import axios from 'axios';
+import { LanguageFetchReducer } from 'Screens/actions';
+import { Speciality } from 'Screens/Login/speciality.js';
+import sitedata from 'sitedata';
+import { commonHeader } from 'component/CommonHeader/index';
+import { authy } from 'Screens/Login/authy.js';
+import { houseSelect } from 'Screens/VirtualHospital/Institutes/selecthouseaction.js';
+import Loader from 'Screens/Components/Loader/index';
+import { Redirect, Route } from 'react-router-dom';
+import Notification from 'Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications';
+import TaskSectiuonVH from 'Screens/Components/VirtualHospitalComponents/TaskSectionVH';
+import { getLanguage } from 'translations/index';
+import { filterPatient } from 'Screens/Components/BasicMethod/index';
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -35,8 +35,8 @@ class Index extends Component {
       openTask: false,
       tabvalue: 0,
       tabvalue2: 0,
-      q: "",
-      selectedUser: "",
+      q: '',
+      selectedUser: '',
       professional_data: [],
       date_format: this.props.date_format,
       time_format: this.props.time_format,
@@ -52,7 +52,7 @@ class Index extends Component {
       newStaff: {},
       ProfMessage: false,
       newTask: {},
-      Fileadd: "",
+      Fileadd: '',
       AllTasks: {},
       shown: false,
       professionalArray: [],
@@ -73,7 +73,7 @@ class Index extends Component {
   componentDidMount() {
     this.getAddTaskData();
   }
-  
+
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
   };
@@ -85,7 +85,7 @@ class Index extends Component {
     });
   };
   //get Add task data
-  getAddTaskData = () => {
+  getAddTaskData = (tabvalue2, goArchive) => {
     this.setState({ loaderImage: true });
     axios
       .get(
@@ -96,21 +96,34 @@ class Index extends Component {
       .then((response) => {
         this.setState({ AllTasks: response.data.data });
         if (response.data.hassuccessed) {
-          if(response?.data?.data){
+          if (response?.data?.data) {
             var patientForFilterArr = filterPatient(response.data.data);
-            this.setState({patientForFilter: patientForFilterArr});
-        }
+            this.setState({ patientForFilter: patientForFilterArr });
+          }
           var Done =
             response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.status === "done");
+            response.data.data.filter(
+              (item) => item?.status === 'done' && item?.archived === false
+            );
+          var Archived =
+            response.data.data?.length > 0 &&
+            response.data.data.filter((item) => item?.archived === true);
           var Open =
             response.data.data?.length > 0 &&
-            response.data.data.filter((item) => item.status === "open");
+            response.data.data.filter(
+              (item) => item?.status === 'open' && item?.archived === false
+            );
           this.setState({
             AllTasks: response.data.data,
             DoneTask: Done,
             OpenTask: Open,
+            ArchivedTasks: Archived,
           });
+          if (goArchive) {
+            this.setState({ tabvalue2: 3 });
+          } else {
+            this.setState({ tabvalue2: tabvalue2 ? tabvalue2 : 0 });
+          }
         }
         this.setState({ loaderImage: false });
       });
@@ -121,14 +134,14 @@ class Index extends Component {
     let {} = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
-      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.user === 'undefined' ||
       stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === "undefined" ||
-      stateLoginValueAim.user.type !== "doctor" ||
+      stateLoginValueAim.token === 'undefined' ||
+      stateLoginValueAim.user.type !== 'doctor' ||
       !this.props.verifyCode ||
       !this.props.verifyCode.code
     ) {
-      return <Redirect to={"/"} />;
+      return <Redirect to={'/'} />;
     }
     return (
       <Grid
@@ -136,9 +149,9 @@ class Index extends Component {
           this.props.settings &&
           this.props.settings.setting &&
           this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
-            ? "homeBg darkTheme"
-            : "homeBg"
+          this.props.settings.setting.mode === 'dark'
+            ? 'homeBg darkTheme'
+            : 'homeBg'
         }
       >
         {this.state.loaderImage && <Loader />}
@@ -157,14 +170,15 @@ class Index extends Component {
                       {/* Model setup */}
                       <TaskSectiuonVH
                         patient={this.state.patient}
-                        getAddTaskData={() => {
-                          this.getAddTaskData();
+                        getAddTaskData={(tabvalue2, goArchive) => {
+                          this.getAddTaskData(tabvalue2, goArchive);
                         }}
                         AllTasks={this.state.AllTasks}
                         DoneTask={this.state.DoneTask}
                         OpenTask={this.state.OpenTask}
-                        ArchivedTasks={[]}
-                        comesFrom={"Professional"}
+                        ArchivedTasks={this.state.ArchivedTasks}
+                        comesFrom={'Professional'}
+                        tabvalue2={this.state.tabvalue2}
                       />
                       {/* End of Model setup */}
                     </Grid>

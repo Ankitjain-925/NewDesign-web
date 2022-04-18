@@ -776,7 +776,7 @@ class Index extends Component {
                               type="text"
                               disabled={true}
                               value={this.state.UpDataDetails.email}
-                              disabled
+                              // disabled
                             />
                           </Grid>
                         </Grid>
@@ -859,7 +859,7 @@ class Index extends Component {
                                 this.props.settings.setting &&
                                 this.props.settings.setting.date_format
                               }
-                              onChange={this.onChange}
+                             
                             />
                           </Grid>
                         </Grid>
@@ -1099,8 +1099,7 @@ class Index extends Component {
                               placeholder={mobile}
                               name="mobile"
                               disabled={true}
-                              type="text"
-                              onChange={this.updateEntryState1}
+                               onChange={this.updateEntryState1}
                               value={
                                 this.state.UpDataDetails.mobile &&
                                 this.updateMOBILE(
@@ -1137,7 +1136,7 @@ class Index extends Component {
                               isDisabled={true}
                               className="profile-language"
                               isMulti={true}
-                              className="cntryDrop"
+                              // className="cntryDrop"
                             />
                           </Grid>
                         </Grid>
@@ -1164,7 +1163,7 @@ class Index extends Component {
                               isSearchable={false}
                               isDisabled={true}
                               className="profile-language"
-                              className="cntryDrop"
+                              // className="cntryDrop"
                           />
                           </Grid>
                         </Grid>
@@ -1181,7 +1180,7 @@ class Index extends Component {
                                   isSearchable={false}
                                   isDisabled={true}
                                   className="profile-language"
-                                  className="cntryDrop"
+                                  // className="cntryDrop"
                               />
                           </Grid>
                         </Grid>

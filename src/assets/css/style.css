@@ -4736,6 +4736,7 @@ button.aboutTabsIner {
     left: 0;
     top: 45px;
     z-index: 999;
+    width: 100%;
 }
 .browsInput {
     position: relative;
@@ -6203,15 +6204,12 @@ img.openScnd {
     cursor: pointer;
     border-radius: 5px;
 }
-
 .bg-color-card {
     background-color: #E5E6E6 !important ;
 }
-
 .cursor-pointer {
     cursor: pointer;
 }
-
 .scndOptionIner ul li a {
     display: flex;
     align-items: flex-start;
@@ -15967,9 +15965,6 @@ a.clsSltCal {
     min-height: initial !important;
 }
 .getCalBnr .rbc-event-content span.trigger{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
 }
 .rbc-time-view .rbc-event-content span.trigger{
@@ -17468,4 +17463,26 @@ ul.duringCovid li:last-child {
 }
 .OnExistBed{
     margin-top: 18px;
+}
+.presOpinionIner tr .presImg img, 
+.presOpinionIner span.revwGry {
+    margin-top: 4px;
+}
+.presImgInr {
+    display: inline-flex;
+    justify-content: center;
+}
+@media (max-width: 640px){
+  .presOpinionIner tr .presImg img, 
+  .presOpinionIner span.revwGry {
+     margin-top: 0px;
+   }
+   .presImgInr {
+     display: inline-flex;
+     justify-content: center;
+     align-items: center;
+   }
+   a.openScndhrf {
+     text-align: left;
+   }
 }
