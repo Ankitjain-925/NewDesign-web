@@ -39,6 +39,12 @@ import {
 } from 'Screens/Components/BasicMethod/index';
 import _ from 'lodash';
 import FileViews from '../../../Components/TimelineComponent/FileViews/index';
+import {
+  GetShowLabel1,
+  GetShowLabel,
+  GetLanguageDropdown,
+} from 'Screens/Components/GetMetaData/index.js';
+import { OptionList } from 'Screens/Login/metadataaction';
 
 function TabContainer(props) {
   return <Typography component="div">{props.children}</Typography>;
@@ -111,6 +117,9 @@ class Index extends Component {
       Assigned_already: [],
       calculate_Length: {},
       checkingsec: false,
+      AllSmokingStatus: [],
+      AllSituation: [],
+      AllGender: [],
     };
   }
 
@@ -138,9 +147,45 @@ class Index extends Component {
       let user = { value: this.props.patient?.patient_id };
       this.updateEntryState2(user);
     }
+    if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+      this.getMetadata();
+    }
+  };
+
+  //get list of list
+  getMetadata = () => {
+    this.setState({ allMetadata: this.props.metadata }, () => {
+      var AllSmokingStatus = GetLanguageDropdown(
+        this.state.allMetadata &&
+          this.state.allMetadata.smoking_status &&
+          this.state.allMetadata.smoking_status?.length > 0 &&
+          this.state.allMetadata.smoking_status,
+        this.props.stateLanguageType
+      );
+      var AllSituation = GetLanguageDropdown(
+        this.state.allMetadata &&
+          this.state.allMetadata.situation &&
+          this.state.allMetadata.situation?.length > 0 &&
+          this.state.allMetadata.situation,
+        this.props.stateLanguageType
+      );
+      var AllGender = GetLanguageDropdown(
+        this.state.allMetadata &&
+          this.state.allMetadata.gender &&
+          this.state.allMetadata.gender?.length > 0 &&
+          this.state.allMetadata.gender,
+        this.props.stateLanguageType
+      );
+      this.setState({
+        AllSmokingStatus: AllSmokingStatus,
+        AllSituation: AllSituation,
+        AllGender: AllGender,
+      });
+    });
   };
 
   componentDidMount() {
+    this.getMetadata();
     this.getPatientData();
     this.getProfessionalData();
     this.specailityList();
@@ -1280,7 +1325,8 @@ class Index extends Component {
       Hba1c,
       situation,
       smoking_status,
-      status,
+      Status,
+      added_on,
       from,
       when,
       until,
@@ -1304,7 +1350,7 @@ class Index extends Component {
       pain,
       size_progress,
       warm,
-
+      start_from,
       yes,
       no,
       cold,
@@ -1515,7 +1561,7 @@ class Index extends Component {
                             <Grid item xs={12} md={12} className="taskDescp">
                               <Grid className="stndQues stndQues1">
                                 <Grid>
-                                  <label>Added On</label>
+                                  <label>{added_on}</label>
                                 </Grid>
                                 <p>
                                   {getDate(
@@ -1549,7 +1595,14 @@ class Index extends Component {
                                 </Grid>
                                 <p>
                                   {this.state.newTask &&
-                                    this.state.newTask?.sex}
+                                    this.state.newTask?.sex &&
+                                    GetShowLabel1(
+                                      this.state.AllGender,
+                                      this.state.newTask?.sex,
+                                      this.props.stateLanguageType,
+                                      true,
+                                      'anamnesis'
+                                    )}
                                 </p>
                                 <Grid>
                                   <h2>{blood_pressure}</h2>
@@ -1593,7 +1646,14 @@ class Index extends Component {
                                     <p>
                                       {this.state.newTask &&
                                         this.state.newTask?.situation &&
-                                        this.state.newTask?.situation?.label}
+                                        this.state.newTask?.situation?.value &&
+                                        GetShowLabel1(
+                                          this.state.AllSituation,
+                                          this.state.newTask?.situation?.value,
+                                          this.props.stateLanguageType,
+                                          true,
+                                          'anamnesis'
+                                        )}
                                     </p>
                                   </Grid>
                                 </Grid>
@@ -1602,12 +1662,20 @@ class Index extends Component {
                                 </Grid>
                                 <Grid container xs={12} md={12}>
                                   <Grid xs={4} md={4}>
-                                    <label>{status}</label>
+                                    <label>{Status}</label>
                                     <p>
                                       {this.state.newTask &&
                                         this.state.newTask?.smoking_status &&
                                         this.state.newTask?.smoking_status
-                                          ?.label}
+                                          ?.value &&
+                                        GetShowLabel1(
+                                          this.state.AllSmokingStatus,
+                                          this.state.newTask?.smoking_status
+                                            ?.value,
+                                          this.props.stateLanguageType,
+                                          true,
+                                          'anamnesis'
+                                        )}
                                     </p>
                                   </Grid>
                                   {!this.state.newTask?.smoking_status ||
@@ -1763,7 +1831,7 @@ class Index extends Component {
                                   />
                                 </div>
                                 <Grid>
-                                  <label>Start From</label>
+                                  <label>{start_from}</label>
                                 </Grid>
                                 <p>
                                   {getDate(
@@ -1880,7 +1948,9 @@ class Index extends Component {
                                       }
                                     />
                                   ) : (
-                                    <p>No attachments!</p>
+                                    <p>
+                                      {no} {Attachments}!
+                                    </p>
                                   )}
                                 </Grid>
                                 <Grid class="addStnd1">
@@ -1899,7 +1969,9 @@ class Index extends Component {
                                         )
                                       )
                                     ) : (
-                                      <p>No comments!</p>
+                                      <p>
+                                        {no} {Comments}!
+                                      </p>
                                     )}
                                   </p>
                                 </Grid>
@@ -2909,6 +2981,7 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   const { speciality } = state.Speciality;
+  const { metadata } = state.OptionList;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -2917,6 +2990,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     speciality,
+    metadata,
   };
 };
 export default withRouter(
@@ -2926,6 +3000,7 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
+    OptionList,
     Speciality,
   })(Index)
 );

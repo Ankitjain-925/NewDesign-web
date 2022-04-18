@@ -543,54 +543,59 @@ class Index extends Component {
 
   downloadInvoicePdf = (datas) => {
     var invoice = datas;
-    invoice.choice = this.props.settings &&
-        this.props.settings.setting &&
-        this.props.settings.setting.invoice_pattern ? this.props.settings.setting.invoice_pattern : 5;
-    this.setState({ loaderImage: true })
+    invoice.choice =
+      this.props.settings &&
+      this.props.settings.setting &&
+      this.props.settings.setting.invoice_pattern
+        ? this.props.settings.setting.invoice_pattern
+        : 5;
+    this.setState({ loaderImage: true });
     axios
-    .get(sitedata.data.path + "/vh/Getinstitutename/"+this.props?.House?.value,
-    commonHeader(this.props.stateLoginValueAim.token)).then((response)=>{
-        if(response.data.hassuccessed){
-            console.log('response.data', response.data)
-            invoice.house_name = response.data.data;
-            axios
-            .post(sitedata.data.dowload_link + "/vh/downloadInvoicePdf", invoice,
-                { responseType: "blob" }
+      .get(
+        sitedata.data.path + '/vh/Getinstitutename/' + this.props?.House?.value,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((response) => {
+        if (response.data.hassuccessed) {
+          console.log('response.data', response.data);
+          invoice.house_name = response.data.data;
+          axios
+            .post(
+              sitedata.data.dowload_link + '/vh/downloadInvoicePdf',
+              invoice,
+              { responseType: 'blob' }
             )
             .then((res) => {
-                setTimeout(() => {
-                    this.setState({ loaderImage: false });
-                }, 3000)
-                var data = new Blob([res.data]);
-                if (typeof window.navigator.msSaveBlob === "function") {
-                    // If it is IE that support download blob directly.
-                    window.navigator.msSaveBlob(data, "report.pdf");
-                } else {
-                    var blob = data;
-                    var link = document.createElement("a");
-                    link.href = window.URL.createObjectURL(blob);
-                    link.download = "report.pdf";
-                    document.body.appendChild(link);
-                    link.click(); // create an <a> element and simulate the click operation.
-                }
-
+              setTimeout(() => {
+                this.setState({ loaderImage: false });
+              }, 3000);
+              var data = new Blob([res.data]);
+              if (typeof window.navigator.msSaveBlob === 'function') {
+                // If it is IE that support download blob directly.
+                window.navigator.msSaveBlob(data, 'report.pdf');
+              } else {
+                var blob = data;
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'report.pdf';
+                document.body.appendChild(link);
+                link.click(); // create an <a> element and simulate the click operation.
+              }
             })
             .catch((err) => {
-                this.setState({ loaderImage: false });
+              this.setState({ loaderImage: false });
             })
             .catch((err) => {
-                this.setState({ loaderImage: false });
+              this.setState({ loaderImage: false });
             });
+        } else {
+          this.setState({ loaderImage: false });
         }
-        else{
-            this.setState({ loaderImage: false });
-        }
-
-    })
-    .catch((err) => {
+      })
+      .catch((err) => {
         this.setState({ loaderImage: false });
-    }); 
-};
+      });
+  };
 
   convertInArray = (data) => {
     var a = [data];
