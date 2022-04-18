@@ -102,7 +102,7 @@ class Index extends Component {
                     : ""}
                   />
                 )}
-                {this.state.is241 === "DD/MM/YYYY" && (
+                {this.state.is241 === "DD/MM/YYYY" || this.state.is241 === "dd/mm/yyyy" && (
                   <DatePicker
                     placeholder={select_date}
                     name={this.props.name}
@@ -116,7 +116,7 @@ class Index extends Component {
                     : ""}
                   />
                 )}
-                {this.state.is241 === "YYYY/DD/MM" && (
+                {this.state.is241 === "YYYY/DD/MM" || this.state.is241 === "yyyy/dd/mm" && (
                   <DatePicker
                     placeholder={select_date}
                     name={this.props.name}
@@ -130,7 +130,7 @@ class Index extends Component {
                     : ""}
                   />
                 )}
-                {this.state.is241 === "MM/DD/YYYY" && (
+                {this.state.is241 === "MM/DD/YYYY" || this.state.is241 === "mm/dd/yyyy" && (
                   <DatePicker
                     placeholder={select_date}
                     name={this.props.name}

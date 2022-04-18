@@ -91,7 +91,7 @@ class Index extends Component {
         let {Whowouldyouliketosendthisto,
             selectpatient,
             PromotionType,
-            Title,
+            PromotionTitle,
             Text,
             Addbuttonattheendofpost,
             Setbuttontext
@@ -143,7 +143,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <MMHG
                             name="title"
-                            label={Title}
+                            label={PromotionTitle}
                             onChange={(e) => this.props.updateEntryState(e)}
                             value={this.state.updateTrack.title}
                         />

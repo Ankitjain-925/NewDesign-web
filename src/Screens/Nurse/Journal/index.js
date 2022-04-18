@@ -1713,8 +1713,7 @@ class Index extends Component {
                                   FileAttachMulti={this.FileAttachMulti}
                                   visibility={this.state.visibility}
                                   comesfrom="nurse"
-                                  comesfrom="nurse"
-                                  gender={this.state.patient_gender}
+                                 gender={this.state.patient_gender}
                                   GetHideShow={this.GetHideShow}
                                   options={this.state.selectCountry}
                                   options2={this.state.Alltemprature}

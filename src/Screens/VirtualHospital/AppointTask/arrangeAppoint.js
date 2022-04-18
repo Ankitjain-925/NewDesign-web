@@ -398,6 +398,7 @@ componentDidUpdate = (prevProps) => {
         }, 2000);
       }
     );
+    this.props.handleCloseAllowAccess();
   };
 
   handleCloseAllowLoc = () => {

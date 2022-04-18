@@ -4,8 +4,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import sitedata from "sitedata";
 import axios from "axios";
-import Resizer from 'react-image-file-resizer';
-import { ConsoleCustom, getDate, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
+import { getDate, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";

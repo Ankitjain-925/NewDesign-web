@@ -5,6 +5,7 @@ import LoginReducerAim from "./LoginReducers";
 import Doctorset from "./Doctorset";
 import filterate from "./Filterthis";
 import authy from "./auth";
+import currentAvailable from "./currentAvailable";
 import EmergencySet from "./EmergencySet";
 import cometreducer from "./cometreducer";
 import Settings from "./setting";
@@ -38,7 +39,8 @@ const allReducers = combineReducers({
   overView:overView,
   houseSelect: houseSelect,
   Speciality: speciality,
-  Invoices: invoices
+  Invoices: invoices,
+  currentAvailable: currentAvailable,
   
 });
 

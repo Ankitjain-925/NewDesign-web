@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import { connect } from "react-redux";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "Screens/actions";
-import Timer from "Screens/Components/TimeLogOut/index";
-import Mode from "Screens/Components/ThemeMode/index.js";
-import Loader from "Screens/Components/Loader/index";
-import { update_CometUser } from "Screens/Components/CommonApi/index";
-import { getLanguage } from "Screens/hospital_Admin/translations/index";
-import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
-import SetLanguage from "Screens/Components/SetLanguage/index.js";
-import LogOut from "Screens/Components/LogOut/index";
-import { getSetting } from "../api";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { withRouter } from 'react-router-dom';
+import { LanguageFetchReducer } from 'Screens/actions';
+import Timer from 'Screens/Components/TimeLogOut/index';
+import Mode from 'Screens/Components/ThemeMode/index.js';
+import Loader from 'Screens/Components/Loader/index';
+import { update_CometUser } from 'Screens/Components/CommonApi/index';
+import { getLanguage } from 'Screens/hospital_Admin/translations/index';
+import CreateAdminUser from 'Screens/Components/CreateHospitalUser/index';
+import SetLanguage from 'Screens/Components/SetLanguage/index.js';
+import LogOut from 'Screens/Components/LogOut/index';
+import { getSetting } from '../api';
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +28,7 @@ class Index extends Component {
       openFancyLanguage: false,
       PassDone: false,
       addCreate: false,
-      mode: "normal",
+      mode: 'normal',
     };
     new Timer(this.logOutClick.bind(this));
   }
@@ -40,7 +40,7 @@ class Index extends Component {
       this.props.stateLoginValueAim.user._id,
       this.logOutClick.bind(this)
     );
-   getSetting(this)
+    getSetting(this);
   }
   openLanguageModel = () => {
     this.setState({ openFancyLanguage: true });
@@ -61,7 +61,7 @@ class Index extends Component {
   changeLanguage = (e) => {
     this.setState({ languageValue: e.target.value });
   };
-  
+
   //For logout the User
   logOutClick = async () => {
     var data = await update_CometUser(
@@ -69,14 +69,14 @@ class Index extends Component {
       { lastActiveAt: Date.now() }
     );
     if (data) {
-      let email = "";
-      let password = "";
+      let email = '';
+      let password = '';
       this.props.LoginReducerAim(email, password);
-      let languageType = "en";
+      let languageType = 'en';
       this.props.LanguageFetchReducer(languageType);
     }
-    localStorage.removeItem("token");
-    this.props.history.push("/");
+    localStorage.removeItem('token');
+    this.props.history.push('/');
   };
 
   render() {
@@ -95,14 +95,14 @@ class Index extends Component {
       logout,
       DarkMode,
       archive,
-      InstituteGroups
+      InstituteGroups,
     } = translate;
 
     if (
       !this.props.stateLoginValueAim.token ||
       this.props.stateLoginValueAim.token == 450
     ) {
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
     return (
       <Grid
@@ -113,15 +113,15 @@ class Index extends Component {
           this.props.settings &&
           this.props.settings.setting &&
           this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
-            ? " MenuLeftUpr adminMenuLeftUpr darkTheme"
-            : " MenuLeftUpr adminMenuLeftUpr"
+          this.props.settings.setting.mode === 'dark'
+            ? ' MenuLeftUpr adminMenuLeftUpr darkTheme'
+            : ' MenuLeftUpr adminMenuLeftUpr'
         }
       >
         {this.state.loaderImage && <Loader />}
         <Grid className="webLogo adminwebLogo">
           <a>
-            <img src={require("assets/images/logo_new.png")} alt="" title="" />
+            <img src={require('assets/images/logo_new.png')} alt="" title="" />
           </a>
           <Grid>
             <label>{admin_panel}</label>
@@ -131,12 +131,12 @@ class Index extends Component {
           <ul>
             <li
               className={
-                this.props.currentPage === "patient_List" ? "menuActv" : ""
+                this.props.currentPage === 'patient_List' ? 'menuActv' : ''
               }
             >
-              <a onClick={() => this.props.history.push("/h-patients")}>
+              <a onClick={() => this.props.history.push('/h-patients')}>
                 <img
-                  src={require("assets/images/admin/patintIcon.png")}
+                  src={require('assets/images/admin/patintIcon.png')}
                   alt=""
                   title=""
                 />
@@ -145,12 +145,12 @@ class Index extends Component {
             </li>
             <li
               className={
-                this.props.currentPage === "doctor_List" ? "menuActv" : ""
+                this.props.currentPage === 'doctor_List' ? 'menuActv' : ''
               }
             >
-              <a onClick={() => this.props.history.push("/h-doctors")}>
+              <a onClick={() => this.props.history.push('/h-doctors')}>
                 <img
-                  src={require("assets/images/admin/DoctorsIcon.png")}
+                  src={require('assets/images/admin/DoctorsIcon.png')}
                   alt=""
                   title=""
                 />
@@ -159,12 +159,12 @@ class Index extends Component {
             </li>
             <li
               className={
-                this.props.currentPage === "nurse_List" ? "menuActv" : ""
+                this.props.currentPage === 'nurse_List' ? 'menuActv' : ''
               }
             >
-              <a onClick={() => this.props.history.push("/h-nurses")}>
+              <a onClick={() => this.props.history.push('/h-nurses')}>
                 <img
-                  src={require("assets/images/nurse_n1.png")}
+                  src={require('assets/images/nurse_n1.png')}
                   alt=""
                   title=""
                 />
@@ -173,26 +173,26 @@ class Index extends Component {
             </li>
             <li
               className={
-                this.props.currentPage === "staff_List" ? "menuActv" : ""
+                this.props.currentPage === 'staff_List' ? 'menuActv' : ''
               }
             >
-              <a onClick={() => this.props.history.push("/h-staff")}>
+              <a onClick={() => this.props.history.push('/h-staff')}>
                 <img
-                  src={require("assets/images/patientinfo.png")}
+                  src={require('assets/images/patientinfo.png')}
                   alt=""
                   title=""
                 />
-                <span>{"Admin Staff"}</span>
+                <span>{'Admin Staff'}</span>
               </a>
             </li>
             <li
               className={
-                this.props.currentPage === "h_document" ? "menuActv" : ""
+                this.props.currentPage === 'h_document' ? 'menuActv' : ''
               }
             >
-              <a onClick={() => this.props.history.push("/h-documents")}>
+              <a onClick={() => this.props.history.push('/h-documents')}>
                 <img
-                  src={require("assets/images/admin/docsIcon.png")}
+                  src={require('assets/images/admin/docsIcon.png')}
                   alt=""
                   title=""
                 />
@@ -201,12 +201,12 @@ class Index extends Component {
             </li>
             <li
               className={
-                this.props.currentPage === "archive_choose" ? "menuActv" : ""
+                this.props.currentPage === 'archive_choose' ? 'menuActv' : ''
               }
             >
-              <a onClick={() => this.props.history.push("/h-archivechoose")}>
+              <a onClick={() => this.props.history.push('/h-archivechoose')}>
                 <img
-                  src={require("assets/images/admin/ParamedicIcon.png")}
+                  src={require('assets/images/admin/ParamedicIcon.png')}
                   alt=""
                   title=""
                 />
@@ -214,21 +214,21 @@ class Index extends Component {
               </a>
             </li>
             <li
-              className={this.props.currentPage === "groups" ? "menuActv" : ""}
+              className={this.props.currentPage === 'groups' ? 'menuActv' : ''}
             >
-              <a onClick={() => this.props.history.push("/h-groups")}>
+              <a onClick={() => this.props.history.push('/h-groups')}>
                 {this.props.settings &&
                 this.props.settings.setting &&
                 this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark" ? (
+                this.props.settings.setting.mode === 'dark' ? (
                   <img
-                    src={require("assets/virtual_images/hospitalIcon2.png")}
+                    src={require('assets/virtual_images/hospitalIcon2.png')}
                     alt=""
                     title=""
                   />
                 ) : (
                   <img
-                    src={require("assets/virtual_images/hospitalIcon.png")}
+                    src={require('assets/virtual_images/hospitalIcon.png')}
                     alt=""
                     title=""
                   />
@@ -236,15 +236,15 @@ class Index extends Component {
                 <span>{InstituteGroups}</span>
               </a>
             </li>
-         
+
             <li
               className={
-                this.props.currentPage === "createnewuser" ? "menuActv" : ""
+                this.props.currentPage === 'createnewuser' ? 'menuActv' : ''
               }
             >
               <a className="addNewPlus" onClick={this.handleOpenCreate}>
                 <img
-                  src={require("assets/images/admin/plusnew.png")}
+                  src={require('assets/images/admin/plusnew.png')}
                   alt=""
                   title=""
                 />
@@ -257,7 +257,7 @@ class Index extends Component {
             <li>
               <a className="profilMenu">
                 <img
-                  src={require("assets/images/nav-my-profile.svg")}
+                  src={require('assets/images/nav-my-profile.svg')}
                   alt=""
                   title=""
                 />
@@ -265,19 +265,19 @@ class Index extends Component {
                 <div className="profilMenuList profilMenuList2">
                   <ul>
                     <li>
-                      <a onClick={() => this.props.history.push("/h-profile")}>
-                      {this.props.settings &&
+                      <a onClick={() => this.props.history.push('/h-profile')}>
+                        {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                        this.props.settings.setting.mode === 'dark' ? (
                           <img
-                            src={require("assets/images/menudocs-white.jpg")}
+                            src={require('assets/images/menudocs-white.jpg')}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require('assets/images/menudocs.jpg')}
                             alt=""
                             title=""
                           />
@@ -287,18 +287,18 @@ class Index extends Component {
                     </li>
                     <li>
                       <a onClick={this.openLanguageModel}>
-                      {this.props.settings &&
+                        {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                        this.props.settings.setting.mode === 'dark' ? (
                           <img
-                            src={require("assets/images/menudocs-white.jpg")}
+                            src={require('assets/images/menudocs-white.jpg')}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require('assets/images/menudocs.jpg')}
                             alt=""
                             title=""
                           />
@@ -311,45 +311,45 @@ class Index extends Component {
                         {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                        this.props.settings.setting.mode === 'dark' ? (
                           <img
-                            src={require("assets/images/menudocs-white.jpg")}
+                            src={require('assets/images/menudocs-white.jpg')}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require('assets/images/menudocs.jpg')}
                             alt=""
                             title=""
                           />
                         )}
-                        {DarkMode}{" "}
+                        {DarkMode}{' '}
                         <Mode
                           mode={
                             this.props.settings?.setting?.mode
                               ? this.props.settings?.setting?.mode
-                              : "normal"
+                              : 'normal'
                           }
                           name="mode"
-                          getSetting={()=>getSetting(this)}
+                          getSetting={() => getSetting(this)}
                         />
                       </a>
                     </li>
                     <li>
                       <a onClick={this.logOutClick}>
-                      {this.props.settings &&
+                        {this.props.settings &&
                         this.props.settings.setting &&
                         this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
+                        this.props.settings.setting.mode === 'dark' ? (
                           <img
-                            src={require("assets/images/menudocs-white.jpg")}
+                            src={require('assets/images/menudocs-white.jpg')}
                             alt=""
                             title=""
                           />
                         ) : (
                           <img
-                            src={require("assets/images/menudocs.jpg")}
+                            src={require('assets/images/menudocs.jpg')}
                             alt=""
                             title=""
                           />
@@ -363,15 +363,16 @@ class Index extends Component {
             </li>
           </ul>
         </Grid>
-          {/* For set the language  */}
-          <SetLanguage
-          getSetting={()=>getSetting(this)}
+        {/* For set the language  */}
+        <SetLanguage
+          comesFrom="Hospital"
+          getSetting={() => getSetting(this)}
           openFancyLanguage={this.state.openFancyLanguage}
           languageValue={this.state.languageValue}
           handleCloseFancyLanguage={this.handleCloseFancyLanguage}
           openLanguageModel={this.openLanguageModel}
         />
-           
+
         <CreateAdminUser
           addCreate={this.state.addCreate}
           handleCloseCreate={this.handleCloseCreate}

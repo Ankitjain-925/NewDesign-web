@@ -1,35 +1,34 @@
+import { SortSubSpeciality } from '../SortSpeciality/index';
 
-import {SortSubSpeciality } from "../SortSpeciality/index"
-
-export function GetLanguageDropdown(Metadatas, language, name = "") {
+export function GetLanguageDropdown(Metadatas, language, name = '') {
   if (Metadatas && Metadatas.length > 0 && language) {
     Metadatas.forEach(function (e, index) {
-      if (typeof e === "object") {
-        if (name === "timezone") {
-          e["label"] = e["text"];
+      if (typeof e === 'object') {
+        if (name === 'timezone') {
+          e['label'] = e['text'];
         } else {
-          e["label"] = e["label_" + language]
-            ? e["label_" + language]
-            : e["label"];
+          e['label'] = e['label_' + language]
+            ? e['label_' + language]
+            : e['label'];
         }
-        if (name === "personalised_card") {
-          e["id"] = index;
+        if (name === 'personalised_card') {
+          e['id'] = index;
         }
       }
     });
 
-    if (name == "subspeciality" || name =="speciality") {
-      var lan = SortSubSpeciality(Metadatas, language)
-      Metadatas = lan
+    if (name == 'subspeciality' || name == 'speciality') {
+      var lan = SortSubSpeciality(Metadatas, language);
+      Metadatas = lan;
     }
     return Metadatas;
   } else return;
 }
-export function GetShowLabel(data, language, name = "") {
+export function GetShowLabel(data, language, name = '') {
   if (data && language) {
-    return data["label_" + language]
-      ? data["label_" + language]
-      : data["label"];
+    return data['label_' + language]
+      ? data['label_' + language]
+      : data['label'];
   } else return;
 }
 export function GetShowLabel1(
@@ -37,46 +36,51 @@ export function GetShowLabel1(
   data,
   language,
   forview = false,
-  comesFrom = ""
+  comesFrom = ''
 ) {
-  if (list && data && data !== "undefined" && language) {
+  // console.log('list', list, 'data', data, 'language', language);
+  if (list && data && data !== 'undefined' && language) {
     var filterData =
       list &&
       list.length > 0 &&
       list.filter((d) => {
         if (d.value && data) {
-          if (comesFrom === "organ") {
-            return d.value.replace(/\s/g, "") === data.replace(/\s/g, "");
+          if (comesFrom === 'organ') {
+            return d.value.replace(/\s/g, '') === data.replace(/\s/g, '');
           }
-          if (comesFrom === "anamnesis") {
+          if (comesFrom === 'anamnesis') {
             return (
-              d.value.replace(/\s/g, "") === data && data.replace(/\s/g, "")
+              d.value.replace(/\s/g, '') === data && data.replace(/\s/g, '')
             );
           }
-          if (comesFrom === "specialty" || comesFrom === "lpr") {
+          if (comesFrom === 'specialty' || comesFrom === 'lpr') {
             return (
-              d.value.toLowerCase() === data.toLowerCase().replace(/\s/g, "_")
+              d.value.toLowerCase() === data.toLowerCase().replace(/\s/g, '_')
             );
           }
-          if (comesFrom === "rhesus") {
-              if(data?.value){
-                return (d.value.toLowerCase() === data.value.toLowerCase().replace(/\s/g, "_"))
-              }
-              else{                
-                return (d.value.toLowerCase() === data.toLowerCase().replace(/\s/g, "_"))
-              }
+          if (comesFrom === 'rhesus') {
+            if (data?.value) {
+              return (
+                d.value.toLowerCase() ===
+                data.value.toLowerCase().replace(/\s/g, '_')
+              );
+            } else {
+              return (
+                d.value.toLowerCase() === data.toLowerCase().replace(/\s/g, '_')
+              );
+            }
           } else {
             return (
               d.value &&
-              d.value.toLowerCase().replace(/\s/g, "") === data &&
-              data.toLowerCase().replace(/\s/g, "")
+              d.value.toLowerCase().replace(/\s/g, '') === data &&
+              data.toLowerCase().replace(/\s/g, '')
             );
           }
         }
       });
     if (filterData && filterData.length > 0) {
       var e = filterData[0];
-      e["label"] = e["label_" + language] ? e["label_" + language] : e["label"];
+      e['label'] = e['label_' + language] ? e['label_' + language] : e['label'];
       if (forview) {
         return e.label;
       }
@@ -95,14 +99,14 @@ export function GetShowLabel12(list, data, language) {
           list.filter((d) => {
             return (
               d.value.toLowerCase() ===
-              _it.value.toLowerCase().replace(/\s/g, "_")
+              _it.value.toLowerCase().replace(/\s/g, '_')
             );
           });
         if (filterData && filterData.length > 0) {
           var e = filterData[0];
-          e["label"] = e["label_" + language]
-            ? e["label_" + language]
-            : e["label"];
+          e['label'] = e['label_' + language]
+            ? e['label_' + language]
+            : e['label'];
           return filterData[0];
         }
       });

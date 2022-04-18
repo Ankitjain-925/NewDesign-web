@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { DatePicker } from "antd";
-import moment from "moment";
-import { pure } from "recompose";
-import { Settings } from "Screens/Login/setting";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-const dateFormatList = ["DD/MM/YYYY", "MM/DD/YYYY", "YYYY/DD/MM"];
+import React, { Component } from 'react';
+import { DatePicker } from 'antd';
+import moment from 'moment';
+import { pure } from 'recompose';
+import { Settings } from 'Screens/Login/setting';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+const dateFormatList = ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY/DD/MM'];
 
 class Date extends Component {
   constructor(props) {
@@ -50,73 +50,84 @@ class Date extends Component {
             value={
               this.state.value
                 ? moment(this.state.value, dateFormatList[0])
-                : ""
+                : ''
             }
             disabled={this.props.disabled}
             format={dateFormatList[0]}
-             dropdownClassName = {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "dropdown-class-name-3"
-                    : ""}
+            dropdownClassName={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'dropdown-class-name-3'
+                : ''
+            }
           />
         )}
-        {this.state.is24 === "DD/MM/YYYY" && (
+        {(this.state.is24 === 'DD/MM/YYYY' ||
+          this.state.is24 === 'dd/mm/yyyy') && (
           <DatePicker
             name={this.props.name}
             onChange={this.onDateChange}
             value={
               this.state.value
                 ? moment(this.state.value, dateFormatList[0])
-                : ""
+                : ''
             }
             disabled={this.props.disabled}
             format={dateFormatList[0]}
-             dropdownClassName = {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "dropdown-class-name-3"
-                    : ""}
+            dropdownClassName={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'dropdown-class-name-3'
+                : ''
+            }
           />
         )}
-        {this.state.is24 === "YYYY/DD/MM" && (
+        {(this.state.is24 === 'YYYY/DD/MM' ||
+          this.state.is24 === 'yyyy/dd/mm') && (
           <DatePicker
             name={this.props.name}
             onChange={this.onDateChange}
             value={
               this.state.value
                 ? moment(this.state.value, dateFormatList[2])
-                : ""
+                : ''
             }
             disabled={this.props.disabled}
             format={dateFormatList[2]}
-             dropdownClassName = {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "dropdown-class-name-3"
-                    : ""}
+            dropdownClassName={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'dropdown-class-name-3'
+                : ''
+            }
           />
         )}
-        {this.state.is24 === "MM/DD/YYYY" && (
+        {(this.state.is24 === 'MM/DD/YYYY' ||
+          this.state.is24 === 'mm/dd/yyyy') && (
           <DatePicker
             name={this.props.name}
             onChange={this.onDateChange}
             value={
               this.state.value
                 ? moment(this.state.value, dateFormatList[1])
-                : ""
+                : ''
             }
             disabled={this.props.disabled}
             format={dateFormatList[1]}
-             dropdownClassName = {this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "dropdown-class-name-3"
-                    : ""}
+            dropdownClassName={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'dropdown-class-name-3'
+                : ''
+            }
           />
         )}
       </div>
@@ -126,12 +137,13 @@ class Date extends Component {
 const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   return {
-      settings
+    settings,
   };
 };
-export default pure(withRouter(
-  connect(mapStateToProps, {
-      Settings
-
-  })(Date))
+export default pure(
+  withRouter(
+    connect(mapStateToProps, {
+      Settings,
+    })(Date)
+  )
 );

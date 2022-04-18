@@ -531,7 +531,7 @@ class Index extends Component {
           this.StripeClick = ref;
         }}
         name={name}
-        image="https://sys.AIS.io/static/media/LogoPNG.03ac2d92.png"
+        image="https://sys.aimedis.io/static/media/LogoPNG.03ac2d92.png"
         billingAddress
         description={description}
         amount={this.fromDollarToCent(amount)}
