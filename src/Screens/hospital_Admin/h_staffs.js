@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import InfoIcon from "@material-ui/icons/Info";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import axios from "axios";
-import { LanguageFetchReducer } from "Screens/actions";
-import sitedata from "sitedata";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import {
-  allusers, getImage, blockClick
-} from "Screens/Components/BasicMethod/index";
-=======
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
@@ -34,8 +16,7 @@ import {
   getImage,
   blockClick,
 } from 'Screens/Components/BasicMethod/index';
-import { OptionList } from "Screens/Login/metadataaction";
->>>>>>> 0969ee1e8eff84b68c1a416fc5de04c645f2a50b
+
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SelectField from "Screens/Components/Select/index";
 import { getLanguage } from "./translations/index";
@@ -723,11 +704,7 @@ class Index extends Component {
                     SaveAssignHouse={this.SaveAssignHouse}
                     deleteHouse={this.deleteHouse}
                     updateEntryState1={this.updateEntryState1}
-<<<<<<< HEAD
-                    checkboxdata={this.state.checkboxdata}
-=======
                     // checkboxdata={this.state.checkboxdata}
->>>>>>> 0969ee1e8eff84b68c1a416fc5de04c645f2a50b
 
                   />
                   {/* <Modal
