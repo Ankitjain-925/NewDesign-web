@@ -498,15 +498,23 @@ class Index extends Component {
   handleDoctorMail = () => {
     var data = this.state.assignedTo;
     var email = [];
-    data &&
-      data.length > 0 &&
-      data.map((a) => {
-        if (!this.state.Assigned_already.includes(a?.value)) {
+    if (this.state.Assigned_already) {
+      data &&
+        data.length > 0 &&
+        data.map((a) => {
+          if (!this.state.Assigned_already.includes(a?.value)) {
+            return email.push(a?.email);
+          } else {
+            return false;
+          }
+        });
+    } else {
+      data &&
+        data.length > 0 &&
+        data.map((a) => {
           return email.push(a?.email);
-        } else {
-          return;
-        }
-      });
+        });
+    }
     let first_name =
       this.props.patient?.first_name || this.state.newTask?.patient?.first_name;
     let last_name =
@@ -982,16 +990,19 @@ class Index extends Component {
     }
     // var cal_Length = data?.attachments?.length;
     var Assigned_Aready =
+      data &&
+      data?.assinged_to &&
       data?.assinged_to?.length > 0 &&
       data?.assinged_to.map((item) => {
         return item?.user_id;
       });
+    console.log('Assigned_Aready', Assigned_Aready);
     var deep = _.cloneDeep(data);
     this.setState({
       newTask: deep,
       fileattach: data.attachments,
       openTask: true,
-      Assigned_already: Assigned_Aready,
+      Assigned_already: Assigned_Aready?.length > 0 ? Assigned_Aready : [],
       calculate_Length: {
         attach_Length: data?.attachments?.length,
         comments_Length: data?.comments?.length,
