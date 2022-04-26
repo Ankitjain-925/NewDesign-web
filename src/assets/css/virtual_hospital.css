@@ -10384,8 +10384,10 @@ button.dischrgInvoic span {
   color: #cfcfcf !important;
 }
 .darkTheme .err_message,
-.homeBgDrk .err_message {
-  color: red !important;
+.homeBgDrk .err_message,
+.darkTheme .err_message2,
+.homeBgDrk .err_message2{
+  color: #ff6262 !important;
 }
 .darkTheme .success_message,
 .homeBgDrk .success_message {
