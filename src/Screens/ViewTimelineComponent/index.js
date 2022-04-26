@@ -257,7 +257,7 @@ class Index extends Component {
                     label={notes}
                     value={this.state.updateTrack.remarks}
                     onChange={(e) => this.updateEntryState1(e, "remarks")}
-                    value={this.state.updateTrack.remarks}
+                    
                   />
 
                   <SelectByTwo

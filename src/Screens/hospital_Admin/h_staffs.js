@@ -16,14 +16,14 @@ import {
   getImage,
   blockClick,
 } from 'Screens/Components/BasicMethod/index';
-
+import { OptionList } from "Screens/Login/metadataaction";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SelectField from "Screens/Components/Select/index";
 import { getLanguage } from "./translations/index";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index";
-import { OptionList } from "Screens/Login/metadataaction";
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile";
 import { SearchUser } from "Screens/Components/Search";
+
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import Button from "@material-ui/core/Button";

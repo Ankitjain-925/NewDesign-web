@@ -1674,6 +1674,15 @@
     "go_to_scanner": "Gehen Sie zum Scanner",
     "go_to_check_with_email": "Gehen Sie zu E-Mail überprüfen",
     "Go_to_check_with_basic": "Gehen Sie zur Überprüfung mit grundlegenden Informationen",
-    "go_back_to_check_with_email": "Gehen Sie zurück, um mit E-Mail zu überprüfen"
+    "go_back_to_check_with_email": "Gehen Sie zurück, um mit E-Mail zu überprüfen",
+    "Step_name_already_exist":"Schrittname existiert bereits",
+    "Please_enter_case_number":"Bitte Fallnummer eingeben",
+    "Please_select_step":"Bitte Schritt auswählen",
+    "Please_add_email_of_patient":"Bitte fügen Sie die E-Mail des Patienten hinzu",
+    "Please_enter_information_of_patient":"Bitte geben Sie die vollständigen Informationen des Patienten ein",
+    "Patient_not_found_information":"Der Patient wird anhand der angegebenen Informationen nicht gefunden",
+    "Please_upload_document_approval_from_patient":"Bitte laden Sie das Genehmigungsdokument des Patienten hoch",
+    "Please_select_Step_name":"Bitte wählen Sie den Schrittnamen aus",
+    "":""
   }
 }

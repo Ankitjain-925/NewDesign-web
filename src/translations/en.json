@@ -1742,6 +1742,16 @@
     "go_to_scanner": "Go to scanner",
     "go_to_check_with_email": "Go to check with email",
     "Go_to_check_with_basic": "Go to check with basic informations",
-    "go_back_to_check_with_email": "Go back to check with email"
+    "go_back_to_check_with_email": "Go back to check with email",
+    "Sick_leave_cetificate":"Sick leave cetificate",
+    "Step_name_already_exist":"Step name already exist",
+    "Please_enter_case_number":"Please enter case number",
+    "Please_select_step":"Please select step",
+    "Please_add_email_of_patient":"Please add the email of patient",
+    "Please_enter_information_of_patient":"Please enter the full information of patient",
+    "Patient_not_found_information":"Patient is not found on the basis of given information",
+    "Please_upload_document_approval_from_patient":"Please upload the document of approval from patient",
+    "Please_select_Step_name":"Please select Step name"
+   
   }
 }

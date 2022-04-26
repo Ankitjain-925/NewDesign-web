@@ -56,6 +56,7 @@ class Index extends Component {
       loaderImage: false,
       fillall: false,
       onlineAppointments: {},
+      sickleaveappointment:{},
       UpDataDetails: {},
       DaysforPractices: {},
       firstServiceData: {},
@@ -243,6 +244,9 @@ class Index extends Component {
           if (weOffer.Offre_online_appointments == undefined) {
             weOffer.Offre_online_appointments = false;
           }
+          if (weOffer.offer_sickleave == undefined) {
+            weOffer.offer_sickleave = false;
+          }
           this.setState({ weoffer: weOffer });
         } else {
           this.setState({
@@ -252,6 +256,7 @@ class Index extends Component {
               Offer_online_sick_certificates: false,
               Offer_practice_appointment: false,
               Offre_online_appointments: false,
+              offer_sickleave: false,
             },
           });
         }
@@ -308,6 +313,7 @@ class Index extends Component {
       DaysforPractices,
       onlineAppointments,
       holidayAppointment,
+      sickleaveappointment,
     } = this.state;
     let dataSave = {};
 
@@ -336,6 +342,14 @@ class Index extends Component {
         onlineAppointments.duration_of_timeslots === 0)
     ) {
       this.setState({ appoinmentError: true });
+    } else if (
+      weoffer &&
+      weoffer.offer_sickleave &&
+      (!sickleaveappointment.duration_of_timeslots ||
+        sickleaveappointment.duration_of_timeslots === 0)
+     
+    ) {
+      this.setState({ appoinmentError: true });
     } else {
       if (firstServiceData.created) {
         dataSave["paid_services"].push(firstServiceData);
@@ -350,6 +364,8 @@ class Index extends Component {
       dataSave["days_for_practices"] = DaysforPractices;
       dataSave["online_appointment"] = onlineAppointments;
       dataSave["private_appointments"] = UpDataDetails;
+      dataSave["sickleave_appointment"] = sickleaveappointment ;
+   
 
       if (holidayAppointment["holidays"]) {
         dataSave["days_for_practices"]["holidays"] =
@@ -393,8 +409,10 @@ class Index extends Component {
       dataSave["days_for_practices"] = [dataSave["days_for_practices"]];
       dataSave["online_appointment"] = [dataSave["online_appointment"]];
       dataSave["private_appointments"] = [dataSave["private_appointments"]];
-      this.setState({ loaderImage: true, PrivateErr: false });
+      dataSave["sickleave_appointment"] = [ dataSave["sickleave_appointment"]];
     
+      this.setState({ loaderImage: true, PrivateErr: false });
+  
       axios
         .put(sitedata.data.path + "/UserProfile/Users/update", dataSave, commonHeader(user_token))
         .then((responce) => {
@@ -404,132 +422,132 @@ class Index extends Component {
           }, 5000);
         });
     }
-    // }
-    // else {
+    }
+//     else {
+//       this.setState({ appoinmentError: true })
+//     }
 
-    //     this.setState({ appoinmentError: true })
-    // }
+//     if (this.state.UpDataDetails.iduraton_of_timeslots && this.state.UpDataDetails.duration_of_timeslots !== 0) {
+//         let monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_end, thursday_start,
+//             friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, breakslot_start, breakslot_end,
+//             holidays_start, holidays_end
+//         const user_token = this.props.stateLoginValueAim.token;
+//         let doctor_id = this.props.stateLoginValueAim.user._id
+//         if (this.state.StandardSetting.monday == true) {
+//             monday_start = this.state.UpDataDetails.monday_start
+//             monday_end = this.state.UpDataDetails.monday_end
+//         } else {
+//             monday_start = ''
+//             monday_end = ''
+//         }
+//         if (this.state.StandardSetting.tuesday == true) {
+//             tuesday_start = this.state.UpDataDetails.tuesday_start
+//             tuesday_end = this.state.UpDataDetails.tuesday_end
+//         } else {
+//             tuesday_start = ''
+//             tuesday_end = ''
+//         }
+//         if (this.state.StandardSetting.wednesday == true) {
+//             wednesday_start = this.state.UpDataDetails.wednesday_start
+//             wednesday_end = this.state.UpDataDetails.wednesday_end
+//         } else {
+//             wednesday_start = ''
+//             wednesday_end = ''
+//         }
+//         if (this.state.StandardSetting.thursday == true) {
+//             thursday_end = this.state.UpDataDetails.thursday_end
+//             thursday_start = this.state.UpDataDetails.thursday_start
+//         } else {
+//             thursday_end = ''
+//             thursday_start = ''
+//         }
+//         if (this.state.StandardSetting.friday == true) {
+//             friday_start = this.state.UpDataDetails.friday_start
+//             friday_end = this.state.UpDataDetails.friday_end
+//         } else {
+//             friday_start = ''
+//             friday_end = ''
+//         }
+//         if (this.state.StandardSetting.saturday == true) {
+//             saturday_start = this.state.UpDataDetails.saturday_start
+//             saturday_end = this.state.UpDataDetails.saturday_end
+//         } else {
+//             saturday_start = ''
+//             saturday_end = ''
+//         }
+//         if (this.state.StandardSetting.sunday == true) {
+//             sunday_start = this.state.UpDataDetails.sunday_start
+//             sunday_end = this.state.UpDataDetails.sunday_end
+//         } else {
+//             sunday_start = ''
+//             sunday_end = ''
+//         }
+//         if (this.state.StandardSetting.breakslot == true) {
+//             breakslot_start = this.state.UpDataDetails.breakslot_start
+//             breakslot_end = this.state.UpDataDetails.breakslot_end
+//         } else {
+//             breakslot_start = ''
+//             breakslot_end = ''
+//         }
+//         if (this.state.StandardSetting.holidays == true) {
+//             holidays_start = this.state.UpDataDetails.holidays_start
+//             holidays_end = this.state.UpDataDetails.holidays_end
+//         } else {
+//             holidays_start = ''
+//             holidays_end = ''
+//         }
+//         this.setState({ loaderImage: true, PrivateErr: false });
+//         axios.put(sitedata.data.path + '/UserProfile/private_appointments/' + doctor_id, {
+//             type: 'private',
+//             doctor_id: this.state.UpDataDetails.doctor_id,
+//             monday_start: monday_start,
+//             monday_end: monday_end,
+//             tuesday_start: tuesday_start,
+//             tuesday_end: tuesday_end,
+//             wednesday_start: wednesday_start,
+//             wednesday_end: wednesday_end,
+//             thursday_start: thursday_start,
+//             thursday_end: thursday_end,
+//             friday_start: friday_start,
+//             friday_end: friday_end,
+//             saturday_start: saturday_start,
+//             saturday_end: saturday_end,
+//             sunday_start: sunday_start,
+//             sunday_end: sunday_end,
+//             breakslot_start: breakslot_start,
+//             breakslot_end: breakslot_end,
+//             appointment_days: this.state.UpDataDetails.appointment_days,
+//             appointment_hours: this.state.UpDataDetails.appointment_hours,
+//             duration_of_timeslots: this.state.UpDataDetails.duration_of_timeslots,
+//             holidays_start: holidays_start,
+//             holidays_end: holidays_end,
+//             monday: this.state.StandardSetting.monday,
+//             tuesday: this.state.StandardSetting.tuesday,
+//             wednesday: this.state.StandardSetting.wednesday,
+//             thursday: this.state.StandardSetting.thursday,
+//             friday: this.state.StandardSetting.friday,
+//             saturday: this.state.StandardSetting.saturday,
+//             sunday: this.state.StandardSetting.sunday,
+//             breakslot: this.state.StandardSetting.breakslot,
+//             holidays: this.state.StandardSetting.holidays,
+//             custom_text: this.state.CustomName.custom_text
+//         }, {
+//             headers: {
+//                 'token': user_token,
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//             .then((responce) => {
+//                 this.setState({ loaderImage: false });
+//             })
 
-    // if (this.state.UpDataDetails.duration_of_timeslots && this.state.UpDataDetails.duration_of_timeslots !== 0) {
-    //     let monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_end, thursday_start,
-    //         friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, breakslot_start, breakslot_end,
-    //         holidays_start, holidays_end
-    //     const user_token = this.props.stateLoginValueAim.token;
-    //     let doctor_id = this.props.stateLoginValueAim.user._id
-    //     if (this.state.StandardSetting.monday == true) {
-    //         monday_start = this.state.UpDataDetails.monday_start
-    //         monday_end = this.state.UpDataDetails.monday_end
-    //     } else {
-    //         monday_start = ''
-    //         monday_end = ''
-    //     }
-    //     if (this.state.StandardSetting.tuesday == true) {
-    //         tuesday_start = this.state.UpDataDetails.tuesday_start
-    //         tuesday_end = this.state.UpDataDetails.tuesday_end
-    //     } else {
-    //         tuesday_start = ''
-    //         tuesday_end = ''
-    //     }
-    //     if (this.state.StandardSetting.wednesday == true) {
-    //         wednesday_start = this.state.UpDataDetails.wednesday_start
-    //         wednesday_end = this.state.UpDataDetails.wednesday_end
-    //     } else {
-    //         wednesday_start = ''
-    //         wednesday_end = ''
-    //     }
-    //     if (this.state.StandardSetting.thursday == true) {
-    //         thursday_end = this.state.UpDataDetails.thursday_end
-    //         thursday_start = this.state.UpDataDetails.thursday_start
-    //     } else {
-    //         thursday_end = ''
-    //         thursday_start = ''
-    //     }
-    //     if (this.state.StandardSetting.friday == true) {
-    //         friday_start = this.state.UpDataDetails.friday_start
-    //         friday_end = this.state.UpDataDetails.friday_end
-    //     } else {
-    //         friday_start = ''
-    //         friday_end = ''
-    //     }
-    //     if (this.state.StandardSetting.saturday == true) {
-    //         saturday_start = this.state.UpDataDetails.saturday_start
-    //         saturday_end = this.state.UpDataDetails.saturday_end
-    //     } else {
-    //         saturday_start = ''
-    //         saturday_end = ''
-    //     }
-    //     if (this.state.StandardSetting.sunday == true) {
-    //         sunday_start = this.state.UpDataDetails.sunday_start
-    //         sunday_end = this.state.UpDataDetails.sunday_end
-    //     } else {
-    //         sunday_start = ''
-    //         sunday_end = ''
-    //     }
-    //     if (this.state.StandardSetting.breakslot == true) {
-    //         breakslot_start = this.state.UpDataDetails.breakslot_start
-    //         breakslot_end = this.state.UpDataDetails.breakslot_end
-    //     } else {
-    //         breakslot_start = ''
-    //         breakslot_end = ''
-    //     }
-    //     if (this.state.StandardSetting.holidays == true) {
-    //         holidays_start = this.state.UpDataDetails.holidays_start
-    //         holidays_end = this.state.UpDataDetails.holidays_end
-    //     } else {
-    //         holidays_start = ''
-    //         holidays_end = ''
-    //     }
-    //     this.setState({ loaderImage: true, PrivateErr: false });
-    //     axios.put(sitedata.data.path + '/UserProfile/private_appointments/' + doctor_id, {
-    //         type: 'private',
-    //         doctor_id: this.state.UpDataDetails.doctor_id,
-    //         monday_start: monday_start,
-    //         monday_end: monday_end,
-    //         tuesday_start: tuesday_start,
-    //         tuesday_end: tuesday_end,
-    //         wednesday_start: wednesday_start,
-    //         wednesday_end: wednesday_end,
-    //         thursday_start: thursday_start,
-    //         thursday_end: thursday_end,
-    //         friday_start: friday_start,
-    //         friday_end: friday_end,
-    //         saturday_start: saturday_start,
-    //         saturday_end: saturday_end,
-    //         sunday_start: sunday_start,
-    //         sunday_end: sunday_end,
-    //         breakslot_start: breakslot_start,
-    //         breakslot_end: breakslot_end,
-    //         appointment_days: this.state.UpDataDetails.appointment_days,
-    //         appointment_hours: this.state.UpDataDetails.appointment_hours,
-    //         duration_of_timeslots: this.state.UpDataDetails.duration_of_timeslots,
-    //         holidays_start: holidays_start,
-    //         holidays_end: holidays_end,
-    //         monday: this.state.StandardSetting.monday,
-    //         tuesday: this.state.StandardSetting.tuesday,
-    //         wednesday: this.state.StandardSetting.wednesday,
-    //         thursday: this.state.StandardSetting.thursday,
-    //         friday: this.state.StandardSetting.friday,
-    //         saturday: this.state.StandardSetting.saturday,
-    //         sunday: this.state.StandardSetting.sunday,
-    //         breakslot: this.state.StandardSetting.breakslot,
-    //         holidays: this.state.StandardSetting.holidays,
-    //         custom_text: this.state.CustomName.custom_text
-    //     }, {
-    //         headers: {
-    //             'token': user_token,
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //         .then((responce) => {
-    //             this.setState({ loaderImage: false });
-    //         })
+//     }
+//     else {
+//         this.setState({ PrivateErr: true })
+//     }
+//    };
 
-    // }
-    // else {
-    //     this.setState({ PrivateErr: true })
-    // }
-  };
 
   updateDaysforPractices = (e) => {
     const state = this.state.DaysforPractices;
@@ -684,6 +702,7 @@ class Index extends Component {
       this.setState({ PracticeErr: true });
     }
   }
+  
 
   updateOnlineAppointments = (e) => {
     const state = this.state.onlineAppointments;
@@ -838,8 +857,7 @@ class Index extends Component {
       this.setState({ PublicErr: true });
     }
   }
-
-  selectWeek = (stateChange, key) => {
+ selectWeek = (stateChange, key) => {
     let changestate = this.state[stateChange];
     if (changestate[key + "_start"] == "") {
       changestate[key + "_start"] = "00:00";
@@ -1005,6 +1023,7 @@ class Index extends Component {
       thirdServiceData,
       holidayAppointment,
       changeText,
+      sickleaveappointment,
       appoinmentError,
     } = this.state;
 
@@ -1014,6 +1033,7 @@ class Index extends Component {
       password,
       set_working_hours,
       Consultancy_custom_calendar,
+      Sick_leave_cetificate,
       minutes,
       is,
       we_use_authy,
@@ -1955,7 +1975,7 @@ class Index extends Component {
                     <Grid className="setSchedule">
                       <Grid className="nameSchedule">
                         <label>{set_timeslot_duration}</label>
-                      </Grid>
+                        </Grid>
                       <Grid className="nameSchedule">
                         <input
                           type="text"
@@ -2744,7 +2764,7 @@ class Index extends Component {
                     <Grid className="setSchedule">
                       <Grid className="nameSchedule">
                         <label>{set_timeslot_duration}</label>
-                      </Grid>
+                  </Grid>
                       <Grid className="nameSchedule">
                         <input
                           type="text"
@@ -3320,6 +3340,7 @@ class Index extends Component {
                               }
                             />
                           </Grid>
+                        
                           {DaysforPractices.monday_end == "" &&
                             DaysforPractices.tuesday_end == "" &&
                             DaysforPractices.wednesday_end == "" &&
@@ -3500,7 +3521,7 @@ class Index extends Component {
                     <Grid className="setSchedule">
                       <Grid className="nameSchedule">
                         <label>{set_timeslot_duration}</label>
-                      </Grid>
+                          </Grid>
                       <Grid className="nameSchedule">
                         <input
                           type="text"
@@ -3512,6 +3533,7 @@ class Index extends Component {
                         />{" "}
                         {minutes}
                       </Grid>
+                    
                     </Grid>
                   </Grid>
                   <Grid className="setScheduleUpr">
@@ -3591,6 +3613,7 @@ class Index extends Component {
                     </Grid>
                     <Grid>
                       <label>{appointment_can_be_cancelled}</label>
+                   
                     </Grid>
                     <Grid>
                       <p>
@@ -3603,6 +3626,762 @@ class Index extends Component {
                               e,
                               "appointment_hours",
                               "DaysforPractices"
+                            )
+                          }
+                        />{" "}
+                        {hourse_before_time_appointment}
+                        {this.state.val3 && (
+                          <div className="err_message">
+                            {notmore24}
+                          </div>
+                        )}
+                      </p>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid className="instBrdr">
+            <Grid container direction="row">
+              <Grid item xs={12} md={6}>
+                <Grid className="onlinSickVdo officVisit">
+                  <img
+                    src={require("assets/images/dates.png")}
+                    className="vdoCalNow mngDates"
+                    alt=""
+                    title=""
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="checkedB"
+                        color="#00ABAF"
+                        checked={
+                          weoffer && weoffer.offer_sickleave
+                            ? true
+                            : false
+                        }
+                        onChange={() =>
+                          this.handleweoffer("offer_sickleave")
+                        }
+                      />
+                    }
+                    label={Sick_leave_cetificate}
+                  />
+                </Grid>
+              </Grid>
+              {/* <Grid item xs={12} md={6}>
+                                <Grid className="enableTogle">
+                                    <label><Toggle icons={false} /></label>
+                                </Grid>
+                            </Grid> */}
+            </Grid>
+            <Grid className="wrkHourUpr">
+              <Grid container direction="row">
+                <Grid item xs={12} md={6}>
+                  <Grid className="wrkHour">
+                    <Grid>
+                      <label>{set_working_hours}</label>
+                    </Grid>
+                    <Grid>
+                      <a
+                        className={
+                         sickleaveappointment.monday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("sickleaveappointment", "monday")
+                        }
+                      >
+                        M
+                      </a>
+                      <a
+                        className={
+                         sickleaveappointment.tuesday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("sickleaveappointment", "tuesday")
+                        }
+                      >
+                        T
+                      </a>
+                      <a
+                        className={
+                         sickleaveappointment.wednesday_end !== "" &&
+                          "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("sickleaveappointment", "wednesday")
+                        }
+                      >
+                        {" "}
+                        W
+                      </a>
+                      <a
+                        className={
+                         sickleaveappointment.thursday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("sickleaveappointment", "thursday")
+                        }
+                      >
+                        T
+                      </a>
+                      <a
+                        className={
+                         sickleaveappointment.friday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("sickleaveappointment", "friday")
+                        }
+                      >
+                        F
+                      </a>
+                      <a
+                        className={
+                         sickleaveappointment.saturday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("sickleaveappointment", "saturday")
+                        }
+                      >
+                        S
+                      </a>
+                      <a
+                        className={
+                         sickleaveappointment.sunday_end !== "" && "seleted-days"
+                        }
+                        onClick={() =>
+                          this.selectWeek("sickleaveappointment", "sunday")
+                        }
+                      >
+                        S
+                      </a>
+                    </Grid>
+                  </Grid>
+                  <Grid className="dayScheduleUpr appointment">
+                    {sickleaveappointment.monday_end &&
+                     sickleaveappointment.monday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{monday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               sickleaveappointment.monday_start
+                                  ? this.getTime(sickleaveappointment.monday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "sickleaveappointment",
+                                  "monday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               sickleaveappointment.monday_end
+                                  ? this.getTime(sickleaveappointment.monday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "sickleaveappointment",
+                                  "monday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          <Grid>
+                            <p
+                              onClick={() =>
+                                this.copytoall("sickleaveappointment", "monday")
+                              }
+                            >
+                              <img
+                                src={require("assets/images/docscopy.svg")}
+                                alt=""
+                                title=""
+                              />
+                              {copy_to_all_time}{" "}
+                            </p>
+                          </Grid>
+                        </Grid>
+                      )}
+                    {sickleaveappointment.tuesday_end &&
+                     sickleaveappointment.tuesday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{tuseday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               sickleaveappointment.tuesday_start
+                                  ? this.getTime(sickleaveappointment.tuesday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "sickleaveappointment",
+                                  "tuesday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               sickleaveappointment.tuesday_end
+                                  ? this.getTime(sickleaveappointment.tuesday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "sickleaveappointment",
+                                  "tuesday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {sickleaveappointment.monday_end == "" && (
+                            <Grid>
+                              <p
+                                onClick={() =>
+                                  this.copytoall("sickleaveappointment", "tuesday")
+                                }
+                              >
+                                <img
+                                  src={require("assets/images/docscopy.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                {copy_time_to_all}{" "}
+                              </p>
+                            </Grid>
+                          )}
+                        </Grid>
+                      )}
+                    {sickleaveappointment.wednesday_end &&
+                     sickleaveappointment.wednesday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{wednesday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               sickleaveappointment.wednesday_start
+                                  ? this.getTime(
+                                   sickleaveappointment.wednesday_start
+                                  )
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "sickleaveappointment",
+                                  "wednesday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               sickleaveappointment.wednesday_end
+                                  ? this.getTime(sickleaveappointment.wednesday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "sickleaveappointment",
+                                  "wednesday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {sickleaveappointment.monday_end == "" &&
+                           sickleaveappointment.tuesday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall(
+                                      "sickleaveappointment",
+                                      "wednesday"
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {sickleaveappointment.thursday_end &&
+                     sickleaveappointment.thursday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{thursday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                               sickleaveappointment.thursday_start
+                                  ? this.getTime(
+                                   sickleaveappointment.thursday_start
+                                  )
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "sickleaveappointment",
+                                  "thursday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                sickleaveappointment.thursday_end
+                                  ? this.getTime(sickleaveappointment.thursday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "sickleaveappointment",
+                                  "thursday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {sickleaveappointment.monday_end == "" &&
+                            sickleaveappointment.tuesday_end == "" &&
+                            sickleaveappointment.wednesday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall(
+                                      "sickleaveappointment",
+                                      "thursday"
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {sickleaveappointment.friday_end &&
+                      sickleaveappointment.friday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{friday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                sickleaveappointment.friday_start
+                                  ? this.getTime(sickleaveappointment.friday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "sickleaveappointment",
+                                  "friday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                sickleaveappointment.friday_end
+                                  ? this.getTime(sickleaveappointment.friday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "sickleaveappointment",
+                                  "friday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {sickleaveappointment.monday_end == "" &&
+                            sickleaveappointment.tuesday_end == "" &&
+                            sickleaveappointment.wednesday_end == "" &&
+                            sickleaveappointment.thursday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall("sickleaveappointment", "friday")
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {sickleaveappointment.saturday_end &&
+                      sickleaveappointment.saturday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{saturday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                sickleaveappointment.saturday_start
+                                  ? this.getTime(
+                                    sickleaveappointment.saturday_start
+                                  )
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "sickleaveappointment",
+                                  "saturday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                sickleaveappointment.saturday_end
+                                  ? this.getTime(sickleaveappointment.saturday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "sickleaveappointment",
+                                  "saturday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {sickleaveappointment.monday_end == "" &&
+                            sickleaveappointment.tuesday_end == "" &&
+                            sickleaveappointment.wednesday_end == "" &&
+                            sickleaveappointment.thursday_end == "" &&
+                            sickleaveappointment.friday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall(
+                                      "sickleaveappointment",
+                                      "saturday"
+                                    )
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                    {sickleaveappointment.sunday_end &&
+                      sickleaveappointment.sunday_end !== "" && (
+                        <Grid className="daySchedule">
+                          <Grid>
+                            <label>{sunday}</label>
+                          </Grid>
+                          <Grid>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                sickleaveappointment.sunday_start
+                                  ? this.getTime(sickleaveappointment.sunday_start)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "start",
+                                  "sickleaveappointment",
+                                  "sunday"
+                                )
+                              }
+                            />
+                            <span>-</span>
+                            <TimeFormat
+                              name="time"
+                              value={
+                                sickleaveappointment.sunday_end
+                                  ? this.getTime(sickleaveappointment.sunday_end)
+                                  : new Date()
+                              }
+                              time_format={
+                                this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.time_format
+                              }
+                              onChange={(e) =>
+                                this.onChange(
+                                  e,
+                                  "end",
+                                  "sickleaveappointment",
+                                  "sunday"
+                                )
+                              }
+                            />
+                          </Grid>
+                          {sickleaveappointment.monday_end == "" &&
+                            sickleaveappointment.tuesday_end == "" &&
+                            sickleaveappointment.wednesday_end == "" &&
+                            sickleaveappointment.thursday_end == "" &&
+                            sickleaveappointment.friday_end == "" &&
+                            sickleaveappointment.saturday_end == "" && (
+                              <Grid>
+                                <p
+                                  onClick={() =>
+                                    this.copytoall("sickleaveappointment", "sunday")
+                                  }
+                                >
+                                  <img
+                                    src={require("assets/images/docscopy.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {copy_time_to_all}{" "}
+                                </p>
+                              </Grid>
+                            )}
+                        </Grid>
+                      )}
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Grid className="setScheduleUpr">
+                    <Grid className="setSchedule">
+                      <Grid className="nameSchedule">
+                        <label>{set_timeslot_duration}</label>
+                      </Grid>
+                      <Grid className="nameSchedule">
+                        <input
+                          type="text"
+                          name="duration_of_timeslots"
+                          value={sickleaveappointment.duration_of_timeslots}
+                          onChange={(e) =>
+                            this.changeDuration(e, "sickleaveappointment")
+                          }
+                        />{" "}
+                        {minutes}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid className="setScheduleUpr">
+                    <Grid className="setSchedule appointment">
+                      <Grid className="nameSchedule">
+                        <label>{break_time}</label>
+                      </Grid>
+                      
+                      <Grid className="nameSchedule">
+                        <TimeFormat
+                          name="time"
+                          value={
+                            sickleaveappointment.breakslot_start ||
+                              sickleaveappointment.breakslot_start === ""
+                              ? this.getTime(sickleaveappointment.breakslot_start)
+                              : new Date()
+                          }
+                          time_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.time_format
+                          }
+                          onChange={(e) =>
+                            this.onChange(
+                              e,
+                              "start",
+                              "sickleaveappointment",
+                              "breakslot"
+                            )
+                          }
+                        />
+                        <span>-</span>
+                        <TimeFormat
+                          name="time"
+                          value={
+                            sickleaveappointment.breakslot_end ||
+                            sickleaveappointment.breakslot_end === ""
+                              ? this.getTime(sickleaveappointment.breakslot_end)
+                              : new Date()
+                          }
+                          time_format={
+                            this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.time_format
+                          }
+                          onChange={(e) =>
+                            this.onChange(
+                              e,
+                              "end",
+                              "sickleaveappointment",
+                              "breakslot"
+                            )
+                          }
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid className="apontBook">
+                    <Grid>
+                      <label>{appointment_can_be_booked}</label>
+                      </Grid>
+                    <Grid>
+                      <p>
+                        <span>{up_to_days},</span>{" "}
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            this.onChangebook(
+                              e,
+                              "appointment_days",
+                              "sickleaveappointment"
+                            )
+                          }
+                          value={sickleaveappointment.appointment_days}
+                        />
+                        {before_day_of_appointment}
+                      </p>
+                    </Grid>
+                    <Grid>
+                      <label>{appointment_can_be_cancelled}</label>
+                    </Grid>
+                    <Grid>
+                      <p>
+                        <span>{Max},</span>{" "}
+                        <input
+                          type="text"
+                          value={sickleaveappointment.appointment_hours}
+                          onChange={(e) =>
+                            this.onChangebook(
+                              e,
+                              "appointment_hours",
+                              "sickleaveappointment"
                             )
                           }
                         />{" "}
