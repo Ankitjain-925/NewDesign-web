@@ -10553,7 +10553,10 @@ img.manage-size {
 }
 .darkTheme .insuranceHint,
 .darkTheme .profile-language.css-2b097c-container div,
-.homeBgDrk .profile-language.css-2b097c-container div {
+.homeBgDrk .profile-language.css-2b097c-container div,
+.darkTheme .profile-language.css-14jk2my-container div,
+.homeBgDrk .profile-language.css-14jk2my-container div
+{
   background-color: #404646 !important;
   color: #fff !important;
 }
