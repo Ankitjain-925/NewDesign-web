@@ -169,7 +169,7 @@ class Index extends Component {
       )
       .then((responce) => {
         socket.emit('update', responce);
-        let value = responce?.data?.data?.data?.current_available;
+        let value = responce?.data?.data?.current_available;
         this.setState({
           CheckCurrent: { current_available: value },
           loaderImage: false,
@@ -186,7 +186,6 @@ class Index extends Component {
       state[e.target.name] = e.target.checked
       localStorage.setItem('CheckCurrent', e.target.checked == true ? true : false);
       this.setState({ CheckCurrent: state , update: !this.state.update});
-      console.log('CheckCurrent',state, 'update',this.state.update);
       this.availableUpdate();
     };
 
