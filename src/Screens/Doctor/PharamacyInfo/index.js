@@ -594,7 +594,7 @@ class Index extends Component {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      value="checkedB"
+                      // value="checkedB"
                       color="#00ABAF"
                       checked={this.state.addtopatientlist}
                       onChange={(e) => {
