@@ -33,6 +33,8 @@ import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 import io from "socket.io-client";
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
 
 const specialistOptions = [
   { value: 'Specialist1', label: 'Specialist1' },
@@ -68,7 +70,7 @@ class Index extends Component {
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
-        socket = io("http://localhost:5000");
+        socket = io(SOCKET_URL);
 
     }
 
@@ -161,10 +163,10 @@ class Index extends Component {
             const AllPatient = res.data && res.data.data && res.data.data;
             socket.on("data_shown",(data)=>{
                 console.log('data', data)
-                var elementPos = AllPatient?.length>0 && AllPatient.map(function(x) {return x._id; }).indexOf(data?.data?._id);
+                var elementPos = AllPatient?.length>0 && AllPatient.map(function(x) {return x._id; }).indexOf(data?.data?.data?._id);
                 if(elementPos> -1){
                     console.log('sdfsdfdsf',data, data?.data, data?.data?.data)
-                    AllPatient[elementPos] = data?.data;
+                    AllPatient[elementPos] = data?.data?.data;
                     this.setState({MypatientsData: AllPatient})
                 } 
             })   
@@ -500,9 +502,9 @@ class Index extends Component {
                               <Td>{doctor.last_name && doctor.last_name}</Td>
                               <Td>{doctor.email && doctor.email}</Td>
                               <Td>{doctor.alies_id && doctor.alies_id}</Td>
-                              {doctor?.data &&
-                              doctor?.data?.current_available &&
-                              doctor?.data?.current_available === true ? (
+                              {doctor &&
+                              doctor?.current_available &&
+                              doctor?.current_available === true ? (
                                 <Td style={{ minWidth: '100px' }}>
                                   <span className="revwGren"></span>
                                   {Yes}
