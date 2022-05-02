@@ -207,6 +207,7 @@ class Index extends Component {
         allWards: wardsFullData,
         selectWard: getCurrentWard?.[0],
         check: check,
+        showField : data?.filter === 'Appointment'   ? false : true,
         tabvalue: tabvalue,
       });
     }
@@ -607,7 +608,7 @@ class Index extends Component {
       });
     } else if (tabvalue == 1) {
       this.setState({
-        showField: true,
+        showField: false,
         setFilter: 'Appointment',
         userFilter: '',
         selectSpec2: this.state.selectSpec2,
@@ -1541,8 +1542,8 @@ class Index extends Component {
                             />
                           </Grid>
                         </Grid> */}
-                        {this.state.showField && (
-                          <>
+                        {/* {this.state.showField && ( */}
+                         
                             <Grid className="fltrInput">
                               <label>{speciality}</label>
                               <Grid className="addInput">
@@ -1576,25 +1577,8 @@ class Index extends Component {
                                   </Grid>
                                 </Grid>
                               )}
-                            {/* 
-                          {this.state.roomList && this.state.roomList.length > 0 &&
-                            <Grid className="fltrInput">
-                              <label>{Room}</label>
-                              <Grid className="addInput">
-                                <Select
-                                  onChange={(e) => this.onRoomChange(e)}
-                                  options={this.state.roomList}
-                                  name="room_name"
-                                  value={this.state.selectRoom}
-                                  placeholder={FilterbyRoom}
-                                  isMulti={false}
-                                  className="addStafSelect"
-                                  isSearchable={true} />
-                              </Grid>
-                            </Grid>
-                          } */}
-
-                            <Grid className="fltrInput">
+                           {this.state.showField && <Grid className="fltrInput">
+                           
                               <Grid>
                                 <label>{Taskstatus}</label>
                               </Grid>
@@ -1636,9 +1620,9 @@ class Index extends Component {
                                   label={done}
                                 />
                               </Grid>
-                            </Grid>
-                          </>
-                        )}
+                            </Grid>}
+                      
+                        {/* )} */}
                       </Grid>
                       <Grid className="aplyFltr">
                         <Grid className="aplyLft">
