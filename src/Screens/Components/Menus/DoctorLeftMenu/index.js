@@ -210,7 +210,6 @@ class Index extends Component {
           CheckCurrent: { current_available: value },
           loaderImage: false,
         });
-        console.log('value', value, this.props);
         this.props.currentAvaliable({current_available: value});  
       })
       .catch((error) => {
@@ -262,8 +261,6 @@ class Index extends Component {
             <img src={require('assets/images/LogoPNG.png')} alt="" title="" />
           </a>
         </Grid>
-
-{console.log('this.props.CheckCurrent', this.props.CheckCurrent)}
         <Grid className="menuCheckBox">
           <Checkbox
             name="current_available"
@@ -287,7 +284,7 @@ class Index extends Component {
 
         <Grid className="menuItems">
           <ul>
-          {(!this.props?.House?.value || (this.props?.House?.value && this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('appointment_manager'))) && (<li
+          <li
               className={
                 this.props.currentPage === 'appointment' ? 'menuActv' : ''
               }
@@ -311,10 +308,10 @@ class Index extends Component {
                 )}
                 <span>{appointments}</span>
               </a>
-            </li>)}
+            </li>
             {this.props?.House?.value && (
               <>
-               {this.props?.House?.roles?.length>0 && this.props?.House?.roles.includes('task_manager') && <li
+               <li
                   className={
                     this.props.currentPage === 'task' ? 'menuActv' : ''
                   }
@@ -342,7 +339,7 @@ class Index extends Component {
                     )}
                     <span>{ProfessionalTask}</span>
                   </a>
-                </li>}
+                </li>
                 <li
                   className={
                     this.props.currentPage === 'institute' ? 'menuActv' : ''
