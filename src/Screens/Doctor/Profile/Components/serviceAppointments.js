@@ -184,6 +184,46 @@ class Index extends Component {
             PracticesSetting: daysForPractices,
           });
         }
+        let sickleaveappointment = null;
+        sickleaveappointment  = response.data.data.sickleave_appointment[0];
+        if (sickleaveappointment) {
+          if (sickleaveappointment.holidays) {
+            this.setState({
+              holidayAppointment: {
+                holidays_start:
+                sickleaveappointment.holidays_start !== ""
+                    ? sickleaveappointment.holidays_start
+                    : new Date(),
+                holidays_end:
+                sickleaveappointment.holidays_end !== ""
+                    ? sickleaveappointment.holidays_end
+                    : new Date(),
+                holidays: sickleaveappointment.holidays,
+              },
+            });
+          }
+
+          keysArray.map((key) => {
+            if (sickleaveappointment[key] == undefined) {
+              sickleaveappointment[key] = apoinmentdata[key];
+            }
+          });
+          this.setState({
+            sickleaveappointment: sickleaveappointment,
+            Sickleavesetting: sickleaveappointment,
+          });
+        } else {
+          sickleaveappointment = {};
+          keysArray.map((key) => {
+            if (sickleaveappointment[key] == undefined) {
+              sickleaveappointment[key] = apoinmentdata[key];
+            }
+          });
+          this.setState({
+            sickleaveappointment: sickleaveappointment,
+            Sickleavesetting: sickleaveappointment,
+          });
+        }
 
         let onlineAppointment = null;
         onlineAppointment = response.data.data.online_appointment[0];
@@ -691,6 +731,144 @@ class Index extends Component {
             sunday: this.state.PracticesSetting.sunday,
             breakslot: this.state.PracticesSetting.breakslot,
             holidays: this.state.PracticesSetting.holidays,
+            custom_text: "offline",
+          },
+          commonHeader(user_token)
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+        });
+    } else {
+      this.setState({ PracticeErr: true });
+    }
+  }
+  savesickleaveappointment() {
+    if (
+      this.state.sickleaveappointment.duration_of_timeslots &&
+      this.state.sickleaveappointment.duration_of_timeslots !== 0
+    ) {
+      this.setState({ loaderImage: true, PracticeErr: false });
+      let monday_start,
+        monday_end,
+        tuesday_start,
+        tuesday_end,
+        wednesday_start,
+        wednesday_end,
+        thursday_end,
+        thursday_start,
+        friday_start,
+        friday_end,
+        saturday_start,
+        saturday_end,
+        sunday_start,
+        sunday_end,
+        breakslot_start,
+        breakslot_end,
+        holidays_start,
+        holidays_end;
+      const user_token = this.props.stateLoginValueAim.token;
+      let doctor_id = this.props.stateLoginValueAim.user._id;
+      if (this.state.Sickleavesetting.monday == true) {
+        monday_start = this.state.sickleaveappointment.monday_start;
+        monday_end = this.state.sickleaveappointment.monday_end;
+      } else {
+        monday_start = "";
+        monday_end = "";
+      }
+      if (this.state.Sickleavesetting.tuesday == true) {
+        tuesday_start = this.state.sickleaveappointment.tuesday_start;
+        tuesday_end = this.state.sickleaveappointment.tuesday_end;
+      } else {
+        tuesday_start = "";
+        tuesday_end = "";
+      }
+      if (this.state.Sickleavesetting.wednesday == true) {
+        wednesday_start = this.state.sickleaveappointment.wednesday_start;
+        wednesday_end = this.state.sickleaveappointment.wednesday_end;
+      } else {
+        wednesday_start = "";
+        wednesday_end = "";
+      }
+      if (this.state.Sickleavesetting.thursday == true) {
+        thursday_end = this.state.sickleaveappointment.thursday_end;
+        thursday_start = this.state.sickleaveappointment.thursday_start;
+      } else {
+        thursday_end = "";
+        thursday_start = "";
+      }
+      if (this.state.Sickleavesetting.friday == true) {
+        friday_start = this.state.sickleaveappointment.friday_start;
+        friday_end = this.state.sickleaveappointment.friday_end;
+      } else {
+        friday_start = "";
+        friday_end = "";
+      }
+      if (this.state.Sickleavesetting.saturday == true) {
+        saturday_start = this.state.sickleaveappointment.saturday_start;
+        saturday_end = this.state.sickleaveappointment.saturday_end;
+      } else {
+        saturday_start = "";
+        saturday_end = "";
+      }
+      if (this.state.Sickleavesetting.sunday == true) {
+        sunday_start = this.state.sickleaveappointment.sunday_start;
+        sunday_end = this.state.sickleaveappointment.sunday_end;
+      } else {
+        sunday_start = "";
+        sunday_end = "";
+      }
+      if (this.state.Sickleavesetting.breakslot == true) {
+        breakslot_start = this.state.sickleaveappointment.breakslot_start;
+        breakslot_end = this.state.sickleaveappointment.breakslot_end;
+      } else {
+        breakslot_start = "";
+        breakslot_end = "";
+      }
+      if (this.state.Sickleavesetting.holidays == true) {
+        holidays_start = this.state.sickleaveappointment.holidays_start;
+        holidays_end = this.state.sickleaveappointment.holidays_end;
+      } else {
+        holidays_start = "";
+        holidays_end = "";
+      }
+
+      axios
+        .put(
+          sitedata.data.path + "/UserProfile/sickleaveappointment/" + doctor_id,
+          {
+            type: "private",
+            doctor_id: this.state.sickleaveappointment.doctor_id,
+            monday_start: monday_start,
+            monday_end: monday_end,
+            tuesday_start: tuesday_start,
+            tuesday_end: tuesday_end,
+            wednesday_start: wednesday_start,
+            wednesday_end: wednesday_end,
+            thursday_start: thursday_start,
+            thursday_end: thursday_end,
+            friday_start: friday_start,
+            friday_end: friday_end,
+            saturday_start: saturday_start,
+            saturday_end: saturday_end,
+            sunday_start: sunday_start,
+            sunday_end: sunday_end,
+            breakslot_start: breakslot_start,
+            breakslot_end: breakslot_end,
+            appointment_days: this.state.sickleaveappointment.appointment_days,
+            appointment_hours: this.state.sickleaveappointment.appointment_hours,
+            duration_of_timeslots: this.state.sickleaveappointment
+              .duration_of_timeslots,
+            holidays_start: holidays_start,
+            holidays_end: holidays_end,
+            monday: this.state.Sickleavesetting.monday,
+            tuesday: this.state.Sickleavesetting.tuesday,
+            wednesday: this.state.Sickleavesetting.wednesday,
+            thursday: this.state.Sickleavesetting.thursday,
+            friday: this.state.Sickleavesetting.friday,
+            saturday: this.state.Sickleavesetting.saturday,
+            sunday: this.state.Sickleavesetting.sunday,
+            breakslot: this.state.Sickleavesetting.breakslot,
+            holidays: this.state.Sickleavesetting.holidays,
             custom_text: "offline",
           },
           commonHeader(user_token)
@@ -4347,7 +4525,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid className="apontBook">
+                  {/* <Grid className="apontBook">
                     <Grid>
                       <label>{appointment_can_be_booked}</label>
                       </Grid>
@@ -4393,7 +4571,7 @@ class Index extends Component {
                         )}
                       </p>
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>
