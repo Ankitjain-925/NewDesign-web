@@ -28,6 +28,9 @@ import SelectField from "Screens/Components/Select/index";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
+import io from "socket.io-client";
+import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
+const SOCKET_URL = GetSocketUrl();
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -58,12 +61,290 @@ class Index extends Component {
             UpDataDetails: {},
             deleteHouses: {},
             type: 'doctor',
-            checkboxdata:""
+            // checkboxdata:""
+        };
+        // new Timer(this.logOutClick.bind(this)) 
+        this.search_user = this.search_user.bind(this)
+        socket = io(SOCKET_URL);
+
+    }
+
+    getallGroups = () => {
+        var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path +
+                `/hospitaladmin/institute/${institute_id}`,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed && responce.data.data) {
+                    var Housesoptions = [];
+                    if (responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length > 0) {
+                        responce.data.data.institute_groups.map((data) => {
+                            data?.houses && data.houses.length > 0 && data.houses.map((item) => {
+                                Housesoptions.push({
+                                    group_name: data.group_name,
+                                    label: item.house_name,
+                                    value: item.house_id
+                                })
+                                this.setState({ Housesoptions: Housesoptions });
+                                // this.setState({checkboxdata:this.props.metadata.authority.doctor_roles})
+                            })
+                        })
+                    }
+                }
+                this.setState({ loaderImage: false });
+            });
+    };
+
+    componentDidMount = () => {
+        socket.on('connection', () => {
+          })
+          
+        this.getAllkyc()
+        this.getDoctors();
+        this.getallGroups();
+
+      
+    }
+
+    handleOpenCreate = () => {
+        this.setState({ addCreate: true })
+    }
+    handleCloseCreate = () => {
+        this.getDoctors()
+        this.setState({ addCreate: false })
+    }
+
+ 
+  search_user = (event) => {
+    if (event.target.value == '') {
+      this.setState({ MypatientsData: this.state.forSearch });
+      this.onChangePage(1);
+    } else {
+      let serach_value = SearchUser(event.target.value, this.state.forSearch);
+      this.setState({ MypatientsData: serach_value });
+    }
+  };
+
+    openDetail = (patient) => {
+        this.setState({ openDetial: true, current_user: patient })
+    }
+    CloseDetail = () => {
+        this.setState({ openDetial: false })
+    }
+
+    getAllkyc() {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/User/getAllKyc',
+            commonHeader(user_token)
+        )
+            .then((response) => {
+                this.setState({ getAllkyc: response.data.data });
+            }).catch((error) => { });
+
+    }
+
+   
+    getDoctors = (currentID) => {
+        let { currentPage, type } = this.state
+        var user_token = this.props.stateLoginValueAim.token;
+        this.setState({ loaderImage: true })
+        let res = allusers(currentPage, user_token, type, this.props.stateLoginValueAim.user.institute_id)
+        res.then((res) => {
+            var images = [];
+            const AllPatient = res.data && res.data.data && res.data.data;
+            socket.on("data_shown",(data)=>{
+                console.log('data', data)
+                var elementPos = AllPatient?.length>0 && AllPatient.map(function(x) {return x._id; }).indexOf(data?.data?.data?._id);
+                if(elementPos> -1){
+                    console.log('sdfsdfdsf',data, data?.data, data?.data?.data)
+                    AllPatient[elementPos] = data?.data?.data;
+                    this.setState({MypatientsData: AllPatient})
+                } 
+            })   
+            this.setState({ AllPatient: AllPatient, forSearch: AllPatient })
+            AllPatient && AllPatient.length > 0 && AllPatient.map((item) => {
+                var find = item && item.image && item.image
+                if (find) {
+                    var find1 = find.split('.com/')[1]
+                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                        .then((response2) => {
+                            if (response2.data.hassuccessed) {
+                                item.new_image = response2.data.data
+                                images.push({ image: find, new_image: response2.data.data })
+                                this.setState({ images: images })
+                            }
+                        })
+                }
+                if (currentID) {
+                  var current_user =
+                    AllPatient?.length > 0 &&
+                    AllPatient.filter((item) => item._id === currentID);
+                  this.setState({ current_user: current_user?.[0] });
+                }
+                this.setState({
+                  loaderImage: false,
+                  totalPage: Math.ceil(res.data.Total_count / 20),
+                  MypatientsData: this.state.AllPatient,
+                  TotalCount: res.data.Total_count,
+                });
+              });
+          
+        });
+
+    
+  };
+
+  submitDelete = (deletekey, profile_id, bucket) => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { DeleteUser, Yes, No, click_on_YES_user, are_you_sure } = translate;
+
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <Grid
+            className={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'dark-confirm deleteStep'
+                : 'deleteStep'
+            }
+          >
+            <Grid className="deleteStepLbl">
+              <Grid>
+                <a
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  <img
+                    src={require('assets/images/close-search.svg')}
+                    alt=""
+                    title=""
+                  />
+                </a>
+              </Grid>
+              <label>{DeleteUser}</label>
+            </Grid>
+            <Grid className="deleteStepInfo">
+              <p>{click_on_YES_user}</p>
+              <Grid>
+                <label>{are_you_sure}</label>
+              </Grid>
+              <Grid>
+                <Button
+                  onClick={() => {
+                    this.deleteClick(deletekey, profile_id, bucket);
+                  }}
+                >
+                  {Yes}
+                </Button>
+                <Button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  {No}
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        );
+      },
+    });
+  };
+
+  deleteClick = (deletekey, profile_id, bucket) => {
+    this.setState({ loaderImage: true });
+    const user_token = this.props.stateLoginValueAim.token;
+    axios
+      .delete(
+        sitedata.data.path +
+          '/admin/deleteUser/' +
+          deletekey +
+          '?bucket=' +
+          bucket,
+        commonHeader(user_token)
+      )
+      .then((response) => {
+        this.setState({ loaderImage: false });
+        var data = JSON.stringify({ permanent: true });
+
+        var config = {
+          method: 'delete',
+          url:
+            'https://api-eu.cometchat.io/v2.0/users/' +
+            profile_id.toLowerCase(),
+          headers: commonCometDelHeader(),
+          data: data,
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
 
+        axios(config)
+          .then(function (response) {})
+          .catch(function (error) {});
+        this.getDoctors();
+    })
+  }
+
+    onChangePage = (pageNumber) => {
+        this.setState({ currentPage: pageNumber },
+            () => {
+                this.getDoctors();
+            })
     }
+
+    assignHouse = (patient) => {
+        this.setState({ openHouse: true, current_user: patient })
+    };
+
+    closeHouse = () => {
+        this.setState({ openHouse: false })
+    };
+
+    updateEntryState1 = (value, name) => {
+        this.setState({ house: value });
+    }
+
+    SaveAssignHouse = () => {
+      var userid = this.state.current_user._id;
+      var housevalue = this.state.house;
+      this.setState({ loaderImage: true });
+      if (housevalue && housevalue?.value) {
+        axios
+          .put(
+            sitedata.data.path + `/hospitaladmin/assignedHouse/${userid}`,
+            this.state.house,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+              this.setState({ assignedhouse: true, house: {} });
+              setTimeout(() => {
+                this.setState({ assignedhouse: false });
+              }, 5000);
+              this.getallGroups();
+              this.getDoctors(this.state.current_user._id);
+            }
+            this.setState({ loaderImage: false });
+          });
+      } else {
+        this.setState({
+          assignedhouse: false,
+          alredyExist: false,
+          blankerror: true,
+          loaderImage: false,
+        });
+        setTimeout(() => {
+          this.setState({ blankerror: false });
+        }, 5000);
+      }
+    };
 
     getallGroups = () => {
         var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
@@ -415,78 +696,168 @@ class Index extends Component {
                                         House id deleted from the doctor
                                         </div>
                                     )} */}
-                                    <Grid className="archvOpinionIner">
-                                        <Table>
-                                            <Thead>
-                                                <Tr>
-                                                    <Th>{no_}</Th>
-                                                    <Th>{recEmp_FirstName}</Th>
-                                                    <Th>{recEmp_LastName}</Th>
-                                                    <Th>{imprint_Email}</Th>
-                                                    <Th>{ID}</Th>
-                                                    <Th>Currently available</Th>
-                                                    <Th></Th>
-                                                    <Th></Th>
-                                                </Tr>
-                                            </Thead>
-                                            <Tbody>
-                                                {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((doctor, i) => (
-                                                    <Tr>
-                                                        <Td>{((this.state.currentPage - 1) * 20) + i + 1}</Td>
-                                                        <Td className="patentPic"><S3Image imgUrl={doctor?.image} />
-                                                            {doctor.first_name && doctor.first_name}</Td>
-                                                        <Td>{doctor.last_name && doctor.last_name}</Td>
-                                                        <Td>{doctor.email && doctor.email}</Td>
-                                                        <Td>{doctor.alies_id && doctor.alies_id}</Td>
-                                                        {doctor?.data && doctor?.data?.current_available && doctor?.data?.current_available === true ?
-                                                            <Td style={{ minWidth: "100px" }} ><span className="revwGren"></span>{Yes}</Td> :
-                                                            <Td style={{ minWidth: "100px" }}><span className="revwRed"></span>{No}</Td>}
-                                                        {doctor.isblock && doctor.isblock == true ?
-                                                            <Td style={{ minWidth: "100px" }}><span className="revwRed"></span>{Blocked}</Td >
-                                                            : <Td><span className="revwGren"></span>{Normal}</Td>
-                                                        }
-                                                        <Td className="billDots">
-                                                            <a className="academy_ul">
-                                                                <InfoIcon className="infoIconCol" />
-                                                                <ul className="listBullets">
-                                                                    <li>
-                                                                        <h6 className="assignHos">Assigned Hospitals</h6>
-                                                                        {doctor &&
-                                                                            doctor?.houses &&
-                                                                            doctor?.houses?.length > 0 ?
-                                                                            doctor?.houses.map((item) => <div className="assHosList">{(item?.label)}</div>)
-                                                                            :
-                                                                            <Grid className="noHosAss">No hospitals!</Grid>}
-                                                                    </li>
-                                                                </ul>
-                                                            </a>
-                                                        </Td>
-                                                        <Td className="billDots">
-                                                            <a className="academy_ul">
-                                                                <img src={require('assets/virtual_images/threeDots.png')} alt="" title="" className="academyDots" />
-                                                                <ul>
-                                                                    <li onClick={() => this.openDetail(doctor)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={() => this.BlockUser(doctor._id, doctor.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{doctor.isblock && doctor.isblock == true ? 'Unblock' : 'Block'}</a></li>
-                                                                    <li onClick={() => this.assignHouse(doctor)}>
-                                                                        <a>
-                                                                            <span>
-                                                                                <img
-                                                                                    src={require("assets/images/admin/details1.svg")}
-                                                                                    alt=""
-                                                                                    title=""
-                                                                                />
-                                                                            </span>
-                                                                            {ManageHouse}
-                                                                        </a>
-                                                                    </li>
-                                                                    <li onClick={() => this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
-                                                                </ul>
-                                                            </a>
-                                                        </Td>
-                                                    </Tr>
-                                                ))}
-                                            </Tbody>
-                                        </Table>
+                  <Grid className="archvOpinionIner">
+                    <Table>
+                      <Thead>
+                        <Tr>
+                          <Th>{no_}</Th>
+                          <Th>{recEmp_FirstName}</Th>
+                          <Th>{recEmp_LastName}</Th>
+                          <Th>{imprint_Email}</Th>
+                          <Th>{ID}</Th>
+                          <Th>Currently available</Th>
+                          <Th></Th>
+                          <Th></Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        {this.state.MypatientsData &&
+                          this.state.MypatientsData.length > 0 &&
+                          this.state.MypatientsData.map((doctor, i) => (
+                            <Tr>
+                              <Td>
+                                {(this.state.currentPage - 1) * 20 + i + 1}
+                              </Td>
+                              <Td className="patentPic">
+                                <S3Image imgUrl={doctor?.image} />
+                                {doctor.first_name && doctor.first_name}
+                              </Td>
+                              <Td>{doctor.last_name && doctor.last_name}</Td>
+                              <Td>{doctor.email && doctor.email}</Td>
+                              <Td>{doctor.alies_id && doctor.alies_id}</Td>
+                              {doctor &&
+                              doctor?.current_available &&
+                              doctor?.current_available === true ? (
+                                <Td style={{ minWidth: '100px' }}>
+                                  <span className="revwGren"></span>
+                                  {Yes}
+                                </Td>
+                              ) : (
+                                <Td style={{ minWidth: '100px' }}>
+                                  <span className="revwRed"></span>
+                                  {No}
+                                </Td>
+                              )}
+                              {doctor.isblock && doctor.isblock == true ? (
+                                <Td style={{ minWidth: '100px' }}>
+                                  <span className="revwRed"></span>
+                                  {Blocked}
+                                </Td>
+                              ) : (
+                                <Td>
+                                  <span className="revwGren"></span>
+                                  {Normal}
+                                </Td>
+                              )}
+                              <Td className="billDots">
+                                <a className="academy_ul">
+                                  <InfoIcon className="infoIconCol" />
+                                  <ul className="listBullets">
+                                    <li>
+                                      <h6 className="assignHos">
+                                        Assigned Hospitals
+                                      </h6>
+                                      {doctor &&
+                                      doctor?.houses &&
+                                      doctor?.houses?.length > 0 ? (
+                                        doctor?.houses.map((item) => (
+                                          <div className="assHosList">
+                                            {item?.label}
+                                          </div>
+                                        ))
+                                      ) : (
+                                        <Grid className="noHosAss">
+                                          No hospitals!
+                                        </Grid>
+                                      )}
+                                    </li>
+                                  </ul>
+                                </a>
+                              </Td>
+                              <Td className="billDots">
+                                <a className="academy_ul">
+                                  <img
+                                    src={require('assets/virtual_images/threeDots.png')}
+                                    alt=""
+                                    title=""
+                                    className="academyDots"
+                                  />
+                                  <ul>
+                                    <li onClick={() => this.openDetail(doctor)}>
+                                      <a>
+                                        <span>
+                                          <img
+                                            src={require('assets/images/admin/details1.svg')}
+                                            alt=""
+                                            title=""
+                                          />
+                                        </span>
+                                        {see_detail}
+                                      </a>
+                                    </li>
+                                    <li
+                                      onClick={() =>
+                                        this.BlockUser(
+                                          doctor._id,
+                                          doctor.isblock
+                                        )
+                                      }
+                                    >
+                                      <a>
+                                        <span>
+                                          <img
+                                            src={require('assets/images/admin/restoreIcon.png')}
+                                            alt=""
+                                            title=""
+                                          />
+                                        </span>
+                                        {doctor.isblock &&
+                                        doctor.isblock == true
+                                          ? 'Unblock'
+                                          : 'Block'}
+                                      </a>
+                                    </li>
+                                    <li
+                                      onClick={() => this.assignHouse(doctor)}
+                                    >
+                                      <a>
+                                        <span>
+                                          <img
+                                            src={require('assets/images/admin/details1.svg')}
+                                            alt=""
+                                            title=""
+                                          />
+                                        </span>
+                                        {ManageHouse}
+                                      </a>
+                                    </li>
+                                    <li
+                                      onClick={() =>
+                                        this.submitDelete(
+                                          doctor._id,
+                                          doctor.profile_id,
+                                          doctor.bucket
+                                        )
+                                      }
+                                    >
+                                      <a>
+                                        <span>
+                                          <img
+                                            src={require('assets/images/admin/delIcon.png')}
+                                            alt=""
+                                            title=""
+                                          />
+                                        </span>
+                                        {Delete}
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </a>
+                              </Td>
+                            </Tr>
+                          ))}
+                      </Tbody>
+                    </Table>
 
                                         <Grid className="tablePagNum">
                                             <Grid container direction="row">

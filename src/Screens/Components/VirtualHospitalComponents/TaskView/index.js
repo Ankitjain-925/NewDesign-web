@@ -192,7 +192,7 @@ class PointPain extends Component {
                             <>{see_details}</>
                           ) : data.task_type &&
                             data.task_type === 'picture_evaluation' &&
-                            this.props.comesFrom === 'adminstaff' ? (
+                            (this.props.comesFrom === 'adminstaff' || this.props.comesFrom === "detailTask") ? (
                             <>{assign_to_doctor}</>
                           ) : (
                             <>{EditTask}</>
