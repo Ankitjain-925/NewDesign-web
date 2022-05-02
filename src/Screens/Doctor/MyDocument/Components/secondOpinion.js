@@ -122,9 +122,13 @@ class Index extends Component {
     }
 
     saveUserData(id) {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {
+            please_upload_documents
+        } = translate;
         this.setState({ serverMsg: "" })
         if (this.state.uploadedimage == "") {
-            this.setState({ serverMsg: "please upload documents" })
+            this.setState({ serverMsg: please_upload_documents})
         } else {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
@@ -290,7 +294,7 @@ class Index extends Component {
                             <Tr>
                                 <Th>{Case}</Th>
                                 <Th>{sent_on}</Th>
-                                <Th>{Pateint}</Th>
+                                <Th>{Patient}</Th>
                                 <Th>{status}</Th>
                             </Tr>
                         </Thead>

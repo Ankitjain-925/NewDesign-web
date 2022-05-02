@@ -27,7 +27,7 @@ class PointPain extends Component {
     }
   };
 
-  componentDidMount = () => {};
+  componentDidMount = () => { };
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -40,6 +40,9 @@ class PointPain extends Component {
       edit_picture_evaluation,
       decline_picture_evaluation,
       Declined,
+      view_detail,
+      decline,
+      approved
     } = translate;
     var data = this.state.data;
     return (
@@ -75,6 +78,7 @@ class PointPain extends Component {
                   />
                 </Grid>
                 <Grid>
+
                   <label>{data.task_name}</label>
                 </Grid>
               </Grid>
@@ -121,8 +125,8 @@ class PointPain extends Component {
                     data?.is_decline === true
                       ? 'attchDecline'
                       : data.status === 'done'
-                      ? 'attchDone'
-                      : 'attchOpen'
+                        ? 'attchDone'
+                        : 'attchOpen'
                   }
                 >
                   <Button>
@@ -180,10 +184,11 @@ class PointPain extends Component {
                             alt=""
                             title=""
                           />
+
                           {data &&
-                          data.task_type &&
-                          data.task_type === 'picture_evaluation' &&
-                          this.props.comesFrom === 'Professional' ? (
+                            data.task_type &&
+                            data.task_type === 'picture_evaluation' &&
+                            this.props.comesFrom === 'Professional' ? (
                             <>{edit_picture_evaluation}</>
                           ) : data.task_type &&
                             data.task_type === 'picture_evaluation' &&
@@ -194,14 +199,45 @@ class PointPain extends Component {
                             data.task_type === 'picture_evaluation' &&
                             this.props.comesFrom === 'adminstaff' ? (
                             <>{assign_to_doctor}</>
+                          ) : data.task_type &&
+                            data.task_type === 'sick_leave' &&
+                            this.props.comesFrom === 'Professional' ? (
+                            <>{view_detail}</>
                           ) : (
-                            <>{EditTask}</>
+                            (
+                              <>{EditTask}</>
+                            )
                           )}
                         </a>
                       </li>
+                      { data &&
+                        data.task_type &&
+                        data.task_type === 'sick_leave' &&  
+                        this.props.comesFrom === 'Professional' ? (
+
+                        <li
+                        onClick={() => {
+                          this.props.handleApprovedDetails(data._id, 'approved')
+                          console.log('data',data._id,  approved)
+                        }}
+                        >
+                          <a>
+                          <img
+                            src={require('assets/virtual_images/pencil-1.svg')}
+                            alt=""
+                            title=""
+                          />
+                            <>{approved}</>
+                          </a>
+                        </li>
+                      
+                        ):(
+                          <></>
+                        )}
+
                       {data &&
-                      data.task_type &&
-                      data.task_type === 'picture_evaluation' ? (
+                        data.task_type &&
+                        data.task_type === 'picture_evaluation' ? (
                         this.props.comesFrom !== 'Professional' &&
                         data?.assinged_to?.length == 0 && (
                           <li
@@ -219,10 +255,16 @@ class PointPain extends Component {
                             </a>
                           </li>
                         )
-                      ) : (
+                      ) : data &&
+                        data.task_type &&
+                        data.task_type === 'sick_leave' && 
+                        this.props.comesFrom === 'Professional' ? (
+                         
+
                         <li
                           onClick={() => {
-                            this.props.removeTask(data._id);
+                            this.props.handleApprovedDetails(data._id, 'decline')
+                            console.log('data',data._id,decline)
                           }}
                         >
                           <a>
@@ -231,10 +273,27 @@ class PointPain extends Component {
                               alt=""
                               title=""
                             />
-                            <>{DeleteTask}</>
+                            <>{decline}</>
                           </a>
                         </li>
-                      )}
+                      ) :
+                        (
+                          <li
+                            onClick={() => {
+                              this.props.removeTask(data._id);
+                            }}
+                          >
+                            <a>
+                              <img
+                                src={require('assets/images/cancel-request.svg')}
+                                alt=""
+                                title=""
+                              />
+                              <>{DeleteTask}</>
+                            </a>
+                          </li>
+                        )}
+                         
                     </ul>
                   </a>
                 )}
