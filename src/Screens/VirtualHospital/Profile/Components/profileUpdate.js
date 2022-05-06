@@ -29,6 +29,7 @@ import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { getLanguage } from "translations/index"
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
+import contry from "Screens/Components/countryBucket/countries.json";
 
 
 var datas = [];
@@ -90,6 +91,7 @@ class Index extends Component {
       fax: "",
       updateIns: -1,
       error3: false,
+      error4: false,
       succUpdate: false,
       copied: false,
       value: 0,
@@ -322,6 +324,7 @@ class Index extends Component {
 
   //Save the User profile
   saveUserData = () => {
+    if(this.state.UpDataDetails?.citizen_country?.value){
     if (
       this.state.insuranceDetails.insurance !== "" &&
       this.state.insuranceDetails.insurance_number !== "" &&
@@ -379,6 +382,9 @@ class Index extends Component {
     var parent_id = this.state.UpDataDetails.parent_id
       ? this.state.UpDataDetails.parent_id
       : "0";
+      var tocheckWith = UpDataDetails?.citizen_country || this?.state?.flag_mobile;
+   
+      var getBucket =contry && contry.length > 0 && contry.filter((value, key) => value.code === tocheckWith?.value.toUpperCase());
     axios
       .put(
         sitedata.data.path + "/UserProfile/Users/update",
@@ -413,6 +419,8 @@ class Index extends Component {
           country: this.state.UpDataDetails.country,
           citizen_country: this.state.UpDataDetails.citizen_country,
           pastal_code: this.state.UpDataDetails.pastal_code,
+          bucket: getBucket[0].bucket,
+          country_code:UpDataDetails?.citizen_country?.value || this?.state?.flag_mobile
         },
         commonHeader(user_token)
       )
@@ -459,6 +467,9 @@ class Index extends Component {
           }, 5000);
         }
       });
+    } else {
+      this.setState({error4: true});
+    }
   };
 
   //Chnage Id Pin by here
@@ -616,6 +627,8 @@ class Index extends Component {
         datas = this.state.UpDataDetails.insurance;
         var find =
           response.data && response.data.data && response.data.data.image;
+          var forUpdate = {value: true, token: user_token, user: response.data.data}
+          this.props.LoginReducerAim(response.data.data?.email, '', user_token, () => {}, forUpdate);
         this.SettingImage(find);
       })
       .catch((error) => {
@@ -862,6 +875,9 @@ class Index extends Component {
             )}
             {this.state.error3 && (
               <div className="err_message">{profile_not_updated}</div>
+            )}
+            {this.state.error4 && (
+              <div className="err_message">{"Please fill the citizenship country"}</div>
             )}
             {this.state.phonevalidate && (
               <div className="err_message">{mobile_number_not_valid}</div>

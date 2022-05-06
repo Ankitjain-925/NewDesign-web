@@ -85,6 +85,7 @@ class Index extends Component {
       fax: "",
       updateIns: -1,
       error3: false,
+      error4: false,
       succUpdate: false,
       copied: false,
       value: 0,
@@ -339,6 +340,9 @@ class Index extends Component {
             )}
             {this.state.error3 && (
               <div className="err_message">{profile_not_updated}</div>
+            )}
+            {this.state.error4 && (
+              <div className="err_message">{"Please fill the citizenship country"}</div>
             )}
             {this.state.ChangedPIN && (
               <div className="success_message">
