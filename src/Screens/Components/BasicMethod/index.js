@@ -374,7 +374,7 @@ export const filterPatient = (taskForSelectedHouse) => {
   let patientForFilterArr1 = patientForFilterArr.map((item) => {
     let name = (item?.first_name && item?.last_name) ? item?.first_name + ' ' + item?.last_name : item?.first_name;
     return {
-      value: item.patient_id? item.patient_id : item.user_id,
+      value: item?.patient_id ? item?.patient_id : item?.user_id,
       label: name
     }
   })

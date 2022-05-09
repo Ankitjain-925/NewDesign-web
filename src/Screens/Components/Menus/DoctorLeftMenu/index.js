@@ -170,7 +170,7 @@ class Index extends Component {
     state[e.target.name] = e.target.checked
     localStorage.setItem('CheckCurrent', JSON.stringify(state));
     this.setState({ CheckCurrent: state , update: !this.state.update});
-    console.log('CheckCurrent',state, 'update',this.state.update);
+   
     this.availableUpdate();
   };
 
@@ -180,10 +180,7 @@ class Index extends Component {
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .put(
-        sitedata.data.path + '/UserProfile/Users/update',
-        {
-          data,
-        },
+        sitedata.data.path + '/UserProfile/Users/update', data ,
         commonHeader(user_token)
       )
       .then((responce) => {
@@ -206,8 +203,9 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
+       
         socket.emit('update', responce);
-        let value = responce?.data?.data?.data?.current_available;
+        let value = responce?.data?.data?.current_available;
         this.setState({
           CheckCurrent: { current_available: value },
           loaderImage: false,
@@ -263,7 +261,6 @@ class Index extends Component {
             <img src={require('assets/images/LogoPNG.png')} alt="" title="" />
           </a>
         </Grid>
-
         <Grid className="menuCheckBox">
           <Checkbox
             name="current_available"
@@ -287,7 +284,7 @@ class Index extends Component {
 
         <Grid className="menuItems">
           <ul>
-            <li
+          <li
               className={
                 this.props.currentPage === 'appointment' ? 'menuActv' : ''
               }
@@ -314,7 +311,7 @@ class Index extends Component {
             </li>
             {this.props?.House?.value && (
               <>
-                <li
+               <li
                   className={
                     this.props.currentPage === 'task' ? 'menuActv' : ''
                   }

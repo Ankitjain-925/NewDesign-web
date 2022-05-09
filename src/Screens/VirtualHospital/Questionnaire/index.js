@@ -231,6 +231,9 @@ class Index extends Component {
 
   //for sunit the edit form
   handleeditSubmit = () => {
+    var AllQuestion = this.state.AllQuestions;
+    var Findindex = AllQuestion.map(function(e) { return e._id; }).indexOf( this.state.editQuestions._id );
+    AllQuestion[Findindex] =  this.state.editQuestions;
     this.setState({ loaderImage: true });
     axios
       .put(
@@ -238,7 +241,7 @@ class Index extends Component {
           '/questionaire/Question/' +
           this.state.perticular_id,
         {
-          questions: this.state.AllQuestions,
+          questions: AllQuestion,
         },
         commonHeader(this.props.stateLoginValueAim.token)
       )

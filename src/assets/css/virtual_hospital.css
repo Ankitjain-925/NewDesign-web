@@ -10384,8 +10384,10 @@ button.dischrgInvoic span {
   color: #cfcfcf !important;
 }
 .darkTheme .err_message,
-.homeBgDrk .err_message {
-  color: red !important;
+.homeBgDrk .err_message,
+.darkTheme .err_message2,
+.homeBgDrk .err_message2{
+  color: #ff6262 !important;
 }
 .darkTheme .success_message,
 .homeBgDrk .success_message {
@@ -10551,14 +10553,18 @@ img.manage-size {
 }
 .darkTheme .insuranceHint,
 .darkTheme .profile-language.css-2b097c-container div,
-.homeBgDrk .profile-language.css-2b097c-container div {
+.homeBgDrk .profile-language.css-2b097c-container div,
+.darkTheme .profile-language.css-14jk2my-container div,
+.homeBgDrk .profile-language.css-14jk2my-container div
+{
   background-color: #404646 !important;
   color: #fff !important;
 }
 .darkTheme .cntryDropTop,
 .homeBgDrk .cntryDropTop {
-  border: 1px solid #5d5d5d;
-  border-radius: 5px;
+    /* border: 1px solid #5d5d5d; */
+    border-radius: 2px;
+    border: 1px solid #dfdfdf;
 }
 .cntryDropTop div {
   box-shadow: initial !important;
@@ -12244,6 +12250,9 @@ ul.patientHint li {
   color: #fafafa;
   min-height: 36px !important;
 }
+.darkTheme .react-toggle-track {
+  border: 1px solid #00abaf;
+}
 .darkTheme .mr_sel div:first-child {
   background: transparent !important;
   border: none;
@@ -12924,10 +12933,12 @@ ul.patientHint li {
   background-color: #202323;
 }
 .darkTheme .passInstIner:after {
-  border-right: 13px solid #202323;
+  border-right: 13px solid #00abaf;
+  left: -25px;
 }
 .darkTheme .passInst {
   background-color: #202323;
+  border: 1px solid #00abaf;
 }
 .darkTheme .passInst a {
   color: #c3c3c3;
@@ -13115,7 +13126,8 @@ ul.patientHint li {
 }
 .darkTheme .profileInfoIner input {
   color: #c3c3c3 !important;
-  border: 1px solid #5d5d5d;
+  /* border: 1px solid #5d5d5d; */
+  border: 1px solid #dfdfdf;
   background-color: #192020;
 }
 .darkTheme .presOpinionIner {
@@ -14490,13 +14502,13 @@ label.newrole {
   margin: 0px !important;
   padding: 0px !important;
 }
-
 .darkTheme .minall_sec .css-12jo7m5 {
   color: #d9dada;
 }
 .darkTheme .serviceallSec {
   color: #d9dada;
 }
+
 .Painbegin {
   position: "absolute";
   width: "6px";
@@ -14504,4 +14516,13 @@ label.newrole {
   background: "red";
   /* borderRadius: "50%"; */
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: transparent !important;
+}
+.srchFilter .comonSel div {
+  border: none !important;
 }

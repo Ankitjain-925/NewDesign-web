@@ -7651,6 +7651,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .emrgncyFrmInpt input {
     background: transparent !important;
     color: #BFC1C1 !important;
+    border: 1px solid #dfdfdf;
 }
 .homeBgDrk .mkFmlyDoc .css-yk16xz-control {
     background: transparent;
@@ -12452,7 +12453,6 @@ a.timSlotClose {
     text-align: center;
 }
 
-
 /* Admin pages css */
 .adminCreatUser a {
     margin-left: 32px;
@@ -15969,11 +15969,12 @@ a.clsSltCal {
 }
 .rbc-time-view .rbc-event-content span.trigger{
     display: inline-block;
-    max-width: 40px !important;
-    border: 1px solid #101010d9;
+    /* max-width: 40px !important; */
+    border: 1px solid #00abaf;
 }
 .getCalBnr .rbc-event-content p.calendar-cont{
     margin-right: 2px;
+    text-transform: lowercase;
 }
 .trstmkFmlyDoc .MuiGrid-grid-md-5{
     display: flex;
@@ -16509,8 +16510,13 @@ select:-webkit-autofill:focus {
     border: none;
 }
 .homeBgDrk .mr_sel {
-    border: 1px solid #9a9a9a;
+    /* border: 1px solid #9a9a9a; */
+    border: 1px solid #dfdfdf;
     color: #BFC1C1;
+    border-radius: 2px;
+}
+.homeBgDrk .profileInfoDate a {
+    border: 1px solid #dfdfdf !important;
 }
 .homeBg .ccl-right-panel {
     min-width: 118px;
@@ -17443,6 +17449,9 @@ ul.duringCovid li:last-child {
 .profileInfoDate .ant-picker-clear {
     right: 5px !important;
 }
+.rbc-day-slot .rbc-time-slot {
+    border-top: none !important;
+}
 @media (max-width: 959px){
  .menuItems ul li ul li a {
     margin-bottom: 24px !important;
@@ -17471,6 +17480,11 @@ ul.duringCovid li:last-child {
 .presImgInr {
     display: inline-flex;
     justify-content: center;
+}
+.cntryDropTop div, .profile-language div {
+    margin: 0px !important;
+    outline: none !important;
+    border-radius: 2px !important;
 }
 @media (max-width: 640px){
   .presOpinionIner tr .presImg img, 
