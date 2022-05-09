@@ -45,6 +45,7 @@ import {
   GetLanguageDropdown,
 } from 'Screens/Components/GetMetaData/index.js';
 import { OptionList } from 'Screens/Login/metadataaction';
+import PainPoint from "Screens/Components/PointPain/index";
 
 
 function TabContainer(props) {
@@ -121,7 +122,11 @@ class Index extends Component {
       AllSmokingStatus: [],
       AllSituation: [],
       AllGender: [],
-       
+      gender:'female',
+      
+   
+    
+
     };
   }
 
@@ -172,14 +177,7 @@ class Index extends Component {
         this.state.allMetadata.situation,
         this.props.stateLanguageType
       );
-      var AllPainPoint = GetLanguageDropdown(
-        this.state.allMetadata &&
-        this.state.allMetadata.stomach_hurtnow_painPoint &&
-        this.state.allMetadata.stomach_hurtnow_painPoint?.length > 0 &&
-        this.state.allMetadata.stomach_hurtnow_painPoint,
-        this.props.stateLanguageType
-      );
-      var AllGender = GetLanguageDropdown(
+     var AllGender = GetLanguageDropdown(
         this.state.allMetadata &&
         this.state.allMetadata.gender &&
         this.state.allMetadata.gender?.length > 0 &&
@@ -190,7 +188,7 @@ class Index extends Component {
         AllSmokingStatus: AllSmokingStatus,
         AllSituation: AllSituation,
         AllGender: AllGender,
-        AllPainPoint: AllPainPoint,
+      
       });
     });
   };
@@ -1427,18 +1425,15 @@ class Index extends Component {
       headache_painbegin_top,
       headache_take_painkillers,
       headache_undergoing_treatment,
-      Stomach,
+      Stomach_Problems,
       stomach_sternum,
       stomach_periodically,
-      stomach_diabetes,
       stomach_attack,
       stomach_failure,
       stomach_take_painkillers,
       stomach_undergoing_treatment,
-      stomach_problems,
       stomach_intensity,
       back_pain,
-      back_pain_have_diabetes,
       back_attack,
       back_failure,
       back_strained,
@@ -1464,7 +1459,7 @@ class Index extends Component {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
-      done_on
+
     } = translate;
     const {
       tabvalue,
@@ -1478,7 +1473,7 @@ class Index extends Component {
       OpenTaskCss,
       ArchivedTasksCss,
     } = this.state;
-  
+
     const userList =
       this.state.filteredUsers &&
       this.state.filteredUsers.map((user) => {
@@ -1503,6 +1498,7 @@ class Index extends Component {
       });
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
+  
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1568,8 +1564,10 @@ class Index extends Component {
                               value={this.state.newTask.task_name || ''}
                               disabled={
                                 this.state.newTask?.task_type ===
-                                'picture_evaluation'
+                                'picture_evaluation' || this.state.newTask?.task_type ===
+                                'sick_leave'
                               }
+
                             />
                           </Grid>
                           <Grid item xs={12} md={12}>
@@ -2223,14 +2221,14 @@ class Index extends Component {
                           {this.state.newTask.task_type ===
                             'sick_leave' && (
                               <Grid item xs={12} md={12} className="taskDescp">
-                                <Grid className="stndQues stndQues1">
+                                <Grid className="stndQues  stndQues1">
                                   {this.state.newTask.headache === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{Headache}</h2>
+                                        <h3>{Headache}</h3>
                                       </Grid>
                                       <Grid>
-                                        <h2>{Pain_begin}</h2>
+                                        <h1>{Pain_begin}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={3} md={3}>
@@ -2281,7 +2279,7 @@ class Index extends Component {
                                         )}
                                       </Grid>
                                       <Grid>
-                                        <h2>{hurtnow}</h2>
+                                        <h1>{hurtnow}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={3} md={3}>
@@ -2332,7 +2330,7 @@ class Index extends Component {
                                         <p>{no}</p>
                                       )}
                                       <Grid>
-                                        <h2>{blood_pressure}</h2>
+                                        <h1>{blood_pressure}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={4} md={4}>
@@ -2351,7 +2349,7 @@ class Index extends Component {
                                         </Grid>
                                       </Grid>
                                       <Grid>
-                                        <h2>{body_temp}</h2>
+                                        <h1>{body_temp}</h1>
                                       </Grid>
                                       <Grid>
                                         <label>{headache_body_temp}</label>
@@ -2363,7 +2361,7 @@ class Index extends Component {
                                       {this.state.newTask.headache_have_diabetes === 'yes' &&
                                         <Grid>
                                           <Grid>
-                                            <h2>{diabetes}</h2>
+                                            <h1>{diabetes}</h1>
                                           </Grid>
                                           <Grid container xs={12} md={12}>
                                             <Grid xs={4} md={4}>
@@ -2451,14 +2449,26 @@ class Index extends Component {
                                   {this.state.newTask.stomach_problems === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{Stomach}</h2>
+                                        <h3>{Stomach_Problems}</h3>
                                       </Grid>
                                       <Grid>
-                                        <h2>{Pain_begin}</h2>
-                                        
-                                      </Grid>
+                                        <h1>{Pain_begin}</h1>
+                                          <PainPoint
+                                           id="New_id1"
+                                         gender={this.state.gender}
+                                          painPoint={this.state.newTask.stomach_painbegin_painPoint}
+                                          isView={true}
+                                         
+                                        />
+                                         </Grid>
                                       <Grid>
-                                        <h2>{hurtnow}</h2>
+                                        <h1>{hurtnow}</h1>
+                                        <PainPoint 
+                                        id="New_id2"
+                                         gender={this.state.gender}
+                                          painPoint={this.state.newTask.stomach_hurtnow_painPoint}
+                                          isView={true}
+                                        />
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={4} md={4}>
@@ -2492,7 +2502,7 @@ class Index extends Component {
                                         </Grid>
                                       </Grid>
                                       <Grid>
-                                        <h2>{blood_pressure}</h2>
+                                        <h1>{blood_pressure}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={4} md={4}>
@@ -2513,7 +2523,7 @@ class Index extends Component {
                                       {this.state.newTask.stomach_have_diabetes === 'yes' &&
                                         <Grid>
                                           <Grid>
-                                            <h2>{diabetes}</h2>
+                                            <h1>{diabetes}</h1>
                                           </Grid>
                                           <Grid container xs={12} md={12}>
                                             <Grid xs={4} md={4}>
@@ -2557,7 +2567,7 @@ class Index extends Component {
                                         )}
                                       </Grid>
                                       <Grid>
-                                        <h2>{body_temp}</h2>
+                                        <h1>{body_temp}</h1>
                                       </Grid>
                                       <Grid>
                                         <label>{stomach_temp}</label>
@@ -2595,7 +2605,7 @@ class Index extends Component {
                                   {this.state.newTask.diarrhea === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{diarrhea}</h2>
+                                        <h3>{diarrhea}</h3>
                                       </Grid>
                                       <Grid>
                                         <label>{diarrhea_symptoms_begin}</label>
@@ -2620,7 +2630,7 @@ class Index extends Component {
                                         )}
                                       </Grid>
                                       <Grid>
-                                        <h2>{body_temp}</h2>
+                                        <h1>{body_temp}</h1>
                                       </Grid>
                                       <Grid>
                                         <label>{diarrhea_body_temp}</label>
@@ -2655,7 +2665,7 @@ class Index extends Component {
                                   {this.state.newTask.have_fever === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{fever}</h2>
+                                        <h3>{fever}</h3>
                                       </Grid>
                                       <Grid>
                                         <label>{fever_symptoms_begin}</label>
@@ -2670,7 +2680,7 @@ class Index extends Component {
                                         )}
                                       </p>
                                       <Grid>
-                                        <h2>{body_temp}</h2>
+                                        <h1>{body_temp}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={4} md={4}>
@@ -2700,7 +2710,7 @@ class Index extends Component {
                                       {this.state.newTask.fever_have_a_cough === 'yes' &&
                                         <Grid>
                                           <Grid>
-                                            <h2>{cough}</h2>
+                                            <h1>{cough}</h1>
                                           </Grid>
                                           <Grid container xs={12} md={12}>
                                             <Grid xs={4} md={4}>
@@ -2739,7 +2749,7 @@ class Index extends Component {
                                   {this.state.newTask.back_pain === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{back_pain}</h2>
+                                        <h3>{back_pain}</h3>
                                       </Grid>
                                       <Grid>
                                         <label>{back_symptoms_begin}</label>
@@ -2785,7 +2795,7 @@ class Index extends Component {
                                       {this.state.newTask.fever_have_a_cough === 'yes' &&
                                         <Grid>
                                           <Grid>
-                                            <h2>{diabetes} </h2>
+                                            <h1>{diabetes} </h1>
                                           </Grid>
                                           <Grid container xs={12} md={12}>
                                             <Grid xs={4} md={4}>
@@ -2839,7 +2849,7 @@ class Index extends Component {
                                         )}
                                       </Grid>
                                       <Grid>
-                                        <h2>{blood_pressure}</h2>
+                                        <h1>{blood_pressure}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={4} md={4}>
@@ -2861,7 +2871,7 @@ class Index extends Component {
                                   {this.state.newTask.cough_and_snees === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{cough_and_snees}</h2>
+                                        <h3>{cough_and_snees}</h3>
                                       </Grid>
                                       <Grid>
                                         <label>{cough_symptoms_begin}</label>
@@ -2876,7 +2886,7 @@ class Index extends Component {
                                         )}
                                       </p>
                                       <Grid>
-                                        <h2>{body_temp}</h2>
+                                        <h1>{body_temp}</h1>
                                       </Grid>
                                       <Grid>
                                         <label>{body_temp}</label>
@@ -2908,7 +2918,7 @@ class Index extends Component {
                                   {this.state.newTask.feel_depressed === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{feel_depressed}</h2>
+                                        <h3>{feel_depressed}</h3>
                                       </Grid>
                                       <Grid>
                                         <label>{depressed_symptoms_begin}</label>
@@ -2965,10 +2975,10 @@ class Index extends Component {
                                   {this.state.newTask.cardiac_problems === 'yes' &&
                                     <Grid>
                                       <Grid>
-                                        <h2>{cardiac_problems}</h2>
+                                        <h3>{cardiac_problems}</h3>
                                       </Grid>
                                       <Grid>
-                                        <h2>{blood_pressure}</h2>
+                                        <h1>{blood_pressure}</h1>
                                       </Grid>
                                       <Grid container xs={12} md={12}>
                                         <Grid xs={4} md={4}>
@@ -3027,6 +3037,50 @@ class Index extends Component {
                                             <p>{no}</p>
                                           )}
                                         </Grid>
+                                      </Grid>
+                                      <Grid>
+                                        <h1>{Reply}</h1>
+                                        <label>{Attachments}</label>
+                                      </Grid>
+                                      <Grid className="imageEvalSize">
+                                        {this.state.newTask &&
+                                          this.state.newTask?.attachments &&
+                                          this.state.newTask?.attachments?.length >
+                                          0 ? (
+                                          <FileViews
+                                            comesFrom="Picture_Task"
+                                            images={this.state.images}
+                                            attachfile={
+                                              this.state.newTask?.attachments
+                                            }
+                                          />
+                                        ) : (
+                                          <p>
+                                            {no} {Attachments}!
+                                          </p>
+                                        )}
+                                      </Grid>
+                                      <Grid class="addStnd1">
+                                        <Grid>
+                                          <label>{Comments}</label>
+                                        </Grid>
+                                        <p>
+                                          {this.state.newTask &&
+                                            this.state.newTask?.comments &&
+                                            this.state.newTask?.comments?.length > 0 ? (
+                                            this.state.newTask?.comments.map(
+                                              (data, index) => (
+                                                <div className="dataCommentBor">
+                                                  {data?.comment}
+                                                </div>
+                                              )
+                                            )
+                                          ) : (
+                                            <p>
+                                              {no} {Comments}!
+                                            </p>
+                                          )}
+                                        </p>
                                       </Grid>
                                     </Grid>}
                                 </Grid>
