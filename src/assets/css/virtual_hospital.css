@@ -14403,9 +14403,17 @@ label.newrole {
   font-weight: 800;
   margin-top: 10px;
 }
+.stndQues1 h3 {
+  font-weight: 900;
+  margin-top: 10px;
+}
+.stndQues1 h1 {
+  font-weight: 700;
+  margin-top: 10px;
+}
 
 .stndQues1 label {
-  margin-top: 12px;
+ margin-top: 12px;
 }
 .imageEvalSize img {
   /* height: 90px; */
@@ -14500,6 +14508,14 @@ label.newrole {
 .darkTheme .serviceallSec {
   color: #d9dada;
 }
+
+.Painbegin {
+  position: "absolute";
+  width: "6px";
+  height: "6px";
+  background: "red";
+  /* borderRadius: "50%"; */
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
