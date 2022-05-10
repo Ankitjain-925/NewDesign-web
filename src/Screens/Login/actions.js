@@ -37,8 +37,17 @@ export const updateCometUser = async (data)=>{
   .catch((err)=>{})
 }
 
-export const LoginReducerAim = (email, password, logintoken, SendCallback = () => {}) => {
+export const LoginReducerAim = (email, password, logintoken, SendCallback = () => {}, forUpdate) => {
   return (dispatch) => {
+    if(forUpdate?.value){
+      let tmp = {
+        token: forUpdate.token,
+        user: forUpdate.user,
+      };
+      dispatch({ type: GET_LOGIN_SUCCESS, payload: tmp });
+      SendCallback();
+    }
+    else{
     dispatch({ type: GET_LOGIN_REQUEST });
     axios
       .post(path + "/UserLogin", { email, password, logintoken },
@@ -135,5 +144,6 @@ export const LoginReducerAim = (email, password, logintoken, SendCallback = () =
         dispatch({ type: GET_LOGIN_ERROR, payload: tmp });
         SendCallback();
       });
+    }
   };
 };
