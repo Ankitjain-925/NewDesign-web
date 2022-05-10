@@ -324,6 +324,7 @@ class Index extends Component {
 
   //Save the User profile
   saveUserData = () => {
+    var UpDataDetails = this.state.UpDataDetails;
     if(this.state.UpDataDetails?.citizen_country?.value){
     if (
       this.state.insuranceDetails.insurance !== "" &&
@@ -709,6 +710,51 @@ class Index extends Component {
       this.setState({ toSmall1: true });
     }
   };
+
+  
+  OnMobileCodeChange = (event) => {
+    let translate = getLanguage(this.props.languageType)
+    let { change_citizenship, Yes, No } = translate;
+    confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div
+              className={
+               this.props.settings &&
+               this.props.settings.setting &&
+               this.props.settings.setting.mode === "dark"
+                  ? "dark-confirm react-confirm-alert-body"
+                  : "react-confirm-alert-body"
+              }
+            >
+              <h1>{change_citizenship}</h1>
+              <div className="react-confirm-alert-button-group">
+                <button
+                  onClick={() => {
+                    var state = this.state.UpDataDetails;
+                    var data = this.state.selectCountry?.length>0 && this.state.selectCountry.filter((item)=>item.value === event)
+                    if(data?.length>0){
+                    state["citizen_country"] = data[0];
+                    this.setState({UpDataDetails : state})
+                    }
+                    onClose();
+                  }}
+                >
+                  {Yes}
+                </button>
+                <button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  {No}
+                </button>
+              </div>
+            </div>
+          );
+        },
+      });
+}
 
   //For upload the Profile pic
   fileUpload = async (event, filed_name) => {
@@ -1370,6 +1416,8 @@ class Index extends Component {
                             placeholder="Country Code"
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_mobile");
+                              this.OnMobileCodeChange(e);
+
                             }}
                             name="flag_mobile"
                             showSelectedLabel={false}

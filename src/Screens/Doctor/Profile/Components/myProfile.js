@@ -3,8 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from "react-select";
-import DatePicker from "react-date-picker";
-import Resizer from 'react-image-file-resizer';
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
 import ReactFlagsSelect from "react-flags-select";
@@ -19,7 +17,6 @@ import { Settings } from "Screens/Login/setting";
 import npmCountryList from "react-select-country-list";
 import FileUploader from "Screens/Components/FileUploader/index";
 import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
-import { Table } from "reactstrap";
 import * as AustraliaC from "Screens/Components/insuranceCompanies/australia.json";
 import * as AustriaC from "Screens/Components/insuranceCompanies/austria.json";
 import * as NetherlandC from "Screens/Components/insuranceCompanies/dutch.json";
@@ -253,6 +250,50 @@ class Index extends Component {
       });
     }
   };
+
+  OnMobileCodeChange = (event) => {
+    let translate = getLanguage(this.props.languageType)
+    let { change_citizenship, Yes, No } = translate;
+    confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div
+              className={
+               this.props.settings &&
+               this.props.settings.setting &&
+               this.props.settings.setting.mode === "dark"
+                  ? "dark-confirm react-confirm-alert-body"
+                  : "react-confirm-alert-body"
+              }
+            >
+              <h1>{change_citizenship}</h1>
+              <div className="react-confirm-alert-button-group">
+                <button
+                  onClick={() => {
+                    var state = this.state.UpDataDetails;
+                    var data = this.state.selectCountry?.length>0 && this.state.selectCountry.filter((item)=>item.value === event)
+                    if(data?.length>0){
+                    state["citizen_country"] = data[0];
+                    this.setState({UpDataDetails : state})
+                    }
+                    onClose();
+                  }}
+                >
+                  {Yes}
+                </button>
+                <button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  {No}
+                </button>
+              </div>
+            </div>
+          );
+        },
+      });
+}
 
   //FOR UPLOADING THE IMAGE
   saveUserData1 = () => {
@@ -1556,6 +1597,7 @@ class Index extends Component {
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_mobile");
+                              this.OnMobileCodeChange(e)
                             }}
                             name="flag_mobile"
                             showSelectedLabel={false}

@@ -1260,6 +1260,15 @@
 		"select_user_type": "Veuillez sélectionner le type d'utilisateur",
 		"suported_file_type_jpg": "Types de fichiers pris en charge .jpg, .png",
 		"plz_select_patient":"S'il vous plaît, sélectionnez un patinet",
+		"followed": "suivi",
+		"unfollowed": "non suivi",
+		"aimedis_newsletter": "Aimedis newsletter",
+		"follow": "suivre",
+		"unfollow": "ne plus suivre",
+		"since": "puisque",
+		"not_followed_by_yet": "pas encore suivi",
+		"change_citizenship": "Voulez-vous changer le pays de citoyenneté en fonction de votre nouveau numéro de mobile ?",
+
 
 		"Billing": "Billing",
 		"Institution": "Institution",
