@@ -128,6 +128,10 @@ class Index extends Component {
                         last_name: this.state.userDetails.last_name,
                         bucket: getBucket[0].bucket,
                         token: this.state.recaptcha,
+                        Aimedis_health_newletter:
+                        this.state.userDetails.Aimedis_health_newletter,
+                      newsletter_last_update_date:
+                        this.state.userDetails.newsletter_last_update_date,
                       })
                       .then((responce) => {
                         this.setState({ loaderImage: false });
@@ -205,6 +209,10 @@ class Index extends Component {
                           last_name: this.state.userDetails.last_name,
                           bucket: getBucket[0].bucket,
                           token: this.state.recaptcha,
+                          Aimedis_health_newletter:
+                          this.state.userDetails.Aimedis_health_newletter,
+                        newsletter_last_update_date:
+                          this.state.userDetails.newsletter_last_update_date,
                         })
                         .then((responce) => {
                           this.setState({ loaderImage: false });
@@ -272,17 +280,23 @@ class Index extends Component {
   handleChange = (e) => {
     const state = this.state.userDetails;
     if (
-      (e.target.name === "terms_and_conditions" ||
-        e.target.name === "license_of_practice",
-        e.target.name === "is2fa")
+      (e.target.name === 'terms_and_conditions' ||
+        e.target.name === 'license_of_practice',
+      e.target.name === 'is2fa')
     ) {
       state[e.target.name] = e.target.checked;
+    } else if (e.target.name === 'Aimedis_health_newletter') {
+      state[e.target.name] = e.target.checked === true ? true : false;
+      if (e.target.checked === true) {
+        this.state.userDetails.newsletter_last_update_date = new Date();
+      } else {
+        this.state.userDetails.newsletter_last_update_date = '';
+      }
     } else {
       state[e.target.name] = e.target.value;
     }
     this.setState({ userDetails: state });
   };
-
   //For upload the Doctor Liscence
   UploadFile(e) {
     this.setState({ FilesUp: e.target.files, loaderImage: true });
@@ -399,6 +413,10 @@ class Index extends Component {
         last_name: this.state.userDetails.last_name,
         bucket: getBucket[0].bucket,
         token: this.state.recaptcha,
+        Aimedis_health_newletter:
+        this.state.userDetails.Aimedis_health_newletter,
+      newsletter_last_update_date:
+        this.state.userDetails.newsletter_last_update_date,
       })
       .then((responce) => {
         this.setState({ loaderImage: false, FilesUp: [] });
@@ -1069,10 +1087,20 @@ class Index extends Component {
                       className="regMob"
                       control={
                         <Checkbox
-                          value="checkedA"
-                          name="Aimedis_health_newletter"
-                          onChange={this.handleChange}
-                        />
+                        value={
+                          this.state.userDetails &&
+                          this.state.userDetails?.Aimedis_health_newletter &&
+                          this.state.userDetails?.Aimedis_health_newletter ==
+                            true
+                            ? false
+                            : true
+                        }
+                        checked={
+                          this.state.userDetails?.Aimedis_health_newletter
+                        }
+                        name="Aimedis_health_newletter"
+                        onChange={this.handleChange}
+                      />
                       }
                       label={Register_want_register}
                     />
