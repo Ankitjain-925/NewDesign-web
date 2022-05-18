@@ -473,11 +473,13 @@ class Index extends Component {
 
   updateAppointmentDetails(status, id, data) {
     let user_token = this.props.stateLoginValueAim.token;
+  
     axios
-      .put(
+    .put(
         sitedata.data.path + "/UserProfile/GetAppointment/" + id,
         {
           status: status,
+        
           email: data.patient_info.email,
           lan: this.props.stateLanguageType,
           docProfile: {

@@ -14,6 +14,7 @@ class PointPain extends Component {
       label: this.props.label,
       id: this.props.id,
     };
+  
   }
 
   //For remove the points

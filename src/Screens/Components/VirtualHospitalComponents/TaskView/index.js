@@ -27,7 +27,9 @@ class PointPain extends Component {
     }
   };
 
-  componentDidMount = () => { };
+  componentDidMount = () => {
+   
+   };
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -210,16 +212,15 @@ class PointPain extends Component {
                           )}
                         </a>
                       </li>
+                 
                       { data &&
-                        data.task_type &&
-                        data.task_type === 'sick_leave' &&  
-                        this.props.comesFrom === 'Professional' ? (
-
+                        data.task_type && 
+                        data.task_type === 'sick_leave' && (!data.approved===true ) &&
+                        this.props.comesFrom === 'Professional' ?  (
                         <li
                         onClick={() => {
                           this.props.handleApprovedDetails(data._id, 'approved')
-                          console.log('data',data._id,  approved)
-                        }}
+                         }}
                         >
                           <a>
                           <img
@@ -230,11 +231,11 @@ class PointPain extends Component {
                             <>{approved}</>
                           </a>
                         </li>
-                      
+                        
                         ):(
                           <></>
                         )}
-
+                        
                       {data &&
                         data.task_type &&
                         data.task_type === 'picture_evaluation' ? (
@@ -256,7 +257,7 @@ class PointPain extends Component {
                           </li>
                         )
                       ) : data &&
-                        data.task_type &&
+                        data.task_type && 
                         data.task_type === 'sick_leave' && 
                         this.props.comesFrom === 'Professional' ? (
                          
@@ -264,7 +265,8 @@ class PointPain extends Component {
                         <li
                           onClick={() => {
                             this.props.handleApprovedDetails(data._id, 'decline')
-                            console.log('data',data._id,decline)
+                            console.log('decline',data._id)
+                           
                           }}
                         >
                           <a>
@@ -276,6 +278,7 @@ class PointPain extends Component {
                             <>{decline}</>
                           </a>
                         </li>
+                        
                       ) :
                         (
                           <li

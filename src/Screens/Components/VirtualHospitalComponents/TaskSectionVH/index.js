@@ -123,6 +123,7 @@ class Index extends Component {
       AllSituation: [],
       AllGender: [],
       gender:'female',
+    
       
    
     
@@ -194,7 +195,7 @@ class Index extends Component {
   };
 
   componentDidMount() {
-    this.getMetadata();
+  this.getMetadata();
     this.getPatientData();
     this.getProfessionalData();
     this.specailityList();
@@ -211,7 +212,7 @@ class Index extends Component {
       });
       state['speciality'] = this.props.location?.state?.speciality;
       state['patient'] = this.props.location?.state?.user;
-      this.setState({ newTask: state });
+       this.setState({ newTask: state });
       this.setState({ openTask: true });
     }
     if (
@@ -375,18 +376,18 @@ class Index extends Component {
   };
 
 
-  handleApprovedDetails = (id, status) => {
-    let translate = getLanguage(this.props.stateLanguageType);
+  handleApprovedDetails = (id, status,data) => {
+   let translate = getLanguage(this.props.stateLanguageType);
     let { Something_went_wrong } = translate;
     this.setState({ loaderImage: true });
     axios
       .post(
-        sitedata.data.path + '/vactive/approvedrequest',
-        { for_manage: status, task_id: id },
+      sitedata.data.path + '/vactive/approvedrequest',
+        {for_manage: status, task_id: id, email: data.patient_info.email},
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
-        this.setState({ loaderImage: false });
+       this.setState({ loaderImage: false });
         if (responce.data.hassuccessed) {
           this.props.getAddTaskData();
 
@@ -394,7 +395,9 @@ class Index extends Component {
           this.setState({ errorMsg: Something_went_wrong });
           console.log('error', responce);
         }
+      
       });
+    
   };
 
   // submit Task model
@@ -414,6 +417,7 @@ class Index extends Component {
       data?.attachments?.length > ComLength?.attach_Length ||
       data?.comments?.length > ComLength?.comments_Length
     ) {
+    
       axios
         .post(
           sitedata.data.path + '/UserProfile/MailSendToPatient',
@@ -1461,6 +1465,7 @@ class Index extends Component {
       diarrhea_body_temp,
 
     } = translate;
+    
     const {
       tabvalue,
       tabvalue2,
@@ -1472,6 +1477,7 @@ class Index extends Component {
       DeclinedTaskCss,
       OpenTaskCss,
       ArchivedTasksCss,
+  
     } = this.state;
 
     const userList =
@@ -2422,10 +2428,11 @@ class Index extends Component {
                                         )}
                                       </Grid>
                                       <Grid>
+                                    
                                         <label>{headache_take_painkillers}</label>
                                       </Grid>
                                       {this.state.newTask &&
-                                        this.state.newTask?.take_painkillers === 'yes' ? (
+                                        this.state.newTask?.headache_take_painkillers === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -2434,7 +2441,7 @@ class Index extends Component {
                                         <label>{headache_undergoing_treatment}</label>
                                       </Grid>
                                       {this.state.newTask &&
-                                        this.state.newTask?.undergoing_treatment === 'yes' ? (
+                                        this.state.newTask?.headache_undergoing_treatment === 'yes' ? (
                                         <p>{yes}</p>
                                       ) : (
                                         <p>{no}</p>
@@ -2454,7 +2461,8 @@ class Index extends Component {
                                       <Grid>
                                         <h1>{Pain_begin}</h1>
                                           <PainPoint
-                                           id="New_id1"
+                                          id={this.state.newTask.stomach_painbegin_painPoint}
+                                          //  id='newid1'
                                          gender={this.state.gender}
                                           painPoint={this.state.newTask.stomach_painbegin_painPoint}
                                           isView={true}
@@ -2462,9 +2470,13 @@ class Index extends Component {
                                         />
                                          </Grid>
                                       <Grid>
+                                    {  console.log('id',this.state.newTask.stomach_hurtnow_painPoint)}
                                         <h1>{hurtnow}</h1>
                                         <PainPoint 
-                                        id="New_id2"
+                                   
+                                        id={this.state.newTask.stomach_hurtnow_painPoint}
+                                        
+                                            // id='newid2'
                                          gender={this.state.gender}
                                           painPoint={this.state.newTask.stomach_hurtnow_painPoint}
                                           isView={true}
@@ -2792,7 +2804,8 @@ class Index extends Component {
                                           <p>{no}</p>
                                         )}
                                       </Grid>
-                                      {this.state.newTask.fever_have_a_cough === 'yes' &&
+                                      {this.state.newTask.back_pain_have_diabetes===
+                                        "yes" && 
                                         <Grid>
                                           <Grid>
                                             <h1>{diabetes} </h1>
