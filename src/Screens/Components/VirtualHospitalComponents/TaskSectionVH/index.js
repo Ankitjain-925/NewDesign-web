@@ -996,7 +996,6 @@ class Index extends Component {
       data?.assinged_to.map((item) => {
         return item?.user_id;
       });
-    console.log('Assigned_Aready', Assigned_Aready);
     var deep = _.cloneDeep(data);
     this.setState({
       newTask: deep,

@@ -3,6 +3,7 @@ import sitedata from 'sitedata';
 import { commonHeader } from 'component/CommonHeader/index';
 import { getLanguage } from 'translations/index';
 import { AllBedOnWard } from 'Screens/VirtualHospital/PatientFlow/data';
+import _ from 'lodash';
 //to save and edit the speciality
 export const SaveSpeciality = (current) => {
   let translate = getLanguage(current.props.stateLanguageType);
@@ -248,7 +249,8 @@ export const MoveInstitute = (current) => {
 };
 
 export const onEditspec = (data, current) => {
-  current.setState({ speciality: data, openSpecl: true });
+  var deep = _.cloneDeep(data);
+  current.setState({ speciality: deep, openSpecl: true });
 };
 
 export const handleOpenWard = (current) => {
