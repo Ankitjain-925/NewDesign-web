@@ -19,6 +19,7 @@ import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
 import DateFormat from 'Screens/Components/DateFormat/index'
 import { getLanguage } from "translations/index";
 import _ from 'lodash';
+import { confirmAlert } from "react-confirm-alert";
 import { updateFLAG, updateMOBILE } from './odapi';
 import { getUserData, contact_partnerState, getMetadata, handleChange_multi, saveUserData1, saveUserData, firstLoginUpdate, onChange, updateEntryState1, updateEntryState11, copyText, updateflags,
     updateEntryState, Upsaterhesus, EntryValueName , GetLanguageMetadata, filterCountry, filterCountry1, toggle, filterList, updatesinsurances, changeAlies, changePin, ChangeIDPIN, updatesinsurancesCountry ,removeInsurance,  } from './puapi';
@@ -84,6 +85,7 @@ class Index extends Component {
             emergency_number: '',
             updateIns: -1,
             error3: false,
+            error4: false,
             succUpdate: false,
             copied: false,
             value: 0,
@@ -207,6 +209,50 @@ class Index extends Component {
         this.setState({ UpDataDetails: state });
     }
 
+    OnMobileCodeChange = (event) => {
+        let translate = getLanguage(this.props.languageType)
+        let { change_citizenship, Yes, No } = translate;
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <div
+                  className={
+                   this.props.settings &&
+                   this.props.settings.setting &&
+                   this.props.settings.setting.mode === "dark"
+                      ? "dark-confirm react-confirm-alert-body"
+                      : "react-confirm-alert-body"
+                  }
+                >
+                  <h1>{change_citizenship}</h1>
+                  <div className="react-confirm-alert-button-group">
+                    <button
+                      onClick={() => {
+                        var state = this.state.UpDataDetails;
+                        var data = this.state.selectCountry?.length>0 && this.state.selectCountry.filter((item)=>item.value === event)
+                        if(data?.length>0){
+                        state["citizen_country"] = data[0];
+                        this.setState({UpDataDetails : state})
+                        }
+                        onClose();
+                      }}
+                    >
+                      {Yes}
+                    </button>
+                    <button
+                      onClick={() => {
+                        onClose();
+                      }}
+                    >
+                      {No}
+                    </button>
+                  </div>
+                </div>
+              );
+            },
+          });
+    }
+
     render() {
         const { value, editInsuData, insurancefull, editIndex, insuranceDetails, } = this.state;
         const companyList = this.state.filteredCompany && this.state.filteredCompany.map(company => {
@@ -232,6 +278,7 @@ class Index extends Component {
                         {this.state.copied && <div className="success_message">{info_copied}</div>}
                         {this.state.succUpdate && <div className="success_message">{profile_updated}</div>}
                         {this.state.error3 && <div className="err_message">{profile_not_updated}</div>}
+                        {this.state.error4 && (<div className="err_message">{"Please fill the citizenship country"}</div>)}
                         {this.state.phonevalidate && <div className="err_message">{mobile_number_not_valid}</div>}
                         {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
                         <h1>{profile} {information}</h1>
@@ -493,7 +540,7 @@ class Index extends Component {
                                         <label>{mobile_number}</label>
                                         <Grid>
                                             {updateFLAG(this.state.UpDataDetails.mobile) && updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
-                                                <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { updateflags(e, 'flag_mobile', this) }} name="flag_mobile" showSelectedLabel={false} defaultCountry={updateFLAG(this.state.UpDataDetails.mobile)} />}
+                                                <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { updateflags(e, 'flag_mobile', this); this.OnMobileCodeChange(e); }} name="flag_mobile" showSelectedLabel={false} defaultCountry={updateFLAG(this.state.UpDataDetails.mobile)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder={mobile}

@@ -8,7 +8,7 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
-
+import contry from "Screens/Components/countryBucket/countries.json";
 // Copy the Profile id and PIN
 export const copyText = (copyT, current) => {
     current.setState({ copied: false });
@@ -123,6 +123,8 @@ export const getUserData = (current, datas) => {
             datas = current.state.UpDataDetails.insurance;
             var find =
                 response.data && response.data.data && response.data.data.image;
+                var forUpdate = {value: true, token: user_token, user: response.data.data}
+            current.props.LoginReducerAim(response.data.data?.email, '', user_token, () => {}, forUpdate);
             SettingImage(find, current);
             current.setState({ loaderImage: false });
         })
@@ -193,143 +195,152 @@ export const onChange = (date, current) => {
 
 //Save the User profile
 export const saveUserData = (current, datas) => {
-    if (
-        current.state.insuranceDetails.insurance !== "" &&
-        current.state.insuranceDetails.insurance_number !== "" &&
-        current.state.insuranceDetails.insurance_country !== ""
-    ) {
+    if(current.state.UpDataDetails?.citizen_country?.value){
         if (
-            datas.some(
-                (data) => data.insurance === current.state.insuranceDetails.insurance
-            )
+            current.state.insuranceDetails.insurance !== "" &&
+            current.state.insuranceDetails.insurance_number !== "" &&
+            current.state.insuranceDetails.insurance_country !== ""
         ) {
-        } else {
-            datas.push(current.state.insuranceDetails);
-            current.setState({ insurancefull: datas });
-        }
-    }
-    if (
-        current.state.flag_emergency_number &&
-        current.state.flag_emergency_number === "" &&
-        current.state.flag_emergency_number === "undefined"
-    ) {
-        current.setState({ flag_emergency_number: "DE" });
-    }
-    if (
-        current.state.flag_mobile &&
-        current.state.flag_mobile === "" &&
-        current.state.flag_mobile === "undefined"
-    ) {
-        current.setState({ flag_mobile: "DE" });
-    }
-    if (
-        current.state.flag_phone &&
-        current.state.flag_phone === "" &&
-        current.state.flag_phone === "undefined"
-    ) {
-        current.setState({ flag_phone: "DE" });
-    }
-    if (
-        current.state.flag_fax &&
-        current.state.flag_fax === "" &&
-        current.state.flag_fax === "undefined"
-    ) {
-        current.setState({ flag_fax: "DE" });
-    }
-    current.setState({ loaderImage: true, phonevalidate: false });
-    current.setState({ regisError1: "" });
-    current.setState({ regisError2: "" });
-    const user_token = current.props.stateLoginValueAim.token;
-    current.setState({
-        insuranceDetails: {
-            insurance: "",
-            insurance_number: "",
-            insurance_country: "",
-        },
-    });
-    var parent_id = current.state.UpDataDetails.parent_id
-        ? current.state.UpDataDetails.parent_id
-        : "0";
-    axios
-        .put(
-            sitedata.data.path + "/UserProfile/Users/update",
-            {
-                pin: current.state.UpDataDetails.pin,
-                first_name: current.state.UpDataDetails.first_name,
-                last_name: current.state.UpDataDetails.last_name,
-                nick_name: current.state.UpDataDetails.nick_name,
-                title: current.state.UpDataDetails.title,
-                birthday: current.state.UpDataDetails.birthday,
-                language: current.state.UpDataDetails.language,
-                speciality: current.state.speciality_multi,
-                phone: current.state.UpDataDetails.phone,
-                mobile: current.state.UpDataDetails.mobile,
-                fax: current.state.UpDataDetails.fax,
-                website: current.state.UpDataDetails.website,
-                email: current.state.UpDataDetails.email,
-                password: current.state.UpDataDetails.password,
-                sex: current.state.UpDataDetails.sex,
-                street: current.state.UpDataDetails.street,
-                city: current.state.city,
-                area: current.state.area,
-                address: current.state.UpDataDetails.address,
-                emergency_contact_name: current.state.UpDataDetails
-                    .emergency_contact_name,
-                emergency_email: current.state.UpDataDetails.emergency_email,
-                emergency_number: current.state.UpDataDetails.emergency_number,
-                family_doc: current.state.UpDataDetails.family_doc,
-                insurance: datas,
-                is2fa: current.state.UpDataDetails.is2fa,
-                country: current.state.UpDataDetails.country,
-                citizen_country: current.state.UpDataDetails.citizen_country,
-                pastal_code: current.state.UpDataDetails.pastal_code,
-            },
-            commonHeader(user_token)
-        )
-        .then((responce) => {
-            if (responce.data.hassuccessed) {
-                current.setState({ loaderImage: false });
-                current.setState({
-                    editInsuranceOpen: false,
-                    addInsuranceOpen: false,
-                    succUpdate: true,
-                    insuranceDetails: {
-                        insurance: "",
-                        insurance_number: "",
-                        insurance_country: "",
-                    },
-                });
-                current.setState({ loaderImage: false });
-                setTimeout(() => {
-                    current.setState({ succUpdate: false });
-                }, 5000);
-                getUserData(current);
-                axios
-                    .put(
-                        "https://api-eu.cometchat.io/v2.0/users/" +
-                        current.state.profile_id.toLowerCase(),
-                        {
-                            name:
-                                current.state.UpDataDetails.first_name +
-                                " " +
-                                current.state.UpDataDetails.last_name,
-                        },
-                        commonCometHeader()
-                    )
-                    .then((res) => {
-                        var data = update_CometUser(current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
-                    });
+            if (
+                datas.some(
+                    (data) => data.insurance === current.state.insuranceDetails.insurance
+                )
+            ) {
             } else {
-                current.setState({ loaderImage: false });
-                if (responce.data.message === "Phone is not verified") {
-                    current.setState({ phonevalidate: true });
-                }
-                current.setState({ error3: true });
-                setTimeout(() => {
-                    current.setState({ error3: false });
-                }, 5000);
+                datas.push(current.state.insuranceDetails);
+                current.setState({ insurancefull: datas });
             }
+        }
+        if (
+            current.state.flag_emergency_number &&
+            current.state.flag_emergency_number === "" &&
+            current.state.flag_emergency_number === "undefined"
+        ) {
+            current.setState({ flag_emergency_number: "DE" });
+        }
+        if (
+            current.state.flag_mobile &&
+            current.state.flag_mobile === "" &&
+            current.state.flag_mobile === "undefined"
+        ) {
+            current.setState({ flag_mobile: "DE" });
+        }
+        if (
+            current.state.flag_phone &&
+            current.state.flag_phone === "" &&
+            current.state.flag_phone === "undefined"
+        ) {
+            current.setState({ flag_phone: "DE" });
+        }
+        if (
+            current.state.flag_fax &&
+            current.state.flag_fax === "" &&
+            current.state.flag_fax === "undefined"
+        ) {
+            current.setState({ flag_fax: "DE" });
+        }
+        current.setState({ loaderImage: true, phonevalidate: false });
+        current.setState({ regisError1: "" });
+        current.setState({ regisError2: "" });
+        const user_token = current.props.stateLoginValueAim.token;
+        current.setState({
+            insuranceDetails: {
+                insurance: "",
+                insurance_number: "",
+                insurance_country: "",
+            },
         });
+        var parent_id = current.state.UpDataDetails.parent_id
+            ? current.state.UpDataDetails.parent_id
+            : "0";
+            var tocheckWith = current.state.UpDataDetails?.citizen_country || current?.state?.flag_mobile;
+            var getBucket = contry && contry.length > 0 && contry.filter((value, key) => value.code === tocheckWith?.value.toUpperCase());
+            axios.put(
+                sitedata.data.path + "/UserProfile/Users/update",
+                {
+                    pin: current.state.UpDataDetails.pin,
+                    first_name: current.state.UpDataDetails.first_name,
+                    last_name: current.state.UpDataDetails.last_name,
+                    nick_name: current.state.UpDataDetails.nick_name,
+                    title: current.state.UpDataDetails.title,
+                    birthday: current.state.UpDataDetails.birthday,
+                    language: current.state.UpDataDetails.language,
+                    speciality: current.state.speciality_multi,
+                    phone: current.state.UpDataDetails.phone,
+                    mobile: current.state.UpDataDetails.mobile,
+                    fax: current.state.UpDataDetails.fax,
+                    website: current.state.UpDataDetails.website,
+                    email: current.state.UpDataDetails.email,
+                    password: current.state.UpDataDetails.password,
+                    sex: current.state.UpDataDetails.sex,
+                    street: current.state.UpDataDetails.street,
+                    city: current.state.city,
+                    area: current.state.area,
+                    address: current.state.UpDataDetails.address,
+                    emergency_contact_name: current.state.UpDataDetails
+                        .emergency_contact_name,
+                    emergency_email: current.state.UpDataDetails.emergency_email,
+                    emergency_number: current.state.UpDataDetails.emergency_number,
+                    family_doc: current.state.UpDataDetails.family_doc,
+                    insurance: datas,
+                    is2fa: current.state.UpDataDetails.is2fa,
+                    country: current.state.UpDataDetails.country,
+                    citizen_country: current.state.UpDataDetails.citizen_country,
+                    pastal_code: current.state.UpDataDetails.pastal_code,
+                    bucket: getBucket[0].bucket,
+                    country_code: current.state.UpDataDetails?.citizen_country?.value || current?.state?.flag_mobile
+                },
+                commonHeader(user_token)
+            )
+            .then((responce) => {
+                if (responce.data.hassuccessed) {
+                    current.setState({ loaderImage: false });
+                    current.setState({
+                        editInsuranceOpen: false,
+                        addInsuranceOpen: false,
+                        succUpdate: true,
+                        insuranceDetails: {
+                            insurance: "",
+                            insurance_number: "",
+                            insurance_country: "",
+                        },
+                    });
+                    current.setState({ loaderImage: false });
+                    setTimeout(() => {
+                        current.setState({ succUpdate: false });
+                    }, 5000);
+                    getUserData(current);
+                    axios
+                        .put(
+                            "https://api-eu.cometchat.io/v2.0/users/" +
+                            current.state.profile_id.toLowerCase(),
+                            {
+                                name:
+                                    current.state.UpDataDetails.first_name +
+                                    " " +
+                                    current.state.UpDataDetails.last_name,
+                            },
+                            commonCometHeader()
+                        )
+                        .then((res) => {
+                            var data = update_CometUser(current.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
+                        });
+                } else {
+                    current.setState({ loaderImage: false });
+                    if (responce.data.message === "Phone is not verified") {
+                        current.setState({ phonevalidate: true });
+                    }
+                    current.setState({ error3: true });
+                    setTimeout(() => {
+                        current.setState({ error3: false });
+                    }, 5000);
+                }
+            });
+    }
+    else{
+        current.setState({error4: true});
+    }
+  
 };
 
 //For change the language and the Speciality

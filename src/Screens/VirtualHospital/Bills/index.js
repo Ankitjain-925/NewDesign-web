@@ -527,12 +527,12 @@ class Index extends Component {
               ? obj?.patient?.first_name + ' ' + obj?.patient?.last_name
               : obj?.patient?.first_name;
           return (
-            JSON.stringify(obj?.invoice_id)
-              .toLowerCase()
-              .includes(e.target?.value?.toLowerCase()) ||
+            JSON.stringify(obj && obj?.invoice_id)
+              ?.toLowerCase()
+              ?.includes(e.target?.value?.toLowerCase()) ||
             JSON.stringify(name)
-              .toLowerCase()
-              .includes(e.target?.value?.toLowerCase())
+              ?.toLowerCase()
+              ?.includes(e.target?.value?.toLowerCase())
           );
         });
       this.setState({ bills_data: FilterFromSearch1 });
@@ -557,7 +557,6 @@ class Index extends Component {
       )
       .then((response) => {
         if (response.data.hassuccessed) {
-          console.log('response.data', response.data);
           invoice.house_name = response.data.data;
           axios
             .post(

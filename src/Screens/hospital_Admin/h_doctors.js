@@ -86,7 +86,7 @@ class Index extends Component {
                                     value: item.house_id
                                 })
                                 this.setState({ Housesoptions: Housesoptions });
-                                this.setState({checkboxdata:this.props.metadata.authority?.doctor_roles})
+                                this.setState({checkboxdata:this.props.metadata.authority.doctor_roles})
                             })
                         })
                     }

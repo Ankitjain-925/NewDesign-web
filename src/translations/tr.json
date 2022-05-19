@@ -1259,7 +1259,16 @@
 		"select_user_type":"Lütfen kullanıcı türünü seçin",
 		"suported_file_type_jpg": "Desteklenen dosya tipleri: .jpg, .png",
 		"plz_select_patient":"Lütfen, bir patine seçin",
+		"followed": "takip edildi",
+		"unfollowed": "takip edilmedi",
+		"aimedis_newsletter":"Aimedis Bülteni",
+		"follow":"takip etmeyi bırak",
+		"unfollow": "entfolgen",
+		"since": "dan beri",
+		"not_followed_by_yet": "henüz takip edilmedi",
+		"change_citizenship": "Vatandaşlık ülkenizi yeni mobil ülke kodunuza uyacak şekilde değiştirmek ister misiniz?",
 
+		
 		"Billing": "Billing",
 		"Institution": "Institution",
 		"Addservice": "Add service",

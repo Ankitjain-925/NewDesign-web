@@ -85,6 +85,7 @@ class Index extends Component {
       fax: "",
       updateIns: -1,
       error3: false,
+      error4: false,
       succUpdate: false,
       copied: false,
       value: 0,
@@ -217,6 +218,51 @@ class Index extends Component {
       GetLanguageMetadata(this);
     }
   };
+  
+  OnMobileCodeChange = (event) => {
+    let translate = getLanguage(this.props.languageType)
+    let { change_citizenship, Yes, No } = translate;
+    confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div
+              className={
+               this.props.settings &&
+               this.props.settings.setting &&
+               this.props.settings.setting.mode === "dark"
+                  ? "dark-confirm react-confirm-alert-body"
+                  : "react-confirm-alert-body"
+              }
+            >
+              <h1>{change_citizenship}</h1>
+              <div className="react-confirm-alert-button-group">
+                <button
+                  onClick={() => {
+                    var state = this.state.UpDataDetails;
+                    var data = this.state.selectCountry?.length>0 && this.state.selectCountry.filter((item)=>item.value === event)
+                    if(data?.length>0){
+                    state["citizen_country"] = data[0];
+                    this.setState({UpDataDetails : state})
+                    }
+                    onClose();
+                  }}
+                >
+                  {Yes}
+                </button>
+                <button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  {No}
+                </button>
+              </div>
+            </div>
+          );
+        },
+      });
+}
+
 
   //For getting the dropdowns from the database
   getMetadata() {
@@ -339,6 +385,9 @@ class Index extends Component {
             )}
             {this.state.error3 && (
               <div className="err_message">{profile_not_updated}</div>
+            )}
+            {this.state.error4 && (
+              <div className="err_message">{"Please fill the citizenship country"}</div>
             )}
             {this.state.ChangedPIN && (
               <div className="success_message">
@@ -807,7 +856,8 @@ class Index extends Component {
                             searchable={true}
                             placeholder="Country Code"
                             onSelect={(e) => {
-                              updateFlags(e, "flag_mobile", this);
+                              updateFlags(e, "flag_mobile", this); 
+                              this.OnMobileCodeChange(e);
                             }}
                             name="flag_mobile"
                             showSelectedLabel={false}
