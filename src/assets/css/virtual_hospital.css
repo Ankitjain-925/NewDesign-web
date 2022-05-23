@@ -14475,6 +14475,219 @@ label.newrole {
   margin-bottom: 0px;
   font-family: Muli;
 }
+.certificateBg {
+  background: #fffac7;
+  padding-top: 55px;
+  padding-bottom: 132px;
+}
+.certifyForm {
+  border: 2px solid #a12f219c;
+  padding: 26px;
+  border-radius: 6px;
+}
+
+.insrnceCmp input {
+  outline: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  color: #7F8383;
+  border-radius: 4px;
+  width: 100%;
+  min-height: 45px;
+  border: 1px solid #bebebe;
+  padding: 10px 8px 10px;
+  font-family: "Mulish", sans-serif;
+}
+.cmnSpc {
+  margin-bottom: 18px;
+}
+
+.insrnceLbl1 label {
+  display: block;
+  color: #a12f21;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 19px;
+  margin-bottom: 10px;
+  line-height: initial;
+  font-family: Mulish,sans-serif;
+}
+.insrnceLbl2 label {
+  display: block;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  color: #404646;
+  margin-bottom: 7px;
+  font-family: Mulish,sans-serif;
+}
+.certifyCheck {
+  margin-top: 60px;
+  margin-bottom: 45px;
+}
+.frstCertify h3 {
+  display: block;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 18px;
+  color: #404646;
+  margin-bottom: 18px;
+  font-family: Mulish,sans-serif;
+}
+
+.formGroupChk input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+.formGroupChk label {
+  position: relative;
+  cursor: pointer;
+  padding-left: 50px;
+}
+.formGroupChk label:before {
+  content: '';
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 2px solid #a12f21;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%), inset 0px -15px 10px -12px rgb(0 0 0 / 5%);
+  padding: 15px 16px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 0px;
+  position: absolute;
+  top: 6px;
+  left: 0px;
+  border-radius: 4px;
+}
+.formGroupChk input:checked + label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 8px;
+  height: 17px;
+  border: solid #a12f21;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  font-family: "Mulish", sans-serif;
+}
+.formGroupChk span {
+  display: block;
+  color: #a12f21;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 21px;
+  margin-bottom: 5px;
+  line-height: initial;
+  font-family: Mulish,sans-serif;
+}
+.formGroupChk p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  color: #404646;
+  margin-bottom: 0px;
+  font-family: Mulish,sans-serif;
+}
+.btmSpc {
+  margin-bottom: 16px;
+}
+.wrkSince label {
+  display: block;
+  color: #a12f21;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  margin-bottom: 5px;
+  line-height: initial;
+  font-family: Mulish,sans-serif;
+}
+
+.wrkInput {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.wrkInput input {
+  width: 58px;
+  height: 55px;
+  border: 1.5px solid #a12f21;
+  border-right: none;
+  outline: none;
+  padding: 6px;
+  text-align: center;
+  font-family: Mulish,sans-serif;
+}
+.wrkInput input:first-child {
+  border-radius: 4px 0px 0px 4px;
+}
+.wrkInput input:last-child {
+  border-right: 1.5px solid #a12f21;
+  border-radius: 0px 4px 4px 0px;
+}
+.wrkSince p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  color: #404646;
+  margin-bottom: 0px;
+  font-family: Mulish,sans-serif;
+}
+.setArbtUpr {
+  position: relative;
+  min-height: 100%;
+}
+.setArbt label {
+  display: block;
+  color: #a12f21;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  margin: 0px;
+  font-family: Mulish,sans-serif;
+}
+
+.setArbtSign {
+  border: 2px solid #a12f219c;
+  padding: 18px;
+  padding-top: 124px;
+  border-radius: 6px;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+  background: #ffffff;
+}
+.setArbtSign label {
+  display: block;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #404646;
+  margin-bottom: 8px;
+  font-family: Mulish,sans-serif;
+}
+.setArbtSign p {
+  color: #a12f21;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 21px;
+  margin: 0px;
+  line-height: initial;
+  font-family: Mulish,sans-serif;
+}
 
 .attchDecline {
   margin: 0px 38px;
@@ -14515,13 +14728,13 @@ label.newrole {
   height: "6px";
   background: "red";
   /* borderRadius: "50%"; */
-
+}
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: transparent !important;
+    -webkit-text-fill-color: #000808  !important;
 }
 .srchFilter .comonSel div {
   border: none !important;
