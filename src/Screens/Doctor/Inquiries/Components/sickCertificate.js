@@ -20,6 +20,7 @@ import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import { getLanguage } from "translations/index"
 import Pagination from "Screens/Components/Pagination/index";
 import { commonHeader } from "component/CommonHeader/index";
+import { data } from "jquery";
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
   return (

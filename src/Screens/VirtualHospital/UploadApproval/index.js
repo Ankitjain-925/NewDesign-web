@@ -158,18 +158,25 @@ class Index extends Component {
   };
 
   handleTaskSubmit = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {
+      Please_upload_document_approval_from_patient,
+      Please_select_Step_name,
+      Please_enter_case_number
+     
+    } = translate;
     this.setState({ errorMsg: '' });
     this.setState({ loaderImage: true });
     var data = this.state.newTask;
 
     if (this.state.needUpload && !this.state.isFile) {
       this.setState({
-        errorMsg: 'Please upload the document of approval from patient',
+        errorMsg: Please_upload_document_approval_from_patient,
       });
     } else if (!this.state.SelectedStep.label) {
-      this.setState({ errorMsg: 'Please select Step name' });
+      this.setState({ errorMsg: Please_select_Step_name});
     } else if (!this.state.case.case_number) {
-      this.setState({ errorMsg: 'Please enter case number' });
+      this.setState({ errorMsg: Please_enter_case_number});
     } else {
       var case_data = {
         house_id: this.props?.House.value,
@@ -300,11 +307,7 @@ class Index extends Component {
     //   }
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      Tasks_overview,
-      ShowArchivedTasks,
-      Open,
-      Donetoday,
-      CaseNumber,
+       CaseNumber,
       step_name,
       SelectStepName,
       Attachments,

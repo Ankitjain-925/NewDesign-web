@@ -111,7 +111,8 @@ class Index extends Component {
       pain_areas,
       BodySchemeNotes,
     } = translate;
-    var item = this.state.item;
+   var item = this.state.item;
+  
     return (
       <Grid container direction="row" className="descpCntnt">
         <Grid item xs={12} md={1} className="descpCntntLft">
@@ -359,7 +360,7 @@ class Index extends Component {
                   <Grid className="conPainArea">
                     <label>{pain_areas}</label>
                   </Grid>
-                  <PainPoint
+               <PainPoint
                     id={item.track_id}
                     gender={this.state.gender}
                     painPoint={item.painPoint}

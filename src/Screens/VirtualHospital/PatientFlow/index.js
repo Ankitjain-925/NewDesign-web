@@ -297,6 +297,9 @@ class Index extends Component {
   };
 
   OnAdd = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { Step_name_already_exist } =
+      translate;
     this.setState({ stepError: '' });
     var state = this.state.actualData;
     let allSteps =
@@ -315,7 +318,7 @@ class Index extends Component {
       this.GetStep();
       this.setState({ openPopup: false, step_name: '' });
     } else if (check === true) {
-      this.setState({ stepError: 'Step name already exist' });
+      this.setState({ stepError: Step_name_already_exist });
     }
   };
 
@@ -582,14 +585,17 @@ class Index extends Component {
 
   //On Add case
   AddCase = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {Please_enter_case_number, Please_select_step ,Please_add_email_of_patient ,Please_enter_information_of_patient} =
+      translate;
     this.setState({ errorMsg: '' });
     var data = this.state.updateState;
     if (data && !this.state.case.case_number) {
-      this.setState({ errorMsg: 'Please enter case number' });
+      this.setState({ errorMsg: Please_enter_case_number });
     } else if (data && !this.state.SelectedStep) {
-      this.setState({ errorMsg: 'Please select step' });
+      this.setState({ errorMsg: Please_select_step });
     } else if (!data.email && this.state.enableEmail === 'email') {
-      this.setState({ errorMsg: 'Please add the email of patient' });
+      this.setState({ errorMsg: Please_add_email_of_patient });
     } else if (
       (!data?.first_name ||
         (!data?.last_name && !data.birthday) ||
@@ -597,7 +603,7 @@ class Index extends Component {
       this.state.enableEmail === 'other'
     ) {
       this.setState({
-        errorMsg: 'Please enter the full information of patient',
+        errorMsg: Please_enter_information_of_patient,
       });
     } else {
       data.institute_id =
@@ -1147,6 +1153,7 @@ class Index extends Component {
       Mobile_number,
       Last_name,
       Patient_Email,
+      Patient_not_found_information
     } = translate;
 
     const {
@@ -1747,7 +1754,7 @@ class Index extends Component {
                 )}
                 {this.state.idpinerror && (
                   <div className="err_message">
-                    {'Patient is not found on the basis of given information'}
+                    {Patient_not_found_information}
                   </div>
                 )}
                 <p className="err_message">{this.state.errorMsg}</p>
