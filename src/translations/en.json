@@ -1830,7 +1830,29 @@
    "diarrhea_vomiting":"Diarrhea vomiting",
    "diarrhea_symptoms_begin":"Diarrhea symptoms begin",
   "diarrhea_body_temp":"Diarrhea body temp",
-  "done_on":"done on"
+  "done_on":"done on",
+
+  "Insurance_company":"Insurance company",
+  "Name":"Name",
+  "DOB":"DOB",
+  "Insurance_Company":"Number Insurance Company",
+  "Insurance_Person":"Insurance number of Person",
+  "Status":"Status",
+  "Hospital_Number":"Hospital Number",
+  "Doctor_Number":"Doctor Number",
+  "Date":"Date",
+  "First_Certification":"First Time Certification",
+  "Workincident":"Workincident / Result of Workincident",
+  "Occupational_disease":"Occupational disease",
+  "Continuation_of_certification":"Continuation of certification",
+  "Sent_Special_Doctor":"Sent to a Special Doctor",
+  "Assigned_doctor":"Assigned to the accident insurance doctor",
+  "Imposible_since":"Imposible to work since",
+  "most_until":"Most likely imposible to work until",
+  "detected_at":"Detected at",
+  "Stamp_Doctor":"Stamp and Signature of the Doctor",
+  "disability":"Disability - ",
+  "certification":"certification"
   
   
    

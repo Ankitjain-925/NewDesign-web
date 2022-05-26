@@ -46,6 +46,7 @@ import {
 } from 'Screens/Components/GetMetaData/index.js';
 import { OptionList } from 'Screens/Login/metadataaction';
 import PainPoint from "Screens/Components/PointPain/index";
+import Certificate from "./index1";
 
 
 function TabContainer(props) {
@@ -122,11 +123,10 @@ class Index extends Component {
       AllSmokingStatus: [],
       AllSituation: [],
       AllGender: [],
-      gender:'female',
-    
-      
-   
-    
+      gender: 'female',
+      info: this.props.info
+
+
 
     };
   }
@@ -139,7 +139,8 @@ class Index extends Component {
       prevProps.DoneTask !== this.props.DoneTask ||
       prevProps.OpenTask !== this.props.OpenTask ||
       prevProps.DeclinedTask !== this.props.DeclinedTask ||
-      prevProps.patientForFilter !== this.props.patientForFilter
+      prevProps.patientForFilter !== this.props.patientForFilter||
+      prevProps.info !==this.props.info
     ) {
       this.setState({
         tabvalue2: this.props.tabvalue2 || 0,
@@ -150,6 +151,7 @@ class Index extends Component {
         DeclinedTask: this.props.DeclinedTask,
         patientForFilter: this.props.patientForFilter,
         item: this.props.data,
+        info: this.props.info
       });
     }
     if (prevProps.patient !== this.props.patient) {
@@ -158,6 +160,7 @@ class Index extends Component {
     }
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
       this.getMetadata();
+     
     }
   };
 
@@ -178,7 +181,7 @@ class Index extends Component {
         this.state.allMetadata.situation,
         this.props.stateLanguageType
       );
-     var AllGender = GetLanguageDropdown(
+      var AllGender = GetLanguageDropdown(
         this.state.allMetadata &&
         this.state.allMetadata.gender &&
         this.state.allMetadata.gender?.length > 0 &&
@@ -189,12 +192,13 @@ class Index extends Component {
         AllSmokingStatus: AllSmokingStatus,
         AllSituation: AllSituation,
         AllGender: AllGender,
-      
+
       });
     });
   };
 
   componentDidMount() {
+
   this.getMetadata();
     this.getPatientData();
     this.getProfessionalData();
@@ -221,6 +225,7 @@ class Index extends Component {
     ) {
       this.setState({ openTask: true });
     }
+    
   }
 
   // manage assign to list
@@ -293,7 +298,7 @@ class Index extends Component {
   };
   // close model Add Task
   handleCloseTask = () => {
-    this.setState({ openTask: false, newTask: {} });
+    this.setState({ openTask: false, newTask: {},openTask1:false });
   };
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
@@ -1056,6 +1061,10 @@ class Index extends Component {
     });
   };
 
+  cretficateTask = () => {
+    this.setState({ openTask1: true })
+  }
+
   // Get the Professional data
   getProfessionalData = async () => {
     this.setState({ loaderImage: true });
@@ -1514,7 +1523,7 @@ class Index extends Component {
       });
     let { userFilter, assignedTo2, selectSpec2, selectWard, selectRoom } =
       this.state;
-  
+
     return (
       <Grid className="topLeftSpc taskViewMob">
         <Grid container direction="row">
@@ -1541,7 +1550,7 @@ class Index extends Component {
             onClose={this.handleCloseTask}
           >
             <Grid className="creatTaskModel">
-              <Grid className="creatTaskCntnt">
+           <Grid className="creatTaskCntnt">
                 <Grid container direction="row">
                   <Grid item xs={12} md={12}>
                     <Grid className="creatLbl">
@@ -2470,24 +2479,20 @@ class Index extends Component {
                                       </Grid>
                                       <Grid>
                                         <h1>{Pain_begin}</h1>
-                                          <PainPoint
-                                          id={this.state.newTask.stomach_painbegin_painPoint}
-                                          //  id='newid1'
-                                         gender={this.state.gender}
+                                        <PainPoint
+                                          id="New_id1"
+                                          gender={this.state.gender}
                                           painPoint={this.state.newTask.stomach_painbegin_painPoint}
                                           isView={true}
-                                         
+
                                         />
-                                         </Grid>
+                                      </Grid>
                                       <Grid>
                                     {  console.log('id',this.state.newTask.stomach_hurtnow_painPoint)}
                                         <h1>{hurtnow}</h1>
-                                        <PainPoint 
-                                   
-                                        id={this.state.newTask.stomach_hurtnow_painPoint}
-                                        
-                                            // id='newid2'
-                                         gender={this.state.gender}
+                                        <PainPoint
+                                          id="New_id2"
+                                          gender={this.state.gender}
                                           painPoint={this.state.newTask.stomach_hurtnow_painPoint}
                                           isView={true}
                                         />
@@ -3544,6 +3549,52 @@ class Index extends Component {
                   </Grid>
                 </Grid>
               </Grid>
+             
+            </Grid>
+          </Modal>
+          <Modal className={
+            this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+              ? 'darkTheme'
+              : ''
+          } open={this.state.openTask1} onClose={this.handleCloseTask}>
+            <Grid className="creatTaskModel2">
+              <Grid className="creatTaskCntnt">
+                <Grid container direction="row">
+                  <Grid item xs={12} md={12}>
+                    <Grid className="creatLbl">
+                      <Grid className="creatLblClose">
+                        <a onClick={this.handleCloseTask}>
+                          <img
+                            src={require('assets/images/close-search.svg')}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
+                      <label>{CreateaTask}</label>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={12}>
+                    <Grid className="creatDetail">
+                      <Grid className="creatInfoIner">
+                        <Grid
+                          container
+                          direction="row"
+                          alignItems="center"
+                          spacing={2}
+                        >
+                          <Grid item xs={12} md={12}>
+                            <Certificate info={this.state.info} />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
           </Modal>
           {/* End of Model setup */}
@@ -3694,6 +3745,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        cretficate={() => this.cretficateTask()}
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
@@ -3717,6 +3769,8 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        cretficate={() => this.cretficateTask()}
+
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
@@ -3740,6 +3794,8 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        cretficate={() => this.cretficateTask()}
+
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
@@ -3763,6 +3819,8 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        cretficate={() => this.cretficateTask()}
+
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
@@ -3786,6 +3844,8 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        cretficate={() => this.cretficateTask()}
+
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
@@ -3809,6 +3869,8 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
+                        cretficate={() => this.cretficateTask()}
+
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }

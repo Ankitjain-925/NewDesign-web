@@ -44,7 +44,7 @@ class PointPain extends Component {
       Declined,
       view_detail,
       decline,
-      approved
+      approved,
     } = translate;
     var data = this.state.data;
     return (
@@ -296,7 +296,18 @@ class PointPain extends Component {
                             </a>
                           </li>
                         )}
-                         
+                         <li onClick={() => {
+                            this.props.cretficate()
+                          }}>
+                           <a>
+                           <img
+                                src={require('assets/virtual_images/menudocs.jpg')}
+                                alt=""
+                                title=""
+                              />
+                           <>Create Certificate</>
+                           </a>
+                         </li>
                     </ul>
                   </a>
                 )}
