@@ -298,6 +298,7 @@ class Index extends Component {
   }
 
   getallGroups = () => {
+    console.log('sdfsdfsd');
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
     axios
@@ -314,8 +315,8 @@ class Index extends Component {
           if (responce.data?.data?.institute_groups) {
             var elements = responce.data?.data?.institute_groups
             elements.sort((a, b) => {
-              let fa = a.group_name.toLowerCase(),
-                fb = b.group_name.toLowerCase();
+              let fa = a?.group_name?.toLowerCase(),
+                fb = b?.group_name?.toLowerCase();
               if (fa < fb) {
                 return -1;
               }
