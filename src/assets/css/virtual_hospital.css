@@ -14676,6 +14676,8 @@ label.newrole {
   position: absolute;
   bottom: 0px;
   background: #ffffff;
+  width:100%;
+  position:absolute
 }
 .setArbtSign label {
   display: block;
@@ -14877,7 +14879,7 @@ input:-webkit-autofill:active {
   margin-top: 10px;
   margin-bottom: 20px;
   height:250px;
-  width: 200px;;
+  /* width: 200px;; */
  position: absolute; 
 
  
@@ -14888,9 +14890,30 @@ input:-webkit-autofill:active {
   height:100%;
   width:100%;
 }
-
+.workUntil {
+margin-top: 5px !important;
+}
 /* @media (max-width: 600px) {
   .setArbtSign {
     margin-top:100% !important;
   }
 } */
+ .uploader{
+  border:none;
+}
+.browsInput2 {
+  /* border: 2px dashed #BFC1C1; */
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+  display: flex;
+  color: #7F8383;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 18px;
+}

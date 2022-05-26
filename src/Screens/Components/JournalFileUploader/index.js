@@ -19,7 +19,7 @@ class ImageUploderView extends Component {
       images: [],
       attachfile: this.props.attachfile,
       ismore_five: false,
-      comesFrom1:this.props.comesFrom1
+      comesFrom1: this.props.comesFrom1
     };
   }
 
@@ -139,8 +139,8 @@ class ImageUploderView extends Component {
                 };
                 axios
                   .put(signedRequest, file, options)
-                  .then((result) => {})
-                  .catch((error) => {});
+                  .then((result) => { })
+                  .catch((error) => { });
 
                 let previes = URL.createObjectURL(file);
                 if (fileType === "mp4") {
@@ -182,7 +182,7 @@ class ImageUploderView extends Component {
                 this.setState({ images: images });
                 //    this.updateNewImage(response.data.data.returnData.url + '&bucket=' + bucket)
               })
-              .catch((error) => {});
+              .catch((error) => { });
 
             this.setState({ loaderImage: false, attachfile: Fileadd });
             console.log('inside Props', Fileadd)
@@ -216,29 +216,25 @@ class ImageUploderView extends Component {
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps({ className: "dropzone" })}>
               <Input {...getInputProps()} />
-              {this.state.comesFrom1="certificate" ?<>
-              <Grid className="browsInput2 ">
-                <a>
+              <Grid>
+              {this.state.comesFrom1 == 'certificate' ? (
+                  <div className="browsInput2"> <a>
                   <img
                     src={require("assets/images/upload-file.svg")}
                     alt=""
                     title=""
                   />
                 </a>
-                <a>
-                  {/* {browse}{" "} */}
-                  <input
+                 <input
                     type="file"
                     onChange={(e) => this.UploadFiles(e.target.files)}
                     multiple={this.props.isMulti}
                   />
-                </a>{" "}
-                {/* {or_drag_here} */}
-              </Grid>
-              <p>{suported_file_type_jpg_png_dcm}</p>
-              </>:<>
-              <Grid className="browsInput ">
-                <a>
+                  </div>
+                ): (
+           <>
+           <Grid className="browsInput">
+            <a>
                   <img
                     src={require("assets/images/upload-file.svg")}
                     alt=""
@@ -254,92 +250,100 @@ class ImageUploderView extends Component {
                   />
                 </a>{" "}
                 {or_drag_here}
+              
+               </Grid>
+                 <p>{suported_file_type_jpg_png_dcm}</p>
+                </>
+                
+                )}
+              
               </Grid>
-              <p>{suported_file_type_jpg_png_dcm}</p></>}
+            
             </div>
           )}
         </Dropzone>
+      
         {this.state.attachfile && this.state.attachfile.length > 0
           ? this.state.attachfile.map((file, index) => (
-              <Grid container direction="row" className="updatedfileuploader">
-                <Grid item xs={3} md={3} className="updatedfileLft">
-                  {file?.filetype === "mp4" && (
-                    <img
-                      src={require("assets/images/videoIcon.png")}
-                      alt=""
-                      title=""
-                    />
-                  )}
-                  {(file?.filetype === "png" ||
-                    file?.filetype === "jpeg" ||
-                    file?.filetype === "jpg" ||
-                    file?.filetype === "svg") && (
+            <Grid container direction="row" className="updatedfileuploader">
+              <Grid item xs={3} md={3} className="updatedfileLft">
+                {file?.filetype === "mp4" && (
+                  <img
+                    src={require("assets/images/videoIcon.png")}
+                    alt=""
+                    title=""
+                  />
+                )}
+                {(file?.filetype === "png" ||
+                  file?.filetype === "jpeg" ||
+                  file?.filetype === "jpg" ||
+                  file?.filetype === "svg") && (
                     <img
                       src={getImage(file.filename, this.state.images)}
                       alt=""
                       title=""
                     />
                   )}
-                  {file?.filetype === "pdf" && (
-                    <img
-                      src={require("assets/images/pdfimg.png")}
-                      alt=""
-                      title=""
-                    />
-                  )}
-                  {(file?.filetype === "doc" ||
-                    file?.filetype === "docx" ||
-                    file?.filetype === "xml" ||
-                    file?.filetype === "txt") && (
+                {file?.filetype === "pdf" && (
+                  <img
+                    src={require("assets/images/pdfimg.png")}
+                    alt=""
+                    title=""
+                  />
+                )}
+                {(file?.filetype === "doc" ||
+                  file?.filetype === "docx" ||
+                  file?.filetype === "xml" ||
+                  file?.filetype === "txt") && (
                     <img
                       src={require("assets/images/txt1.png")}
                       alt=""
                       title=""
                     />
                   )}
-                  {(file?.filetype === "xls" ||
-                    file?.filetype === "xlsx" ||
-                    file?.filetype === "xml") && (
+                {(file?.filetype === "xls" ||
+                  file?.filetype === "xlsx" ||
+                  file?.filetype === "xml") && (
                     <img
                       src={require("assets/images/xls1.svg")}
                       alt=""
                       title=""
                     />
                   )}
-                  {file?.filetype === "csv" && (
-                    <img
-                      src={require("assets/images/csv1.png")}
-                      alt=""
-                      title=""
-                    />
-                  )}
-                  {(file?.filetype === "dcm" ||
-                    file?.filetype === "DICOM" ||
-                    file?.filetype === "dicom" ||
-                    file?.filetype === "DCM") && (
+                {file?.filetype === "csv" && (
+                  <img
+                    src={require("assets/images/csv1.png")}
+                    alt=""
+                    title=""
+                  />
+                )}
+                {(file?.filetype === "dcm" ||
+                  file?.filetype === "DICOM" ||
+                  file?.filetype === "dicom" ||
+                  file?.filetype === "DCM") && (
                     <img
                       src={require("assets/images/dcm1.png")}
                       alt=""
                       title=""
                     />
                   )}
-                </Grid>
-                <Grid item xs={6} md={6} className="updatedfileMid">
-                  <label>{this.getFileName(file)}</label>
-                </Grid>
-                <Grid item xs={3} md={3} className="updatedfileRght">
-                  <img
-                    className="deletepointer"
-                    onClick={() => {
-                      this.delindex(file.filename);
-                    }}
-                    src={require("assets/images/closeCall.png")}
-                    alt=""
-                    title=""
-                  />
-                </Grid>
               </Grid>
-            ))
+              <Grid item xs={6} md={6} className="updatedfileMid">
+                <label>{this.getFileName(file)}</label>
+              </Grid>
+              <Grid item xs={3} md={3} className="updatedfileRght">
+                <img
+                  className="deletepointer"
+                  onClick={() => {
+                    this.delindex(file.filename);
+                  }}
+                  src={require("assets/images/closeCall.png")}
+                  alt=""
+                  title=""
+                />
+              </Grid>
+            </Grid>
+          ))
           : ""}
       </div>
     );
