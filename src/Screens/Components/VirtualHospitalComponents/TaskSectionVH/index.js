@@ -125,7 +125,8 @@ class Index extends Component {
       AllSituation: [],
       AllGender: [],
       gender: 'female',
-      info: this.props.info
+      info: this.props.info,
+      certificateId: false,
 
 
 
@@ -299,7 +300,7 @@ class Index extends Component {
   };
   // close model Add Task
   handleCloseTask = () => {
-    this.setState({ openTask: false, newTask: {},openTask1:false });
+    this.setState({ openTask: false, newTask: {},openTask1:false, certificateId: false });
   };
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
@@ -1063,8 +1064,8 @@ class Index extends Component {
     });
   };
 
-  cretficateTask = () => {
-    this.setState({ openTask1: true })
+  cretficateTask = (id) => {
+    this.setState({ openTask1: true, certificateId : id })
   }
 
   // Get the Professional data
@@ -3599,7 +3600,7 @@ class Index extends Component {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-                            <Certificate info={this.state.info} />
+                            <Certificate certificateId={this.state.certificateId} info={this.state.info} handleCloseTask={this.handleCloseTask}/>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -3757,7 +3758,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={() => this.cretficateTask()}
+                        cretficate={(id) => this.cretficateTask(id)}
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }

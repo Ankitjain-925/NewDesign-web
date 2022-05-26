@@ -11,6 +11,10 @@ import { Speciality } from 'Screens/Login/speciality.js';
 import { LanguageFetchReducer } from 'Screens/actions';
 import { getLanguage } from 'translations/index';
 import _ from 'lodash';
+import axios from 'axios';
+import sitedata from 'sitedata';
+import Loader from "Screens/Components/Loader/index";
+import { commonHeader } from 'component/CommonHeader/index';
 import NotesEditor from 'Screens/Components/Editor/index';
 import FileUploader from 'Screens/Components/JournalFileUploader/index';
 import { Button, Input } from '@material-ui/core';
@@ -25,6 +29,7 @@ class Index extends Component {
             info: {},
             stamp: {},
             fileattach: {},
+            loaderImage: false,
         };
     }
 
@@ -54,19 +59,31 @@ class Index extends Component {
     };
 
 
-    CertificateSubmit = (value, name) => {
-        let data = {}
-        data = this.state.stamp
-        if (this.state.fileattach && this.state.fileattach.length > 0) {
-            data.fileattach = this.state.fileattach;
-        }
-        if (name == 'house_id') {
-            data[name] = value.value;
-        } else {
-            data[name] = value;
-        }
-        console.log('e', data)
-        this.setState({ stamp: {} })
+    CertificateSubmit = () => {
+        console.log('this.props.certificateId', this.props.certificateId)
+        if(this.props.certificateId){
+            let data = {}
+            data = this.state.stamp
+            if (this.state.fileattach && this.state.fileattach.length > 0) {
+                data.fileattach = this.state.fileattach;
+            }
+            this.setState({loaderImage: true})
+            axios
+            .put(
+              sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
+              {
+                certificate: data
+              },
+              commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                if(responce.data.hassuccessed){
+                    this.props.handleCloseTask();
+                }
+                this.setState({loaderImage: false})
+             
+            });
+        } 
     };
     render() {
         let { info } = this.state
@@ -98,6 +115,7 @@ class Index extends Component {
 
         return (
             <Grid>
+                 {this.state.loaderImage && <Loader />}
                 <Grid className="certificateBg">
                     <Grid className="headerHeight"></Grid>
                     <Grid container direction="row" justifyContent="center">
@@ -109,7 +127,7 @@ class Index extends Component {
                                         <Grid className="insrnceCmp cmnSpc">
                                             {/* <Grid className="insrnceLbl1"><label>Krainkenkasse bzw: Kostentrager</label></Grid> */}
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Insurance_company}</label></Grid>
-                                            <Grid><input type="text" name="Insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.Insurance_company || ''} /></Grid>
+                                            <Grid><input type="text" name="insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_company || ''} /></Grid>
                                         </Grid>
                                         <Grid className="cmnSpc">
                                             {/* <Grid className="insrnceLbl1"><label>Name, Vorname des Versicberten</label></Grid> */}
@@ -117,13 +135,13 @@ class Index extends Component {
                                                 <Grid item xs={12} sm={7} md={7}>
                                                     <Grid className="insrnceCmp">
                                                         <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Name}</label></Grid>
-                                                        <Grid><input type="text" name="Name_First" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.Name_First || ''} /></Grid>
+                                                        <Grid><input type="text" name="name" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.name || ''} /></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={12} sm={5} md={5}>
                                                     <Grid className="insrnceCmp">
                                                         <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{DOB}</label></Grid>
-                                                        <Grid><input type="date" name="DOB" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.DOB || ''} /></Grid>
+                                                        <Grid><input type="date" name="birthday" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.birthday || ''} /></Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -137,7 +155,7 @@ class Index extends Component {
                                                             <label>Kassen-Nr.</label></Grid> */}
                                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} >
                                                                 <label>{Insurance_Company}</label></Grid>
-                                                            <Grid><input type="text" name="Number_Insurance" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.Number_Insurance || ''} /></Grid>
+                                                            <Grid><input type="text" name="number_insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.number_insurance_company || ''} /></Grid>
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} sm={12} md={4}>
@@ -145,7 +163,7 @@ class Index extends Component {
                                                             {/* <Grid className="insrnceLbl1">
                                                             <label>Versicherten-Nr.</label></Grid> */}
                                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} ><label>{Insurance_Person}</label></Grid>
-                                                            <Grid><input type="text" name="Insurance_number" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.Insurance_number || ''} /></Grid>
+                                                            <Grid><input type="text" name="insurance_number_person" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_number_person || ''} /></Grid>
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} sm={12} md={4}>
@@ -183,7 +201,7 @@ class Index extends Component {
                                                         {/* <Grid className="insrnceLbl1">
                                                         <label>Date</label></Grid> */}
                                                         <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Date}</label></Grid>
-                                                        <Grid><input type="date" name="Date" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.Date || ''} /></Grid>
+                                                        <Grid><input type="date" name="date" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.date || ''} /></Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -196,14 +214,14 @@ class Index extends Component {
                                                     <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed2') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
                                                         <label>{First_Certification}</label>
                                                         <Grid className="formGroupChk">
-                                                            <input type="checkbox" id="Workincident" name={"Workincident"} onChange={(e) => this.updateAllEntrySec2(e)} value={this.state.stamp &&
-                                                                this.state.stamp?.Workincident &&
-                                                                this.state.stamp?.Workincident ==
+                                                            <input type="checkbox" id="Workincident" name={"workincident"} onChange={(e) => this.updateAllEntrySec2(e)} value={this.state.stamp &&
+                                                                this.state.stamp?.workincident &&
+                                                                this.state.stamp?.workincident ==
                                                                 true
                                                                 ? false
                                                                 : true || ''}
                                                                 checked={
-                                                                    this.state.stamp?.Workincident
+                                                                    this.state.stamp?.workincident
                                                                 }
                                                             />
 
@@ -213,14 +231,14 @@ class Index extends Component {
                                                             </label>
                                                         </Grid>
                                                         <Grid className="formGroupChk">
-                                                            <input type="checkbox" id="disease" name={"Occupational_disease"} onChange={(e) => this.updateAllEntrySec2(e)} value={this.state.stamp &&
-                                                                this.state.stamp?.Occupational_disease &&
-                                                                this.state.stamp?.Occupational_disease ==
+                                                            <input type="checkbox" id="disease" name={"occupational_disease"} onChange={(e) => this.updateAllEntrySec2(e)} value={this.state.stamp &&
+                                                                this.state.stamp?.occupational_disease &&
+                                                                this.state.stamp?.occupational_disease ==
                                                                 true
                                                                 ? false
                                                                 : true || ''}
                                                                 checked={
-                                                                    this.state.stamp?.Occupational_disease
+                                                                    this.state.stamp?.occupational_disease
                                                                 } />
 
                                                             <label for="disease">
@@ -234,16 +252,16 @@ class Index extends Component {
                                                     <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed2') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
                                                         <label>{Continuation_of_certification}</label>
                                                         <Grid className="formGroupChk">
-                                                            <input type="checkbox" id="Special" name={"Sent_Special_Doctor"} value={
+                                                            <input type="checkbox" id="Special" name={"sent_special_doctor"} value={
                                                                 this.state.stamp &&
-                                                                    this.state.stamp?.Sent_Special_Doctor &&
-                                                                    this.state.stamp?.Sent_Special_Doctor ==
+                                                                    this.state.stamp?.sent_special_doctor &&
+                                                                    this.state.stamp?.sent_special_doctor ==
                                                                     true
                                                                     ? false
                                                                     : true || ''
 
                                                             } checked={
-                                                                this.state.stamp?.Sent_Special_Doctor
+                                                                this.state.stamp?.sent_special_doctor
                                                             } onChange={(e) => this.updateAllEntrySec2(e)} />
                                                             <label for="Special">
                                                                 <span>{Sent_Special_Doctor}</span>
@@ -251,14 +269,14 @@ class Index extends Component {
                                                             </label>
                                                         </Grid>
                                                         <Grid className="formGroupChk">
-                                                            <input type="checkbox" id="Dem" name={"Assigned_doctor"} value={this.state.stamp &&
-                                                                this.state.stamp?.Assigned_doctor &&
-                                                                this.state.stamp?.Assigned_doctor ==
+                                                            <input type="checkbox" id="Dem" name={"assigned_doctor"} value={this.state.stamp &&
+                                                                this.state.stamp?.assigned_doctor &&
+                                                                this.state.stamp?.assigned_doctor ==
                                                                 true
                                                                 ? false
                                                                 : true || ''}
                                                                 checked={
-                                                                    this.state.stamp?.Assigned_doctor
+                                                                    this.state.stamp?.assigned_doctor
                                                                 }
                                                                 onChange={(e) => this.updateAllEntrySec2(e)} />
                                                             <label for="Dem">

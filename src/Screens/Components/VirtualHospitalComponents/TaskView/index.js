@@ -279,8 +279,8 @@ class PointPain extends Component {
                       )}
                         {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && data.meetingjoined && <li onClick={() => {
-                            this.props.cretficate()
+                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate && <li onClick={() => {
+                            this.props.cretficate(data._id)
                           }}>
                            <a>
                            <img
@@ -293,8 +293,8 @@ class PointPain extends Component {
                          </li>}
                          {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && data.link?.doctor_link && <li onClick={() => {
-                            this.props.cretficate()
+                        data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && <li onClick={() => {
+                            // this.props.cretficate()
                           }}>
                            <a>
                            <img
