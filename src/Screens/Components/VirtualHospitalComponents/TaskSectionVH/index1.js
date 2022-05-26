@@ -17,7 +17,7 @@ import Loader from "Screens/Components/Loader/index";
 import { commonHeader } from 'component/CommonHeader/index';
 import NotesEditor from 'Screens/Components/Editor/index';
 import FileUploader from 'Screens/Components/JournalFileUploader/index';
-import { Button, Input } from '@material-ui/core';
+
 
 
 
@@ -44,18 +44,18 @@ class Index extends Component {
         });
     };
 
+
+   
     updateAllEntrySec2 = (e) => {
         var state = this.state.stamp;
         state[e.target.name] = e.target.checked;
         this.setState({ stamp: state });
-        // console.log('dgfhfdhj', this.state.stamp)
     };
 
     updateEntryState2 = (event) => {
         var state = this.state.stamp;
         state[event.target.name] = event.target.value;
         this.setState({ stamp: state });
-        console.log('stamp', this.state.stamp)
     };
 
 
@@ -106,6 +106,7 @@ class Index extends Component {
             Assigned_doctor,
             Imposible_since,
             most_until,
+            work_until,
             detected_at,
             Stamp_Doctor,
             disability,
@@ -122,7 +123,7 @@ class Index extends Component {
                         <Grid item xs={11} sm={11} md={10}>
                             <Grid container direction="row" spacing={5}>
 
-                                <Grid item xs={12} sm={8} md={10}>
+                                <Grid item xs={12} sm={8} md={8}>
                                     <Grid className="certifyForm">
                                         <Grid className="insrnceCmp cmnSpc">
                                             {/* <Grid className="insrnceLbl1"><label>Krainkenkasse bzw: Kostentrager</label></Grid> */}
@@ -309,8 +310,8 @@ class Index extends Component {
                                         <Grid container direction="row" alignItems="center" className="btmSpc">
                                             <Grid item xs={12} sm={12} md={6}>
                                                 <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed3') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
-                                                    <label>{most_until}</label>
-                                                    {/* <p>most likely imposible to work until</p> */}
+                                                    <label>{most_until}<p className='hhh'>{work_until}</p></label>
+                                                    {/* <p>einschließlich</p> */}
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={12} sm={12} md={6}>
@@ -339,7 +340,7 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={2} md={2}>
+                                <Grid item xs={12} sm={4} md={4}>
                                     <Grid className="setArbtUpr">
                                         <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} >
                                             <label>{disability}<p className='hhh'>{certification}</p>
@@ -351,12 +352,12 @@ class Index extends Component {
                                                         name="description"
                                                         onChange={(e) =>
                                                             this.updateEntryState2(
-                                                               e
+                                                                e
                                                             )
                                                         }
                                                         value={this.state.stamp.description || ''}
                                                     ></textarea>
-                                                    </Grid>
+                                                </Grid>
                                             </label>
 
                                         </Grid>
@@ -364,9 +365,9 @@ class Index extends Component {
                                         <Grid className="setArbtSign" >
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} >
                                                 <label >{Stamp_Doctor} </label>
-                                                <Grid>
+                                                <Grid >
                                                     <FileUploader
-                                                        attachfile={
+                                                       attachfile={
                                                             this.state.stamp &&
                                                                 this.state.stamp?.fileattach
                                                                 ? this.state.stamp?.fileattach 
