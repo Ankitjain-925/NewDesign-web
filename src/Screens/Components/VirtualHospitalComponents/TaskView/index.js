@@ -215,11 +215,11 @@ class PointPain extends Component {
                  
                       { data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && (!data.approved===true ) &&
+                        data.task_type === 'sick_leave' && !data.approved===true &&
                         this.props.comesFrom === 'Professional' ?  (
                         <li
                         onClick={() => {
-                          this.props.handleApprovedDetails(data._id, 'approved')
+                          this.props.handleApprovedDetails(data._id, 'approved', data)
                          }}
                         >
                           <a>
@@ -259,12 +259,10 @@ class PointPain extends Component {
                       ) : data &&
                         data.task_type && 
                         data.task_type === 'sick_leave' && 
-                        this.props.comesFrom === 'Professional' ? (
-                         
-
+                        this.props.comesFrom === 'Professional' && !data.is_decline && !data.certificate && (
                         <li
                           onClick={() => {
-                            this.props.handleApprovedDetails(data._id, 'decline')
+                            this.props.handleApprovedDetails(data._id, 'decline', data)
                             console.log('decline',data._id)
                            
                           }}
@@ -278,25 +276,10 @@ class PointPain extends Component {
                             <>{decline}</>
                           </a>
                         </li>
-                        
-                      ) :
-                        (
-                          <li
-                            onClick={() => {
-                              this.props.removeTask(data._id);
-                            }}
-                          >
-                            <a>
-                              <img
-                                src={require('assets/images/cancel-request.svg')}
-                                alt=""
-                                title=""
-                              />
-                              <>{DeleteTask}</>
-                            </a>
-                          </li>
-                        )}
-                         <li onClick={() => {
+                      )}
+                        {data &&
+                        data.task_type && 
+                        data.task_type === 'sick_leave' && data.meetingjoined && <li onClick={() => {
                             this.props.cretficate()
                           }}>
                            <a>
@@ -307,7 +290,21 @@ class PointPain extends Component {
                               />
                            <>Create Certificate</>
                            </a>
-                         </li>
+                         </li>}
+                         {data &&
+                        data.task_type && 
+                        data.task_type === 'sick_leave' && data.link?.doctor_link && <li onClick={() => {
+                            this.props.cretficate()
+                          }}>
+                           <a>
+                           <img
+                                src={require('assets/virtual_images/menudocs.jpg')}
+                                alt=""
+                                title=""
+                              />
+                           <a href={data.link?.doctor_link}>Join Meeting</a>
+                           </a>
+                         </li>}
                     </ul>
                   </a>
                 )}
