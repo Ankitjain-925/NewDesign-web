@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
+import moment from "moment";
 import { LanguageFetchReducer } from 'Screens/actions';
 import { getProfessionalData } from 'Screens/VirtualHospital/PatientFlow/data';
 import FileUploader from 'Screens/Components/JournalFileUploader/index';
@@ -381,14 +382,15 @@ class Index extends Component {
   };
 
 
-  handleApprovedDetails = (id, status) => {
+  handleApprovedDetails = (id, status, data) => {
    let translate = getLanguage(this.props.stateLanguageType);
     let { Something_went_wrong } = translate;
     this.setState({ loaderImage: true });
    axios
       .post(
       sitedata.data.path + '/vactive/approvedrequest',
-        {for_manage: status, task_id: id},
+        {for_manage: status, task_id: id, date : moment(data?.date).format("MMM DD, YYYY"),
+      start : data.start, end: data.end, patient_id: data?.patient_id },
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
@@ -2247,6 +2249,15 @@ class Index extends Component {
                             'sick_leave' && (
                               <Grid item xs={12} md={12} className="taskDescp">
                                 <Grid className="stndQues  stndQues1">
+                                <Grid>
+                                  <h3>Appointment Date:</h3>
+                                  {moment(this.state.newTask?.date).format("MMM DD, YYYY") }
+                                </Grid> 
+                                <Grid>
+                                  <h3>Appointment Time:</h3>
+                                  {this.state.newTask?.start} - {this.state.newTask?.end}
+                                </Grid> 
+                                   
                                   {this.state.newTask.headache === 'yes' &&
                                     <Grid>
                                       <Grid>
@@ -3118,7 +3129,8 @@ class Index extends Component {
 
 
 
-                          <Grid className="assignSecUpr">
+                          {this.state.newTask.task_type ===
+                            'sick_leave' && (<Grid className="assignSecUpr">
                             <Grid container direction="row" alignItems="center">
                               <Grid item xs={12} sm={12} md={12}>
                                 <Grid className="assignSec">
@@ -3398,7 +3410,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             </Grid>
-                          </Grid>
+                          </Grid>)}
                           {this.state.newTask &&
                             this.state.newTask.task_type ===
                             'picture_evaluation' &&
@@ -3749,8 +3761,8 @@ class Index extends Component {
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
-                        handleApprovedDetails={(id, status) =>
-                          this.handleApprovedDetails(id, status)
+                        handleApprovedDetails={(id, status, data) =>
+                          this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
                       />
@@ -3799,8 +3811,8 @@ class Index extends Component {
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
-                        handleApprovedDetails={(id, status) =>
-                          this.handleApprovedDetails(id, status)
+                        handleApprovedDetails={(id, status, data) =>
+                          this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
                       />
@@ -3824,8 +3836,8 @@ class Index extends Component {
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
-                        handleApprovedDetails={(id, status) =>
-                          this.handleApprovedDetails(id, status)
+                        handleApprovedDetails={(id, status, data) =>
+                          this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
                       />
@@ -3849,8 +3861,8 @@ class Index extends Component {
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
-                        handleApprovedDetails={(id, status) =>
-                          this.handleApprovedDetails(id, status)
+                        handleApprovedDetails={(id, status, data) =>
+                          this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
                       />
@@ -3874,8 +3886,8 @@ class Index extends Component {
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
-                        handleApprovedDetails={(id, status) =>
-                          this.handleApprovedDetails(id, status)
+                        handleApprovedDetails={(id, status, data) =>
+                          this.handleApprovedDetails(id, status, data)
                         }
                         comesFrom={this.props.comesFrom}
                       />
