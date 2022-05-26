@@ -2157,7 +2157,8 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           )}
-                          <Grid container direction="row" alignItems="center">
+                          {this.state.newTask.task_type !==
+                            'sick_leave' && (<Grid container direction="row" alignItems="center">
                             <Grid item xs={12} md={12} className="dueOn">
                               <label>{Dueon}</label>
                               <Grid
@@ -2243,7 +2244,7 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             </Grid>
-                          </Grid>
+                          </Grid>)}
 
 
                           {this.state.newTask.task_type ===
@@ -3200,7 +3201,7 @@ class Index extends Component {
                                               />
                                               <label>{Duplicate}</label>
                                             </Grid>
-                                            <Grid
+                                            {this.state.newTask.task_type !== 'sick_leave' && <Grid
                                               onClick={() => {
                                                 this.switchStatus();
                                               }}
@@ -3229,7 +3230,7 @@ class Index extends Component {
                                                 </Grid>
                                               )}
                                               <label>{Markasdone}</label>
-                                            </Grid>
+                                            </Grid>}
                                             {this.state.newTask.archived ==
                                               true ? (
                                               <Grid
