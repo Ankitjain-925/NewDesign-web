@@ -19,6 +19,7 @@ class ImageUploderView extends Component {
       images: [],
       attachfile: this.props.attachfile,
       ismore_five: false,
+      comesFrom1:this.props.comesFrom1
     };
   }
 
@@ -215,7 +216,28 @@ class ImageUploderView extends Component {
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps({ className: "dropzone" })}>
               <Input {...getInputProps()} />
-              <Grid className="browsInput">
+              {this.state.comesFrom1="certificate" ?<>
+              <Grid className="browsInput2 ">
+                <a>
+                  <img
+                    src={require("assets/images/upload-file.svg")}
+                    alt=""
+                    title=""
+                  />
+                </a>
+                <a>
+                  {/* {browse}{" "} */}
+                  <input
+                    type="file"
+                    onChange={(e) => this.UploadFiles(e.target.files)}
+                    multiple={this.props.isMulti}
+                  />
+                </a>{" "}
+                {/* {or_drag_here} */}
+              </Grid>
+              <p>{suported_file_type_jpg_png_dcm}</p>
+              </>:<>
+              <Grid className="browsInput ">
                 <a>
                   <img
                     src={require("assets/images/upload-file.svg")}
@@ -233,7 +255,7 @@ class ImageUploderView extends Component {
                 </a>{" "}
                 {or_drag_here}
               </Grid>
-              <p>{suported_file_type_jpg_png_dcm}</p>
+              <p>{suported_file_type_jpg_png_dcm}</p></>}
             </div>
           )}
         </Dropzone>

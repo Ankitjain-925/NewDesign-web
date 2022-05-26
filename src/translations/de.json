@@ -1691,6 +1691,28 @@
     "Patient_not_found_information":"Der Patient wird anhand der angegebenen Informationen nicht gefunden",
     "Please_upload_document_approval_from_patient":"Bitte laden Sie das Genehmigungsdokument des Patienten hoch",
     "Please_select_Step_name":"Bitte wählen Sie den Schrittnamen aus",
-    "please_upload_documents":"bitte laden sie dokumente hoch"
-  }
+    "please_upload_documents":"bitte laden sie dokumente hoch",
+
+    "Insurance_company":"Krainkenkasse bzw: Kostentrager",
+    "Name":"Name",
+    "DOB":"Geburtsdatum",
+    "Insurance_Company":"Kassen-Nr.",
+    "Insurance_Person":"Versicherten-Nr.",
+    "Status":"Status",
+    "Hospital_Number":"Betriebsstatten-Nr",
+    "Doctor_Number":"Arzt-Nr.",
+    "Date":"Date",
+    "First_Certification":"Erstmalige Zertifizierung",
+    "Workincident":"Erstbescheinigung",
+    "Occupational_disease":"Arbeitsunfall, Arbeitsunfallfolgen, Berufskrankheit",
+    "Continuation_of_certification":"Fortsetzung der Zertifizierung",
+    "Sent_Special_Doctor":"An einen Spezialarzt geschickt",
+    "Assigned_doctor":"Dem Durchgangsarzt zugewiesen",
+    "Imposible_since":"arbeitSunfanhig Seit",
+    "most_until":"Voraussichtlich arbeitsunfähig bis einschließlich",
+    "detected_at":"fesllgestellt am",
+    "Stamp_Doctor":"Vertragsarzlistempel / Unterschritt des Arztes",
+    "disability":"Arbeitsunfahigkeits-",
+    "certification":"bescheinigung"
+      }
 }
