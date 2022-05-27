@@ -1714,6 +1714,9 @@
     "detected_at":"fesllgestellt am",
     "Stamp_Doctor":"Vertragsarzlistempel / Unterschritt des Arztes",
     "disability":"Arbeitsunfahigkeits-",
-    "certification":"bescheinigung"
+    "certification":"bescheinigung",
+    "create":"schaffen",
+    "Create_Certificate":"Zertifikat erstellen",
+    "view_detail":"Im Detail sehen"
       }
 }

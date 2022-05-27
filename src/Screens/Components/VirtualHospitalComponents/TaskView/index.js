@@ -45,6 +45,7 @@ class PointPain extends Component {
       view_detail,
       decline,
       approved,
+      Create_Certificate
     } = translate;
     var data = this.state.data;
     return (
@@ -277,11 +278,11 @@ class PointPain extends Component {
                           </a>
                         </li>
                       )}
-                        {/* {data &&
+                         {/* {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && data.meetingjoined && */}
-                         <li onClick={() => {
-                            this.props.cretficate()
+                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate &&  */}
+                        <li onClick={() => {
+                            this.props.cretficate(data._id)
                           }}>
                            <a>
                            <img
@@ -289,14 +290,14 @@ class PointPain extends Component {
                                 alt=""
                                 title=""
                               />
-                           <>Create Certificate</>
+                           <>{Create_Certificate}</>
                            </a>
                          </li>
-                         {/* } */}
+                         {/* }  */}
                          {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && data.link?.doctor_link && <li onClick={() => {
-                            this.props.cretficate()
+                        data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && <li onClick={() => {
+                            // this.props.cretficate()
                           }}>
                            <a>
                            <img

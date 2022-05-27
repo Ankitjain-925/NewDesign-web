@@ -1851,10 +1851,13 @@
   "most_until":"Most likely imposible to ",
   "work_until":"work until",
   "detected_at":"Detected at",
-  "Stamp_Doctor":"Stamp and Signature of the Doctor",
+  "Stamp_Doctor":"Stamp and Signature ",
+  "head_dr":"of the Doctor",
+  
   "disability":"Disability - ",
   "certification":"certification",
-  "create":"Create"
+  "create":"Create",
+  "Create_Certificate":"Create Certificate"
   
   
   

@@ -14502,6 +14502,20 @@ label.newrole {
   padding: 10px 8px 10px;
   font-family: "Mulish", sans-serif;
 }
+.insrnceCmp2 {
+  outline: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #7F8383;
+  border-radius: 4px;
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid #bebebe;
+  padding: 10px 8px 10px;
+  font-family: "Mulish", sans-serif;
+}
 .cmnSpc {
   margin-bottom: 18px;
 }
@@ -14676,9 +14690,11 @@ label.newrole {
   position: absolute;
   bottom: 0px;
   background: #ffffff;
-  width:100%;
-  position:absolute
+  /* width:100%; */
+  position:absolute;
+ 
 }
+
 .setArbtSign label {
   display: block;
   font-style: normal;
@@ -14688,8 +14704,7 @@ label.newrole {
   color: #404646;
   margin-bottom: 8px;
   font-family: Mulish,sans-serif;
- 
-}
+ }
 .setArbtSign p {
   color: #a12f21;
   font-style: normal;
@@ -14972,3 +14987,54 @@ margin-top: 5px !important;
   justify-content: center;
   align-items: center;
 }
+.uplodedFile{
+  line-break: anywhere;
+}
+.stampDoctor{
+  border: 2px solid #a12f219c;
+  background: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  height:100%;
+  padding: 30px;
+  margin-right: 20px;
+  margin-left: 20px;
+  
+}
+.stampDoctor label{
+  display: block;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: initial;
+line-break: anywhere;
+  margin-bottom: 8px;
+  font-family: Mulish,sans-serif;
+  font-size: 15px;
+  text-align: center;
+ margin-right:2px ;
+  
+  
+}
+
+.spacedistance{
+  margin-top: 20px;
+ 
+}
+@media (max-width: 600px) {
+  .stampDoctor {
+    margin-top:20px !important;
+  }
+}
+@media (max-width: 600px) {
+  .wrkInput {
+    margin-bottom:10px !important;
+  }
+}
+@media (max-width: 600px) {
+  .certifyCheck2{
+    margin-top:70%!important;
+  }
+}
+
+
