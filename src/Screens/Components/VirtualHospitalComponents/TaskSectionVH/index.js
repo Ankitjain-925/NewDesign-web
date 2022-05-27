@@ -388,7 +388,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
    axios
       .post(
-      sitedata.data.path + '/vactive/approvedrequest',
+      // sitedata.data.path + '/vactive/approvedrequest',
         {for_manage: status, task_id: id, date : moment(data?.date).format("MMM DD, YYYY"),
       start : data.start, end: data.end, patient_id: data?.patient_id },
         commonHeader(this.props.stateLoginValueAim.token)

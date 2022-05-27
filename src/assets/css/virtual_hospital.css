@@ -14918,3 +14918,57 @@ margin-top: 5px !important;
   letter-spacing: 0;
   line-height: 18px;
 }
+.infoShwSave2 button {
+  border-radius: 8px;
+  background-color: #00ABAF;
+  border: 2px solid #00ABAF;
+  width: 100%;
+  color: #FFFFFF;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 16px;
+  text-align: center;
+  padding: 12px 8px;
+  margin-top: 15px;
+  margin-bottom: 2px;
+  outline: none;
+  cursor: pointer;
+ text-transform: capitalize;
+ 
+ 
+}
+.infoShwSave2 button:hover {
+  /* background: transparent; */
+  background-color:  #00ABAF;
+}
+.infoShwSave3 button {
+  border-radius: 8px;
+  background-color:red;
+  border: 2px solid red;
+  width: 100%;
+  color: #FFFFFF;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 16px;
+  text-align: center;
+  padding: 12px 8px;
+ outline: none;
+  cursor: pointer;
+ text-transform: capitalize;
+ margin-left: 20px;
+ margin-top: 10px;
+ 
+}
+.infoShwSave3 button:hover {
+  /* background: transparent; */
+  background-color:  red;
+}
+.infoShwSave3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

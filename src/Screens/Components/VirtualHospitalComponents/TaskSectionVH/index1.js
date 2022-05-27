@@ -12,6 +12,11 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import { getLanguage } from 'translations/index';
 import _ from 'lodash';
 import FileUploader from 'Screens/Components/JournalFileUploader/index';
+import { Button, Input } from '@material-ui/core';
+import axios from 'axios';
+import moment from "moment";
+import { commonHeader } from 'component/CommonHeader/index';
+import sitedata from 'sitedata';
 
 
 
@@ -24,6 +29,7 @@ class Index extends Component {
             info: {},
             stamp: {},
             fileattach: [{}],
+            data: this.props.data,
         };
     }
 
@@ -38,8 +44,32 @@ class Index extends Component {
         });
     };
 
+    handleApprovedDetails = (id, status, data) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+         let { Something_went_wrong } = translate;
+         this.setState({ loaderImage: true });
+        axios
+           .post(
+           sitedata.data.path + '/vactive/approvedrequest',
+             {for_manage: status, task_id: id, date : moment(data?.date).format("MMM DD, YYYY"),
+           start : data.start, end: data.end, patient_id: data?.patient_id },
+             commonHeader(this.props.stateLoginValueAim.token)
+           )
+           .then((responce) => {
+            this.setState({ loaderImage: false });
+             if (responce.data.hassuccessed) {
+               this.props.getAddTaskData();
+     
+             } else {
+               this.setState({ errorMsg: Something_went_wrong });
+               console.log('error', responce);
+             }
+           
+           });
+         
+       };
+     
 
-   
     updateAllEntrySec2 = (e) => {
         var state = this.state.stamp;
         state[e.target.name] = e.target.checked;
@@ -64,7 +94,8 @@ class Index extends Component {
 
         console.log('after submit', data);
     };
-    render() {
+
+  render() {
         let { info } = this.state
         let translate = getLanguage(this.props.stateLanguageType);
         let {
@@ -90,6 +121,8 @@ class Index extends Component {
             Stamp_Doctor,
             disability,
             certification,
+            create,
+            decline,
             disability_certification
         } = translate;
 
@@ -345,11 +378,11 @@ class Index extends Component {
                                                 <label >{Stamp_Doctor} </label>
                                                 <Grid >
                                                     <FileUploader
-                                                       attachfile={
+                                                        attachfile={
                                                             this.state.stamp &&
                                                                 this.state.stamp?.fileattach
-                                                                ? this.state.stamp?.fileattach 
-                                                                : [] 
+                                                                ? this.state.stamp?.fileattach
+                                                                : []
                                                         }
                                                         name="UploadTrackImageMulti"
                                                         comesFrom="journal"
@@ -373,14 +406,22 @@ class Index extends Component {
                     </Grid>
 
                 </Grid>
-                <Grid className="infoShwSave3">
-                    <input
-                        type="submit"
-                        value="Submit"
-                        onClick={() => this.CertificateSubmit()}
-                    >
-                    </input>
-                </Grid>
+                <Grid item xs={12} md={12}>
+                    <Grid container direction="row" alignItems="center" >
+                        <Grid item xs={4} md={4} className="infoShwSave2">
+                          <Grid></Grid>
+                                <Button onClick={() => this.CertificateSubmit()} >{create}</Button>
+                            </Grid>
+                            <Grid item xs={4} md={4} className="infoShwSave3">
+                                <Button onClick={(data) => {
+                                    this.handleApprovedDetails(data._id, 'decline', data)
+                                    console.log('decline', data._id)
+
+                                }} >{decline}</Button></Grid>
+                                </Grid>
+                    </Grid>
+                 
+               
             </Grid>
         );
 
