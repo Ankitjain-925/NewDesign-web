@@ -216,7 +216,8 @@ class Index extends Component {
                                     <Grid item xs={12} sm={4} md={4}>
                                         <Grid className="setArbtUpr">
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} >
-                                                <label>{disability}<p className='hhh'>{certification}</p>
+                                               <Grid className='diablcertificate'>
+                                                <p>{disability}<br className='allDisableSec'/>{certification}</p></Grid>
                                                     <Grid className='noteCertificate'>
 
                                                         <textarea
@@ -231,7 +232,7 @@ class Index extends Component {
                                                             value={this.state.stamp.description || ''}
                                                         ></textarea>
                                                     </Grid>
-                                                </label>
+                                                
 
                                             </Grid>
 

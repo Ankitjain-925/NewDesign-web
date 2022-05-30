@@ -14603,13 +14603,14 @@ label.newrole {
 }
 .formGroupChk span {
   display: block;
-  color: black;
+  /* color: black; */
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
   margin-bottom: 5px;
   line-height: initial;
   font-family: Mulish,sans-serif;
+  margin-top: 14px;
 }
 .formGroupChk p {
   font-style: normal;
@@ -14804,6 +14805,7 @@ input:-webkit-autofill:active {
   font-size: 15px;
   margin-left: 20px;
   margin-bottom: 10px;
+
 }
 .setColorRed3 label{
   color:#a12f21;
@@ -14895,8 +14897,10 @@ input:-webkit-autofill:active {
   margin-top: 10px;
   margin-bottom: 20px;
   height:250px;
+  margin-right: 20px;
   /* width: 200px;; */
- position: absolute; 
+ /* position: absolute;  */
+ 
 
  
 }
@@ -15036,5 +15040,35 @@ line-break: anywhere;
     margin-top:70%!important;
   }
 } */
+.diablcertificate{
+    font-family: 'Mulish', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
 
+}
 
+@media (max-width:600px){
+  .MuiGrid-spacing-xs-5 {
+    width: calc(100% + 0px)!important;
+    /* margin: -20px; */
+}
+.noteCertificate{
+  width: 100%;
+  margin-left: 20px;
+}
+.certifyCheck{
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+.wrkInput{
+  margin-right: 20px;
+}
+.allDisableSec{
+  display: none;
+}
+.diablcertificate{
+  margin-left: 20px;
+}
+}

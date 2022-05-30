@@ -45,7 +45,8 @@ class PointPain extends Component {
       view_detail,
       decline,
       approved,
-      Create_Certificate
+      Create_Certificate,
+      Join_Meeting
     } = translate;
     var data = this.state.data;
     return (
@@ -278,9 +279,9 @@ class PointPain extends Component {
                           </a>
                         </li>
                       )}
-                         {/* {data &&
+                         {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate &&  */}
+                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate &&  
                         <li onClick={() => {
                             this.props.cretficate(data._id)
                           }}>
@@ -293,10 +294,11 @@ class PointPain extends Component {
                            <>{Create_Certificate}</>
                            </a>
                          </li>
-                         {/* }  */}
+                          }  
                          {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && <li onClick={() => {
+                        data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && 
+                        <li onClick={() => {
                             // this.props.cretficate()
                           }}>
                            <a>
@@ -305,9 +307,10 @@ class PointPain extends Component {
                                 alt=""
                                 title=""
                               />
-                           <a href={data.link?.doctor_link}>Join Meeting</a>
+                           <a href={data.link?.doctor_link} className='kkk'>{Join_Meeting}</a>
                            </a>
-                         </li>}
+                         </li>
+                         }
                     </ul>
                   </a>
                 )}

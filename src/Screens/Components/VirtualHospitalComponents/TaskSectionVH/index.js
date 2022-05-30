@@ -400,8 +400,8 @@ class Index extends Component {
         this.setState({ loaderImage: false });
         if (responce.data.hassuccessed) {
           this.props.getAddTaskData();
-
-        } else {
+          this.handleCloseTask();
+      } else {
           this.setState({ errorMsg: Something_went_wrong });
           console.log('error', responce);
         }
@@ -1487,7 +1487,9 @@ class Index extends Component {
       diarrhea_vomiting,
       diarrhea_symptoms_begin,
       diarrhea_body_temp,
-
+      Create_Certificate,
+      AppointmentDate,
+      AppointmentTime
     } = translate;
 
     const {
@@ -2248,17 +2250,16 @@ class Index extends Component {
                               </Grid>
                             </Grid>)}
 
-
                           {this.state.newTask.task_type ===
                             'sick_leave' && (
                               <Grid item xs={12} md={12} className="taskDescp">
                                 <Grid className="stndQues  stndQues1">
                                   <Grid>
-                                    <h3>Appointment Date:</h3>
+                                    <h3>{AppointmentDate}:</h3>
                                     {moment(this.state.newTask?.date).format("MMM DD, YYYY")}
                                   </Grid>
                                   <Grid>
-                                    <h3>Appointment Time:</h3>
+                                    <h3>{AppointmentTime}:</h3>
                                     {this.state.newTask?.start} - {this.state.newTask?.end}
                                   </Grid>
 
@@ -3573,7 +3574,7 @@ class Index extends Component {
               this.props.settings.setting &&
               this.props.settings.setting.mode &&
               this.props.settings.setting.mode === 'dark'
-              ? 'darkTheme'
+              ? 'darkTheme  '
               : ''
           } open={this.state.openTask1} onClose={this.handleCloseTask}>
             <Grid className="creatTaskModel2">
@@ -3590,7 +3591,7 @@ class Index extends Component {
                           />
                         </a>
                       </Grid>
-                      <label>{CreateaTask}</label>
+                      <label>{Create_Certificate}</label>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>

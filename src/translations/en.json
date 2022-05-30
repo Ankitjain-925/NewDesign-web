@@ -1854,10 +1854,13 @@
   "Stamp_Doctor":"Stamp and Signature ",
   "head_dr":"of the Doctor",
   
-  "disability":"Disability - ",
+  "disability":"Disability  - ",
   "certification":"certification",
   "create":"Create",
-  "Create_Certificate":"Create Certificate"
+  "Create_Certificate":"Create Certificate",
+  "Join_Meeting":"Join Meeting",
+  "AppointmentDate":"Appointment Date",
+  "AppointmentTime":"Appointment Time"
   
   
   
