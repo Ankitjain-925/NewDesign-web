@@ -245,7 +245,7 @@ class Index extends Component {
                             <Grid className="certifyCheck">
                                 <Grid item xs={12} sm={12} md={12}>
                                     <Grid container direction="row" spacing={2}>
-                                    <Grid className='certifyCheck2'>
+                                 
                                         <Grid item xs={12} sm={12} md={6}>
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed2') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
                                            
@@ -324,7 +324,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        </Grid>
+                                      
                                     </Grid>
                                 </Grid>
                             </Grid>
