@@ -47,7 +47,7 @@ import {
 } from 'Screens/Components/GetMetaData/index.js';
 import { OptionList } from 'Screens/Login/metadataaction';
 import PainPoint from "Screens/Components/PointPain/index";
-import Certificate from "./index1";
+import Certificate from "./certificate";
 
 
 function TabContainer(props) {

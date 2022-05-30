@@ -28,67 +28,74 @@ import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            info: {},
-            stamp: {},
-            fileattach: {},
-            loaderImage: false,
-            data: this.props.data,
+            this.state = {
+                info: {},
+                stamp: {},
+                fileattach: {},
+                loaderImage: false,
+            };
+        }
+    
+    
+     
+        FileAttachMulti = (Fileadd) => {
+            this.setState({
+                isfileuploadmulti: true,
+                fileattach: Fileadd,
+                fileupods: true,
+            });
         };
-    }
-
-
-    componentDidMount() {
-    }
-    FileAttachMulti = (Fileadd) => {
-        this.setState({
-            isfileuploadmulti: true,
-            fileattach: Fileadd,
-            fileupods: true,
-        });
-    };
-
-
-
-    updateAllEntrySec2 = (e) => {
-        var state = this.state.stamp;
-        state[e.target.name] = e.target.checked;
-        this.setState({ stamp: state });
-    };
-
-    updateEntryState2 = (event) => {
-        var state = this.state.stamp;
-        state[event.target.name] = event.target.value;
-        this.setState({ stamp: state });
-    };
-
-
-    CertificateSubmit = () => {
-        console.log('this.props.certificateId', this.props.certificateId)
-        if (this.props.certificateId) {
-            let data = {}
-            data = this.state.stamp
-            if (this.state.fileattach && this.state.fileattach.length > 0) {
-                data.fileattach = this.state.fileattach;
-            }
-            this.setState({ loaderImage: true })
-            axios
+    
+    
+       
+        updateAllEntrySec2 = (e) => {
+            var state = this.state.stamp;
+            state[e.target.name] = e.target.checked;
+            this.setState({ stamp: state });
+        };
+    
+        updateEntryState2 = (event) => {
+            var state = this.state.stamp;
+            state[event.target.name] = event.target.value;
+            this.setState({ stamp: state });
+        };
+    
+    
+        CertificateSubmit = () => {
+            if(this.props.certificateId){
+                let data = {}
+                data = this.state.stamp
+                if (this.state.fileattach && this.state.fileattach.length > 0) {
+                    data.fileattach = this.state.fileattach;
+                }
+                this.setState({loaderImage: true})
+                axios
                 .put(
-                    sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
-                    {
-                        certificate: data
-                    },
-                    commonHeader(this.props.stateLoginValueAim.token)
+                  sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
+                  {
+                    certificate: data
+                  },
+                  commonHeader(this.props.stateLoginValueAim.token)
                 )
                 .then((responce) => {
-                    if (responce.data.hassuccessed) {
+                    if(responce.data.hassuccessed){
+                        data.usefor = "mail"; 
+                        data.patient_id = this.props.certificateId;
+                        axios
+                        .post(
+                          sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
+                          data,
+                          commonHeader(this.props.stateLoginValueAim.token)
+                        )
+                        .then((responce) => {});
                         this.props.handleCloseTask();
                     }
-                    this.setState({ loaderImage: false })
-
+                    this.setState({loaderImage: false})
+                 
                 });
-        }
-    };
+            } 
+        };
+        
 
     render() {
         let { info } = this.state
@@ -437,7 +444,6 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={4} md={4} className="infoShwSave3">
                             <Button onClick={(data) => {
-                                console.log('decline', this.props.taskData._id)
                                 this.props.handleApprovedDetails(this.props.taskData._id, 'decline', this.props.taskData)
 
                             }}>{decline}</Button>
