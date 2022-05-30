@@ -78,6 +78,15 @@ class Index extends Component {
             )
             .then((responce) => {
                 if(responce.data.hassuccessed){
+                    data.usefor = "mail"; 
+                    data.patient_id = this.props.certificateId;
+                    axios
+                    .post(
+                      sitedata.data.path + '/vactive/downloadSickleaveCertificate',
+                      data,
+                      commonHeader(this.props.stateLoginValueAim.token)
+                    )
+                    .then((responce) => {});
                     this.props.handleCloseTask();
                 }
                 this.setState({loaderImage: false})
@@ -85,6 +94,7 @@ class Index extends Component {
             });
         } 
     };
+    
     render() {
         let { info } = this.state
         let translate = getLanguage(this.props.stateLanguageType);

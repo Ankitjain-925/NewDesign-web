@@ -259,12 +259,10 @@ class PointPain extends Component {
                       ) : data &&
                         data.task_type && 
                         data.task_type === 'sick_leave' && 
-                        this.props.comesFrom === 'Professional' && !data.is_decline && !data.certificate && (
+                        this.props.comesFrom === 'Professional' && !data.approved  && !data.is_decline && !data.certificate && (
                         <li
                           onClick={() => {
                             this.props.handleApprovedDetails(data._id, 'decline', data)
-                            console.log('decline',data._id)
-                           
                           }}
                         >
                           <a>
@@ -298,11 +296,11 @@ class PointPain extends Component {
                           }}>
                            <a>
                            <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require('assets/images/details.svg')}
                                 alt=""
                                 title=""
                               />
-                           <a href={data.link?.doctor_link}>Join Meeting</a>
+                           <a className="joinmeetingtab" href={data.link?.doctor_link} target="_blank">Join Meeting</a>
                            </a>
                          </li>}
                     </ul>

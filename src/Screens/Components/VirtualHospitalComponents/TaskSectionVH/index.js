@@ -2183,11 +2183,11 @@ class Index extends Component {
                                     onChange={(e) =>
                                       this.updateEntryState1(e, 'date')
                                     }
-                                    disabled={
-                                      this.props.comesFrom === 'Professional'
-                                        ? true
-                                        : false
-                                    }
+                                    // disabled={
+                                    //   this.props.comesFrom === 'Professional'
+                                    //     ? true
+                                    //     : false
+                                    // }
                                   />
                                 </Grid>
                                 <Grid
@@ -2224,12 +2224,12 @@ class Index extends Component {
                                         onChange={(e) =>
                                           this.updateEntryState1(e, 'time')
                                         }
-                                        disabled={
-                                          this.props.comesFrom ===
-                                            'Professional'
-                                            ? true
-                                            : false
-                                        }
+                                        // disabled={
+                                        //   this.props.comesFrom ===
+                                        //     'Professional'
+                                        //     ? true
+                                        //     : false
+                                        // }
                                       />
                                       <span
                                         className="addTimeTask1span"
@@ -3079,50 +3079,6 @@ class Index extends Component {
                                           )}
                                         </Grid>
                                       </Grid>
-                                      <Grid>
-                                        <h1>{Reply}</h1>
-                                        <label>{Attachments}</label>
-                                      </Grid>
-                                      <Grid className="imageEvalSize">
-                                        {this.state.newTask &&
-                                          this.state.newTask?.attachments &&
-                                          this.state.newTask?.attachments?.length >
-                                          0 ? (
-                                          <FileViews
-                                            comesFrom="Picture_Task"
-                                            images={this.state.images}
-                                            attachfile={
-                                              this.state.newTask?.attachments
-                                            }
-                                          />
-                                        ) : (
-                                          <p>
-                                            {no} {Attachments}!
-                                          </p>
-                                        )}
-                                      </Grid>
-                                      <Grid class="addStnd1">
-                                        <Grid>
-                                          <label>{Comments}</label>
-                                        </Grid>
-                                        <p>
-                                          {this.state.newTask &&
-                                            this.state.newTask?.comments &&
-                                            this.state.newTask?.comments?.length > 0 ? (
-                                            this.state.newTask?.comments.map(
-                                              (data, index) => (
-                                                <div className="dataCommentBor">
-                                                  {data?.comment}
-                                                </div>
-                                              )
-                                            )
-                                          ) : (
-                                            <p>
-                                              {no} {Comments}!
-                                            </p>
-                                          )}
-                                        </p>
-                                      </Grid>
                                     </Grid>}
                                 </Grid>
                               </Grid>
@@ -3131,8 +3087,7 @@ class Index extends Component {
 
 
 
-                          {this.state.newTask.task_type ===
-                            'sick_leave' && (<Grid className="assignSecUpr">
+                          <Grid className="assignSecUpr">
                             <Grid container direction="row" alignItems="center">
                               <Grid item xs={12} sm={12} md={12}>
                                 <Grid className="assignSec">
@@ -3201,7 +3156,7 @@ class Index extends Component {
                                               />
                                               <label>{Duplicate}</label>
                                             </Grid>
-                                            {this.state.newTask.task_type !== 'sick_leave' && <Grid
+                                             <Grid
                                               onClick={() => {
                                                 this.switchStatus();
                                               }}
@@ -3230,7 +3185,7 @@ class Index extends Component {
                                                 </Grid>
                                               )}
                                               <label>{Markasdone}</label>
-                                            </Grid>}
+                                            </Grid>
                                             {this.state.newTask.archived ==
                                               true ? (
                                               <Grid
@@ -3374,7 +3329,8 @@ class Index extends Component {
                                           </>
                                         </>
                                       ) : (
-                                        <>
+                                        this.state.newTask?.task_type !==
+                                        'sick_leave' && <>
                                           <Grid
                                             onClick={() => {
                                               this.switchStatus();
@@ -3412,11 +3368,11 @@ class Index extends Component {
                                 </Grid>
                               </Grid>
                             </Grid>
-                          </Grid>)}
+                          </Grid>
                           {this.state.newTask &&
                             this.state.newTask.task_type ===
                             'picture_evaluation' &&
-                            this.state.newTask?.status &&
+                            (this.state.newTask?.status &&
                             this.state.newTask?.status === 'done' ? null : (
                             <Grid item xs={12} md={12}>
                               <label>{Attachments}</label>
@@ -3435,8 +3391,8 @@ class Index extends Component {
                                 }}
                               />
                             </Grid>
-                          )}
-                          {this.props.comesFrom === 'Professional' && (
+                          ))}
+                          {this.props.comesFrom === 'Professional' && this.state.newTask.task_type !== 'sick_leave' && 
                             <Grid item xs={12} md={12}>
                               <Grid>
                                 <label>{Comments}</label>
@@ -3539,7 +3495,7 @@ class Index extends Component {
                                 </Button>
                               </Grid>
                             </Grid>
-                          )}
+                          }
 
                           <Grid item xs={12} md={12} className="saveTasks">
                             <a>
