@@ -398,6 +398,7 @@ class Index extends Component {
        this.setState({ loaderImage: false });
         if (responce.data.hassuccessed) {
           this.props.getAddTaskData();
+          this.handleCloseTask();
 
         } else {
           this.setState({ errorMsg: Something_went_wrong });
@@ -1336,6 +1337,8 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
       CreateaTask,
+      AppointmentTime,
+      AppointmentDate,
       ForPatient,
       Taskdescription,
       Assignedto,
@@ -2252,11 +2255,11 @@ class Index extends Component {
                               <Grid item xs={12} md={12} className="taskDescp">
                                 <Grid className="stndQues  stndQues1">
                                 <Grid>
-                                  <h3>Appointment Date:</h3>
+                                  <h3>{AppointmentDate} :</h3>
                                   {moment(this.state.newTask?.date).format("MMM DD, YYYY") }
                                 </Grid> 
                                 <Grid>
-                                  <h3>Appointment Time:</h3>
+                                  <h3>{AppointmentTime} :</h3>
                                   {this.state.newTask?.start} - {this.state.newTask?.end}
                                 </Grid> 
                                    

@@ -45,6 +45,8 @@ class PointPain extends Component {
       view_detail,
       decline,
       approved,
+      Create_Certificate,
+      Join_Meeting
     } = translate;
     var data = this.state.data;
     return (
@@ -275,9 +277,10 @@ class PointPain extends Component {
                           </a>
                         </li>
                       )}
-                        {data &&
+                         {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate && <li onClick={() => {
+                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate &&  
+                        <li onClick={() => {
                             this.props.cretficate(data._id)
                           }}>
                            <a>
@@ -286,12 +289,14 @@ class PointPain extends Component {
                                 alt=""
                                 title=""
                               />
-                           <>Create Certificate</>
+                           <>{Create_Certificate}</>
                            </a>
-                         </li>}
+                         </li>
+                          }  
                          {data &&
                         data.task_type && 
-                        data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && <li onClick={() => {
+                        data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && 
+                        <li onClick={() => {
                             // this.props.cretficate()
                           }}>
                            <a>
@@ -302,7 +307,8 @@ class PointPain extends Component {
                               />
                            <a className="joinmeetingtab" href={data.link?.doctor_link} target="_blank">Join Meeting</a>
                            </a>
-                         </li>}
+                         </li>
+                         }
                     </ul>
                   </a>
                 )}
