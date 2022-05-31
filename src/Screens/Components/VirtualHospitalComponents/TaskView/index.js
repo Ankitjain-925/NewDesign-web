@@ -265,8 +265,6 @@ class PointPain extends Component {
                         <li
                           onClick={() => {
                             this.props.handleApprovedDetails(data._id, 'decline', data)
-                            console.log('decline',data._id)
-                           
                           }}
                         >
                           <a>
@@ -303,11 +301,11 @@ class PointPain extends Component {
                           }}>
                            <a>
                            <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require('assets/images/details.svg')}
                                 alt=""
                                 title=""
                               />
-                           <a href={data.link?.doctor_link} >{Join_Meeting}</a>
+                           <a className="joinmeetingtab" href={data.link?.doctor_link} target="_blank">Join Meeting</a>
                            </a>
                          </li>
                          }

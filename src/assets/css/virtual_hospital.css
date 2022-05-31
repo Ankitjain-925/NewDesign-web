@@ -14820,10 +14820,10 @@ input:-webkit-autofill:active {
   margin-left: 20px;
 }
 
-.fillDia{
+/* .fillDia{
   width:100%;
   height: 100px;
-}
+} */
 .browsInput2{
    border-radius: 4px;
   background-color: #FFFFFF;
@@ -14943,6 +14943,10 @@ margin-top: 5px !important;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 18px;
+}
+a.joinmeetingtab {
+  display: inline !important;
+  padding: 0px !important;
 }
 .infoShwSave2 button {
   border-radius: 8px;

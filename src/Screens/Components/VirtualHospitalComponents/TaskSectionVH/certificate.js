@@ -33,14 +33,12 @@ class Index extends Component {
             stamp: {},
             fileattach: {},
             loaderImage: false,
-            data: this.props.data,
             finishError: ''
         };
     }
 
 
-    componentDidMount() {
-    }
+
     FileAttachMulti = (Fileadd) => {
         this.setState({
             isfileuploadmulti: true,
@@ -64,37 +62,100 @@ class Index extends Component {
     };
 
 
-    CertificateSubmit = (value) => {
+    CertificateSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { } = translate;
+        let {} = translate;
         this.setState({ finishError: "" })
-        console.log('this.props.certificateId', this.props.certificateId)
         if (this.props.certificateId) {
             let data = {}
-            data = this.state.stamp
-            console.log('data', this.state.stamp)
+        data = this.state.stamp
             if (this.state.fileattach && this.state.fileattach.length > 0) {
                 data.fileattach = this.state.fileattach;
             }
-          this.setState({ loaderImage: true })
-                axios
-                    .put(
-                        sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
-                        {
-                            certificate: data
-                        },
-                        commonHeader(this.props.stateLoginValueAim.token)
-                    )
-                    .then((responce) => {
-                        if (responce.data.hassuccessed) {
-                            this.props.handleCloseTask();
-                        }
-                        this.setState({ loaderImage: false })
-
-                    });
+            if (!data.insurance_company) {
+                this.setState({ finishError: "please enter insurance company"})
             }
-        
+            else if (!data.name) {
+                this.setState({ finishError: "please enter First name"})
+            }
+            else if (!data.birthday) {
+                this.setState({ finishError: "please enter date of birth"})
+            }
+            else if (!data.number_insurance_company) {
+                this.setState({ finishError: "please enter number insurance company"})
+            }
+            else if (!data.insurance_number_person) {
+                this.setState({ finishError: "please enter insurance number person"})
+            }
+            else if (!data.status) {
+                this.setState({ finishError: "please enter status"})
+            }
+            else if (!data.hospital_number) {
+                this.setState({ finishError: "please enter hospital number"})
+            }
+            else if (!data.doctor_number) {
+                this.setState({ finishError: "please enter doctor_number"})
+            }
+            else if (!data.date) {
+                this.setState({ finishError: "please enter date"})
+            }
+            else if (!data.description) {
+                this.setState({ finishError: "please enter description"})
+            }
+            else if (!data.workincident) {
+                this.setState({ finishError: "please enterworkincident"})
+            }
+            else if (!data.occupational_disease) {
+                this.setState({ finishError: "please enter occupationaldisease"})
+            }
+            else if (!data.sent_special_doctor) {
+                this.setState({ finishError: "please enter sent special doctor"})
+            }
+            else if (!data.assigned_doctor) {
+                this.setState({ finishError: "please enter assigned doctor"})
+            }
+            else if (!data.imposible) {
+                this.setState({ finishError: "please enter imposible"})
+            }
+            else if (!data.most_likely) {
+                this.setState({ finishError: "please enter most likely"})
+            }
+            else if (!data.detected_at) {
+                this.setState({ finishError: "please enter detected at"})
+            }
+            else if (!data.fileattach) {
+                this.setState({ finishError: "please attached file"})
+            }
+            else{
+            this.setState({ loaderImage: true })
+            axios
+                .put(
+                    sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
+                    {
+                        certificate: data
+                    },
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    if (responce.data.hassuccessed) {
+                        data.usefor = "mail";
+                        data.patient_id = this.props.certificateId;
+                        axios
+                            .post(
+                                sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
+                                data,
+                                commonHeader(this.props.stateLoginValueAim.token)
+                            )
+                            .then((responce) => { });
+                        this.props.handleCloseTask();
+                    }
+                    this.setState({ loaderImage: false })
+
+               });
+            }
+        }
     };
+
 
     render() {
         let { info } = this.state
@@ -140,9 +201,9 @@ class Index extends Component {
                                     <Grid item xs={12} sm={8} md={8}>
                                         <Grid className="certifyForm">
                                             <Grid className="insrnceCmp cmnSpc">
-                                            <div className="err_message">
-                                {this.state.finishError}
-                              </div>
+                                                <div className="err_message">
+                                                    {this.state.finishError}
+                                                </div>
                                                 <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Insurance_company}</label></Grid>
                                                 <Grid><input type="text" name="insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_company || ''} /></Grid>
                                             </Grid>
@@ -447,7 +508,6 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={4} md={4} className="infoShwSave3">
                             <Button onClick={(data) => {
-                                console.log('decline', this.props.taskData._id)
                                 this.props.handleApprovedDetails(this.props.taskData._id, 'decline', this.props.taskData)
 
                             }}>{decline}</Button>
