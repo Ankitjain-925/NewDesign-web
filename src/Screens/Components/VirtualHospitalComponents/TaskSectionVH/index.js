@@ -3530,9 +3530,10 @@ class Index extends Component {
               this.props.settings.setting &&
               this.props.settings.setting.mode &&
               this.props.settings.setting.mode === 'dark'
-              ? 'darkTheme'
-              : ''
+              ? 'darkTheme '
+              : ' '
           } open={this.state.openTask1} onClose={this.handleCloseTask}>
+         
             <Grid className="creatTaskModel2">
               <Grid className="creatTaskCntnt">
                 <Grid container direction="row">
@@ -3569,6 +3570,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
             </Grid>
+           
           </Modal>
           {/* End of Model setup */}
         </Grid>
