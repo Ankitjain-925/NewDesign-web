@@ -10593,6 +10593,9 @@ a.addNewPlus img {
 .darkTheme .creatTaskModel {
   background-color: #404646 !important;
 }
+.darkTheme .creatTaskModel2 {
+  background-color: #404646 !important;
+}
 img.vdoCalNow {
   margin-left: 9px;
 }
@@ -14769,7 +14772,7 @@ input:-webkit-autofill:active {
 }
 .creatTaskModel2{
   width: 80% ;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
    background: #fff;
     margin: 0 auto;
     border: none;
@@ -14900,10 +14903,14 @@ input:-webkit-autofill:active {
   margin-right: 20px;
   /* width: 200px;; */
  /* position: absolute;  */
- 
-
- 
-}
+ }
+.darkTheme .noteCertificate{
+  background: #192020;
+ }
+ .darkTheme .noteCertificate2{
+  background: #192020;
+  color: #bfc1c1;
+ }
 .noteCertificate2{
   border: none;
   outline: none;
@@ -15005,6 +15012,13 @@ margin-top: 5px !important;
   margin-left: 20px;
   
 }
+.darkTheme .stampDoctor{
+ background: #192020;
+}
+.darkTheme .browsInput2{
+  background: #192020 ;
+ }
+
 .stampDoctor label{
   display: block;
   font-style: normal;
@@ -15071,4 +15085,11 @@ line-break: anywhere;
 .diablcertificate{
   margin-left: 20px;
 }
+}
+ .darkTheme .cnfrmDiaMain2 {
+  background-color: #404646;
+}
+.darkTheme .certificateBg {
+  background: #a0a0871c;
+  
 }

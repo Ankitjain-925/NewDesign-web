@@ -123,8 +123,9 @@ class Index extends Component {
         } = translate;
 
         return (
-            <Grid>
+            <Grid >
                 {this.state.loaderImage && <Loader />}
+               
                 <Grid className="certificateBg">
                     <Grid className="headerHeight">
                         <Grid container direction="row" justifyContent="center">
@@ -429,6 +430,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
+              
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row" alignItems="center" >
                         <Grid item xs={4} md={4} className="infoShwSave2">
@@ -444,7 +446,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-
+               
 
             </Grid>
         );

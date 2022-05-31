@@ -1776,7 +1776,7 @@
     "cardiac_problems":"Herzprobleme",
     "cough_and_snees":"Husten und Niesen",
     "cough_suffer_symtoms":"Leide unter den gleichen Symptomen",
-    "cough_allergie":"Husten allergien",
+    "cough_allergies":"Husten allergien",
     "cough_symptoms_begin":"Hustensymptome beginnen",
     "depressed_do_you_sleep":"Schlafen",
     "depressed_hurt_yourself":"Sich verletzen",
@@ -1787,6 +1787,9 @@
     "diarrhea_liquids":"Durchfall Flüssigkeiten",
     "diarrhea_vomiting":"Durchfall Erbrechen",
     "diarrhea_symptoms_begin":"Durchfall symptome beginnen",
-    "diarrhea_body_temp":"Durchfall Körpertemp"
+    "diarrhea_body_temp":"Durchfall Körpertemp",
+    "Currently_available":"Gegenwärtig verfügbar",
+    "Not_available":"Nicht verfügbar",
+    "edit_picture_evaluation":"Bildauswertung bearbeiten"
       }
 }

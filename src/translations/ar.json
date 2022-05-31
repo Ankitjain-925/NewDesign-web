@@ -1645,6 +1645,18 @@
 		"Task_title_cant_be_empty":"Task title can't be empty",
 		"Plz_select_a_Patient":"Please select a Patient",
 		"renameStep":"Rename step",
-		"Citizenship": "Citizenship"
+		"Citizenship": "Citizenship",
+		
+		
+		"Currently_available":"متاح حاليا",
+		"Not_available":"غير متوفر",
+		"ProfessionalTask":"المهام المهنية",
+		"Doctor_view":"رأي الطبيب",
+		"VHS_view":"عرض المستشفى",
+		"view_detail":"عرض التفاصيل",
+		"Create_Certificate":"إنشاء شهادة",
+		"approved":"يوافق",
+		"Join_Meeting":"أنضم إلى الأجتماع"
+
 	}
 }

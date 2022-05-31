@@ -237,6 +237,8 @@ class Index extends Component {
       ProfessionalTask,
       Doctor_view,
       VHS_view,
+      Currently_available,
+      Not_available
     } = translate;
     const { inputValue, value, CheckCurrent } = this.state;
     const { selectedOption } = this.state;
@@ -276,9 +278,9 @@ class Index extends Component {
             onChange={(e) => this.handleChange(e)}
           />
           {this.props.CheckCurrent?.current_available ===true ? (
-            <p>Currently available</p>
+            <p>{Currently_available}</p>
           ) : (
-            <p>Not available</p>
+            <p>{Not_available}</p>
           )}
         </Grid>
 

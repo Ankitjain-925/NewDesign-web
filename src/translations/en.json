@@ -1860,7 +1860,9 @@
   "Create_Certificate":"Create Certificate",
   "Join_Meeting":"Join Meeting",
   "AppointmentDate":"Appointment Date",
-  "AppointmentTime":"Appointment Time"
+  "AppointmentTime":"Appointment Time",
+  "Currently_available":"Currently available",
+  "Not_available":"Not available"
   
   
   

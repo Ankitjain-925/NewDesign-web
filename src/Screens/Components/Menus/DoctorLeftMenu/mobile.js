@@ -269,6 +269,8 @@ class Index extends Component {
       Language,
       DarkMode,
       logout,
+      Currently_available,
+      Not_available
     } = translate;
     return (
       <Grid
@@ -309,9 +311,9 @@ class Index extends Component {
             onChange={(e) => this.handleChange(e)}
           />
           {this.props.CheckCurrent?.current_available ===true ? (
-            <p>Currently available</p>
+            <p>{Currently_available}</p>
           ) : (
-            <p>Not available</p>
+            <p>{Not_available}</p>
           )}
               </Grid>
               <Grid className="menuItems">
