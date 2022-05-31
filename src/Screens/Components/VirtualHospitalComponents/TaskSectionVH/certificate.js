@@ -34,6 +34,7 @@ class Index extends Component {
             fileattach: {},
             loaderImage: false,
             data: this.props.data,
+            finishError: ''
         };
     }
 
@@ -63,31 +64,36 @@ class Index extends Component {
     };
 
 
-    CertificateSubmit = () => {
+    CertificateSubmit = (value) => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { } = translate;
+        this.setState({ finishError: "" })
         console.log('this.props.certificateId', this.props.certificateId)
         if (this.props.certificateId) {
             let data = {}
             data = this.state.stamp
+            console.log('data', this.state.stamp)
             if (this.state.fileattach && this.state.fileattach.length > 0) {
                 data.fileattach = this.state.fileattach;
             }
-            this.setState({ loaderImage: true })
-            axios
-                .put(
-                    sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
-                    {
-                        certificate: data
-                    },
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    if (responce.data.hassuccessed) {
-                        this.props.handleCloseTask();
-                    }
-                    this.setState({ loaderImage: false })
+          this.setState({ loaderImage: true })
+                axios
+                    .put(
+                        sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
+                        {
+                            certificate: data
+                        },
+                        commonHeader(this.props.stateLoginValueAim.token)
+                    )
+                    .then((responce) => {
+                        if (responce.data.hassuccessed) {
+                            this.props.handleCloseTask();
+                        }
+                        this.setState({ loaderImage: false })
 
-                });
-        }
+                    });
+            }
+        
     };
 
     render() {
@@ -125,7 +131,7 @@ class Index extends Component {
         return (
             <Grid >
                 {this.state.loaderImage && <Loader />}
-               
+
                 <Grid className="certificateBg">
                     <Grid className="headerHeight">
                         <Grid container direction="row" justifyContent="center">
@@ -134,7 +140,9 @@ class Index extends Component {
                                     <Grid item xs={12} sm={8} md={8}>
                                         <Grid className="certifyForm">
                                             <Grid className="insrnceCmp cmnSpc">
-
+                                            <div className="err_message">
+                                {this.state.finishError}
+                              </div>
                                                 <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Insurance_company}</label></Grid>
                                                 <Grid><input type="text" name="insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_company || ''} /></Grid>
                                             </Grid>
@@ -217,23 +225,23 @@ class Index extends Component {
                                     <Grid item xs={12} sm={4} md={4}>
                                         <Grid className="setArbtUpr">
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} >
-                                               <Grid className='diablcertificate'>
-                                                <p>{disability}<br className='allDisableSec'/>{certification}</p></Grid>
-                                                    <Grid className='noteCertificate'>
+                                                <Grid className='diablcertificate'>
+                                                    <p>{disability}<br className='allDisableSec' />{certification}</p></Grid>
+                                                <Grid className='noteCertificate'>
 
-                                                        <textarea
-                                                            className='noteCertificate2'
-                                                            placeholder={"text"}
-                                                            name="description"
-                                                            onChange={(e) =>
-                                                                this.updateEntryState2(
-                                                                    e
-                                                                )
-                                                            }
-                                                            value={this.state.stamp.description || ''}
-                                                        ></textarea>
-                                                    </Grid>
-                                                
+                                                    <textarea
+                                                        className='noteCertificate2'
+                                                        placeholder={"text"}
+                                                        name="description"
+                                                        onChange={(e) =>
+                                                            this.updateEntryState2(
+                                                                e
+                                                            )
+                                                        }
+                                                        value={this.state.stamp.description || ''}
+                                                    ></textarea>
+                                                </Grid>
+
 
                                             </Grid>
 
@@ -247,12 +255,12 @@ class Index extends Component {
                             <Grid className="certifyCheck">
                                 <Grid item xs={12} sm={12} md={12}>
                                     <Grid container direction="row" spacing={2}>
-                                 
+
                                         <Grid item xs={12} sm={12} md={6}>
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed2') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
-                                           
+
                                                 <label>{First_Certification}</label>
-                                            
+
                                                 <Grid className="formGroupChk">
                                                     <input type="checkbox" id="Workincident" name={"workincident"} onChange={(e) => this.updateAllEntrySec2(e)} value={this.state.stamp &&
                                                         this.state.stamp?.workincident &&
@@ -286,7 +294,7 @@ class Index extends Component {
 
                                                     </label>
                                                 </Grid>
-                                              
+
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} sm={12} md={6}>
@@ -326,7 +334,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                      
+
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -346,7 +354,7 @@ class Index extends Component {
 
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
-                                                <Grid  className="wrkInput ">
+                                                <Grid className="wrkInput ">
                                                     <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
 
 
@@ -387,7 +395,7 @@ class Index extends Component {
 
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
-                                                <Grid  className="wrkInput spacedistance">
+                                                <Grid className="wrkInput spacedistance">
                                                     <input type="date" name="detected_at" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.detected_at || ''} />
 
 
@@ -430,7 +438,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-              
+
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row" alignItems="center" >
                         <Grid item xs={4} md={4} className="infoShwSave2">
@@ -446,13 +454,14 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-               
+
 
             </Grid>
         );
 
     }
 }
+
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
         state.LoginReducerAim;

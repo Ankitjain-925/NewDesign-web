@@ -2254,9 +2254,9 @@ class Index extends Component {
                             'sick_leave' && (
                               <Grid item xs={12} md={12} className="taskDescp">
                                 <Grid className="stndQues  stndQues1">
-                                  <Grid>
+                                  <Grid className='stndQues'>
                                     <h3>{AppointmentDate}:</h3>
-                                    {moment(this.state.newTask?.date).format("MMM DD, YYYY")}
+                                   <p>{moment(this.state.newTask?.date).format("MMM DD, YYYY")}</p> 
                                   </Grid>
                                   <Grid>
                                     <h3>{AppointmentTime}:</h3>
