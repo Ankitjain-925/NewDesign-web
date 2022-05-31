@@ -2254,15 +2254,15 @@ class Index extends Component {
                             'sick_leave' && (
                               <Grid item xs={12} md={12} className="taskDescp">
                                 <Grid className="stndQues  stndQues1">
-                                <Grid>
-                                  <h3>{AppointmentDate} :</h3>
-                                  {moment(this.state.newTask?.date).format("MMM DD, YYYY") }
-                                </Grid> 
-                                <Grid>
-                                  <h3>{AppointmentTime} :</h3>
-                                  {this.state.newTask?.start} - {this.state.newTask?.end}
-                                </Grid> 
-                                   
+                                  <Grid className='stndQues'>
+                                    <h3>{AppointmentDate}:</h3>
+                                   <p>{moment(this.state.newTask?.date).format("MMM DD, YYYY")}</p> 
+                                  </Grid>
+                                  <Grid>
+                                    <h3>{AppointmentTime}:</h3>
+                                    {this.state.newTask?.start} - {this.state.newTask?.end}
+                                  </Grid>
+
                                   {this.state.newTask.headache === 'yes' &&
                                     <Grid>
                                       <Grid>

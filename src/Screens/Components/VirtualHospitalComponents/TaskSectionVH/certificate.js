@@ -28,74 +28,134 @@ import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
         super(props);
-            this.state = {
-                info: {},
-                stamp: {},
-                fileattach: {},
-                loaderImage: false,
-            };
-        }
-    
-    
-     
-        FileAttachMulti = (Fileadd) => {
-            this.setState({
-                isfileuploadmulti: true,
-                fileattach: Fileadd,
-                fileupods: true,
-            });
+        this.state = {
+            info: {},
+            stamp: {},
+            fileattach: {},
+            loaderImage: false,
+            finishError: ''
         };
-    
-    
-       
-        updateAllEntrySec2 = (e) => {
-            var state = this.state.stamp;
-            state[e.target.name] = e.target.checked;
-            this.setState({ stamp: state });
-        };
-    
-        updateEntryState2 = (event) => {
-            var state = this.state.stamp;
-            state[event.target.name] = event.target.value;
-            this.setState({ stamp: state });
-        };
-    
-    
-        CertificateSubmit = () => {
-            if(this.props.certificateId){
-                let data = {}
-                data = this.state.stamp
-                if (this.state.fileattach && this.state.fileattach.length > 0) {
-                    data.fileattach = this.state.fileattach;
-                }
-                this.setState({loaderImage: true})
-                axios
+    }
+
+
+
+    FileAttachMulti = (Fileadd) => {
+        this.setState({
+            isfileuploadmulti: true,
+            fileattach: Fileadd,
+            fileupods: true,
+        });
+    };
+
+
+
+    updateAllEntrySec2 = (e) => {
+        var state = this.state.stamp;
+        state[e.target.name] = e.target.checked;
+        this.setState({ stamp: state });
+    };
+
+    updateEntryState2 = (event) => {
+        var state = this.state.stamp;
+        state[event.target.name] = event.target.value;
+        this.setState({ stamp: state });
+    };
+
+
+    CertificateSubmit = () => {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {} = translate;
+        this.setState({ finishError: "" })
+        if (this.props.certificateId) {
+            let data = {}
+        data = this.state.stamp
+            if (this.state.fileattach && this.state.fileattach.length > 0) {
+                data.fileattach = this.state.fileattach;
+            }
+            if (!data.insurance_company) {
+                this.setState({ finishError: "please enter insurance company"})
+            }
+            else if (!data.name) {
+                this.setState({ finishError: "please enter First name"})
+            }
+            else if (!data.birthday) {
+                this.setState({ finishError: "please enter date of birth"})
+            }
+            else if (!data.number_insurance_company) {
+                this.setState({ finishError: "please enter number insurance company"})
+            }
+            else if (!data.insurance_number_person) {
+                this.setState({ finishError: "please enter insurance number person"})
+            }
+            else if (!data.status) {
+                this.setState({ finishError: "please enter status"})
+            }
+            else if (!data.hospital_number) {
+                this.setState({ finishError: "please enter hospital number"})
+            }
+            else if (!data.doctor_number) {
+                this.setState({ finishError: "please enter doctor_number"})
+            }
+            else if (!data.date) {
+                this.setState({ finishError: "please enter date"})
+            }
+            else if (!data.description) {
+                this.setState({ finishError: "please enter description"})
+            }
+            else if (!data.workincident) {
+                this.setState({ finishError: "please enterworkincident"})
+            }
+            else if (!data.occupational_disease) {
+                this.setState({ finishError: "please enter occupationaldisease"})
+            }
+            else if (!data.sent_special_doctor) {
+                this.setState({ finishError: "please enter sent special doctor"})
+            }
+            else if (!data.assigned_doctor) {
+                this.setState({ finishError: "please enter assigned doctor"})
+            }
+            else if (!data.imposible) {
+                this.setState({ finishError: "please enter imposible"})
+            }
+            else if (!data.most_likely) {
+                this.setState({ finishError: "please enter most likely"})
+            }
+            else if (!data.detected_at) {
+                this.setState({ finishError: "please enter detected at"})
+            }
+            else if (!data.fileattach) {
+                this.setState({ finishError: "please attached file"})
+            }
+            else{
+            this.setState({ loaderImage: true })
+            axios
                 .put(
-                  sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
-                  {
-                    certificate: data
-                  },
-                  commonHeader(this.props.stateLoginValueAim.token)
+                    sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
+                    {
+                        certificate: data
+                    },
+                    commonHeader(this.props.stateLoginValueAim.token)
                 )
                 .then((responce) => {
-                    if(responce.data.hassuccessed){
-                        data.usefor = "mail"; 
+                    if (responce.data.hassuccessed) {
+                        data.usefor = "mail";
                         data.patient_id = this.props.certificateId;
                         axios
-                        .post(
-                          sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
-                          data,
-                          commonHeader(this.props.stateLoginValueAim.token)
-                        )
-                        .then((responce) => {});
+                            .post(
+                                sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
+                                data,
+                                commonHeader(this.props.stateLoginValueAim.token)
+                            )
+                            .then((responce) => { });
                         this.props.handleCloseTask();
                     }
-                    this.setState({loaderImage: false})
-                 
-                });
-            } 
-        };
-        
+                    this.setState({ loaderImage: false })
+
+               });
+            }
+        }
+    };
+
 
     render() {
         let { info } = this.state
@@ -132,7 +192,7 @@ class Index extends Component {
         return (
             <Grid >
                 {this.state.loaderImage && <Loader />}
-               
+
                 <Grid className="certificateBg">
                     <Grid className="headerHeight">
                         <Grid container direction="row" justifyContent="center">
@@ -141,7 +201,9 @@ class Index extends Component {
                                     <Grid item xs={12} sm={8} md={8}>
                                         <Grid className="certifyForm">
                                             <Grid className="insrnceCmp cmnSpc">
-
+                                                <div className="err_message">
+                                                    {this.state.finishError}
+                                                </div>
                                                 <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Insurance_company}</label></Grid>
                                                 <Grid><input type="text" name="insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_company || ''} /></Grid>
                                             </Grid>
@@ -224,23 +286,23 @@ class Index extends Component {
                                     <Grid item xs={12} sm={4} md={4}>
                                         <Grid className="setArbtUpr">
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} >
-                                               <Grid className='diablcertificate'>
-                                                <p>{disability}<br className='allDisableSec'/>{certification}</p></Grid>
-                                                    <Grid className='noteCertificate'>
+                                                <Grid className='diablcertificate'>
+                                                    <p>{disability}<br className='allDisableSec' />{certification}</p></Grid>
+                                                <Grid className='noteCertificate'>
 
-                                                        <textarea
-                                                            className='noteCertificate2'
-                                                            placeholder={"text"}
-                                                            name="description"
-                                                            onChange={(e) =>
-                                                                this.updateEntryState2(
-                                                                    e
-                                                                )
-                                                            }
-                                                            value={this.state.stamp.description || ''}
-                                                        ></textarea>
-                                                    </Grid>
-                                                
+                                                    <textarea
+                                                        className='noteCertificate2'
+                                                        placeholder={"text"}
+                                                        name="description"
+                                                        onChange={(e) =>
+                                                            this.updateEntryState2(
+                                                                e
+                                                            )
+                                                        }
+                                                        value={this.state.stamp.description || ''}
+                                                    ></textarea>
+                                                </Grid>
+
 
                                             </Grid>
 
@@ -254,12 +316,12 @@ class Index extends Component {
                             <Grid className="certifyCheck">
                                 <Grid item xs={12} sm={12} md={12}>
                                     <Grid container direction="row" spacing={2}>
-                                 
+
                                         <Grid item xs={12} sm={12} md={6}>
                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed2') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
-                                           
+
                                                 <label>{First_Certification}</label>
-                                            
+
                                                 <Grid className="formGroupChk">
                                                     <input type="checkbox" id="Workincident" name={"workincident"} onChange={(e) => this.updateAllEntrySec2(e)} value={this.state.stamp &&
                                                         this.state.stamp?.workincident &&
@@ -293,7 +355,7 @@ class Index extends Component {
 
                                                     </label>
                                                 </Grid>
-                                              
+
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} sm={12} md={6}>
@@ -333,7 +395,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                      
+
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -353,7 +415,7 @@ class Index extends Component {
 
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
-                                                <Grid  className="wrkInput ">
+                                                <Grid className="wrkInput ">
                                                     <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
 
 
@@ -394,7 +456,7 @@ class Index extends Component {
 
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
-                                                <Grid  className="wrkInput spacedistance">
+                                                <Grid className="wrkInput spacedistance">
                                                     <input type="date" name="detected_at" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.detected_at || ''} />
 
 
@@ -437,7 +499,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-              
+
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row" alignItems="center" >
                         <Grid item xs={4} md={4} className="infoShwSave2">
@@ -452,13 +514,14 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-               
+
 
             </Grid>
         );
 
     }
 }
+
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
         state.LoginReducerAim;
