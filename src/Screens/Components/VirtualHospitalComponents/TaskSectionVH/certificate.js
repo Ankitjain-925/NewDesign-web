@@ -28,7 +28,8 @@ class Index extends Component {
             stamp: {},
             fileattach: {},
             loaderImage: false,
-            finishError: ''
+            finishError: '',
+            newapprove:false
         };
     }
 
@@ -124,7 +125,7 @@ class Index extends Component {
                 this.setState({ finishError:plz_attached_file })
             }
             else {
-                this.setState({ loaderImage: true })
+                this.setState({ loaderImage: true ,newapprove:true })
                 axios
                     .put(
                         sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
@@ -498,10 +499,11 @@ class Index extends Component {
                 </Grid>
 
                 <Grid item xs={12} md={12}>
+                    {this.state.newapprove !==true &&
                     <Grid container direction="row" alignItems="center" >
                         <Grid item xs={4} md={4} className="infoShwSave2">
-                            <Grid></Grid>
-                            <Button onClick={() => this.CertificateSubmit()} >{create}</Button>
+                            
+                         <Button onClick={() => this.CertificateSubmit()} >{create}</Button>
                         </Grid>
                         <Grid item xs={4} md={4} className="infoShwSave3">
                             <Button onClick={(data) => {
@@ -509,7 +511,7 @@ class Index extends Component {
 
                             }}>{decline}</Button>
                         </Grid>
-                    </Grid>
+                    </Grid>}
                 </Grid>
 
 
