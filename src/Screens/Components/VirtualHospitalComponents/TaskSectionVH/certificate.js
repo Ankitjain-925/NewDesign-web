@@ -499,7 +499,7 @@ class Index extends Component {
                 </Grid>
 
                 <Grid item xs={12} md={12}>
-                    {this.state.newapprove !==true &&
+                 
                     <Grid container direction="row" alignItems="center" >
                         <Grid item xs={4} md={4} className="infoShwSave2">
                             
@@ -511,7 +511,7 @@ class Index extends Component {
 
                             }}>{decline}</Button>
                         </Grid>
-                    </Grid>}
+                    </Grid>
                 </Grid>
 
 
