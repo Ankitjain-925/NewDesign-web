@@ -1790,6 +1790,21 @@
     "diarrhea_body_temp":"Durchfall Körpertemp",
     "Currently_available":"Gegenwärtig verfügbar",
     "Not_available":"Nicht verfügbar",
-    "edit_picture_evaluation":"Bildauswertung bearbeiten"
+    "edit_picture_evaluation":"Bildauswertung bearbeiten",
+   
+    "plz_enter_insurance_company":"Bitte Versicherungsgesellschaft eintragen",
+    "plz_enter_first_name":"Bitte geben Sie den Vornamen ein",
+   "plz_enter_birth":"Bitte geben Sie das Geburtsdatum ein",
+    "plz_enter_number_insurance":"Bitte geben Sie die Versicherungsnummer ein",
+   "plz_enter_number_person":"Bitte geben Sie die Versicherungsnummer Person ein",
+    "plz_enter_status":"Bitte Status eingeben",
+   "plz_enter_hospital_number":"Bitte geben Sie die Krankenhausnummer ein",
+   "plz_enter_doctor_number":"Bitte Arztnummer eingeben",
+   "plz_enter_date":"Bitte Datum eingeben",
+   "plz_enter_disability_certification":"Bitte Schwerbehindertenausweis eintragen",
+   "plz_enter_imposible_since":"Bitte geben Sie ein gültiges Datum für die unmögliche Arbeit seit ein",
+   "plz_enter_imposs_work_until":"Bitte geben Sie ein gültiges Datum für die unmögliche Arbeit bis ein",
+   "plz_enter_detected_at":"Bitte geben Sie ein gültiges Datum für das erkannt um ein",
+   "plz_attached_file":"Bitte die Datei anhängen"
       }
 }
