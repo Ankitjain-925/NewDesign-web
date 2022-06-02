@@ -1862,7 +1862,24 @@
   "AppointmentDate":"Appointment Date",
   "AppointmentTime":"Appointment Time",
   "Currently_available":"Currently available",
-  "Not_available":"Not available"
+  "Not_available":"Not available",
+  
+ 
+  "plz_enter_insurance_company":"Please enter insurance company",
+  "plz_enter_first_name":"Please enter First name",
+  "plz_enter_birth":"Please enter date of birth",
+  "plz_enter_number_insurance":"Please enter number insurance company",
+  "plz_enter_number_person":"please enter insurance number person",
+  "plz_enter_status":"Please enter status",
+  "plz_enter_hospital_number":"please enter hospital number",
+  "plz_enter_doctor_number":"Please enter doctor number",
+  "plz_enter_date":"Please enter date",
+  "plz_enter_disability_certification":"Please enter disability certification",
+  "plz_enter_imposible_since":"Please enter valid date for the imposible work to since",
+  "plz_enter_imposs_work_until":"Please enter valid date for the imposible work until",
+  "plz_enter_detected_at":"Please enter valid date for the detected at",
+  "plz_attached_file":"Please attached the file"
+  
   
   
   

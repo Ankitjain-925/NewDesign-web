@@ -20,11 +20,6 @@ import { Button, Input } from '@material-ui/core';
 import moment from "moment";
 import { commonHeader } from 'component/CommonHeader/index';
 
-
-
-
-
-
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -33,7 +28,8 @@ class Index extends Component {
             stamp: {},
             fileattach: {},
             loaderImage: false,
-            finishError: ''
+            finishError: '',
+            newapprove:false
         };
     }
 
@@ -64,94 +60,96 @@ class Index extends Component {
 
     CertificateSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {} = translate;
+        let {plz_enter_insurance_company 
+            ,plz_enter_first_name,
+            plz_enter_number_insurance,
+            plz_enter_birth,
+            plz_enter_number_person,
+            plz_enter_status,
+            plz_enter_hospital_number,
+            plz_enter_doctor_number,
+            plz_enter_date,
+            plz_enter_disability_certification,
+            plz_enter_imposible_since,
+            plz_enter_imposs_work_until,
+            plz_enter_detected_at ,
+            plz_attached_file
+        } = translate;
         this.setState({ finishError: "" })
         if (this.props.certificateId) {
             let data = {}
-        data = this.state.stamp
+            data = this.state.stamp
             if (this.state.fileattach && this.state.fileattach.length > 0) {
                 data.fileattach = this.state.fileattach;
             }
             if (!data.insurance_company) {
-                this.setState({ finishError: "please enter insurance company"})
+                this.setState({ finishError: plz_enter_insurance_company })
             }
             else if (!data.name) {
-                this.setState({ finishError: "please enter First name"})
+                this.setState({ finishError: plz_enter_first_name })
             }
             else if (!data.birthday) {
-                this.setState({ finishError: "please enter date of birth"})
+                this.setState({ finishError: plz_enter_birth })
             }
             else if (!data.number_insurance_company) {
-                this.setState({ finishError: "please enter number insurance company"})
+                this.setState({ finishError: plz_enter_number_insurance })
             }
             else if (!data.insurance_number_person) {
-                this.setState({ finishError: "please enter insurance number person"})
+                this.setState({ finishError: plz_enter_number_person })
             }
             else if (!data.status) {
-                this.setState({ finishError: "please enter status"})
+                this.setState({ finishError:plz_enter_status })
             }
             else if (!data.hospital_number) {
-                this.setState({ finishError: "please enter hospital number"})
+                this.setState({ finishError:plz_enter_hospital_number})
             }
             else if (!data.doctor_number) {
-                this.setState({ finishError: "please enter doctor_number"})
+                this.setState({ finishError: plz_enter_doctor_number })
             }
             else if (!data.date) {
-                this.setState({ finishError: "please enter date"})
+                this.setState({ finishError: plz_enter_date })
             }
             else if (!data.description) {
-                this.setState({ finishError: "please enter description"})
-            }
-            else if (!data.workincident) {
-                this.setState({ finishError: "please enterworkincident"})
-            }
-            else if (!data.occupational_disease) {
-                this.setState({ finishError: "please enter occupationaldisease"})
-            }
-            else if (!data.sent_special_doctor) {
-                this.setState({ finishError: "please enter sent special doctor"})
-            }
-            else if (!data.assigned_doctor) {
-                this.setState({ finishError: "please enter assigned doctor"})
+                this.setState({ finishError: plz_enter_disability_certification })
             }
             else if (!data.imposible) {
-                this.setState({ finishError: "please enter imposible"})
+                this.setState({ finishError:plz_enter_imposible_since })
             }
             else if (!data.most_likely) {
-                this.setState({ finishError: "please enter most likely"})
+                this.setState({ finishError: plz_enter_imposs_work_until })
             }
             else if (!data.detected_at) {
-                this.setState({ finishError: "please enter detected at"})
+                this.setState({ finishError: plz_enter_detected_at })
             }
             else if (!data.fileattach) {
-                this.setState({ finishError: "please attached file"})
+                this.setState({ finishError:plz_attached_file })
             }
-            else{
-            this.setState({ loaderImage: true })
-            axios
-                .put(
-                    sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
-                    {
-                        certificate: data
-                    },
-                    commonHeader(this.props.stateLoginValueAim.token)
-                )
-                .then((responce) => {
-                    if (responce.data.hassuccessed) {
-                        data.usefor = "mail";
-                        data.patient_id = this.props.certificateId;
-                        axios
-                            .post(
-                                sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
-                                data,
-                                commonHeader(this.props.stateLoginValueAim.token)
-                            )
-                            .then((responce) => { });
-                        this.props.handleCloseTask();
-                    }
-                    this.setState({ loaderImage: false })
+            else {
+                this.setState({ loaderImage: true ,newapprove:true })
+                axios
+                    .put(
+                        sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
+                        {
+                            certificate: data
+                        },
+                        commonHeader(this.props.stateLoginValueAim.token)
+                    )
+                    .then((responce) => {
+                        if (responce.data.hassuccessed) {
+                            data.usefor = "mail";
+                            data.patient_id = this.props.certificateId;
+                            axios
+                                .post(
+                                    sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
+                                    data,
+                                    commonHeader(this.props.stateLoginValueAim.token)
+                                )
+                                .then((responce) => { });
+                            this.props.handleCloseTask();
+                        }
+                        this.setState({ loaderImage: false })
 
-               });
+                    });
             }
         }
     };
@@ -199,11 +197,11 @@ class Index extends Component {
                             <Grid item xs={12} sm={12} md={12}>
                                 <Grid container direction="row" spacing={5}>
                                     <Grid item xs={12} sm={8} md={8}>
+                                        <div className="err_message">
+                                            {this.state.finishError}
+                                        </div>
                                         <Grid className="certifyForm">
                                             <Grid className="insrnceCmp cmnSpc">
-                                                <div className="err_message">
-                                                    {this.state.finishError}
-                                                </div>
                                                 <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Insurance_company}</label></Grid>
                                                 <Grid><input type="text" name="insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_company || ''} /></Grid>
                                             </Grid>
@@ -416,7 +414,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput ">
-                                                    <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
+                                                    <input type="date"   name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
 
 
                                                 </Grid>
@@ -437,7 +435,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput spacedistance">
-                                                    <input type="date" name="most_likely" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.most_likely || ''} />
+                                                    <input type="date" min={this.state.stamp.imposible}  name="most_likely" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.most_likely || ''} />
 
 
                                                 </Grid>
@@ -501,10 +499,11 @@ class Index extends Component {
                 </Grid>
 
                 <Grid item xs={12} md={12}>
+                 
                     <Grid container direction="row" alignItems="center" >
                         <Grid item xs={4} md={4} className="infoShwSave2">
-                            <Grid></Grid>
-                            <Button onClick={() => this.CertificateSubmit()} >{create}</Button>
+                            
+                         <Button onClick={() => this.CertificateSubmit()} >{create}</Button>
                         </Grid>
                         <Grid item xs={4} md={4} className="infoShwSave3">
                             <Button onClick={(data) => {

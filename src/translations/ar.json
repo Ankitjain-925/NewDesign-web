@@ -1656,7 +1656,21 @@
 		"view_detail":"عرض التفاصيل",
 		"Create_Certificate":"إنشاء شهادة",
 		"approved":"يوافق",
-		"Join_Meeting":"أنضم إلى الأجتماع"
+		"Join_Meeting":"أنضم إلى الأجتماع",
+		"plz_enter_insurance_company":"الرجاء إدخال شركة التأمين",
+         "plz_enter_first_name":"الرجاء إدخال الاسم الأول",
+        "plz_enter_birth":"الرجاء إدخال تاريخ الميلاد",
+       "plz_enter_number_insurance":"الرجاء إدخال رقم شركة التأمين",
+       "plz_enter_number_person":"الرجاء إدخال رقم التأمين الشخص",
+        "plz_enter_status":"الرجاء إدخال الحالة",
+        "plz_enter_hospital_number":"الرجاء إدخال رقم المستشفى",
+        "plz_enter_doctor_number":"الرجاء إدخال رقم الطبيب",
+        "plz_enter_date":"الرجاء إدخال التاريخ",
+       "plz_enter_disability_certification":"الرجاء إدخال شهادة الإعاقة",
+       "plz_enter_imposible_since":"الرجاء إدخال تاريخ صالح للعمل المستحيل منذ ذلك الحين",
+       "plz_enter_imposs_work_until":"الرجاء إدخال تاريخ صالح للعمل المستحيل حتى",
+        "plz_enter_detected_at":"الرجاء إدخال تاريخ صحيح للمكتشف في",
+        "plz_attached_file":"يرجى إرفاق الملف"
 
 	}
 }
