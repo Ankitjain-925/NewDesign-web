@@ -35,7 +35,6 @@ import {
 
 } from './api';
 import { getLanguage } from 'translations/index';
-import { TimeGrid } from 'react-big-calendar';
 
 class Index extends Component {
   constructor(props) {
@@ -140,11 +139,11 @@ class Index extends Component {
   };
 
   updateEntryState2 = (event) => {
-    console.log('data', this.state.sickamount1)
     var state = this.state.sickamount1;
     state[event.target.name] = event.target.value;
     this.setState({ sickamount1: state });
   };
+
   onSickamount= (e) => {
     if (e.key === "Enter") {
       this.setState({ sickamount: true });
