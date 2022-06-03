@@ -205,11 +205,22 @@ class Index extends Component {
               }
             >
               <a onClick={() => this.props.history.push('/h-archivechoose')}>
-                <img
-                  src={require('assets/images/admin/ParamedicIcon.png')}
+              {this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark' ? (
+              <img
+                  src={require('assets/images/archive2.png')}
                   alt=""
                   title=""
                 />
+                ) : (
+                <img
+                  src={require('assets/images/archive.png')}
+                  alt=""
+                  title=""
+                />
+                )}
                 <span>{archive}</span>
               </a>
             </li>

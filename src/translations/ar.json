@@ -1546,9 +1546,8 @@
 		"AddPatientStep" : "Add patient to this step",
 		"MoveAll" : "Move All patient in this Step",
 		"Add_other" :"Add ''other'' text field",
-		"VHS_view" : "Hospital view",
 		"Nurse_view" : "Nurse view",
-		"Doctor_view" : "Doctor view",
+		
 		"qty": "Qty",
 		"quantity": "quantity",
 		"avlbl": "available",
@@ -1559,7 +1558,7 @@
 		"Task": "Task",
 		"ServiceName": "Service Name",
 		"General": "General",
-		"ProfessionalTask": "Professional Tasks",
+	
 		"Entertitle" :"Enter title",
 		"FilterbyStaff":"Filter by Staff",
 		"FilterbySpeciality":"Filter by Speciality",
@@ -1670,7 +1669,15 @@
        "plz_enter_imposible_since":"الرجاء إدخال تاريخ صالح للعمل المستحيل منذ ذلك الحين",
        "plz_enter_imposs_work_until":"الرجاء إدخال تاريخ صالح للعمل المستحيل حتى",
         "plz_enter_detected_at":"الرجاء إدخال تاريخ صحيح للمكتشف في",
-        "plz_attached_file":"يرجى إرفاق الملف"
-
+        "plz_attached_file":"يرجى إرفاق الملف",
+		"disability":"Disability  - ",
+		"certification":"certification",
+		"AppointmentDate":"Appointment Date",
+		"AppointmentTime":"Appointment Time",
+		"cardiac_dizziness":"Cardiac dizziness",
+		"cardiac_shoulder_pain":"Shoulder pain",
+		"cardiac_heart_attack":"Heart attack",
+		"cardiac_heart_failure":"Heart failure"
+	
 	}
 }

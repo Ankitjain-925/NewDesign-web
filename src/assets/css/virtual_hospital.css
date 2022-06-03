@@ -15100,3 +15100,51 @@ line-break: anywhere;
 .darkTheme .stndQues{
 color:white;
 }
+.certificatePrice input {
+margin-left: 20px;
+ padding: 6px;
+  text-align: center;
+  font-family: Mulish,sans-serif;
+  border-radius: 6px;
+  border:1px solid grey
+}
+.certificatePrice label {
+ font-family: Mulish,sans-serif;
+ color: #7f8383;
+ font-size: 14px;
+ font-weight: bold;
+  
+  }
+  .certificatePrice button{
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: 2px solid #00ABAF;
+    min-width: 160px;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 8px;
+    margin-bottom: 2px;
+    outline: none;
+    cursor: pointer;
+    margin-left: 10px;
+   text-transform: capitalize;
+  }
+ 
+  .certificatePrice button:hover {
+    /* background: transparent; */
+    background-color:  #00ABAF;
+  }
+  .pionter{
+    cursor: pointer;
+  }
+  .certificatePrice img{
+    margin-left: 10px;
+  }
+  .darkTheme .certificatePrice input {
+    background: #192020!important;
+}

@@ -103,9 +103,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'MenuMob darkTheme'
             : 'MenuMob'
         }
@@ -208,11 +208,22 @@ class Index extends Component {
                         this.props.history.push('/h-archivechoose')
                       }
                     >
-                      <img
-                        src={require('assets/images/admin/ParamedicIcon.png')}
-                        alt=""
-                        title=""
-                      />
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === 'dark' ? (
+                        <img
+                          src={require('assets/images/archive2.png')}
+                          alt=""
+                          title=""
+                        />
+                      ) : (
+                        <img
+                          src={require('assets/images/archive.png')}
+                          alt=""
+                          title=""
+                        />
+                      )}
                       <span>{archive}</span>
                     </a>
                   </li>
@@ -223,9 +234,9 @@ class Index extends Component {
                   >
                     <a onClick={() => this.props.history.push('/h-groups')}>
                       {this.props.settings &&
-                      this.props.settings.setting &&
-                      this.props.settings.setting.mode &&
-                      this.props.settings.setting.mode === 'dark' ? (
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === 'dark' ? (
                         <img
                           src={require('assets/virtual_images/hospitalIcon2.png')}
                           alt=""
@@ -298,9 +309,9 @@ class Index extends Component {
                           <li>
                             <a>
                               {this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === 'dark' ? (
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === 'dark' ? (
                                 <img
                                   src={require('assets/images/menudocs-white.jpg')}
                                   alt=""
