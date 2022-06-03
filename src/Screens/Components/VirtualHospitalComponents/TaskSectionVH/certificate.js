@@ -130,7 +130,8 @@ class Index extends Component {
                     .put(
                         sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
                         {
-                            certificate: data
+                            certificate: data,
+                            status: "done"
                         },
                         commonHeader(this.props.stateLoginValueAim.token)
                     )
