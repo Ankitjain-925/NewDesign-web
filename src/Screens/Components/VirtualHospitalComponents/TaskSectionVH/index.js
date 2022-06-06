@@ -3561,7 +3561,7 @@ class Index extends Component {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-                            <Certificate certificateId={this.state.certificateId} info={this.state.info} handleCloseTask={this.handleCloseTask}/>
+                            <Certificate certificateId={this.state.certificateId} info={this.state.info} handleCloseTask={this.handleCloseTask} date_format={this.props.date_format}/>
                           </Grid>
                         </Grid>
                       </Grid>

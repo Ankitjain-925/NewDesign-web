@@ -14594,7 +14594,7 @@ label.newrole {
   content: '';
   display: block;
   position: absolute;
-  top: 20px;
+  top: 12px;
   left: 14px;
   width: 8px;
   height: 17px;
@@ -15147,4 +15147,8 @@ margin-left: 20px;
   }
   .darkTheme .certificatePrice input {
     background: #192020!important;
+}
+
+.darkTheme input[type=date]{
+  background-color:#192020!important;
 }

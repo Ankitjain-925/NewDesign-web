@@ -19,6 +19,8 @@ import FileUploader from 'Screens/Components/JournalFileUploader/index';
 import { Button, Input } from '@material-ui/core';
 import moment from "moment";
 import { commonHeader } from 'component/CommonHeader/index';
+import DateFormat from "Screens/Components/DateFormat/index";
+
 
 class Index extends Component {
     constructor(props) {
@@ -29,7 +31,9 @@ class Index extends Component {
             fileattach: {},
             loaderImage: false,
             finishError: '',
-            newapprove:false
+            date_format: this.props.date_format,
+            dateTime:new Date()
+
         };
     }
 
@@ -55,13 +59,14 @@ class Index extends Component {
         var state = this.state.stamp;
         state[event.target.name] = event.target.value;
         this.setState({ stamp: state });
+
     };
 
 
     CertificateSubmit = () => {
         let translate = getLanguage(this.props.stateLanguageType);
-        let {plz_enter_insurance_company 
-            ,plz_enter_first_name,
+        let { plz_enter_insurance_company
+            , plz_enter_first_name,
             plz_enter_number_insurance,
             plz_enter_birth,
             plz_enter_number_person,
@@ -72,7 +77,7 @@ class Index extends Component {
             plz_enter_disability_certification,
             plz_enter_imposible_since,
             plz_enter_imposs_work_until,
-            plz_enter_detected_at ,
+            plz_enter_detected_at,
             plz_attached_file
         } = translate;
         this.setState({ finishError: "" })
@@ -98,10 +103,10 @@ class Index extends Component {
                 this.setState({ finishError: plz_enter_number_person })
             }
             else if (!data.status) {
-                this.setState({ finishError:plz_enter_status })
+                this.setState({ finishError: plz_enter_status })
             }
             else if (!data.hospital_number) {
-                this.setState({ finishError:plz_enter_hospital_number})
+                this.setState({ finishError: plz_enter_hospital_number })
             }
             else if (!data.doctor_number) {
                 this.setState({ finishError: plz_enter_doctor_number })
@@ -113,7 +118,7 @@ class Index extends Component {
                 this.setState({ finishError: plz_enter_disability_certification })
             }
             else if (!data.imposible) {
-                this.setState({ finishError:plz_enter_imposible_since })
+                this.setState({ finishError: plz_enter_imposible_since })
             }
             else if (!data.most_likely) {
                 this.setState({ finishError: plz_enter_imposs_work_until })
@@ -122,10 +127,10 @@ class Index extends Component {
                 this.setState({ finishError: plz_enter_detected_at })
             }
             else if (!data.fileattach) {
-                this.setState({ finishError:plz_attached_file })
+                this.setState({ finishError: plz_attached_file })
             }
             else {
-                this.setState({ loaderImage: true ,newapprove:true })
+                this.setState({ loaderImage: true })
                 axios
                     .put(
                         sitedata.data.path + '/vh/AddTask/' + this.props.certificateId,
@@ -272,7 +277,9 @@ class Index extends Component {
                                                         <Grid className="insrnceCmp">
 
                                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Date}</label></Grid>
-                                                            <Grid><input type="date" name="date" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.date || ''} /></Grid>
+                                                            <Grid>
+                                                             <input type="date" name="date" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.date || ''} />
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -415,7 +422,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput ">
-                                                    <input type="date"   name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
+                                                    <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
 
 
                                                 </Grid>
@@ -436,7 +443,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput spacedistance">
-                                                    <input type="date" min={this.state.stamp.imposible}  name="most_likely" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.most_likely || ''} />
+                              <input type="date" min={this.state.stamp.imposible} name="most_likely" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.most_likely || ''} />
 
 
                                                 </Grid>
@@ -456,7 +463,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput spacedistance">
-                                                    <input type="date" name="detected_at" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.detected_at || ''} />
+                                            <input type="date" name="detected_at" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.detected_at || ''} />
 
 
                                                 </Grid>
@@ -500,11 +507,11 @@ class Index extends Component {
                 </Grid>
 
                 <Grid item xs={12} md={12}>
-                 
+
                     <Grid container direction="row" alignItems="center" >
                         <Grid item xs={4} md={4} className="infoShwSave2">
-                            
-                         <Button onClick={() => this.CertificateSubmit()} >{create}</Button>
+
+                            <Button onClick={() => this.CertificateSubmit()} >{create}</Button>
                         </Grid>
                         <Grid item xs={4} md={4} className="infoShwSave3">
                             <Button onClick={(data) => {
