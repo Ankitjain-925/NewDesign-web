@@ -138,7 +138,7 @@ class Index extends Component {
                     .then((responce) => {
                         if (responce.data.hassuccessed) {
                             data.usefor = "mail";
-                            data.patient_id = this.props.certificateId;
+                            data.patient_id = this.props.PatientID;
                             axios
                                 .post(
                                     sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
