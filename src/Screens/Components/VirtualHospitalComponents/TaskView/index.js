@@ -281,7 +281,7 @@ class PointPain extends Component {
                         data.task_type && 
                         data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely &&   
                         <li onClick={() => {
-                            this.props.cretficate(data._id)
+                            this.props.cretficate(data._id, data.patient_id)
                           }}>
                            <a>
                            <img

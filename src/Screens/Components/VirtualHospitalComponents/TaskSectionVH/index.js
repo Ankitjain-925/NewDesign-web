@@ -127,7 +127,7 @@ class Index extends Component {
       gender: 'female',
       info: this.props.info,
       certificateId: false,
-
+      PatientID: false
 
 
     };
@@ -300,7 +300,7 @@ class Index extends Component {
   };
   // close model Add Task
   handleCloseTask = () => {
-    this.setState({ openTask: false, newTask: {},openTask1:false, certificateId: false });
+    this.setState({ openTask: false, newTask: {}, openTask1:false, certificateId: false, PatientID: false });
   };
   handleChangeTab = (event, tabvalue) => {
     this.setState({ tabvalue });
@@ -1065,8 +1065,8 @@ class Index extends Component {
     });
   };
 
-  cretficateTask = (id) => {
-    this.setState({ openTask1: true, certificateId : id })
+  cretficateTask = (id, patient_id) => {
+    this.setState({ openTask1: true, certificateId : id, PatientID:  patient_id})
   }
 
   // Get the Professional data
@@ -3561,7 +3561,7 @@ class Index extends Component {
                           spacing={2}
                         >
                           <Grid item xs={12} md={12}>
-                            <Certificate certificateId={this.state.certificateId} info={this.state.info} handleCloseTask={this.handleCloseTask} date_format={this.props.date_format}/>
+                            <Certificate  handleApprovedDetails={(id, status, data) => this.handleApprovedDetails(id, status, data)} certificateId={this.state.certificateId} PatientID={this.state.PatientID} info={this.state.info} handleCloseTask={this.handleCloseTask}/>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -3720,7 +3720,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={(id) => this.cretficateTask(id)}
+                        cretficate={(id, patient_id) => this.cretficateTask(id, patient_id)}
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
@@ -3744,8 +3744,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={() => this.cretficateTask()}
-
+                        cretficate={(id, patient_id) => this.cretficateTask(id, patient_id)}
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
                         }
@@ -3769,7 +3768,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={() => this.cretficateTask()}
+                        cretficate={(id, patient_id) => this.cretficateTask(id, patient_id)}
 
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
@@ -3794,7 +3793,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={() => this.cretficateTask()}
+                        cretficate={(id, patient_id) => this.cretficateTask(id, patient_id)}
 
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
@@ -3819,7 +3818,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={() => this.cretficateTask()}
+                        cretficate={(id, patient_id) => this.cretficateTask(id, patient_id)}
 
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)
@@ -3844,7 +3843,7 @@ class Index extends Component {
                         data={data}
                         removeTask={(id) => this.removeTask(id)}
                         editTask={(data) => this.editTask(data)}
-                        cretficate={() => this.cretficateTask()}
+                        cretficate={(id, patient_id) => this.cretficateTask(id, patient_id)}
 
                         declineTask={(id, patient_id) =>
                           this.declineTask(id, patient_id)

@@ -244,6 +244,7 @@ class Index extends Component {
                 <Button
                   onClick={() => {
                     this.deleteClick(deletekey, profile_id, bucket);
+                    onClose();
                   }}
                 >
                   {Yes}
@@ -292,6 +293,7 @@ class Index extends Component {
           .then(function (response) {})
           .catch(function (error) {});
         this.getDoctors();
+
     })
   }
 

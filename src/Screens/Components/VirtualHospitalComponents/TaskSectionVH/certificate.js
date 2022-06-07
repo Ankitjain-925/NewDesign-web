@@ -19,7 +19,7 @@ import FileUploader from 'Screens/Components/JournalFileUploader/index';
 import { Button, Input } from '@material-ui/core';
 import moment from "moment";
 import { commonHeader } from 'component/CommonHeader/index';
-import DateFormat from "Screens/Components/DateFormat/index";
+
 
 
 class Index extends Component {
@@ -143,7 +143,7 @@ class Index extends Component {
                     .then((responce) => {
                         if (responce.data.hassuccessed) {
                             data.usefor = "mail";
-                            data.patient_id = this.props.certificateId;
+                            data.patient_id = this.props.PatientID;
                             axios
                                 .post(
                                     sitedata.data.dowload_link + '/vactive/downloadSickleaveCertificate',
