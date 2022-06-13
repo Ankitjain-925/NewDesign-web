@@ -4145,6 +4145,7 @@ button.onlogyBtn {
   .settingInfo {
     text-align: left;
     margin-top: 42px;
+    margin-bottom: 20px;
   }
   .settingInfoMob {
     margin-top: 0px !important;
@@ -10572,7 +10573,7 @@ img.manage-size {
 a.addNewPlus img {
   height: 50px;
   width: 50px !important;
-  margin-left: 9px;
+  /* margin-left: 9px; */
 }
 .darkTheme .rrSysto2 div {
   background-color: #404646 !important;
@@ -15148,3 +15149,18 @@ margin-left: 20px;
   .darkTheme .certificatePrice input {
     background: #192020!important;
 }
+
+.darkTheme input[type=date]{
+  background-color:#192020!important;
+}
+
+@media (max-width: 500px){
+  .deleteStep{
+    width: 100% !important;
+      
+    }
+  
+  }
+ 
+
+ 

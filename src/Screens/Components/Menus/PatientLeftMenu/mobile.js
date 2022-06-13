@@ -218,7 +218,7 @@ class Index extends Component {
                     title=""
                   />
                 )}
-                <span>{}</span>
+                <span>{ Patientjourney}</span>
               </a>
             </li>
                   <li
