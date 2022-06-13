@@ -46,7 +46,7 @@ class PointPain extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       anamnesis,
-      Selectentrytype,
+      Selectentrytype, 
       blood_pressure,
       blood_sugar,
       condition_pain,
