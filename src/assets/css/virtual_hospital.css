@@ -15170,7 +15170,16 @@ margin-left: 20px;
     }
   
   }
-
+  .infoShwSave3 input{
+    width:100%;
+  }
+  
+  @media screen and (min-width: 1425px) and (max-width: 1470px){
+    .revwFiles{
+      margin-right: 30px;
+    }
+    
+  }
  
  
 
