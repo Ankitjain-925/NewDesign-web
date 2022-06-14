@@ -15154,6 +15154,15 @@ margin-left: 20px;
   background-color:#192020!important;
 }
 
+.euroamount{
+  position: absolute;
+  top: 171px;
+  left:486px;
+  color: grey;
+  font-weight: 600;
+}
+
+
 @media (max-width: 500px){
   .deleteStep{
     width: 100% !important;
@@ -15161,6 +15170,8 @@ margin-left: 20px;
     }
   
   }
+
+ 
  
 
  

@@ -17,6 +17,9 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { houseSelect } from '../Institutes/selecthouseaction';
 import Loader from 'Screens/Components/Loader/index';
+import sitedata from 'sitedata';
+import axios from 'axios';
+import { commonHeader } from 'component/CommonHeader/index';
 import Select from 'react-select';
 import {
   getSpecialty,
@@ -32,6 +35,7 @@ import {
   EditService,
   onFieldChange,
   searchFilter,
+  getAmount
 
 } from './api';
 import { getLanguage } from 'translations/index';
@@ -61,6 +65,7 @@ class Index extends Component {
   componentDidMount() {
     getSpecialty(this);
     getAllServices(this);
+    getAmount(this);
   }
 
   //Delete the perticular service confirmation box
@@ -144,10 +149,33 @@ class Index extends Component {
     this.setState({ sickamount1: state });
   };
 
+  EditAmount=() =>{
+  let translate = getLanguage(this.props.stateLanguageType);
+  let {  Something_went_wrong 
+  } = translate;
+  var a= this.state.sickamount1.amount
+  axios
+    .put(
+      sitedata.data.path + '/vactive/AddAmount/' + this.props.House.value,
+      { sickleave_certificate_amount:a },
+      commonHeader(this.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      this.setState({ loaderImage: false });
+      if (responce.data.hassuccessed) {
+          this.setState({ sickamount: true })
+       } else {
+        this.setState({ errorMsg: Something_went_wrong });
+      }
+    });
+}
   onSickamount= (e) => {
-    if (e.key === "Enter") {
-      this.setState({ sickamount: true });
+   if (e.key === "Enter") {
+      this.EditAmount();
+      // this.setState({ sickamount: true });
     }
+  
+  
   };
 
 
@@ -375,6 +403,7 @@ class Index extends Component {
                                   });
                                 }}
                               />
+                               <p className='euroamount'>€</p>
                             </a>
                           </Grid>
 
