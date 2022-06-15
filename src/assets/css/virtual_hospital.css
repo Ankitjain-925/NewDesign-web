@@ -15178,9 +15178,13 @@ margin-left: 20px;
     .revwFiles{
       margin-right: 30px;
     }
-    
+  
   }
- 
- 
-
- 
+  @media screen and (min-width: 1401px) and (max-width: 1470px){
+ .attchNoteUpr{
+    margin-left: 20%;
+  }
+  .allInfoRght{
+    margin-right: 50px;
+  }
+  }
