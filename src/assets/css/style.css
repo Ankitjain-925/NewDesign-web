@@ -2044,12 +2044,12 @@ a.profilMenu {
         padding: 12px 8px !important;
         min-width: 182px !important;
     }
-    
+ 
     /* Tabs scrollbar for mobile */
     .MuiTabs-fixed {
         overflow-x: scroll !important;
     }
-    .MuiTabs-fixed::-webkit-scrollbar{
+  .MuiTabs-fixed::-webkit-scrollbar{
         height: 3px;
     }
     .MuiTabs-fixed::-webkit-scrollbar-track{
@@ -12933,7 +12933,7 @@ a.addNewPlus {
     /* border: 1px solid #F2F2F2; */
     border-radius: 8px;
     background-color: #FFFFFF;
-    padding: 10px 17px;
+    padding: 10px 0px;
     display: inline-block;
 }
 /* a.addNewPlus img {
@@ -14937,6 +14937,10 @@ input:focus {
     overflow: hidden;
     height: 86%;
     overflow-y: auto;
+  }
+  .darkTheme .custom-text{
+    background: #404646 !important;
+    color: #dfdfdf !important;
   }
   .custom-text{
     margin-left: 60px;

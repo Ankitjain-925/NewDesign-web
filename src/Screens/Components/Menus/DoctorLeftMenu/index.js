@@ -21,7 +21,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { commonHeader } from 'component/CommonHeader/index';
 import Loader from 'Screens/Components/Loader/index';
 import io from 'socket.io-client';
-import { currentAvaliable } from "./current.js";
+import { currentAvaliable } from './current.js';
 import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
 const SOCKET_URL = GetSocketUrl();
 
@@ -44,7 +44,7 @@ class Index extends Component {
       UpDataDetails: [],
       invitation: {},
       mode: 'normal',
-      update: false
+      update: false,
     };
     new Timer(this.logOutClick.bind(this));
     socket = io(SOCKET_URL);
@@ -60,7 +60,6 @@ class Index extends Component {
     getSetting(this);
     this.getavailableUpdate();
     this.availableUpdate();
-   
   }
 
   // componentDidUpdate(PrevProps, PrevState) {
@@ -86,7 +85,7 @@ class Index extends Component {
       // localStorage.setItem('CheckCurrent', JSON.stringify(data));
       // this.setState({ CheckCurrent: { current_available: false } });
       this.availableUpdate();
-      this.props.currentAvaliable({current_available: false});
+      this.props.currentAvaliable({ current_available: false });
     }
   };
 
@@ -166,27 +165,29 @@ class Index extends Component {
   };
 
   handleChange = (e) => {
-  const state = this.state.CheckCurrent;
-    state[e.target.name] = e.target.checked
-    localStorage.setItem('CheckCurrent', JSON.stringify(state));
-    this.setState({ CheckCurrent: state , update: !this.state.update});
-   
+    const state = this.state.CheckCurrent;
+    state[e.target.name] = e.target.checked;
+    localStorage.setItem(
+      'CheckCurrent',
+      e.target.checked == true ? true : false
+    );
+    this.setState({ CheckCurrent: state, update: !this.state.update });
     this.availableUpdate();
   };
 
   availableUpdate = () => {
     this.setState({ loaderImage: true });
-    var data = this.state.CheckCurrent
+    var data = this.state.CheckCurrent;
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .put(
-        sitedata.data.path + '/UserProfile/Users/update', data ,
+        sitedata.data.path + '/UserProfile/Users/update',
+        data,
         commonHeader(user_token)
       )
       .then((responce) => {
         this.getavailableUpdate();
         this.setState({ loaderImage: false });
-      
       })
       .catch((error) => {
         this.setState({ loaderImage: false });
@@ -203,14 +204,13 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((responce) => {
-       
         socket.emit('update', responce);
         let value = responce?.data?.data?.current_available;
         this.setState({
           CheckCurrent: { current_available: value },
           loaderImage: false,
         });
-        this.props.currentAvaliable({current_available: value});  
+        this.props.currentAvaliable({ current_available: value });
       })
       .catch((error) => {
         this.setState({ loaderImage: false });
@@ -238,7 +238,7 @@ class Index extends Component {
       Doctor_view,
       VHS_view,
       Currently_available,
-      Not_available
+      Not_available,
     } = translate;
     const { inputValue, value, CheckCurrent } = this.state;
     const { selectedOption } = this.state;
@@ -273,11 +273,12 @@ class Index extends Component {
                 ? false
                 : true
             }
-            checked={this.props.CheckCurrent?.current_available ===true ? true : false
+            checked={
+              this.props.CheckCurrent?.current_available === true ? true : false
             }
             onChange={(e) => this.handleChange(e)}
           />
-          {this.props.CheckCurrent?.current_available ===true ? (
+          {this.props.CheckCurrent?.current_available === true ? (
             <p>{Currently_available}</p>
           ) : (
             <p>{Not_available}</p>
@@ -286,7 +287,7 @@ class Index extends Component {
 
         <Grid className="menuItems">
           <ul>
-          <li
+            <li
               className={
                 this.props.currentPage === 'appointment' ? 'menuActv' : ''
               }
@@ -313,7 +314,7 @@ class Index extends Component {
             </li>
             {this.props?.House?.value && (
               <>
-               <li
+                <li
                   className={
                     this.props.currentPage === 'task' ? 'menuActv' : ''
                   }
@@ -753,7 +754,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     House,
-    CheckCurrent
+    CheckCurrent,
   };
 };
 export default withRouter(
@@ -762,6 +763,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     houseSelect,
-    currentAvaliable
+    currentAvaliable,
   })(Index)
 );

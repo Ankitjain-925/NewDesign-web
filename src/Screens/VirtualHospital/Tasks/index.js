@@ -36,7 +36,7 @@ class Index extends Component {
       doneToday: 0,
       AllTasks: [],
       DoneTask: [],
-      tabvalue2: 0
+      tabvalue2: 0,
     };
   }
 
@@ -90,7 +90,9 @@ class Index extends Component {
           var Open =
             response.data.data?.length > 0 &&
             response.data.data.filter(
-              (item) => item.status === 'open' && item.is_decline === false
+              (item) =>
+                item.status === 'open' &&
+                (!item.is_decline || item.is_decline === false)
             );
           var Decline =
             response.data.data?.length > 0 &&
@@ -111,10 +113,10 @@ class Index extends Component {
             OpenTask: Open,
             Open: Open?.length,
             doneToday: GetDate?.length,
-            tabvalue2:  tabvalue2 ? tabvalue2: 0
+            tabvalue2: tabvalue2 ? tabvalue2 : 0,
           });
         }
-        
+
         this.setState({ loaderImage: false });
       });
   };

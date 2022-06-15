@@ -22,7 +22,7 @@ import { getSetting } from '../api';
 import Checkbox from '@material-ui/core/Checkbox';
 import Loader from 'Screens/Components/Loader/index';
 import io from 'socket.io-client';
-import { currentAvaliable } from "./current.js";
+import { currentAvaliable } from './current.js';
 import { GetSocketUrl } from 'Screens/Components/BasicMethod/index';
 const SOCKET_URL = GetSocketUrl();
 
@@ -48,7 +48,7 @@ class Index extends Component {
 
   //For loggedout if logged in user is deleted
   componentDidMount() {
-    socket.on('connection', () => { });
+    socket.on('connection', () => {});
     new LogOut(
       this.props.stateLoginValueAim.token,
       this.props.stateLoginValueAim.user._id,
@@ -152,10 +152,8 @@ class Index extends Component {
       let languageType = 'en';
       this.props.LanguageFetchReducer(languageType);
       this.availableUpdate();
-      this.props.currentAvaliable({current_available: false});
-      
+      this.props.currentAvaliable({ current_available: false });
     }
-
   };
 
   getavailableUpdate = () => {
@@ -174,7 +172,7 @@ class Index extends Component {
           CheckCurrent: { current_available: value },
           loaderImage: false,
         });
-        this.props.currentAvaliable({current_available: value}); 
+        this.props.currentAvaliable({ current_available: value });
       })
       .catch((error) => {
         this.setState({ loaderImage: false });
@@ -183,11 +181,14 @@ class Index extends Component {
 
   handleChange = (e) => {
     const state = this.state.CheckCurrent;
-      state[e.target.name] = e.target.checked
-      localStorage.setItem('CheckCurrent', e.target.checked == true ? true : false);
-      this.setState({ CheckCurrent: state , update: !this.state.update});
-      this.availableUpdate();
-    };
+    state[e.target.name] = e.target.checked;
+    localStorage.setItem(
+      'CheckCurrent',
+      e.target.checked == true ? true : false
+    );
+    this.setState({ CheckCurrent: state, update: !this.state.update });
+    this.availableUpdate();
+  };
 
   availableUpdate = () => {
     this.setState({ loaderImage: true });
@@ -196,9 +197,7 @@ class Index extends Component {
     axios
       .put(
         sitedata.data.path + '/UserProfile/Users/update',
-        {
-          data,
-        },
+        data,
         commonHeader(user_token)
       )
       .then((responce) => {
@@ -270,15 +269,15 @@ class Index extends Component {
       DarkMode,
       logout,
       Currently_available,
-      Not_available
+      Not_available,
     } = translate;
     return (
       <Grid
         className={
           this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === 'dark'
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === 'dark'
             ? 'MenuMob MenuLeftDrkUpr'
             : 'MenuMob'
         }
@@ -297,24 +296,27 @@ class Index extends Component {
             </a>
             <Menu className="addCstmMenu">
               <Grid className="menuCheckBox menuCheckBox1">
-              <Checkbox
-            name="current_available"
-            value={
-              this.props.CheckCurrent &&
-              this.props.CheckCurrent?.current_available &&
-              this.props.CheckCurrent?.current_available === true
-                ? false
-                : true
-            }
-            checked={this.props.CheckCurrent?.current_available ===true ? true : false
-            }
-            onChange={(e) => this.handleChange(e)}
-          />
-          {this.props.CheckCurrent?.current_available ===true ? (
-            <p>{Currently_available}</p>
-          ) : (
-            <p>{Not_available}</p>
-          )}
+                <Checkbox
+                  name="current_available"
+                  value={
+                    this.props.CheckCurrent &&
+                    this.props.CheckCurrent?.current_available &&
+                    this.props.CheckCurrent?.current_available === true
+                      ? false
+                      : true
+                  }
+                  checked={
+                    this.props.CheckCurrent?.current_available === true
+                      ? true
+                      : false
+                  }
+                  onChange={(e) => this.handleChange(e)}
+                />
+                {this.props.CheckCurrent?.current_available === true ? (
+                  <p>{Currently_available}</p>
+                ) : (
+                  <p>{Not_available}</p>
+                )}
               </Grid>
               <Grid className="menuItems">
                 <ul>
@@ -325,9 +327,9 @@ class Index extends Component {
                   >
                     <a onClick={this.Appointment}>
                       {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === 'dark' ? (
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === 'dark' ? (
                         <img
                           src={require('assets/images/nav-appointments-white.svg')}
                           alt=""
@@ -352,9 +354,9 @@ class Index extends Component {
                       >
                         <a onClick={this.handlePTask}>
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/virtual_images/rightIcon2.png')}
                               alt=""
@@ -383,9 +385,9 @@ class Index extends Component {
                       >
                         <a onClick={this.NormalView}>
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/virtual_images/hospitalIcon2.png')}
                               alt=""
@@ -417,9 +419,9 @@ class Index extends Component {
                       >
                         <a onClick={this.Chats}>
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/images/nav-chat-white.svg')}
                               alt=""
@@ -442,9 +444,9 @@ class Index extends Component {
                       >
                         <a onClick={this.Service}>
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/images/nav-patients-active.svg')}
                               alt=""
@@ -469,9 +471,9 @@ class Index extends Component {
                       >
                         <a onClick={this.MyDocument}>
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/images/nav-my-documents-inquiries-active.svg')}
                               alt=""
@@ -494,9 +496,9 @@ class Index extends Component {
                       >
                         <a onClick={this.Emergency}>
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/images/ermerAccess-white.svg')}
                               alt=""
@@ -522,9 +524,9 @@ class Index extends Component {
                       >
                         <a onClick={this.MoveInstitute}>
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/virtual_images/hospitalIcon2.png')}
                               alt=""
@@ -547,9 +549,9 @@ class Index extends Component {
                       <li>
                         <a className="moreMenu">
                           {this.props.settings &&
-                            this.props.settings.setting &&
-                            this.props.settings.setting.mode &&
-                            this.props.settings.setting.mode === 'dark' ? (
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === 'dark' ? (
                             <img
                               src={require('assets/images/nav-more-white.svg')}
                               alt=""
@@ -568,9 +570,9 @@ class Index extends Component {
                               <li>
                                 <a onClick={this.handleOpenInvt}>
                                   {this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.mode &&
-                                    this.props.settings.setting.mode ===
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode ===
                                     'dark' ? (
                                     <img
                                       src={require('assets/images/menudocs-white.jpg')}
@@ -590,9 +592,9 @@ class Index extends Component {
                               <li>
                                 <a onClick={this.handleOpenPharma}>
                                   {this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.mode &&
-                                    this.props.settings.setting.mode ===
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode ===
                                     'dark' ? (
                                     <img
                                       src={require('assets/images/menudocs-white.jpg')}
@@ -612,9 +614,9 @@ class Index extends Component {
                               <li className="doctor-menu">
                                 <a onClick={this.Online}>
                                   {this.props.settings &&
-                                    this.props.settings.setting &&
-                                    this.props.settings.setting.mode &&
-                                    this.props.settings.setting.mode ===
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode ===
                                     'dark' ? (
                                     <img
                                       src={require('assets/images/menudocs-white.jpg')}
@@ -655,9 +657,9 @@ class Index extends Component {
                           <li>
                             <a onClick={this.Myprofile}>
                               {this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                                 <img
                                   src={require('assets/images/menudocs-white.jpg')}
                                   alt=""
@@ -680,9 +682,9 @@ class Index extends Component {
                               }}
                             >
                               {this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                                 <img
                                   src={require('assets/images/menudocs-white.jpg')}
                                   alt=""
@@ -701,9 +703,9 @@ class Index extends Component {
                           <li>
                             <a>
                               {this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                                 <img
                                   src={require('assets/images/menudocs-white.jpg')}
                                   alt=""
@@ -731,9 +733,9 @@ class Index extends Component {
                           <li onClick={this.logOutClick}>
                             <a>
                               {this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === 'dark' ? (
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark' ? (
                                 <img
                                   src={require('assets/images/menudocs-white.jpg')}
                                   alt=""
@@ -808,7 +810,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     House,
-    CheckCurrent
+    CheckCurrent,
   };
 };
 export default withRouter(
@@ -817,6 +819,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     houseSelect,
-    currentAvaliable
+    currentAvaliable,
   })(Index)
 );

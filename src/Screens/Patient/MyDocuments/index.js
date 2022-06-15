@@ -815,10 +815,10 @@ class Index extends Component {
                                             {/* Tabs  */}
                                             <AppBar position="static" className="presTabsUpr">
                                                 <Grid container direction="row">
-                                                    <Grid item xs={12} md={8} sm={8}>
+                                                    <Grid item xs={12} md={8} sm={8} >
                                                         <Tabs value={value} onChange={this.handleChangeTabs} className="presTabs">
                                                             <Tab label={prescriptions} className="presTabsIner" />
-                                                            <Tab label={sickcsrtificates} className="presTabsIner" />
+                                                            <Tab label={sickcsrtificates} className="presTabsIner " />
                                                             <Tab label={secnd_openion} className="presTabsIner" />
                                                         </Tabs>
                                                     </Grid>

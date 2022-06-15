@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { getLanguage } from "translations/index"
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import axios from "axios";
-import { S3Image } from "Screens/Components/GetS3Images/index";
-import { LanguageFetchReducer } from "Screens/actions";
-import sitedata from "sitedata";
-import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import { getLanguage } from 'translations/index';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import axios from 'axios';
+import { S3Image } from 'Screens/Components/GetS3Images/index';
+import { LanguageFetchReducer } from 'Screens/actions';
+import sitedata from 'sitedata';
+import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
 import { authy } from 'Screens/Login/authy.js';
-import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { houseSelect } from 'Screens/VirtualHospital/Institutes/selecthouseaction';
 import { Redirect, Route } from 'react-router-dom';
-import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts/highstock";
-import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
-import AllL_Ps from "Screens/Components/Parameters/parameter.js";
-import moment from "moment";
+import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
+import HighchartsReact from 'highcharts-react-official';
+import Highcharts from 'highcharts/highstock';
+import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
+import AllL_Ps from 'Screens/Components/Parameters/parameter.js';
+import moment from 'moment';
 import {
   getDate,
   getTime,
@@ -27,7 +27,7 @@ import {
   getSpec,
   getImage,
   SortByGraphView,
-} from "Screens/Components/BasicMethod";
+} from 'Screens/Components/BasicMethod';
 import PatientTasks from 'Screens/Components/VirtualHospitalComponents/PatientTabsContent/patient-tasks';
 
 class Index extends Component {
@@ -42,7 +42,7 @@ class Index extends Component {
       date_format: this.props.date_format,
       loggedinUser: this.props.loggedinUser,
       last_dv: this.props.personalinfo?.last_dv || [],
-      doc_image: "",
+      doc_image: '',
       images: [],
       resprisationLast: -1,
       HeartLast: -1,
@@ -64,7 +64,7 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => {}
+  componentDidMount = () => {};
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -140,10 +140,10 @@ class Index extends Component {
             if (item.image) {
               var find = item && item.image;
               if (find) {
-                var find1 = find.split(".com/")[1];
+                var find1 = find.split('.com/')[1];
 
                 axios
-                  .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                  .get(sitedata.data.path + '/aws/sign_s3?find=' + find1)
                   .then((response) => {
                     if (response.data.hassuccessed) {
                       images.push({
@@ -151,33 +151,41 @@ class Index extends Component {
                         new_image: response.data.data,
                       });
                       this.setState({ images: images }, () => {
-                        if (this.state.personalinfo.last_dv.length - 1 === index) {
+                        if (
+                          this.state.personalinfo.last_dv.length - 1 ===
+                          index
+                        ) {
                           var newData = this.state.images;
-                          newData.push({ image: 'last_image', new_image: 'last_image_resolve' })
-                          setTimeout(() => { this.setState({ images: newData }) }, 2000)
+                          newData.push({
+                            image: 'last_image',
+                            new_image: 'last_image_resolve',
+                          });
+                          setTimeout(() => {
+                            this.setState({ images: newData });
+                          }, 2000);
                         }
                       });
                     }
-                  })
+                  });
               }
             }
           });
 
-        var laboratory_result = this.getOptions("laboratory_result");
-        var blood_pressure = this.getOptions("blood_pressure");
-        var weight_bmi = this.getOptions("weight_bmi");
-        var heart_rate = this.getOptions("heart_rate");
-        var blood_sugar = this.getOptions("blood_sugar");
-        var potassium1 = this.getOptions("potassium");
-        var hemoglobine1 = this.getOptions("hemoglobine");
-        var leucocytes1 = this.getOptions("leucocytes");
-        var pancreaticlipase1 = this.getOptions("pancreaticlipase");
-        var thrombocytes1 = this.getOptions("thrombocytes");
-        var sodium1 = this.getOptions("sodium");
-        var ggt1 = this.getOptions("ggt");
-        var ast1 = this.getOptions("ast/got");
-        var alt1 = this.getOptions("alt/gpt");
-        var respiration_data = this.getOptions("respiration");
+        var laboratory_result = this.getOptions('laboratory_result');
+        var blood_pressure = this.getOptions('blood_pressure');
+        var weight_bmi = this.getOptions('weight_bmi');
+        var heart_rate = this.getOptions('heart_rate');
+        var blood_sugar = this.getOptions('blood_sugar');
+        var potassium1 = this.getOptions('potassium');
+        var hemoglobine1 = this.getOptions('hemoglobine');
+        var leucocytes1 = this.getOptions('leucocytes');
+        var pancreaticlipase1 = this.getOptions('pancreaticlipase');
+        var thrombocytes1 = this.getOptions('thrombocytes');
+        var sodium1 = this.getOptions('sodium');
+        var ggt1 = this.getOptions('ggt');
+        var ast1 = this.getOptions('ast/got');
+        var alt1 = this.getOptions('alt/gpt');
+        var respiration_data = this.getOptions('respiration');
         var hba_data = this.getOptions('hba');
 
         var Creatinine1 =
@@ -186,7 +194,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "Creatinine"
+              value.lab_parameter && value.lab_parameter.value === 'Creatinine'
           );
         var Potassium =
           this.state.personalinfo &&
@@ -194,7 +202,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "Potassium"
+              value.lab_parameter && value.lab_parameter.value === 'Potassium'
           );
         var Hemoglobine =
           this.state.personalinfo &&
@@ -202,7 +210,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "Hemoglobine"
+              value.lab_parameter && value.lab_parameter.value === 'Hemoglobine'
           );
         var Leucocytes =
           this.state.personalinfo &&
@@ -210,7 +218,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "Leucocytes"
+              value.lab_parameter && value.lab_parameter.value === 'Leucocytes'
           );
         var Pancreaticlipase =
           this.state.personalinfo &&
@@ -219,7 +227,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
               value.lab_parameter &&
-              value.lab_parameter.value === "Pancreaticlipase"
+              value.lab_parameter.value === 'Pancreaticlipase'
           );
         var Thrombocytes =
           this.state.personalinfo &&
@@ -228,7 +236,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
               value.lab_parameter &&
-              value.lab_parameter.value === "Thrombocytes"
+              value.lab_parameter.value === 'Thrombocytes'
           );
         var Sodium =
           this.state.personalinfo &&
@@ -236,7 +244,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "Sodium"
+              value.lab_parameter && value.lab_parameter.value === 'Sodium'
           );
         var GGT =
           this.state.personalinfo &&
@@ -244,7 +252,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "GGT"
+              value.lab_parameter && value.lab_parameter.value === 'GGT'
           );
         var AST =
           this.state.personalinfo &&
@@ -252,7 +260,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "AST/GOT"
+              value.lab_parameter && value.lab_parameter.value === 'AST/GOT'
           );
         var ALT =
           this.state.personalinfo &&
@@ -260,7 +268,7 @@ class Index extends Component {
           this.state.personalinfo.laboratory_result.length > 0 &&
           this.state.personalinfo.laboratory_result.filter(
             (value, key) =>
-              value.lab_parameter && value.lab_parameter.value === "ALT/GPT"
+              value.lab_parameter && value.lab_parameter.value === 'ALT/GPT'
           );
         this.setState({
           Creatinine: Creatinine1,
@@ -292,7 +300,7 @@ class Index extends Component {
           ggt1: ggt1,
           ast1: ast1,
           alt1: alt1,
-          last_dv: this.props.personalinfo?.last_dv
+          last_dv: this.props.personalinfo?.last_dv,
         });
       });
     }
@@ -308,11 +316,10 @@ class Index extends Component {
     if (prevProps.currenttab !== this.props.currenttab) {
       this.setState({ currenttab: this.props.currenttab });
     }
-
   };
 
   getOptions = (current_Graph) => {
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
       blood_pressure,
       date,
@@ -329,10 +336,10 @@ class Index extends Component {
       BMI,
       blood_sugar,
       respiration,
-      Hba1c
+      Hba1c,
     } = translate;
 
-    if (current_Graph === "blood_pressure" || current_Graph === "heart_rate") {
+    if (current_Graph === 'blood_pressure' || current_Graph === 'heart_rate') {
       var categoriesbp = [],
         databp_d = [],
         databp_s = [],
@@ -356,7 +363,7 @@ class Index extends Component {
             databp_s.push({
               y: parseFloat(data.rr_systolic),
             });
-            this.setState({ BPLast: BPLast })
+            this.setState({ BPLast: BPLast });
             BPLast = BPLast + 1;
             if (
               oldone &&
@@ -377,7 +384,7 @@ class Index extends Component {
             dataf.push({
               y: parseFloat(data.heart_frequncy),
             });
-            this.setState({ HeartLast: HeartLast })
+            this.setState({ HeartLast: HeartLast });
             HeartLast = HeartLast + 1;
             if (
               oldone &&
@@ -395,12 +402,10 @@ class Index extends Component {
             }
           }
 
-
           oldone = data;
         });
 
-
-      if (current_Graph === "blood_pressure") {
+      if (current_Graph === 'blood_pressure') {
         var options = {
           title: {
             text: blood_pressure,
@@ -427,7 +432,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: "line",
+            type: 'line',
           },
           credits: {
             enabled: false,
@@ -436,14 +441,14 @@ class Index extends Component {
             {
               name: RR_diastolic,
               data: databp_d,
-              type: "line",
-              color: "#008080",
+              type: 'line',
+              color: '#008080',
             },
             {
               name: rr_systolic,
               data: databp_s,
-              type: "line",
-              color: "#0000A0",
+              type: 'line',
+              color: '#0000A0',
             },
           ],
         };
@@ -474,7 +479,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: "line",
+            type: 'line',
           },
           credits: {
             enabled: false,
@@ -483,8 +488,8 @@ class Index extends Component {
             {
               name: frequency,
               data: dataf,
-              type: "line",
-              color: "#008080",
+              type: 'line',
+              color: '#008080',
             },
           ],
         };
@@ -492,7 +497,7 @@ class Index extends Component {
 
       return options;
     }
-    if (current_Graph === "potassium") {
+    if (current_Graph === 'potassium') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -503,7 +508,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Potassium"
+            value.lab_parameter && value.lab_parameter.value === 'Potassium'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -517,7 +522,7 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ potassiumLast: potassiumLast })
+              this.setState({ potassiumLast: potassiumLast });
               potassiumLast = potassiumLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
@@ -545,17 +550,16 @@ class Index extends Component {
               }
               oldone = data;
             }
-
           });
       }
       var options = {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "Potassium",
+            'Potassium',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -563,10 +567,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "Potassium",
+              'Potassium',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -586,7 +590,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -595,29 +599,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "hemoglobine") {
+    if (current_Graph === 'hemoglobine') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -628,7 +632,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Hemoglobine"
+            value.lab_parameter && value.lab_parameter.value === 'Hemoglobine'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -642,8 +646,8 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ hemoglobineLast: hemoglobineLast })
-              hemoglobineLast = hemoglobineLast + 1
+              this.setState({ hemoglobineLast: hemoglobineLast });
+              hemoglobineLast = hemoglobineLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
               });
@@ -676,10 +680,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "Hemoglobine",
+            'Hemoglobine',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -687,10 +691,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "Hemoglobine",
+              'Hemoglobine',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -710,7 +714,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -719,29 +723,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "leucocytes") {
+    if (current_Graph === 'leucocytes') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -752,7 +756,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Leucocytes"
+            value.lab_parameter && value.lab_parameter.value === 'Leucocytes'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -766,8 +770,8 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ leucocytesLast: leucocytesLast })
-              leucocytesLast = leucocytesLast + 1
+              this.setState({ leucocytesLast: leucocytesLast });
+              leucocytesLast = leucocytesLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
               });
@@ -800,10 +804,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "Leucocytes",
+            'Leucocytes',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -811,10 +815,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "Leucocytes",
+              'Leucocytes',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -834,7 +838,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -843,29 +847,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "pancreaticlipase") {
+    if (current_Graph === 'pancreaticlipase') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -877,7 +881,7 @@ class Index extends Component {
         laboratory_result5.filter(
           (value, key) =>
             value.lab_parameter &&
-            value.lab_parameter.value === "Pancreaticlipase"
+            value.lab_parameter.value === 'Pancreaticlipase'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -891,7 +895,7 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ pancreaticlipaseLast: pancreaticlipaseLast })
+              this.setState({ pancreaticlipaseLast: pancreaticlipaseLast });
               pancreaticlipaseLast = pancreaticlipaseLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
@@ -925,10 +929,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "Pancreaticlipase",
+            'Pancreaticlipase',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -936,10 +940,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "Pancreaticlipase",
+              'Pancreaticlipase',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -959,7 +963,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -968,29 +972,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "thrombocytes") {
+    if (current_Graph === 'thrombocytes') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1001,7 +1005,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Thrombocytes"
+            value.lab_parameter && value.lab_parameter.value === 'Thrombocytes'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1015,7 +1019,7 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ thrombocytesLast: thrombocytesLast })
+              this.setState({ thrombocytesLast: thrombocytesLast });
               thrombocytesLast = thrombocytesLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
@@ -1049,10 +1053,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "Thrombocytes",
+            'Thrombocytes',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -1060,10 +1064,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "Thrombocytes",
+              'Thrombocytes',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -1083,7 +1087,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -1092,29 +1096,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "sodium") {
+    if (current_Graph === 'sodium') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1125,7 +1129,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Sodium"
+            value.lab_parameter && value.lab_parameter.value === 'Sodium'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1139,8 +1143,8 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ sodiumLast: sodiumLast })
-              sodiumLast = sodiumLast + 1
+              this.setState({ sodiumLast: sodiumLast });
+              sodiumLast = sodiumLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
               });
@@ -1173,10 +1177,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "Sodium",
+            'Sodium',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -1184,10 +1188,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "Sodium",
+              'Sodium',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -1207,7 +1211,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -1216,29 +1220,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "ggt") {
+    if (current_Graph === 'ggt') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1249,7 +1253,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "GGT"
+            value.lab_parameter && value.lab_parameter.value === 'GGT'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1263,8 +1267,8 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ ggtLast: ggtLast })
-              ggtLast = ggtLast + 1
+              this.setState({ ggtLast: ggtLast });
+              ggtLast = ggtLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
               });
@@ -1297,10 +1301,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "GGT",
+            'GGT',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -1308,10 +1312,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "GGT",
+              'GGT',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -1331,7 +1335,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -1340,29 +1344,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "ast/got") {
+    if (current_Graph === 'ast/got') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1373,7 +1377,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "AST/GOT"
+            value.lab_parameter && value.lab_parameter.value === 'AST/GOT'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1388,7 +1392,7 @@ class Index extends Component {
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
               this.setState({ astLast: astLast });
-              astLast = astLast + 1
+              astLast = astLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
               });
@@ -1421,10 +1425,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "AST/GOT",
+            'AST/GOT',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -1432,10 +1436,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "AST/GOT",
+              'AST/GOT',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -1455,7 +1459,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -1464,29 +1468,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "alt/gpt") {
+    if (current_Graph === 'alt/gpt') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1497,7 +1501,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "ALT/GPT"
+            value.lab_parameter && value.lab_parameter.value === 'ALT/GPT'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1511,7 +1515,7 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ altLast: altLast })
+              this.setState({ altLast: altLast });
               altLast = altLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
@@ -1545,10 +1549,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "ALT/GPT",
+            'ALT/GPT',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -1556,10 +1560,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "ALT/GPT",
+              'ALT/GPT',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -1579,7 +1583,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -1588,28 +1592,28 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
-    if (current_Graph === "laboratory_result") {
+    if (current_Graph === 'laboratory_result') {
       var laboratory_result5 =
         this.state.personalinfo &&
         this.state.personalinfo.laboratory_result &&
@@ -1620,7 +1624,7 @@ class Index extends Component {
         laboratory_result5.length > 0 &&
         laboratory_result5.filter(
           (value, key) =>
-            value.lab_parameter && value.lab_parameter.value === "Creatinine"
+            value.lab_parameter && value.lab_parameter.value === 'Creatinine'
         );
       var categorieslr = [],
         datalr1_u = [],
@@ -1634,7 +1638,7 @@ class Index extends Component {
           myFilterData1.length > 0 &&
           myFilterData1.map((data, index) => {
             if (data.upper_limit || data.lower_limit || data.value) {
-              this.setState({ LRLast: LRLast })
+              this.setState({ LRLast: LRLast });
               LRLast = LRLast + 1;
               datalr1_u.push({
                 y: parseFloat(data.upper_limit),
@@ -1668,10 +1672,10 @@ class Index extends Component {
         title: {
           text: GetShowLabel1(
             AllL_Ps.AllL_Ps.english,
-            "Creatinine",
+            'Creatinine',
             this.props.stateLanguageType,
             true,
-            "lpr"
+            'lpr'
           ),
         },
 
@@ -1679,10 +1683,10 @@ class Index extends Component {
           title: {
             text: GetShowLabel1(
               AllL_Ps.AllL_Ps.english,
-              "Creatinine",
+              'Creatinine',
               this.props.stateLanguageType,
               true,
-              "lpr"
+              'lpr'
             ),
           },
         },
@@ -1702,7 +1706,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -1711,29 +1715,29 @@ class Index extends Component {
           {
             name: value,
             data: datalr1_v,
-            type: "line",
-            color: "#800000",
+            type: 'line',
+            color: '#800000',
           },
           {
             name: upr_limit,
             data: datalr1_u,
-            type: "line",
-            dashStyle: "dot",
-            color: "#008080",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#008080',
           },
           {
             name: lwr_limit,
             data: datalr1_l,
-            type: "line",
-            dashStyle: "dot",
-            color: "#0000A0",
+            type: 'line',
+            dashStyle: 'dot',
+            color: '#0000A0',
           },
         ],
       };
       return options;
     }
 
-    if (current_Graph === "weight_bmi") {
+    if (current_Graph === 'weight_bmi') {
       var oldthree,
         weightbmi = [],
         Ibmi = [],
@@ -1752,8 +1756,8 @@ class Index extends Component {
           weight_bmi5.length > 0 &&
           weight_bmi5.map((data, index) => {
             if (data.weight || data.height) {
-              this.setState({ wiegthLast: wiegthLast })
-              wiegthLast = wiegthLast + 1
+              this.setState({ wiegthLast: wiegthLast });
+              wiegthLast = wiegthLast + 1;
               weightbmi.push({
                 y: parseFloat(data.weight),
               });
@@ -1782,10 +1786,8 @@ class Index extends Component {
                 );
               }
               oldthree = data;
-
             }
           });
-
       }
       options = {
         title: {
@@ -1830,7 +1832,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -1839,24 +1841,24 @@ class Index extends Component {
           {
             name: weight,
             data: weightbmi,
-            type: "line",
+            type: 'line',
           },
           {
             name: height,
             data: heightbmi,
-            type: "line",
-            color: "red",
+            type: 'line',
+            color: 'red',
           },
           {
             name: BMI,
             data: Ibmi,
-            type: "line",
+            type: 'line',
           },
         ],
       };
       return options;
     }
-    if (current_Graph === "blood_sugar" || current_Graph === "hba") {
+    if (current_Graph === 'blood_sugar' || current_Graph === 'hba') {
       var categoriesbs = [],
         categorieshb = [],
         oldtwo,
@@ -1877,8 +1879,8 @@ class Index extends Component {
               hbac.push({
                 y: parseFloat(data.Hba1c),
               });
-              this.setState({ hbLast: hbLast })
-              hbLast = hbLast + 1
+              this.setState({ hbLast: hbLast });
+              hbLast = hbLast + 1;
               if (
                 oldtwo &&
                 oldtwo.datetime_on &&
@@ -1899,8 +1901,8 @@ class Index extends Component {
               blood_s.push({
                 y: parseFloat(data.blood_sugar),
               });
-              this.setState({ BSLast: BSLast })
-              BSLast = BSLast + 1
+              this.setState({ BSLast: BSLast });
+              BSLast = BSLast + 1;
               if (
                 oldtwo &&
                 oldtwo.datetime_on &&
@@ -1918,10 +1920,9 @@ class Index extends Component {
               oldtwo = data;
             }
           });
-
       }
 
-      if (current_Graph === "blood_sugar") {
+      if (current_Graph === 'blood_sugar') {
         options = {
           title: {
             text: blood_sugar,
@@ -1947,7 +1948,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: "line",
+            type: 'line',
           },
           credits: {
             enabled: false,
@@ -1956,7 +1957,7 @@ class Index extends Component {
             {
               name: blood_sugar,
               data: blood_s,
-              type: "line",
+              type: 'line',
             },
           ],
         };
@@ -1987,7 +1988,7 @@ class Index extends Component {
             },
           },
           chart: {
-            type: "line",
+            type: 'line',
           },
           credits: {
             enabled: false,
@@ -1996,7 +1997,7 @@ class Index extends Component {
             {
               name: Hba1c,
               data: hbac,
-              type: "line",
+              type: 'line',
             },
           ],
         };
@@ -2004,7 +2005,7 @@ class Index extends Component {
 
       return options;
     }
-    if (current_Graph === "respiration") {
+    if (current_Graph === 'respiration') {
       var categoriesbs = [],
         oldtwo,
         r_value = [],
@@ -2022,7 +2023,7 @@ class Index extends Component {
               r_value.push({
                 y: parseFloat(data.respiration),
               });
-              this.setState({ resprisationLast: resprisationLast })
+              this.setState({ resprisationLast: resprisationLast });
               resprisationLast = resprisationLast + 1;
               if (
                 oldtwo &&
@@ -2041,7 +2042,6 @@ class Index extends Component {
               oldtwo = data;
             }
           });
-
       }
       options = {
         title: {
@@ -2069,7 +2069,7 @@ class Index extends Component {
           },
         },
         chart: {
-          type: "line",
+          type: 'line',
         },
         credits: {
           enabled: false,
@@ -2078,74 +2078,81 @@ class Index extends Component {
           {
             name: respiration,
             data: r_value,
-            type: "line",
+            type: 'line',
           },
         ],
       };
-      return options
+      return options;
     }
   };
 
   GetTimess = (start_time) => {
     let da1 = new Date();
     if (start_time) {
-      var t1 = start_time.split(":");
+      var t1 = start_time.split(':');
     }
 
     if (t1 && t1.length > 0) {
       da1.setHours(t1[0]);
       da1.setMinutes(t1[1]);
     } else {
-      da1.setHours("00");
-      da1.setMinutes("00");
+      da1.setHours('00');
+      da1.setMinutes('00');
     }
-    if (this.state.time_format === "12") {
-      return moment(da1).format("hh:mm a");
+    if (this.state.time_format === '12') {
+      return moment(da1).format('hh:mm a');
     } else {
-      return moment(da1).format("HH:mm");
+      return moment(da1).format('HH:mm');
     }
   };
 
   getFileName = (file) => {
     if (file && file.filename) {
-      if (file.filename.split("Trackrecord/")[1]) {
-        if (file.filename.split("Trackrecord/")[1].split("&bucket=")[0]) {
-          return file.filename.split("Trackrecord/")[1].split("&bucket=")[0];
+      if (file.filename.split('Trackrecord/')[1]) {
+        if (file.filename.split('Trackrecord/')[1].split('&bucket=')[0]) {
+          return file.filename.split('Trackrecord/')[1].split('&bucket=')[0];
         } else {
-          return file.filename.split("Trackrecord/")[1];
+          return file.filename.split('Trackrecord/')[1];
         }
       } else {
         return file.filename;
       }
-    } else return "";
+    } else return '';
   };
 
   onTrigger = (event) => {
     this.props.parentCallback(event);
     // event.preventDefault();
-  }
+  };
 
-calculateAge = (date) => {
-  if(date){
-    var birthDate = new Date(date);
-    var otherDate = new Date();
-  
-    var years = (otherDate.getFullYear() - birthDate.getFullYear());
-  
-    if (otherDate.getMonth() < birthDate.getMonth() ||
-      otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
-      years--;
+  calculateAge = (date) => {
+    if (date) {
+      var birthDate = new Date(date);
+      var otherDate = new Date();
+
+      var years = otherDate.getFullYear() - birthDate.getFullYear();
+
+      if (
+        otherDate.getMonth() < birthDate.getMonth() ||
+        (otherDate.getMonth() == birthDate.getMonth() &&
+          otherDate.getDate() < birthDate.getDate())
+      ) {
+        years--;
+      }
+      return years;
     }
-    return years;
-  }
-  return '-';
-}
+    return '-';
+  };
 
   render() {
     const { personalinfo, patientData } = this.state;
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      open, slashmin, mmHg, mgdl, bslashmin,
+      open,
+      slashmin,
+      mmHg,
+      mgdl,
+      bslashmin,
       blood_pressure,
       view_all,
       vdo_call,
@@ -2162,42 +2169,166 @@ calculateAge = (date) => {
       upcming_apointment,
       last_document,
       prescriptions,
-      sick_cert, personal_info,
-      Download, 
-      respiration, Bed,
+      sick_cert,
+      personal_info,
+      Download,
+      respiration,
+      Bed,
     } = translate;
     var item = this.state.item;
-    let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight, kg, Height, cm, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, LastDocuments, Prescription } = translate;
+    let {
+      BacktoPatientFlow,
+      NewEntry,
+      NewTask,
+      Editinfo,
+      More,
+      MedicalStaff,
+      CompletedTasks,
+      DocumentsFiles,
+      Assignedto,
+      Entries,
+      Billing,
+      Issued,
+      Weight,
+      kg,
+      Height,
+      cm,
+      BMI,
+      Blood,
+      BloodPressure,
+      Lastdoctorvisits,
+      Upcomingappointment,
+      LastDocuments,
+      Prescription,
+    } = translate;
     return (
       <Grid className="asignStaf">
-        <Grid className="backFlow" onClick={() => { this.props.history.push('/virtualHospital/patient-flow') }}>
-          <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />{BacktoPatientFlow}</a>
+        <Grid
+          className="backFlow"
+          onClick={() => {
+            this.props.history.push('/virtualHospital/patient-flow');
+          }}
+        >
+          <a>
+            <img
+              src={require('assets/virtual_images/rightArrow.png')}
+              alt=""
+              title=""
+            />
+            {BacktoPatientFlow}
+          </a>
         </Grid>
         <Grid className="asignStafInr">
           <Grid className="newStaffUpr">
             <Grid className="newStaffInfo">
               <Grid className="newStaff">
-                <p>{this.state.personalinfo?.info?.alies_id ? this.state.personalinfo?.info?.alies_id : this.state.personalinfo?.info?.profile_id}</p>
+                <p>
+                  {this.state.personalinfo?.info?.alies_id
+                    ? this.state.personalinfo?.info?.alies_id
+                    : this.state.personalinfo?.info?.profile_id}
+                </p>
                 {/* <Grid><a><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></a></Grid> */}
-                <Grid><a><S3Image imgUrl={this.state.personalinfo?.info?.image} /></a></Grid>
-                <Grid><label>
-                  {this.state.personalinfo?.info?.first_name && this.state.personalinfo?.info?.first_name}{" "}
-                  {this.state.personalinfo?.info?.last_name && this.state.personalinfo?.info?.last_name}
-                  {/* </label></Grid><p><span>13 / 12 / 1988 (32 years)</span></p> */}
-                </label></Grid>
-                {this.state.personalinfo?.info?.birthday && this.state.personalinfo?.info?.birthday !== "" &&
-                  <p><span>{getDate(
-                    this.state.loggedinUser?.birthday,
-                    this.props.settings.setting.date_format
-                  )}{" "} ({this.calculateAge(this.state.personalinfo?.info?.birthday)} years)</span></p>
-                }
+                <Grid>
+                  <a>
+                    <S3Image imgUrl={this.state.personalinfo?.info?.image} />
+                  </a>
+                </Grid>
+                <Grid>
+                  <label>
+                    {this.state.personalinfo?.info?.first_name &&
+                      this.state.personalinfo?.info?.first_name}{' '}
+                    {this.state.personalinfo?.info?.last_name &&
+                      this.state.personalinfo?.info?.last_name}
+                    {/* </label></Grid><p><span>13 / 12 / 1988 (32 years)</span></p> */}
+                  </label>
+                </Grid>
+                {this.state.personalinfo?.info?.birthday &&
+                  this.state.personalinfo?.info?.birthday !== '' && (
+                    <p>
+                      <span>
+                        {getDate(
+                          this.state.loggedinUser?.birthday,
+                          this.props.settings.setting.date_format
+                        )}{' '}
+                        (
+                        {this.calculateAge(
+                          this.state.personalinfo?.info?.birthday
+                        )}{' '}
+                        years)
+                      </span>
+                    </p>
+                  )}
               </Grid>
               <Grid className="entryInfo">
                 <ul>
-                  <li onClick={() => { this.onTrigger(0) }} className={this.state.currenttab == 0 && "entryInfoActv"}><img src={this.state.currenttab == 0 ? require("assets/images/nav-journal-white.svg") : require("assets/images/nav-journal.svg")} alt="" title="" /><label>{NewEntry}</label></li>
-                  <li onClick={() => { this.onTrigger(1) }} className={this.state.currenttab == 1 && "entryInfoActv"}><img src={this.state.currenttab == 1 ? require('assets/virtual_images/rightIcon2.png') : require('assets/virtual_images/rightpng.png')} alt="" title="" /><label>{NewTask}</label></li>
-                  <li onClick={() => { this.onTrigger(3) }} className={this.state.currenttab == 3 && "entryInfoActv"}><img src={this.state.currenttab == 3 ? require('assets/virtual_images/active-pencil.svg') : require('assets/virtual_images/pencil-1.svg')} alt="" title="" /><label>{personal_info}</label></li>
-                  <li onClick={() => { this.onTrigger(2) }} className={this.state.currenttab == 2 && "entryInfoActv"}><img src={this.state.currenttab == 2 ? require("assets/images/nav-my-documents-inquiries-active.svg") : require("assets/images/nav-my-documents-inquiries.svg")} alt="" title="" /><label>{DocumentsFiles}</label></li>
+                  <li
+                    onClick={() => {
+                      this.onTrigger(0);
+                    }}
+                    className={this.state.currenttab == 0 && 'entryInfoActv'}
+                  >
+                    <img
+                      src={
+                        this.state.currenttab == 0
+                          ? require('assets/images/nav-journal-white.svg')
+                          : require('assets/images/nav-journal.svg')
+                      }
+                      alt=""
+                      title=""
+                    />
+                    <label>{NewEntry}</label>
+                  </li>
+                  <li
+                    onClick={() => {
+                      this.onTrigger(1);
+                    }}
+                    className={this.state.currenttab == 1 && 'entryInfoActv'}
+                  >
+                    <img
+                      src={
+                        this.state.currenttab == 1
+                          ? require('assets/virtual_images/rightIcon2.png')
+                          : require('assets/virtual_images/rightpng.png')
+                      }
+                      alt=""
+                      title=""
+                    />
+                    <label>{NewTask}</label>
+                  </li>
+                  <li
+                    onClick={() => {
+                      this.onTrigger(3);
+                    }}
+                    className={this.state.currenttab == 3 && 'entryInfoActv'}
+                  >
+                    <img
+                      src={
+                        this.state.currenttab == 3
+                          ? require('assets/virtual_images/active-pencil.svg')
+                          : require('assets/virtual_images/pencil-1.svg')
+                      }
+                      alt=""
+                      title=""
+                    />
+                    <label>{personal_info}</label>
+                  </li>
+                  <li
+                    onClick={() => {
+                      this.onTrigger(2);
+                    }}
+                    className={this.state.currenttab == 2 && 'entryInfoActv'}
+                  >
+                    <img
+                      src={
+                        this.state.currenttab == 2
+                          ? require('assets/images/nav-my-documents-inquiries-active.svg')
+                          : require('assets/images/nav-my-documents-inquiries.svg')
+                      }
+                      alt=""
+                      title=""
+                    />
+                    <label>{DocumentsFiles}</label>
+                  </li>
                 </ul>
               </Grid>
             </Grid>
@@ -2209,7 +2340,9 @@ calculateAge = (date) => {
                       <Grid container direction="row" alignItems="center">
                         <Grid item xs={6} md={8}>
                           <Grid className="mdclStaffLft">
-                            <Grid><label>{MedicalStaff}</label></Grid>
+                            <Grid>
+                              <label>{MedicalStaff}</label>
+                            </Grid>
                           </Grid>
                         </Grid>
                         <Grid item xs={6} md={4}>
@@ -2218,7 +2351,11 @@ calculateAge = (date) => {
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Assigned assigned_to={this.state.LeftInfoPatient?.data?.assinged_to} />
+                      <Assigned
+                        assigned_to={
+                          this.state.LeftInfoPatient?.data?.assinged_to
+                        }
+                      />
                       {/* <Grid className="mdclMembrs">
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
@@ -2229,13 +2366,27 @@ calculateAge = (date) => {
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask">
-                      <Grid><label>{CompletedTasks}</label></Grid>
-                      <p><span>{this.state.LeftInfoPatient?.done_task ? this.state.LeftInfoPatient?.done_task: 0}</span>/ {this.state.LeftInfoPatient?.total_task ? this.state.LeftInfoPatient?.total_task : 0}</p>
+                      <Grid>
+                        <label>{CompletedTasks}</label>
+                      </Grid>
+                      <p>
+                        <span>
+                          {this.state.LeftInfoPatient?.done_task
+                            ? this.state.LeftInfoPatient?.done_task
+                            : 0}
+                        </span>
+                        /{' '}
+                        {this.state.LeftInfoPatient?.total_task
+                          ? this.state.LeftInfoPatient?.total_task
+                          : 0}
+                      </p>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask docsFile">
-                      <Grid><label>{DocumentsFiles}</label></Grid>
+                      <Grid>
+                        <label>{DocumentsFiles}</label>
+                      </Grid>
                       <p>{this.state.LeftInfoPatient?.document_file}</p>
                     </Grid>
                   </Grid>
@@ -2246,7 +2397,9 @@ calculateAge = (date) => {
                   <Grid className="assignTo">
                     <Grid container direction="row">
                       <Grid item xs={6} md={8}>
-                        <Grid><label>{Assignedto}</label></Grid>
+                        <Grid>
+                          <label>{Assignedto}</label>
+                        </Grid>
                       </Grid>
                       <Grid item xs={6} md={4}>
                         {/* <Grid className="assignRght"><a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></Grid> */}
@@ -2255,32 +2408,83 @@ calculateAge = (date) => {
                     <Grid>
                       <Grid className="NeuroBtn">
                         <Grid>
-                          {this.state.LeftInfoPatient?.data?.speciality &&
+                          {this.state.LeftInfoPatient?.data?.speciality && (
                             <SpecialityButton
-                              label={this.state.LeftInfoPatient?.data?.speciality?.specialty_name}
-                              backgroundColor={this.state.LeftInfoPatient?.data?.speciality?.background_color}
+                              label={
+                                this.state.LeftInfoPatient?.data?.speciality
+                                  ?.specialty_name
+                              }
+                              backgroundColor={
+                                this.state.LeftInfoPatient?.data?.speciality
+                                  ?.background_color
+                              }
                               viewImage={false}
-                              color={this.state.LeftInfoPatient?.data?.speciality?.color}
-                              onClick={() => this.setSpeciality(this.state.LeftInfoPatient?.data?.speciality)}
+                              color={
+                                this.state.LeftInfoPatient?.data?.speciality
+                                  ?.color
+                              }
+                              onClick={() =>
+                                this.setSpeciality(
+                                  this.state.LeftInfoPatient?.data?.speciality
+                                )
+                              }
                               showActive={false}
-                            />}
+                            />
+                          )}
                         </Grid>
                         <Grid className="roomsNum">
                           <ul>
-                            <li><img src={require('assets/virtual_images/ward.png')} alt="" title="" />{this.state.LeftInfoPatient?.data?.wards?.ward_name}</li>
-                            <li><img src={require('assets/virtual_images/room22.svg')} alt="" title="" />{this.state.LeftInfoPatient?.data?.rooms?.room_name}</li>
-                            <li><img src={require('assets/virtual_images/bedColor.png')} alt="" title="" />{Bed} {this.state.LeftInfoPatient?.data?.bed}</li>
+                            <li>
+                              <img
+                                src={require('assets/virtual_images/ward.png')}
+                                alt=""
+                                title=""
+                              />
+                              {
+                                this.state.LeftInfoPatient?.data?.wards
+                                  ?.ward_name
+                              }
+                            </li>
+                            <li>
+                              <img
+                                src={require('assets/virtual_images/room22.svg')}
+                                alt=""
+                                title=""
+                              />
+                              {
+                                this.state.LeftInfoPatient?.data?.rooms
+                                  ?.room_name
+                              }
+                            </li>
+                            <li>
+                              <img
+                                src={require('assets/virtual_images/bedColor.png')}
+                                alt=""
+                                title=""
+                              />
+                              {Bed} {this.state.LeftInfoPatient?.data?.bed}
+                            </li>
                           </ul>
                         </Grid>
                       </Grid>
                       <Grid className="exmBtn">
-                        <a><img src={require('assets/virtual_images/content-view-column.svg')} alt="" title="" />{this.state.LeftInfoPatient?.step?.step_name}</a>
+                        <a>
+                          <img
+                            src={require('assets/virtual_images/content-view-column.svg')}
+                            alt=""
+                            title=""
+                          />
+                          {this.state.LeftInfoPatient?.step?.step_name}
+                        </a>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12}>
                     <Grid className="cmpleteTask docsFile entrsSec">
-                      <Grid><label>{Entries}</label></Grid><p>{this.state.LeftInfoPatient?.entries}</p>
+                      <Grid>
+                        <label>{Entries}</label>
+                      </Grid>
+                      <p>{this.state.LeftInfoPatient?.entries}</p>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -2299,25 +2503,30 @@ calculateAge = (date) => {
               </Grid>
             </Grid>
             <a href className="yearSecBg">
-              {this.state.LeftInfoPatient?.invoice && this.state.LeftInfoPatient?.invoice.map((item) => (
-                <Grid container direction="row" alignItems="center">
-                  <Grid item xs={12} md={12}>
-                    <Grid className="yearSec">
-                      <label>{item?.invoice_id}</label>
-                      <label>{getDate(item.created_at, this.props.settings.setting &&
-                        this.props.settings.setting.date_format)}</label>
+              {this.state.LeftInfoPatient?.invoice &&
+                this.state.LeftInfoPatient?.invoice.map((item) => (
+                  <Grid container direction="row" alignItems="center">
+                    <Grid item xs={12} md={12}>
+                      <Grid className="yearSec">
+                        <label>{item?.invoice_id}</label>
+                        <label>
+                          {getDate(
+                            item.created_at,
+                            this.props.settings.setting &&
+                              this.props.settings.setting.date_format
+                          )}
+                        </label>
+                      </Grid>
+                      <Grid className="issuePrice">
+                        <label className="isuLbl">{item?.status?.label}</label>
+                        <label>{item?.total_amount} €</label>
+                      </Grid>
                     </Grid>
-                    <Grid className="issuePrice">
-                      <label className="isuLbl">{item?.status?.label}</label>
-                      <label>{item?.total_amount} €</label>
+                    <Grid item xs={12} md={4}>
+                      {/* <Grid className="yearOpen"><a>{open}</a></Grid> */}
                     </Grid>
                   </Grid>
-                  <Grid item xs={12} md={4}>
-                    {/* <Grid className="yearOpen"><a>{open}</a></Grid> */}
-                  </Grid>
-                </Grid>
-              ))}
-
+                ))}
             </a>
           </Grid>
           <Grid className="profileDescp">
@@ -2326,45 +2535,47 @@ calculateAge = (date) => {
                 <label>{Weight}</label>
                 <p>
                   {this.state.personalinfo &&
-                    this.state.personalinfo?.weight_bmi &&
-                    this.state.personalinfo?.weight_bmi.length > 0 &&
-                    this.state.personalinfo?.weight_bmi[0].weight
+                  this.state.personalinfo?.weight_bmi &&
+                  this.state.personalinfo?.weight_bmi.length > 0 &&
+                  this.state.personalinfo?.weight_bmi[0].weight
                     ? this.state.personalinfo?.weight_bmi[0].weight
-                    : "--"}
-                  <span>{kg}</span></p>
+                    : '--'}
+                  <span>{kg}</span>
+                </p>
               </Grid>
               <Grid className="prfilHghtRght">
                 <label>{Height}</label>
                 <p>
                   {this.state.personalinfo &&
-                    this.state.personalinfo?.weight_bmi &&
-                    this.state.personalinfo?.weight_bmi.length > 0 &&
-                    this.state.personalinfo?.weight_bmi[0].height
+                  this.state.personalinfo?.weight_bmi &&
+                  this.state.personalinfo?.weight_bmi.length > 0 &&
+                  this.state.personalinfo?.weight_bmi[0].height
                     ? this.state.personalinfo?.weight_bmi[0].height
-                    : "--"}
-                  <span>{cm}</span></p>
+                    : '--'}
+                  <span>{cm}</span>
+                </p>
               </Grid>
             </Grid>
             <Grid className="prfilHght">
               <Grid className="prfilHghtLft">
                 <label>{BMI}</label>
                 {this.state.personalinfo &&
-                  this.state.personalinfo?.weight_bmi &&
-                  this.state.personalinfo?.weight_bmi.length > 0 ? (
+                this.state.personalinfo?.weight_bmi &&
+                this.state.personalinfo?.weight_bmi.length > 0 ? (
                   <p>
                     {(
                       (this.state.personalinfo.weight_bmi[0].weight /
                         (this.state.personalinfo.weight_bmi[0].height *
                           this.state.personalinfo.weight_bmi[0].height)) *
                       10000
-                    ).toFixed(2) === "NaN"
-                      ? "--"
+                    ).toFixed(2) === 'NaN'
+                      ? '--'
                       : (
-                        (this.state.personalinfo.weight_bmi[0].weight /
-                          (this.state.personalinfo.weight_bmi[0].height *
-                            this.state.personalinfo.weight_bmi[0].height)) *
-                        10000
-                      ).toFixed(2)}
+                          (this.state.personalinfo.weight_bmi[0].weight /
+                            (this.state.personalinfo.weight_bmi[0].height *
+                              this.state.personalinfo.weight_bmi[0].height)) *
+                          10000
+                        ).toFixed(2)}
                   </p>
                 ) : (
                   <p>--</p>
@@ -2373,24 +2584,29 @@ calculateAge = (date) => {
               <Grid className="prfilHghtRght">
                 <label>{Blood}</label>
                 <p>
-                  {(this.state.user &&
+                  {this.state.user &&
                   this.state.user?.blood_group &&
-                  this.state.user?.rhesus && this.state.user.blood_group.value !== 'not_known' && this.state.user.rhesus.value !== 'not_known')
-                    ? typeof this.state.user.blood_group === 'object' ? 
-                     this.state.user.blood_group.value  +' '+ this.state.user.rhesus.value
-                    : this.state.user.blood_group +' '+ this.state.user.rhesus.value
-                    : "--"}
+                  this.state.user?.rhesus &&
+                  this.state.user.blood_group.value !== 'not_known' &&
+                  this.state.user.rhesus.value !== 'not_known'
+                    ? typeof this.state.user.blood_group === 'object'
+                      ? this.state.user.blood_group.value +
+                        ' ' +
+                        this.state.user.rhesus.value
+                      : this.state.user.blood_group +
+                        ' ' +
+                        this.state.user.rhesus.value
+                    : '--'}
                 </p>
               </Grid>
             </Grid>
           </Grid>
 
-          {
-            this.state.added_data &&
+          {this.state.added_data &&
             this.state.added_data.length > 0 &&
             this.state.added_data.map((item, index) => (
               <div key={index}>
-                {item === "respiration" && (
+                {item === 'respiration' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item sxs={6} md={6} className="lstView">
@@ -2400,11 +2616,12 @@ calculateAge = (date) => {
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.personalinfo &&
                             this.state.personalinfo.respiration &&
-                            this.state.personalinfo.respiration.length > 0 && this.state.resprisationLast !== -1 && (
+                            this.state.personalinfo.respiration.length > 0 &&
+                            this.state.resprisationLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -2418,13 +2635,13 @@ calculateAge = (date) => {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.respiration[
-                                          this.state.resprisationLast
+                                            this.state.resprisationLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -2434,11 +2651,11 @@ calculateAge = (date) => {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("respiration")
+                                        this.props.OpenGraph('respiration')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -2452,16 +2669,16 @@ calculateAge = (date) => {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                      this.state.personalinfo.respiration &&
-                      this.state.personalinfo.respiration.length > 0 && this.state.resprisationLast !== -1 ? (
+                    this.state.personalinfo.respiration &&
+                    this.state.personalinfo.respiration.length > 0 &&
+                    this.state.resprisationLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
-
                             {this.state.personalinfo &&
                               this.state.personalinfo.respiration &&
                               this.state.personalinfo.respiration[
-                              this.state.resprisationLast
+                                this.state.resprisationLast
                               ] &&
                               this.state.personalinfo.respiration[
                                 this.state.resprisationLast
@@ -2475,7 +2692,7 @@ calculateAge = (date) => {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.respiration[
@@ -2490,13 +2707,13 @@ calculateAge = (date) => {
                           {/* <img src={require('assets/images/lineGraph.png')} alt="" title="" /> */}
 
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.respiration_data}
                           />
                           <a
-                            onClick={() => this.props.OpenGraph("respiration")}
+                            onClick={() => this.props.OpenGraph('respiration')}
                           >
                             {VeiwGraph}
                           </a>
@@ -2510,7 +2727,7 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "graph_blood_pressure" && (
+                {item === 'graph_blood_pressure' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item sxs={6} md={6} className="lstView">
@@ -2520,11 +2737,12 @@ calculateAge = (date) => {
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_pressure &&
-                            this.state.personalinfo.blood_pressure.length > 0 && this.state.BPLast !== -1 && (
+                            this.state.personalinfo.blood_pressure.length > 0 &&
+                            this.state.BPLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -2534,14 +2752,13 @@ calculateAge = (date) => {
                                     <a
                                       onClick={() =>
                                         this.props.downloadTrack(
-                                          this.state.personalinfo.blood_pressure[
-                                          this.state.BPLast
-                                          ]
+                                          this.state.personalinfo
+                                            .blood_pressure[this.state.BPLast]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -2551,11 +2768,11 @@ calculateAge = (date) => {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("blood_pressure")
+                                        this.props.OpenGraph('blood_pressure')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -2569,23 +2786,24 @@ calculateAge = (date) => {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                      this.state.personalinfo.blood_pressure &&
-                      this.state.personalinfo.blood_pressure.length > 0 && this.state.BPLast !== -1 ? (
+                    this.state.personalinfo.blood_pressure &&
+                    this.state.personalinfo.blood_pressure.length > 0 &&
+                    this.state.BPLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_pressure &&
                               this.state.personalinfo.blood_pressure[
-                              this.state.BPLast
+                                this.state.BPLast
                               ] &&
                               this.state.personalinfo.blood_pressure[
                                 this.state.BPLast
                               ].rr_systolic +
-                              "/" +
-                              this.state.personalinfo.blood_pressure[
-                                this.state.BPLast
-                              ].rr_diastolic}{" "}
+                                '/' +
+                                this.state.personalinfo.blood_pressure[
+                                  this.state.BPLast
+                                ].rr_diastolic}{' '}
                             <span>{mmHg}</span>
                           </h3>
                           <p>
@@ -2595,7 +2813,7 @@ calculateAge = (date) => {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.blood_pressure[
@@ -2607,500 +2825,15 @@ calculateAge = (date) => {
                           </p>
                         </Grid>
                         <Grid className="presureDataGrph">
-
-
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.blood_pressure}
                           />
                           <a
-                            onClick={() => this.props.OpenGraph("blood_pressure")}
-                          >
-                            {VeiwGraph}
-                          </a>
-                        </Grid>
-                      </div>
-                    ) : (
-                      <Grid className="noBpData">
-                        <p>{no_data_avlbl}</p>
-                      </Grid>
-                    )}
-                  </Grid>
-                )}
-
-                {item === "graph_weight_bmi" && (
-                  <Grid className="persBlodMesur">
-                    <Grid container direction="row" alignItems="center">
-                      <Grid item xs={6} md={6} className="lstView">
-                        <label>{weight_bmi}</label>
-                      </Grid>
-                      <Grid item xs={6} md={6}>
-                        <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.personalinfo &&
-                            this.state.personalinfo.weight_bmi &&
-                            this.state.personalinfo.weight_bmi.length > 0 && this.state.wiegthLast !== -1 && (
-                              <a className="openScndhrf1">
-                                <a className="vsblDots">
-                                  <img
-                                    src={require("assets/images/nav-more.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </a>
-                                <ul>
-                                  <li>
-                                    <a
-                                      onClick={() =>
-                                        this.props.downloadTrack(
-                                          this.state.personalinfo.weight_bmi[
-                                          this.state.wiegthLast
-                                          ]
-                                        )
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/download.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {Download}
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a
-                                      onClick={() =>
-                                        this.props.OpenGraph("weight_bmi")
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/eye2.png")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {VeiwGraph}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </a>
-                            )}
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    {this.state.personalinfo &&
-                      this.state.personalinfo.weight_bmi &&
-                      this.state.personalinfo.weight_bmi.length > 0 && this.state.wiegthLast !== -1 ? (
-                      <div>
-                        <Grid className="presureData">
-                          <h3>
-                            {this.state.personalinfo &&
-                              this.state.personalinfo.weight_bmi &&
-                              this.state.personalinfo.weight_bmi[
-                              this.state.wiegthLast
-                              ] &&
-                              (
-                                (this.state.personalinfo.weight_bmi[
-                                  this.state.wiegthLast
-                                ].weight /
-                                  (this.state.personalinfo.weight_bmi[
-                                    this.state.wiegthLast
-                                  ].height *
-                                    this.state.personalinfo.weight_bmi[
-                                      this.state.wiegthLast
-                                    ].height)) *
-                                10000
-                              ).toFixed(2)}{" "}
-                            <span>{BMI}</span>
-                          </h3>
-                          <p>
-                            {getDate(
-                              this.state.personalinfo.weight_bmi[
-                                this.state.wiegthLast
-                              ].datetime_on,
-                              this.state.date_format
-                            )}
-                            ,{" "}
-                            {getTime(
-                              new Date(
-                                this.state.personalinfo.weight_bmi[
-                                  this.state.wiegthLast
-                                ].datetime_on
-                              ),
-                              this.state.time_foramt
-                            )}
-                          </p>
-                        </Grid>
-                        <Grid className="presureDataGrph">
-                          <HighchartsReact
-                            constructorType={"chart"}
-                            ref={this.chartComponent}
-                            highcharts={Highcharts}
-                            options={this.state.weight_bmi}
-                          />
-                          <a onClick={() => this.props.OpenGraph("weight_bmi")}>
-                            {VeiwGraph}
-                          </a>
-                        </Grid>
-                      </div>
-                    ) : (
-                      <Grid className="noBpData">
-                        <p>{no_data_avlbl}</p>
-                      </Grid>
-                    )}
-                  </Grid>
-                )}
-                {item === "graph_heart_rate" && (
-                  <Grid className="persBlodMesur">
-                    <Grid container direction="row" alignItems="center">
-                      <Grid item xs={6} md={6} className="lstView">
-                        <label>{heart_rate}</label>
-                      </Grid>
-                      <Grid item xs={6} md={6}>
-                        <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.personalinfo &&
-                            this.state.personalinfo.blood_pressure &&
-                            this.state.personalinfo.blood_pressure.length > 0 && this.state.HeartLast !== -1 && (
-                              <a className="openScndhrf1">
-                                <a className="vsblDots">
-                                  <img
-                                    src={require("assets/images/nav-more.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </a>
-                                <ul>
-                                  <li>
-                                    <a
-                                      onClick={() =>
-                                        this.props.downloadTrack(
-                                          this.state.personalinfo.blood_pressure[
-                                          this.state.HeartLast
-                                          ]
-                                        )
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/download.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {Download}
-                                    </a>
-                                  </li>
-                                  <li>
-                                    {" "}
-                                    <a
-                                      onClick={() =>
-                                        this.props.OpenGraph("heart_rate")
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/eye2.png")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {VeiwGraph}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </a>
-                            )}
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    {this.state.personalinfo &&
-                      this.state.personalinfo.blood_pressure &&
-                      this.state.personalinfo.blood_pressure.length > 0 && this.state.HeartLast !== -1 ? (
-                      <div>
-                        <Grid className="presureData">
-                          <h3>
-                            {this.state.personalinfo &&
-                              this.state.personalinfo.blood_pressure &&
-                              this.state.personalinfo.blood_pressure[
-                              this.state.HeartLast
-                              ] &&
-                              this.state.personalinfo.blood_pressure[
-                                this.state.HeartLast
-                              ].heart_frequncy}{" "}
-                            <span>{bslashmin}</span>
-                          </h3>
-                          <p>
-                            {getDate(
-                              this.state.personalinfo.blood_pressure[
-                                this.state.HeartLast
-                              ].datetime_on,
-                              this.state.date_format
-                            )}
-                            ,{" "}
-                            {getTime(
-                              new Date(
-                                this.state.personalinfo.blood_pressure[
-                                  this.state.HeartLast
-                                ].datetime_on
-                              ),
-                              this.state.time_foramt
-                            )}
-                          </p>
-                        </Grid>
-                        <Grid className="presureDataGrph">
-                          <HighchartsReact
-                            constructorType={"chart"}
-                            ref={this.chartComponent}
-                            highcharts={Highcharts}
-                            options={this.state.heart_rate}
-                          />
-                          <a onClick={() => this.props.OpenGraph("heart_rate")}>
-                            {VeiwGraph}
-                          </a>
-                        </Grid>
-                      </div>
-                    ) : (
-                      <Grid className="noBpData">
-                        <p>{no_data_avlbl}</p>
-                      </Grid>
-                    )}
-                  </Grid>
-                )}
-                {item === "potassium" && (
-                  <Grid className="persBlodMesur">
-                    <Grid container direction="row" alignItems="center">
-                      <Grid item xs={6} md={6} className="lstView">
-                        <label>
-                          {" "}
-                          {GetShowLabel1(
-                            AllL_Ps.AllL_Ps.english,
-                            "Potassium",
-                            this.props.stateLanguageType,
-                            true,
-                            "lpr"
-                          )}
-                        </label>
-                      </Grid>
-                      <Grid item xs={6} md={6}>
-                        <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.Potassium &&
-                            this.state.Potassium.length > 0 && this.state.potassiumLast !== -1 && (
-                              <a className="openScndhrf1">
-                                <a className="vsblDots">
-                                  <img
-                                    src={require("assets/images/nav-more.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </a>
-                                <ul>
-                                  <li>
-                                    <a
-                                      onClick={() =>
-                                        this.props.downloadTrack(
-                                          this.state.Potassium[
-                                          this.state.potassiumLast
-                                          ]
-                                        )
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/download.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {Download}
-                                    </a>
-                                  </li>
-                                  <li>
-                                    {" "}
-                                    <a
-                                      onClick={() =>
-                                        this.props.OpenGraph("potassium")
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/eye2.png")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {VeiwGraph}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </a>
-                            )}
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    {this.state.Potassium && this.state.Potassium.length > 0 && this.state.potassiumLast !== -1 ? (
-                      <div>
-                        <Grid className="presureData">
-                          <h3>
-                            {this.state.Potassium &&
-                              this.state.Potassium[
-                              this.state.potassiumLast
-                              ] &&
-                              this.state.Potassium[
-                                this.state.potassiumLast
-                              ].value}{" "}
-                            <span>
-                              {this.state.Potassium[
-                                this.state.potassiumLast
-                              ].unit &&
-                                this.state.Potassium[
-                                  this.state.potassiumLast
-                                ].unit.label}
-                            </span>
-                          </h3>
-                          <p>
-                            {getDate(
-                              this.state.Potassium[
-                                this.state.potassiumLast
-                              ].datetime_on,
-                              this.state.date_format
-                            )}
-                            ,{" "}
-                            {getTime(
-                              new Date(
-                                this.state.Potassium[
-                                  this.state.potassiumLast
-                                ].datetime_on
-                              ),
-                              this.state.time_foramt
-                            )}
-                          </p>
-                        </Grid>
-                        <Grid className="presureDataGrph">
-                          <HighchartsReact
-                            constructorType={"chart"}
-                            ref={this.chartComponent}
-                            highcharts={Highcharts}
-                            options={this.state.potassium1}
-                          />
-                          <a onClick={() => this.props.OpenGraph("potassium")}>
-                            {VeiwGraph}
-                          </a>
-                        </Grid>
-                      </div>
-                    ) : (
-                      <Grid className="noBpData">
-                        <p>{no_data_avlbl}</p>
-                      </Grid>
-                    )}
-                  </Grid>
-                )}
-
-                {item === "creatnine" && (
-                  <Grid className="persBlodMesur">
-                    <Grid container direction="row" alignItems="center">
-                      <Grid item xs={6} md={6} className="lstView">
-                        <label>
-                          {GetShowLabel1(
-                            AllL_Ps.AllL_Ps.english,
-                            "Creatinine",
-                            this.props.stateLanguageType,
-                            true,
-                            "lpr"
-                          )}
-                        </label>
-                      </Grid>
-                      <Grid item xs={6} md={6}>
-                        <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.Creatinine &&
-                            this.state.Creatinine.length > 0 && this.state.LRLast !== -1 && (
-                              <a className="openScndhrf1">
-                                <a className="vsblDots">
-                                  <img
-                                    src={require("assets/images/nav-more.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </a>
-                                <ul>
-                                  <li>
-                                    <a
-                                      onClick={() =>
-                                        this.props.downloadTrack(
-                                          this.state.Creatinine[
-                                          this.state.LRLast
-                                          ]
-                                        )
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/download.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {Download}
-                                    </a>
-                                  </li>
-                                  <li>
-                                    {" "}
-                                    <a
-                                      onClick={() =>
-                                        this.props.OpenGraph("laboratory_result")
-                                      }
-                                    >
-                                      <img
-                                        src={require("assets/images/eye2.png")}
-                                        alt=""
-                                        title=""
-                                      />
-                                      {VeiwGraph}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </a>
-                            )}
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    {this.state.Creatinine && this.state.Creatinine.length > 0 && this.state.LRLast !== -1 ? (
-                      <div>
-                        <Grid className="presureData">
-                          <h3>
-                            {this.state.Creatinine &&
-                              this.state.Creatinine[
-                              this.state.LRLast
-                              ] &&
-                              this.state.Creatinine[
-                                this.state.LRLast
-                              ].value}{" "}
-                            <span>
-                              {this.state.Creatinine[
-                                this.state.LRLast
-                              ].unit &&
-                                this.state.Creatinine[
-                                  this.state.LRLast
-                                ].unit.label}
-                            </span>
-                          </h3>
-                          <p>
-                            {getDate(
-                              this.state.Creatinine[
-                                this.state.LRLast
-                              ].datetime_on,
-                              this.state.date_format
-                            )}
-                            ,{" "}
-                            {getTime(
-                              new Date(
-                                this.state.Creatinine[
-                                  this.state.LRLast
-                                ].datetime_on
-                              ),
-                              this.state.time_foramt
-                            )}
-                          </p>
-                        </Grid>
-                        <Grid className="presureDataGrph">
-                          <HighchartsReact
-                            constructorType={"chart"}
-                            ref={this.chartComponent}
-                            highcharts={Highcharts}
-                            options={this.state.laboratory_result}
-                          />
-                          <a
                             onClick={() =>
-                              this.props.OpenGraph("laboratory_result")
+                              this.props.OpenGraph('blood_pressure')
                             }
                           >
                             {VeiwGraph}
@@ -3115,28 +2848,514 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "hemoglobine" && (
+                {item === 'graph_weight_bmi' && (
+                  <Grid className="persBlodMesur">
+                    <Grid container direction="row" alignItems="center">
+                      <Grid item xs={6} md={6} className="lstView">
+                        <label>{weight_bmi}</label>
+                      </Grid>
+                      <Grid item xs={6} md={6}>
+                        <Grid className="persBlodImg scndOptionIner1">
+                          {this.state.personalinfo &&
+                            this.state.personalinfo.weight_bmi &&
+                            this.state.personalinfo.weight_bmi.length > 0 &&
+                            this.state.wiegthLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.personalinfo.weight_bmi[
+                                            this.state.wiegthLast
+                                          ]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph('weight_bmi')
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </a>
+                            )}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {this.state.personalinfo &&
+                    this.state.personalinfo.weight_bmi &&
+                    this.state.personalinfo.weight_bmi.length > 0 &&
+                    this.state.wiegthLast !== -1 ? (
+                      <div>
+                        <Grid className="presureData">
+                          <h3>
+                            {this.state.personalinfo &&
+                              this.state.personalinfo.weight_bmi &&
+                              this.state.personalinfo.weight_bmi[
+                                this.state.wiegthLast
+                              ] &&
+                              (
+                                (this.state.personalinfo.weight_bmi[
+                                  this.state.wiegthLast
+                                ].weight /
+                                  (this.state.personalinfo.weight_bmi[
+                                    this.state.wiegthLast
+                                  ].height *
+                                    this.state.personalinfo.weight_bmi[
+                                      this.state.wiegthLast
+                                    ].height)) *
+                                10000
+                              ).toFixed(2)}{' '}
+                            <span>{BMI}</span>
+                          </h3>
+                          <p>
+                            {getDate(
+                              this.state.personalinfo.weight_bmi[
+                                this.state.wiegthLast
+                              ].datetime_on,
+                              this.state.date_format
+                            )}
+                            ,{' '}
+                            {getTime(
+                              new Date(
+                                this.state.personalinfo.weight_bmi[
+                                  this.state.wiegthLast
+                                ].datetime_on
+                              ),
+                              this.state.time_foramt
+                            )}
+                          </p>
+                        </Grid>
+                        <Grid className="presureDataGrph">
+                          <HighchartsReact
+                            constructorType={'chart'}
+                            ref={this.chartComponent}
+                            highcharts={Highcharts}
+                            options={this.state.weight_bmi}
+                          />
+                          <a onClick={() => this.props.OpenGraph('weight_bmi')}>
+                            {VeiwGraph}
+                          </a>
+                        </Grid>
+                      </div>
+                    ) : (
+                      <Grid className="noBpData">
+                        <p>{no_data_avlbl}</p>
+                      </Grid>
+                    )}
+                  </Grid>
+                )}
+                {item === 'graph_heart_rate' && (
+                  <Grid className="persBlodMesur">
+                    <Grid container direction="row" alignItems="center">
+                      <Grid item xs={6} md={6} className="lstView">
+                        <label>{heart_rate}</label>
+                      </Grid>
+                      <Grid item xs={6} md={6}>
+                        <Grid className="persBlodImg scndOptionIner1">
+                          {this.state.personalinfo &&
+                            this.state.personalinfo.blood_pressure &&
+                            this.state.personalinfo.blood_pressure.length > 0 &&
+                            this.state.HeartLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.personalinfo
+                                            .blood_pressure[
+                                            this.state.HeartLast
+                                          ]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {' '}
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph('heart_rate')
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </a>
+                            )}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {this.state.personalinfo &&
+                    this.state.personalinfo.blood_pressure &&
+                    this.state.personalinfo.blood_pressure.length > 0 &&
+                    this.state.HeartLast !== -1 ? (
+                      <div>
+                        <Grid className="presureData">
+                          <h3>
+                            {this.state.personalinfo &&
+                              this.state.personalinfo.blood_pressure &&
+                              this.state.personalinfo.blood_pressure[
+                                this.state.HeartLast
+                              ] &&
+                              this.state.personalinfo.blood_pressure[
+                                this.state.HeartLast
+                              ].heart_frequncy}{' '}
+                            <span>{bslashmin}</span>
+                          </h3>
+                          <p>
+                            {getDate(
+                              this.state.personalinfo.blood_pressure[
+                                this.state.HeartLast
+                              ].datetime_on,
+                              this.state.date_format
+                            )}
+                            ,{' '}
+                            {getTime(
+                              new Date(
+                                this.state.personalinfo.blood_pressure[
+                                  this.state.HeartLast
+                                ].datetime_on
+                              ),
+                              this.state.time_foramt
+                            )}
+                          </p>
+                        </Grid>
+                        <Grid className="presureDataGrph">
+                          <HighchartsReact
+                            constructorType={'chart'}
+                            ref={this.chartComponent}
+                            highcharts={Highcharts}
+                            options={this.state.heart_rate}
+                          />
+                          <a onClick={() => this.props.OpenGraph('heart_rate')}>
+                            {VeiwGraph}
+                          </a>
+                        </Grid>
+                      </div>
+                    ) : (
+                      <Grid className="noBpData">
+                        <p>{no_data_avlbl}</p>
+                      </Grid>
+                    )}
+                  </Grid>
+                )}
+                {item === 'potassium' && (
+                  <Grid className="persBlodMesur">
+                    <Grid container direction="row" alignItems="center">
+                      <Grid item xs={6} md={6} className="lstView">
+                        <label>
+                          {' '}
+                          {GetShowLabel1(
+                            AllL_Ps.AllL_Ps.english,
+                            'Potassium',
+                            this.props.stateLanguageType,
+                            true,
+                            'lpr'
+                          )}
+                        </label>
+                      </Grid>
+                      <Grid item xs={6} md={6}>
+                        <Grid className="persBlodImg scndOptionIner1">
+                          {this.state.Potassium &&
+                            this.state.Potassium.length > 0 &&
+                            this.state.potassiumLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.Potassium[
+                                            this.state.potassiumLast
+                                          ]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {' '}
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph('potassium')
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </a>
+                            )}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {this.state.Potassium &&
+                    this.state.Potassium.length > 0 &&
+                    this.state.potassiumLast !== -1 ? (
+                      <div>
+                        <Grid className="presureData">
+                          <h3>
+                            {this.state.Potassium &&
+                              this.state.Potassium[this.state.potassiumLast] &&
+                              this.state.Potassium[this.state.potassiumLast]
+                                .value}{' '}
+                            <span>
+                              {this.state.Potassium[this.state.potassiumLast]
+                                .unit &&
+                                this.state.Potassium[this.state.potassiumLast]
+                                  .unit.label}
+                            </span>
+                          </h3>
+                          <p>
+                            {getDate(
+                              this.state.Potassium[this.state.potassiumLast]
+                                .datetime_on,
+                              this.state.date_format
+                            )}
+                            ,{' '}
+                            {getTime(
+                              new Date(
+                                this.state.Potassium[
+                                  this.state.potassiumLast
+                                ].datetime_on
+                              ),
+                              this.state.time_foramt
+                            )}
+                          </p>
+                        </Grid>
+                        <Grid className="presureDataGrph">
+                          <HighchartsReact
+                            constructorType={'chart'}
+                            ref={this.chartComponent}
+                            highcharts={Highcharts}
+                            options={this.state.potassium1}
+                          />
+                          <a onClick={() => this.props.OpenGraph('potassium')}>
+                            {VeiwGraph}
+                          </a>
+                        </Grid>
+                      </div>
+                    ) : (
+                      <Grid className="noBpData">
+                        <p>{no_data_avlbl}</p>
+                      </Grid>
+                    )}
+                  </Grid>
+                )}
+
+                {item === 'creatnine' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "Hemoglobine",
+                            'Creatinine',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
+                          )}
+                        </label>
+                      </Grid>
+                      <Grid item xs={6} md={6}>
+                        <Grid className="persBlodImg scndOptionIner1">
+                          {this.state.Creatinine &&
+                            this.state.Creatinine.length > 0 &&
+                            this.state.LRLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.Creatinine[
+                                            this.state.LRLast
+                                          ]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {' '}
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph(
+                                          'laboratory_result'
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
+                              </a>
+                            )}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {this.state.Creatinine &&
+                    this.state.Creatinine.length > 0 &&
+                    this.state.LRLast !== -1 ? (
+                      <div>
+                        <Grid className="presureData">
+                          <h3>
+                            {this.state.Creatinine &&
+                              this.state.Creatinine[this.state.LRLast] &&
+                              this.state.Creatinine[this.state.LRLast]
+                                .value}{' '}
+                            <span>
+                              {this.state.Creatinine[this.state.LRLast].unit &&
+                                this.state.Creatinine[this.state.LRLast].unit
+                                  .label}
+                            </span>
+                          </h3>
+                          <p>
+                            {getDate(
+                              this.state.Creatinine[this.state.LRLast]
+                                .datetime_on,
+                              this.state.date_format
+                            )}
+                            ,{' '}
+                            {getTime(
+                              new Date(
+                                this.state.Creatinine[
+                                  this.state.LRLast
+                                ].datetime_on
+                              ),
+                              this.state.time_foramt
+                            )}
+                          </p>
+                        </Grid>
+                        <Grid className="presureDataGrph">
+                          <HighchartsReact
+                            constructorType={'chart'}
+                            ref={this.chartComponent}
+                            highcharts={Highcharts}
+                            options={this.state.laboratory_result}
+                          />
+                          <a
+                            onClick={() =>
+                              this.props.OpenGraph('laboratory_result')
+                            }
+                          >
+                            {VeiwGraph}
+                          </a>
+                        </Grid>
+                      </div>
+                    ) : (
+                      <Grid className="noBpData">
+                        <p>{no_data_avlbl}</p>
+                      </Grid>
+                    )}
+                  </Grid>
+                )}
+
+                {item === 'hemoglobine' && (
+                  <Grid className="persBlodMesur">
+                    <Grid container direction="row" alignItems="center">
+                      <Grid item xs={6} md={6} className="lstView">
+                        <label>
+                          {GetShowLabel1(
+                            AllL_Ps.AllL_Ps.english,
+                            'Hemoglobine',
+                            this.props.stateLanguageType,
+                            true,
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.Hemoglobine &&
-                            this.state.Hemoglobine.length > 0 && this.state.hemoglobineLast !== -1 && (
+                            this.state.Hemoglobine.length > 0 &&
+                            this.state.hemoglobineLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -3147,13 +3366,13 @@ calculateAge = (date) => {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Hemoglobine[
-                                          this.state.hemoglobineLast
+                                            this.state.hemoglobineLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -3161,14 +3380,14 @@ calculateAge = (date) => {
                                     </a>
                                   </li>
                                   <li>
-                                    {" "}
+                                    {' '}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("Hemoglobine")
+                                        this.props.OpenGraph('Hemoglobine')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -3182,17 +3401,16 @@ calculateAge = (date) => {
                       </Grid>
                     </Grid>
                     {this.state.Hemoglobine &&
-                      this.state.Hemoglobine.length > 0 ? (
+                    this.state.Hemoglobine.length > 0 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Hemoglobine &&
                               this.state.Hemoglobine[
-                              this.state.hemoglobineLast
-                              ] &&
-                              this.state.Hemoglobine[
                                 this.state.hemoglobineLast
-                              ].value}{" "}
+                              ] &&
+                              this.state.Hemoglobine[this.state.hemoglobineLast]
+                                .value}{' '}
                             <span>
                               {this.state.Hemoglobine[
                                 this.state.hemoglobineLast
@@ -3204,12 +3422,11 @@ calculateAge = (date) => {
                           </h3>
                           <p>
                             {getDate(
-                              this.state.Hemoglobine[
-                                this.state.hemoglobineLast
-                              ].datetime_on,
+                              this.state.Hemoglobine[this.state.hemoglobineLast]
+                                .datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.Hemoglobine[
@@ -3222,12 +3439,14 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.hemoglobine1}
                           />
-                          <a onClick={() => this.props.OpenGraph("hemoglobine")}>
+                          <a
+                            onClick={() => this.props.OpenGraph('hemoglobine')}
+                          >
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3240,28 +3459,29 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "leucocytes" && (
+                {item === 'leucocytes' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "Leucocytes",
+                            'Leucocytes',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.Leucocytes &&
-                            this.state.Leucocytes.length > 0 && this.state.leucocytesLast !== -1 && (
+                            this.state.Leucocytes.length > 0 &&
+                            this.state.leucocytesLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -3272,13 +3492,13 @@ calculateAge = (date) => {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Leucocytes[
-                                          this.state.leucocytesLast
+                                            this.state.leucocytesLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -3286,14 +3506,14 @@ calculateAge = (date) => {
                                     </a>
                                   </li>
                                   <li>
-                                    {" "}
+                                    {' '}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("Leucocytes")
+                                        this.props.OpenGraph('Leucocytes')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -3306,34 +3526,32 @@ calculateAge = (date) => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {this.state.Leucocytes && this.state.Leucocytes.length > 0 && this.state.leucocytesLast !== -1 ? (
+                    {this.state.Leucocytes &&
+                    this.state.Leucocytes.length > 0 &&
+                    this.state.leucocytesLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Leucocytes &&
                               this.state.Leucocytes[
-                              this.state.leucocytesLast
+                                this.state.leucocytesLast
                               ] &&
-                              this.state.Leucocytes[
-                                this.state.leucocytesLast
-                              ].value}{" "}
+                              this.state.Leucocytes[this.state.leucocytesLast]
+                                .value}{' '}
                             <span>
-                              {this.state.Leucocytes[
-                                this.state.leucocytesLast
-                              ].unit &&
-                                this.state.Leucocytes[
-                                  this.state.leucocytesLast
-                                ].unit.label}
+                              {this.state.Leucocytes[this.state.leucocytesLast]
+                                .unit &&
+                                this.state.Leucocytes[this.state.leucocytesLast]
+                                  .unit.label}
                             </span>
                           </h3>
                           <p>
                             {getDate(
-                              this.state.Leucocytes[
-                                this.state.leucocytesLast
-                              ].datetime_on,
+                              this.state.Leucocytes[this.state.leucocytesLast]
+                                .datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.Leucocytes[
@@ -3346,12 +3564,12 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.leucocytes1}
                           />
-                          <a onClick={() => this.props.OpenGraph("leucocytes")}>
+                          <a onClick={() => this.props.OpenGraph('leucocytes')}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3364,29 +3582,30 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "pancreaticlipase" && (
+                {item === 'pancreaticlipase' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
-                          {" "}
+                          {' '}
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "Pancreaticlipase",
+                            'Pancreaticlipase',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.Pancreaticlipase &&
-                            this.state.Pancreaticlipase.length > 0 && this.state.pancreaticlipaseLast !== -1 && (
+                            this.state.Pancreaticlipase.length > 0 &&
+                            this.state.pancreaticlipaseLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -3397,13 +3616,13 @@ calculateAge = (date) => {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Pancreaticlipase[
-                                          this.state.pancreaticlipaseLast
+                                            this.state.pancreaticlipaseLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -3411,14 +3630,14 @@ calculateAge = (date) => {
                                     </a>
                                   </li>
                                   <li>
-                                    {" "}
+                                    {' '}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("Pancreaticlipase")
+                                        this.props.OpenGraph('Pancreaticlipase')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -3432,17 +3651,18 @@ calculateAge = (date) => {
                       </Grid>
                     </Grid>
                     {this.state.Pancreaticlipase &&
-                      this.state.Pancreaticlipase.length > 0 && this.state.pancreaticlipaseLast !== -1 ? (
+                    this.state.Pancreaticlipase.length > 0 &&
+                    this.state.pancreaticlipaseLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Pancreaticlipase &&
                               this.state.Pancreaticlipase[
-                              this.state.pancreaticlipaseLast
+                                this.state.pancreaticlipaseLast
                               ] &&
                               this.state.Pancreaticlipase[
                                 this.state.pancreaticlipaseLast
-                              ].value}{" "}
+                              ].value}{' '}
                             <span>
                               {this.state.Pancreaticlipase[
                                 this.state.pancreaticlipaseLast
@@ -3459,7 +3679,7 @@ calculateAge = (date) => {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.Pancreaticlipase[
@@ -3472,14 +3692,14 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.pancreaticlipase1}
                           />
                           <a
                             onClick={() =>
-                              this.props.OpenGraph("pancreaticlipase")
+                              this.props.OpenGraph('pancreaticlipase')
                             }
                           >
                             {VeiwGraph}
@@ -3494,28 +3714,29 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "thrombocytes" && (
+                {item === 'thrombocytes' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "Thrombocytes",
+                            'Thrombocytes',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.Thrombocytes &&
-                            this.state.Thrombocytes.length > 0 && this.state.thrombocytesLast !== -1 && (
+                            this.state.Thrombocytes.length > 0 &&
+                            this.state.thrombocytesLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -3526,13 +3747,13 @@ calculateAge = (date) => {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.Thrombocytes[
-                                          this.state.thrombocytesLast
+                                            this.state.thrombocytesLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -3540,14 +3761,14 @@ calculateAge = (date) => {
                                     </a>
                                   </li>
                                   <li>
-                                    {" "}
+                                    {' '}
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("Pancreaticlipase")
+                                        this.props.OpenGraph('Pancreaticlipase')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -3561,17 +3782,18 @@ calculateAge = (date) => {
                       </Grid>
                     </Grid>
                     {this.state.Thrombocytes &&
-                      this.state.Thrombocytes.length > 0 && this.state.thrombocytesLast !== -1 ? (
+                    this.state.Thrombocytes.length > 0 &&
+                    this.state.thrombocytesLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Thrombocytes &&
                               this.state.Thrombocytes[
-                              this.state.thrombocytesLast
+                                this.state.thrombocytesLast
                               ] &&
                               this.state.Thrombocytes[
                                 this.state.thrombocytesLast
-                              ].value}{" "}
+                              ].value}{' '}
                             <span>
                               {this.state.Thrombocytes[
                                 this.state.thrombocytesLast
@@ -3588,7 +3810,7 @@ calculateAge = (date) => {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.Thrombocytes[
@@ -3601,12 +3823,14 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.thrombocytes1}
                           />
-                          <a onClick={() => this.props.OpenGraph("thrombocytes")}>
+                          <a
+                            onClick={() => this.props.OpenGraph('thrombocytes')}
+                          >
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3619,82 +3843,87 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "sodium" && (
+                {item === 'sodium' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "Sodium",
+                            'Sodium',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.Sodium && this.state.Sodium.length > 0 && this.state.sodiumLast !== -1 && (
-                            <a className="openScndhrf1">
-                              <a className="vsblDots">
-                                <img
-                                  src={require("assets/images/nav-more.svg")}
-                                  alt=""
-                                  title=""
-                                />
+                          {this.state.Sodium &&
+                            this.state.Sodium.length > 0 &&
+                            this.state.sodiumLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.Sodium[
+                                            this.state.sodiumLast
+                                          ]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {' '}
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph('Sodium')
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
                               </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    onClick={() =>
-                                      this.props.downloadTrack(
-                                        this.state.Sodium[
-                                        this.state.sodiumLast
-                                        ]
-                                      )
-                                    }
-                                  >
-                                    <img
-                                      src={require("assets/images/download.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {Download}
-                                  </a>
-                                </li>
-                                <li>
-                                  {" "}
-                                  <a
-                                    onClick={() => this.props.OpenGraph("Sodium")}
-                                  >
-                                    <img
-                                      src={require("assets/images/eye2.png")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {VeiwGraph}
-                                  </a>
-                                </li>
-                              </ul>
-                            </a>
-                          )}
+                            )}
                         </Grid>
                       </Grid>
                     </Grid>
-                    {this.state.Sodium && this.state.Sodium.length > 0 && this.state.sodiumLast !== -1 ? (
+                    {this.state.Sodium &&
+                    this.state.Sodium.length > 0 &&
+                    this.state.sodiumLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.Sodium &&
                               this.state.Sodium[this.state.sodiumLast] &&
                               this.state.Sodium[this.state.sodiumLast]
-                                .value}{" "}
+                                .value}{' '}
                             <span>
-                              {this.state.Sodium[this.state.sodiumLast]
-                                .unit &&
-                                this.state.Sodium[this.state.sodiumLast]
-                                  .unit.label}
+                              {this.state.Sodium[this.state.sodiumLast].unit &&
+                                this.state.Sodium[this.state.sodiumLast].unit
+                                  .label}
                             </span>
                           </h3>
                           <p>
@@ -3703,7 +3932,7 @@ calculateAge = (date) => {
                                 .datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.Sodium[
@@ -3716,12 +3945,12 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.sodium1}
                           />
-                          <a onClick={() => this.props.OpenGraph("sodium")}>
+                          <a onClick={() => this.props.OpenGraph('sodium')}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3734,91 +3963,94 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "ggt" && (
+                {item === 'ggt' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "GGT",
+                            'GGT',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.GGT && this.state.GGT.length > 0 && this.state.ggtLast !== -1 && (
-                            <a className="openScndhrf1">
-                              <a className="vsblDots">
-                                <img
-                                  src={require("assets/images/nav-more.svg")}
-                                  alt=""
-                                  title=""
-                                />
+                          {this.state.GGT &&
+                            this.state.GGT.length > 0 &&
+                            this.state.ggtLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.GGT[this.state.ggtLast]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {' '}
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph('GGT')
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
                               </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    onClick={() =>
-                                      this.props.downloadTrack(
-                                        this.state.GGT[this.state.ggtLast]
-                                      )
-                                    }
-                                  >
-                                    <img
-                                      src={require("assets/images/download.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {Download}
-                                  </a>
-                                </li>
-                                <li>
-                                  {" "}
-                                  <a onClick={() => this.props.OpenGraph("GGT")}>
-                                    <img
-                                      src={require("assets/images/eye2.png")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {VeiwGraph}
-                                  </a>
-                                </li>
-                              </ul>
-                            </a>
-                          )}
+                            )}
                         </Grid>
                       </Grid>
                     </Grid>
-                    {this.state.GGT && this.state.GGT.length > 0 && this.state.ggtLast !== -1 ? (
+                    {this.state.GGT &&
+                    this.state.GGT.length > 0 &&
+                    this.state.ggtLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.GGT &&
                               this.state.GGT[this.state.ggtLast] &&
-                              this.state.GGT[this.state.ggtLast]
-                                .value}{" "}
+                              this.state.GGT[this.state.ggtLast].value}{' '}
                             <span>
                               {this.state.GGT[this.state.ggtLast].unit &&
-                                this.state.GGT[this.state.ggtLast].unit
-                                  .label}
+                                this.state.GGT[this.state.ggtLast].unit.label}
                             </span>
                           </h3>
                           <p>
                             {getDate(
-                              this.state.GGT[this.state.ggtLast]
-                                .datetime_on,
+                              this.state.GGT[this.state.ggtLast].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
-                                this.state.GGT[
-                                  this.state.ggtLast
-                                ].datetime_on
+                                this.state.GGT[this.state.ggtLast].datetime_on
                               ),
                               this.state.time_foramt
                             )}
@@ -3826,12 +4058,12 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.ggt1}
                           />
-                          <a onClick={() => this.props.OpenGraph("ggt")}>
+                          <a onClick={() => this.props.OpenGraph('ggt')}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3843,91 +4075,94 @@ calculateAge = (date) => {
                     )}
                   </Grid>
                 )}
-                {item === "ast/got" && (
+                {item === 'ast/got' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "AST/GOT",
+                            'AST/GOT',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.AST && this.state.AST.length > 0 && this.state.astLast !== -1 && (
-                            <a className="openScndhrf1">
-                              <a className="vsblDots">
-                                <img
-                                  src={require("assets/images/nav-more.svg")}
-                                  alt=""
-                                  title=""
-                                />
+                          {this.state.AST &&
+                            this.state.AST.length > 0 &&
+                            this.state.astLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.AST[this.state.astLast]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {' '}
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph('AST')
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
                               </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    onClick={() =>
-                                      this.props.downloadTrack(
-                                        this.state.AST[this.state.astLast]
-                                      )
-                                    }
-                                  >
-                                    <img
-                                      src={require("assets/images/download.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {Download}
-                                  </a>
-                                </li>
-                                <li>
-                                  {" "}
-                                  <a onClick={() => this.props.OpenGraph("AST")}>
-                                    <img
-                                      src={require("assets/images/eye2.png")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {VeiwGraph}
-                                  </a>
-                                </li>
-                              </ul>
-                            </a>
-                          )}
+                            )}
                         </Grid>
                       </Grid>
                     </Grid>
-                    {this.state.AST && this.state.AST.length > 0 && this.state.astLast !== -1 ? (
+                    {this.state.AST &&
+                    this.state.AST.length > 0 &&
+                    this.state.astLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.AST &&
                               this.state.AST[this.state.astLast] &&
-                              this.state.AST[this.state.astLast]
-                                .value}{" "}
+                              this.state.AST[this.state.astLast].value}{' '}
                             <span>
                               {this.state.AST[this.state.astLast].unit &&
-                                this.state.AST[this.state.astLast].unit
-                                  .label}
+                                this.state.AST[this.state.astLast].unit.label}
                             </span>
                           </h3>
                           <p>
                             {getDate(
-                              this.state.AST[this.state.astLast]
-                                .datetime_on,
+                              this.state.AST[this.state.astLast].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
-                                this.state.AST[
-                                  this.state.astLast
-                                ].datetime_on
+                                this.state.AST[this.state.astLast].datetime_on
                               ),
                               this.state.time_foramt
                             )}
@@ -3935,12 +4170,12 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.ast1}
                           />
-                          <a onClick={() => this.props.OpenGraph("ast/got")}>
+                          <a onClick={() => this.props.OpenGraph('ast/got')}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -3953,91 +4188,94 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "alt/gpt" && (
+                {item === 'alt/gpt' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
                         <label>
                           {GetShowLabel1(
                             AllL_Ps.AllL_Ps.english,
-                            "ALT/GPT",
+                            'ALT/GPT',
                             this.props.stateLanguageType,
                             true,
-                            "lpr"
+                            'lpr'
                           )}
                         </label>
                       </Grid>
                       <Grid item xs={6} md={6}>
                         <Grid className="persBlodImg scndOptionIner1">
-                          {this.state.ALT && this.state.ALT.length > 0 && this.state.altLast !== -1 && (
-                            <a className="openScndhrf1">
-                              <a className="vsblDots">
-                                <img
-                                  src={require("assets/images/nav-more.svg")}
-                                  alt=""
-                                  title=""
-                                />
+                          {this.state.ALT &&
+                            this.state.ALT.length > 0 &&
+                            this.state.altLast !== -1 && (
+                              <a className="openScndhrf1">
+                                <a className="vsblDots">
+                                  <img
+                                    src={require('assets/images/nav-more.svg')}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.downloadTrack(
+                                          this.state.ALT[this.state.altLast]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/download.svg')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {Download}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    {' '}
+                                    <a
+                                      onClick={() =>
+                                        this.props.OpenGraph('ALT')
+                                      }
+                                    >
+                                      <img
+                                        src={require('assets/images/eye2.png')}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {VeiwGraph}
+                                    </a>
+                                  </li>
+                                </ul>
                               </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    onClick={() =>
-                                      this.props.downloadTrack(
-                                        this.state.ALT[this.state.altLast]
-                                      )
-                                    }
-                                  >
-                                    <img
-                                      src={require("assets/images/download.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {Download}
-                                  </a>
-                                </li>
-                                <li>
-                                  {" "}
-                                  <a onClick={() => this.props.OpenGraph("ALT")}>
-                                    <img
-                                      src={require("assets/images/eye2.png")}
-                                      alt=""
-                                      title=""
-                                    />
-                                    {VeiwGraph}
-                                  </a>
-                                </li>
-                              </ul>
-                            </a>
-                          )}
+                            )}
                         </Grid>
                       </Grid>
                     </Grid>
-                    {this.state.ALT && this.state.ALT.length > 0 && this.state.altLast !== -1 ? (
+                    {this.state.ALT &&
+                    this.state.ALT.length > 0 &&
+                    this.state.altLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.ALT &&
                               this.state.ALT[this.state.altLast] &&
-                              this.state.ALT[this.state.altLast]
-                                .value}{" "}
+                              this.state.ALT[this.state.altLast].value}{' '}
                             <span>
                               {this.state.ALT[this.state.altLast].unit &&
-                                this.state.ALT[this.state.altLast].unit
-                                  .label}
+                                this.state.ALT[this.state.altLast].unit.label}
                             </span>
                           </h3>
                           <p>
                             {getDate(
-                              this.state.ALT[this.state.altLast]
-                                .datetime_on,
+                              this.state.ALT[this.state.altLast].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
-                                this.state.ALT[
-                                  this.state.altLast
-                                ].datetime_on
+                                this.state.ALT[this.state.altLast].datetime_on
                               ),
                               this.state.time_foramt
                             )}
@@ -4045,12 +4283,12 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.alt1}
                           />
-                          <a onClick={() => this.props.OpenGraph("alt/gpt")}>
+                          <a onClick={() => this.props.OpenGraph('alt/gpt')}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -4063,7 +4301,7 @@ calculateAge = (date) => {
                   </Grid>
                 )}
 
-                {item === "graph_blood_sugar" && (
+                {item === 'graph_blood_sugar' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
@@ -4073,11 +4311,12 @@ calculateAge = (date) => {
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_sugar &&
-                            this.state.personalinfo.blood_sugar.length > 0 && this.state.BSLast !== -1 && (
+                            this.state.personalinfo.blood_sugar.length > 0 &&
+                            this.state.BSLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -4088,13 +4327,13 @@ calculateAge = (date) => {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.blood_sugar[
-                                          this.state.BSLast
+                                            this.state.BSLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -4104,11 +4343,11 @@ calculateAge = (date) => {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("blood_sugar")
+                                        this.props.OpenGraph('blood_sugar')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -4122,19 +4361,20 @@ calculateAge = (date) => {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                      this.state.personalinfo.blood_sugar &&
-                      this.state.personalinfo.blood_sugar.length > 0 && this.state.BSLast !== -1 ? (
+                    this.state.personalinfo.blood_sugar &&
+                    this.state.personalinfo.blood_sugar.length > 0 &&
+                    this.state.BSLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_sugar &&
                               this.state.personalinfo.blood_sugar[
-                              this.state.BSLast
+                                this.state.BSLast
                               ] &&
                               this.state.personalinfo.blood_sugar[
                                 this.state.BSLast
-                              ].blood_sugar}{" "}
+                              ].blood_sugar}{' '}
                             <span>{mgdl}</span>
                           </h3>
                           <p>
@@ -4144,7 +4384,7 @@ calculateAge = (date) => {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.blood_sugar[
@@ -4157,12 +4397,14 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.blood_sugar}
                           />
-                          <a onClick={() => this.props.OpenGraph("blood_sugar")}>
+                          <a
+                            onClick={() => this.props.OpenGraph('blood_sugar')}
+                          >
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -4174,7 +4416,7 @@ calculateAge = (date) => {
                     )}
                   </Grid>
                 )}
-                {item === "graph_HbA1c" && (
+                {item === 'graph_HbA1c' && (
                   <Grid className="persBlodMesur">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={6} md={6} className="lstView">
@@ -4184,11 +4426,12 @@ calculateAge = (date) => {
                         <Grid className="persBlodImg scndOptionIner1">
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_sugar &&
-                            this.state.personalinfo.blood_sugar.length > 0 && this.state.hbLast !== -1 && (
+                            this.state.personalinfo.blood_sugar.length > 0 &&
+                            this.state.hbLast !== -1 && (
                               <a className="openScndhrf1">
                                 <a className="vsblDots">
                                   <img
-                                    src={require("assets/images/nav-more.svg")}
+                                    src={require('assets/images/nav-more.svg')}
                                     alt=""
                                     title=""
                                   />
@@ -4199,13 +4442,13 @@ calculateAge = (date) => {
                                       onClick={() =>
                                         this.props.downloadTrack(
                                           this.state.personalinfo.blood_sugar[
-                                          this.state.hbLast
+                                            this.state.hbLast
                                           ]
                                         )
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/download.svg")}
+                                        src={require('assets/images/download.svg')}
                                         alt=""
                                         title=""
                                       />
@@ -4215,11 +4458,11 @@ calculateAge = (date) => {
                                   <li>
                                     <a
                                       onClick={() =>
-                                        this.props.OpenGraph("blood_sugar")
+                                        this.props.OpenGraph('blood_sugar')
                                       }
                                     >
                                       <img
-                                        src={require("assets/images/eye2.png")}
+                                        src={require('assets/images/eye2.png')}
                                         alt=""
                                         title=""
                                       />
@@ -4233,20 +4476,20 @@ calculateAge = (date) => {
                       </Grid>
                     </Grid>
                     {this.state.personalinfo &&
-                      this.state.personalinfo.blood_sugar &&
-                      this.state.personalinfo.blood_sugar.length > 0 && this.state.hbLast !== -1 ? (
+                    this.state.personalinfo.blood_sugar &&
+                    this.state.personalinfo.blood_sugar.length > 0 &&
+                    this.state.hbLast !== -1 ? (
                       <div>
                         <Grid className="presureData">
                           <h3>
-
                             {this.state.personalinfo &&
                               this.state.personalinfo.blood_sugar &&
                               this.state.personalinfo.blood_sugar[
-                              this.state.hbLast
+                                this.state.hbLast
                               ] &&
                               this.state.personalinfo.blood_sugar[
                                 this.state.hbLast
-                              ].Hba1c}{" "}
+                              ].Hba1c}{' '}
                             <span>%</span>
                           </h3>
                           <p>
@@ -4256,7 +4499,7 @@ calculateAge = (date) => {
                               ].datetime_on,
                               this.state.date_format
                             )}
-                            ,{" "}
+                            ,{' '}
                             {getTime(
                               new Date(
                                 this.state.personalinfo.blood_sugar[
@@ -4269,12 +4512,12 @@ calculateAge = (date) => {
                         </Grid>
                         <Grid className="presureDataGrph">
                           <HighchartsReact
-                            constructorType={"chart"}
+                            constructorType={'chart'}
                             ref={this.chartComponent}
                             highcharts={Highcharts}
                             options={this.state.hba_data}
                           />
-                          <a onClick={() => this.props.OpenGraph("hba")}>
+                          <a onClick={() => this.props.OpenGraph('hba')}>
                             {VeiwGraph}
                           </a>
                         </Grid>
@@ -4286,64 +4529,67 @@ calculateAge = (date) => {
                     )}
                   </Grid>
                 )}
-                {item === "last_doctor_visit" && (
+                {item === 'last_doctor_visit' && (
                   <Grid className="drVisit">
                     <h3>{last_doc_visit}</h3>
-                    {
-                      this.state.last_dv &&
-                        this.state.last_dv.length > 0 ? (
-                        <div>
-                          {this.state.last_dv.map((data, index) => (
-                            <Grid container key={data.datetime_on} direction="row" alignItems="center">
-                              <Grid item xs={2} md={2}>
-
-                                <Grid className="drVisitImg">
-                                  <img key={data.image}
-                                    src={
-                                      data && data.image
-                                        ? getImage(data.image, this.state.images)
-                                        : require("assets/images/dr1.jpg")
-                                    }
-                                    alt=""
-                                    title=""
-                                  />
-                                  {/* <img src={require('assets/images/dr1.jpg')} alt="" title="" /> */}
-                                </Grid>
+                    {this.state.last_dv && this.state.last_dv.length > 0 ? (
+                      <div>
+                        {this.state.last_dv.map((data, index) => (
+                          <Grid
+                            container
+                            key={data.datetime_on}
+                            direction="row"
+                            alignItems="center"
+                          >
+                            <Grid item xs={2} md={2}>
+                              <Grid className="drVisitImg">
+                                <img
+                                  key={data.image}
+                                  src={
+                                    data && data.image
+                                      ? getImage(data.image, this.state.images)
+                                      : require('assets/images/dr1.jpg')
+                                  }
+                                  alt=""
+                                  title=""
+                                />
+                                {/* <img src={require('assets/images/dr1.jpg')} alt="" title="" /> */}
                               </Grid>
-                              <Grid item xs={10} md={10}>
-                                <Grid className="drVisitData">
-                                  <label>{data.doctor_name}</label>
-                                  <p>
-                                    {getDate(
-                                      data.datetime_on,
-                                      this.state.date_format
-                                    )}
-                                    ,{" "}
-                                    {getTime(
-                                      new Date(data.datetime_on),
-                                      this.state.time_foramt
-                                    )}
-                                  </p>
-                                </Grid>
-                              </Grid>
-                              <Grid className="clear"></Grid>
                             </Grid>
-                          ))}
-                        </div>
-                      ) : (
-                        <Grid className="noBpData">
-                          <p>{no_data_avlbl}</p>
-                        </Grid>
-                      )}
+                            <Grid item xs={10} md={10}>
+                              <Grid className="drVisitData">
+                                <label>{data.doctor_name}</label>
+                                <p>
+                                  {getDate(
+                                    data.datetime_on,
+                                    this.state.date_format
+                                  )}
+                                  ,{' '}
+                                  {getTime(
+                                    new Date(data.datetime_on),
+                                    this.state.time_foramt
+                                  )}
+                                </p>
+                              </Grid>
+                            </Grid>
+                            <Grid className="clear"></Grid>
+                          </Grid>
+                        ))}
+                      </div>
+                    ) : (
+                      <Grid className="noBpData">
+                        <p>{no_data_avlbl}</p>
+                      </Grid>
+                    )}
                   </Grid>
                 )}
-                {item === "upcomming_appointments" && (
+                {item === 'upcomming_appointments' && (
                   <Grid className="comeAppoint">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={10} md={10}>
                         <Grid className="upcomView">
-                          <label>{upcming_apointment}</label>{" "}
-                          {this.props.from === "patient" && (
+                          <label>{upcming_apointment}</label>{' '}
+                          {this.props.from === 'patient' && (
                             <a onClick={this.props.MoveAppoint}>{view_all}</a>
                           )}
                         </Grid>
@@ -4370,41 +4616,44 @@ calculateAge = (date) => {
                     </Grid>
 
                     {this.state.upcoming_appointment &&
-                      this.state.upcoming_appointment.length > 0 ? (
+                    this.state.upcoming_appointment.length > 0 ? (
                       <div>
                         {this.state.upcoming_appointment.map((data, index) => (
                           <div>
                             <Grid className="oficVisit">
                               <label>
-                                {getDate(data.date, this.state.date_format)},{" "}
+                                {getDate(data.date, this.state.date_format)},{' '}
                                 {data.start_time &&
                                   this.GetTimess(data.start_time)}
                               </label>
 
-                              {data.appointment_type === "appointments" && (
+                              {data.appointment_type === 'appointments' && (
                                 <a>
                                   <img
-                                    src={require("assets/images/office-visit.svg")}
+                                    src={require('assets/images/office-visit.svg')}
                                     alt=""
                                     title=""
-                                  />{" "}
-                                  {data.custom_text ? data.custom_text : office_visit}
+                                  />{' '}
+                                  {data.custom_text
+                                    ? data.custom_text
+                                    : office_visit}
                                 </a>
                               )}
-                              {data.appointment_type === "online_appointment" && (
+                              {data.appointment_type ===
+                                'online_appointment' && (
                                 <a>
                                   <img
-                                    src={require("assets/images/video-call.svg")}
+                                    src={require('assets/images/video-call.svg')}
                                     alt=""
                                     title=""
                                   />
                                   {vdo_call}
                                 </a>
                               )}
-                              {data.appointment_type === "practice_days" && (
+                              {data.appointment_type === 'practice_days' && (
                                 <a>
                                   <img
-                                    src={require("assets/images/cal.png")}
+                                    src={require('assets/images/cal.png')}
                                     alt=""
                                     title=""
                                   />
@@ -4438,10 +4687,10 @@ calculateAge = (date) => {
                                   />
                                   {data.docProfile &&
                                     data.docProfile.first_name &&
-                                    data.docProfile.first_name}{" "}
+                                    data.docProfile.first_name}{' '}
                                   {data.docProfile &&
                                     data.docProfile.last_name &&
-                                    data.docProfile.last_name}{" "}
+                                    data.docProfile.last_name}{' '}
                                   (Doctor)
                                 </a>
                               </Grid>
@@ -4457,12 +4706,12 @@ calculateAge = (date) => {
                     )}
                   </Grid>
                 )}
-                {item === "last_documents" && (
+                {item === 'last_documents' && (
                   <Grid className="lstDocs">
                     <Grid container direction="row" alignItems="center">
                       <Grid item xs={10} md={10}>
                         <Grid className="lstView">
-                          <label>{last_document}</label>{" "}
+                          <label>{last_document}</label>{' '}
                         </Grid>
                       </Grid>
                       <Grid item xs={2} md={2}>
@@ -4489,51 +4738,53 @@ calculateAge = (date) => {
                       <a className="presSecAncr">
                         <h4>{prescriptions}</h4>
                         {this.state.personalinfo &&
-                          this.state.personalinfo.prescriptions &&
-                          this.state.personalinfo.prescriptions.length > 0 ? (
+                        this.state.personalinfo.prescriptions &&
+                        this.state.personalinfo.prescriptions.length > 0 ? (
                           <div>
-                            {this.state.personalinfo.prescriptions.map((itm) => (
-                              <div className="metroDoctor">
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  className="metroPro"
-                                >
-                                  <Grid item xs={9} md={9}>
-                                    {itm.attachfile &&
-                                      itm.attachfile.length > 0 &&
-                                      itm.attachfile[0] &&
-                                      this.getFileName(itm.attachfile[0])}
-                                  </Grid>
+                            {this.state.personalinfo.prescriptions.map(
+                              (itm) => (
+                                <div className="metroDoctor">
                                   <Grid
-                                    item
-                                    xs={3}
-                                    md={3}
-                                    className="metroPrOpen"
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    className="metroPro"
                                   >
-                                    {itm.attachfile &&
-                                      itm.attachfile.length > 0 &&
-                                      itm.attachfile[0] &&
-                                      itm.attachfile[0].filename && (
-                                        <a
-                                          onClick={() =>
-                                            GetUrlImage(
-                                              itm.attachfile[0].filename
-                                            )
-                                          }
-                                        >
-                                          {open}
-                                        </a>
-                                      )}
+                                    <Grid item xs={9} md={9}>
+                                      {itm.attachfile &&
+                                        itm.attachfile.length > 0 &&
+                                        itm.attachfile[0] &&
+                                        this.getFileName(itm.attachfile[0])}
+                                    </Grid>
+                                    <Grid
+                                      item
+                                      xs={3}
+                                      md={3}
+                                      className="metroPrOpen"
+                                    >
+                                      {itm.attachfile &&
+                                        itm.attachfile.length > 0 &&
+                                        itm.attachfile[0] &&
+                                        itm.attachfile[0].filename && (
+                                          <a
+                                            onClick={() =>
+                                              GetUrlImage(
+                                                itm.attachfile[0].filename
+                                              )
+                                            }
+                                          >
+                                            {open}
+                                          </a>
+                                        )}
+                                    </Grid>
+                                    <Grid className="clear"></Grid>
                                   </Grid>
-                                  <Grid className="clear"></Grid>
-                                </Grid>
-                                <Grid>
-                                  {/* <a><img src={require('assets/images/dr1.jpg')} alt="" title="" /> </a> */}
-                                </Grid>
-                              </div>
-                            ))}
+                                  <Grid>
+                                    {/* <a><img src={require('assets/images/dr1.jpg')} alt="" title="" /> </a> */}
+                                  </Grid>
+                                </div>
+                              )
+                            )}
                           </div>
                         ) : (
                           <Grid className="noBpData">
@@ -4545,8 +4796,8 @@ calculateAge = (date) => {
                       <a className="presSecAncr">
                         <h4>{sick_cert}</h4>
                         {this.state.personalinfo &&
-                          this.state.personalinfo.sick_certificates &&
-                          this.state.personalinfo.sick_certificates.length > 0 ? (
+                        this.state.personalinfo.sick_certificates &&
+                        this.state.personalinfo.sick_certificates.length > 0 ? (
                           <div>
                             {this.state.personalinfo.sick_certificates.map(
                               (itm) => (
@@ -4603,8 +4854,7 @@ calculateAge = (date) => {
                   </Grid>
                 )}
               </div>
-            ))
-          }
+            ))}
 
           {/* <Grid className="persBlodMesur">
             <Grid container direction="row" alignItems="center">
@@ -4716,8 +4966,8 @@ calculateAge = (date) => {
               </a>
             </Grid>
           </Grid> */}
-        </Grid >
-      </Grid >
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -4725,7 +4975,7 @@ const mapStateToProps = (state) => {
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
-  const { House } = state.houseSelect
+  const { House } = state.houseSelect;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   return {
@@ -4738,7 +4988,11 @@ const mapStateToProps = (state) => {
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
-    Index
-  )
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+    Settings,
+    authy,
+    houseSelect,
+  })(Index)
 );
