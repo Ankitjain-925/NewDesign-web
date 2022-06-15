@@ -726,6 +726,7 @@ class Index extends Component {
             this.setState({
               editInsuranceOpen: false,
               addInsuranceOpen: false,
+              error4: false,
               succUpdate: true,
               insuranceDetails: {
                 insurance: '',
