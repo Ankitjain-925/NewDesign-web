@@ -35,11 +35,7 @@ import {
   EditService,
   onFieldChange,
   searchFilter,
-<<<<<<< HEAD
-=======
-  getAmount
-
->>>>>>> cd75a01add708d5d68119b055b4196aef0766de1
+  getAmount,
 } from './api';
 import { getLanguage } from 'translations/index';
 
@@ -151,39 +147,30 @@ class Index extends Component {
     this.setState({ sickamount1: state });
   };
 
-<<<<<<< HEAD
+  EditAmount = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { Something_went_wrong } = translate;
+    var a = this.state.sickamount1.amount;
+    axios
+      .put(
+        sitedata.data.path + '/vactive/AddAmount/' + this.props.House.value,
+        { sickleave_certificate_amount: a },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed) {
+          this.setState({ sickamount: true });
+        } else {
+          this.setState({ errorMsg: Something_went_wrong });
+        }
+      });
+  };
   onSickamount = (e) => {
     if (e.key === 'Enter') {
-      this.setState({ sickamount: true });
-=======
-  EditAmount=() =>{
-  let translate = getLanguage(this.props.stateLanguageType);
-  let {  Something_went_wrong 
-  } = translate;
-  var a= this.state.sickamount1.amount
-  axios
-    .put(
-      sitedata.data.path + '/vactive/AddAmount/' + this.props.House.value,
-      { sickleave_certificate_amount:a },
-      commonHeader(this.props.stateLoginValueAim.token)
-    )
-    .then((responce) => {
-      this.setState({ loaderImage: false });
-      if (responce.data.hassuccessed) {
-          this.setState({ sickamount: true })
-       } else {
-        this.setState({ errorMsg: Something_went_wrong });
-      }
-    });
-}
-  onSickamount= (e) => {
-   if (e.key === "Enter") {
       this.EditAmount();
       // this.setState({ sickamount: true });
->>>>>>> cd75a01add708d5d68119b055b4196aef0766de1
     }
-  
-  
   };
 
   render() {
@@ -418,7 +405,7 @@ class Index extends Component {
                                   });
                                 }}
                               />
-                               <p className='euroamount'>€</p>
+                              <p className="euroamount">€</p>
                             </a>
                           </Grid>
                         </Grid>
