@@ -10387,7 +10387,7 @@ button.dischrgInvoic span {
 .darkTheme .err_message,
 .homeBgDrk .err_message,
 .darkTheme .err_message2,
-.homeBgDrk .err_message2{
+.homeBgDrk .err_message2 {
   color: #ff6262 !important;
 }
 .darkTheme .success_message,
@@ -10556,16 +10556,15 @@ img.manage-size {
 .darkTheme .profile-language.css-2b097c-container div,
 .homeBgDrk .profile-language.css-2b097c-container div,
 .darkTheme .profile-language.css-14jk2my-container div,
-.homeBgDrk .profile-language.css-14jk2my-container div
-{
+.homeBgDrk .profile-language.css-14jk2my-container div {
   background-color: #404646 !important;
   color: #fff !important;
 }
 .darkTheme .cntryDropTop,
 .homeBgDrk .cntryDropTop {
-    /* border: 1px solid #5d5d5d; */
-    border-radius: 2px;
-    border: 1px solid #dfdfdf;
+  /* border: 1px solid #5d5d5d; */
+  border-radius: 2px;
+  border: 1px solid #dfdfdf;
 }
 .cntryDropTop div {
   box-shadow: initial !important;
@@ -14369,7 +14368,6 @@ label.newrole {
 
 .headsize {
   font-size: 20px;
- 
 }
 .heading p {
   font-size: 15px;
@@ -14417,7 +14415,7 @@ label.newrole {
 }
 
 .stndQues1 label {
- margin-top: 12px;
+  margin-top: 12px;
 }
 .imageEvalSize img {
   /* height: 90px; */
@@ -14425,24 +14423,23 @@ label.newrole {
   border-radius: 15px;
   margin-right: 8px;
 }
-.BookingCont3 .BookingCont{
+.BookingCont3 .BookingCont {
   font-family: Muli;
   font-weight: 700;
   font-style: normal;
   font-size: 14px;
   line-height: 16px;
-  text-transform:inherit ;
-  color:#FFFFFF;
-  background-color: #00ABAF;
+  text-transform: inherit;
+  color: #ffffff;
+  background-color: #00abaf;
   height: 48px;
-  width:100%; 
+  width: 100%;
   margin-top: 20px;
   border-radius: 8px;
 }
-.BookingCont3 .BookingCont:hover{
-  background-color: #00ABAF!important;  
+.BookingCont3 .BookingCont:hover {
+  background-color: #00abaf !important;
 }
-
 
 .imageEvalSize img {
   width: 50%;
@@ -14488,7 +14485,7 @@ label.newrole {
   border: 2px solid #a12f219c;
   padding: 26px;
   border-radius: 6px;
-  width:100%;
+  width: 100%;
   margin-left: 20px;
 }
 
@@ -14498,13 +14495,13 @@ label.newrole {
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  color: #7F8383;
+  color: #7f8383;
   border-radius: 4px;
   width: 100%;
   min-height: 40px;
   border: 1px solid #bebebe;
   padding: 10px 8px 10px;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
 }
 .insrnceCmp2 {
   outline: none;
@@ -14512,13 +14509,13 @@ label.newrole {
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  color: #7F8383;
+  color: #7f8383;
   border-radius: 4px;
   width: 100%;
   min-height: 40px;
   border: 1px solid #bebebe;
   padding: 10px 8px 10px;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
 }
 .cmnSpc {
   margin-bottom: 18px;
@@ -14532,7 +14529,7 @@ label.newrole {
   font-size: 15px;
   margin-bottom: 10px;
   line-height: initial;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
 }
 .insrnceLbl2 label {
   display: block;
@@ -14542,7 +14539,7 @@ label.newrole {
   line-height: 18px;
   color: #404646;
   margin-bottom: 7px;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
 }
 .certifyCheck {
   margin-top: 60px;
@@ -14556,7 +14553,7 @@ label.newrole {
   line-height: 18px;
   color: #404646;
   margin-bottom: 18px;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
   margin-left: 20px;
 }
 
@@ -14573,14 +14570,14 @@ label.newrole {
   position: relative;
   cursor: pointer;
   padding-left: 50px;
- 
 }
 .formGroupChk label:before {
   content: '';
   -webkit-appearance: none;
   background-color: transparent;
   border: 2px solid #a12f21;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 5%), inset 0px -15px 10px -12px rgb(0 0 0 / 5%);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%),
+    inset 0px -15px 10px -12px rgb(0 0 0 / 5%);
   padding: 15px 16px;
   display: inline-block;
   vertical-align: middle;
@@ -14602,7 +14599,7 @@ label.newrole {
   border: solid #a12f21;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   margin-bottom: 10px;
 }
 .formGroupChk span {
@@ -14613,7 +14610,7 @@ label.newrole {
   font-size: 15px;
   margin-bottom: 5px;
   line-height: initial;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
   margin-top: 14px;
 }
 .formGroupChk p {
@@ -14623,7 +14620,7 @@ label.newrole {
   line-height: 22px;
   color: #404646;
   margin-bottom: 0px;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
 }
 .btmSpc {
   margin-bottom: 16px;
@@ -14636,7 +14633,7 @@ label.newrole {
   font-size: 15px;
   margin-bottom: 5px;
   line-height: initial;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
 }
 
 .wrkInput {
@@ -14652,7 +14649,7 @@ label.newrole {
   outline: none;
   padding: 6px;
   text-align: center;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
 }
 .wrkInput input:first-child {
   border-radius: 4px 0px 0px 4px;
@@ -14669,7 +14666,7 @@ label.newrole {
   line-height: 22px;
   color: #404646;
   margin-bottom: 0px;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
   margin-left: 20px;
 }
 .setArbtUpr {
@@ -14683,7 +14680,7 @@ label.newrole {
   font-weight: 500;
   font-size: 15px;
   margin: 0px;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
 }
 
 .setArbtSign {
@@ -14696,8 +14693,7 @@ label.newrole {
   bottom: 0px;
   background: #ffffff;
   /* width:100%; */
-  position:absolute;
- 
+  position: absolute;
 }
 
 .setArbtSign label {
@@ -14708,8 +14704,8 @@ label.newrole {
   line-height: initial;
   color: #404646;
   margin-bottom: 8px;
-  font-family: Mulish,sans-serif;
- }
+  font-family: Mulish, sans-serif;
+}
 .setArbtSign p {
   color: #a12f21;
   font-style: normal;
@@ -14717,7 +14713,7 @@ label.newrole {
   font-size: 21px;
   margin: 0px;
   line-height: initial;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
 }
 
 .attchDecline {
@@ -14754,10 +14750,10 @@ label.newrole {
 }
 
 .Painbegin {
-  position: "absolute";
-  width: "6px";
-  height: "6px";
-  background: "red";
+  position: 'absolute';
+  width: '6px';
+  height: '6px';
+  background: 'red';
   /* borderRadius: "50%"; */
 }
 
@@ -14765,58 +14761,56 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: #000808  !important;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000808 !important;
 }
 .srchFilter .comonSel div {
   border: none !important;
 }
-.creatTaskModel2{
-  width: 80% ;
+.creatTaskModel2 {
+  width: 80%;
   /* overflow-y: scroll; */
-   background: #fff;
-    margin: 0 auto;
-    border: none;
-    outline: none;
-    background-color: #ffffff;
-    box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
-    margin-top: 35px;
-    padding-right: 2px;
-    padding-top: 18px;
-    padding-bottom: 16px;
-    border-radius: 12px;
-  
+  background: #fff;
+  margin: 0 auto;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+  box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+  margin-top: 35px;
+  padding-right: 2px;
+  padding-top: 18px;
+  padding-bottom: 16px;
+  border-radius: 12px;
 }
-.hhh{
+.hhh {
   margin-top: 10px;
 }
-.setColorRed label{
-  color:#a12f21;
+.setColorRed label {
+  color: #a12f21;
   font-size: 15px;
 }
-.setColorBlack label{
+.setColorBlack label {
   font-size: 15px;
 }
 .setColorRed {
-  color:#a12f21;
+  color: #a12f21;
   font-size: 15px;
 }
 .setColorBlack {
   font-size: 15px;
 }
-.setColorRed2 label{
-  color:#a12f21;
+.setColorRed2 label {
+  color: #a12f21;
   font-size: 15px;
   margin-left: 20px;
   margin-bottom: 10px;
-
 }
-.setColorRed3 label{
-  color:#a12f21;
+.setColorRed3 label {
+  color: #a12f21;
   font-size: 15px;
   margin-left: 20px;
 }
-.setColorBlack2 label{
+.setColorBlack2 label {
   font-size: 15px;
   margin-left: 20px;
 }
@@ -14825,15 +14819,15 @@ input:-webkit-autofill:active {
   width:100%;
   height: 100px;
 } */
-.browsInput2{
-   border-radius: 4px;
-  background-color: #FFFFFF;
+.browsInput2 {
+  border-radius: 4px;
+  background-color: #ffffff;
   text-align: center;
   justify-content: center;
   align-items: center;
   min-height: 120px;
   display: flex;
-  color: #7F8383;
+  color: #7f8383;
   font-family: Muli;
   font-size: 14px;
   font-weight: 600;
@@ -14841,10 +14835,10 @@ input:-webkit-autofill:active {
   line-height: 18px;
 }
 .browsInput2 a {
-  color: #00ABAF !important;
+  color: #00abaf !important;
   margin: 0px 4px;
 }
-.browsInput2 input[type="file"] {
+.browsInput2 input[type='file'] {
   opacity: 0;
   position: absolute;
   left: 0;
@@ -14867,15 +14861,14 @@ input:-webkit-autofill:active {
   text-transform: inherit;
   min-height: 40px;
   margin-top: 40px;
- margin-left: 20px;
-
+  margin-left: 20px;
 }
 .infoShwSave3 input {
   border-radius: 8px;
-  background-color: #00ABAF;
-  border: 2px solid #00ABAF;
+  background-color: #00abaf;
+  border: 2px solid #00abaf;
   width: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Muli;
   font-size: 14px;
   font-weight: bold;
@@ -14886,59 +14879,58 @@ input:-webkit-autofill:active {
   margin-top: 15px;
   margin-bottom: 2px;
   outline: none;
- 
 }
 .infoShwSave3 input:hover {
   background: transparent;
-  background-color: #00ABAF;
+  background-color: #00abaf;
 }
-.noteCertificate{
+.noteCertificate {
   border: 2px solid #a12f219c;
   padding: 30px;
   border-radius: 6px;
- text-align: center; 
+  text-align: center;
   background: #ffffff;
   margin-top: 10px;
   margin-bottom: 20px;
-  height:250px;
+  height: 250px;
   margin-right: 20px;
   /* width: 200px;; */
- /* position: absolute;  */
- }
-.darkTheme .noteCertificate{
+  /* position: absolute;  */
+}
+.darkTheme .noteCertificate {
   background: #192020;
- }
- .darkTheme .noteCertificate2{
+}
+.darkTheme .noteCertificate2 {
   background: #192020;
   color: #bfc1c1;
- }
-.noteCertificate2{
+}
+.noteCertificate2 {
   border: none;
   outline: none;
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 .workUntil {
-margin-top: 5px !important;
+  margin-top: 5px !important;
 }
 /* @media (max-width: 600px) {
   .setArbtSign {
     margin-top:100% !important;
   }
 } */
- .uploader{
-  border:none;
+.uploader {
+  border: none;
 }
 .browsInput2 {
   /* border: 2px dashed #BFC1C1; */
   border-radius: 4px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   text-align: center;
   justify-content: center;
   align-items: center;
   min-height: 120px;
   display: flex;
-  color: #7F8383;
+  color: #7f8383;
   font-family: Muli;
   font-size: 14px;
   font-weight: 600;
@@ -14951,10 +14943,10 @@ a.joinmeetingtab {
 }
 .infoShwSave2 button {
   border-radius: 8px;
-  background-color: #00ABAF;
-  border: 2px solid #00ABAF;
+  background-color: #00abaf;
+  border: 2px solid #00abaf;
   width: 100%;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Muli;
   font-size: 14px;
   font-weight: bold;
@@ -14966,20 +14958,18 @@ a.joinmeetingtab {
   margin-bottom: 2px;
   outline: none;
   cursor: pointer;
- text-transform: capitalize;
- 
- 
+  text-transform: capitalize;
 }
 .infoShwSave2 button:hover {
   /* background: transparent; */
-  background-color:  #00ABAF;
+  background-color: #00abaf;
 }
 .infoShwSave3 button {
   border-radius: 8px;
-  background-color:red;
+  background-color: red;
   border: 2px solid red;
   width: 100%;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: Muli;
   font-size: 14px;
   font-weight: bold;
@@ -14987,71 +14977,66 @@ a.joinmeetingtab {
   line-height: 16px;
   text-align: center;
   padding: 12px 8px;
- outline: none;
+  outline: none;
   cursor: pointer;
- text-transform: capitalize;
- margin-left: 20px;
- margin-top: 10px;
- 
+  text-transform: capitalize;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 .infoShwSave3 button:hover {
   /* background: transparent; */
-  background-color:  red;
+  background-color: red;
 }
-.infoShwSave3{
+.infoShwSave3 {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.uplodedFile{
+.uplodedFile {
   line-break: anywhere;
 }
-.stampDoctor{
+.stampDoctor {
   border: 2px solid #a12f219c;
   background: #ffffff;
   text-align: center;
   border-radius: 6px;
-  height:100%;
+  height: 100%;
   padding: 30px;
   margin-right: 20px;
   margin-left: 20px;
-  
 }
-.darkTheme .stampDoctor{
- background: #192020;
+.darkTheme .stampDoctor {
+  background: #192020;
 }
-.darkTheme .browsInput2{
-  background: #192020 ;
- }
+.darkTheme .browsInput2 {
+  background: #192020;
+}
 
-.stampDoctor label{
+.stampDoctor label {
   display: block;
   font-style: normal;
   font-weight: 500;
   font-size: 21px;
   line-height: initial;
-line-break: anywhere;
+  line-break: anywhere;
   margin-bottom: 8px;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
   font-size: 15px;
   text-align: center;
- margin-right:2px ;
-  
-  
+  margin-right: 2px;
 }
 
-.spacedistance{
+.spacedistance {
   margin-top: 20px;
- 
 }
 @media (max-width: 600px) {
   .stampDoctor {
-    margin-top:20px !important;
+    margin-top: 20px !important;
   }
 }
 @media (max-width: 600px) {
   .wrkInput {
-    margin-bottom:10px !important;
+    margin-bottom: 10px !important;
   }
 }
 /* @media (max-width: 600px) {
@@ -15059,108 +15044,125 @@ line-break: anywhere;
     margin-top:70%!important;
   }
 } */
-.diablcertificate{
-    font-family: 'Mulish', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 20px;
-
+.diablcertificate {
+  font-family: 'Mulish', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 20px;
 }
 
-@media (max-width:600px){
+@media (max-width: 600px) {
   .MuiGrid-spacing-xs-5 {
-    width: calc(100% + 0px)!important;
+    width: calc(100% + 0px) !important;
     /* margin: -20px; */
+  }
+  .noteCertificate {
+    width: 100%;
+    margin-left: 20px;
+  }
+  .certifyCheck {
+    margin-top: 20px;
+    margin-bottom: 25px;
+  }
+  .wrkInput {
+    margin-right: 20px;
+  }
+  .allDisableSec {
+    display: none;
+  }
+  .diablcertificate {
+    margin-left: 20px;
+  }
 }
-.noteCertificate{
-  width: 100%;
-  margin-left: 20px;
-}
-.certifyCheck{
-  margin-top: 20px;
-  margin-bottom: 25px;
-}
-.wrkInput{
-  margin-right: 20px;
-}
-.allDisableSec{
-  display: none;
-}
-.diablcertificate{
-  margin-left: 20px;
-}
-}
- .darkTheme .cnfrmDiaMain2 {
+.darkTheme .cnfrmDiaMain2 {
   background-color: #404646;
 }
 .darkTheme .certificateBg {
   background: #a0a0871c;
-  
 }
-.darkTheme .stndQues{
-color:white;
+.darkTheme .stndQues {
+  color: white;
 }
 .certificatePrice input {
-margin-left: 20px;
- padding: 6px;
+  margin-left: 20px;
+  padding: 6px;
   text-align: center;
-  font-family: Mulish,sans-serif;
+  font-family: Mulish, sans-serif;
   border-radius: 6px;
-  border:1px solid grey
+  border: 1px solid grey;
 }
 .certificatePrice label {
- font-family: Mulish,sans-serif;
- color: #7f8383;
- font-size: 14px;
- font-weight: bold;
-  
-  }
-  .certificatePrice button{
-    border-radius: 8px;
-    background-color: #00ABAF;
-    border: 2px solid #00ABAF;
-    min-width: 160px;
-    color: #FFFFFF;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: 16px;
-    text-align: center;
-    padding: 12px 8px;
-    margin-bottom: 2px;
-    outline: none;
-    cursor: pointer;
-    margin-left: 10px;
-   text-transform: capitalize;
-  }
- 
-  .certificatePrice button:hover {
-    /* background: transparent; */
-    background-color:  #00ABAF;
-  }
-  .pionter{
-    cursor: pointer;
-  }
-  .certificatePrice img{
-    margin-left: 10px;
-  }
-  .darkTheme .certificatePrice input {
-    background: #192020!important;
+  font-family: Mulish, sans-serif;
+  color: #7f8383;
+  font-size: 14px;
+  font-weight: bold;
+}
+.certificatePrice button {
+  border-radius: 8px;
+  background-color: #00abaf;
+  border: 2px solid #00abaf;
+  min-width: 160px;
+  color: #ffffff;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 16px;
+  text-align: center;
+  padding: 12px 8px;
+  margin-bottom: 2px;
+  outline: none;
+  cursor: pointer;
+  margin-left: 10px;
+  text-transform: capitalize;
 }
 
-.darkTheme input[type=date]{
-  background-color:#192020!important;
+.certificatePrice button:hover {
+  /* background: transparent; */
+  background-color: #00abaf;
+}
+.pionter {
+  cursor: pointer;
+}
+.certificatePrice img {
+  margin-left: 10px;
+}
+.darkTheme .certificatePrice input {
+  background: #192020 !important;
 }
 
-@media (max-width: 500px){
-  .deleteStep{
+.darkTheme input[type='date'] {
+  background-color: #192020 !important;
+}
+
+.euroamount {
+  position: absolute;
+  top: 171px;
+  left: 486px;
+  color: grey;
+  font-weight: 600;
+}
+
+@media (max-width: 500px) {
+  .deleteStep {
     width: 100% !important;
-      
-    }
-  
   }
- 
+}
+.infoShwSave3 input {
+  width: 100%;
+}
 
- 
+@media screen and (min-width: 1425px) and (max-width: 1470px) {
+  .revwFiles {
+    margin-right: 30px;
+  }
+}
+@media screen and (min-width: 1401px) and (max-width: 1470px) {
+  .attchNoteUpr {
+    margin-left: 20%;
+  }
+  .allInfoRght {
+    margin-right: 50px;
+  }
+}

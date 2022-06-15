@@ -203,3 +203,21 @@ export const EditService = (data, current) => {
   var deep = _.cloneDeep(data);
   current.setState({ updateTrack: deep, openServ: true });
 };  
+
+
+
+export const  getAmount = (current) => {
+  current.setState({ loaderImage: true });
+ axios
+    .get(
+      sitedata.data.path + "/vactive/GetAmount/" + current.props?.House?.value,
+      commonHeader(current.props.stateLoginValueAim.token)
+    )
+    .then((responce) => {
+      if (responce.data.hassuccessed && responce.data.data) {
+      let data=responce.data.data
+        current.setState({ sickamount1:{amount:data} });
+      }
+      current.setState({ loaderImage: false });
+    });
+};
