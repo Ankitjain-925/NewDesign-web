@@ -35,8 +35,7 @@ import {
   EditService,
   onFieldChange,
   searchFilter,
-  getAmount
-
+  getAmount,
 } from './api';
 import { getLanguage } from 'translations/index';
 
@@ -57,8 +56,7 @@ class Index extends Component {
       errorMsg: '',
       SearchValue: '',
       sickamount: true,
-      sickamount1: {}
-
+      sickamount1: {},
     };
   }
 
@@ -79,9 +77,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === 'dark'
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -116,9 +114,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === 'dark'
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -149,35 +147,31 @@ class Index extends Component {
     this.setState({ sickamount1: state });
   };
 
-  EditAmount=() =>{
-  let translate = getLanguage(this.props.stateLanguageType);
-  let {  Something_went_wrong 
-  } = translate;
-  var a= this.state.sickamount1.amount
-  axios
-    .put(
-      sitedata.data.path + '/vactive/AddAmount/' + this.props.House.value,
-      { sickleave_certificate_amount:a },
-      commonHeader(this.props.stateLoginValueAim.token)
-    )
-    .then((responce) => {
-      this.setState({ loaderImage: false });
-      if (responce.data.hassuccessed) {
-          this.setState({ sickamount: true })
-       } else {
-        this.setState({ errorMsg: Something_went_wrong });
-      }
-    });
-}
-  onSickamount= (e) => {
-   if (e.key === "Enter") {
+  EditAmount = () => {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let { Something_went_wrong } = translate;
+    var a = this.state.sickamount1.amount;
+    axios
+      .put(
+        sitedata.data.path + '/vactive/AddAmount/' + this.props.House.value,
+        { sickleave_certificate_amount: a },
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        this.setState({ loaderImage: false });
+        if (responce.data.hassuccessed) {
+          this.setState({ sickamount: true });
+        } else {
+          this.setState({ errorMsg: Something_went_wrong });
+        }
+      });
+  };
+  onSickamount = (e) => {
+    if (e.key === 'Enter') {
       this.EditAmount();
       // this.setState({ sickamount: true });
     }
-  
-  
   };
-
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
@@ -219,9 +213,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === 'dark'
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -261,9 +255,9 @@ class Index extends Component {
                             onClose={() => handleCloseServ(this)}
                             className={
                               this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === 'dark'
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === 'dark'
                                 ? 'darkTheme addSpeclModel'
                                 : 'addSpeclModel'
                             }
@@ -271,13 +265,13 @@ class Index extends Component {
                             <Grid
                               className={
                                 this.props.settings &&
-                                  this.props.settings.setting &&
-                                  this.props.settings.setting.mode &&
-                                  this.props.settings.setting.mode === 'dark'
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === 'dark'
                                   ? 'darkTheme addSpeclContnt'
                                   : 'addServContnt'
                               }
-                            // className="addServContnt"
+                              // className="addServContnt"
                             >
                               <Grid className="addSpeclContntIner">
                                 <Grid className="addSpeclLbl">
@@ -386,14 +380,22 @@ class Index extends Component {
                       <Grid container direction="row" alignItems="center">
                         {console.log('hello', this.state.sickamount)}
                         <Grid item xs={12} md={12}>
-                          <Grid className='certificatePrice'>
+                          <Grid className="certificatePrice">
                             <a>
                               <label>Sick Certificate Amount</label>
 
-                              <input type="text" onKeyDown={this.onSickamount} placeholder="" name="amount" disabled={this.state.sickamount} onChange={(e) => this.updateEntryState2(e)} value={this.state.sickamount1.amount} />
-                           
+                              <input
+                                type="text"
+                                onKeyDown={this.onSickamount}
+                                placeholder=""
+                                name="amount"
+                                disabled={this.state.sickamount}
+                                onChange={(e) => this.updateEntryState2(e)}
+                                value={this.state.sickamount1.amount}
+                              />
+
                               <img
-                                className='pionter'
+                                className="pionter"
                                 src={require('assets/virtual_images/pencil-1.svg')}
                                 alt=""
                                 title=""
@@ -403,12 +405,11 @@ class Index extends Component {
                                   });
                                 }}
                               />
-                               <p className='euroamount'>€</p>
+                              <p className="euroamount">€</p>
                             </a>
                           </Grid>
-
                         </Grid>
-                        </Grid>
+                      </Grid>
                     </Grid>
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">

@@ -307,7 +307,13 @@ export default class QuoteItem extends React.Component {
             </Grid>
           </Grid>
         ) : (
-          <Grid className={  !quote?.verifiedbyPatient ? 'cardioAreaUpr disabledCrd' : 'cardioAreaUpr'}>
+          <Grid
+            className={
+              !quote?.verifiedbyPatient
+                ? 'cardioAreaUpr disabledCrd'
+                : 'cardioAreaUpr'
+            }
+          >
             <Grid
               container
               direction="row"
@@ -315,11 +321,11 @@ export default class QuoteItem extends React.Component {
               alignItems="center"
             >
               <Grid item xs={12} md={7}>
-              {!quote?.verifiedbyPatient && (
-                      <span className="err_message">
-                        For processing need approval from patient
-                      </span>
-                    )}
+                {!quote?.verifiedbyPatient && (
+                  <span className="err_message">
+                    For processing need approval from patient
+                  </span>
+                )}
                 <Grid
                   container
                   direction="row"

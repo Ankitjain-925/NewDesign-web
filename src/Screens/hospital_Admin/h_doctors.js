@@ -114,7 +114,9 @@ class Index extends Component {
   };
 
   componentDidMount = () => {
-    socket.on('connection', () => {});
+    socket.on('connection', () => {
+      console.log('124');
+    });
 
     this.getAllkyc();
     this.getDoctors();

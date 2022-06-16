@@ -1,52 +1,56 @@
 /*global google*/
-import TextField from "@material-ui/core/TextField";
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import Select from "react-select";
+import TextField from '@material-ui/core/TextField';
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Select from 'react-select';
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
-import ReactFlagsSelect from "react-flags-select";
-import sitedata from "sitedata";
-import axios from "axios";
-import { withRouter } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { connect } from "react-redux";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import npmCountryList from "react-select-country-list";
-import FileUploader from "Screens/Components/FileUploader/index";
-import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
-import * as AustraliaC from "Screens/Components/insuranceCompanies/australia.json";
-import * as AustriaC from "Screens/Components/insuranceCompanies/austria.json";
-import * as NetherlandC from "Screens/Components/insuranceCompanies/dutch.json";
-import * as GermanC from "Screens/Components/insuranceCompanies/german.json";
-import * as PhillipinesC from "Screens/Components/insuranceCompanies/phillippines.json";
-import * as SwitzerlandC from "Screens/Components/insuranceCompanies/switzerland.json";
-import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
-import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
-import { LanguageFetchReducer } from "Screens/actions";
-import { getLanguage } from "translations/index"
-import { update_CometUser } from "Screens/Components/CommonApi/index";
-import Loader from "Screens/Components/Loader/index";
-import DateFormat from "Screens/Components/DateFormat/index";
-import Autocomplete from "Screens/Components/Autocomplete/index.js";
-import Modal from "@material-ui/core/Modal";
-import { subspeciality } from "subspeciality.js";
+import ReactFlagsSelect from 'react-flags-select';
+import sitedata from 'sitedata';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { connect } from 'react-redux';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import npmCountryList from 'react-select-country-list';
+import FileUploader from 'Screens/Components/FileUploader/index';
+import {
+  GetUrlImage1,
+  blobToFile,
+  resizeFile,
+} from 'Screens/Components/BasicMethod/index';
+import * as AustraliaC from 'Screens/Components/insuranceCompanies/australia.json';
+import * as AustriaC from 'Screens/Components/insuranceCompanies/austria.json';
+import * as NetherlandC from 'Screens/Components/insuranceCompanies/dutch.json';
+import * as GermanC from 'Screens/Components/insuranceCompanies/german.json';
+import * as PhillipinesC from 'Screens/Components/insuranceCompanies/phillippines.json';
+import * as SwitzerlandC from 'Screens/Components/insuranceCompanies/switzerland.json';
+import * as AmericaC from 'Screens/Components/insuranceCompanies/us.json';
+import * as ThailandC from 'Screens/Components/insuranceCompanies/thailand.json';
+import { LanguageFetchReducer } from 'Screens/actions';
+import { getLanguage } from 'translations/index';
+import { update_CometUser } from 'Screens/Components/CommonApi/index';
+import Loader from 'Screens/Components/Loader/index';
+import DateFormat from 'Screens/Components/DateFormat/index';
+import Autocomplete from 'Screens/Components/Autocomplete/index.js';
+import Modal from '@material-ui/core/Modal';
+import { subspeciality } from 'subspeciality.js';
 import _ from 'lodash';
-import SPECIALITY from "speciality";
-import { OptionList } from "Screens/Login/metadataaction";
+import SPECIALITY from 'speciality';
+import { OptionList } from 'Screens/Login/metadataaction';
 import {
   GetLanguageDropdown,
   GetShowLabel12,
-} from "Screens/Components/GetMetaData/index.js";
-import QRCode from "qrcode.react";
-import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
-import contry from "Screens/Components/countryBucket/countries.json";
+} from 'Screens/Components/GetMetaData/index.js';
+import QRCode from 'qrcode.react';
+import { commonHeader, commonCometHeader } from 'component/CommonHeader/index';
+import contry from 'Screens/Components/countryBucket/countries.json';
 
 const options = [
-  { value: "Mr", label: "Mr." },
-  { value: "Mrs", label: "Mrs." },
+  { value: 'Mr', label: 'Mr.' },
+  { value: 'Mrs', label: 'Mrs.' },
 ];
 var datas = [];
 
@@ -59,16 +63,16 @@ class Index extends Component {
     this.filterList = this.filterList.bind(this);
     this.state = {
       date: new Date(),
-      labelWidth: "",
-      gender: "",
+      labelWidth: '',
+      gender: '',
       language: [],
       userDetails: [],
       weoffer: [],
       language: [],
       speciality: [],
-      uploadedimage: "",
-      file: "",
-      imagePreviewUrl: "",
+      uploadedimage: '',
+      file: '',
+      imagePreviewUrl: '',
       genderdata: [],
       languageData: [],
       specialityData: [],
@@ -87,22 +91,22 @@ class Index extends Component {
       name_multidiscard: [],
       passwordDetails: [],
       loaderImage: false,
-      regisError1: "",
-      regisError2: "",
-      city: "",
-      area: "",
+      regisError1: '',
+      regisError2: '',
+      city: '',
+      area: '',
       allDocData: {},
       insuranceArray: {},
       moreone: false,
-      profile_id: "",
+      profile_id: '',
       selectCountry: [],
-      flag_fax: "DE",
-      flag_phone: "DE",
-      flag_mobile: "DE",
-      flag_emergency_number: "DE",
-      mobile: "",
-      phone: "",
-      fax: "",
+      flag_fax: 'DE',
+      flag_phone: 'DE',
+      flag_mobile: 'DE',
+      flag_emergency_number: 'DE',
+      mobile: '',
+      phone: '',
+      fax: '',
       updateIns: -1,
       error3: false,
       error4: false,
@@ -119,12 +123,12 @@ class Index extends Component {
       editInsuranceOpen: false,
       editInsuData: {},
       insurnanceAdded: false,
-      selectedCountry: "",
-      q: "",
+      selectedCountry: '',
+      q: '',
       filteredCompany: [],
       editIndex: null,
       toSmall1: false,
-      UpDataDetails1: {}
+      UpDataDetails1: {},
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -132,7 +136,7 @@ class Index extends Component {
   // On change the Birthday
   onChange = (date) => {
     const state = this.state.UpDataDetails;
-    state["birthday"] = date;
+    state['birthday'] = date;
     this.setState({ UpDataDetails: state });
   };
 
@@ -151,14 +155,14 @@ class Index extends Component {
     /*---location---*/
     this.city = new google.maps.places.Autocomplete(
       this.autocompleteInput.current,
-      { types: ["geocode"] }
+      { types: ['geocode'] }
     );
-    this.city.addListener("place_changed", this.handlePlaceChanged);
+    this.city.addListener('place_changed', this.handlePlaceChanged);
   }
 
   //For upload the Profile pic
   fileUpload = async (event, filed_name) => {
-    if (event[0].type === "image/jpeg" || event[0].type === "image/png") {
+    if (event[0].type === 'image/jpeg' || event[0].type === 'image/png') {
       this.setState({ loaderImage: true });
       // let reader = new FileReader();
       let file = event[0];
@@ -174,30 +178,30 @@ class Index extends Component {
       // };
       // let user_token = this.props.stateLoginValueAim.token;
       // reader.readAsDataURL(file);
-      let fileParts = event[0].name.split(".");
+      let fileParts = event[0].name.split('.');
       let fileName = fileParts[0];
       let fileType = fileParts[1];
       const compressedFile = await resizeFile(file);
 
-      var data = blobToFile(compressedFile, file.name)
+      var data = blobToFile(compressedFile, file.name);
       axios
-        .post(sitedata.data.path + "/aws/sign_s3", {
+        .post(sitedata.data.path + '/aws/sign_s3', {
           fileName: data.name,
           fileType: fileType,
-          folders: this.props.stateLoginValueAim.user.profile_id + "/",
+          folders: this.props.stateLoginValueAim.user.profile_id + '/',
           bucket: this.props.stateLoginValueAim.user.bucket,
         })
         .then((response) => {
           var returnData = response.data.data.returnData;
           var signedRequest = returnData.signedRequest;
           var url = returnData.url;
-          if (fileType === "pdf") {
-            fileType = "application/pdf";
+          if (fileType === 'pdf') {
+            fileType = 'application/pdf';
           }
           // Put the fileType in the headers for the upload
           var options = {
             headers: {
-              "Content-Type": fileType,
+              'Content-Type': fileType,
             },
           };
           axios
@@ -207,7 +211,7 @@ class Index extends Component {
                 {
                   uploadedimage:
                     response.data.data.returnData.url +
-                    "&bucket=" +
+                    '&bucket=' +
                     this.props.stateLoginValueAim.user.bucket,
                   loaderImage: false,
                 },
@@ -216,11 +220,11 @@ class Index extends Component {
                 }
               );
             })
-            .catch((error) => { });
+            .catch((error) => {});
         })
-        .catch((error) => { });
+        .catch((error) => {});
     } else {
-      let translate = getLanguage(this.props.stateLanguageType)
+      let translate = getLanguage(this.props.stateLanguageType);
       let { plz_upload_png_jpeg, ok } = translate;
       confirmAlert({
         customUI: ({ onClose }) => {
@@ -228,10 +232,10 @@ class Index extends Component {
             <div
               className={
                 this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode === "dark"
-                  ? "dark-confirm react-confirm-alert-body"
-                  : "react-confirm-alert-body"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === 'dark'
+                  ? 'dark-confirm react-confirm-alert-body'
+                  : 'react-confirm-alert-body'
               }
             >
               <h1>{plz_upload_png_jpeg}</h1>
@@ -252,48 +256,52 @@ class Index extends Component {
   };
 
   OnMobileCodeChange = (event) => {
-    let translate = getLanguage(this.props.languageType)
+    let translate = getLanguage(this.props.languageType);
     let { change_citizenship, Yes, No } = translate;
     confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <div
-              className={
-               this.props.settings &&
-               this.props.settings.setting &&
-               this.props.settings.setting.mode === "dark"
-                  ? "dark-confirm react-confirm-alert-body"
-                  : "react-confirm-alert-body"
-              }
-            >
-              <h1>{change_citizenship}</h1>
-              <div className="react-confirm-alert-button-group">
-                <button
-                  onClick={() => {
-                    var state = this.state.UpDataDetails;
-                    var data = this.state.selectCountry?.length>0 && this.state.selectCountry.filter((item)=>item.value === event)
-                    if(data?.length>0){
-                    state["citizen_country"] = data[0];
-                    this.setState({UpDataDetails : state})
-                    }
-                    onClose();
-                  }}
-                >
-                  {Yes}
-                </button>
-                <button
-                  onClick={() => {
-                    onClose();
-                  }}
-                >
-                  {No}
-                </button>
-              </div>
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'dark-confirm react-confirm-alert-body'
+                : 'react-confirm-alert-body'
+            }
+          >
+            <h1>{change_citizenship}</h1>
+            <div className="react-confirm-alert-button-group">
+              <button
+                onClick={() => {
+                  var state = this.state.UpDataDetails;
+                  var data =
+                    this.state.selectCountry?.length > 0 &&
+                    this.state.selectCountry.filter(
+                      (item) => item.value === event
+                    );
+                  if (data?.length > 0) {
+                    state['citizen_country'] = data[0];
+                    this.setState({ UpDataDetails: state });
+                  }
+                  onClose();
+                }}
+              >
+                {Yes}
+              </button>
+              <button
+                onClick={() => {
+                  onClose();
+                }}
+              >
+                {No}
+              </button>
             </div>
-          );
-        },
-      });
-}
+          </div>
+        );
+      },
+    });
+  };
 
   //FOR UPLOADING THE IMAGE
   saveUserData1 = () => {
@@ -301,7 +309,7 @@ class Index extends Component {
     const user_token = this.props.stateLoginValueAim.token;
     axios
       .put(
-        sitedata.data.path + "/UserProfile/Users/updateImage",
+        sitedata.data.path + '/UserProfile/Users/updateImage',
         {
           image: this.state.uploadedimage,
         },
@@ -310,15 +318,18 @@ class Index extends Component {
       .then((responce) => {
         axios
           .put(
-            "https://api-eu.cometchat.io/v2.0/users/" +
-            this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
+            'https://api-eu.cometchat.io/v2.0/users/' +
+              this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
             {
               avatar: this.state.uploadedimage,
             },
             commonCometHeader()
           )
           .then((res) => {
-            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
+            var data = update_CometUser(
+              this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+              res.data.data
+            );
           });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
@@ -328,10 +339,10 @@ class Index extends Component {
   //For setting the image
   SettingImage = (find) => {
     if (find) {
-      find = find.split(".com/")[1];
+      find = find.split('.com/')[1];
 
       axios
-        .get(sitedata.data.path + "/aws/sign_s3?find=" + find)
+        .get(sitedata.data.path + '/aws/sign_s3?find=' + find)
         .then((response) => {
           if (response.data.hassuccessed) {
             this.setState({ image: response.data.data });
@@ -360,11 +371,11 @@ class Index extends Component {
   copyText = (copyT) => {
     this.setState({ copied: false });
     var copyText = document.getElementById(copyT);
-    var textArea = document.createElement("textarea");
+    var textArea = document.createElement('textarea');
     textArea.value = copyText.textContent;
     document.body.appendChild(textArea);
     textArea.select();
-    document.execCommand("Copy");
+    document.execCommand('Copy');
     textArea.remove();
     this.setState({ copied: true });
     setTimeout(() => {
@@ -374,22 +385,22 @@ class Index extends Component {
 
   //For update the mobile number
   updateMOBILE = (str) => {
-    if (!str || str === "undefined" || str === null || str === "") {
+    if (!str || str === 'undefined' || str === null || str === '') {
       return str;
     } else {
-      var mob = str && str.split("-");
+      var mob = str && str.split('-');
       return mob.pop();
     }
   };
 
   // fOR update the flag of mobile
   updateFLAG = (str) => {
-    var mob = str && str.split("-");
+    var mob = str && str.split('-');
     if (mob && mob.length > 0) {
       if (mob[0] && mob[0].length == 2) {
         return mob[0];
       } else {
-        return "DE";
+        return 'DE';
       }
     }
   };
@@ -397,21 +408,21 @@ class Index extends Component {
   //Update the states
   updateEntryState1 = (e) => {
     const state = this.state.UpDataDetails;
-    if (e.target.name === "mobile") {
-      state[e.target.name] = this.state.flag_mobile + "-" + e.target.value;
+    if (e.target.name === 'mobile') {
+      state[e.target.name] = this.state.flag_mobile + '-' + e.target.value;
       this.setState({ mobile: e.target.value });
     }
-    if (e.target.name === "fax") {
-      state[e.target.name] = this.state.flag_fax + "-" + e.target.value;
+    if (e.target.name === 'fax') {
+      state[e.target.name] = this.state.flag_fax + '-' + e.target.value;
       this.setState({ fax: e.target.value });
     }
-    if (e.target.name === "phone") {
-      state[e.target.name] = this.state.flag_phone + "-" + e.target.value;
+    if (e.target.name === 'phone') {
+      state[e.target.name] = this.state.flag_phone + '-' + e.target.value;
       this.setState({ phone: e.target.value });
     }
-    if (e.target.name === "emergency_number") {
+    if (e.target.name === 'emergency_number') {
       state[e.target.name] =
-        this.state.flag_emergency_number + "-" + e.target.value;
+        this.state.flag_emergency_number + '-' + e.target.value;
       this.setState({ phone: e.target.value });
     }
     this.setState({ UpDataDetails: state });
@@ -427,7 +438,10 @@ class Index extends Component {
 
   //for open the Change profile Dialog
   handlePinOpen = () => {
-    this.setState({ chngPinOpen: true, UpDataDetails1:  _.cloneDeep(this.state.UpDataDetails) });
+    this.setState({
+      chngPinOpen: true,
+      UpDataDetails1: _.cloneDeep(this.state.UpDataDetails),
+    });
   };
   handlePinClose = (key) => {
     this.setState({ [key]: false });
@@ -437,28 +451,28 @@ class Index extends Component {
   onSelectDegree(event) {
     this.setState({ title: event });
     const state = this.state.UpDataDetails;
-    state["title"] = event.label;
+    state['title'] = event.label;
     this.setState({ UpDataDetails: state });
   }
 
   //For update the flags
   updateFlags = (e, name) => {
     const state = this.state.UpDataDetails;
-    if (name === "flag_mobile") {
-      state["mobile"] = e + "-" + this.state.mobile;
+    if (name === 'flag_mobile') {
+      state['mobile'] = e + '-' + this.state.mobile;
       this.setState({ flag_mobile: e });
     }
-    if (name === "flag_fax") {
-      state["fax"] = e + "-" + this.state.fax;
+    if (name === 'flag_fax') {
+      state['fax'] = e + '-' + this.state.fax;
       this.setState({ flag_fax: e });
     }
 
-    if (name === "flag_phone") {
-      state["phone"] = e + "-" + this.state.phone;
+    if (name === 'flag_phone') {
+      state['phone'] = e + '-' + this.state.phone;
       this.setState({ flag_phone: e });
     }
-    if (name === "flag_emergency_number") {
-      state["emergency_number"] = e + "-" + this.state.phone;
+    if (name === 'flag_emergency_number') {
+      state['emergency_number'] = e + '-' + this.state.phone;
       this.setState({ flag_emergency_number: e });
     }
     this.setState({ UpDataDetails: state });
@@ -470,7 +484,7 @@ class Index extends Component {
     this.setState({ city: place.formatted_address });
     this.setState({
       area: {
-        type: "Point",
+        type: 'Point',
         coordinates: [
           place.geometry.location.lng(),
           place.geometry.location.lat(),
@@ -488,10 +502,9 @@ class Index extends Component {
 
   //For getting the dropdowns from the database
   getMetadata() {
-    this.setState({ allMetadata: this.props.metadata },
-      () => {
-        this.GetLanguageMetadata();
-      })
+    this.setState({ allMetadata: this.props.metadata }, () => {
+      this.GetLanguageMetadata();
+    });
     // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
     //   if (responce && responce.data && responce.data.length > 0) {
     //     this.setState({ allMetadata: responce.data[0] });
@@ -503,9 +516,9 @@ class Index extends Component {
   GetLanguageMetadata = () => {
     var Allgender = GetLanguageDropdown(
       this.state.allMetadata &&
-      this.state.allMetadata.gender &&
-      this.state.allMetadata.gender.length > 0 &&
-      this.state.allMetadata.gender,
+        this.state.allMetadata.gender &&
+        this.state.allMetadata.gender.length > 0 &&
+        this.state.allMetadata.gender,
       this.props.stateLanguageType
     );
     this.setState(
@@ -519,7 +532,7 @@ class Index extends Component {
         specialityData: GetLanguageDropdown(
           SPECIALITY.speciality.english,
           this.props.stateLanguageType,
-          "speciality"
+          'speciality'
         ),
         title_degreeData:
           this.state.allMetadata &&
@@ -529,7 +542,7 @@ class Index extends Component {
         subspecialityData: GetLanguageDropdown(
           subspeciality.english,
           this.props.stateLanguageType,
-          "subspeciality"
+          'subspeciality'
         ),
       },
       () => {
@@ -555,7 +568,10 @@ class Index extends Component {
   alldoctor() {
     const user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsers", commonHeader(user_token))
+      .get(
+        sitedata.data.path + '/UserProfile/DoctorUsers',
+        commonHeader(user_token)
+      )
       .then((response) => {
         this.setState({ allDocData: response.data.data });
       });
@@ -564,15 +580,15 @@ class Index extends Component {
   //For change the language and the Speciality
   handleChange_multi = (event, name) => {
     const state = this.state.UpDataDetails;
-    if (name == "languages") {
+    if (name == 'languages') {
       this.setState({ name_multi: event });
-      state["language"] =
+      state['language'] =
         event && Array.prototype.map.call(event, (s) => s.value);
     }
-    if (name == "speciality") {
+    if (name == 'speciality') {
       this.setState({ speciality_multi: event });
     }
-    if (name == "subspeciality") {
+    if (name == 'subspeciality') {
       this.setState({ subspeciality_multi: event });
     }
     this.setState({ UpDataDetails: state });
@@ -601,9 +617,9 @@ class Index extends Component {
     });
     this.setState({
       insuranceDetails: {
-        insurance: "",
-        insurance_type: "",
-        insurance_number: "",
+        insurance: '',
+        insurance_type: '',
+        insurance_number: '',
       },
     });
     this.setState({ moreone: true });
@@ -612,136 +628,147 @@ class Index extends Component {
   //Save the User profile
   saveUserData = () => {
     const { UpDataDetails } = this.state;
-    if(this.state.UpDataDetails?.citizen_country?.value){
-    if (
-      this.state.insuranceDetails.insurance !== "" &&
-      this.state.insuranceDetails.insurance_number !== "" &&
-      this.state.insuranceDetails.insurance_country !== ""
-    ) {
+    if (this.state.UpDataDetails?.citizen_country?.value) {
       if (
-        datas.some(
-          (data) => data.insurance === this.state.insuranceDetails.insurance
-        )
+        this.state.insuranceDetails.insurance !== '' &&
+        this.state.insuranceDetails.insurance_number !== '' &&
+        this.state.insuranceDetails.insurance_country !== ''
       ) {
-      } else {
-        datas.push(this.state.insuranceDetails);
-        this.setState({ insurancefull: datas });
-      }
-    }
-    if (
-      this.state.flag_emergency_number &&
-      this.state.flag_emergency_number === "" &&
-      this.state.flag_emergency_number === "undefined"
-    ) {
-      this.setState({ flag_emergency_number: "DE" });
-    }
-    if (
-      this.state.flag_mobile &&
-      this.state.flag_mobile === "" &&
-      this.state.flag_mobile === "undefined"
-    ) {
-      this.setState({ flag_mobile: "DE" });
-    }
-    if (
-      this.state.flag_phone &&
-      this.state.flag_phone === "" &&
-      this.state.flag_phone === "undefined"
-    ) {
-      this.setState({ flag_phone: "DE" });
-    }
-    if (
-      this.state.flag_fax &&
-      this.state.flag_fax === "" &&
-      this.state.flag_fax === "undefined"
-    ) {
-      this.setState({ flag_fax: "DE" });
-    }
-    this.setState({ loaderImage: true, phonevalidate: false });
-    this.setState({ regisError1: "" });
-    this.setState({ regisError2: "" });
-    const user_token = this.props.stateLoginValueAim.token;
-    this.setState({
-      insuranceDetails: {
-        insurance: "",
-        insurance_number: "",
-        insurance_country: "",
-      },
-    });
-    var parent_id = UpDataDetails.parent_id ? UpDataDetails.parent_id : "0";
-    var tocheckWith = UpDataDetails?.citizen_country || this?.state?.flag_mobile;
-   
-    var getBucket =contry && contry.length > 0 && contry.filter((value, key) => value.code === tocheckWith?.value.toUpperCase());
-    axios
-      .put(
-        sitedata.data.path + "/UserProfile/Users/update",
-        {
-          first_name: UpDataDetails.first_name,
-          last_name: UpDataDetails.last_name,
-          title: UpDataDetails.title,
-          birthday: UpDataDetails.birthday,
-          language: UpDataDetails.language,
-          speciality: this.state.speciality_multi,
-          subspeciality: this.state.subspeciality_multi,
-          phone: UpDataDetails.phone,
-          mobile: UpDataDetails.mobile,
-          fax: UpDataDetails.fax,
-          sex: UpDataDetails.sex,
-          street: UpDataDetails.street,
-          city: this.state.city,
-          area: this.state.area,
-          address: UpDataDetails.address,
-          country: UpDataDetails.country,
-          citizen_country: UpDataDetails.citizen_country,
-          pastal_code: UpDataDetails.pastal_code,
-          bucket: getBucket[0].bucket,
-          country_code:UpDataDetails?.citizen_country?.value || this?.state?.flag_mobile
-        },
-        commonHeader(user_token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.setState({
-            editInsuranceOpen: false,
-            addInsuranceOpen: false,
-            succUpdate: true,
-            insuranceDetails: {
-              insurance: "",
-              insurance_number: "",
-              insurance_country: "",
-            },
-          });
-          this.setState({ loaderImage: false });
-          setTimeout(() => {
-            this.setState({ succUpdate: false });
-          }, 5000);
-          this.getUserData();
-          axios
-            .put(
-              "https://api-eu.cometchat.io/v2.0/users/" +
-              this.state.profile_id.toLowerCase(),
-              {
-                name: UpDataDetails.first_name + " " + UpDataDetails.last_name,
-              },
-              commonCometHeader()
-            )
-            .then((res) => {
-              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
-            });
+        if (
+          datas.some(
+            (data) => data.insurance === this.state.insuranceDetails.insurance
+          )
+        ) {
         } else {
-          this.setState({ loaderImage: false });
-          if (responce.data.message === "Phone is not verified") {
-            this.setState({ phonevalidate: true });
-          }
-          this.setState({ error3: true });
-          setTimeout(() => {
-            this.setState({ error3: false });
-          }, 5000);
+          datas.push(this.state.insuranceDetails);
+          this.setState({ insurancefull: datas });
         }
+      }
+      if (
+        this.state.flag_emergency_number &&
+        this.state.flag_emergency_number === '' &&
+        this.state.flag_emergency_number === 'undefined'
+      ) {
+        this.setState({ flag_emergency_number: 'DE' });
+      }
+      if (
+        this.state.flag_mobile &&
+        this.state.flag_mobile === '' &&
+        this.state.flag_mobile === 'undefined'
+      ) {
+        this.setState({ flag_mobile: 'DE' });
+      }
+      if (
+        this.state.flag_phone &&
+        this.state.flag_phone === '' &&
+        this.state.flag_phone === 'undefined'
+      ) {
+        this.setState({ flag_phone: 'DE' });
+      }
+      if (
+        this.state.flag_fax &&
+        this.state.flag_fax === '' &&
+        this.state.flag_fax === 'undefined'
+      ) {
+        this.setState({ flag_fax: 'DE' });
+      }
+      this.setState({ loaderImage: true, phonevalidate: false });
+      this.setState({ regisError1: '' });
+      this.setState({ regisError2: '' });
+      const user_token = this.props.stateLoginValueAim.token;
+      this.setState({
+        insuranceDetails: {
+          insurance: '',
+          insurance_number: '',
+          insurance_country: '',
+        },
       });
+      var parent_id = UpDataDetails.parent_id ? UpDataDetails.parent_id : '0';
+      var tocheckWith =
+        UpDataDetails?.citizen_country || this?.state?.flag_mobile;
+
+      var getBucket =
+        contry &&
+        contry.length > 0 &&
+        contry.filter(
+          (value, key) => value.code === tocheckWith?.value.toUpperCase()
+        );
+      axios
+        .put(
+          sitedata.data.path + '/UserProfile/Users/update',
+          {
+            first_name: UpDataDetails.first_name,
+            last_name: UpDataDetails.last_name,
+            title: UpDataDetails.title,
+            birthday: UpDataDetails.birthday,
+            language: UpDataDetails.language,
+            speciality: this.state.speciality_multi,
+            subspeciality: this.state.subspeciality_multi,
+            phone: UpDataDetails.phone,
+            mobile: UpDataDetails.mobile,
+            fax: UpDataDetails.fax,
+            sex: UpDataDetails.sex,
+            street: UpDataDetails.street,
+            city: this.state.city,
+            area: this.state.area,
+            address: UpDataDetails.address,
+            country: UpDataDetails.country,
+            citizen_country: UpDataDetails.citizen_country,
+            pastal_code: UpDataDetails.pastal_code,
+            bucket: getBucket[0].bucket,
+            country_code:
+              UpDataDetails?.citizen_country?.value || this?.state?.flag_mobile,
+          },
+          commonHeader(user_token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            this.setState({
+              editInsuranceOpen: false,
+              addInsuranceOpen: false,
+              error4: false,
+              succUpdate: true,
+              insuranceDetails: {
+                insurance: '',
+                insurance_number: '',
+                insurance_country: '',
+              },
+            });
+            this.setState({ loaderImage: false });
+            setTimeout(() => {
+              this.setState({ succUpdate: false });
+            }, 5000);
+            this.getUserData();
+            axios
+              .put(
+                'https://api-eu.cometchat.io/v2.0/users/' +
+                  this.state.profile_id.toLowerCase(),
+                {
+                  name:
+                    UpDataDetails.first_name + ' ' + UpDataDetails.last_name,
+                },
+                commonCometHeader()
+              )
+              .then((res) => {
+                var data = update_CometUser(
+                  this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(),
+                  res.data.data
+                );
+              });
+          } else {
+            this.setState({ loaderImage: false });
+            if (responce.data.message === 'Phone is not verified') {
+              this.setState({ phonevalidate: true });
+            }
+            this.setState({ error3: true });
+            setTimeout(() => {
+              this.setState({ error3: false });
+            }, 5000);
+          }
+        });
+    } else {
+      this.setState({ error4: true });
     }
-    else{
-      this.setState({error4: true});
-  }
   };
 
   // Check the Alies is duplicate or not
@@ -749,7 +776,7 @@ class Index extends Component {
     const state = this.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
     this.setState({ UpDataDetails1: state });
-    if (e.target.value.length > 3 && e.target.value !== "") {
+    if (e.target.value.length > 3 && e.target.value !== '') {
       this.setState({ toSmall1: false });
     } else {
       this.setState({ toSmall1: true });
@@ -767,7 +794,7 @@ class Index extends Component {
       const user_token = this.props.stateLoginValueAim.token;
       axios
         .put(
-          sitedata.data.path + "/UserProfile/Users/update",
+          sitedata.data.path + '/UserProfile/Users/update',
           {
             pin: this.state.UpDataDetails1.pin,
             alies_id: this.state.UpDataDetails1.alies_id,
@@ -783,7 +810,7 @@ class Index extends Component {
           }
           this.setState({ loaderImage: false });
           this.getUserData();
-          this.handlePinClose("chngPinOpen");
+          this.handlePinClose('chngPinOpen');
         });
     }
   };
@@ -793,14 +820,14 @@ class Index extends Component {
     const state = this.state.UpDataDetails1;
     state[e.target.name] = e.target.value;
     this.setState({ UpDataDetails1: state });
-    if (e.target.value.length > 5 && e.target.value !== "") {
+    if (e.target.value.length > 5 && e.target.value !== '') {
       this.setState({ loaderImage: true, toSmall: false });
       const user_token = this.props.stateLoginValueAim.token;
       axios
         .get(
           sitedata.data.path +
-          "/UserProfile/checkAlies?alies_id=" +
-          e.target.value,
+            '/UserProfile/checkAlies?alies_id=' +
+            e.target.value,
           commonHeader(user_token)
         )
         .then((responce) => {
@@ -833,7 +860,7 @@ class Index extends Component {
 
   //Update Insurance
   updatesinsurances = (keys, e) => {
-    if (e.target.name === "insurance") {
+    if (e.target.name === 'insurance') {
       datas[keys].insurance = e.target.value;
       const q = e.target.value.toLowerCase();
       this.setState({ q }, () =>
@@ -841,7 +868,7 @@ class Index extends Component {
       );
       this.setState({ updateIns: keys });
     }
-    if (e.target.name === "insurance_number") {
+    if (e.target.name === 'insurance_number') {
       datas[keys].insurance_number = e.target.value;
     }
     // if (e.target.name === 'insurance_country') {
@@ -862,7 +889,10 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+      .get(
+        sitedata.data.path + '/UserProfile/Users/' + user_id,
+        commonHeader(user_token)
+      )
       .then((response) => {
         var title = {},
           titlefromD = response.data.data.title;
@@ -870,37 +900,37 @@ class Index extends Component {
           languagefromD = response.data.data.language;
         if (languagefromD && languagefromD.length > 0) {
           languagefromD.map((item) => {
-            language.push({ value: item, label: item.replace(/_/g, " ") });
+            language.push({ value: item, label: item.replace(/_/g, ' ') });
           });
         }
 
-        if (titlefromD && titlefromD !== "") {
+        if (titlefromD && titlefromD !== '') {
           title = { label: titlefromD, value: titlefromD };
         }
 
-        if (response.data.data.mobile && response.data.data.mobile !== "") {
-          let mob = response.data.data.mobile.split("-");
+        if (response.data.data.mobile && response.data.data.mobile !== '') {
+          let mob = response.data.data.mobile.split('-');
           if (mob && mob.length > 0) {
             this.setState({ flag_mobile: mob[0] });
           }
         }
-        if (response.data.data.phone && response.data.data.phone !== "") {
-          let pho = response.data.data.phone.split("-");
+        if (response.data.data.phone && response.data.data.phone !== '') {
+          let pho = response.data.data.phone.split('-');
           if (pho && pho.length > 0) {
             this.setState({ flag_phone: pho[0] });
           }
         }
-        if (response.data.data.fax && response.data.data.fax !== "") {
-          let fx = response.data.data.fax.split("-");
+        if (response.data.data.fax && response.data.data.fax !== '') {
+          let fx = response.data.data.fax.split('-');
           if (fx && fx.length > 0) {
             this.setState({ flag_fax: fx[0] });
           }
         }
         if (
           response.data.data.emergency_number &&
-          response.data.data.emergency_number !== ""
+          response.data.data.emergency_number !== ''
         ) {
-          let fen = response.data.data.emergency_number.split("-");
+          let fen = response.data.data.emergency_number.split('-');
           if (fen && fen.length > 0) {
             this.setState({ flag_emergency_number: fen[0] });
           }
@@ -916,9 +946,9 @@ class Index extends Component {
         this.setState({
           insurancefull: this.state.UpDataDetails.insurance,
           insuranceDetails: {
-            insurance: "",
-            insurance_number: "",
-            insurance_type: "",
+            insurance: '',
+            insurance_number: '',
+            insurance_type: '',
           },
         });
         datas = this.state.UpDataDetails.insurance;
@@ -929,8 +959,18 @@ class Index extends Component {
           response.data.data.speciality,
           response.data.data.subspeciality
         );
-        var forUpdate = {value: true, token: user_token, user: response.data.data}
-        this.props.LoginReducerAim(response.data.data?.email, '', user_token, () => {}, forUpdate);
+        var forUpdate = {
+          value: true,
+          token: user_token,
+          user: response.data.data,
+        };
+        this.props.LoginReducerAim(
+          response.data.data?.email,
+          '',
+          user_token,
+          () => {},
+          forUpdate
+        );
         this.setState({ loaderImage: false });
       })
       .catch((error) => {
@@ -957,7 +997,7 @@ class Index extends Component {
     this.setState({ city: place.formatted_address });
     this.setState({
       area: {
-        type: "Point",
+        type: 'Point',
         coordinates: [
           place.geometry.location.lng(),
           place.geometry.location.lat(),
@@ -965,13 +1005,13 @@ class Index extends Component {
       },
     });
     const state = this.state.UpDataDetails;
-    state["city"] = place.formatted_address;
+    state['city'] = place.formatted_address;
     this.setState({ UpDataDetails: state });
   };
 
   // For update full insurance
   updateInsurancee = (e) => {
-    if (e.target.name === "insurance") {
+    if (e.target.name === 'insurance') {
       const q = e.target.value.toLowerCase();
       this.setState({ q }, () =>
         this.filterList(this.state.insuranceDetails.insurance_country)
@@ -991,7 +1031,7 @@ class Index extends Component {
   //To add Insurance
   insuranceForm = (e) => {
     const state = this.state.insuranceDetails;
-    if (e.target.name == "insurance") {
+    if (e.target.name == 'insurance') {
       const q = e.target.value.toLowerCase();
       this.setState({ q }, () => this.filterList());
     }
@@ -1001,7 +1041,7 @@ class Index extends Component {
 
   selectCountry = (event) => {
     const state = this.state.insuranceDetails;
-    state["insurance_country"] = event.value;
+    state['insurance_country'] = event.value;
     this.setState({ insuranceDetails: state });
     this.setState({ selectedCountry: event });
   };
@@ -1010,28 +1050,28 @@ class Index extends Component {
   filterList() {
     let iCompany;
     switch (this.state.selectedCountry.value) {
-      case "AU":
+      case 'AU':
         iCompany = AustraliaC.australia;
         break;
-      case "AT":
+      case 'AT':
         iCompany = AustriaC.austria;
         break;
-      case "US":
+      case 'US':
         iCompany = AmericaC.us;
         break;
-      case "NL":
+      case 'NL':
         iCompany = NetherlandC.dutch;
         break;
-      case "DE":
+      case 'DE':
         iCompany = GermanC.german;
         break;
-      case "PH":
+      case 'PH':
         iCompany = PhillipinesC.phillippines;
         break;
-      case "CH":
+      case 'CH':
         iCompany = SwitzerlandC.switzerland;
         break;
-      case "TH":
+      case 'TH':
         iCompany = ThailandC.thailand;
         break;
     }
@@ -1044,14 +1084,14 @@ class Index extends Component {
         return companyLower.indexOf(q) != -1;
       });
     this.setState({ filteredCompany: iCompany });
-    if (this.state.q == "") {
+    if (this.state.q == '') {
       this.setState({ filteredCompany: [] });
     }
   }
 
   toggle = (event) => {
     const state = this.state.insuranceDetails;
-    state["insurance"] = event;
+    state['insurance'] = event;
     this.setState({ insuranceDetails: state });
     if (this.state.active === event) {
       this.setState({ active: null });
@@ -1111,7 +1151,7 @@ class Index extends Component {
         );
       });
 
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
       profile_info,
       profile,
@@ -1175,7 +1215,7 @@ class Index extends Component {
       fax_nmbr,
       sub_specilaity,
       profile_qr_code,
-      Chan_Prof_img
+      Chan_Prof_img,
     } = translate;
 
     return (
@@ -1193,7 +1233,9 @@ class Index extends Component {
               <div className="err_message">{profile_not_updated}</div>
             )}
             {this.state.error4 && (
-              <div className="err_message">{"Please fill the citizenship country"}</div>
+              <div className="err_message">
+                {'Please fill the citizenship country'}
+              </div>
             )}
             {this.state.phonevalidate && (
               <div className="err_message">{mobile_number_not_valid}</div>
@@ -1222,15 +1264,15 @@ class Index extends Component {
                     </span>
                     <a>
                       <img
-                        src={require("assets/images/copycopy.svg")}
+                        src={require('assets/images/copycopy.svg')}
                         alt=""
-                        onClick={() => this.copyText("profile_id")}
+                        onClick={() => this.copyText('profile_id')}
                         title=""
                       />
                     </a>
                     <a>
                       <img
-                        src={require("assets/images/qr-code.svg")}
+                        src={require('assets/images/qr-code.svg')}
                         alt=""
                         title=""
                         onClick={this.handleQrOpen}
@@ -1244,8 +1286,8 @@ class Index extends Component {
                     </span>
                     <a>
                       <img
-                        src={require("assets/images/copycopy.svg")}
-                        onClick={() => this.copyText("profile_pin")}
+                        src={require('assets/images/copycopy.svg')}
+                        onClick={() => this.copyText('profile_pin')}
                         alt=""
                         title=""
                       />
@@ -1263,22 +1305,22 @@ class Index extends Component {
           {/* Change ID and Pin */}
           <Modal
             open={this.state.chngPinOpen}
-            onClose={() => this.handlePinClose("chngPinOpen")}
+            onClose={() => this.handlePinClose('chngPinOpen')}
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                ? "darkTheme editBoxModel"
-                : "editBoxModel"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'darkTheme editBoxModel'
+                : 'editBoxModel'
             }
           >
             <Grid className="editBoxCntnt">
               <Grid className="editCourse">
                 <Grid className="editCloseBtn">
-                  <a onClick={() => this.handlePinClose("chngPinOpen")}>
+                  <a onClick={() => this.handlePinClose('chngPinOpen')}>
                     <img
-                      src={require("assets/images/close-search.svg")}
+                      src={require('assets/images/close-search.svg')}
                       alt=""
                       title=""
                     />
@@ -1363,7 +1405,7 @@ class Index extends Component {
                         value={this.state.title}
                         onChange={(e) => this.onSelectDegree(e)}
                         options={this.state.title_degreeData}
-                        placeholder={"Mr."}
+                        placeholder={'Mr.'}
                         isSearchable={false}
                         className="mr_sel"
                       />
@@ -1415,7 +1457,6 @@ class Index extends Component {
                           this.props.settings.setting &&
                           this.props.settings.setting.date_format
                         }
-                       
                       />
                     </Grid>
                   </Grid>
@@ -1423,34 +1464,34 @@ class Index extends Component {
                     <label>{gender}</label>
                     <Grid>
                       <a
-                        onClick={() => this.EntryValueName("male", "sex")}
+                        onClick={() => this.EntryValueName('male', 'sex')}
                         className={
                           UpDataDetails.sex &&
-                          UpDataDetails.sex === "male" &&
-                          "SelectedGender"
+                          UpDataDetails.sex === 'male' &&
+                          'SelectedGender'
                         }
                       >
                         {male}
                       </a>
                       <a
-                        onClick={() => this.EntryValueName("female", "sex")}
+                        onClick={() => this.EntryValueName('female', 'sex')}
                         className={
                           UpDataDetails.sex &&
-                          UpDataDetails.sex === "female" &&
-                          "SelectedGender"
+                          UpDataDetails.sex === 'female' &&
+                          'SelectedGender'
                         }
                       >
                         {female}
                       </a>
                       <a
-                        onClick={() => this.EntryValueName("other", "sex")}
+                        onClick={() => this.EntryValueName('other', 'sex')}
                         className={
                           UpDataDetails.sex &&
-                          UpDataDetails.sex === "other" &&
-                          "SelectedGender"
+                          UpDataDetails.sex === 'other' &&
+                          'SelectedGender'
                         }
                       >
-                        {" "}
+                        {' '}
                         {other}
                       </a>
                     </Grid>
@@ -1470,7 +1511,7 @@ class Index extends Component {
                         name="address"
                         onChange={this.updateEntryState}
                         value={
-                          UpDataDetails.address ? UpDataDetails.address : ""
+                          UpDataDetails.address ? UpDataDetails.address : ''
                         }
                       />
                     </Grid>
@@ -1487,7 +1528,7 @@ class Index extends Component {
                         value={this.state.city}
                         stateLanguageType={this.props.stateLanguageType}
                         onPlaceChanged={this.updateEntryCity.bind(this)}
-                      />{" "}
+                      />{' '}
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={4}>
@@ -1500,7 +1541,7 @@ class Index extends Component {
                         value={
                           UpDataDetails.pastal_code
                             ? UpDataDetails.pastal_code
-                            : ""
+                            : ''
                         }
                       />
                     </Grid>
@@ -1516,10 +1557,10 @@ class Index extends Component {
                       <Select
                         isSearchable={true}
                         value={UpDataDetails.country}
-                        onChange={(e) => this.EntryValueName(e, "country")}
+                        onChange={(e) => this.EntryValueName(e, 'country')}
                         options={this.state.selectCountry}
                         placeholder=""
-                       className="cntryDrop"
+                        className="cntryDrop"
                       />
                     </Grid>
                   </Grid>
@@ -1531,15 +1572,19 @@ class Index extends Component {
               <Grid className="profileInfoIner">
                 <Grid container direction="row" alignItems="center" spacing={2}>
                   <Grid item xs={12} md={8}>
-                    <label>{Citizenship} {country}</label>
+                    <label>
+                      {Citizenship} {country}
+                    </label>
                     <Grid className="cntryDropTop">
                       <Select
                         isSearchable={true}
                         value={UpDataDetails.citizen_country}
-                        onChange={(e) => this.EntryValueName(e, "citizen_country")}
+                        onChange={(e) =>
+                          this.EntryValueName(e, 'citizen_country')
+                        }
                         options={this.state.selectCountry}
                         placeholder=""
-                       className="cntryDrop"
+                        className="cntryDrop"
                       />
                     </Grid>
                   </Grid>
@@ -1553,12 +1598,12 @@ class Index extends Component {
                     <label>{home_telephone}</label>
                     <Grid>
                       {this.updateFLAG(UpDataDetails.phone) &&
-                        this.updateFLAG(UpDataDetails.phone) !== "" && (
+                        this.updateFLAG(UpDataDetails.phone) !== '' && (
                           <ReactFlagsSelect
                             searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
-                              this.updateFlags(e, "flag_phone");
+                              this.updateFlags(e, 'flag_phone');
                             }}
                             name="flag_phone"
                             showSelectedLabel={false}
@@ -1591,13 +1636,13 @@ class Index extends Component {
                     <label>{mobile_number}</label>
                     <Grid>
                       {this.updateFLAG(UpDataDetails.mobile) &&
-                        this.updateFLAG(UpDataDetails.mobile) !== "" && (
+                        this.updateFLAG(UpDataDetails.mobile) !== '' && (
                           <ReactFlagsSelect
                             searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
-                              this.updateFlags(e, "flag_mobile");
-                              this.OnMobileCodeChange(e)
+                              this.updateFlags(e, 'flag_mobile');
+                              this.OnMobileCodeChange(e);
                             }}
                             name="flag_mobile"
                             showSelectedLabel={false}
@@ -1630,12 +1675,12 @@ class Index extends Component {
                     <label>{fax_nmbr}</label>
                     <Grid>
                       {this.updateFLAG(UpDataDetails.fax) &&
-                        this.updateFLAG(UpDataDetails.fax) !== "" && (
+                        this.updateFLAG(UpDataDetails.fax) !== '' && (
                           <ReactFlagsSelect
                             searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
-                              this.updateFlags(e, "flag_fax");
+                              this.updateFlags(e, 'flag_fax');
                             }}
                             name="flag_fax"
                             showSelectedLabel={false}
@@ -1672,7 +1717,7 @@ class Index extends Component {
                         name="languages"
                         closeMenuOnSelect={false}
                         onChange={(e) => {
-                          this.handleChange_multi(e, "languages");
+                          this.handleChange_multi(e, 'languages');
                         }}
                         options={this.state.languageData}
                         placeholder=""
@@ -1697,7 +1742,7 @@ class Index extends Component {
                         name="speciality"
                         closeMenuOnSelect={false}
                         onChange={(e) => {
-                          this.handleChange_multi(e, "speciality");
+                          this.handleChange_multi(e, 'speciality');
                         }}
                         options={this.state.specialityData.sort()}
                         placeholder=""
@@ -1722,7 +1767,7 @@ class Index extends Component {
                         name="subspeciality"
                         closeMenuOnSelect={false}
                         onChange={(e) => {
-                          this.handleChange_multi(e, "subspeciality");
+                          this.handleChange_multi(e, 'subspeciality');
                         }}
                         options={
                           subspecialityData !== undefined
@@ -1749,7 +1794,6 @@ class Index extends Component {
                     alignItems="center"
                     spacing={2}
                   >
-
                     <Grid item xs={12} md={6}>
                       <label>{Chan_Prof_img}</label>
                       <FileUploader
@@ -1760,7 +1804,7 @@ class Index extends Component {
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      {this.state.image && this.state.image !== "" && (
+                      {this.state.image && this.state.image !== '' && (
                         <img
                           className="ProfileImage"
                           onClick={() => GetUrlImage1(this.state.image)}
@@ -1798,11 +1842,11 @@ class Index extends Component {
             onClose={this.handleQrClose}
             className={
               this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                ? "darkTheme qrBoxModel"
-                : "qrBoxModel"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'darkTheme qrBoxModel'
+                : 'qrBoxModel'
             }
           >
             <Grid className="qrBoxCntnt">
@@ -1810,7 +1854,7 @@ class Index extends Component {
                 <Grid className="qrCloseBtn">
                   <a onClick={this.handleQrClose}>
                     <img
-                      src={require("assets/images/close-search.svg")}
+                      src={require('assets/images/close-search.svg')}
                       alt=""
                       title=""
                     />
@@ -1823,14 +1867,14 @@ class Index extends Component {
               <Grid className="qrCourseImg">
                 {/* <Grid><img src={require('assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
                 <Grid>
-                  {" "}
+                  {' '}
                   <QRCode
                     value={
                       UpDataDetails.profile_id
-                        ? "" + UpDataDetails.profile_id
-                        : ""
+                        ? '' + UpDataDetails.profile_id
+                        : ''
                     }
-                  />{" "}
+                  />{' '}
                 </Grid>
                 <Grid>
                   <input
@@ -1851,10 +1895,8 @@ class Index extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const {
-    stateLoginValueAim,
-    loadingaIndicatoranswerdetail,
-  } = state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { metadata } = state.OptionList;
@@ -1871,7 +1913,10 @@ const mapStateToProps = (state) => {
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, OptionList })(
-    Index
-  )
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+    Settings,
+    OptionList,
+  })(Index)
 );

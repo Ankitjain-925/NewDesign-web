@@ -395,7 +395,7 @@ class Index extends Component {
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
-            this.setState({ assignedhouse: true });
+            this.setState({ assignedhouse: true, house: {} });
             setTimeout(() => {
               this.setState({ assignedhouse: false });
             }, 5000);
@@ -411,11 +411,17 @@ class Index extends Component {
           this.setState({ loaderImage: false });
         });
     } else {
-      this.setState({ blankerror: true, assignedhouse: false });
+      this.setState({
+        blankerror: true,
+        assignedhouse: false,
+        loaderImage: false,
+        alredyExist: false,
+      });
       setTimeout(() => {
         this.setState({ blankerror: false });
       }, 5000);
     }
+    this.setState({ loaderImage: false });
     // /assignedHouse/:
   };
 
@@ -714,6 +720,7 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <AssignedHouse
+                    blankerror={this.state.blankerror}
                     assignedhouse={this.state.assignedhouse}
                     deleteHouses={this.state.deleteHouses}
                     openHouse={this.state.openHouse}
