@@ -15165,4 +15165,36 @@ a.joinmeetingtab {
   .allInfoRght {
     margin-right: 50px;
   }
-}
+
+  }
+
+  @media screen and (min-width: 641px) and (max-width: 768px){
+    .allArchvSection2 td.pivoted {
+      font-size: 9px!important;
+      padding:8px!important;
+  }
+  .allArchvSection2 thead th{
+    padding:16px 16px!important;
+  } 
+  }
+  
+  @media screen and (min-width: 769px) and (max-width: 1080px){
+    .allArchvSection2 td.pivoted {
+      font-size: 10px!important;
+      padding:10px!important;
+  }
+  }
+  
+  @media screen and (min-width: 1200px) and (max-width: 1300px){
+    .allArchvSection2 td.pivoted {
+      font-size: 11px!important;
+      padding:10px!important;
+  }
+  }
+  
+  @media (max-width:958px){
+    .backFlow1{
+      margin:20px 20px!important;
+    }
+  }
+

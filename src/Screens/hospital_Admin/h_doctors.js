@@ -487,7 +487,7 @@ class Index extends Component {
                                         House id deleted from the doctor
                                         </div>
                                     )} */}
-                  <Grid className="archvOpinionIner">
+                  <Grid className="archvOpinionIner allArchvSection2">
                     <Table>
                       <Thead>
                         <Tr>
