@@ -32,10 +32,7 @@ class Index extends Component {
             fileattach: {},
             loaderImage: false,
             finishError: '',
-            date_format: this.props.date_format,
-            startDate: new Date()
-
-        };
+         };
     }
 
 
@@ -393,23 +390,7 @@ class Index extends Component {
                                              </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput ">
-                                                    {/* <DateFormat
-                                                        name="imposible"
-                                                        value={
-                                                            this.state.stamp.imposible
-                                                                ? this.state.startDate(
-                                                                    this.state.stamp.imposible
-                                                                )
-                                                                : this.state.startDate()
-                                                        }
-
-                                                        date_format={this.state.date_format}
-                                                        onChange={(e) =>
-                                                            this.updateEntryState2(e, 'imposible')
-                                                        }
-
-                                                    /> */}
-                                                    <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
+                                             <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
                                                </Grid>
                                             </Grid>
                                         </Grid>
@@ -418,7 +399,7 @@ class Index extends Component {
                                         <Grid container direction="row" alignItems="center" spacing={1}>
                                             <Grid item xs={12} sm={7} md={7}>
                                                 <Grid className="insrnceCmp">
-                                                    <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed3') ? this.props.stateLanguageType === 'de' && ('setColorRed2') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
+                                                    <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed3') ? this.props.stateLanguageType === 'de' && ('setColorRed3') : this.props.stateLanguageType === 'en' && ('setColorBlack2')}>
                                                         <label>{most_until}<p className='hhh'>{work_until}</p></label>
                                                     </Grid>
                                                  </Grid>
@@ -486,9 +467,9 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={4} md={4} className="infoShwSave3">
                             <Button onClick={(data) => {
-                                this.props.handleApprovedDetails(this.props.taskData._id, 'decline', this.props.taskData)
+                                this.props.handleApprovedDetails(this.props.taskData?._id, 'decline', this.props.taskData)
                             }}>{decline}</Button>
-                           </Grid>
+                    </Grid>
                        </Grid>
                 </Grid>
             </Grid>

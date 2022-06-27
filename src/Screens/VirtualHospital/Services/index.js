@@ -17,7 +17,7 @@ import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { houseSelect } from '../Institutes/selecthouseaction';
 import Loader from 'Screens/Components/Loader/index';
-import sitedata from 'sitedata';
+import sitedata from 'sitedata'; 
 import axios from 'axios';
 import { commonHeader } from 'component/CommonHeader/index';
 import Select from 'react-select';
@@ -193,6 +193,7 @@ class Index extends Component {
       Search,
       Serviceshortdescription,
       Servicename,
+      Sick_Certificate_Amount
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
@@ -378,13 +379,11 @@ class Index extends Component {
 
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
-                        {console.log('hello', this.state.sickamount)}
                         <Grid item xs={12} md={12}>
-                          <Grid className="certificatePrice">
+                          <Grid className="certificatePrice fixedEuro">
                             <a>
-                              <label>Sick Certificate Amount</label>
-
-                              <input
+                              <label>{Sick_Certificate_Amount}</label>
+                               <input
                                 type="text"
                                 onKeyDown={this.onSickamount}
                                 placeholder=""
@@ -393,8 +392,7 @@ class Index extends Component {
                                 onChange={(e) => this.updateEntryState2(e)}
                                 value={this.state.sickamount1.amount}
                               />
-
-                              <img
+                             <img
                                 className="pionter"
                                 src={require('assets/virtual_images/pencil-1.svg')}
                                 alt=""
@@ -406,6 +404,7 @@ class Index extends Component {
                                 }}
                               />
                               <p className="euroamount">€</p>
+                              
                             </a>
                           </Grid>
                         </Grid>

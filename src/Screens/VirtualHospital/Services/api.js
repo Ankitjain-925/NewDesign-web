@@ -214,8 +214,9 @@ export const  getAmount = (current) => {
       commonHeader(current.props.stateLoginValueAim.token)
     )
     .then((responce) => {
-      if (responce.data.hassuccessed && responce.data.data) {
-      let data=responce.data.data
+      console.log('responce',responce)
+     if (responce.data.hassuccessed && responce.data.sickleave_certificate_amount) {
+      let data=responce.data.sickleave_certificate_amount
         current.setState({ sickamount1:{amount:data} });
       }
       current.setState({ loaderImage: false });
