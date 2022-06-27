@@ -14784,31 +14784,42 @@ input:-webkit-autofill:active {
 }
 .hhh {
   margin-top: 10px;
+ 
 }
 .setColorRed label {
-  color: #a12f21;
+  color: #a12f21!important;
   font-size: 15px;
 }
 .setColorBlack label {
   font-size: 15px;
 }
-.setColorRed {
-  color: #a12f21;
+.setColorRed p {
+  color:#a12f21!important;
   font-size: 15px;
 }
 .setColorBlack {
   font-size: 15px;
 }
 .setColorRed2 label {
-  color: #a12f21;
+  color:#a12f21!important;
   font-size: 15px;
   margin-left: 20px;
   margin-bottom: 10px;
 }
+.setColorRed2 span{
+  color:#a12f21!important;
+  font-size: 15px;
+ 
+}
 .setColorRed3 label {
-  color: #a12f21;
+  color:#a12f21!important;
   font-size: 15px;
   margin-left: 20px;
+}
+.setColorRed3 p{
+  color:#a12f21!important;
+  font-size: 15px;
+ 
 }
 .setColorBlack2 label {
   font-size: 15px;
@@ -15138,8 +15149,8 @@ a.joinmeetingtab {
 
 .euroamount {
   position: absolute;
-  top: 171px;
-  left: 486px;
+  top: 8px;
+  left: 290px;
   color: grey;
   font-weight: 600;
 }
@@ -15197,4 +15208,28 @@ a.joinmeetingtab {
       margin:20px 20px!important;
     }
   }
+  .fixedEuro{
+    position: relative;
+  }
+  @media (max-width:430px){
+    .euroamount{
+      position: absolute;
+      top:38px;
+      left:140px;
+      
+    }
 
+  }
+  @media (max-width:500px){
+  .openScnd{
+    margin-top: 10px;
+        }
+      }
+    @media (max-width:350px){
+    .openScnd{
+    margin-left: 20px;
+      }
+   
+    }
+
+   

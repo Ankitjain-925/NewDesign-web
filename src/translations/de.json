@@ -1802,6 +1802,7 @@
    "plz_enter_imposible_since":"Bitte geben Sie ein gültiges Datum für die unmögliche Arbeit seit ein",
    "plz_enter_imposs_work_until":"Bitte geben Sie ein gültiges Datum für die unmögliche Arbeit bis ein",
    "plz_enter_detected_at":"Bitte geben Sie ein gültiges Datum für das erkannt um ein",
-   "plz_attached_file":"Bitte die Datei anhängen"
+   "plz_attached_file":"Bitte die Datei anhängen",
+   "Sick_Certificate_Amount":"Betrag der Krankenscheine"
       }
 }
