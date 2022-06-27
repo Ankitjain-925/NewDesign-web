@@ -292,7 +292,7 @@ class PointPain extends Component {
                            <>{Create_Certificate}</>
                            </a>
                          </li>
-                           } 
+                          } 
                          {data &&
                         data.task_type && 
                         data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && 
