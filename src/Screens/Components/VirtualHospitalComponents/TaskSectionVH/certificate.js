@@ -25,7 +25,7 @@ import DateFormat from 'Screens/Components/DateFormat/index';
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             info: {},
             stamp: {},
@@ -34,7 +34,6 @@ class Index extends Component {
             finishError: '',
          };
     }
-
 
 
     FileAttachMulti = (Fileadd) => {
@@ -59,6 +58,13 @@ class Index extends Component {
         this.setState({ stamp: state, startDate: date });
 
     };
+
+    updateEntryState3 = (event, name) =>{
+        var state = this.state.stamp;
+        state[name] = event;
+        this.setState({ stamp: state});
+
+    }
 
 
     CertificateSubmit = () => {
@@ -171,7 +177,7 @@ class Index extends Component {
             Status,
             Hospital_Number,
             Doctor_Number,
-            Date,
+            date,
             First_Certification,
             Workincident,
             Occupational_disease,
@@ -207,11 +213,12 @@ class Index extends Component {
                                         <Grid className="certifyForm">
                                             <Grid className="insrnceCmp cmnSpc">
                                                 <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Insurance_company}</label></Grid>
-                                                <Grid><input type="text" name="insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_company || ''} /></Grid>
+                                                <Grid>
+                                                    <input type="text" name="insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.insurance_company || ''} /></Grid>
                                             </Grid>
                                             <Grid className="cmnSpc">
                                                <Grid container direction="row" alignItems="center" spacing={1}>
-                                                    <Grid item xs={12} sm={7} md={7}>
+                                                     <Grid item xs={12} sm={7} md={7}>
                                                         <Grid className="insrnceCmp">
                                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Name}</label></Grid>
                                                             <Grid><input type="text" name="name" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.name || ''} /></Grid>
@@ -220,7 +227,23 @@ class Index extends Component {
                                                     <Grid item xs={12} sm={5} md={5}>
                                                         <Grid className="insrnceCmp">
                                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{DOB}</label></Grid>
-                                                            <Grid><input type="date" name="birthday" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.birthday || ''} /></Grid>
+                                                            <Grid>
+                                                            <DateFormat
+                                                                name="birthday"
+                                                                value={
+                                                                this.state.stamp?.birthday
+                                                                    ? new Date(this.state.stamp?.birthday)
+                                                                    : new Date()
+                                                                }
+                                                                date_format={
+                                                                this.props.settings.setting &&
+                                                                this.props.settings.setting.date_format
+                                                                }
+                                                                onChange={(e) => this.updateEntryState3(e, "birthday")}
+                                                            />
+                                                            </Grid>
+                                                                
+                                                                {/* <input type="date" name="birthday" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.birthday || ''} /> */}
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -267,9 +290,22 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid item xs={12} sm={12} md={4}>
                                                         <Grid className="insrnceCmp">
-                                                            <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{Date}</label></Grid>
+                                                            <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{date}</label></Grid>
                                                             <Grid>
-                                                                <input type="date" name="date" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.date || ''} />
+                                                            <DateFormat
+                                                                name="date"
+                                                                value={
+                                                                this.state.stamp?.date
+                                                                    ? new Date(this.state.stamp?.date)
+                                                                    : new Date()
+                                                                }
+                                                                date_format={
+                                                                this.props.settings.setting &&
+                                                                this.props.settings.setting.date_format
+                                                                }
+                                                                onChange={(e) => this.updateEntryState3(e, "date")}
+                                                            />
+                                                                {/* <input type="date" name="date" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.date || ''} /> */}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -390,7 +426,20 @@ class Index extends Component {
                                              </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput ">
-                                             <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} />
+                                                <DateFormat
+                                                                name="imposible"
+                                                                value={
+                                                                this.state.stamp?.imposible
+                                                                    ? new Date(this.state.stamp?.imposible)
+                                                                    : new Date()
+                                                                }
+                                                                date_format={
+                                                                this.props.settings.setting &&
+                                                                this.props.settings.setting.date_format
+                                                                }
+                                                                onChange={(e) => this.updateEntryState3(e, "imposible")}
+                                                            />
+                                                    {/* <input type="date" name="imposible" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.imposible || ''} /> */}
                                                </Grid>
                                             </Grid>
                                         </Grid>
@@ -406,7 +455,22 @@ class Index extends Component {
                                                 </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput spacedistance">
-                                                    <input type="date" min={this.state.stamp.imposible} name="most_likely" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.most_likely || ''} />
+                                                <DateFormat
+                                                                name="most_likely"
+                                                                value={
+                                                                this.state.stamp?.most_likely
+                                                                    ? new Date(this.state.stamp?.most_likely)
+                                                                    : new Date()
+                                                                }
+                                                                date_format={
+                                                                this.props.settings.setting &&
+                                                                this.props.settings.setting.date_format
+                                                                }
+                                                              
+                                                                onChange={(e) => this.updateEntryState3(e, "most_likely")}
+                                                                //  NotFutureDate={true}
+                                                            />
+                                                    {/* <input type="date" min={this.state.stamp.imposible} name="most_likely" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.most_likely || ''} /> */}
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -422,7 +486,20 @@ class Index extends Component {
                                              </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
                                                 <Grid className="wrkInput spacedistance">
-                                                    <input type="date" name="detected_at" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.detected_at || ''} />
+                                                <DateFormat
+                                                                name="detected_at"
+                                                                value={
+                                                                this.state.stamp?.detected_at
+                                                                    ? new Date(this.state.stamp?.detected_at)
+                                                                    : new Date()
+                                                                }
+                                                                date_format={
+                                                                this.props.settings.setting &&
+                                                                this.props.settings.setting.date_format
+                                                                }
+                                                                onChange={(e) => this.updateEntryState3(e, "detected_at")}
+                                                            />
+                                                    {/* <input type="date" name="detected_at" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.detected_at || ''} /> */}
                                             </Grid>
                                             </Grid>
                                         </Grid>
