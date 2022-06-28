@@ -235,10 +235,13 @@ class Index extends Component {
                                                                     ? new Date(this.state.stamp?.birthday)
                                                                     : new Date()
                                                                 }
+                                                                NotFutureDate={true}
+                                                                max={new Date()}
                                                                 date_format={
                                                                 this.props.settings.setting &&
                                                                 this.props.settings.setting.date_format
                                                                 }
+
                                                                 onChange={(e) => this.updateEntryState3(e, "birthday")}
                                                             />
                                                             </Grid>
@@ -493,6 +496,7 @@ class Index extends Component {
                                                                     ? new Date(this.state.stamp?.detected_at)
                                                                     : new Date()
                                                                 }
+                                                                NotFutureDate={true}
                                                                 date_format={
                                                                 this.props.settings.setting &&
                                                                 this.props.settings.setting.date_format
