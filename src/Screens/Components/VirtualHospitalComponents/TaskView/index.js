@@ -28,8 +28,8 @@ class PointPain extends Component {
   };
 
   componentDidMount = () => {
-   
-   };
+
+  };
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -214,30 +214,30 @@ class PointPain extends Component {
                           )}
                         </a>
                       </li>
-                 
-                      { data &&
-                        data.task_type && 
-                        data.task_type === 'sick_leave' && !data.approved===true &&
-                        this.props.comesFrom === 'Professional' ?  (
+
+                      {data &&
+                        data.task_type &&
+                        data.task_type === 'sick_leave' && !data.approved === true &&
+                        this.props.comesFrom === 'Professional' ? (
                         <li
-                        onClick={() => {
-                          this.props.handleApprovedDetails(data._id, 'approved', data)
-                         }}
+                          onClick={() => {
+                            this.props.handleApprovedDetails(data._id, 'approved', data)
+                          }}
                         >
                           <a>
-                          <img
-                            src={require('assets/virtual_images/pencil-1.svg')}
-                            alt=""
-                            title=""
-                          />
+                            <img
+                              src={require('assets/virtual_images/pencil-1.svg')}
+                              alt=""
+                              title=""
+                            />
                             <>{approved}</>
                           </a>
                         </li>
-                        
-                        ):(
-                          <></>
-                        )}
-                        
+
+                      ) : (
+                        <></>
+                      )}
+
                       {data &&
                         data.task_type &&
                         data.task_type === 'picture_evaluation' ? (
@@ -259,9 +259,9 @@ class PointPain extends Component {
                           </li>
                         )
                       ) : data &&
-                        data.task_type && 
-                        data.task_type === 'sick_leave' && 
-                        this.props.comesFrom === 'Professional' && !data.is_decline && !data.certificate?.most_likely && !data.approved===true &&(
+                      data.task_type &&
+                      data.task_type === 'sick_leave' &&
+                      this.props.comesFrom === 'Professional' && !data.is_decline && !data.certificate?.most_likely && !data.approved === true && (
                         <li
                           onClick={() => {
                             this.props.handleApprovedDetails(data._id, 'decline', data)
@@ -277,9 +277,9 @@ class PointPain extends Component {
                           </a>
                         </li>
                       )}
-                         {data &&
-                        data.task_type && 
-                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely &&   
+                      {data &&
+                        data.task_type &&
+                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely && 
                         <li onClick={() => {
                             this.props.cretficate(data._id, data.patient_id)
                           }}>
@@ -297,18 +297,18 @@ class PointPain extends Component {
                         data.task_type && 
                         data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && 
                         <li onClick={() => {
-                            // this.props.cretficate()
-                          }}>
-                           <a>
-                           <img
-                                src={require('assets/images/details.svg')}
-                                alt=""
-                                title=""
-                              />
-                           <a className="joinmeetingtab" href={data.link?.doctor_link} target="_blank">{Join_Meeting}</a>
-                           </a>
-                         </li>
-                         }
+                          // this.props.cretficate()
+                        }}>
+                          <a>
+                            <img
+                              src={require('assets/images/details.svg')}
+                              alt=""
+                              title=""
+                            />
+                            <a className="joinmeetingtab" href={data.link?.doctor_link} target="_blank">{Join_Meeting}</a>
+                          </a>
+                        </li>
+                      }
                     </ul>
                   </a>
                 )}
