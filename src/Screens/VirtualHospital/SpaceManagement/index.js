@@ -525,7 +525,7 @@ class Index extends Component {
               </Grid>
               {/* <Grid className="enterSpclUpr"> */}
               <Grid className="enterSpclMain">
-                <Grid className="enterSpcl">
+                <Grid className="enterSpcl colorspace">
                   <Grid container direction="row">
                     <Grid item xs={10} md={11}>
                       {/* <Grid><label>Speciality</label></Grid> */}

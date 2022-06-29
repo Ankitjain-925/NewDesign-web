@@ -15229,6 +15229,9 @@ a.joinmeetingtab {
     .openScnd{
     margin-left: 20px;
       }
+      .colorspace input{
+        width: 90%;
+      }
    
     }
 
