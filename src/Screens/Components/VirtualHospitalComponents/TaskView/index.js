@@ -294,6 +294,7 @@ class PointPain extends Component {
                            <>{Create_Certificate}</>
                            </a>
                          </li>
+
                          }  
                          {data &&
                         data.task_type && 

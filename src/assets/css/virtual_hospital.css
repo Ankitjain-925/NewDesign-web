@@ -15235,4 +15235,27 @@ a.joinmeetingtab {
    
     }
 
-   
+    .dobCertSec .ant-picker{
+      border: none;
+      background-color:transparent;
+      margin-bottom: 0px;
+      padding:0px 0px;
+    }
+    .dobCertSec .ant-picker-suffix{
+      margin-left: 0px;
+    }
+    .dobCertSec .ant-picker-clear{
+      right:8px;
+    }
+    .dobCertSec1 input:first-child{
+      border:1px solid #a12f21;
+      border-radius: 4px;
+      text-align: left;
+      padding: 0px 0px 0px 10px;
+    }
+    .dobCertSec2 input:first-child{
+      border: 1px solid #bebebe;
+    }
+  .dobCertSec .ant-picker-focused {
+    box-shadow: none;
+}
