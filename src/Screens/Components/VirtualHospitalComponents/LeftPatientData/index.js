@@ -2352,9 +2352,7 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                       <Assigned
-                        assigned_to={
-                          this.state.LeftInfoPatient?.data?.assinged_to
-                        }
+                        assigned_to={this.state.LeftInfoPatient?.assinged_to}
                       />
                       {/* <Grid className="mdclMembrs">
                         <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
@@ -2408,24 +2406,23 @@ class Index extends Component {
                     <Grid>
                       <Grid className="NeuroBtn">
                         <Grid>
-                          {this.state.LeftInfoPatient?.data?.speciality && (
+                          {this.state.LeftInfoPatient?.speciality && (
                             <SpecialityButton
                               label={
-                                this.state.LeftInfoPatient?.data?.speciality
+                                this.state.LeftInfoPatient?.speciality
                                   ?.specialty_name
                               }
                               backgroundColor={
-                                this.state.LeftInfoPatient?.data?.speciality
+                                this.state.LeftInfoPatient?.speciality
                                   ?.background_color
                               }
                               viewImage={false}
                               color={
-                                this.state.LeftInfoPatient?.data?.speciality
-                                  ?.color
+                                this.state.LeftInfoPatient?.speciality?.color
                               }
                               onClick={() =>
                                 this.setSpeciality(
-                                  this.state.LeftInfoPatient?.data?.speciality
+                                  this.state.LeftInfoPatient?.speciality
                                 )
                               }
                               showActive={false}
@@ -2440,10 +2437,7 @@ class Index extends Component {
                                 alt=""
                                 title=""
                               />
-                              {
-                                this.state.LeftInfoPatient?.data?.wards
-                                  ?.ward_name
-                              }
+                              {this.state.LeftInfoPatient?.wards?.ward_name}
                             </li>
                             <li>
                               <img
@@ -2451,10 +2445,7 @@ class Index extends Component {
                                 alt=""
                                 title=""
                               />
-                              {
-                                this.state.LeftInfoPatient?.data?.rooms
-                                  ?.room_name
-                              }
+                              {this.state.LeftInfoPatient?.rooms?.room_name}
                             </li>
                             <li>
                               <img
@@ -2462,7 +2453,7 @@ class Index extends Component {
                                 alt=""
                                 title=""
                               />
-                              {Bed} {this.state.LeftInfoPatient?.data?.bed}
+                              {Bed} {this.state.LeftInfoPatient?.bed}
                             </li>
                           </ul>
                         </Grid>
