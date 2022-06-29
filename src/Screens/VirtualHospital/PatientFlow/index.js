@@ -298,8 +298,7 @@ class Index extends Component {
 
   OnAdd = () => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let { Step_name_already_exist } =
-      translate;
+    let { Step_name_already_exist } = translate;
     this.setState({ stepError: '' });
     var state = this.state.actualData;
     let allSteps =
@@ -586,10 +585,17 @@ class Index extends Component {
   //On Add case
   AddCase = () => {
     let translate = getLanguage(this.props.stateLanguageType);
-    let {Please_enter_case_number, Please_select_step ,Please_add_email_of_patient ,Please_enter_information_of_patient} =
-      translate;
+    let {
+      Please_enter_case_number,
+      Please_select_step,
+      Please_add_email_of_patient,
+      Please_enter_information_of_patient,
+    } = translate;
     this.setState({ errorMsg: '' });
     var data = this.state.updateState;
+    if (!data.birthday) {
+      data.birthday = new Date();
+    }
     if (data && !this.state.case.case_number) {
       this.setState({ errorMsg: Please_enter_case_number });
     } else if (data && !this.state.SelectedStep) {
@@ -621,6 +627,7 @@ class Index extends Component {
         .then((responce) => {
           if (responce.data.hassuccessed) {
             var case_data = {
+              birthday: data.birthday,
               house_id: this.props?.House.value,
               inhospital: true,
               case_number: this.state.case.case_number,
@@ -1153,7 +1160,7 @@ class Index extends Component {
       Mobile_number,
       Last_name,
       Patient_Email,
-      Patient_not_found_information
+      Patient_not_found_information,
     } = translate;
 
     const {
@@ -1623,8 +1630,9 @@ class Index extends Component {
                           <label>{Birthday}</label>
                         </Grid>
                         <DateFormat
-                          name="date"
+                          name="birthday"
                           value={
+                            this.state.updateState &&
                             this.state.updateState?.birthday
                               ? new Date(this.state.updateState?.birthday)
                               : new Date()
