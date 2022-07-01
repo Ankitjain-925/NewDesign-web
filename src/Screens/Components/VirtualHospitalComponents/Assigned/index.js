@@ -86,6 +86,7 @@ class Index extends React.Component {
                         <label>{Assignedto}</label>
                       </Grid>
                     </Grid>
+
                     <Grid item xs={12} md={12} lg={12}>
                       <Grid className="creatDetail">
                         <Grid className="creatInfoIner">
