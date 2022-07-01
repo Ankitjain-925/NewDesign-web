@@ -1416,7 +1416,7 @@ a.conPainTime img {
   border-radius: 8px !important;
   background-color: #f2f2f2 !important;
   border-color: transparent !important;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
 }
 /* .allTimeSel span{
     width: 0px !important;
@@ -1519,7 +1519,7 @@ a.conPainTime img {
   border-radius: 8px !important;
   background-color: #f2f2f2 !important;
   border-color: transparent !important;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
 }
 /* .allTimeSel span{
     width: 0px !important;
@@ -2468,7 +2468,7 @@ a.bedNum img {
   line-height: 18px;
   width: 100% !important;
   padding: 24px 17px;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
 }
 .srchLft div {
   width: 100%;
@@ -2514,7 +2514,7 @@ a.lineSort {
   font-size: 12px !important;
   width: 136px;
   display: inline-block;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   text-align: left;
   margin-right: 8px;
   vertical-align: middle;
@@ -2638,7 +2638,7 @@ a.lineSort {
   position: absolute;
   top: 5px;
   left: -16px;
-  content: '';
+  content: "";
   border-radius: 12px;
 }
 .isuLbl {
@@ -2835,8 +2835,8 @@ a.lineSort {
   margin-bottom: 0px !important;
 }
 .roomsNum ul li::before {
-  content: '';
-  background-image: url('../images/afterBg.jpg');
+  content: "";
+  background-image: url("../images/afterBg.jpg");
   background-size: contain;
   height: 18px;
   width: 10px;
@@ -3197,14 +3197,14 @@ td.presEditDot {
   position: relative;
 }
 .dateAdd:after {
-  content: '';
+  content: "";
   height: 11px;
   width: 12px;
   position: absolute;
   right: 5px;
   top: 15px;
   background-size: contain;
-  background: url('../images/downArow.png') no-repeat center center;
+  background: url("../images/downArow.png") no-repeat center center;
 }
 /* End of Documents and Files */
 
@@ -3825,14 +3825,14 @@ button.aboutTabsIner {
   content: initial !important;
 }
 .neuroRoom ul li::after {
-  content: '';
+  content: "";
   width: 18px;
   height: 18px;
   position: absolute;
   top: 19px;
   right: -25px;
   background-size: contain;
-  background: url('../images/Right.svg') no-repeat center center;
+  background: url("../images/Right.svg") no-repeat center center;
   cursor: pointer;
 }
 li.neuroRoomActv {
@@ -4052,8 +4052,8 @@ li.neuroRoomActv {
   width: 20px;
 }
 .roomsNum2 ul li:first-child::after {
-  content: '';
-  background-image: url('../images/rightArrow.png');
+  content: "";
+  background-image: url("../images/rightArrow.png");
   background-size: contain;
   height: 12px;
   width: 9px;
@@ -4070,14 +4070,14 @@ li.neuroRoomActv {
 .roomsNum2 ul li:last-child::before {
   border-left: none;
   height: initial;
-  content: '';
+  content: "";
 }
 .roomsNum2 ul li:nth-last-child(2)::before {
   height: initial;
   border-left: none;
 }
 .roomsNum2 ul li::before {
-  content: '';
+  content: "";
   height: 42px;
   width: 10px;
   position: absolute;
@@ -4088,7 +4088,7 @@ li.neuroRoomActv {
   border-left: 1px solid #d8d8d8;
 }
 .roomsNum2 ul li::after {
-  content: '-';
+  content: "-";
   position: absolute;
   top: 0px;
   left: 8px;
@@ -4205,17 +4205,17 @@ button.onlogyBtn {
   left: 0px;
   right: 0px;
   bottom: -17px;
-  content: '';
+  content: "";
 }
 .roomBreadCrumb ul li::after {
-  content: '';
+  content: "";
   width: 18px;
   height: 18px;
   position: absolute;
   top: 5px;
   right: 16px;
   background-size: contain;
-  background: url('../../assets/images/Right.svg') no-repeat center center;
+  background: url("../../assets/images/Right.svg") no-repeat center center;
   cursor: pointer;
 }
 .roomBreadCrumb ul li:last-child {
@@ -4604,17 +4604,17 @@ button.onlogyBtn {
   left: 0px;
   right: 0px;
   bottom: -17px;
-  content: '';
+  content: "";
 }
 .roomBreadCrumb3 ul li::after {
-  content: '';
+  content: "";
   width: 18px;
   height: 18px;
   position: absolute;
   top: 15px;
   right: 13px;
   background-size: contain;
-  background: url('../../assets/images/Right.svg') no-repeat center center;
+  background: url("../../assets/images/Right.svg") no-repeat center center;
   cursor: pointer;
 }
 .roomBreadCrumb3 ul li:last-child {
@@ -4701,8 +4701,8 @@ button.onlogyBtn {
   width: 20px;
 }
 .roomsNum3 ul li:first-child::after {
-  content: '';
-  background-image: url('../images/rightArrow.png');
+  content: "";
+  background-image: url("../images/rightArrow.png");
   background-size: contain;
   height: 12px;
   width: 9px;
@@ -4719,14 +4719,14 @@ button.onlogyBtn {
 .roomsNum3 ul li:last-child::before {
   border-left: none;
   height: initial;
-  content: '';
+  content: "";
 }
 .roomsNum3 ul li:nth-last-child(2)::before {
   height: initial;
   border-left: none;
 }
 .roomsNum3 ul li::before {
-  content: '';
+  content: "";
   height: 42px;
   width: 10px;
   position: absolute;
@@ -4737,7 +4737,7 @@ button.onlogyBtn {
   border-left: 1px solid #d8d8d8;
 }
 .roomsNum3 ul li::after {
-  content: '-';
+  content: "-";
   position: absolute;
   top: 0px;
   left: 8px;
@@ -5311,7 +5311,7 @@ a.recodBlck:hover {
   margin-left: 18px;
 }
 .draftDateLft span::before {
-  content: '';
+  content: "";
   width: 8px;
   height: 8px;
   background-color: #7f8383;
@@ -5483,7 +5483,7 @@ button.downloadPDF:hover {
   min-height: initial !important;
   border-radius: 4px;
 }
-.addCstmField input[type='text'] {
+.addCstmField input[type="text"] {
   min-height: 48px;
   border: 1px solid #bfc1c1;
   border-radius: 4px;
@@ -5542,7 +5542,7 @@ button.downloadPDF:hover {
   line-height: 12px;
   display: block;
 }
-.invoiceForm input[type='text'] {
+.invoiceForm input[type="text"] {
   min-height: 48px;
   border: 1px solid #bfc1c1;
   border-radius: 4px;
@@ -5663,14 +5663,14 @@ button.downloadPDF:hover {
   position: relative;
 }
 .setStatusNxtPart::after {
-  content: '';
+  content: "";
   width: 16px;
   height: 16px;
   position: absolute;
   top: 10px;
   right: 16px;
   background-size: contain;
-  background: url('../images/Right.svg') no-repeat center center;
+  background: url("../images/Right.svg") no-repeat center center;
   cursor: pointer;
 }
 .setStatusNxtPart {
@@ -7162,7 +7162,7 @@ a.srchSort2 {
   font-size: 12px !important;
   width: 89px;
   display: inline-block;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   text-align: left;
   margin-right: 22px;
 }
@@ -7189,7 +7189,7 @@ a.horzSort2 {
   line-height: 16px;
   display: inline-block;
   vertical-align: middle;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   margin-right: 20px;
 }
 .showOnly span {
@@ -7398,7 +7398,7 @@ a.horzSort2 {
 }
 .addStafSelect {
   width: 100%;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   text-align: left;
   font-size: 14px;
   font-weight: 600;
@@ -7419,7 +7419,7 @@ a.horzSort2 {
 .spclSelect {
   font-size: 12px !important;
   width: 100%;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   text-align: left;
 }
 .spclSelect div div div:first-child {
@@ -7433,7 +7433,7 @@ a.horzSort2 {
   border-radius: 4px;
   background-color: #eccaff;
   text-align: center;
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
 }
 .spcldropdown,
 .spcldropdown2 {
@@ -9073,7 +9073,7 @@ a.linkDots2 {
   height: 8px;
   width: 8px;
   background-color: #1dd1a1;
-  content: '';
+  content: "";
   border-radius: 12px;
 }
 .greyDrft li:before {
@@ -9244,7 +9244,7 @@ button.crdoLghtBlu2 {
   outline: none;
   width: 100%;
   color: #000808;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -9844,7 +9844,7 @@ button.crdoLghtBlu2 {
   margin-bottom: 35px;
 }
 /* added by tanya */
-.otherBrdrUpr input[type='text'] {
+.otherBrdrUpr input[type="text"] {
   border: none;
   border-bottom: 1px solid grey;
   margin-left: 20px;
@@ -10294,9 +10294,9 @@ ul.addpatientoption li:hover {
   color: #d9dada !important;
 }
 .darkTheme .vh-section .infoSub input,
-.darkTheme .genPass input[type='submit'],
-.darkTheme .kycSaveChng input[type='submit'],
-.darkTheme .timDatSubmit input[type='submit'] {
+.darkTheme .genPass input[type="submit"],
+.darkTheme .kycSaveChng input[type="submit"],
+.darkTheme .timDatSubmit input[type="submit"] {
   background-color: #00abaf !important;
 }
 .room-img-move img {
@@ -10423,7 +10423,7 @@ span.AppliedPattern {
 }
 .pattern-sec a {
   text-align: center;
-  font-family: 'Muli';
+  font-family: "Muli";
   font-weight: 600;
 }
 .pattern-sec a button {
@@ -10864,7 +10864,7 @@ p.more-change-staff-img2 {
   width: 42px !important;
 }
 .more-open-detail {
-  background-image: url('../images/openDetails.png');
+  background-image: url("../images/openDetails.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10874,10 +10874,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-open-detail {
-  background-image: url('../images/openDetails2.png');
+  background-image: url("../images/openDetails2.png");
 }
 .more-new-entry {
-  background-image: url('../images/addTask.png');
+  background-image: url("../images/addTask.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10887,10 +10887,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-new-entry {
-  background-image: url('../virtual_images/plusIcon.png');
+  background-image: url("../virtual_images/plusIcon.png");
 }
 .more-change-staff {
-  background-image: url('../images/changeStaff.png');
+  background-image: url("../images/changeStaff.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10900,10 +10900,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-change-staff {
-  background-image: url('../images/changeStaff2.png');
+  background-image: url("../images/changeStaff2.png");
 }
 .more-add-task {
-  background-image: url('../images/addTask.png');
+  background-image: url("../images/addTask.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10913,10 +10913,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-add-task {
-  background-image: url('../virtual_images/plusIcon.png');
+  background-image: url("../virtual_images/plusIcon.png");
 }
 .more-move-patient {
-  background-image: url('../images/openDetails.png');
+  background-image: url("../images/openDetails.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10926,10 +10926,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-move-patient {
-  background-image: url('../images/openDetails2.png');
+  background-image: url("../images/openDetails2.png");
 }
 .more-new-speciality {
-  background-image: url('../images/openDetails.png');
+  background-image: url("../images/openDetails.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10939,10 +10939,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-new-speciality {
-  background-image: url('../images/openDetails2.png');
+  background-image: url("../images/openDetails2.png");
 }
 .more-assign-room {
-  background-image: url('../images/openDetails.png');
+  background-image: url("../images/openDetails.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10952,10 +10952,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-assign-room {
-  background-image: url('../images/openDetails2.png');
+  background-image: url("../images/openDetails2.png");
 }
 .more-discharge-patient {
-  background-image: url('../images/dischargePatient.png');
+  background-image: url("../images/dischargePatient.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10965,10 +10965,10 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-discharge-patient {
-  background-image: url('../images/dischargePatient2.png');
+  background-image: url("../images/dischargePatient2.png");
 }
 .more-remove-entry {
-  background-image: url('../images/removePatient.png');
+  background-image: url("../images/removePatient.png");
   height: 15px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -10978,7 +10978,7 @@ p.more-change-staff-img2 {
   display: inline-block;
 }
 .darkTheme .more-remove-entry {
-  background-image: url('../images/removePatient2.png');
+  background-image: url("../images/removePatient2.png");
 }
 
 .attchDone {
@@ -11058,7 +11058,7 @@ p.more-change-staff-img2 {
   font-weight: 500;
   letter-spacing: 0;
   line-height: 32px;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   margin-bottom: 12px;
 }
 .creatDetail {
@@ -11066,7 +11066,7 @@ p.more-change-staff-img2 {
 }
 .creatInfoIner label {
   color: #404646;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0;
@@ -11080,7 +11080,7 @@ p.more-change-staff-img2 {
   outline: none;
   width: 100%;
   color: #000808;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -11104,7 +11104,7 @@ p.more-change-staff-img2 {
   padding: 7px 6px;
   outline: none;
   color: #000808;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -11129,7 +11129,7 @@ p.more-change-staff-img2 {
   font-weight: 500;
   letter-spacing: 0;
   line-height: 18px;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
 }
 .taskDescp textarea {
   border: 1px solid #bfc1c1;
@@ -11139,7 +11139,7 @@ p.more-change-staff-img2 {
   outline: none;
   width: 100%;
   color: #000808;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -11168,7 +11168,7 @@ p.more-change-staff-img2 {
   padding: 9px 12px;
 }
 .hideTask .MuiFormControlLabel-label {
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   color: #404646;
   font-size: 14px;
   font-weight: 500;
@@ -11218,7 +11218,7 @@ p.more-change-staff-img2 {
 .saveTasks button {
   background-color: rgb(0 171 175) !important;
   color: #ffffff;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0;
@@ -11241,7 +11241,7 @@ p.more-change-staff-img2 {
   font-weight: 500;
   letter-spacing: 0;
   line-height: 18px;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   text-transform: initial;
   padding: 0px;
 }
@@ -11322,11 +11322,11 @@ ul.patientHint li {
 .deleteimg {
   width: 17px;
   height: 15px;
-  background: url('../virtual_images/bin.svg') no-repeat;
+  background: url("../virtual_images/bin.svg") no-repeat;
   display: inline-block;
 }
 .spacemanageDel:hover > .deleteimg {
-  background: url('../virtual_images/binred.svg') no-repeat !important;
+  background: url("../virtual_images/binred.svg") no-repeat !important;
 }
 .spacemanageDel:hover {
   border: 1px solid #ee5253 !important;
@@ -11403,7 +11403,7 @@ ul.patientHint li {
   letter-spacing: 0;
   line-height: 15px;
   box-shadow: initial !important;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   text-transform: capitalize;
   padding: 8px 4px;
   word-break: break-all;
@@ -11444,7 +11444,7 @@ ul.patientHint li {
 .MenuWeb .menuItems ul li a span {
   display: block;
   color: #7f8383;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 0;
@@ -11777,8 +11777,8 @@ ul.patientHint li {
 .darkTheme .condIntencty a {
   color: #bfc1c1;
 }
-.darkTheme .painIntencty input[type='range'],
-.darkTheme .condIntencty input[type='range'] {
+.darkTheme .painIntencty input[type="range"],
+.darkTheme .condIntencty input[type="range"] {
   background: transparent;
 }
 .darkTheme .painTypeCntnt p {
@@ -12360,7 +12360,7 @@ ul.patientHint li {
 .darkTheme .srvcContent {
   background-color: #404646;
 }
-.darkTheme .invoiceForm input[type='text'] {
+.darkTheme .invoiceForm input[type="text"] {
   background-color: #192020;
   color: #bfc1c1;
 }
@@ -12406,20 +12406,20 @@ ul.patientHint li {
   border: 1px solid #949494;
   background-color: transparent;
 }
-.darkTheme .addCstmField input[type='text'] {
+.darkTheme .addCstmField input[type="text"] {
   background-color: #192020;
   color: #bfc1c1;
 }
-.darkTheme .addCstmField input[type='text']::-webkit-input-placeholder {
+.darkTheme .addCstmField input[type="text"]::-webkit-input-placeholder {
   color: #bfc1c1;
 }
-.darkTheme .addCstmField input[type='text']::-moz-placeholder {
+.darkTheme .addCstmField input[type="text"]::-moz-placeholder {
   color: #bfc1c1;
 }
-.darkTheme .addCstmField input[type='text']:-ms-input-placeholder {
+.darkTheme .addCstmField input[type="text"]:-ms-input-placeholder {
   color: #bfc1c1;
 }
-.darkTheme .addCstmField input[type='text']:-moz-placeholder {
+.darkTheme .addCstmField input[type="text"]:-moz-placeholder {
   color: #bfc1c1;
 }
 .darkTheme .invoiceAmnt p {
@@ -13015,7 +13015,7 @@ ul.patientHint li {
 .darkTheme .rrSysto div {
   background-color: #192020;
 }
-.darkTheme .rrSysto div input[type='text'] {
+.darkTheme .rrSysto div input[type="text"] {
   background-color: transparent !important;
 }
 /* .darkTheme .rrSysto div:last-child div {
@@ -13510,7 +13510,7 @@ input:-moz-autofill:active{
   }
 }
 @media (max-width: 468px) {
-  .taskSort input[type='text'] {
+  .taskSort input[type="text"] {
     width: 120px;
   }
   .attchNotePart {
@@ -13521,7 +13521,7 @@ input:-moz-autofill:active{
     } */
 }
 @media (max-width: 599px) {
-  .taskSort input[type='text'] {
+  .taskSort input[type="text"] {
     margin-bottom: 20px;
   }
   .addFlowRght,
@@ -14035,7 +14035,7 @@ input:-webkit-autofill:active{
   left: 0px;
   right: 0px;
   bottom: -4px;
-  content: '';
+  content: "";
   margin: 0 auto;
 }
 @media (max-width: 1268px) {
@@ -14501,7 +14501,7 @@ label.newrole {
   min-height: 40px;
   border: 1px solid #bebebe;
   padding: 10px 8px 10px;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
 }
 .insrnceCmp2 {
   outline: none;
@@ -14515,7 +14515,7 @@ label.newrole {
   min-height: 40px;
   border: 1px solid #bebebe;
   padding: 10px 8px 10px;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
 }
 .cmnSpc {
   margin-bottom: 18px;
@@ -14572,7 +14572,7 @@ label.newrole {
   padding-left: 50px;
 }
 .formGroupChk label:before {
-  content: '';
+  content: "";
   -webkit-appearance: none;
   background-color: transparent;
   border: 2px solid #a12f21;
@@ -14589,7 +14589,7 @@ label.newrole {
   border-radius: 4px;
 }
 .formGroupChk input:checked + label:after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 12px;
@@ -14599,7 +14599,7 @@ label.newrole {
   border: solid #a12f21;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   margin-bottom: 10px;
 }
 .formGroupChk span {
@@ -14750,10 +14750,10 @@ label.newrole {
 }
 
 .Painbegin {
-  position: 'absolute';
-  width: '6px';
-  height: '6px';
-  background: 'red';
+  position: "absolute";
+  width: "6px";
+  height: "6px";
+  background: "red";
   /* borderRadius: "50%"; */
 }
 
@@ -14784,42 +14784,39 @@ input:-webkit-autofill:active {
 }
 .hhh {
   margin-top: 10px;
- 
 }
 .setColorRed label {
-  color: #a12f21!important;
+  color: #a12f21 !important;
   font-size: 15px;
 }
 .setColorBlack label {
   font-size: 15px;
 }
 .setColorRed p {
-  color:#a12f21!important;
+  color: #a12f21 !important;
   font-size: 15px;
 }
 .setColorBlack {
   font-size: 15px;
 }
 .setColorRed2 label {
-  color:#a12f21!important;
+  color: #a12f21 !important;
   font-size: 15px;
   margin-left: 20px;
   margin-bottom: 10px;
 }
-.setColorRed2 span{
-  color:#a12f21!important;
+.setColorRed2 span {
+  color: #a12f21 !important;
   font-size: 15px;
- 
 }
 .setColorRed3 label {
-  color:#a12f21!important;
+  color: #a12f21 !important;
   font-size: 15px;
   margin-left: 20px;
 }
-.setColorRed3 p{
-  color:#a12f21!important;
+.setColorRed3 p {
+  color: #a12f21 !important;
   font-size: 15px;
- 
 }
 .setColorBlack2 label {
   font-size: 15px;
@@ -14849,7 +14846,7 @@ input:-webkit-autofill:active {
   color: #00abaf !important;
   margin: 0px 4px;
 }
-.browsInput2 input[type='file'] {
+.browsInput2 input[type="file"] {
   opacity: 0;
   position: absolute;
   left: 0;
@@ -14863,7 +14860,7 @@ input:-webkit-autofill:active {
 .SubmitCertificate button {
   background-color: rgb(0 171 175) !important;
   color: #ffffff;
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0;
@@ -15029,12 +15026,12 @@ a.joinmeetingtab {
   font-weight: 500;
   font-size: 21px;
   line-height: initial;
-  line-break: anywhere;
+  /* line-break: anywhere; */
   margin-bottom: 8px;
   font-family: Mulish, sans-serif;
   font-size: 15px;
   text-align: center;
-  margin-right: 2px;
+  /* margin-right: 2px; */
 }
 
 .spacedistance {
@@ -15056,7 +15053,7 @@ a.joinmeetingtab {
   }
 } */
 .diablcertificate {
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 0;
@@ -15143,7 +15140,7 @@ a.joinmeetingtab {
   background: #192020 !important;
 }
 
-.darkTheme input[type='date'] {
+.darkTheme input[type="date"] {
   background-color: #192020 !important;
 }
 
@@ -15176,57 +15173,54 @@ a.joinmeetingtab {
   .allInfoRght {
     margin-right: 50px;
   }
+}
 
+@media screen and (min-width: 641px) and (max-width: 768px) {
+  .allArchvSection2 td.pivoted {
+    font-size: 9px !important;
+    padding: 8px !important;
   }
+  .allArchvSection2 thead th {
+    padding: 16px 16px !important;
+  }
+}
 
-  @media screen and (min-width: 641px) and (max-width: 768px){
-    .allArchvSection2 td.pivoted {
-      font-size: 9px!important;
-      padding:8px!important;
+@media screen and (min-width: 769px) and (max-width: 1080px) {
+  .allArchvSection2 td.pivoted {
+    font-size: 10px !important;
+    padding: 10px !important;
   }
-  .allArchvSection2 thead th{
-    padding:16px 16px!important;
-  } 
-  }
-  
-  @media screen and (min-width: 769px) and (max-width: 1080px){
-    .allArchvSection2 td.pivoted {
-      font-size: 10px!important;
-      padding:10px!important;
-  }
-  }
-  
-  @media screen and (min-width: 1200px) and (max-width: 1300px){
-    .allArchvSection2 td.pivoted {
-      font-size: 11px!important;
-      padding:10px!important;
-  }
-  }
-  
-  @media (max-width:958px){
-    .backFlow1{
-      margin:20px 20px!important;
-    }
-  }
-  .fixedEuro{
-    position: relative;
-  }
-  @media (max-width:430px){
-    .euroamount{
-      position: absolute;
-      top:38px;
-      left:140px;
-      
-    }
+}
 
+@media screen and (min-width: 1200px) and (max-width: 1300px) {
+  .allArchvSection2 td.pivoted {
+    font-size: 11px !important;
+    padding: 10px !important;
   }
-  @media (max-width:500px){
-  .openScnd{
+}
+
+@media (max-width: 958px) {
+  .backFlow1 {
+    margin: 20px 20px !important;
+  }
+}
+.fixedEuro {
+  position: relative;
+}
+@media (max-width: 430px) {
+  .euroamount {
+    position: absolute;
+    top: 38px;
+    left: 140px;
+  }
+}
+@media (max-width: 500px) {
+  .openScnd {
     margin-top: 10px;
-        }
-      }
-    @media (max-width:350px){
-    .openScnd{
+  }
+}
+@media (max-width: 350px) {
+  .openScnd {
     margin-left: 20px;
       }
       .colorspace input{
@@ -15241,27 +15235,62 @@ a.joinmeetingtab {
      
       } 
 
-    .dobCertSec .ant-picker{
-      border: none;
-      background-color:transparent;
-      margin-bottom: 0px;
-      padding:0px 0px;
-    }
-    .dobCertSec .ant-picker-suffix{
-      margin-left: 0px;
-    }
-    .dobCertSec .ant-picker-clear{
-      right:8px;
-    }
-    .dobCertSec1 input:first-child{
-      border:1px solid #a12f21;
-      border-radius: 4px;
-      text-align: left;
-      padding: 0px 0px 0px 10px;
-    }
-    .dobCertSec2 input:first-child{
-      border: 1px solid #bebebe;
-    }
-  .dobCertSec .ant-picker-focused {
-    box-shadow: none;
+.dobCertSec .ant-picker {
+  border: none;
+  background-color: transparent;
+  margin-bottom: 0px;
+  padding: 0px 0px;
+}
+.dobCertSec .ant-picker-suffix {
+  margin-left: 0px;
+}
+.dobCertSec .ant-picker-clear {
+  right: 8px;
+}
+.dobCertSec1 input:first-child {
+  border: 1px solid #a12f21;
+  border-radius: 4px;
+  text-align: left;
+  padding: 0px 0px 0px 10px;
+}
+.dobCertSec2 input:first-child {
+  border: 1px solid #bebebe;
+}
+.dobCertSec .ant-picker-focused {
+  box-shadow: none;
+}
+
+.darkTheme .dobCertSec2 input:first-child {
+  border: none;
+}
+
+.darkTheme .formGroupChk label:before {
+  border: 2px solid #00b0de;
+}
+.darkTheme .formGroupChk input:checked + label:after {
+  border-top-color: #00b0de;
+  border-top-style: solid;
+  border-top-width: 0px;
+  border-right-color: #00b0de;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-bottom-color: #00b0de;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-left-color: #00b0de;
+  border-left-style: solid;
+}
+.darkTheme .certifyForm,
+.darkTheme .noteCertificate,
+.darkTheme .stampDoctor {
+  border: 2px solid #00b0de;
+}
+.darkTheme .dobCertSec1 input:first-child {
+  border: 1px solid #00b0de;
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+  .stampDoctor {
+    padding: 30px 15px;
+  }
 }
