@@ -105,8 +105,9 @@ class PointPain extends Component {
           <Grid item xs={12} sm={6} md={6}>
             <Grid className="attchNoteMain">
               <Grid className="attchNotePart">
-                <Grid className="attchNoteUpr">
-                  <Grid className="attchNote">
+            {data.task_type !=='sick_leave' && (
+             <Grid className="attchNoteUpr">
+            <Grid className="attchNote">
                     <img
                       src={require('assets/virtual_images/paragraph-normal.svg')}
                       alt=""
@@ -123,6 +124,7 @@ class PointPain extends Component {
                     <label>{data?.attachments?.length}</label>
                   </Grid>
                 </Grid>
+                )}
                 <Grid
                   // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
                   className={
@@ -279,7 +281,7 @@ class PointPain extends Component {
                       )}
                       {data &&
                         data.task_type &&
-                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely && 
+                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely &&
                         <li onClick={() => {
                             this.props.cretficate(data._id, data.patient_id)
                           }}>
@@ -292,7 +294,8 @@ class PointPain extends Component {
                            <>{Create_Certificate}</>
                            </a>
                          </li>
-                            }
+
+                         }  
                          {data &&
                         data.task_type && 
                         data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && 
