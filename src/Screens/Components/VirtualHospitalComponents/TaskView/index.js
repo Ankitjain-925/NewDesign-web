@@ -277,9 +277,9 @@ class PointPain extends Component {
                           </a>
                         </li>
                       )}
-                      {/* {data &&
+                      {data &&
                         data.task_type &&
-                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely &&  */}
+                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely && 
                         <li onClick={() => {
                             this.props.cretficate(data._id, data.patient_id)
                           }}>
@@ -292,7 +292,7 @@ class PointPain extends Component {
                            <>{Create_Certificate}</>
                            </a>
                          </li>
-                            {/* }   */}
+                            }
                          {data &&
                         data.task_type && 
                         data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && 
