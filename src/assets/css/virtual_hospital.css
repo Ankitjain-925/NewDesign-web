@@ -15234,6 +15234,12 @@ a.joinmeetingtab {
       }
    
     }
+    @media screen and (min-width: 960px) and (max-width: 1200px){
+      .colorspace input{
+          width: 90%;
+        }
+     
+      } 
 
     .dobCertSec .ant-picker{
       border: none;
