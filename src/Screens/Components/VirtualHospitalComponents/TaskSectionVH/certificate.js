@@ -225,7 +225,7 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} sm={5} md={5}>
-                                                        <Grid className="insrnceCmp">
+                                                        <Grid className="insrnceCmp dobCertSec dobCertSec2" >
                                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{DOB}</label></Grid>
                                                             <Grid>
                                                             <DateFormat
@@ -257,7 +257,8 @@ class Index extends Component {
                                                         <Grid item xs={12} sm={12} md={4}>
                                                             <Grid className="insrnceCmp">
                                                                <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')} >
-                                                                    <label>{Insurance_Company}</label></Grid>
+                                                                    <label>{Insurance_Company}</label>
+                                                                    </Grid>
                                                                 <Grid><input type="text" name="number_insurance_company" onChange={(e) => this.updateEntryState2(e)} value={this.state.stamp.number_insurance_company || ''} /></Grid>
                                                             </Grid>
                                                         </Grid>
@@ -292,7 +293,7 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} sm={12} md={4}>
-                                                        <Grid className="insrnceCmp">
+                                                        <Grid className="insrnceCmp dobCertSec dobCertSec2">
                                                             <Grid className={this.props.stateLanguageType === 'de' && ('setColorRed') ? this.props.stateLanguageType === 'de' && ('setColorRed') : this.props.stateLanguageType === 'en' && ('setColorBlack')}><label>{date}</label></Grid>
                                                             <Grid>
                                                             <DateFormat
@@ -428,7 +429,7 @@ class Index extends Component {
                                                 </Grid>
                                              </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
-                                                <Grid className="wrkInput ">
+                                                <Grid className="wrkInput dobCertSec dobCertSec1">
                                                 <DateFormat
                                                                 name="imposible"
                                                                 value={
@@ -457,7 +458,7 @@ class Index extends Component {
                                                  </Grid>
                                                 </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
-                                                <Grid className="wrkInput spacedistance">
+                                                <Grid className="wrkInput spacedistance dobCertSec dobCertSec1">
                                                 <DateFormat
                                                                 name="most_likely"
                                                                 value={
@@ -488,7 +489,7 @@ class Index extends Component {
                                                 </Grid>
                                              </Grid>
                                             <Grid item xs={12} sm={5} md={5}>
-                                                <Grid className="wrkInput spacedistance">
+                                                <Grid className="wrkInput spacedistance dobCertSec dobCertSec1">
                                                 <DateFormat
                                                                 name="detected_at"
                                                                 value={
