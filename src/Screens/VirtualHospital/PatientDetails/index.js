@@ -92,7 +92,23 @@ class Index extends Component {
     this.rightInfo();
     this.getTrack();
     this.getLeftVHinfo();
+    this.getBloodGroupRhysus();
   };
+
+  getBloodGroupRhysus() {
+    var user_token = this.props.stateLoginValueAim?.token;
+    axios
+      .get(
+        sitedata.data.path + '/UserProfile/Users/' + this.props.match.params.id,
+        commonHeader(user_token)
+      )
+      .then((response) => {
+        if (response.data.hassuccessed) {
+          let bloodRhesus = response?.data?.data;
+          this.setState({ userBlood: bloodRhesus });
+        }
+      });
+  }
 
   getLeftVHinfo() {
     axios
@@ -404,6 +420,7 @@ class Index extends Component {
                   {/* Start of Mid Section */}
                   <Grid item xs={11} md={4} className="LeftPatientDataWeb">
                     <LeftPatientData
+                      user={this.state.userBlood}
                       currenttab={this.state.value}
                       LeftInfoPatient={this.state.LeftInfoPatient}
                       parentCallback={this.handleCallback}

@@ -27,9 +27,7 @@ class PointPain extends Component {
     }
   };
 
-  componentDidMount = () => {
-
-  };
+  componentDidMount = () => {};
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -46,7 +44,7 @@ class PointPain extends Component {
       decline,
       approved,
       Create_Certificate,
-      Join_Meeting
+      Join_Meeting,
     } = translate;
     var data = this.state.data;
     return (
@@ -82,7 +80,6 @@ class PointPain extends Component {
                   />
                 </Grid>
                 <Grid>
-
                   <label>{data.task_name}</label>
                 </Grid>
               </Grid>
@@ -129,8 +126,8 @@ class PointPain extends Component {
                     data?.is_decline === true
                       ? 'attchDecline'
                       : data.status === 'done'
-                        ? 'attchDone'
-                        : 'attchOpen'
+                      ? 'attchDone'
+                      : 'attchOpen'
                   }
                 >
                   <Button>
@@ -190,9 +187,9 @@ class PointPain extends Component {
                           />
 
                           {data &&
-                            data.task_type &&
-                            data.task_type === 'picture_evaluation' &&
-                            this.props.comesFrom === 'Professional' ? (
+                          data.task_type &&
+                          data.task_type === 'picture_evaluation' &&
+                          this.props.comesFrom === 'Professional' ? (
                             <>{edit_picture_evaluation}</>
                           ) : data.task_type &&
                             data.task_type === 'picture_evaluation' &&
@@ -201,27 +198,31 @@ class PointPain extends Component {
                             <>{see_details}</>
                           ) : data.task_type &&
                             data.task_type === 'picture_evaluation' &&
-                            (this.props.comesFrom === 'adminstaff' || this.props.comesFrom === "detailTask") ? (
+                            (this.props.comesFrom === 'adminstaff' ||
+                              this.props.comesFrom === 'detailTask') ? (
                             <>{assign_to_doctor}</>
                           ) : data.task_type &&
                             data.task_type === 'sick_leave' &&
                             this.props.comesFrom === 'Professional' ? (
                             <>{view_detail}</>
                           ) : (
-                            (
-                              <>{EditTask}</>
-                            )
+                            <>{EditTask}</>
                           )}
                         </a>
                       </li>
 
                       {data &&
-                        data.task_type &&
-                        data.task_type === 'sick_leave' && !data.approved === true &&
-                        this.props.comesFrom === 'Professional' ? (
+                      data.task_type &&
+                      data.task_type === 'sick_leave' &&
+                      !data.approved === true &&
+                      this.props.comesFrom === 'Professional' ? (
                         <li
                           onClick={() => {
-                            this.props.handleApprovedDetails(data._id, 'approved', data)
+                            this.props.handleApprovedDetails(
+                              data._id,
+                              'approved',
+                              data
+                            );
                           }}
                         >
                           <a>
@@ -233,82 +234,105 @@ class PointPain extends Component {
                             <>{approved}</>
                           </a>
                         </li>
-
                       ) : (
                         <></>
                       )}
 
                       {data &&
+                      data.task_type &&
+                      data.task_type === 'picture_evaluation'
+                        ? this.props.comesFrom !== 'Professional' &&
+                          data?.assinged_to?.length == 0 && (
+                            <li
+                              onClick={() => {
+                                this.props.declineTask(
+                                  data._id,
+                                  data.patient_id
+                                );
+                              }}
+                            >
+                              <a>
+                                <img
+                                  src={require('assets/images/cancel-request.svg')}
+                                  alt=""
+                                  title=""
+                                />
+                                <>{decline_picture_evaluation}</>
+                              </a>
+                            </li>
+                          )
+                        : data &&
+                          data.task_type &&
+                          data.task_type === 'sick_leave' &&
+                          this.props.comesFrom === 'Professional' &&
+                          !data.is_decline &&
+                          !data.certificate?.most_likely &&
+                          !data.approved === true && (
+                            <li
+                              onClick={() => {
+                                this.props.handleApprovedDetails(
+                                  data._id,
+                                  'decline',
+                                  data
+                                );
+                              }}
+                            >
+                              <a>
+                                <img
+                                  src={require('assets/images/cancel-request.svg')}
+                                  alt=""
+                                  title=""
+                                />
+                                <>{decline}</>
+                              </a>
+                            </li>
+                          )}
+                      {data &&
                         data.task_type &&
-                        data.task_type === 'picture_evaluation' ? (
-                        this.props.comesFrom !== 'Professional' &&
-                        data?.assinged_to?.length == 0 && (
+                        data.task_type === 'sick_leave' &&
+                        data.meetingjoined &&
+                        !data.certificate?.most_likely && (
                           <li
                             onClick={() => {
-                              this.props.declineTask(data._id, data.patient_id);
+                              this.props.cretficate(data._id, data.patient_id);
                             }}
                           >
                             <a>
                               <img
-                                src={require('assets/images/cancel-request.svg')}
-                                alt=""
-                                title=""
-                              />
-                              <>{decline_picture_evaluation}</>
-                            </a>
-                          </li>
-                        )
-                      ) : data &&
-                      data.task_type &&
-                      data.task_type === 'sick_leave' &&
-                      this.props.comesFrom === 'Professional' && !data.is_decline && !data.certificate?.most_likely && !data.approved === true && (
-                        <li
-                          onClick={() => {
-                            this.props.handleApprovedDetails(data._id, 'decline', data)
-                          }}
-                        >
-                          <a>
-                            <img
-                              src={require('assets/images/cancel-request.svg')}
-                              alt=""
-                              title=""
-                            />
-                            <>{decline}</>
-                          </a>
-                        </li>
-                      )}
-                      {data &&
-                        data.task_type &&
-                        data.task_type === 'sick_leave' && data.meetingjoined && !data.certificate?.most_likely && 
-                        <li onClick={() => {
-                            this.props.cretficate(data._id, data.patient_id)
-                          }}>
-                           <a>
-                           <img
                                 src={require('assets/virtual_images/menudocs.jpg')}
                                 alt=""
                                 title=""
                               />
-                           <>{Create_Certificate}</>
-                           </a>
-                         </li>
-                           } 
-                         {data &&
-                        data.task_type && 
-                        data.task_type === 'sick_leave' && !data.meetingjoined && data.link?.doctor_link && 
-                        <li onClick={() => {
-                          // this.props.cretficate()
-                        }}>
-                          <a>
-                            <img
-                              src={require('assets/images/details.svg')}
-                              alt=""
-                              title=""
-                            />
-                            <a className="joinmeetingtab" href={data.link?.doctor_link} target="_blank">{Join_Meeting}</a>
-                          </a>
-                        </li>
-                      }
+                              <>{Create_Certificate}</>
+                            </a>
+                          </li>
+                        )}
+                      {data &&
+                        data.task_type &&
+                        data.task_type === 'sick_leave' &&
+                        !data.meetingjoined &&
+                        data.link?.doctor_link && (
+                          <li
+                            onClick={() => {
+                              // this.props.cretficate()
+                            }}
+                          >
+                            <a>
+                              <img
+                                src={require('assets/images/details.svg')}
+                                alt=""
+                                title=""
+                              />
+                              <a
+                                className="joinmeetingtab"
+                                href={data.link?.doctor_link}
+                                target="_blank"
+                              >
+                                {Join_Meeting}
+                              </a>
+                            </a>
+                          </li>
+                        )}
                     </ul>
                   </a>
                 )}
