@@ -42,6 +42,7 @@ class Index extends Component {
       date_format: this.props.date_format,
       loggedinUser: this.props.loggedinUser,
       last_dv: this.props.personalinfo?.last_dv || [],
+      user: this.props.user,
       doc_image: '',
       images: [],
       resprisationLast: -1,
@@ -118,12 +119,17 @@ class Index extends Component {
       nextState.LeftInfoPatient !== this.state.LeftInfoPatient ||
       nextProps.LeftInfoPatient !== this.props.LeftInfoPatient ||
       nextProps.currenttab !== this.props.currenttab ||
-      nextState.currenttab !== this.state.currenttab
+      nextState.currenttab !== this.state.currenttab ||
+      nextState.user !== this.state.user ||
+      nextProps.user !== this.props.user
     );
   }
 
   //On change the User Data
   componentDidUpdate = (prevProps) => {
+    if (prevProps.user !== this.props.user) {
+      this.setState({ user: this.props.user });
+    }
     if (prevProps.added_data !== this.props.added_data) {
       this.setState({ added_data: this.props.added_data });
     }
@@ -2618,9 +2624,6 @@ class Index extends Component {
                                   />
                                 </a>
                                 <ul>
-                                  {/* {console.log('this.state.loggedinUser._id', this.state.loggedinUser, this.state.personalinfo.respiration[
-                                      this.state.resprisationLast
-                                    ].created_by )} */}
                                   <li>
                                     <a
                                       onClick={() =>
