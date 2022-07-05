@@ -289,7 +289,7 @@ class Index extends Component {
                                       </label>
                                     )}
                                   </Grid>
-                                  <Grid item xs={3} md={3}>
+                                  <Grid item xs={4} md={4}>
                                     {this.state.showRename === item.value ? (
                                       <Button
                                         onClick={() => this.renamePopup2(item)}
@@ -306,7 +306,7 @@ class Index extends Component {
                                       </Button>
                                     )}
                                   </Grid>
-                                  <Grid item xs={1} md={1}></Grid>
+                                  {/* <Grid item xs={1} md={1}></Grid> */}
                                 </Grid>
                               </Grid>
                             ))}
