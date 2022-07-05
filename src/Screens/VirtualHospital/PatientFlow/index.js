@@ -1427,7 +1427,7 @@ class Index extends Component {
                               onChange={this.onChooseSpeciality}
                               options={specialitiesList}
                               placeholder={AllSpecialities}
-                              className="allSpec"
+                              className="allSpec newsec"
                               isSearchable={false}
                             />
                             <a

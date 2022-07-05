@@ -89,6 +89,12 @@ class Index extends Component {
   }
 
   removeSpeciality = () => {
+    if (
+      this.state.wardDel &&
+      this.state.roomDel &&
+      this.state.patDel &&
+      this.state.deleteId
+    ){
     handleCloseWarn(this);
     let translate = getLanguage(this.props.stateLanguageType);
     let { deleteSpeciality, really_want_to_delete_speciality, No, Yes } =
@@ -124,6 +130,10 @@ class Index extends Component {
         );
       },
     });
+  }
+  else{
+    this.setState({ showError: true });
+  }
   };
 
   render() {
@@ -381,7 +391,7 @@ class Index extends Component {
                                 <Button
                                   className="selWarnBtn"
                                   onClick={() => {
-                                    this.removeSpeciality();
+                                 this.removeSpeciality()
                                   }}
                                 >
                                   {yesDeleteSpeciality}
@@ -542,6 +552,7 @@ class Index extends Component {
                       <Grid className="colorBtnUpr">
                         <Grid>
                           <ColorSelection
+                          stateLanguageType={this.props.stateLanguageType}
                             label={Color}
                             updateEntryState1={(name, value) =>
                               updateEntryState1(name, value, this)

@@ -1408,7 +1408,7 @@
     "AddNewPatient": "+ Add a new patient",
     "Choice": "Choice",
     "AddRoom": "+ Add a Room",
-    "RemovePatientfromFlow": "Remove Patient",
+   "RemovePatientfromFlow": "Remove Patient from Flow",
     "patient_will_be_removed_and_cannot_be_reversed": "This patient will be removed from the flow. This action can not be reversed.",
     "Yes_remove_patient": "Yes, Remove Patient",
     "Cancel_keep_patient": "Cancel, Keep Patient",
@@ -1875,6 +1875,7 @@
     "plz_enter_imposs_work_until": "Please enter valid date for the imposible work until",
     "plz_enter_detected_at": "Please enter valid date for the detected at",
     "plz_attached_file": "Please attached the file",
-    "Sick_Certificate_Amount": "Sick Certificate Amount"
+    "Sick_Certificate_Amount": "Sick Certificate Amount",
+    "Speciality_color":"Speciality color"
   }
 }

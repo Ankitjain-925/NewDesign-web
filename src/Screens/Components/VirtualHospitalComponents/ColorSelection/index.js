@@ -59,7 +59,7 @@ class Index extends React.Component {
 
   render() {
       let translate = getLanguage(this.props.stateLanguageType)
-      let {Specialitycolor} = translate;
+      let {Speciality_color} = translate;
     return (
       <>
         <Grid>
@@ -76,7 +76,7 @@ class Index extends React.Component {
                  />
                   {this.state.specialityColor &&
                     <ul className="subSpclList">
-                      <label>{Specialitycolor}</label>
+                      <label>{Speciality_color}</label>
                       <li><a className="recodRed"><FiberManualRecordIcon onClick={() => this.colorChoice(0)} /></a></li>
                       <li><a className="recodLghtRed"><FiberManualRecordIcon onClick={() => this.colorChoice(1)} /></a></li>
                       <li><a className="recodYelow"><FiberManualRecordIcon onClick={() => this.colorChoice(2)} /></a></li>
