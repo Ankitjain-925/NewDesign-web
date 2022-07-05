@@ -19,7 +19,8 @@ class ImageUploderView extends Component {
       images: [],
       attachfile: this.props.attachfile,
       ismore_five: false,
-      comesFrom1: this.props.comesFrom1
+      comesFrom1: this.props.comesFrom1,
+      
     };
   }
 
@@ -90,7 +91,7 @@ class ImageUploderView extends Component {
   };
   //For upload and image previews
   UploadFiles = (event) => {
-    if (event && event.length > 0) {
+  if (event && event.length > 0) {
       this.setState({ isfileuploadmulti: true });
       if (event[0].type === "application/x-zip-compressed") {
         this.setState({ file_type: true });
@@ -100,7 +101,12 @@ class ImageUploderView extends Component {
         } else {
           var Fileadd = this.state.attachfile;
           this.setState({ ismore_five: false, file_type: false });
+          var getNotSupport= false;
           for (var i = 0; i < event.length; i++) {
+          console.log('data',event[i])
+          if(event[i].fileType === "png" )
+{
+
             let file = event[i];
             let fileParts = file.name.split(".");
             let fileName = fileParts[0];
@@ -188,6 +194,16 @@ class ImageUploderView extends Component {
             console.log('inside Props', Fileadd)
             this.props.fileUpload(Fileadd, this.props.name);
           }
+        else{
+          getNotSupport = true;
+          break;
+        }
+      }
+      if(getNotSupport){
+       // eRROE MESSGE
+      }
+
+
         }
       }
     }

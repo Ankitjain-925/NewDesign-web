@@ -1340,6 +1340,7 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
+      Create_Certificate,
       CreateaTask,
       AppointmentTime,
       AppointmentDate,
@@ -3678,7 +3679,7 @@ class Index extends Component {
                           />
                         </a>
                       </Grid>
-                      <label>{CreateaTask}</label>
+                      <label>{Create_Certificate}</label>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
