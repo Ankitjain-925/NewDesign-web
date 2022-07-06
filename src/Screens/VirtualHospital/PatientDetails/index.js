@@ -81,8 +81,8 @@ class Index extends Component {
         this.props.location.search === '?view=4'
           ? 3
           : this.props.location.search === '?view=5'
-          ? 4
-          : 0;
+            ? 4
+            : 0;
       this.handleChangeTab('', data);
       this.handleChangeTabMob('', data + 1);
     }
@@ -165,8 +165,8 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          '/UserProfile/UpcomingAppintmentPat/' +
-          this.props.match.params.id,
+        '/UserProfile/UpcomingAppintmentPat/' +
+        this.props.match.params.id,
         commonHeader(user_token)
       )
       .then((response) => {
@@ -231,8 +231,8 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          '/UserProfile/updateSetting/' +
-          this.props.match.params.id,
+        '/UserProfile/updateSetting/' +
+        this.props.match.params.id,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
@@ -277,8 +277,8 @@ class Index extends Component {
             label:
               response.data.data?.first_name && response.data.data?.last_name
                 ? response.data.data?.first_name +
-                  ' ' +
-                  response.data.data?.last_name
+                ' ' +
+                response.data.data?.last_name
                 : response.data.data?.first_name,
             profile_id: response.data.data?.profile_id,
             value: response.data.data?._id,
@@ -314,8 +314,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -374,9 +374,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
