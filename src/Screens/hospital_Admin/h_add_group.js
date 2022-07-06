@@ -1120,7 +1120,7 @@ class Index extends Component {
                       </Grid>
                     </Modal>
 
-                    <Modal
+                   <Modal
                       open={this.state.openHospitalModal}
                       onClose={this.closeHospitalModal}
                       className={
