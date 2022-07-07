@@ -1876,6 +1876,9 @@
     "plz_enter_detected_at": "Please enter valid date for the detected at",
     "plz_attached_file": "Please attached the file",
     "Sick_Certificate_Amount": "Sick Certificate Amount",
-    "Speciality_color":"Speciality color"
+    "Speciality_color":"Speciality color",
+    "not_supported":"Pdf file not supported",
+    "CreateCertificate":"Create a Sick Certificate"
+
   }
 }

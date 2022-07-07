@@ -193,9 +193,8 @@ class Index extends Component {
             certification,
             create,
             decline,
-            head_dr
-
-        } = translate;
+            head_dr,
+  } = translate;
 
         return (
             <Grid >
@@ -528,11 +527,10 @@ class Index extends Component {
                                                         isMulti={true}
                                                         fileUpload={(e) => this.FileAttachMulti(e)}
                                                     />
-                                                 
-                                                </Grid>
+                                                     </Grid>
                                             </Grid>
                                         </Grid>
-                                     </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
