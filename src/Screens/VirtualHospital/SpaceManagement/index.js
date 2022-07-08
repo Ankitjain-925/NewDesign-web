@@ -76,10 +76,16 @@ class Index extends Component {
     this.setState({ openSpecl: true });
   };
   handleCloseSpecl = () => {
+    this.setState({errorMsg:""})
     this.setState({
       openSpecl: false,
       ward: {},
       speciality: {},
+    });
+
+    this.setState({
+      isEditWrd: false,
+      openWard: false
     });
   };
 
