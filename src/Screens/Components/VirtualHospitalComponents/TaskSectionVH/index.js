@@ -1676,7 +1676,8 @@ class Index extends Component {
                           )}
 
                           {this.state.newTask.task_type !==
-                            'picture_evaluation' && (
+                            'picture_evaluation' || this.state.newTask.task_type !==
+                            'sick_leave' && (
                             <Grid item xs={12} md={12} className="taskDescp">
                               <label>{Taskdescription}</label>
                               <Grid>
@@ -2117,6 +2118,8 @@ class Index extends Component {
                               </Grid>
                             </Grid>
                           )}
+                          {this.state.newTask.task_type !==
+                            'sick_leave' &&(
                           <Grid item xs={12} md={12}>
                             <label>{Assignedto}</label>
                             <Grid>
@@ -2138,10 +2141,11 @@ class Index extends Component {
                                 }
                               />
                             </Grid>
-                          </Grid>
-                          {this.state.newTask &&
+                          </Grid>)}
+                          {this.state.newTask && 
                           this.state.newTask?.task_type ===
-                            'picture_evaluation' ? null : (
+                            'picture_evaluation' || this.state.newTask.task_type !==
+                            'sick_leave' && (
                             <Grid item xs={12} md={12}>
                               <label>{Speciallity}</label>
                               <Grid className="specialFor">
