@@ -10782,6 +10782,11 @@ p.more-change-staff-img2 {
   font-weight: 600;
   padding: 2.3px 2px;
 }
+.newsec div{
+  padding: 4.3px 1px!important;
+  font-weight: 700!important; 
+  
+}
 .detailInfo1 {
   padding: 12px;
   margin: 45px 6px 0;
@@ -15147,7 +15152,7 @@ a.joinmeetingtab {
 .euroamount {
   position: absolute;
   top: 8px;
-  left: 290px;
+  left: 315px;
   color: grey;
   font-weight: 600;
 }

@@ -137,6 +137,7 @@ export const deleteClick = (current) => {
     current.state.patDel &&
     current.state.deleteId
   ) {
+    
     current.setState({ loaderImage: true });
     axios
       .delete(
