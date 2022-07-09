@@ -1878,7 +1878,9 @@
     "Sick_Certificate_Amount": "Sick Certificate Amount",
     "Speciality_color":"Speciality color",
     "not_supported":"Pdf file not supported",
-    "CreateCertificate":"Create a Sick Certificate"
+    "CreateCertificate":"Create a Sick Certificate",
+    "Not_attended":"Not attended",
+    "Payment_pending":"Payment pending"
 
   }
 }
