@@ -1385,7 +1385,7 @@ class Index extends Component {
                                   value={this.state.data}
                                   startAccessor="start"
                                   endAccessor="end"
-                                  style={{ minHeight: 900 }}
+                                  // style={{ minHeight: 900 }}
                                   popup
                                   style={{ minHeight: 900 }}
                                   onShowMore={(events, date) => { }}
@@ -1429,7 +1429,7 @@ class Index extends Component {
                                 value={this.state.data}
                                 startAccessor="start"
                                 endAccessor="end"
-                                style={{ minHeight: 900 }}
+                                // style={{ minHeight: 900 }}
                                 popup
                                 style={{ minHeight: 900 }}
                                 onShowMore={(events, date) => { }}
@@ -1474,7 +1474,7 @@ class Index extends Component {
                                 value={this.state.data}
                                 startAccessor="start"
                                 endAccessor="end"
-                                style={{ minHeight: 900 }}
+                                // style={{ minHeight: 900 }}
                                 popup
                                 style={{ minHeight: 900 }}
                                 onShowMore={(events, date) => { }}
