@@ -360,6 +360,7 @@ class Index extends Component {
     this.setState({ editServ: false, service: {} });
   };
 
+
   Billing = () => {
     this.props.history.push('/virtualHospital/bills');
   };
@@ -561,6 +562,7 @@ class Index extends Component {
       Priceperquantity,
       Servicename,
     } = translate;
+    // console.log('Quantity',Quantity);
     const { selectedOption } = this.state;
     const { addinvoice } = this.state;
     return (

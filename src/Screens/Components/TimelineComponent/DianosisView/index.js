@@ -116,7 +116,7 @@ class Index extends Component {
                       />
                     ) : (
                       <img
-                        src={require("assets/images/conf1.svg")}
+                        src={require("assets/images/digplus.svg")}
                         alt=""
                         title=""
                       />
@@ -157,7 +157,7 @@ class Index extends Component {
                       />
                     ) : (
                       <img
-                        src={require("assets/images/emer1.svg")}
+                        src={require("assets/images/digvan.svg")}
                         alt=""
                         title=""
                       />
