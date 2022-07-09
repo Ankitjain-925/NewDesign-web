@@ -301,6 +301,7 @@ class Index extends Component {
       certificateId: false,
       PatientID: false,
       taskData: {},
+      errorMsg:false
     });
   };
   handleChangeTab = (event, tabvalue) => {

@@ -80,6 +80,7 @@ class Index extends Component {
       openSpecl: false,
       ward: {},
       speciality: {},
+      errorMsg:false
     });
   };
 
