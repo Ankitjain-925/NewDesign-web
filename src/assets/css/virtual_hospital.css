@@ -15106,6 +15106,7 @@ a.joinmeetingtab {
   border: 1px solid grey;
   width:100%;
 }
+
 .certificatePrice label {
   font-family: Mulish, sans-serif;
   color: #7f8383;
@@ -15300,15 +15301,12 @@ a.joinmeetingtab {
   }
 }
 
+
 .allDrList3 {
   height: 680px;
   overflow-y: scroll;
   padding: 10px 0px;
 }
-
-
-
-
 
 
 .nwDiaCntnt2 {
@@ -15345,10 +15343,6 @@ a.joinmeetingtab {
   padding:8px 8px;
 }
 
-
-
-
-
 .allCertSec{
   display: flex;
   align-items: center;
@@ -15356,4 +15350,82 @@ a.joinmeetingtab {
 }
 .certificatePrice label{
   margin-bottom: 0px;
+}
+
+@media screen and (max-width:399px) {
+  .euroamount {
+    position: absolute;
+    top: 37px;
+    left: 155px;
+  }
+}
+
+@media screen and (min-width:400px) and (max-width:430px){
+  .euroamount {
+    position: absolute;
+    top: 7px;
+    left: 315px;
+  }
+}
+
+.InfoOutLinees {
+  color: red;
+  font-size: 20px!important;
+  margin-right: 20px;
+}
+
+ .InfoOutLinees:hover + .assignHoses.Paymentpending {
+  display: block !important;
+}
+.InfoOutLinees:hover + .assignHoses.appointmentTime {
+  display: block !important;
+} 
+.Paymentpending {
+  color: red;
+  background-color: #ffffff;
+  text-align: center;
+  padding: 7px;
+  position: absolute;
+  right: -20px;
+  border-radius: 10px;
+  width: 135px;
+  border: 1px #cccc solid;
+  z-index: 99999999;
+}
+.assignHoses.Paymentpending {
+  display: none;
+}
+.darktheme .assignHoses .Paymentpending {
+  background: #192020 !important;
+  
+}
+.assignHoses {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding-bottom: 10px !important;
+}
+.appointmentTime {
+  color: red;
+  background-color: #ffffff;
+  padding: 7px;
+  position: absolute;
+  right: -20px;
+  border-radius: 10px;
+  width: 135px;
+  border: 1px #cccc solid;
+  z-index: 99999999;
+  
+}
+
+.darkTheme .appointmentTime {
+  background: #192020 !important;
+  color:red!important
+}
+.darkTheme .Paymentpending {
+  background: #192020 !important;
+  color:red!important
+}
+
+.assignHoses.appointmentTime {
+  display: none;
 }

@@ -57,7 +57,7 @@ class Index extends Component {
       SearchValue: "",
       sickamount: true,
       sickamount1: {},
-    };
+   };
   }
 
   componentDidMount() {
@@ -143,12 +143,13 @@ class Index extends Component {
 
   updateEntryState2 = (event) => {
     var state = this.state.sickamount1;
-    state[event.target.name] = event.target.value;
+    state[event.target.name] = event.target.value>=0 && event.target.value<=100 ? event.target.value:'';
     this.setState({ sickamount1: state });
+    
   };
 
   EditAmount = () => {
-    let translate = getLanguage(this.props.stateLanguageType);
+   let translate = getLanguage(this.props.stateLanguageType);
     let { Something_went_wrong } = translate;
     var a = this.state.sickamount1.amount;
     axios
@@ -167,8 +168,8 @@ class Index extends Component {
       });
   };
   onSickamount = (e) => {
-    if (e.key === "Enter") {
-      this.EditAmount();
+   if (e.key === 'Enter') {
+     this.EditAmount();
       // this.setState({ sickamount: true });
     }
   };
@@ -389,13 +390,16 @@ class Index extends Component {
 
                             <Grid className="fixedEuro">
                               <input
-                                type="text"
+                                type="number"
+
                                 onKeyDown={this.onSickamount}
                                 placeholder=""
                                 name="amount"
                                 disabled={this.state.sickamount}
                                 onChange={(e) => this.updateEntryState2(e)}
                                 value={this.state.sickamount1.amount}
+                                 min="1"
+                                 max="100"
                               />
                               <p className="euroamount">€</p>
                             </Grid>
@@ -416,6 +420,7 @@ class Index extends Component {
 
                             {/* </a> */}
                           </Grid>
+
                         </Grid>
                       </Grid>
                     </Grid>
