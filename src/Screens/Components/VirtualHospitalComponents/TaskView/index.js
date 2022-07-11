@@ -171,31 +171,7 @@ class PointPain extends Component {
                 <Assigned assigned_to={data.assinged_to} />
               </Grid>
 
-              {data.task_type === 'sick_leave' && (
-                <Grid>
-                <Td className="billDots">
-                  <a className="academy_ul">
-                    {data && data.is_payment && data.is_payment == true ? (
-                      <Grid>
-                        <InfoOutlinedIcon className="InfoOutLinees" />
-                        <label className="assignHoses Paymentpending">
-                          {
-                            Not_attended
-                          }
-                        </label>
-                      </Grid>
-                    ) : (
-                      <Grid>
-                        <InfoOutlinedIcon className="InfoOutLinees" />
-                        <label className="assignHoses appointmentTime">
-                          {Payment_pending}
-
-                        </label>
-                      </Grid>
-                    )}
-                  </a>
-                </Td>
-                </Grid>)}
+          
               <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                 {!data?.is_decline && (
                   <a className="openScndhrf">
@@ -368,6 +344,31 @@ class PointPain extends Component {
                     </ul>
                   </a>
                 )}
+                    {data.task_type === 'sick_leave' && (
+                <Grid className="informStatus">
+                {/* <Td className="billDots">
+                  <a className="academy_ul"> */}
+                    {data && data.is_payment && data.is_payment == true ? (
+                      <Grid>
+                        <InfoOutlinedIcon className="InfoOutLinees" />
+                        <label className="assignHoses Paymentpending">
+                          {
+                            Not_attended
+                          }
+                        </label>
+                      </Grid>
+                    ) : (
+                      <Grid>
+                        <InfoOutlinedIcon className="InfoOutLinees" />
+                        <label className="assignHoses appointmentTime">
+                          {Payment_pending}
+
+                        </label>
+                      </Grid>
+                    )}
+                  {/* </a>
+                </Td> */}
+                </Grid>)}
               </Grid>
             </Grid>
           </Grid>
