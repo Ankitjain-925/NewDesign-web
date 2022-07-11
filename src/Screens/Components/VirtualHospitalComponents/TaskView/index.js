@@ -12,6 +12,7 @@ import { getDate, getTime } from 'Screens/Components/BasicMethod/index';
 import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import {Td } from 'react-super-responsive-table';
 
 class PointPain extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class PointPain extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-     Open,
+      Open,
       Done,
       see_details,
       EditTask,
@@ -46,6 +47,8 @@ class PointPain extends Component {
       approved,
       Create_Certificate,
       Join_Meeting,
+      Not_attended,
+      Payment_pending
     } = translate;
     var data = this.state.data;
     return (
@@ -167,7 +170,33 @@ class PointPain extends Component {
               <Grid className="setAssignedToupper">
                 <Assigned assigned_to={data.assinged_to} />
               </Grid>
-            <Grid className="spcMgntRght7 presEditDot scndOptionIner">
+
+              {data.task_type === 'sick_leave' && (
+                <Grid>
+                <Td className="billDots">
+                  <a className="academy_ul">
+                    {data && data.is_payment && data.is_payment == true ? (
+                      <Grid>
+                        <InfoOutlinedIcon className="InfoOutLinees" />
+                        <label className="assignHoses Paymentpending">
+                          {
+                            Not_attended
+                          }
+                        </label>
+                      </Grid>
+                    ) : (
+                      <Grid>
+                        <InfoOutlinedIcon className="InfoOutLinees" />
+                        <label className="assignHoses appointmentTime">
+                          {Payment_pending}
+
+                        </label>
+                      </Grid>
+                    )}
+                  </a>
+                </Td>
+                </Grid>)}
+              <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                 {!data?.is_decline && (
                   <a className="openScndhrf">
                     <img

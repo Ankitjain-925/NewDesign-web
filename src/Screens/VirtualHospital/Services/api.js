@@ -190,7 +190,7 @@ export const handleOpenServ = (current) => {
 
 //Modal Close
 export const handleCloseServ = (current) => {
-  current.setState({ openServ: false, updateTrack: {} });
+  current.setState({ openServ: false, updateTrack: {} ,errorMsg:false});
 };
 export const updateEntryState1 = (e, current) => {
   const state = current.state.updateTrack;
