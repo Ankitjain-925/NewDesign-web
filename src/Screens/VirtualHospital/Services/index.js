@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import LeftMenu from 'Screens/Components/Menus/VirtualHospitalMenu/index';
-import LeftMenuMobile from 'Screens/Components/Menus/VirtualHospitalMenu/mobile';
-import VHfield from 'Screens/Components/VirtualHospitalComponents/VHfield/index';
-import Modal from '@material-ui/core/Modal';
-import { confirmAlert } from 'react-confirm-alert';
-import Pagination from 'Screens/Components/Pagination/index';
-import { withRouter } from 'react-router-dom';
-import { Redirect, Route } from 'react-router-dom';
-import { authy } from 'Screens/Login/authy.js';
-import { connect } from 'react-redux';
-import { LanguageFetchReducer } from 'Screens/actions';
-import { LoginReducerAim } from 'Screens/Login/actions';
-import { Settings } from 'Screens/Login/setting';
-import { houseSelect } from '../Institutes/selecthouseaction';
-import Loader from 'Screens/Components/Loader/index';
-import sitedata from 'sitedata'; 
-import axios from 'axios';
-import { commonHeader } from 'component/CommonHeader/index';
-import Select from 'react-select';
+import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import Modal from "@material-ui/core/Modal";
+import { confirmAlert } from "react-confirm-alert";
+import Pagination from "Screens/Components/Pagination/index";
+import { withRouter } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import { authy } from "Screens/Login/authy.js";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from "Screens/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { houseSelect } from "../Institutes/selecthouseaction";
+import Loader from "Screens/Components/Loader/index";
+import sitedata from "sitedata";
+import axios from "axios";
+import { commonHeader } from "component/CommonHeader/index";
+import Select from "react-select";
 import {
   getSpecialty,
   getAllServices,
@@ -36,25 +36,25 @@ import {
   onFieldChange,
   searchFilter,
   getAmount,
-} from './api';
-import { getLanguage } from 'translations/index';
+} from "./api";
+import { getLanguage } from "translations/index";
 
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       openServ: false,
-      title: '',
-      description: '',
-      price: '',
-      house_id: '',
+      title: "",
+      description: "",
+      price: "",
+      house_id: "",
       speciality_id: false,
       services_data: [],
       AllServices: [],
       updateTrack: {},
       AllSpeciality: [],
-      errorMsg: '',
-      SearchValue: '',
+      errorMsg: "",
+      SearchValue: "",
       sickamount: true,
       sickamount1: {},
    };
@@ -79,9 +79,9 @@ class Index extends Component {
               this.props.settings &&
               this.props.settings.setting &&
               this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
+              this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
             }
           >
             <h1>{removeService}</h1>
@@ -116,9 +116,9 @@ class Index extends Component {
               this.props.settings &&
               this.props.settings.setting &&
               this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
-                ? 'dark-confirm react-confirm-alert-body'
-                : 'react-confirm-alert-body'
+              this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
             }
           >
             <h1 class="alert-btn">{removeService}</h1>
@@ -154,7 +154,7 @@ class Index extends Component {
     var a = this.state.sickamount1.amount;
     axios
       .put(
-        sitedata.data.path + '/vactive/AddAmount/' + this.props.House.value,
+        sitedata.data.path + "/vactive/AddAmount/" + this.props.House.value,
         { sickleave_certificate_amount: a },
         commonHeader(this.props.stateLoginValueAim.token)
       )
@@ -194,22 +194,22 @@ class Index extends Component {
       Search,
       Serviceshortdescription,
       Servicename,
-      Sick_Certificate_Amount
+      Sick_Certificate_Amount,
     } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
-      stateLoginValueAim.user === 'undefined' ||
+      stateLoginValueAim.user === "undefined" ||
       stateLoginValueAim.token === 450 ||
-      stateLoginValueAim.token === 'undefined' ||
-      stateLoginValueAim.user.type !== 'adminstaff' ||
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "adminstaff" ||
       !this.props.verifyCode ||
       !this.props.verifyCode.code
     ) {
-      return <Redirect to={'/'} />;
+      return <Redirect to={"/"} />;
     }
     if (House && House?.value === null) {
-      return <Redirect to={'/VirtualHospital/institutes'} />;
+      return <Redirect to={"/VirtualHospital/institutes"} />;
     }
     return (
       <Grid
@@ -217,9 +217,9 @@ class Index extends Component {
           this.props.settings &&
           this.props.settings.setting &&
           this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
-            ? 'homeBg darkTheme'
-            : 'homeBg'
+          this.props.settings.setting.mode === "dark"
+            ? "homeBg darkTheme"
+            : "homeBg"
         }
       >
         <Grid className="homeBgIner vh-section">
@@ -259,9 +259,9 @@ class Index extends Component {
                               this.props.settings &&
                               this.props.settings.setting &&
                               this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === 'dark'
-                                ? 'darkTheme addSpeclModel'
-                                : 'addSpeclModel'
+                              this.props.settings.setting.mode === "dark"
+                                ? "darkTheme addSpeclModel"
+                                : "addSpeclModel"
                             }
                           >
                             <Grid
@@ -269,9 +269,9 @@ class Index extends Component {
                                 this.props.settings &&
                                 this.props.settings.setting &&
                                 this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === 'dark'
-                                  ? 'darkTheme addSpeclContnt'
-                                  : 'addServContnt'
+                                this.props.settings.setting.mode === "dark"
+                                  ? "darkTheme addSpeclContnt"
+                                  : "addServContnt"
                               }
                               // className="addServContnt"
                             >
@@ -280,7 +280,7 @@ class Index extends Component {
                                   <Grid className="addSpeclClose">
                                     <a onClick={() => handleCloseServ(this)}>
                                       <img
-                                        src={require('assets/images/close-search.svg')}
+                                        src={require("assets/images/close-search.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -381,10 +381,17 @@ class Index extends Component {
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
                         <Grid item xs={12} md={12}>
-                          <Grid className="certificatePrice fixedEuro">
-                            <label>{Sick_Certificate_Amount}</label>
-                               <input
+                          <Grid className="certificatePrice allCertSec">
+                            {/* <a> */}
+
+                            <Grid>
+                              <label>{Sick_Certificate_Amount}</label>
+                            </Grid>
+
+                            <Grid className="fixedEuro">
+                              <input
                                 type="number"
+
                                 onKeyDown={this.onSickamount}
                                 placeholder=""
                                 name="amount"
@@ -394,9 +401,13 @@ class Index extends Component {
                                  min="1"
                                  max="100"
                               />
-                             <img
+                              <p className="euroamount">€</p>
+                            </Grid>
+
+                            <Grid>
+                              <img
                                 className="pionter"
-                                src={require('assets/virtual_images/pencil-1.svg')}
+                                src={require("assets/virtual_images/pencil-1.svg")}
                                 alt=""
                                 title=""
                                 onClick={() => {
@@ -405,11 +416,15 @@ class Index extends Component {
                                   });
                                 }}
                               />
-                              <p className="euroamount">€</p>
                             </Grid>
+
+                            {/* </a> */}
+                          </Grid>
+
                         </Grid>
                       </Grid>
                     </Grid>
+
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
@@ -443,7 +458,7 @@ class Index extends Component {
                             <a>
                               {!this.state.showinput ? (
                                 <img
-                                  src={require('assets/virtual_images/search-entries.svg')}
+                                  src={require("assets/virtual_images/search-entries.svg")}
                                   alt=""
                                   title=""
                                   onClick={() => {
@@ -454,13 +469,13 @@ class Index extends Component {
                                 />
                               ) : (
                                 <img
-                                  src={require('assets/images/close-search.svg')}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                   onClick={() => {
                                     this.setState({
                                       showinput: !this.state.showinput,
-                                      SearchValue: '',
+                                      SearchValue: "",
                                     });
                                     getAllServices(this);
                                   }}
@@ -479,7 +494,7 @@ class Index extends Component {
                             getSpecialtyData(false, this);
                           }}
                           className={
-                            !this.state.speciality_id ? 'cardioActv' : ''
+                            !this.state.speciality_id ? "cardioActv" : ""
                           }
                           variant="contained"
                         >
@@ -487,12 +502,12 @@ class Index extends Component {
                         </Button>
                         <Button
                           onClick={() => {
-                            getSpecialtyData('general', this);
+                            getSpecialtyData("general", this);
                           }}
                           className={
-                            this.state.speciality_id === 'general'
-                              ? 'cardioActv'
-                              : ''
+                            this.state.speciality_id === "general"
+                              ? "cardioActv"
+                              : ""
                           }
                           variant="contained"
                         >
@@ -506,8 +521,8 @@ class Index extends Component {
                               }}
                               className={
                                 this.state.speciality_id === item.value
-                                  ? 'cardioActv'
-                                  : ''
+                                  ? "cardioActv"
+                                  : ""
                               }
                               variant="contained"
                             >
@@ -547,7 +562,7 @@ class Index extends Component {
                                     >
                                       <a className="openScndhrf">
                                         <img
-                                          src={require('assets/images/three_dots_t.png')}
+                                          src={require("assets/images/three_dots_t.png")}
                                           alt=""
                                           title=""
                                           className="openScnd specialuty-more"
@@ -560,7 +575,7 @@ class Index extends Component {
                                           >
                                             <a>
                                               <img
-                                                src={require('assets/virtual_images/pencil-1.svg')}
+                                                src={require("assets/virtual_images/pencil-1.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -575,7 +590,7 @@ class Index extends Component {
                                           >
                                             <a>
                                               <img
-                                                src={require('assets/images/cancel-request.svg')}
+                                                src={require("assets/images/cancel-request.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -597,7 +612,7 @@ class Index extends Component {
                           <Grid item xs={12} md={6}>
                             <Grid className="totalOutOff">
                               <a>
-                                {this.state.currentPage} of{' '}
+                                {this.state.currentPage} of{" "}
                                 {this.state.totalPage}
                               </a>
                             </Grid>

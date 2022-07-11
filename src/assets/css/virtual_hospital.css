@@ -15116,7 +15116,7 @@ a.joinmeetingtab {
 .certificatePrice input {
   margin-left: 20px;
   padding: 6px;
-  text-align: center;
+  /* text-align: center; */
   font-family: Mulish, sans-serif;
   border-radius: 6px;
   border: 1px solid grey;
@@ -15157,7 +15157,7 @@ a.joinmeetingtab {
   cursor: pointer;
 }
 .certificatePrice img {
-  margin-left: 10px;
+  margin-left: 30px;
 }
 .darkTheme .certificatePrice input {
   background: #192020 !important;
@@ -15170,9 +15170,10 @@ a.joinmeetingtab {
 .euroamount {
   position: absolute;
   top: 8px;
-  left: 307px;
+  /* left: 307px; */
   color: grey;
   font-weight: 600;
+  right: -10px;
 }
 
 @media (max-width: 500px) {
@@ -15230,13 +15231,13 @@ a.joinmeetingtab {
 .fixedEuro {
   position: relative;
 }
-@media (max-width: 430px) {
+/* @media (max-width: 430px) {
   .euroamount {
     position: absolute;
     top: 38px;
     left: 140px;
   }
-}
+} */
 @media (max-width: 500px) {
   .openScnd {
     margin-top: 10px;
@@ -15435,3 +15436,12 @@ a.joinmeetingtab {
 .assignHoses.appointmentTime {
   display: none;
 }
+
+.allCertSec{
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+ }
+ .certificatePrice label{
+   margin-bottom: 0px;
+ }
