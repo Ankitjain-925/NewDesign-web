@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { pure } from "recompose";
-import { LanguageFetchReducer } from "Screens/actions";
-import Button from "@material-ui/core/Button";
-import { Settings } from "Screens/Login/setting";
-import { getLanguage } from "translations/index";
-import { S3Image } from "Screens/Components/GetS3Images/index";
-import { getDate, getTime } from "Screens/Components/BasicMethod/index";
-import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
-import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import { Td } from "react-super-responsive-table";
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { pure } from 'recompose';
+import { LanguageFetchReducer } from 'Screens/actions';
+import Button from '@material-ui/core/Button';
+import { Settings } from 'Screens/Login/setting';
+import { getLanguage } from 'translations/index';
+import { S3Image } from 'Screens/Components/GetS3Images/index';
+import { getDate, getTime } from 'Screens/Components/BasicMethod/index';
+import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
+import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import { Td } from 'react-super-responsive-table';
 
 class PointPain extends Component {
   constructor(props) {
@@ -171,29 +171,6 @@ class PointPain extends Component {
                 <Assigned assigned_to={data.assinged_to} />
               </Grid>
 
-              {data.task_type === "sick_leave" && (
-                <Grid>
-                  <Td className="billDots">
-                    <a className="academy_ul">
-                      {data && data.is_payment && data.is_payment == true ? (
-                        <Grid>
-                          <InfoOutlinedIcon className="InfoOutLinees" />
-                          <label className="assignHoses Paymentpending">
-                            {Not_attended}
-                          </label>
-                        </Grid>
-                      ) : (
-                        <Grid>
-                          <InfoOutlinedIcon className="InfoOutLinees" />
-                          <label className="assignHoses appointmentTime">
-                            {Payment_pending}
-                          </label>
-                        </Grid>
-                      )}
-                    </a>
-                  </Td>
-                </Grid>
-              )}
 
               <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                 {!data?.is_decline && (
@@ -367,11 +344,11 @@ class PointPain extends Component {
                     </ul>
                   </a>
                 )}
-                    {data.task_type === 'sick_leave' && (
-                <Grid className="informStatus">
-                {/* <Td className="billDots">
+                {data.task_type === 'sick_leave' && (
+                  <Grid className="informStatus">
+                    {/* <Td className="billDots">
                   <a className="academy_ul"> */}
-                    {data && data.is_payment && data.is_payment == true ? (
+                    {data && data.is_payment && data.is_payment === true && data.archived === true ? (
                       <Grid>
                         <InfoOutlinedIcon className="InfoOutLinees" />
                         <label className="assignHoses Paymentpending">
@@ -381,17 +358,19 @@ class PointPain extends Component {
                         </label>
                       </Grid>
                     ) : (
-                      <Grid>
+                      data.archived === true && (
+                    <Grid>
                         <InfoOutlinedIcon className="InfoOutLinees" />
                         <label className="assignHoses appointmentTime">
                           {Payment_pending}
 
                         </label>
                       </Grid>
+                      )
                     )}
-                  {/* </a>
+                    {/* </a>
                 </Td> */}
-                </Grid>)}
+                  </Grid>)}
               </Grid>
             </Grid>
           </Grid>
