@@ -1227,7 +1227,7 @@ class Index extends Component {
                           xs={12}
                           sm={8}
                           md={8}
-                          className="addFlowRght"
+                          className="addFlowRght addFlowBtnSec"
                         >
                           <a onClick={() => this.newPatient()}>
                             {CreateNewPatient}
