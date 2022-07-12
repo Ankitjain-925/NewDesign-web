@@ -12,7 +12,7 @@ import { getDate, getTime } from 'Screens/Components/BasicMethod/index';
 import Assigned from 'Screens/Components/VirtualHospitalComponents/Assigned/index';
 import SpecialityButton from 'Screens/Components/VirtualHospitalComponents/SpecialityButton';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import {Td } from 'react-super-responsive-table';
+import { Td } from 'react-super-responsive-table';
 
 class PointPain extends Component {
   constructor(props) {
@@ -171,7 +171,7 @@ class PointPain extends Component {
                 <Assigned assigned_to={data.assinged_to} />
               </Grid>
 
-          
+
               <Grid className="spcMgntRght7 presEditDot scndOptionIner">
                 {!data?.is_decline && (
                   <a className="openScndhrf">
@@ -344,11 +344,11 @@ class PointPain extends Component {
                     </ul>
                   </a>
                 )}
-                    {data.task_type === 'sick_leave' && (
-                <Grid className="informStatus">
-                {/* <Td className="billDots">
+                {data.task_type === 'sick_leave' && (
+                  <Grid className="informStatus">
+                    {/* <Td className="billDots">
                   <a className="academy_ul"> */}
-                    {data && data.is_payment && data.is_payment == true ? (
+                    {data && data.is_payment && data.is_payment === true && data.archived === true ? (
                       <Grid>
                         <InfoOutlinedIcon className="InfoOutLinees" />
                         <label className="assignHoses Paymentpending">
@@ -358,17 +358,19 @@ class PointPain extends Component {
                         </label>
                       </Grid>
                     ) : (
-                      <Grid>
+                      data.archived === true && (
+                    <Grid>
                         <InfoOutlinedIcon className="InfoOutLinees" />
                         <label className="assignHoses appointmentTime">
                           {Payment_pending}
 
                         </label>
                       </Grid>
+                      )
                     )}
-                  {/* </a>
+                    {/* </a>
                 </Td> */}
-                </Grid>)}
+                  </Grid>)}
               </Grid>
             </Grid>
           </Grid>
