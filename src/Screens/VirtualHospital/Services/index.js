@@ -411,7 +411,6 @@ class Index extends Component {
                                 min="1"
                                 max="100"
                               />
-                              <p className="euroamount">€</p>
                             </Grid>
 
                             <Grid>

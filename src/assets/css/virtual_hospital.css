@@ -10011,6 +10011,22 @@ button.crdoLghtBlu2 {
   border-bottom: none;
 }
 /* Added by Ankita */
+@media (max-width: 500px) {
+.informStatus {
+  padding: 11px !important;
+  width: 100% !important;
+}
+}
+@media (max-width: 1400px) {
+  .informStatus {
+    width: 100% !important;
+  }
+  }
+.informStatus {
+  padding: 0px;
+  text-align: right;
+  width:18px;
+}
 .taskViewMob {
   padding-bottom: 70px;
 }
