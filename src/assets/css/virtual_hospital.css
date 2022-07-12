@@ -15345,10 +15345,6 @@ a.joinmeetingtab {
   padding:8px 8px;
 }
 
-
-
-
-
 .allCertSec{
   display: flex;
   align-items: center;
@@ -15357,3 +15353,84 @@ a.joinmeetingtab {
 .certificatePrice label{
   margin-bottom: 0px;
 }
+
+
+
+
+.InfoOutLinees {
+  color: red;
+  font-size: 20px!important;
+  margin-right: 20px;
+}
+
+ .InfoOutLinees:hover + .assignHoses.Paymentpending {
+  display: block !important;
+}
+.InfoOutLinees:hover + .assignHoses.appointmentTime {
+  display: block !important;
+} 
+.Paymentpending {
+  color: red;
+  background-color: #ffffff;
+  text-align: center;
+  padding: 7px;
+  position: absolute;
+  right: -20px;
+  border-radius: 10px;
+  width: 135px;
+  border: 1px #cccc solid;
+  z-index: 99999999;
+}
+.assignHoses.Paymentpending {
+  display: none;
+}
+.darktheme .assignHoses .Paymentpending {
+  background: #192020 !important;
+  
+}
+.assignHoses {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding-bottom: 10px !important;
+}
+.appointmentTime {
+  color: red;
+  background-color: #ffffff;
+  padding: 7px;
+  position: absolute;
+  right: -20px;
+  border-radius: 10px;
+  width: 135px;
+  border: 1px #cccc solid;
+  z-index: 99999999;
+  
+}
+
+.darkTheme .appointmentTime {
+  background: #192020 !important;
+  color:red!important
+}
+.darkTheme .Paymentpending {
+  background: #192020 !important;
+  color:red!important
+}
+
+.assignHoses.appointmentTime {
+  display: none;
+}
+
+
+
+
+
+
+.fixedEuroSec input{
+  border:1px solid red;
+}
+
+@media screen and (min-width: 960px) and (max-width: 1012px){
+  .addFlowBtnSec a{
+    margin:5px 10px!important;
+  }
+}
+
