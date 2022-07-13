@@ -148,7 +148,7 @@ class Index extends Component {
   };
 
   EditAmount = () => {
-    if (this.state.sickamount1.amount >= 100 ||
+    if (this.state.sickamount1.amount >= 101 ||
       this.state.sickamount1.amount <= 0) {
       
     } else {
@@ -394,7 +394,7 @@ class Index extends Component {
                             
                             <Grid
                               className={
-                                this.state.sickamount1.amount >= 100 ||
+                                this.state.sickamount1.amount >= 101 ||
                                 this.state.sickamount1.amount <= 0
                                   ? "fixedEuroSec"
                                   : "fixedEuro"
@@ -411,6 +411,7 @@ class Index extends Component {
                                 min="1"
                                 max="100"
                               />
+                              <p className="euroamount">€</p>
                             </Grid>
 
                             <Grid>
