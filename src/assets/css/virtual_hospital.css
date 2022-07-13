@@ -15435,12 +15435,15 @@ a.joinmeetingtab {
   display: none;
 }
 
-
-
-
-
-
-.fixedEuroSec input{
+.allCertSec{
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+ }
+ .certificatePrice label{
+   margin-bottom: 0px;
+ }
+ .fixedEuroSec input{
   border:1px solid red;
 }
 
@@ -15449,4 +15452,3 @@ a.joinmeetingtab {
     margin:5px 10px!important;
   }
 }
-
