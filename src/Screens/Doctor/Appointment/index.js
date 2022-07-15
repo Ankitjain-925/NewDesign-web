@@ -93,7 +93,7 @@ class Index extends Component {
       .get(sitedata.data.path + "/UserProfile/timeSuggest/",
         commonHeader(user_token))
       .then((response) => {
-        this.setState({
+          this.setState({
           loaderImage: false,
           appointmentDatas: response.data.data,
         });
@@ -138,7 +138,7 @@ class Index extends Component {
         days = "sunday";
         break;
     }
-    let appointmentData = this.state.appointmentData;
+    let appointmentData = this.state.appointmentDatas;
     let appointDate;
     if (appointmentData && appointmentData.length > 0 && appointmentData[0]) {
       Object.entries(appointmentData[0]).map(([key, value]) => {
@@ -957,7 +957,7 @@ class Index extends Component {
     return time.toString().split(":");
   };
   Isintime = (currentTime, b_start, b_end) => {
-    if (!currentTime || !b_end || !b_start) return false;
+  if (!currentTime || !b_end || !b_start) return false;
     let b_start_time, b_end_time, current_time, smint;
     b_start_time =
       parseInt(this._getHourMinut(b_start)[0]) * 60 +
