@@ -15445,3 +15445,12 @@ a.joinmeetingtab {
  .certificatePrice label{
    margin-bottom: 0px;
  }
+ .fixedEuroSec input{
+  border:1px solid red;
+}
+
+@media screen and (min-width: 960px) and (max-width: 1012px){
+  .addFlowBtnSec a{
+    margin:5px 10px!important;
+  }
+}
