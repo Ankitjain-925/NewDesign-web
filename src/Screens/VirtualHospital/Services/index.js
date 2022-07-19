@@ -148,8 +148,8 @@ class Index extends Component {
   };
 
   EditAmount = () => {
-    if (this.state.sickamount1.amount >= 100 ||
-      this.state.sickamount1.amount <= 0) {
+    if (this.state.sickamount1.amount >= 21 ||
+      this.state.sickamount1.amount <= 9) {
       
     } else {
       let translate = getLanguage(this.props.stateLanguageType);
@@ -394,8 +394,8 @@ class Index extends Component {
                             
                             <Grid
                               className={
-                                this.state.sickamount1.amount >= 100 ||
-                                this.state.sickamount1.amount <= 0
+                                this.state.sickamount1.amount >= 21 ||
+                                this.state.sickamount1.amount <= 9
                                   ? "fixedEuroSec"
                                   : "fixedEuro"
                               }
@@ -408,8 +408,8 @@ class Index extends Component {
                                 disabled={this.state.sickamount}
                                 onChange={(e) => this.updateEntryState2(e)}
                                 value={this.state.sickamount1.amount}
-                                min="1"
-                                max="100"
+                                min="10"
+                                max="20"
                               />
                             </Grid>
 
