@@ -29,7 +29,7 @@ class PointPain extends Component {
     }
   };
 
-  componentDidMount = () => { };
+  componentDidMount = () => {};
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
@@ -48,7 +48,7 @@ class PointPain extends Component {
       Create_Certificate,
       Join_Meeting,
       Not_attended,
-      Payment_pending
+      Payment_pending,
     } = translate;
     var data = this.state.data;
     return (
@@ -56,10 +56,10 @@ class PointPain extends Component {
         <Grid container direction="row" alignItems="center">
           <Grid className="" item xs={12} sm={6} md={6}>
             <Grid className="revwFiles revwFiles1">
-              {data.status === 'done' ? (
+              {data.status === "done" ? (
                 <Grid>
                   <img
-                    src={require('assets/virtual_images/rightTick.png')}
+                    src={require("assets/virtual_images/rightTick.png")}
                     alt=""
                     title=""
                   />
@@ -67,7 +67,7 @@ class PointPain extends Component {
               ) : (
                 <Grid>
                   <img
-                    src={require('assets/virtual_images/greyImg.png')}
+                    src={require("assets/virtual_images/greyImg.png")}
                     alt=""
                     title=""
                   />
@@ -106,11 +106,11 @@ class PointPain extends Component {
           <Grid item xs={12} sm={6} md={6}>
             <Grid className="attchNoteMain">
               <Grid className="attchNotePart">
-                {data.task_type !== 'sick_leave' && (
+                {data.task_type !== "sick_leave" && (
                   <Grid className="attchNoteUpr">
                     <Grid className="attchNote">
                       <img
-                        src={require('assets/virtual_images/paragraph-normal.svg')}
+                        src={require("assets/virtual_images/paragraph-normal.svg")}
                         alt=""
                         title=""
                       />
@@ -118,7 +118,7 @@ class PointPain extends Component {
                     </Grid>
                     <Grid className="attchNote attchImg">
                       <img
-                        src={require('assets/virtual_images/attatchment.png')}
+                        src={require("assets/virtual_images/attatchment.png")}
                         alt=""
                         title=""
                       />
@@ -130,17 +130,17 @@ class PointPain extends Component {
                   // className={data.status === 'done' ? 'attchDone' : 'attchOpen'}
                   className={
                     data?.is_decline === true
-                      ? 'attchDecline'
-                      : data.status === 'done'
-                        ? 'attchDone'
-                        : 'attchOpen'
+                      ? "attchDecline"
+                      : data.status === "done"
+                      ? "attchDone"
+                      : "attchOpen"
                   }
                 >
                   <Button>
                     <label></label>
                     {data?.is_decline === true ? (
                       <> {Declined}</>
-                    ) : data?.status === 'open' ? (
+                    ) : data?.status === "open" ? (
                       <>{Open}</>
                     ) : (
                       <>{Done}</>
@@ -176,7 +176,7 @@ class PointPain extends Component {
                 {!data?.is_decline && (
                   <a className="openScndhrf">
                     <img
-                      src={require('assets/images/three_dots_t.png')}
+                      src={require("assets/images/three_dots_t.png")}
                       alt=""
                       title=""
                       className="openScnd specialuty-more"
@@ -189,29 +189,29 @@ class PointPain extends Component {
                           }}
                         >
                           <img
-                            src={require('assets/virtual_images/pencil-1.svg')}
+                            src={require("assets/virtual_images/pencil-1.svg")}
                             alt=""
                             title=""
                           />
 
                           {data &&
-                            data.task_type &&
-                            data.task_type === 'picture_evaluation' &&
-                            this.props.comesFrom === 'Professional' ? (
+                          data.task_type &&
+                          data.task_type === "picture_evaluation" &&
+                          this.props.comesFrom === "Professional" ? (
                             <>{edit_picture_evaluation}</>
                           ) : data.task_type &&
-                            data.task_type === 'picture_evaluation' &&
-                            this.props.comesFrom === 'adminstaff' &&
-                            data.status === 'done' ? (
+                            data.task_type === "picture_evaluation" &&
+                            this.props.comesFrom === "adminstaff" &&
+                            data.status === "done" ? (
                             <>{see_details}</>
                           ) : data.task_type &&
-                            data.task_type === 'picture_evaluation' &&
-                            (this.props.comesFrom === 'adminstaff' ||
-                              this.props.comesFrom === 'detailTask') ? (
+                            data.task_type === "picture_evaluation" &&
+                            (this.props.comesFrom === "adminstaff" ||
+                              this.props.comesFrom === "detailTask") ? (
                             <>{assign_to_doctor}</>
                           ) : data.task_type &&
-                            data.task_type === 'sick_leave' &&
-                            this.props.comesFrom === 'Professional' ? (
+                            data.task_type === "sick_leave" &&
+                            this.props.comesFrom === "Professional" ? (
                             <>{view_detail}</>
                           ) : (
                             <>{EditTask}</>
@@ -220,22 +220,22 @@ class PointPain extends Component {
                       </li>
 
                       {data &&
-                        data.task_type &&
-                        data.task_type === 'sick_leave' &&
-                        !data.approved === true &&
-                        this.props.comesFrom === 'Professional' ? (
+                      data.task_type &&
+                      data.task_type === "sick_leave" &&
+                      !data.approved === true &&
+                      this.props.comesFrom === "Professional" ? (
                         <li
                           onClick={() => {
                             this.props.handleApprovedDetails(
                               data._id,
-                              'approved',
+                              "approved",
                               data
                             );
                           }}
                         >
                           <a>
                             <img
-                              src={require('assets/virtual_images/pencil-1.svg')}
+                              src={require("assets/virtual_images/pencil-1.svg")}
                               alt=""
                               title=""
                             />
@@ -247,57 +247,57 @@ class PointPain extends Component {
                       )}
 
                       {data &&
-                        data.task_type &&
-                        data.task_type === 'picture_evaluation'
-                        ? this.props.comesFrom !== 'Professional' &&
-                        data?.assinged_to?.length == 0 && (
-                          <li
-                            onClick={() => {
-                              this.props.declineTask(
-                                data._id,
-                                data.patient_id
-                              );
-                            }}
-                          >
-                            <a>
-                              <img
-                                src={require('assets/images/cancel-request.svg')}
-                                alt=""
-                                title=""
-                              />
-                              <>{decline_picture_evaluation}</>
-                            </a>
-                          </li>
-                        )
+                      data.task_type &&
+                      data.task_type === "picture_evaluation"
+                        ? this.props.comesFrom !== "Professional" &&
+                          data?.assinged_to?.length == 0 && (
+                            <li
+                              onClick={() => {
+                                this.props.declineTask(
+                                  data._id,
+                                  data.patient_id
+                                );
+                              }}
+                            >
+                              <a>
+                                <img
+                                  src={require("assets/images/cancel-request.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                <>{decline_picture_evaluation}</>
+                              </a>
+                            </li>
+                          )
                         : data &&
-                        data.task_type &&
-                        data.task_type === 'sick_leave' &&
-                        this.props.comesFrom === 'Professional' &&
-                        !data.is_decline &&
-                        !data.certificate?.most_likely &&
-                        !data.approved === true && (
-                          <li
-                            onClick={() => {
-                              this.props.handleApprovedDetails(
-                                data._id,
-                                'decline',
-                                data
-                              );
-                            }}
-                          >
-                            <a>
-                              <img
-                                src={require('assets/images/cancel-request.svg')}
-                                alt=""
-                                title=""
-                              />
-                              <>{decline}</>
-                            </a>
-                          </li>
-                        )}
+                          data.task_type &&
+                          data.task_type === "sick_leave" &&
+                          this.props.comesFrom === "Professional" &&
+                          !data.is_decline &&
+                          !data.certificate?.most_likely &&
+                          !data.approved === true && (
+                            <li
+                              onClick={() => {
+                                this.props.handleApprovedDetails(
+                                  data._id,
+                                  "decline",
+                                  data
+                                );
+                              }}
+                            >
+                              <a>
+                                <img
+                                  src={require("assets/images/cancel-request.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                                <>{decline}</>
+                              </a>
+                            </li>
+                          )}
                       {data &&
                         data.task_type &&
-                        data.task_type === 'sick_leave' &&
+                        data.task_type === "sick_leave" &&
                         data.meetingjoined &&
                         !data.certificate?.most_likely && (
                           <li
@@ -307,7 +307,7 @@ class PointPain extends Component {
                           >
                             <a>
                               <img
-                                src={require('assets/virtual_images/menudocs.jpg')}
+                                src={require("assets/virtual_images/menudocs.jpg")}
                                 alt=""
                                 title=""
                               />
@@ -317,7 +317,7 @@ class PointPain extends Component {
                         )}
                       {data &&
                         data.task_type &&
-                        data.task_type === 'sick_leave' &&
+                        data.task_type === "sick_leave" &&
                         !data.meetingjoined &&
                         data.link?.doctor_link && (
                           <li
@@ -327,7 +327,7 @@ class PointPain extends Component {
                           >
                             <a>
                               <img
-                                src={require('assets/images/details.svg')}
+                                src={require("assets/images/details.svg")}
                                 alt=""
                                 title=""
                               />

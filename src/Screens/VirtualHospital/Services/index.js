@@ -56,7 +56,7 @@ class Index extends Component {
       errorMsg: "",
       SearchValue: "",
       sickamount: true,
-      sickamount1: {}
+      sickamount1: {},
     };
   }
 
@@ -148,9 +148,10 @@ class Index extends Component {
   };
 
   EditAmount = () => {
-    if (this.state.sickamount1.amount >= 100 ||
-      this.state.sickamount1.amount <= 0) {
-      
+    if (
+      this.state.sickamount1.amount >= 101 ||
+      this.state.sickamount1.amount <= 0
+    ) {
     } else {
       let translate = getLanguage(this.props.stateLanguageType);
       let { Something_went_wrong } = translate;
@@ -389,19 +390,19 @@ class Index extends Component {
                             {/* <a> */}
 
                             <Grid>
-                            <label>{Sick_Certificate_Amount}</label>
+                              <label>{Sick_Certificate_Amount}</label>
                             </Grid>
-                            
+
                             <Grid
                               className={
-                                this.state.sickamount1.amount >= 100 ||
+                                this.state.sickamount1.amount >= 101 ||
                                 this.state.sickamount1.amount <= 0
                                   ? "fixedEuroSec"
                                   : "fixedEuro"
                               }
                             >
                               <input
-                                type="text"
+                                type="number"
                                 onKeyDown={this.onSickamount}
                                 placeholder=""
                                 name="amount"
@@ -411,20 +412,21 @@ class Index extends Component {
                                 min="1"
                                 max="100"
                               />
+                              <p className="euroamount">€</p>
                             </Grid>
 
                             <Grid>
-                            <img
-                              className="pionter"
-                              src={require("assets/virtual_images/pencil-1.svg")}
-                              alt=""
-                              title=""
-                              onClick={() => {
-                                this.setState({
-                                  sickamount: false,
-                                });
-                              }}
-                            />
+                              <img
+                                className="pionter"
+                                src={require("assets/virtual_images/pencil-1.svg")}
+                                alt=""
+                                title=""
+                                onClick={() => {
+                                  this.setState({
+                                    sickamount: false,
+                                  });
+                                }}
+                              />
                             </Grid>
 
                             {/* </a> */}
