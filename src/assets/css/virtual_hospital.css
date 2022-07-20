@@ -15120,9 +15120,8 @@ a.joinmeetingtab {
   font-family: Mulish, sans-serif;
   border-radius: 6px;
   border: 1px solid grey;
-  width:160px
+  width:100%;
 }
-
 .certificatePrice label {
   font-family: Mulish, sans-serif;
   color: #7f8383;
@@ -15170,7 +15169,7 @@ a.joinmeetingtab {
 .euroamount {
   position: absolute;
   top: 8px;
-  /* left: 307px; */
+  /* left: 186px; */
   color: grey;
   font-weight: 600;
   right: -10px;
@@ -15317,12 +15316,15 @@ a.joinmeetingtab {
   }
 }
 
-
 .allDrList3 {
   height: 680px;
   overflow-y: scroll;
   padding: 10px 0px;
 }
+
+
+
+
 
 
 .nwDiaCntnt2 {
@@ -15359,6 +15361,15 @@ a.joinmeetingtab {
   padding:8px 8px;
 }
 
+.allCertSec{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.certificatePrice label{
+  margin-bottom: 0px;
+}
+
 @media screen and (max-width:399px) {
   .euroamount {
     position: absolute;
@@ -15367,13 +15378,8 @@ a.joinmeetingtab {
   }
 }
 
-@media screen and (min-width:400px) and (max-width:430px){
-  .euroamount {
-    position: absolute;
-    top: 7px;
-    left: 315px;
-  }
-}
+
+
 
 .InfoOutLinees {
   color: red;
@@ -15454,4 +15460,3 @@ a.joinmeetingtab {
     margin:5px 10px!important;
   }
 }
-
