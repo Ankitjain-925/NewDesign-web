@@ -15370,6 +15370,14 @@ a.joinmeetingtab {
   margin-bottom: 0px;
 }
 
+@media screen and (max-width:399px) {
+  .euroamount {
+    position: absolute;
+    top: 37px;
+    left: 155px;
+  }
+}
+
 
 
 
