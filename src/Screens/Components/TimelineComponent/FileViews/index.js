@@ -219,16 +219,7 @@ class Index extends Component {
               : ''
           }
         >
-          <Grid
-            className={
-              this.state.cnrttype.toLowerCase() === 'png' ||
-              this.state.cnrttype.toLowerCase() === 'jpeg' ||
-              this.state.cnrttype.toLowerCase() === 'jpg' ||
-              this.state.cnrttype.toLowerCase() === 'svg'
-                ? 'entryBoxCntnt SetWidthPopup1'
-                : 'entryBoxCntnt SetWidthPopup'
-            }
-          >
+          <Grid>
             <Grid className="entryCourse">
               <Grid className="entryCloseBtn">
                 <a onClick={this.CloseFile}>
@@ -240,6 +231,16 @@ class Index extends Component {
                 </a>
               </Grid>
             </Grid>
+            <Grid
+              className={
+                this.state.cnrttype.toLowerCase() === 'png' ||
+                this.state.cnrttype.toLowerCase() === 'jpeg' ||
+                this.state.cnrttype.toLowerCase() === 'jpg' ||
+                this.state.cnrttype.toLowerCase() === 'svg'
+                  ? 'entryBoxCntnt SetWidthPopup1'
+                  : 'entryBoxCntnt SetWidthPopup'
+              }
+              >
             {this.state.cnrttype.toLowerCase() === 'png' ||
             this.state.cnrttype.toLowerCase() === 'jpeg' ||
             this.state.cnrttype.toLowerCase() === 'jpg' ||
@@ -252,6 +253,7 @@ class Index extends Component {
                 comesFrom="LMS"
               />
             )}
+             </Grid>
           </Grid>
         </Modal>
       </Grid>
