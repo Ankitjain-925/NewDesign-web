@@ -69,10 +69,32 @@ class Index extends React.Component {
               open={this.state.showAll}
               onClose={this.removePopup}
             >
-              <Grid className="creatTaskModel">
+              <Grid className="creatTaskModel " >
                 <Grid className="creatTaskCntnt">
                   <Grid container direction="row">
-                    <Grid item xs={12} md={12}>
+                  <Grid container direction="row" justify="center" className="creatLbl" >
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{Assignedto}</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={this.removePopup}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+                    {/* <Grid item xs={12} md={12}>
                       <Grid className="creatLbl">
                         <Grid className="creatLblClose">
                           <a onClick={() => this.removePopup()}>
@@ -85,7 +107,7 @@ class Index extends React.Component {
                         </Grid>
                         <label>{Assignedto}</label>
                       </Grid>
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} md={12} lg={12}>
                       <Grid className="creatDetail">

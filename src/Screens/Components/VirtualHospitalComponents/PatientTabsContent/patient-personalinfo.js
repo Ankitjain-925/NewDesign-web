@@ -662,7 +662,29 @@ class Index extends Component {
         >
           <Grid className="qrBoxCntnt">
             <Grid className="qrCourse">
-              <Grid className="qrCloseBtn">
+            <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{profile} {QR_code}</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={this.handleQrClose}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+              {/* <Grid className="qrCloseBtn">
                 <a onClick={this.handleQrClose}>
                   <img
                     src={require("assets/images/close-search.svg")}
@@ -675,7 +697,7 @@ class Index extends Component {
                 <label>
                   {profile} {QR_code}
                 </label>
-              </Grid>
+              </Grid> */}
             </Grid>
             <Grid className="qrCourseImg">
               <Grid>
@@ -1214,7 +1236,31 @@ class Index extends Component {
                 >
                   <Grid className="editBoxCntnt">
                     <Grid className="editCourse">
-                      <Grid className="editCloseBtn">
+                    <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{add_more} {insurance}</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a  onClick={() =>
+                            this.handlePinClose("addInsuranceOpen")
+                          }>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+                      {/* <Grid className="editCloseBtn">
                         <a
                           onClick={() =>
                             this.handlePinClose("addInsuranceOpen")
@@ -1231,7 +1277,7 @@ class Index extends Component {
                         <label>
                           {add_more} {insurance}
                         </label>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid className="editPinform">
                       <Grid className="editField">
@@ -1388,7 +1434,31 @@ class Index extends Component {
                 >
                   <Grid className="editBoxCntnt">
                     <Grid className="editCourse">
-                      <Grid className="editCloseBtn">
+                    <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{edit} {insurance}</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a  onClick={() =>
+                            this.handlePinClose("editInsuranceOpen")
+                          }>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+                      {/* <Grid className="editCloseBtn">
                         <a
                           onClick={() =>
                             this.handlePinClose("editInsuranceOpen")
@@ -1405,7 +1475,7 @@ class Index extends Component {
                         <label>
                           {edit} {insurance}
                         </label>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid className="editPinform">
                       <Grid className="editField">
