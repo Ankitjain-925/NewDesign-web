@@ -242,7 +242,7 @@ class Index extends Component {
                       : "paraBoxModel"
                   }
                 >
-                  <Grid className="nwDiaCntnt2">
+                  <Grid className="nwDiaCntnt2 settingbg">
                     <Grid className="nwDiaCntntIner">
                       <Grid className="nwDiaCourse">
                         <Grid className="nwDiaCloseBtn">
