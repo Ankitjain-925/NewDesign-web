@@ -98,7 +98,7 @@ class Index extends Component {
       .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false });
-        this.setState({ paid_services: response.data.data.paid_services });
+        this.setState({ paid_services: response.data.data.paid_services || [] });
 
         var keysArray = Object.keys(apoinmentdata);
         let privateAppointments = null;
@@ -358,7 +358,7 @@ class Index extends Component {
     let dataSave = {};
 
     this.setState({ updateService: false, appoinmentError: false });
-    dataSave["paid_services"] = [];
+    // dataSave["paid_services"] = [];
 
  
     if (
@@ -391,6 +391,7 @@ class Index extends Component {
     ) {
       this.setState({ appoinmentError: true });
     } else {
+      dataSave["paid_services"] = dataSave["paid_services"] || [];
       if (firstServiceData.created) {
         dataSave["paid_services"].push(firstServiceData);
       }
