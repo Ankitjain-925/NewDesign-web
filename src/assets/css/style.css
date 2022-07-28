@@ -1626,7 +1626,7 @@ a.moreMenu {
     display: block;
 }
 .profilMenuList li a {
-    color: #404646;
+    color: #404646 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;

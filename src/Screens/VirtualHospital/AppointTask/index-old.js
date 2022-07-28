@@ -1510,7 +1510,7 @@ class Index extends Component {
                 </Grid>
 
                 {/* End of Right Section */}
-                <Modal open={this.state.openFil} onClose={this.handleCloseFil}>
+                 open={this.state.openFil} onClose={this.handleCloseFil}>
 
 
                   <Grid className={
@@ -1660,7 +1660,7 @@ class Index extends Component {
                 </Modal>
 
                 {/* Allow Location Access */}
-                <Modal
+                
                   open={this.state.openAllowAccess}
                   onClose={this.handleCloseAllowAccess}
                   className={
@@ -1759,7 +1759,7 @@ class Index extends Component {
                 {/* End of Allow Location Access */}
 
                 {/* Allow Location Access */}
-                <Modal
+                
                   open={this.state.openAllowLoc}
                   onClose={this.handleCloseAllowLoc}
                   className={
@@ -2123,7 +2123,7 @@ class Index extends Component {
                 {/* End of Allow Location Access */}
 
                 {/* {cancel_apointmnt} */}
-                <Modal
+                
                   open={this.state.openApoint}
                   onClose={this.handleCloseApoint}
                   className={
@@ -2176,7 +2176,7 @@ class Index extends Component {
                 </Modal>
                 {/* End of {cancel_apointmnt} */}
 
-                <Modal
+                
                   open={this.state.openFancyVdo}
                   onClose={this.handleCloseFancyVdo}
                   className={

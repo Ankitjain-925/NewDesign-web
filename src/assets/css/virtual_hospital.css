@@ -13137,7 +13137,7 @@ ul.patientHint li {
   background-color: #192020;
 }
 .darkTheme a.academy_ul ul li a {
-  color: #c3c3c3;
+  color: #c3c3c3 !important;
 }
 .darkTheme .profilMenuList ul li:last-child {
   border-top: 1px solid #6f6f6f;
@@ -13168,10 +13168,10 @@ ul.patientHint li {
   background-color: #192020;
 }
 .darkTheme .scndOptionIner ul li a {
-  color: #c3c3c3;
+  color: #c3c3c3 !important;
 }
 .darkTheme .scndOptionIner ul li a:hover {
-  background-color: #404646;
+  background-color: #404646 !important;
 }
 .darkTheme .presOpinionIner tbody tr {
   border-bottom: 1px solid #888888;

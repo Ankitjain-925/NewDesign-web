@@ -83,15 +83,15 @@ class Index extends Component {
       this.getPrescription();
     }
     if (prevProps.searchValue !== this.props.searchValue) {
-      if(this.props.searchValue===''){
+      if (this.props.searchValue === '') {
         this.getPrescription();
       }
-      else{
-        let FilterFromSearch1 = this.state.AllPres?.length>0 && this.state.AllPres.filter((obj) => {
+      else {
+        let FilterFromSearch1 = this.state.AllPres?.length > 0 && this.state.AllPres.filter((obj) => {
           return JSON.stringify(obj).toLowerCase().includes(this.props.searchValue?.toLowerCase());;
         });
         this.setState({
-          currentList : FilterFromSearch1
+          currentList: FilterFromSearch1
         });
       }
     }
@@ -283,6 +283,7 @@ class Index extends Component {
       inquiry,
       Yes,
       No,
+      show,
       doc_and_statnderd_ques,
       doc_aimedis_private,
       Annotations,
@@ -488,6 +489,7 @@ class Index extends Component {
             <Grid className="nwPresCntnt">
               <Grid className="nwPresCntntIner">
                 <Grid className="nwPresCourse">
+
                   <Grid className="nwPresCloseBtn">
                     <a onClick={this.handleCloseInqry}>
                       <img
@@ -742,20 +744,28 @@ class Index extends Component {
             <Grid className="nwPresCntnt">
               <Grid className="nwPresCntntIner">
                 <Grid className="nwPresCourse">
-                  <Grid className="nwPresCloseBtn">
-                    <a onClick={this.handleCloseShowSick}>
-                      <img
-                        src={require("assets/images/close-search.svg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                  </Grid>
-                  <p>
-                    {edit} {inquiry}
-                  </p>
-                  <Grid>
-                    <label>{prescription}</label>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <p>
+                        {show} {inquiry}
+                      </p>
+                      <Grid>
+                        <label>{prescription}</label>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                          <a onClick={this.handleCloseShowSick}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid className="docHlthMain">
@@ -984,7 +994,7 @@ class Index extends Component {
                         Next
                       </a>
                     )} */}
-                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                   </Grid>
                 )}
               </Grid>

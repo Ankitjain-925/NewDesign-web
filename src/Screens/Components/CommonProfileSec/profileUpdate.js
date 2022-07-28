@@ -540,6 +540,7 @@ class Index extends Component {
                   <Grid container direction="row" justify="center">
                     <Grid item xs={8} md={8} lg={8}>
                       <label>{edit} {ID} {and} {pin}</label>
+                      <p>{edit_id_pin}</p>
                     </Grid>
                     <Grid item xs={4} md={4} lg={4}>
                       <Grid>
@@ -557,7 +558,7 @@ class Index extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-                  <p>{edit_id_pin}</p>
+                  
                 </Grid>
                 <Grid className="editPinform">
                   <Grid className="editField">
