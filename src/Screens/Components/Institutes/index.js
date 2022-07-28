@@ -234,18 +234,41 @@ class Index extends Component {
                 <Modal
                   open={this.state.showPopup}
                   onClose={this.handleClosePopUp}
-                  className={
-                    this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
-                      ? "darkTheme paraBoxModel"
-                      : "paraBoxModel"
-                  }
                 >
-                  <Grid className="nwDiaCntnt2 settingbg">
-                    <Grid className="nwDiaCntntIner">
-                      <Grid className="nwDiaCourse">
-                        <Grid className="nwDiaCloseBtn">
+                   <Grid
+            className={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === 'dark'
+                ? 'nwEntrCntnt HospitalAdd darkTheme'
+                : 'nwEntrCntnt HospitalAdd'
+            }
+          >
+            <Grid className="nwEntrCntntIner ">
+            <Grid container direction="row" justify="center" className="nwEntrCourse">
+                          <Grid item xs={12} md={12} lg={12}>
+                            <Grid container direction="row" justify="center">
+                              <Grid item xs={8} md={8} lg={8}>
+                                <label>{Hospitals}</label>
+                              </Grid>
+                              <Grid item xs={4} md={4} lg={4}>
+                                <Grid>
+                                  <Grid className="entryCloseBtn">
+                                  <a onClick={this.handleClosePopUp}>
+                                      <img
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    </a>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                      </Grid>
+                        {/* <Grid className="nwDiaCloseBtn">
                           <a onClick={this.handleClosePopUp}>
                             <img
                               src={require("assets/images/close-search.svg")}
@@ -253,13 +276,10 @@ class Index extends Component {
                               title=""
                             />
                           </a>
-                        </Grid>
-                      </Grid>
+                        </Grid> */}
+                      
                       <Grid className="RenameInstitute">
                         <Grid container direction="row" justify="center">
-                          <Grid item xs={12} md={12}>
-                            <h2 className="renameHouseh2">{Hospitals}</h2>
-                          </Grid>
                           {currentList2 &&
                             currentList2.map((item) => (
                               <Grid container direction="row" justify="center">
