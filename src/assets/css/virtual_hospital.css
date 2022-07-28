@@ -15460,3 +15460,6 @@ a.joinmeetingtab {
     margin:5px 10px!important;
   }
 }
+ .darkTheme .settingbg{
+  background:#404646 !important;
+}

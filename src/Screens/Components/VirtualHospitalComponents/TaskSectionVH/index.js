@@ -358,6 +358,7 @@ class Index extends Component {
       user_id: this.props.stateLoginValueAim.user._id,
       image: this.props.stateLoginValueAim.user.image,
     };
+    console.log("comments_by",comments_by)
     let comments =
       this.state.newTask.comments?.length > 0
         ? this.state.newTask.comments
@@ -423,8 +424,9 @@ class Index extends Component {
     this.setState({ errorMsg: '' });
     let ComLength = this.state.calculate_Length;
     var data = this.state.newTask;
+    console.log("data",data)
     var user_id = data?.patient?.user_id;
-
+    console.log("user_id",user_id)
     if (
       data?.attachments?.length > ComLength?.attach_Length ||
       data?.comments?.length > ComLength?.comments_Length
@@ -743,11 +745,11 @@ class Index extends Component {
   updateEntryState2 = (user) => {
     var user1 =
       this.state.users?.length > 0 &&
-      this.state.users.filter((data) => data.patient_id === user.value);
+      this.state.users.filter((data) => data.user_id === user.value);
     if (user1 && user1?.length > 0) {
       const state = this.state.newTask;
       state['patient'] = user1[0];
-      state['patient_id'] = user1[0].patient_id;
+      state['patient_id'] = user1[0].user_id;
       state['case_id'] = user1[0].case_id;
       if (!user.label) {
         user['label'] =
@@ -799,7 +801,7 @@ class Index extends Component {
       state['assinged_to'] = data;
       this.setState({ newTask: state }, () => {
         this.selectProf(
-          this.state.newTask?.assinged_to,
+          this.state.newTask?.assignedTo,
           this.state.professional_id_list
         );
       });
