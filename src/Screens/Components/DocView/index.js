@@ -29,7 +29,6 @@ export const DocView = ({
 
   const returnFilename = (file_name) => {
     let name = file_name.split('&bucket=')[0].split('/Trackrecord/')[1];
-    console.log('Length', name.length);
     if (name.length > 36) {
       name =
         name.slice(0, 15) + '...' + name.slice(name.length - 15, name.length);
@@ -171,11 +170,11 @@ export const DocView = ({
             filetype === 'jpeg' ||
             filetype === 'jpg' ||
             filetype === 'svg'
-              ? 'entryBoxCntnt SetWidthPopup1'
+              ? 'entryBoxCntnt'
               : 'entryBoxCntnt SetWidthPopup'
           }
         >
-          <Grid className="nwDiaCourse">
+          {/* <Grid className="nwDiaCourse">
             <Grid className="nwDiaCloseBtn">
               <a onClick={() => setshow(false)}>
                 <img
@@ -186,7 +185,38 @@ export const DocView = ({
               </a>
             </Grid>
             <p>{DocumentsFiles}</p>
-          </Grid>
+          </Grid> */}
+          <Grid container direction="row" justify="center" className="nwDiaCourse">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{DocumentsFiles}</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={() => setshow(false)}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+            <Grid
+            className={
+              filetype === 'png' ||
+              filetype === 'jpeg' ||
+              filetype === 'jpg' ||
+              filetype === 'svg'
+                ? 'SetWidthPopup1'
+                : ''
+            }>
           {filetype === 'png' ||
           filetype === 'jpeg' ||
           filetype === 'jpg' ||
@@ -195,6 +225,7 @@ export const DocView = ({
           ) : (
             <Iframeview new_image={filename} type={filetype} comesFrom="LMS" />
           )}
+          </Grid>
         </Grid>
       </Modal>
     </Table>

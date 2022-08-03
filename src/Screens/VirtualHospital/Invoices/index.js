@@ -360,6 +360,7 @@ class Index extends Component {
     this.setState({ editServ: false, service: {} });
   };
 
+
   Billing = () => {
     this.props.history.push('/virtualHospital/bills');
   };
@@ -561,6 +562,7 @@ class Index extends Component {
       Priceperquantity,
       Servicename,
     } = translate;
+    // console.log('Quantity',Quantity);
     const { selectedOption } = this.state;
     const { addinvoice } = this.state;
     return (
@@ -878,18 +880,24 @@ class Index extends Component {
                     >
                       <Grid className="addServContnt">
                         <Grid className="addSpeclLbl">
-                          <Grid className="addSpeclClose">
-                            <a onClick={this.handleCloseServ}>
-                              <img
-                                src={require('assets/images/close-search.svg')}
-                                alt=""
-                                title=""
-                              />
-                            </a>
-                          </Grid>
-                          <Grid>
-                            <label>{Editservice}</label>
-                          </Grid>
+                        <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+        <label>{Editservice}</label>
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleCloseServ}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
                         </Grid>
 
                         <Grid className="enterServMain">

@@ -315,10 +315,10 @@ class Index extends Component {
             if (this.state.AddSickCertificate.doctor_id) {
                 let doctor_id = this.state.AddSickCertificate.doctor_id
                 axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id,
-                commonHeader()).then((response) => {
-                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
-                    this.setState({ docProfile1: response.data.data, found1: found })
-                })
+                    commonHeader()).then((response) => {
+                        const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                        this.setState({ docProfile1: response.data.data, found1: found })
+                    })
             }
         })
     }
@@ -409,12 +409,12 @@ class Index extends Component {
             data.profile_image = this.state.personalinfo.image;
             data.patient_profile_id = this.props.stateLoginValueAim.user.profile_id;
             axios.post(sitedata.data.path + '/UserProfile/second_opinion', data)
-            .then((responce) => {
-                if (this.state.share_to_doctor) {
-                    AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
-                }
-                this.setState({ fileattach: {}, selectedPdoc: {}, newItemp2: data, docProfile: false, AddSecond: {}, loaderImage: false, successfullsent: true, addSec: false })
-            })
+                .then((responce) => {
+                    if (this.state.share_to_doctor) {
+                        AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
+                    }
+                    this.setState({ fileattach: {}, selectedPdoc: {}, newItemp2: data, docProfile: false, AddSecond: {}, loaderImage: false, successfullsent: true, addSec: false })
+                })
             setTimeout(() => { this.setState({ successfullsent3: false }); }, 5000);
         }
         else {
@@ -426,22 +426,22 @@ class Index extends Component {
     allSdoctors() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/certificate/DoctorUsersSc',
-        commonHeader(user_token)).then((response) => {
-            if (response.data.data && response.data.data.length > 0) {
-                var data = [];
-                response.data.data.map((item) => {
-                    var name = '';
-                    if (item.first_name && item.last_name) {
-                        name = item.first_name + ' ' + item.last_name
-                    }
-                    else if (item.first_name) {
-                        name = item.first_name
-                    }
-                    data.push({ value: item._id, label: name });
-                })
-                this.setState({ Sdoctors: data })
-            }
-        })
+            commonHeader(user_token)).then((response) => {
+                if (response.data.data && response.data.data.length > 0) {
+                    var data = [];
+                    response.data.data.map((item) => {
+                        var name = '';
+                        if (item.first_name && item.last_name) {
+                            name = item.first_name + ' ' + item.last_name
+                        }
+                        else if (item.first_name) {
+                            name = item.first_name
+                        }
+                        data.push({ value: item._id, label: name });
+                    })
+                    this.setState({ Sdoctors: data })
+                }
+            })
     }
 
     SearchFilter = (e) => {
@@ -489,6 +489,25 @@ class Index extends Component {
                                             <Grid className="opinBoxCntnt">
                                                 <Grid className="opinBoxCntntIner">
                                                     <Grid className="opinCourse">
+                                                        <Grid container direction="row" justify="center">
+                                                            <Grid item xs={8} md={8} lg={8}>
+                                                                <p>{New} {inquiry}</p>
+                                                                <Grid><label>{secnd_openion}</label></Grid>
+                                                            </Grid>
+                                                            <Grid item xs={4} md={4} lg={4}>
+                                                                <Grid>
+                                                                    <Grid className="entryCloseBtn">
+                                                                        <a onClick={this.handleCloseDash}>
+                                                                            <img
+                                                                                src={require("assets/images/close-search.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                        </a>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
                                                         <Grid className="opinCloseBtn">
                                                             <a onClick={this.handleCloseDash}>
                                                                 <img src={require('assets/images/close-search.svg')} alt="" title="" />
@@ -550,7 +569,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="attchForms attchImg">
                                                                 <Grid><label>{attachments}</label></Grid>
-                                                                <FileUploader comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} /> 
+                                                                <FileUploader comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -571,6 +590,7 @@ class Index extends Component {
                                             <Grid className="nwPresCntnt">
                                                 <Grid className="nwPresCntntIner">
                                                     <Grid className="nwPresCourse">
+
                                                         <Grid className="nwPresCloseBtn">
                                                             <a onClick={this.handleCloseSick}>
                                                                 <img src={require('assets/images/close-search.svg')} alt="" title="" />
@@ -700,13 +720,26 @@ class Index extends Component {
                                             <Grid className="nwPresCntnt">
                                                 <Grid className="nwPresCntntIner">
                                                     <Grid className="nwPresCourse">
-                                                        <Grid className="nwPresCloseBtn">
-                                                            <a onClick={this.handleCloseInqry}>
-                                                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                                            </a>
+                                                        <Grid container direction="row" justify="center">
+                                                            <Grid item xs={8} md={8} lg={8}>
+                                                                <p>{New} {inquiry}</p>
+                                                                <Grid><label>{prescription}</label></Grid>
+                                                            </Grid>
+                                                            <Grid item xs={4} md={4} lg={4}>
+                                                                <Grid>
+                                                                    <Grid className="entryCloseBtn">
+                                                                        <a onClick={this.handleCloseInqry}>
+                                                                            <img
+                                                                                src={require("assets/images/close-search.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                        </a>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
                                                         </Grid>
-                                                        <p>{New} {inquiry}</p>
-                                                        <Grid><label>{prescription}</label></Grid>
+                                                        ¯
                                                     </Grid>
                                                     {this.state.error && <div className="err_message">{for_pres_req_doc_require}</div>}
                                                     <Grid className="docHlthMain">
@@ -771,7 +804,7 @@ class Index extends Component {
                                                             <h4>{Medicine} {inquiry}</h4>
                                                             <Grid><label>{Medicine} / {Substance}</label></Grid>
                                                             <Grid>
-                                                                <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} /> 
+                                                                <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="medicnSub">
@@ -823,46 +856,46 @@ class Index extends Component {
                                                         </Tabs>
                                                     </Grid>
                                                     <Grid item xs={12} md={4} sm={4} >
-                                                    <Grid className="settingInfo">
-                                                    {this.state.showinput && (
-                                                    <input
-                                                        className="serchInput"
-                                                        name="Search"
-                                                        placeholder="Search"
-                                                        value={this.state.searchValue}
-                                                        onChange={this.SearchFilter}
-                                                    />
-                                                    )}
-                                                    <a>
-                                                    {!this.state.showinput ? (
-                                                        <img
-                                                        src={require("assets/virtual_images/search-entries.svg")}
-                                                        alt=""
-                                                        title=""
-                                                        onClick={() => {
-                                                            this.setState({
-                                                            showinput: !this.state.showinput,
-                                                            });
-                                                        }}
-                                                        />
-                                                    ) : (
-                                                        <img
-                                                        src={require("assets/images/close-search.svg")}
-                                                        alt=""
-                                                        title=""
-                                                        onClick={() => {
-                                                            this.setState({
-                                                            showinput: !this.state.showinput,
-                                                            currentList: this.state.currentList2,
-                                                            searchValue: "",
-                                                            });
-                                                        }}
-                                                        />
-                                                    )}
-                                                    </a>
-                                                      
-                                                        {/* <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a> */}
-                                                    </Grid>
+                                                        <Grid className="settingInfo">
+                                                            {this.state.showinput && (
+                                                                <input
+                                                                    className="serchInput"
+                                                                    name="Search"
+                                                                    placeholder="Search"
+                                                                    value={this.state.searchValue}
+                                                                    onChange={this.SearchFilter}
+                                                                />
+                                                            )}
+                                                            <a>
+                                                                {!this.state.showinput ? (
+                                                                    <img
+                                                                        src={require("assets/virtual_images/search-entries.svg")}
+                                                                        alt=""
+                                                                        title=""
+                                                                        onClick={() => {
+                                                                            this.setState({
+                                                                                showinput: !this.state.showinput,
+                                                                            });
+                                                                        }}
+                                                                    />
+                                                                ) : (
+                                                                    <img
+                                                                        src={require("assets/images/close-search.svg")}
+                                                                        alt=""
+                                                                        title=""
+                                                                        onClick={() => {
+                                                                            this.setState({
+                                                                                showinput: !this.state.showinput,
+                                                                                currentList: this.state.currentList2,
+                                                                                searchValue: "",
+                                                                            });
+                                                                        }}
+                                                                    />
+                                                                )}
+                                                            </a>
+
+                                                            {/* <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a> */}
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </AppBar>
@@ -870,15 +903,15 @@ class Index extends Component {
                                         <Grid className="presPkgIner2">
                                             {value === 0 && <TabContainer>
                                                 {this.state.successfullsent && <div className="success_message">{rqst_sent_succefully}</div>}
-                                                <PrecriptionList newItem={this.state.newItemp} searchValue={this.state.searchValue}/>
+                                                <PrecriptionList newItem={this.state.newItemp} searchValue={this.state.searchValue} />
                                             </TabContainer>}
                                             {value === 1 && <TabContainer>
                                                 {this.state.successfullsent1 && <div className="success_message">{rqst_sent_succefully}</div>}
-                                                <SickList newItem={this.state.newItems} searchValue={this.state.searchValue}/>
+                                                <SickList newItem={this.state.newItems} searchValue={this.state.searchValue} />
                                             </TabContainer>}
                                             {value === 2 && <TabContainer>
                                                 {this.state.successfullsent3 && <div className="success_message">{rqst_sent_succefully}</div>}
-                                                <ListingSecond newItem={this.state.newItemp2} searchValue={this.state.searchValue}/>
+                                                <ListingSecond newItem={this.state.newItemp2} searchValue={this.state.searchValue} />
                                             </TabContainer>}
                                         </Grid>
                                     </Grid>

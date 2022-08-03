@@ -137,6 +137,7 @@ export const deleteClick = (current) => {
     current.state.patDel &&
     current.state.deleteId
   ) {
+    
     current.setState({ loaderImage: true });
     axios
       .delete(
@@ -291,7 +292,7 @@ export const handleOpenWarn = (id, current) => {
   current.setState({ openSpecl: false, openWarn: true, deleteId: id });
 };
 export const handleCloseWarn = (current) => {
-  current.setState({ openWarn: false });
+  current.setState({ openWarn: false ,showError:false });
 };
 
 //remove Wards

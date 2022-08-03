@@ -958,12 +958,24 @@ class Index extends Component {
                                                             className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme qrBoxModel" : "qrBoxModel"}>
                                                             <Grid className="qrBoxCntnt">
                                                                 <Grid className="qrCourse">
-                                                                    <Grid className="qrCloseBtn">
-                                                                        <a onClick={this.handleQrClose}>
-                                                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                                                        </a>
+                                                                <Grid container direction="row" justify="center">
+                                                                    <Grid item xs={8} md={8} lg={8}>
+                                                                        <label>{profile} {QR_code}</label>
                                                                     </Grid>
-                                                                    <Grid><label>{profile} {QR_code}</label></Grid>
+                                                                    <Grid item xs={4} md={4} lg={4}>
+                                                                        <Grid>
+                                                                        <Grid className="entryCloseBtn">
+                                                                            <a onClick={this.handleQrClose}>
+                                                                            <img
+                                                                                src={require("assets/images/close-search.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                            </a>
+                                                                        </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
                                                                 </Grid>
                                                                 <Grid className="qrCourseImg">
                                                                     <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
@@ -985,6 +997,25 @@ class Index extends Component {
 
                                                             <Grid className="editBoxCntnt">
                                                                 <Grid className="editCourse">
+                                                                <Grid container direction="row" justify="center">
+                                                                    <Grid item xs={8} md={8} lg={8}> 
+                                                                    <label>{edit} {ID} {and} {pin}</label>
+                                                                    <p>{edit_id_pin}</p>
+                                                                    </Grid>
+                                                                    <Grid item xs={4} md={4} lg={4}>
+                                                                        <Grid>
+                                                                        <Grid className="entryCloseBtn">
+                                                                            <a onClick={() => this.handlePinClose("chngPinOpen")}>
+                                                                            <img
+                                                                                src={require("assets/images/close-search.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                            </a>
+                                                                        </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Grid>
                                                                     <Grid className="editCloseBtn">
                                                                         <a onClick={() => this.handlePinClose("chngPinOpen")}>
                                                                             <img src={require('assets/images/close-search.svg')} alt="" title="" />
@@ -1296,12 +1327,24 @@ class Index extends Component {
                                                         className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
                                                         <Grid className="editBoxCntnt">
                                                             <Grid className="editCourse">
-                                                                <Grid className="editCloseBtn">
-                                                                    <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
-                                                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                                                    </a>
+                                                            <Grid container direction="row" justify="center">
+                                                                    <Grid item xs={8} md={8} lg={8}>
+                                                                        <label>{add_more} {insurance}</label>
+                                                                    </Grid>
+                                                                    <Grid item xs={4} md={4} lg={4}>
+                                                                        <Grid>
+                                                                        <Grid className="entryCloseBtn">
+                                                                            <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
+                                                                            <img
+                                                                                src={require("assets/images/close-search.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                            </a>
+                                                                        </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
                                                                 </Grid>
-                                                                <Grid><label>{add_more} {insurance}</label></Grid>
                                                             </Grid>
                                                             <Grid className="editPinform">
                                                                 <Grid className="editField">
@@ -1371,12 +1414,24 @@ class Index extends Component {
                                                         className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
                                                         <Grid className="editBoxCntnt">
                                                             <Grid className="editCourse">
-                                                                <Grid className="editCloseBtn">
-                                                                    <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
-                                                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                                                    </a>
+                                                            <Grid container direction="row" justify="center">
+                                                                    <Grid item xs={8} md={8} lg={8}>
+                                                                        <label>{edit} {insurance}</label>
+                                                                    </Grid>
+                                                                    <Grid item xs={4} md={4} lg={4}>
+                                                                        <Grid>
+                                                                        <Grid className="entryCloseBtn">
+                                                                            <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
+                                                                            <img
+                                                                                src={require("assets/images/close-search.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                            </a>
+                                                                        </Grid>
+                                                                        </Grid>
+                                                                    </Grid>
                                                                 </Grid>
-                                                                <Grid><label>{edit} {insurance}</label></Grid>
                                                             </Grid>
                                                             <Grid className="editPinform">
                                                                 <Grid className="editField">

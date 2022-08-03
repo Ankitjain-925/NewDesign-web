@@ -833,21 +833,28 @@ class Index extends Component {
             <Grid className="opinBoxCntnt">
               <Grid className="opinBoxCntntIner">
                 <Grid className="opinCourse">
-                  <Grid className="opinCloseBtn">
-                    <a onClick={this.handleClosePrescp}>
-                      <img
-                        src={require("../../../../assets/images/close-search.svg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                  </Grid>
-                  <p>
+                <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+    <p>
                     {edit} {inquiry}
                   </p>
-                  <Grid>
-                    <label>{secnd_openion}</label>
-                  </Grid>
+        <label>{secnd_openion}</label>
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleClosePrescp}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
+               
                 </Grid>
                 {this.state.err_pdf && (
                   <div className="err_message">{plz_upload_png_jpg}</div>
@@ -1059,21 +1066,27 @@ class Index extends Component {
           >
             <Grid className="rejectBoxCntnt">
               <Grid className="rejectCourse">
-                <Grid className="rejectCloseBtn">
-                  <a onClick={this.handleCloseReject}>
-                    <img
-                      src={require("../../../../assets/images/close-search.svg")}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                </Grid>
-                <p onClick={this.handleCloseReject}>{back}</p>
-                <Grid>
-                  <label>
-                    {decline} {inquiry}
-                  </label>
-                </Grid>
+              <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+    <p onClick={this.handleCloseReject}>{back}</p>
+        <label>{decline} {inquiry}</label>
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleCloseReject}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
+
+                
               </Grid>
               <Grid className="shrtRejctMsg">
                 <Grid>

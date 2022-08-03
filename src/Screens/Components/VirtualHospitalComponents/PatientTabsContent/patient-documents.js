@@ -458,17 +458,11 @@ class Index extends Component {
           <Grid className="nwDiaCntnt">
             <Grid className="nwDiaCntntIner">
               <Grid className="nwDiaCourse">
-                <Grid className="nwDiaCloseBtn">
-                  <a onClick={this.handleCloseNewEn}>
-                    <img
-                      src={require('assets/images/close-search.svg')}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                </Grid>
-
-                {this.state.updateOne !== this.state.updateTrack.track_id ? (
+              <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                    {this.state.updateOne !== this.state.updateTrack.track_id ? (
                   <div>
                     <p>
                       {New} {entry}
@@ -481,6 +475,24 @@ class Index extends Component {
                     </p>
                   </div>
                 )}
+                      {/* <label>{personalize_dashbrd}</label> */}
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseNewEn}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
               </Grid>
               <Grid>
                 <FUFields

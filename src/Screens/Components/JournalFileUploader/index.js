@@ -19,7 +19,8 @@ class ImageUploderView extends Component {
       images: [],
       attachfile: this.props.attachfile,
       ismore_five: false,
-      comesFrom1: this.props.comesFrom1
+      comesFrom1: this.props.comesFrom1,
+      error: false
     };
   }
 
@@ -100,94 +101,214 @@ class ImageUploderView extends Component {
         } else {
           var Fileadd = this.state.attachfile;
           this.setState({ ismore_five: false, file_type: false });
+           for (var i = 0; i < event.length; i++) {
+          let file = event[i];
+              let fileParts = file.name.split(".");
+              let fileName = fileParts[0];
+              let fileType = fileParts[1];
+              let bucket = this.props.cur_one && this.props.cur_one.bucket;
+              this.setState({ loaderImage: true });
+              axios
+                .post(sitedata.data.path + "/aws/sign_s3", {
+                  fileName: fileName,
+                  fileType: fileType,
+                  folders:
+                    this.props.cur_one &&
+                    this.props.cur_one.profile_id + "/Trackrecord/",
+                  bucket: bucket,
+                })
+                .then((response) => {
+                  Fileadd.push({
+                    filename:
+                      response.data.data.returnData.url + "&bucket=" + bucket,
+                    filetype: fileType,
+                  });
+                  setTimeout(() => {
+                    this.setState({ fileupods: false });
+                  }, 3000);
+                  let returnData = response.data.data.returnData;
+                  let signedRequest = returnData.signedRequest;
+                  let url = returnData.url;
+                  if (fileType === "pdf") {
+                    fileType = "application/pdf";
+                  }
+                  // Put the fileType in the headers for the upload
+                  var options = {
+                    headers: {
+                      "Content-Type": fileType,
+                    },
+                  };
+                  axios
+                    .put(signedRequest, file, options)
+                    .then((result) => { })
+                    .catch((error) => { });
+
+                  let previes = URL.createObjectURL(file);
+                  if (fileType === "mp4") {
+                    previes = require("assets/images/videoIcon.png");
+                  }
+                  if (fileType === "pdf" || fileType === "application/pdf") {
+                    previes = require("assets/images/pdfimg.png");
+                  } else if (
+                    fileType === "doc" ||
+                    fileType === "docx" ||
+                    fileType === "xml" ||
+                    fileType === "txt"
+                  ) {
+                    previes = require("assets/images/txt1.png");
+                  } else if (
+                    fileType === "xls" ||
+                    fileType === "xlsx" ||
+                    fileType === "xml"
+                  ) {
+                    previes = require("assets/images/xls1.svg");
+                  } else if (fileType === "csv") {
+                    previes = require("assets/images/csv1.png");
+                  } else if (
+                    fileType === "dcm" ||
+                    fileType === "DCM" ||
+                    fileType === "DICOM" ||
+                    fileType === "dicom"
+                  ) {
+                    previes = require("assets/images/dcm1.png");
+                  } else {
+                    previes = URL.createObjectURL(file);
+                  }
+                  let images = this.state.images;
+                  images.push({
+                    image:
+                      response.data.data.returnData.url + "&bucket=" + bucket,
+                    new_image: previes,
+                  });
+                  this.setState({ images: images });
+                  //    this.updateNewImage(response.data.data.returnData.url + '&bucket=' + bucket)
+                })
+                .catch((error) => { });
+
+              this.setState({ loaderImage: false, attachfile: Fileadd });
+              console.log('inside Props', Fileadd)
+              this.props.fileUpload(Fileadd, this.props.name);
+            }
+         }
+      }
+    }
+  };
+  UploadImage = (event) => {
+    if (event && event.length > 0) {
+      this.setState({ isfileuploadmulti: true });
+      if (event[0].type === "application/x-zip-compressed") {
+        this.setState({ file_type: true });
+      } else {
+        if (event.length + this.state.attachfile.length > 5) {
+          this.setState({ ismore_five: true, file_type: false });
+        } else {
+          var Fileadd = this.state.attachfile;
+          this.setState({ ismore_five: false, file_type: false });
+          var getNotSupport = false;
           for (var i = 0; i < event.length; i++) {
-            let file = event[i];
-            let fileParts = file.name.split(".");
-            let fileName = fileParts[0];
-            let fileType = fileParts[1];
-            let bucket = this.props.cur_one && this.props.cur_one.bucket;
-            this.setState({ loaderImage: true });
-            axios
-              .post(sitedata.data.path + "/aws/sign_s3", {
-                fileName: fileName,
-                fileType: fileType,
-                folders:
-                  this.props.cur_one &&
-                  this.props.cur_one.profile_id + "/Trackrecord/",
-                bucket: bucket,
-              })
-              .then((response) => {
-                Fileadd.push({
-                  filename:
-                    response.data.data.returnData.url + "&bucket=" + bucket,
-                  filetype: fileType,
-                });
-                setTimeout(() => {
-                  this.setState({ fileupods: false });
-                }, 3000);
-                let returnData = response.data.data.returnData;
-                let signedRequest = returnData.signedRequest;
-                let url = returnData.url;
-                if (fileType === "pdf") {
-                  fileType = "application/pdf";
-                }
-                // Put the fileType in the headers for the upload
-                var options = {
-                  headers: {
-                    "Content-Type": fileType,
-                  },
-                };
-                axios
-                  .put(signedRequest, file, options)
-                  .then((result) => { })
-                  .catch((error) => { });
+         const eventType = event[i].name.split(".")[1];
+            if (eventType === "png" || 
+                eventType === "jpeg"||
+                eventType === "jpg" ||
+                eventType === "svg") {
+              this.setState({ error: false })
+              let file = event[i];
+              let fileParts = file.name.split(".");
+              let fileName = fileParts[0];
+              let fileType = fileParts[1];
+              let bucket = this.props.cur_one && this.props.cur_one.bucket;
+              this.setState({ loaderImage: true });
+              axios
+                .post(sitedata.data.path + "/aws/sign_s3", {
+                  fileName: fileName,
+                  fileType: fileType,
+                  folders:
+                    this.props.cur_one &&
+                    this.props.cur_one.profile_id + "/Trackrecord/",
+                  bucket: bucket,
+                })
+                .then((response) => {
+                  Fileadd.push({
+                    filename:
+                      response.data.data.returnData.url + "&bucket=" + bucket,
+                    filetype: fileType,
+                  });
+                  setTimeout(() => {
+                    this.setState({ fileupods: false });
+                  }, 3000);
+                  let returnData = response.data.data.returnData;
+                  let signedRequest = returnData.signedRequest;
+                  let url = returnData.url;
+                  if (fileType === "pdf") {
+                    fileType = "application/pdf";
+                  }
+                  // Put the fileType in the headers for the upload
+                  var options = {
+                    headers: {
+                      "Content-Type": fileType,
+                    },
+                  };
+                  axios
+                    .put(signedRequest, file, options)
+                    .then((result) => { })
+                    .catch((error) => { });
 
-                let previes = URL.createObjectURL(file);
-                if (fileType === "mp4") {
-                  previes = require("assets/images/videoIcon.png");
-                }
-                if (fileType === "pdf" || fileType === "application/pdf") {
-                  previes = require("assets/images/pdfimg.png");
-                } else if (
-                  fileType === "doc" ||
-                  fileType === "docx" ||
-                  fileType === "xml" ||
-                  fileType === "txt"
-                ) {
-                  previes = require("assets/images/txt1.png");
-                } else if (
-                  fileType === "xls" ||
-                  fileType === "xlsx" ||
-                  fileType === "xml"
-                ) {
-                  previes = require("assets/images/xls1.svg");
-                } else if (fileType === "csv") {
-                  previes = require("assets/images/csv1.png");
-                } else if (
-                  fileType === "dcm" ||
-                  fileType === "DCM" ||
-                  fileType === "DICOM" ||
-                  fileType === "dicom"
-                ) {
-                  previes = require("assets/images/dcm1.png");
-                } else {
-                  previes = URL.createObjectURL(file);
-                }
-                let images = this.state.images;
-                images.push({
-                  image:
-                    response.data.data.returnData.url + "&bucket=" + bucket,
-                  new_image: previes,
-                });
-                this.setState({ images: images });
-                //    this.updateNewImage(response.data.data.returnData.url + '&bucket=' + bucket)
-              })
-              .catch((error) => { });
+                  let previes = URL.createObjectURL(file);
+                  if (fileType === "mp4") {
+                    previes = require("assets/images/videoIcon.png");
+                  }
+                  if (fileType === "pdf" || fileType === "application/pdf") {
+                    previes = require("assets/images/pdfimg.png");
+                  } else if (
+                    fileType === "doc" ||
+                    fileType === "docx" ||
+                    fileType === "xml" ||
+                    fileType === "txt"
+                  ) {
+                    previes = require("assets/images/txt1.png");
+                  } else if (
+                    fileType === "xls" ||
+                    fileType === "xlsx" ||
+                    fileType === "xml"
+                  ) {
+                    previes = require("assets/images/xls1.svg");
+                  } else if (fileType === "csv") {
+                    previes = require("assets/images/csv1.png");
+                  } else if (
+                    fileType === "dcm" ||
+                    fileType === "DCM" ||
+                    fileType === "DICOM" ||
+                    fileType === "dicom"
+                  ) {
+                    previes = require("assets/images/dcm1.png");
+                  } else {
+                    previes = URL.createObjectURL(file);
+                  }
+                  let images = this.state.images;
+                  images.push({
+                    image:
+                      response.data.data.returnData.url + "&bucket=" + bucket,
+                    new_image: previes,
+                  });
+                  this.setState({ images: images });
+                  //    this.updateNewImage(response.data.data.returnData.url + '&bucket=' + bucket)
+                })
+                .catch((error) => { });
 
-            this.setState({ loaderImage: false, attachfile: Fileadd });
-            console.log('inside Props', Fileadd)
-            this.props.fileUpload(Fileadd, this.props.name);
+              this.setState({ loaderImage: false, attachfile: Fileadd });
+              console.log('inside Props', Fileadd)
+              this.props.fileUpload(Fileadd, this.props.name);
+            }
+            else {
+              getNotSupport = true;
+              break;
+            }
           }
+          if (getNotSupport) {
+            this.setState({ error: true })
+          }
+
+
         }
       }
     }
@@ -202,6 +323,7 @@ class ImageUploderView extends Component {
       err_file_formart,
       BodySchemeNotes,
       or_drag_here,
+      not_supported
     } = translate;
     return (
       <div>
@@ -212,57 +334,62 @@ class ImageUploderView extends Component {
         {this.state.ismore_five && (
           <div className="err_message">{less_than_err}</div>
         )}
+        {this.state.error && (
+          <div className="err_message">
+            {not_supported}
+          </div>
+        )}
         <Dropzone onDrop={(e) => this.UploadFiles(e)}>
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps({ className: "dropzone" })}>
               <Input {...getInputProps()} />
               <Grid>
-              {this.state.comesFrom1 == 'certificate' ? (
+                {this.state.comesFrom1 == 'certificate' ? (
                   <div className="browsInput2"> <a>
-                  <img
-                    src={require("assets/images/upload-file.svg")}
-                    alt=""
-                    title=""
-                  />
-                </a>
-                 <input
-                    type="file"
-                    onChange={(e) => this.UploadFiles(e.target.files)}
-                    multiple={this.props.isMulti}
-                  />
+                    <img
+                      src={require("assets/images/upload-file.svg")}
+                      alt=""
+                      title=""
+                    />
+                  </a>
+                    <input
+                      type="file"
+                      onChange={(e) => this.UploadImage(e.target.files)}
+                      multiple={this.props.isMulti}
+                    />
                   </div>
-                ): (
-           <>
-           <Grid className="browsInput">
-            <a>
-                  <img
-                    src={require("assets/images/upload-file.svg")}
-                    alt=""
-                    title=""
-                  />
-                </a>
-                <a>
-                  {browse}{" "}
-                  <input
-                    type="file"
-                    onChange={(e) => this.UploadFiles(e.target.files)}
-                    multiple={this.props.isMulti}
-                  />
-                </a>{" "}
-                {or_drag_here}
-              
-               </Grid>
-                 <p>{suported_file_type_jpg_png_dcm}</p>
-                </>
-                
+                ) : (
+                  <>
+                    <Grid className="browsInput">
+                      <a>
+                        <img
+                          src={require("assets/images/upload-file.svg")}
+                          alt=""
+                          title=""
+                        />
+                      </a>
+                      <a>
+                        {browse}{" "}
+                        <input
+                          type="file"
+                          onChange={(e) => this.UploadFiles(e.target.files)}
+                          multiple={this.props.isMulti}
+                        />
+                      </a>{" "}
+                      {or_drag_here}
+
+                    </Grid>
+                    <p>{suported_file_type_jpg_png_dcm}</p>
+                  </>
+
                 )}
-              
+
               </Grid>
-            
+
             </div>
           )}
         </Dropzone>
-      
+
         {this.state.attachfile && this.state.attachfile.length > 0
           ? this.state.attachfile.map((file, index) => (
             <Grid container direction="row" className="updatedfileuploader">

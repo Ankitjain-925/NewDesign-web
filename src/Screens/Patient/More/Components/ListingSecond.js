@@ -535,20 +535,28 @@ class Index extends Component {
             <Grid className="opinBoxCntnt">
               <Grid className="opinBoxCntntIner">
                 <Grid className="opinCourse">
-                  <Grid className="opinCloseBtn">
-                    <a onClick={this.handleCloseInqry}>
-                      <img
-                        src={require("assets/images/close-search.svg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                  </Grid>
-                  <p>
+                <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                    <p>
                     {edit} {inquiry}
                   </p>
                   <Grid>
                     <label>{secnd_openion}</label>
+                  </Grid>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                          <a onClick={this.handleCloseInqry}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
                 {this.state.err_pdf && (
@@ -689,20 +697,28 @@ class Index extends Component {
             <Grid className="nwPresCntnt">
               <Grid className="nwPresCntntIner">
                 <Grid className="nwPresCourse">
-                  <Grid className="nwPresCloseBtn">
-                    <a onClick={this.handleCloseShowSick}>
-                      <img
-                        src={require("assets/images/close-search.svg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                  </Grid>
-                  <p>
+                <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                    <p>
                     {edit} {inquiry}
                   </p>
                   <Grid>
                     <label>{secnd_openion}</label>
+                  </Grid>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                          <a onClick={this.handleCloseShowSick}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid className="docHlthMain">

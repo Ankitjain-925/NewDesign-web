@@ -11,8 +11,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Select from 'react-select';
 import Loader from 'Screens/Components/Loader/index';
 import { getImage } from 'Screens/Components/BasicMethod/index';
-import {  getLanguage } from "translations/index"
-import {deleteClickDoctor, alldoctor, alldocs, AddFmilyDoc, UpdateDoc, addDoctor} from './mdapi';
+import { getLanguage } from "translations/index"
+import { deleteClickDoctor, alldoctor, alldocs, AddFmilyDoc, UpdateDoc, addDoctor } from './mdapi';
 var doctorArray = [];
 
 class Index extends Component {
@@ -58,7 +58,7 @@ class Index extends Component {
     handleCloseTrust = () => {
         this.setState({ openTrust: false });
     };
-    
+
     componentDidMount() {
         alldoctor(this, alldoctor);
         alldocs(this);
@@ -198,7 +198,7 @@ class Index extends Component {
                                 {/* <Grid ><p></p></Grid> */}
                             </Grid>
                             <Grid item xs={12} md={this.props.comesFrom ? 12 : 3}>
-                                <Grid className="addFmlyDoc"><a onClick={()=>AddFmilyDoc(this)}>+ {add_a_family_doc}</a></Grid>
+                                <Grid className="addFmlyDoc"><a onClick={() => AddFmilyDoc(this)}>+ {add_a_family_doc}</a></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -246,17 +246,29 @@ class Index extends Component {
                             className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme trstBoxModel" : "trstBoxModel"}>
                             <Grid className="trstBoxCntnt">
                                 <Grid className="trstCourse">
+                                    <Grid container direction="row" justify="center">
+                                        <Grid item xs={8} md={8} lg={8}>
+                                            <label>{New} {trusted_doc}</label>
+                                        </Grid>
+                                        <Grid item xs={4} md={4} lg={4}>
+                                            <Grid>
+                                                <Grid className="entryCloseBtn">
+                                                    <a onClick={this.handleCloseTrust}>
+                                                        <img
+                                                            src={require("assets/images/close-search.svg")}
+                                                            alt=""
+                                                            title=""
+                                                        />
+                                                    </a>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="findDoctor">
                                     {this.state.succset && <div className="success_message">{doc_added_succefully}</div>}
                                     {this.state.SelectUser && <div className="err_message">{select_doctor}</div>}
                                     {this.state.already && <div className="err_message">{doc_already_exit_in_list}</div>}
-                                    <Grid className="trstCloseBtn">
-                                        <a onClick={this.handleCloseTrust}>
-                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                        </a>
-                                    </Grid>
-                                    <Grid><label>{New} {trusted_doc}</label></Grid>
-                                </Grid>
-                                <Grid className="findDoctor">
                                     <Grid><label>{find_doc}</label></Grid>
                                     <Grid><input type="text" placeholder={serch_by_name_id} value={this.state.q} onChange={this.onChange} />
                                         <ul className="insuranceHint" style={{ height: userList != '' ? '150px' : '' }}>

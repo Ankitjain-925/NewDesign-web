@@ -278,7 +278,29 @@ class Index extends Component {
         >
           <Grid className="invtBoxCntnt">
             <Grid className="invtCourse">
-              <Grid className="invtCloseBtn">
+            <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{invite_doc_to} AIS</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseInvt}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+              {/* <Grid className="invtCloseBtn">
                 <a onClick={this.handleCloseInvt}>
                   <img
                     src={require("assets/images/close-search.svg")}
@@ -287,6 +309,10 @@ class Index extends Component {
                   />
                 </a>
               </Grid>
+             
+              <Grid>
+                <label>{invite_doc_to} AIS</label>
+              </Grid> */}
               {this.state.emailMissing && (
                 <div className="err_message"> {Enteremailfirst}</div>
               )}
@@ -296,9 +322,6 @@ class Index extends Component {
               {this.state.sentmessages && (
                 <div className="success_message">{Invitationsuccessfully}</div>
               )}
-              <Grid>
-                <label>{invite_doc_to} AIS</label>
-              </Grid>
               <p>{u_can_enter_mul_email}</p>
             </Grid>
             <Grid className="invitLinkUpr">

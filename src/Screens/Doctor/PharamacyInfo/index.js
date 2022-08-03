@@ -417,16 +417,28 @@ class Index extends Component {
         >
           <Grid className="phrmBoxCntnt">
             <Grid className="phrmCourse">
-              <Grid className="phrmCloseBtn">
-                <a onClick={this.handleClosePharma}>
-                  <img
-                    src={require("assets/images/close-search.svg")}
-                    alt=""
-                    title=""
-                  />
-                </a>
-              </Grid>
-              {this.state.firstPatient_id && (
+            <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
+                    <label>{pharma_prescription}</label>
+                    <p>{send_prescription_to_pharmacy}</p>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                    <Grid>
+                      <Grid className="entryCloseBtn">
+                        <a onClick={this.handleClosePharma}>
+                          <img
+                            src={require("assets/images/close-search.svg")}
+                            alt=""
+                            title=""
+                          />
+                        </a>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+            <Grid className="phrmLinkUpr">
+            {this.state.firstPatient_id && (
                 <div className="err_message">
                   {Pleaseenterthepatientidfirst}
                 </div>
@@ -442,12 +454,6 @@ class Index extends Component {
               {this.state.setError && (
                 <div className="err_message">{plz_upload_png_jpg}</div>
               )}
-              <Grid>
-                <label>{pharma_prescription}</label>
-              </Grid>
-              <p>{send_prescription_to_pharmacy}</p>
-            </Grid>
-            <Grid className="phrmLinkUpr">
               <Grid className="scanInputs">
                 <Grid>
                   <label>{patient_id}</label>

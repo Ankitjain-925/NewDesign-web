@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import EmergencyCall from "Screens/Components/EmergencyPage/index";
 import { getLanguage } from "translations/index"
-import {getTrack} from "./api";
+import { getTrack } from "./api";
 import { Settings } from "Screens/Login/setting";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
@@ -104,9 +104,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -164,30 +164,35 @@ class Index extends Component {
                     onClose={this.handleClosePara}
                     className={
                       this.props.settings &&
-                      this.props.settings.setting &&
-                      this.props.settings.setting.mode === "dark"
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode === "dark"
                         ? "darkTheme paraBoxModel"
                         : "paraBoxModel"
                     }
                   >
                     <Grid className="paraBoxCntnt">
                       <Grid className="paraCourse">
-                        <Grid className="paraCloseBtn">
-                          <a onClick={this.handleClosePara}>
-                            <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
+                        <Grid container direction="row" justify="center">
+                          <Grid item xs={8} md={8} lg={8}>
+                            <label>{emrgncy_data_access}</label>
+                            <p>{emrgancy_access_for_non_connected}</p>
+                          </Grid>
+                          <Grid item xs={4} md={4} lg={4}>
+                            <Grid>
+                              <Grid className="entryCloseBtn">
+                                <a onClick={this.handleClosePara}>
+                                  <img
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                </a>
+                              </Grid>
+                            </Grid>
+                          </Grid>
                         </Grid>
-
-                        <Grid>
-                          <label>{emrgncy_data_access}</label>
-                        </Grid>
-                        <p>{emrgancy_access_for_non_connected}</p>
                       </Grid>
-                      
+
                       {this.state.error_msg && (
                         <div className="err_message">
                           {patient_profile_is_not_correct}

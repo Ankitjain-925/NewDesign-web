@@ -1626,7 +1626,7 @@ a.moreMenu {
     display: block;
 }
 .profilMenuList li a {
-    color: #404646;
+    color: #404646 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
@@ -13639,7 +13639,7 @@ iframe.stripe_checkout_app {
     color: red!important;
 }
 .SetWidthPopup1{
-    width: 400px !important;
+    max-width: 400px !important;
     text-align: center;
     max-height: 85%;
     overflow: hidden;
