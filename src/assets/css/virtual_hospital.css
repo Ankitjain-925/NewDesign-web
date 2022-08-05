@@ -11051,7 +11051,7 @@ p.more-change-staff-img2 {
 .creatTaskCntnt {
   height: 537px;
   overflow-y: scroll;
-  padding: 20px 0px;
+  /* padding: 20px 0px; */
 }
 .creatLbl {
   padding: 0px 20px;
