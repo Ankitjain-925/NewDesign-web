@@ -1335,7 +1335,7 @@
     "ChangeStaff": "Mitarbeiter wechseln",
     "AssignWardRoom": "Station/Zimmer zuweisen",
     "MovePatient": "Patient verschieben",
-    "Specialitycolor":"Farbe des Fachgebiets",
+    "Specialitycolor": "Farbe des Fachgebiets",
     "InvoiceID": "Rechnungs-ID",
     "CaseID": "Fall-ID",
     "Status": "Status",
@@ -1485,7 +1485,7 @@
     "AddComment": "Kommentar hinzufügen",
     "save_task_and_close": "Aufgabe speichern & schließen",
     "EditTask": "Aufgabe bearbeiten",
-    "decline_picture_evaluation": "Bildauswertung ablehnen",
+    "decline_picture_evaluation": "Online-Diagnose ablehnen",
     "DeleteTask": "Aufgabe löschen",
     "Tasks": "Aufgaben",
     "view_file": "Datei ansehen",
@@ -1603,7 +1603,7 @@
     "Enterchoice": "Auswahl eingeben",
     "Enterquestion": "Frage eingeben",
     "Search_Select": "Suchen & Auswählen",
-    "AllSpecialities": "Alle Spezialitäten",
+    "AllSpecialities": "Alle Fachgebiete",
     "SelectStepName": "Bezeichnung des Schrittes auswählen",
     "Name": "Name",
     "Searchserviceoraddcustominput": "Dienstleistung suchen oder eigene Eingabe hinzufügen",
@@ -1804,9 +1804,8 @@
    "plz_enter_detected_at":"Bitte geben Sie ein gültiges Datum für das erkannt um ein",
    "plz_attached_file":"Bitte die Datei anhängen",
    "Sick_Certificate_Amount":"Betrag der Krankenscheine",
-   "Birthday": "Geburtstag",
-   "Mobile_number": "Handynummer",
-   "Speciality_color":"Spezialität Farbe"
-    
+   "CreateCertificate":"Erstellen Sie ein Krankheitszertifikat",
+   "Not_attended":"nicht besucht",
+   "Payment_pending":"Zahlung ausstehend"
       }
 }
