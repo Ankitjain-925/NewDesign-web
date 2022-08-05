@@ -808,7 +808,7 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                  <Grid className="nwDiaCloseBtn">
+                                  {/* <Grid className="nwDiaCloseBtn">
                                     
                                     <a onClick={this.handleEditCloseQues}>
                                       <img
@@ -820,7 +820,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid>
                                     <label>{EditQuestionnaire}</label>
-                                  </Grid>
+                                  </Grid> */}
                                 </Grid>
                                 {this.state.myQuestions && (
                                   <Grid>

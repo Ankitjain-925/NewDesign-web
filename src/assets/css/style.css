@@ -1626,7 +1626,7 @@ a.moreMenu {
     display: block;
 }
 .profilMenuList li a {
-    color: #404646 !important;
+    color: #404646;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
@@ -13639,7 +13639,7 @@ iframe.stripe_checkout_app {
     color: red!important;
 }
 .SetWidthPopup1{
-    max-width: 400px !important;
+    width: 400px !important;
     text-align: center;
     max-height: 85%;
     overflow: hidden;
@@ -16556,7 +16556,7 @@ select:-webkit-autofill:focus {
 .creatTaskCntnt {
     height: 537px;
     overflow-y: scroll;
-    padding: 20px 0px;
+    /* padding: 20px 0px; */
 }
 .creatLbl {
     padding: 0px 20px;

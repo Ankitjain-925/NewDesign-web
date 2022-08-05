@@ -10012,21 +10012,21 @@ button.crdoLghtBlu2 {
 }
 /* Added by Ankita */
 @media (max-width: 500px) {
-.informStatus {
-  padding: 11px !important;
-  width: 100% !important;
-}
-}
-@media (max-width: 1400px) {
   .informStatus {
+    padding: 11px !important;
     width: 100% !important;
   }
   }
-.informStatus {
-  padding: 0px;
-  text-align: right;
-  width:18px;
-}
+  @media (max-width: 1400px) {
+    .informStatus {
+      width: 100% !important;
+    }
+    }
+  .informStatus {
+    padding: 0px;
+    text-align: right;
+    width:18px;
+  }
 .taskViewMob {
   padding-bottom: 70px;
 }
@@ -10798,11 +10798,6 @@ p.more-change-staff-img2 {
   font-weight: 600;
   padding: 2.3px 2px;
 }
-.newsec div{
-  padding: 4.3px 1px!important;
-  font-weight: 700!important; 
-  
-}
 .detailInfo1 {
   padding: 12px;
   margin: 45px 6px 0;
@@ -11056,7 +11051,7 @@ p.more-change-staff-img2 {
 .creatTaskCntnt {
   height: 537px;
   overflow-y: scroll;
-  padding: 20px 0px;
+  /* padding: 20px 0px; */
 }
 .creatLbl {
   padding: 0px 20px;
@@ -13137,7 +13132,7 @@ ul.patientHint li {
   background-color: #192020;
 }
 .darkTheme a.academy_ul ul li a {
-  color: #c3c3c3 !important;
+  color: #c3c3c3;
 }
 .darkTheme .profilMenuList ul li:last-child {
   border-top: 1px solid #6f6f6f;
@@ -13168,10 +13163,10 @@ ul.patientHint li {
   background-color: #192020;
 }
 .darkTheme .scndOptionIner ul li a {
-  color: #c3c3c3 !important;
+  color: #c3c3c3;
 }
 .darkTheme .scndOptionIner ul li a:hover {
-  background-color: #404646 !important;
+  background-color: #404646;
 }
 .darkTheme .presOpinionIner tbody tr {
   border-bottom: 1px solid #888888;
@@ -15116,11 +15111,10 @@ a.joinmeetingtab {
 .certificatePrice input {
   margin-left: 20px;
   padding: 6px;
-  /* text-align: center; */
+  text-align: center;
   font-family: Mulish, sans-serif;
   border-radius: 6px;
   border: 1px solid grey;
-  width:100%;
 }
 .certificatePrice label {
   font-family: Mulish, sans-serif;
@@ -15156,7 +15150,7 @@ a.joinmeetingtab {
   cursor: pointer;
 }
 .certificatePrice img {
-  margin-left: 30px;
+  margin-left: 10px;
 }
 .darkTheme .certificatePrice input {
   background: #192020 !important;
@@ -15166,14 +15160,16 @@ a.joinmeetingtab {
   background-color: #192020 !important;
 }
 
-.euroamount {
-  position: absolute;
-  top: 8px;
-  /* left: 186px; */
-  color: grey;
-  font-weight: 600;
-  right: -10px;
+.sectiontoset input{
+  width:100px;
 }
+.euroamount {
+   position: absolute;
+   top: 8px;
+   color: grey;
+   font-weight: 600;
+   right: 10px;
+  }
 
 @media (max-width: 500px) {
   .deleteStep {
@@ -15245,16 +15241,18 @@ a.joinmeetingtab {
 @media (max-width: 350px) {
   .openScnd {
     margin-left: 20px;
-  }
-  .colorspace input {
-    width: 90%;
-  }
-}
-@media screen and (min-width: 960px) and (max-width: 1200px) {
-  .colorspace input {
-    width: 90%;
-  }
-}
+      }
+      .colorspace input{
+        width: 90%;
+      }
+   
+    }
+    @media screen and (min-width: 960px) and (max-width: 1200px){
+      .colorspace input{
+          width: 90%;
+        }
+     
+      } 
 
 .dobCertSec .ant-picker {
   border: none;
@@ -15361,6 +15359,8 @@ a.joinmeetingtab {
   padding:8px 8px;
 }
 
+
+
 .allCertSec{
   display: flex;
   align-items: center;
@@ -15369,17 +15369,15 @@ a.joinmeetingtab {
 .certificatePrice label{
   margin-bottom: 0px;
 }
-
-@media screen and (max-width:399px) {
-  .euroamount {
-    position: absolute;
-    top: 37px;
-    left: 155px;
-  }
+.fixedEuroSec input{
+ border:1px solid red;
 }
-
-
-
+.fixedEuroSec input{ 
+   border:1px solid red;
+}
+.fixedEuro {
+ position: relative;
+}
 
 .InfoOutLinees {
   color: red;
@@ -15444,22 +15442,22 @@ a.joinmeetingtab {
 }
 
 .allCertSec{
-   display: flex;
-   align-items: center;
-   justify-content: flex-start;
- }
- .certificatePrice label{
-   margin-bottom: 0px;
- }
- .fixedEuroSec input{
-  border:1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.certificatePrice label{
+  margin-bottom: 0px;
+}
+.fixedEuroSec input{
+ border:1px solid red;
 }
 
 @media screen and (min-width: 960px) and (max-width: 1012px){
-  .addFlowBtnSec a{
-    margin:5px 10px!important;
-  }
+ .addFlowBtnSec a{
+   margin:5px 10px!important;
+ }
 }
- .darkTheme .settingbg{
-  background:#404646 !important;
+.darkTheme .settingbg{
+ background:#404646 !important;
 }

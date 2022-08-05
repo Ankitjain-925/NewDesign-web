@@ -508,13 +508,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid className="opinCloseBtn">
-                                                            <a onClick={this.handleCloseDash}>
-                                                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                                            </a>
-                                                        </Grid>
-                                                        <p>{New} {inquiry}</p>
-                                                        <Grid><label>{secnd_openion}</label></Grid>
+                                                       
                                                     </Grid>
                                                     {this.state.err_pdf && <div className="err_message">{plz_upload_png_jpg}</div>}
                                                     {this.state.error && <div className="err_message">{doc_require_for_second_openion}</div>}

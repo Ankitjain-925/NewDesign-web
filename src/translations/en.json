@@ -1408,7 +1408,7 @@
     "AddNewPatient": "+ Add a new patient",
     "Choice": "Choice",
     "AddRoom": "+ Add a Room",
-   "RemovePatientfromFlow": "Remove Patient from Flow",
+    "RemovePatientfromFlow": "Remove Patient",
     "patient_will_be_removed_and_cannot_be_reversed": "This patient will be removed from the flow. This action can not be reversed.",
     "Yes_remove_patient": "Yes, Remove Patient",
     "Cancel_keep_patient": "Cancel, Keep Patient",
@@ -1722,8 +1722,8 @@
     "payment_done": "Payment done",
     "assign_to_doctor": "Assign to doctor",
     "view_file": "View File",
-    "edit_picture_evaluation": "Edit Picture Evaluation",
-    "decline_picture_evaluation": "Decline Picture Evaluation",
+    "edit_picture_evaluation": "Edit Online Diagnose",
+    "decline_picture_evaluation": "Decline Online Diagnose",
     "Global_Role": "Global Role",
     "Work_Package_can_be": "Work Package can be",
     "assigned_to_user_and_groups": "assigned to user and groups",
@@ -1881,6 +1881,6 @@
     "CreateCertificate":"Create a Sick Certificate",
     "Not_attended":"Not attended",
     "Payment_pending":"Payment pending"
-
+    
   }
 }

@@ -323,7 +323,7 @@ class ImageUploderView extends Component {
       err_file_formart,
       BodySchemeNotes,
       or_drag_here,
-      not_supported
+      suported_file_type_jpg
     } = translate;
     return (
       <div>
@@ -336,7 +336,7 @@ class ImageUploderView extends Component {
         )}
         {this.state.error && (
           <div className="err_message">
-            {not_supported}
+            {suported_file_type_jpg}
           </div>
         )}
         <Dropzone onDrop={(e) => this.UploadFiles(e)}>
