@@ -366,12 +366,24 @@ class Index extends Component {
                             }>
                             <Grid className="LanguageBoxMain">
                                 <Grid className="nwPresCourse">
-                                    <Grid className="nwPresCloseBtn nwEntrCloseBtnAdd">
-                                        <a onClick={() => this.setState({ openDocUploadModel: false })}>
-                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                        </a>
+                                    <Grid container direction="row" justify="center">
+                                        <Grid item xs={8} md={8} lg={8}>
+                                            <label>{upload_a_doc}</label>
+                                        </Grid>
+                                        <Grid item xs={4} md={4} lg={4}>
+                                            <Grid>
+                                            <Grid className="entryCloseBtn">
+                                                <a onClick={() => this.setState({ openDocUploadModel: false })}>
+                                                <img
+                                                    src={require("assets/images/close-search.svg")}
+                                                    alt=""
+                                                    title=""
+                                                />
+                                                </a>
+                                            </Grid>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                    <Grid><label>{upload_a_doc}</label></Grid>
                                 </Grid>
                                 {this.state.PassDone && <div className="success_message">{doc_successfully_uploaded}!</div>}
                                 {this.state.languageBlank && <div className="err_message">{no_doc_selected}</div>}
@@ -408,12 +420,24 @@ class Index extends Component {
                     }>
                     <Grid className="presBoxCntnt">
                         <Grid className="presCourse">
-                            <Grid className="presCloseBtn nwEntrCloseBtnAdd">
-                                <a onClick={this.handleClosePres}>
-                                    <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                </a>
+                        <Grid container direction="row" justify="center">
+                            <Grid item xs={8} md={8} lg={8}>
+                                <label>{document}</label>
                             </Grid>
-                            <p>{document}</p>
+                            <Grid item xs={4} md={4} lg={4}>
+                                <Grid>
+                                <Grid className="presCloseBtn nwEntrCloseBtnAdd">
+                                    <a onClick={this.handleClosePres}>
+                                    <img
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
+                                    />
+                                    </a>
+                                </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                         </Grid>
 
                         <Grid className="medicInqUpr">

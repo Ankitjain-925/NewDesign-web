@@ -1154,28 +1154,37 @@ class Index extends Component {
                   >
                     <Grid className="dataBoxCntnt">
                       <Grid className="dataCourse">
-                        <Grid className="dataCloseBtn">
-                          <a onClick={this.handleCloseData}>
-                            <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
-                        </Grid>
-                        <Grid>
+                      <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+      <label>{patient_access_data}</label>
+      <p>{healthcare_access_for_non_conn_patient}</p>
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleCloseData}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
+
+
+                      </Grid>
+
+                      <Grid className="dataBoxUpr">
+                         <Grid>
                           {this.state.error_msg && (
                             <div className="err_message">
                               {id_pin_not_correct}
                             </div>
                           )}
                         </Grid>
-                        <Grid>
-                          <label>{patient_access_data}</label>
-                        </Grid>
-                        <p>{healthcare_access_for_non_conn_patient}</p>
-                      </Grid>
-                      <Grid className="dataBoxUpr">
                         <Grid className="dataBoxInput">
                           <Grid>
                             <Grid>
@@ -1244,17 +1253,9 @@ class Index extends Component {
                         <Grid className="nwDiaCntnt">
                           <Grid className="nwDiaCntntIner">
                             <Grid className="nwDiaCourse">
-                              <Grid className="nwDiaCloseBtn">
-                                <a onClick={this.handleCloseInqryNw}>
-                                  <img
-                                    src={require("assets/images/close-search.svg")}
-                                    alt=""
-                                    title=""
-                                  />
-                                </a>
-                              </Grid>
-
-                              {this.state.updateOne !==
+                            <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+    {this.state.updateOne !==
                                 this.state.updateTrack.track_id ? (
                                 <div>
                                   <p>
@@ -1481,6 +1482,22 @@ class Index extends Component {
                                   </Grid>
                                 </div>
                               )}
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleCloseInqryNw}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
+     
                             </Grid>
                             <Grid>
                               {this.state.current_select === "anamnesis" && (

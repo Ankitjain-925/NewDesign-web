@@ -467,20 +467,30 @@ class Index extends Component {
             >
               <Grid className="qrBoxCntnt">
                 <Grid className="qrCourse">
-                  <Grid className="qrCloseBtn">
-                    <a onClick={this.handleQrClose}>
-                      <img
-                        src={require("assets/images/close-search.svg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
+
+            <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{profile} {QR_code}</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={this.handleQrClose}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
-                  <Grid>
-                    <label>
-                      {profile} {QR_code}
-                    </label>
-                  </Grid>
+                </Grid>
+            </Grid>
+                
                 </Grid>
                 <Grid className="qrCourseImg">
                   <Grid>
@@ -525,21 +535,30 @@ class Index extends Component {
             >
               <Grid className="editBoxCntnt">
                 <Grid className="editCourse">
-                  <Grid className="editCloseBtn">
-                    <a onClick={() => this.handlePinClose("chngPinOpen")}>
-                      <img
-                        src={require("assets/images/close-search.svg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
+                <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{edit} {ID} {and} {pin}</label>
+                      <p>{edit_id_pin}</p>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={() => this.handlePinClose("chngPinOpen")}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </Grid>
-                  <Grid>
-                    <label>
-                      {edit} {ID} {and} {pin}
-                    </label>
-                  </Grid>
-                  <p>{edit_id_pin}</p>
+                </Grid>
+              </Grid>
+                  
                 </Grid>
                 <Grid className="editPinform">
                   <Grid className="editField">

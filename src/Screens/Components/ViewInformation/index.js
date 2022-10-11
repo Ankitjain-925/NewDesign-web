@@ -89,7 +89,30 @@ class Index extends Component {
                             : "prespBoxModel"
                     }>
                     <Grid className="prespBoxCntnt">
-                        <Grid className="prespCourse">
+                    <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center" className="prespCourse">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{user_info}</label>
+                      <p>{patient_info && patient_info?.first_name && patient_info?.first_name} {patient_info && patient_info?.last_name && patient_info?.last_name}</p>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseCreate}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+                        {/* <Grid className="prespCourse">
                             <Grid className="prespCloseBtn nwEntrCloseBtnAdd">
                                 <a onClick={this.handleCloseCreate}>
                                     <img src={require('assets/images/close-search.svg')} alt="" title="" />
@@ -97,7 +120,7 @@ class Index extends Component {
                             </Grid>
                             <p>{user_info}</p>
                             <Grid><label>{patient_info && patient_info?.first_name && patient_info?.first_name} {patient_info && patient_info?.last_name && patient_info?.last_name}</label></Grid>
-                        </Grid>
+                        </Grid> */}
                         <Grid className="detailPrescp">
                             <Grid className="stndQues">
                                 <Grid><span>{personal_info}</span></Grid>

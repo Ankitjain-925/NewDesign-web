@@ -1227,7 +1227,7 @@ class Index extends Component {
                           xs={12}
                           sm={8}
                           md={8}
-                          className="addFlowRght"
+                          className="addFlowRght addFlowBtnSec"
                         >
                           <a onClick={() => this.newPatient()}>
                             {CreateNewPatient}
@@ -1300,16 +1300,24 @@ class Index extends Component {
                               >
                                 <Grid className="fltrClearIner">
                                   <Grid className="fltrLbl">
-                                    <Grid className="fltrLblClose">
-                                      <a onClick={this.handleCloseFil}>
-                                        <img
-                                          src={require('assets/images/close-search.svg')}
-                                          alt=""
-                                          title=""
-                                        />
-                                      </a>
+                                  <Grid container direction="row" justify="center">
+                                        <Grid item xs={8} md={8} lg={8}>
+                                            <label>{filters}</label>
+                                        </Grid>
+                                        <Grid item xs={4} md={4} lg={4}>
+                                            <Grid>
+                                            <Grid className="entryCloseBtn">
+                                                <a onClick={this.handleCloseFil}>
+                                                <img
+                                                    src={require("assets/images/close-search.svg")}
+                                                    alt=""
+                                                    title=""
+                                                />
+                                                </a>
+                                            </Grid>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                    <label>{filters}</label>
                                   </Grid>
 
                                   <Grid className="fltrForm">
@@ -1542,16 +1550,24 @@ class Index extends Component {
           >
             <Grid className="addFlowIner">
               <Grid className="addFlowLbl">
-                <Grid className="addFlowClose">
-                  <a onClick={this.closeAddP}>
-                    <img
-                      src={require('assets/images/close-search.svg')}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                </Grid>
-                <label>{AddPatienttoFlow}</label>
+              <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
+                      <label>{AddPatienttoFlow}</label>
+                  </Grid>
+                  <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                      <Grid className="entryCloseBtn">
+                          <a onClick={this.closeAddP}>
+                          <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                          />
+                          </a>
+                      </Grid>
+                      </Grid>
+                  </Grid>
+              </Grid>
               </Grid>
               <Grid className="patentInfo">
                 {this.state.enableEmail == 'email' && (
@@ -1789,16 +1805,24 @@ class Index extends Component {
             <Grid className="addWrnIner">
               <Grid className="addWrnLbl">
                 <Grid className="headingFormat">
-                  <Grid className="addWrnClose">
-                    <a onClick={this.handleClosePopup}>
-                      <img
-                        src={require('assets/images/close-search.svg')}
-                        alt=""
-                        title=""
-                      />
-                    </a>
+                <Grid container direction="row" justify="center">
+                  <Grid item xs={8} md={8} lg={8}>
+                      <label>{add_step}</label>
                   </Grid>
-                  <label>{add_step}</label>
+                  <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                      <Grid className="entryCloseBtn">
+                          <a onClick={this.handleClosePopup}>
+                          <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                          />
+                          </a>
+                      </Grid>
+                      </Grid>
+                  </Grid>
+              </Grid>
                 </Grid>
               </Grid>
               <Grid className="enterWrnUpr">

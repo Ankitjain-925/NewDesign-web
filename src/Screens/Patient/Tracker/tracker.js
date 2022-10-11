@@ -582,12 +582,24 @@ class Index extends Component {
                                             className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme srvcBoxModel":"srvcBoxModel"}>
                                             <Grid className="srvcBoxCntnt">
                                                 <Grid className="srvcCourse">
-                                                    <Grid className="srvcCloseBtn">
-                                                        <a onClick={this.handleCloseSrvc}>
-                                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                                        </a>
-                                                    </Grid>
-                                                    <Grid><label>{connect} {devices} & {services}</label></Grid>
+                                                <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+        <label>{connect} {devices} & {services}</label>
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleCloseSrvc}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
                                                     <Grid className="srchSrvc">
                                                         <input type="text" placeholder={search_for_device_palce} />
                                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />

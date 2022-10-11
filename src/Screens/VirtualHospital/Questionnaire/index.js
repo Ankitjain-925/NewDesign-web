@@ -537,8 +537,26 @@ class Index extends Component {
                             <Grid className="addSpeclContnt">
                               <Grid className="addSpeclContntIner">
                                 <Grid className="addSpeclLbl">
-                                  <Grid className="nwDiaCloseBtn">
-                                    <a onClick={this.handleCloseQues}>
+                                <Grid container direction="row" justify="center">
+                                  <Grid item xs={8} md={8} lg={8}>
+                                      <label>{AddQuestionnaire}</label>
+                                  </Grid>
+                                  <Grid item xs={4} md={4} lg={4}>
+                                      <Grid>
+                                      <Grid className="entryCloseBtn">
+                                          <a onClick={this.handleCloseQues}>
+                                          <img
+                                              src={require("assets/images/close-search.svg")}
+                                              alt=""
+                                              title=""
+                                          />
+                                          </a>
+                                      </Grid>
+                                      </Grid>
+                                  </Grid>
+                              </Grid>
+                                  {/* <Grid className="nwDiaCloseBtn"> */}
+                                    {/* <a onClick={this.handleCloseQues}>
                                       <img
                                         src={require('assets/images/close-search.svg')}
                                         alt=""
@@ -548,7 +566,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid>
                                     <label>{AddQuestionnaire}</label>
-                                  </Grid>
+                                  </Grid> */}
                                 </Grid>
                                 {this.state.myQuestions && (
                                   <Grid>
@@ -772,7 +790,26 @@ class Index extends Component {
                             <Grid className="addSpeclContnt">
                               <Grid className="addSpeclContntIner">
                                 <Grid className="addSpeclLbl">
-                                  <Grid className="nwDiaCloseBtn">
+                                <Grid container direction="row" justify="center">
+                                    <Grid item xs={8} md={8} lg={8}>
+                                        <label>{EditQuestionnaire}</label>
+                                    </Grid>
+                                    <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                        <Grid className="entryCloseBtn">
+                                            <a onClick={this.handleEditCloseQues}>
+                                            <img
+                                                src={require("assets/images/close-search.svg")}
+                                                alt=""
+                                                title=""
+                                            />
+                                            </a>
+                                        </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                  {/* <Grid className="nwDiaCloseBtn">
+                                    
                                     <a onClick={this.handleEditCloseQues}>
                                       <img
                                         src={require('assets/images/close-search.svg')}
@@ -783,7 +820,7 @@ class Index extends Component {
                                   </Grid>
                                   <Grid>
                                     <label>{EditQuestionnaire}</label>
-                                  </Grid>
+                                  </Grid> */}
                                 </Grid>
                                 {this.state.myQuestions && (
                                   <Grid>

@@ -94,7 +94,7 @@ export const getPatientData = async (user_token, house_id, comesFrom) => {
                 image: response.data?.data[i].patient?.image,
                 profile_id: response.data?.data[i].patient?.profile_id,
                 case_id: response.data?.data[i]._id,
-                patient_id: response.data?.data[i].patient_id,
+                user_id: response.data?.data[i].patient_id,
                 speciality: response.data?.data[i]?.speciality,
             }) :
             patientArray.push({

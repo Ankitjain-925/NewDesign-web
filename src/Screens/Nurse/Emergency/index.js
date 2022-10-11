@@ -223,20 +223,25 @@ class Index extends Component {
                   >
                     <Grid className="paraBoxCntnt">
                       <Grid className="paraCourse">
-                        <Grid className="paraCloseBtn">
-                          <a onClick={this.handleClosePara}>
-                            <img
-                              src={require("assets/images/close-search.svg")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
+                      <Grid container direction="row" justify="center">
+                        <Grid item xs={8} md={8} lg={8}>
+                            <label>{emrgncy_data_access}</label>
+                            <p>{emrgancy_access_for_non_connected}</p>
                         </Grid>
-
-                        <Grid>
-                          <label>{emrgncy_data_access}</label>
+                        <Grid item xs={4} md={4} lg={4}>
+                            <Grid>
+                            <Grid className="entryCloseBtn">
+                                <a onClick={this.handleClosePara}>
+                                <img
+                                    src={require("assets/images/close-search.svg")}
+                                    alt=""
+                                    title=""
+                                />
+                                </a>
+                            </Grid>
+                            </Grid>
                         </Grid>
-                        <p>{emrgancy_access_for_non_connected}</p>
+                    </Grid>
                       </Grid>
 
                       {this.state.error_msg && (

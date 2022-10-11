@@ -1246,17 +1246,10 @@ class Index extends Component {
                         }>
                           {/* <Grid className="addSpeclContntIner"></Grid> */}
                           <Grid className="nwDiaCourse ">
-                            <Grid className="nwDiaCloseBtn">
-                              <a onClick={this.handleCloseInqryNw}>
-                                <img
-                                  src={require("assets/images/close-search.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                              </a>
-                            </Grid>
-
-                            {this.state.updateOne !==
+                            
+                            <Grid container direction="row" justify="center">
+                              <Grid item xs={8} md={8} lg={8}>
+                              {this.state.updateOne !==
                               this.state.updateTrack.track_id ? (
                               <div>
                                 <p>{new_entry}</p>
@@ -1454,6 +1447,22 @@ class Index extends Component {
                                   )}
                               </div>
                             )}
+                              </Grid>
+                              <Grid item xs={4} md={4} lg={4}>
+                                  <Grid>
+                                  <Grid className="entryCloseBtn">
+                                      <a onClick={this.handleCloseInqryNw}>
+                                      <img
+                                          src={require("assets/images/close-search.svg")}
+                                          alt=""
+                                          title=""
+                                      />
+                                      </a>
+                                  </Grid>
+                                  </Grid>
+                              </Grid>
+                          </Grid>
+                          
                           </Grid>
                           <Grid>
                             {this.state.current_select === "anamnesis" && (

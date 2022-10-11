@@ -37,7 +37,7 @@ import { Doctorset } from "Screens/Doctor/actions";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
-import {updateCometUser} from "Screens/Components/CommonApi/index";
+import { updateCometUser } from "Screens/Components/CommonApi/index";
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -109,10 +109,10 @@ class Index extends Component {
     };
   }
 
-     //on recaptcha click
-    onChangeRec = (value) => {
-      this.setState({ recaptcha: value });
-    };
+  //on recaptcha click
+  onChangeRec = (value) => {
+    this.setState({ recaptcha: value });
+  };
   //for get the track data on the bases of pateint
   GetTrackData = (e) => {
     const state = this.state.gettrackdatas;
@@ -316,93 +316,93 @@ class Index extends Component {
         ) {
           if (userDetails.mobile && userDetails.mobile !== "") {
             if (this.state.recaptcha) {
-            this.setState({ loaderImage: true });
-            if (userDetails.country_code) {
-              var country_code = userDetails.country_code;
-            } else {
-              var country_code = "de";
-            }
-              axios
-              .post(sitedata.data.path + "/UserProfile/AddUser/", {
-                type: "patient",
-                email: userDetails.email,
-                password: userDetails.password,
-                country_code: country_code,
-                mobile: userDetails.mobile,
-                is2fa: userDetails.is2fa ? false : userDetails.is2fa,
-                lan: this.props.stateLanguageType,
-                first_name: userDetails.first_name,
-                last_name: userDetails.last_name,
-                token: this.state.recaptcha,
-              })
-              .then((responce) => {
-                this.setState({ loaderImage: false, });
-                if (responce.data.hassuccessed === true) {
-                  this.setState({ openNew: false,  recaptcha: false });
-                  axios
-                    .post(
-                      "https://api-eu.cometchat.io/v2.0/users",
-                      {
-                        uid: responce.data.data.profile_id,
-                        name:
-                          userDetails.first_name + " " + userDetails.last_name,
-                      },
-                      commonCometHeader()
-                    )
-                    .then((res) => { 
-                      updateCometUser({
-                        uid: responce.data.data.profile_id.toLowerCase(),
-                        name:
-                        userDetails.first_name + " " + userDetails.last_name,
-                        role: "default"
-                      })
-                    });
-                  AddFavDoc2(
-                    this.props.stateLoginValueAim.user.profile_id,
-                    this.props.stateLoginValueAim.user.profile_id,
-                    this.props.stateLoginValueAim.token,
-                    responce.data.data.profile_id
-                  );
-                  this.setState({
-                    successfull: true,
-                    alreadyerror: false,
-                    Mnotvalid: false,
-                    regisError: null,
-                  });
-
-                  setTimeout(
-                    function () {
-                      this.getMypatientsData();
-                    }.bind(this),
-                    2000
-                  );
-
-                  setTimeout(
-                    function () {
-                      this.setState({ successfull: false });
-                    }.bind(this),
-                    5000
-                  );
+              this.setState({ loaderImage: true });
+              if (userDetails.country_code) {
+                var country_code = userDetails.country_code;
+              } else {
+                var country_code = "de";
               }
-                else if (responce.data.message === "Phone is not verified") {
-                  this.setState({
-                    successfull: false,
-                    Mnotvalid: true,
-                    alreadyerror: false,
-                  });
-                } else {
-                  this.setState({
-                    successfull: false,
-                    alreadyerror: true,
-                    Mnotvalid: false,
-                  });
-                }
-              })
-              .catch((err) => { });
+              axios
+                .post(sitedata.data.path + "/UserProfile/AddUser/", {
+                  type: "patient",
+                  email: userDetails.email,
+                  password: userDetails.password,
+                  country_code: country_code,
+                  mobile: userDetails.mobile,
+                  is2fa: userDetails.is2fa ? false : userDetails.is2fa,
+                  lan: this.props.stateLanguageType,
+                  first_name: userDetails.first_name,
+                  last_name: userDetails.last_name,
+                  token: this.state.recaptcha,
+                })
+                .then((responce) => {
+                  this.setState({ loaderImage: false, });
+                  if (responce.data.hassuccessed === true) {
+                    this.setState({ openNew: false, recaptcha: false });
+                    axios
+                      .post(
+                        "https://api-eu.cometchat.io/v2.0/users",
+                        {
+                          uid: responce.data.data.profile_id,
+                          name:
+                            userDetails.first_name + " " + userDetails.last_name,
+                        },
+                        commonCometHeader()
+                      )
+                      .then((res) => {
+                        updateCometUser({
+                          uid: responce.data.data.profile_id.toLowerCase(),
+                          name:
+                            userDetails.first_name + " " + userDetails.last_name,
+                          role: "default"
+                        })
+                      });
+                    AddFavDoc2(
+                      this.props.stateLoginValueAim.user.profile_id,
+                      this.props.stateLoginValueAim.user.profile_id,
+                      this.props.stateLoginValueAim.token,
+                      responce.data.data.profile_id
+                    );
+                    this.setState({
+                      successfull: true,
+                      alreadyerror: false,
+                      Mnotvalid: false,
+                      regisError: null,
+                    });
+
+                    setTimeout(
+                      function () {
+                        this.getMypatientsData();
+                      }.bind(this),
+                      2000
+                    );
+
+                    setTimeout(
+                      function () {
+                        this.setState({ successfull: false });
+                      }.bind(this),
+                      5000
+                    );
+                  }
+                  else if (responce.data.message === "Phone is not verified") {
+                    this.setState({
+                      successfull: false,
+                      Mnotvalid: true,
+                      alreadyerror: false,
+                    });
+                  } else {
+                    this.setState({
+                      successfull: false,
+                      alreadyerror: true,
+                      Mnotvalid: false,
+                    });
+                  }
+                })
+                .catch((err) => { });
             }
             else {
-              this.setState({ regisError: fillreptcha});
-            } 
+              this.setState({ regisError: fillreptcha });
+            }
           } else {
             this.setState({ regisError: plz_fill_mob_number });
           }
@@ -963,7 +963,7 @@ class Index extends Component {
                                         profileDetail.last_name}
                                     </label>
                                   </Grid>
-                                  <Grid>
+                                  <Grid                         >
                                     <span>{profileDetail.sex}</span>
                                   </Grid>
                                   <Grid>
@@ -1098,15 +1098,27 @@ class Index extends Component {
                       >
                         <Grid className="dataBoxCntnt">
                           <Grid className="dataCourse">
-                            <Grid className="dataCloseBtn">
-                              <a onClick={this.handleCloseData}>
-                                <img
-                                  src={require("assets/images/close-search.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                              </a>
+                            <Grid container direction="row" justify="center">
+                              <Grid item xs={8} md={8} lg={8}>
+                                <label>{patient_data_access}</label>
+                                <p>{healthcare_access_for_non_conn_patient}</p>
+                              </Grid>
+                              <Grid item xs={4} md={4} lg={4}>
+                                <Grid>
+                                  <Grid className="entryCloseBtn">
+                                    <a onClick={this.handleCloseData}>
+                                      <img
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    </a>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
                             </Grid>
+                          </Grid>
+                          <Grid className="dataBoxUpr">
                             <Grid>
                               {this.state.error_msg && (
                                 <div className="err_message">
@@ -1114,12 +1126,6 @@ class Index extends Component {
                                 </div>
                               )}
                             </Grid>
-                            <Grid>
-                              <label>{patient_data_access}</label>
-                            </Grid>
-                            <p>{healthcare_access_for_non_conn_patient}</p>
-                          </Grid>
-                          <Grid className="dataBoxUpr">
                             <Grid className="dataBoxInput">
                               <Grid>
                                 <Grid>
@@ -1177,19 +1183,26 @@ class Index extends Component {
                       >
                         <Grid className="dataBoxCntnt">
                           <Grid className="dataCourse">
-                            <Grid className="dataCloseBtn">
-                              <a onClick={this.handleCloseReq}>
-                                <img
-                                  src={require("assets/images/close-search.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                              </a>
-                            </Grid>
-                            <Grid>
-                              <label>{private_doc_rest}</label>
-                            </Grid>
-                            <p>{ask_patient_to_become_a_private_doctor}</p>
+                          <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+        <label>{private_doc_rest}</label>
+        <p>{ask_patient_to_become_a_private_doctor}</p>
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleCloseReq}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
+                            
                           </Grid>
                           <Grid className="dataBoxUpr">
                             <Grid className="dataBoxInput entrpatId">
@@ -1263,19 +1276,25 @@ class Index extends Component {
                       >
                         <Grid className="dataBoxCntnt">
                           <Grid className="dataCourse">
-                            <Grid className="dataCloseBtn">
-                              <a onClick={this.handleCloseNewPatient}>
-                                <img
-                                  src={require("assets/images/close-search.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                              </a>
-                            </Grid>
-                            <Grid>
-                              <label>{new_patient}</label>
-                            </Grid>
-                            <p>{add_new_patient_in_list}</p>
+                          <Grid container direction="row" justify="center">
+    <Grid item xs={8} md={8} lg={8}>
+        <label>{new_patient}</label>
+        <p>{add_new_patient_in_list}</p>
+    </Grid>
+    <Grid item xs={4} md={4} lg={4}>
+        <Grid>
+        <Grid className="entryCloseBtn">
+            <a onClick={this.handleCloseNewPatient}>
+            <img
+                src={require("assets/images/close-search.svg")}
+                alt=""
+                title=""
+            />
+            </a>
+        </Grid>
+        </Grid>
+    </Grid>
+</Grid>
                           </Grid>
 
                           <Grid className="dataBoxUpr patietnRegister">
@@ -1547,7 +1566,7 @@ class Index extends Component {
                                   defaultCountry="DE"
                                 />
                                 <input
-                                  
+
                                   className="mobileReg"
                                   type="number"
                                   name="mobile"
@@ -1566,11 +1585,11 @@ class Index extends Component {
                                 label={Register_activate_auth}
                               />
                             </Grid>
-                            <Grid className="recaptchaMargin"> 
-                                <ReCAPTCHA
-                                    sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
-                                    onChange={this.onChangeRec}
-                                />
+                            <Grid className="recaptchaMargin">
+                              <ReCAPTCHA
+                                sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
+                                onChange={this.onChangeRec}
+                              />
                             </Grid>
                             <div className="err_message">
                               {this.state.regisError}
@@ -1644,7 +1663,7 @@ class Index extends Component {
                                       {next}
                                     </a>
                                   )} */}
-                                  <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                               </Grid>
                             )}
                           </Grid>

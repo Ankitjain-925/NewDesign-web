@@ -83,13 +83,25 @@ class Index extends Component {
                                             <Grid className="nwEntrCntntIner">
 
                                                 <Grid className="nwEntrCourse">
-                                                    <Grid className="nwEntrCloseBtn nwEntrCloseBtnAdd">
-                                                        <a onClick={this.handleCloseCreate}>
-                                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                                        </a>
-                                                    </Grid>
+                                                <Grid container direction="row" justify="center">
+                                                    <Grid item xs={8} md={8} lg={8}>
                                                     <p>{new_entry}</p>
-                                                    <Grid><label>{create_new_user}</label></Grid>
+                                                    <label>{create_new_user}</label>
+                                                    </Grid>
+                                                    <Grid item xs={4} md={4} lg={4}>
+                                                        <Grid>
+                                                        <Grid className="nwEntrCloseBtn nwEntrCloseBtnAdd">
+                                                            <a onClick={this.handleCloseCreate}>
+                                                            <img
+                                                                src={require("assets/images/close-search.svg")}
+                                                                alt=""
+                                                                title=""
+                                                            />
+                                                            </a>
+                                                        </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
                                                 </Grid>
 
                                                 <Grid className="docHlthMain">

@@ -20,7 +20,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { getLanguage } from "translations/index";
 import contry from "Screens/Components/countryBucket/countries.json";
 import { updateCometUser } from "Screens/Components/CommonApi/index";
-import { commonCometHeader } from "component/CommonHeader/index";
+import { commonCometHeader, commonHeader } from "component/CommonHeader/index";
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -136,6 +136,9 @@ class Index extends Component {
                       .then((responce) => {
                         this.setState({ loaderImage: false });
                         if (responce.data.hassuccessed === true) {
+                          if (responce.data?.data?.Aimedis_health_newletter) {
+                            this.activatenewsLetter(responce);
+                          }
                           axios
                             .post(
                               "https://api-eu.cometchat.io/v2.0/users",
@@ -482,6 +485,22 @@ class Index extends Component {
       this.props.Settings("loggedOut", mode);
     });
   };
+      // for activate marketing user
+      activatenewsLetter = (response) => {
+        var data = {
+          first_name: response.data.data.first_name,
+          last_name: response.data.data.last_name,
+          email: response.data.data.email,
+        };
+        axios
+          .post(
+            sitedata.data.path + '/UserProfile/marketing_user',
+            data,
+            commonHeader(response.data.data.usertoken)
+          )
+          .then((responce) => {})
+          .catch(() => {});
+      };
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);

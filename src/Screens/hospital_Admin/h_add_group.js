@@ -922,18 +922,24 @@ class Index extends Component {
                       <Grid className="addSpeclContnt nwEntrCntntIner h-500">
                         <Grid className="addSpeclContntIner">
                           <Grid className="addSpeclLbl">
-                            <Grid className="addSpeclClose">
-                              <a onClick={this.closeInstitute}>
-                                <img
-                                  src={require('assets/images/close-search.svg')}
-                                  alt=""
-                                  title=""
-                                />
-                              </a>
-                            </Grid>
-                            <Grid>
-                              <label>{AddInstitution}</label>
-                            </Grid>
+                          <Grid container direction="row" justify="center">
+                              <Grid item xs={8} md={8} lg={8}>
+                                  <label>{AddInstitution}</label>
+                              </Grid>
+                              <Grid item xs={4} md={4} lg={4}>
+                                  <Grid>
+                                  <Grid className="entryCloseBtn">
+                                      <a onClick={this.closeInstitute}>
+                                      <img
+                                          src={require("assets/images/close-search.svg")}
+                                          alt=""
+                                          title=""
+                                      />
+                                      </a>
+                                  </Grid>
+                                  </Grid>
+                              </Grid>
+                          </Grid>
                           </Grid>
                           <Grid className="enterSpclUpr">
                             <div className="err_message">
@@ -1120,7 +1126,7 @@ class Index extends Component {
                       </Grid>
                     </Modal>
 
-                    <Modal
+                   <Modal
                       open={this.state.openHospitalModal}
                       onClose={this.closeHospitalModal}
                       className={
@@ -1135,18 +1141,24 @@ class Index extends Component {
                       <Grid className="addSpeclContnt nwEntrCntntIner h-500">
                         <Grid className="addSpeclContntIner">
                           <Grid className="addSpeclLbl">
-                            <Grid className="addSpeclClose">
-                              <a onClick={this.closeHospitalModal}>
-                                <img
-                                  src={require('assets/images/close-search.svg')}
-                                  alt=""
-                                  title=""
-                                />
-                              </a>
+                          <Grid container direction="row" justify="center">
+                            <Grid item xs={8} md={8} lg={8}>
+                                <label>{AddHospital}</label>
                             </Grid>
-                            <Grid>
-                              <label>{AddHospital}</label>
+                            <Grid item xs={4} md={4} lg={4}>
+                                <Grid>
+                                <Grid className="entryCloseBtn">
+                                    <a onClick={this.closeHospitalModal}>
+                                    <img
+                                        src={require("assets/images/close-search.svg")}
+                                        alt=""
+                                        title=""
+                                    />
+                                    </a>
+                                </Grid>
+                                </Grid>
                             </Grid>
+                        </Grid>
                           </Grid>
                           <Grid className="enterSpclUpr">
                             <div className="err_message">

@@ -56,12 +56,34 @@ class Index extends React.Component {
                 <Grid className="addSpeclContnt">
                 <Grid className="addSpeclContntIner">
                     <Grid className="addSpeclLbl">
-                        <Grid className="addSpeclClose">
+                    <Grid container direction="row" justify="center">
+                <Grid item xs={12} md={12} lg={12}>
+                  <Grid container direction="row" justify="center">
+                    <Grid item xs={8} md={8} lg={8}>
+                      <label>{AddTask}</label>
+                    </Grid>
+                    <Grid item xs={4} md={4} lg={4}>
+                      <Grid>
+                        <Grid className="entryCloseBtn">
+                        <a onClick={this.handleCloseAssign}>
+                            <img
+                              src={require("assets/images/close-search.svg")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+                        {/* <Grid className="addSpeclClose">
                             <a onClick={this.props.handleCloseAssign}>
                                 <img src={require('assets/images/close-search.svg')} alt="" title="" />
                             </a>
                         </Grid>
-                        <Grid><label>{AddTask}</label></Grid>
+                        <Grid><label>{AddTask}</label></Grid> */}
                         <Grid item xs={10} md={10}>
                             <select value={this.state.value} onChange={(e) => this.updateCommemtState(e)}>
                                 <option value="grapefruit">{Grapefruit}</option>

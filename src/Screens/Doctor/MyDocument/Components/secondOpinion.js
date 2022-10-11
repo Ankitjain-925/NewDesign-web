@@ -16,7 +16,7 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index';
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
 import Pagination from "Screens/Components/Pagination/index";
 import { commonHeader } from 'component/CommonHeader/index';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
@@ -53,7 +53,7 @@ class Index extends Component {
     getMypatientsData() {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        axios.get(sitedata.data.path + '/UserProfile/GetSecondOpinion/',commonHeader(user_token)).then((response) => {
+        axios.get(sitedata.data.path + '/UserProfile/GetSecondOpinion/', commonHeader(user_token)).then((response) => {
             if (response.data.hassuccessed) {
                 var images = [];
                 response.data.data && response.data.data.length > 0 && response.data.data.map((item) => {
@@ -128,7 +128,7 @@ class Index extends Component {
         } = translate;
         this.setState({ serverMsg: "" })
         if (this.state.uploadedimage == "") {
-            this.setState({ serverMsg: please_upload_documents})
+            this.setState({ serverMsg: please_upload_documents })
         } else {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
@@ -188,7 +188,7 @@ class Index extends Component {
                         var returnData = response.data.data.returnData;
                         var signedRequest = returnData.signedRequest;
                         var url = returnData.url;
-                        if(fileType ==='pdf'){
+                        if (fileType === 'pdf') {
                             fileType = 'application/pdf'
                         }
                         // Put the fileType in the headers for the upload
@@ -197,7 +197,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put( signedRequest, file1, options)
+                        axios.put(signedRequest, file1, options)
                             .then(result => {
 
                                 this.setState({ success: true });
@@ -230,7 +230,7 @@ class Index extends Component {
 
     removePrsecription = (status, id) => {
         let translate = getLanguage(this.props.stateLanguageType)
-                let { remove_inquiry, yes, no,update_inquiry , are_u_sure_remove_inquiry} = translate;
+        let { remove_inquiry, yes, no, update_inquiry, are_u_sure_remove_inquiry } = translate;
         this.setState({ message: null });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -247,7 +247,7 @@ class Index extends Component {
                                 }}
                             >
                                 {yes}
-                             </button>
+                            </button>
                         </div>
                     </div>
                 );
@@ -399,13 +399,26 @@ class Index extends Component {
                         className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme" : " "}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
-                                <Grid className="rejectCloseBtn">
-                                    <a onClick={this.handleCloseReject}>
-                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
-                                    </a>
+                                <Grid container direction="row" justify="center">
+                                    <Grid item xs={8} md={8} lg={8}>
+                                        <p onClick={this.handleCloseReject}>{back}</p>
+                                        <label>{inqstatus} {inquiry}</label>
+                                    </Grid>
+                                    <Grid item xs={4} md={4} lg={4}>
+                                        <Grid>
+                                            <Grid className="entryCloseBtn">
+                                                <a onClick={this.handleCloseReject}>
+                                                    <img
+                                                        src={require("assets/images/close-search.svg")}
+                                                        alt=""
+                                                        title=""
+                                                    />
+                                                </a>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
-                                <p onClick={this.handleCloseReject}>{back}</p>
-                                <Grid><label>{inqstatus} {inquiry}</label></Grid>
+
                             </Grid>
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>{short_msg}</label></Grid>
@@ -424,7 +437,7 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
+                                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                                     {/* {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                     {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                         <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
