@@ -212,9 +212,9 @@ class Index extends Component {
     this.setState({ allMetadata: this.props.metadata }, () => {
       var AllStatus = GetLanguageDropdown(
         this.state.allMetadata &&
-          this.state.allMetadata.billing_status &&
-          this.state.allMetadata.billing_status.length > 0 &&
-          this.state.allMetadata.billing_status,
+        this.state.allMetadata.billing_status &&
+        this.state.allMetadata.billing_status.length > 0 &&
+        this.state.allMetadata.billing_status,
         this.props.stateLanguageType
       );
       this.setState({
@@ -250,10 +250,10 @@ class Index extends Component {
       value == 1
         ? 'issued'
         : value == 2
-        ? 'overdue'
-        : value == 3
-        ? 'paid'
-        : 'all';
+          ? 'overdue'
+          : value == 3
+            ? 'paid'
+            : 'all';
     this.fetchbillsdata(ApiStatus, value);
     this.handleClosePopUp();
   };
@@ -362,7 +362,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
+        `/vh/AddInvoice/${this.props?.House?.value}/${status}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
@@ -411,9 +411,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -447,9 +447,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === 'dark'
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === 'dark'
                 ? 'dark-confirm react-confirm-alert-body'
                 : 'react-confirm-alert-body'
             }
@@ -486,13 +486,13 @@ class Index extends Component {
           value == 1
             ? 'issued'
             : value == 2
-            ? 'overdue'
-            : value == 3
-            ? 'paid'
-            : 'all';
+              ? 'overdue'
+              : value == 3
+                ? 'paid'
+                : 'all';
         this.fetchbillsdata(ApiStatus, value);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   Invoice = (data) => {
@@ -507,10 +507,10 @@ class Index extends Component {
       value == 1
         ? 'issued'
         : value == 2
-        ? 'overdue'
-        : value == 3
-        ? 'paid'
-        : 'all';
+          ? 'overdue'
+          : value == 3
+            ? 'paid'
+            : 'all';
     this.fetchbillsdata(ApiStatus, value);
   };
 
@@ -542,11 +542,12 @@ class Index extends Component {
   };
 
   downloadInvoicePdf = (datas) => {
+    console.log("this.props?.House?.value", this.props?.House?.value)
     var invoice = datas;
     invoice.choice =
       this.props.settings &&
-      this.props.settings.setting &&
-      this.props.settings.setting.invoice_pattern
+        this.props.settings.setting &&
+        this.props.settings.setting.invoice_pattern
         ? this.props.settings.setting.invoice_pattern
         : 5;
     this.setState({ loaderImage: true });
@@ -662,9 +663,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === 'dark'
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === 'dark'
             ? 'homeBg darkTheme'
             : 'homeBg'
         }
@@ -822,8 +823,8 @@ class Index extends Component {
                               onClose={this.handleClosePopUp}
                               className={
                                 this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode === 'dark'
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode === 'dark'
                                   ? 'darkTheme paraBoxModel'
                                   : 'paraBoxModel'
                               }
@@ -951,9 +952,9 @@ class Index extends Component {
                                 <Td>
                                   {data.created_at
                                     ? getDate(
-                                        data.created_at,
-                                        this.props.settings.setting.date_format
-                                      )
+                                      data.created_at,
+                                      this.props.settings.setting.date_format
+                                    )
                                     : not_mentioned}
                                 </Td>
                                 {/* <Td>{data.}</Td> */}
@@ -963,10 +964,10 @@ class Index extends Component {
                                       data?.status?.value === 'paid'
                                         ? 'revwGren'
                                         : data?.status?.value === 'issued'
-                                        ? 'revwYelow'
-                                        : data?.status?.value === 'draft'
-                                        ? 'revwGry'
-                                        : 'revwRed'
+                                          ? 'revwYelow'
+                                          : data?.status?.value === 'draft'
+                                            ? 'revwGry'
+                                            : 'revwRed'
                                     }
                                   ></span>
                                   {data &&

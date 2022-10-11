@@ -30,8 +30,8 @@ export class ComponentToPrint5 extends React.Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { AimedisInvoiceReport,ServiceList,InvoiceData,Services,CaseID, Created_at,YourAimedisTeam,
-             ServiceName,TotalAmount,InvoiceID, srvc ,Price, quantity, contactAimedisForQuery, } = translate;
+        let { AimedisInvoiceReport, ServiceList, InvoiceData, Services, CaseID, Created_at, YourAimedisTeam,
+            ServiceName, TotalAmount, InvoiceID, srvc, Price, quantity, contactAimedisForQuery, } = translate;
         var { data, index } = this.state;
         return (
             <div className="relativeCSS">
